@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EAEB9B4B-1E2A-4F70-A1BF-B87720B2A7E0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Sindicato.Services</RootNamespace>
+    <AssemblyName>Sindicato.Services</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LinqKit">
+      <HintPath>..\packages\LinqKit.1.0\lib\35\LinqKit.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Linq.Dynamic">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.0\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseService.cs" />
+    <Compile Include="ChoferesServices.cs" />
+    <Compile Include="CajasServices.cs" />
+    <Compile Include="Interfaces\ICajasServices.cs" />
+    <Compile Include="Model\KardexEfectivoModel.cs" />
+    <Compile Include="VentaHojasServices.cs" />
+    <Compile Include="Interfaces\IVentaHojasServices.cs" />
+    <Compile Include="Model\HojasModel.cs" />
+    <Compile Include="ParametrosServices.cs" />
+    <Compile Include="ImagenesServices.cs" />
+    <Compile Include="FamiliaresServices.cs" />
+    <Compile Include="Interfaces\IParametrosServices.cs" />
+    <Compile Include="Interfaces\IImagenesServices.cs" />
+    <Compile Include="Interfaces\IFamiliaresServices.cs" />
+    <Compile Include="Interfaces\IChoferesServices.cs" />
+    <Compile Include="Model\ChoferesModel.cs" />
+    <Compile Include="Model\ParametrosModel.cs" />
+    <Compile Include="Model\ImagenesModel.cs" />
+    <Compile Include="Model\FamiliaresModel.cs" />
+    <Compile Include="Model\ReportesModel.cs" />
+    <Compile Include="SociosServices.cs" />
+    <Compile Include="Interfaces\ISociosServices.cs" />
+    <Compile Include="Interfaces\IListasServices.cs" />
+    <Compile Include="Interfaces\IMenuOpcionesServices.cs" />
+    <Compile Include="Interfaces\IUsuariosServices.cs" />
+    <Compile Include="ListasServices.cs" />
+    <Compile Include="MenuOpcionesServices.cs" />
+    <Compile Include="Model\SociosModel.cs" />
+    <Compile Include="Model\FiltrosModel.cs" />
+    <Compile Include="Model\ListasModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsuariosServices.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sindicato.Business\Sindicato.Business.csproj">
+      <Project>{F54619B0-63B8-422C-935C-D45B7887737E}</Project>
+      <Name>Sindicato.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sindicato.Common.Data\Sindicato.Common.Data.csproj">
+      <Project>{96F5AB06-C785-4D0A-9F93-BDD907CCF61A}</Project>
+      <Name>Sindicato.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sindicato.Common\Sindicato.Common.csproj">
+      <Project>{FE4A4415-FB83-4C99-85B0-405FC9278914}</Project>
+      <Name>Sindicato.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sindicato.Model\Sindicato.Model.csproj">
+      <Project>{1CA5F33C-3E60-4AD8-8E64-80DE359B6F09}</Project>
+      <Name>Sindicato.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,2337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Alias="Self" Provider="Oracle.DataAccess.Client" ProviderManifestToken="11.2" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="SD_ANTECEDENTES" EntityType="Model.Store.SD_ANTECEDENTES" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_AUTOS" EntityType="Model.Store.SD_AUTOS" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_CAJAS" EntityType="Model.Store.SD_CAJAS" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_CHOFERES" EntityType="Model.Store.SD_CHOFERES" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_DOCUMENTACIONES" EntityType="Model.Store.SD_DOCUMENTACIONES" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_FAMILIARES" EntityType="Model.Store.SD_FAMILIARES" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_HOJAS_CONTROL" EntityType="Model.Store.SD_HOJAS_CONTROL" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_IMAGENES" EntityType="Model.Store.SD_IMAGENES" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_KARDEX_EFECTIVO" EntityType="Model.Store.SD_KARDEX_EFECTIVO" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_LINEAS" EntityType="Model.Store.SD_LINEAS" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_LISTAS" EntityType="Model.Store.SD_LISTAS" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_LISTAS_ITEMS" EntityType="Model.Store.SD_LISTAS_ITEMS" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_MENU_OPCIONES" EntityType="Model.Store.SD_MENU_OPCIONES" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_MOVILES" EntityType="Model.Store.SD_MOVILES" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_PARADAS" EntityType="Model.Store.SD_PARADAS" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_PARAMETROS_LINEA" EntityType="Model.Store.SD_PARAMETROS_LINEA" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_PERFILES" EntityType="Model.Store.SD_PERFILES" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_PERFILES_OPCIONES" EntityType="Model.Store.SD_PERFILES_OPCIONES" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_SOCIO_DESEMPENOS" EntityType="Model.Store.SD_SOCIO_DESEMPENOS" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_SOCIO_MOVILES" EntityType="Model.Store.SD_SOCIO_MOVILES" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_SOCIOS" EntityType="Model.Store.SD_SOCIOS" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_USUARIOS" EntityType="Model.Store.SD_USUARIOS" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="V_TABLAS_COLUMNAS" EntityType="Model.Store.V_TABLAS_COLUMNAS" store:Type="Views" store:Schema="SINDICATO" store:Name="V_TABLAS_COLUMNAS">
+            <DefiningQuery>SELECT 
+      "V_TABLAS_COLUMNAS"."ID_TABLA" AS "ID_TABLA", 
+      "V_TABLAS_COLUMNAS"."TABLA" AS "TABLA", 
+      "V_TABLAS_COLUMNAS"."COLUMNA" AS "COLUMNA", 
+      "V_TABLAS_COLUMNAS"."TIPO" AS "TIPO", 
+      "V_TABLAS_COLUMNAS"."PRECISION" AS "PRECISION", 
+      "V_TABLAS_COLUMNAS"."ESCALA" AS "ESCALA", 
+      "V_TABLAS_COLUMNAS"."TAMANO" AS "TAMANO", 
+      "V_TABLAS_COLUMNAS"."REQUERIDO" AS "REQUERIDO", 
+      "V_TABLAS_COLUMNAS"."COMENTARIO" AS "COMENTARIO"
+      FROM "SINDICATO"."V_TABLAS_COLUMNAS" "V_TABLAS_COLUMNAS"</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="SD_ANTECEDENTES_R02" Association="Model.Store.SD_ANTECEDENTES_R02">
+            <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
+            <End Role="SD_ANTECEDENTES" EntitySet="SD_ANTECEDENTES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_AUTOS_R01" Association="Model.Store.SD_AUTOS_R01">
+            <End Role="SD_MOVILES" EntitySet="SD_MOVILES" />
+            <End Role="SD_AUTOS" EntitySet="SD_AUTOS" />
+          </AssociationSet>
+          <AssociationSet Name="SD_CHOFERES_R01" Association="Model.Store.SD_CHOFERES_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_DOCUMENTACIONES_R02" Association="Model.Store.SD_DOCUMENTACIONES_R02">
+            <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
+            <End Role="SD_DOCUMENTACIONES" EntitySet="SD_DOCUMENTACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_FAMILIARES_R01" Association="Model.Store.SD_FAMILIARES_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_FAMILIARES" EntitySet="SD_FAMILIARES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_FAMILIARES_R02" Association="Model.Store.SD_FAMILIARES_R02">
+            <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
+            <End Role="SD_FAMILIARES" EntitySet="SD_FAMILIARES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_HOJAS_CONTROL_R01" Association="Model.Store.SD_HOJAS_CONTROL_R01">
+            <End Role="SD_MOVILES" EntitySet="SD_MOVILES" />
+            <End Role="SD_HOJAS_CONTROL" EntitySet="SD_HOJAS_CONTROL" />
+          </AssociationSet>
+          <AssociationSet Name="SD_HOJAS_CONTROL_R02" Association="Model.Store.SD_HOJAS_CONTROL_R02">
+            <End Role="SD_PARADAS" EntitySet="SD_PARADAS" />
+            <End Role="SD_HOJAS_CONTROL" EntitySet="SD_HOJAS_CONTROL" />
+          </AssociationSet>
+          <AssociationSet Name="SD_KARDEX_EFECTIVO_R01" Association="Model.Store.SD_KARDEX_EFECTIVO_R01">
+            <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
+            <End Role="SD_KARDEX_EFECTIVO" EntitySet="SD_KARDEX_EFECTIVO" />
+          </AssociationSet>
+          <AssociationSet Name="SD_MOVILES_R01" Association="Model.Store.SD_MOVILES_R01">
+            <End Role="SD_LINEAS" EntitySet="SD_LINEAS" />
+            <End Role="SD_MOVILES" EntitySet="SD_MOVILES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_PARADAS_R01" Association="Model.Store.SD_PARADAS_R01">
+            <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
+            <End Role="SD_PARADAS" EntitySet="SD_PARADAS" />
+          </AssociationSet>
+          <AssociationSet Name="SD_PARAMETROS_LINEA_R01" Association="Model.Store.SD_PARAMETROS_LINEA_R01">
+            <End Role="SD_LINEAS" EntitySet="SD_LINEAS" />
+            <End Role="SD_PARAMETROS_LINEA" EntitySet="SD_PARAMETROS_LINEA" />
+          </AssociationSet>
+          <AssociationSet Name="SD_PERFILES_R01" Association="Model.Store.SD_PERFILES_R01">
+            <End Role="SD_PARADAS" EntitySet="SD_PARADAS" />
+            <End Role="SD_PERFILES" EntitySet="SD_PERFILES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_SOCIO_MOVILES_R01" Association="Model.Store.SD_SOCIO_MOVILES_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_SOCIO_MOVILES_R02" Association="Model.Store.SD_SOCIO_MOVILES_R02">
+            <End Role="SD_MOVILES" EntitySet="SD_MOVILES" />
+            <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
+          </AssociationSet>
+          <AssociationSet Name="SG_LISTAS_ITEMS_R01" Association="Model.Store.SG_LISTAS_ITEMS_R01">
+            <End Role="SD_LISTAS" EntitySet="SD_LISTAS" />
+            <End Role="SD_LISTAS_ITEMS" EntitySet="SD_LISTAS_ITEMS" />
+          </AssociationSet>
+          <AssociationSet Name="SG_LISTAS_ITEMS_R02" Association="Model.Store.SG_LISTAS_ITEMS_R02">
+            <End Role="SD_LISTAS_ITEMS" EntitySet="SD_LISTAS_ITEMS" />
+            <End Role="SD_LISTAS_ITEMS1" EntitySet="SD_LISTAS_ITEMS" />
+          </AssociationSet>
+          <AssociationSet Name="SG_PERFILES_OPCIONES_R01" Association="Model.Store.SG_PERFILES_OPCIONES_R01">
+            <End Role="SD_PERFILES" EntitySet="SD_PERFILES" />
+            <End Role="SD_PERFILES_OPCIONES" EntitySet="SD_PERFILES_OPCIONES" />
+          </AssociationSet>
+          <AssociationSet Name="SG_PERFILES_OPCIONES_R02" Association="Model.Store.SG_PERFILES_OPCIONES_R02">
+            <End Role="SD_MENU_OPCIONES" EntitySet="SD_MENU_OPCIONES" />
+            <End Role="SD_PERFILES_OPCIONES" EntitySet="SD_PERFILES_OPCIONES" />
+          </AssociationSet>
+          <AssociationSet Name="SG_USUARIOS_R01" Association="Model.Store.SG_USUARIOS_R01">
+            <End Role="SD_PERFILES" EntitySet="SD_PERFILES" />
+            <End Role="SD_USUARIOS" EntitySet="SD_USUARIOS" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="SD_ANTECEDENTES">
+          <Key>
+            <PropertyRef Name="ID_ANTECEDENTE" />
+          </Key>
+          <Property Name="ID_ANTECEDENTE" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_SOCIO" Type="number" Precision="7" />
+          <Property Name="ID_CHOFER" Type="number" Precision="7" />
+          <Property Name="MOTIVO" Type="varchar2" Nullable="false" MaxLength="50" />
+          <Property Name="OBSERVACION" Type="varchar2" MaxLength="200" />
+          <Property Name="FECHA" Type="date" Nullable="false" />
+          <Property Name="FECHA_REG" Type="date" />
+          <Property Name="ID_USR" Type="number" Precision="7" />
+        </EntityType>
+        <EntityType Name="SD_AUTOS">
+          <Key>
+            <PropertyRef Name="ID_AUTO" />
+          </Key>
+          <Property Name="ID_AUTO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_MOVIL" Type="number" Nullable="false" Precision="7" />
+          <Property Name="TIPO" Type="varchar2" Nullable="false" MaxLength="50" />
+          <Property Name="COLOR" Type="varchar2" Nullable="false" MaxLength="50" />
+          <Property Name="MARCA" Type="varchar2" MaxLength="50" />
+          <Property Name="MODELO" Type="varchar2" MaxLength="50" />
+          <Property Name="PLACA" Type="varchar2" MaxLength="50" />
+          <Property Name="MOTOR" Type="varchar2" MaxLength="50" />
+          <Property Name="CHASIS" Type="varchar2" MaxLength="50" />
+          <Property Name="DESCRIPCION" Type="varchar2" MaxLength="200" />
+          <Property Name="FECHA_ALTA" Type="date" Nullable="false" />
+          <Property Name="FECHA_BAJA" Type="date" />
+          <Property Name="MOTIVO_CAMBIO" Type="varchar2" MaxLength="200" />
+          <Property Name="FECHA_REG" Type="date" />
+          <Property Name="ID_USR" Type="number" Precision="7" />
+        </EntityType>
+        <EntityType Name="SD_CAJAS">
+          <Key>
+            <PropertyRef Name="ID_CAJA" />
+          </Key>
+          <Property Name="ID_CAJA" Type="number" Nullable="false" Precision="7" />
+          <Property Name="CODIGO" Type="varchar2" Nullable="false" MaxLength="40" />
+          <Property Name="NOMBRE" Type="varchar2" Nullable="false" MaxLength="40" />
+          <Property Name="NRO_CUENTA" Type="varchar2" MaxLength="40" />
+          <Property Name="DESCRIPCION" Type="varchar2" Nullable="false" MaxLength="150" />
+          <Property Name="SALDO" Type="number" Nullable="false" Precision="15" Scale="5" />
+          <Property Name="ID_USUARIO" Type="number" Nullable="false" Precision="5" />
+          <Property Name="FECHA_REG" Type="date" />
+        </EntityType>
+        <EntityType Name="SD_CHOFERES">
+          <Key>
+            <PropertyRef Name="ID_CHOFER" />
+          </Key>
+          <Property Name="ID_CHOFER" Type="number" Nullable="false" Precision="7" />
+          <Property Name="NRO_CHOFER" Type="number" Nullable="false" Precision="7" />
+          <Property Name="NOMBRE" Type="varchar2" Nullable="false" MaxLength="200" />
+          <Property Name="APELLIDO_PATERNO" Type="varchar2" Nullable="false" MaxLength="200" />
+          <Property Name="APELLIDO_MATERNO" Type="varchar2" Nullable="false" MaxLength="200" />
+          <Property Name="NRO_LICENCIA" Type="number" Precision="15" />
+          <Property Name="CATEGORIA_LIC" Type="varchar2" MaxLength="50" />
+          <Property Name="CI" Type="number" Nullable="false" Precision="15" />
+          <Property Name="EXPEDIDO" Type="varchar2" Nullable="false" MaxLength="10" />
+          <Property Name="FECHA_NAC" Type="date" Nullable="false" />
+          <Property Name="FECHA_INGRESO" Type="date" Nullable="false" />
+          <Property Name="FECHA_BAJA" Type="date" />
+          <Property Name="DOMICILIO" Type="varchar2" Nullable="false" MaxLength="500" />
+          <Property Name="OBSERVACION" Type="varchar2" Nullable="false" MaxLength="500" />
+          <Property Name="ESTADO_CIVIL" Type="varchar2" Nullable="false" MaxLength="50" />
+          <Property Name="ID_SOCIO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="FECHA_REG" Type="date" />
+          <Property Name="ID_USR" Type="number" Precision="7" />
+          <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
+          <Property Name="TELEFONO" Type="varchar2" MaxLength="50" />
+          <Property Name="CELULAR" Type="varchar2" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SD_DOCUMENTACIONES">
+          <Key>
+            <PropertyRef Name="ID_DOCUMENTACION" />
+          </Key>
+          <Property Name="ID_DOCUMENTACION" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_SOCIO" Type="number" Precision="7" />
+          <Property Name="ID_CHOFER" Type="number" Precision="7" />
+          <Property Name="DOCUMENTACION" Type="varchar2" Nullable="false" MaxLength="50" />
+          <Property Name="TIPO" Type="varchar2" MaxLength="50" />
+          <Property Name="OBSERVACION" Type="varchar2" MaxLength="200" />
+          <Property Name="FECHA" Type="date" Nullable="false" />
+          <Property Name="FECHA_REG" Type="date" />
+          <Property Name="ID_USR" Type="number" Precision="7" />
+        </EntityType>
+        <EntityType Name="SD_FAMILIARES">
+          <Key>
+            <PropertyRef Name="ID_FAMILIAR" />
+          </Key>
+          <Property Name="ID_FAMILIAR" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_SOCIO" Type="number" Precision="7" />
+          <Property Name="ID_CHOFER" Type="number" Precision="7" />
+          <Property Name="NOMBRE" Type="varchar2" Nullable="false" MaxLength="200" />
+          <Property Name="APELLIDO_PATERNO" Type="varchar2" MaxLength="200" />
+          <Property Name="APELLIDO_MATERNO" Type="varchar2" MaxLength="200" />
+          <Property Name="CI" Type="number" Precision="15" />
+          <Property Name="EXPEDIDO" Type="varchar2" MaxLength="10" />
+          <Property Name="FECHA_NAC" Type="date" />
+          <Property Name="PARENTESCO" Type="varchar2" Nullable="false" MaxLength="50" />
+          <Property Name="OBSERVACION" Type="varchar2" MaxLength="500" />
+          <Property Name="FECHA_REG" Type="date" />
+          <Property Name="ID_USR" Type="number" Precision="7" />
+          <Property Name="TELEFONO" Type="varchar2" MaxLength="50" />
+          <Property Name="DIRECCION" Type="varchar2" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="SD_HOJAS_CONTROL">
+          <Key>
+            <PropertyRef Name="ID_HOJA" />
+          </Key>
+          <Property Name="ID_HOJA" Type="number" Nullable="false" Precision="7" />
+          <Property Name="NRO_HOJA" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_MOVIL" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_PARADA" Type="number" Nullable="false" Precision="7" />
+          <Property Name="OBSERVACION" Type="varchar2" MaxLength="1250" />
+          <Property Name="FECHA_COMPRA" Type="date" Nullable="false" />
+          <Property Name="FECHA_USO" Type="date" />
+          <Property Name="MONTO" Type="number" Precision="15" Scale="5" />
+          <Property Name="ESTADO" Type="varchar2" MaxLength="50" />
+          <Property Name="ID_USUARIO" Type="number" Nullable="false" Precision="5" />
+          <Property Name="FECHA_REG" Type="date" />
+        </EntityType>
+        <EntityType Name="SD_IMAGENES">
+          <Key>
+            <PropertyRef Name="ID_IMG" />
+          </Key>
+          <Property Name="ID_IMG" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_TABLA" Type="number" Nullable="false" Precision="7" />
+          <Property Name="TABLA" Type="varchar2" Nullable="false" MaxLength="200" />
+          <Property Name="NOMBRE_IMG" Type="varchar2" Nullable="false" MaxLength="200" />
+          <Property Name="EXTENSION" Type="varchar2" Nullable="false" MaxLength="200" />
+          <Property Name="DESCRIPCION" Type="varchar2" MaxLength="200" />
+          <Property Name="TAMANO" Type="number" Precision="15" />
+          <Property Name="IMAGEN" Type="blob" />
+          <Property Name="FECHA_REG" Type="date" />
+          <Property Name="ID_USR" Type="number" Precision="7" />
+          <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="SD_KARDEX_EFECTIVO">
+          <Key>
+            <PropertyRef Name="ID_KARDEX" />
+          </Key>
+          <Property Name="ID_KARDEX" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_CAJA" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_OPERACION" Type="number" Nullable="false" Precision="7" />
+          <Property Name="OPERACION" Type="varchar2" Nullable="false" MaxLength="250" />
+          <Property Name="FECHA" Type="date" Nullable="false" />
+          <Property Name="DETALLE" Type="varchar2" Nullable="false" MaxLength="250" />
+          <Property Name="INGRESO" Type="number" Nullable="false" Precision="15" Scale="5" />
+          <Property Name="EGRESO" Type="number" Nullable="false" Precision="15" Scale="5" />
+          <Property Name="SALDO" Type="number" Nullable="false" Precision="15" Scale="5" />
+          <Property Name="ID_USUARIO" Type="number" Nullable="false" Precision="5" />
+          <Property Name="FECHA_REG" Type="date" />
+        </EntityType>
+        <EntityType Name="SD_LINEAS">
+          <Key>
+            <PropertyRef Name="ID_LINEA" />
+          </Key>
+          <Property Name="ID_LINEA" Type="number" Nullable="false" Precision="7" />
+          <Property Name="NRO_LINEA" Type="number" Nullable="false" Precision="7" />
+          <Property Name="DESCRIPCION" Type="varchar2" Nullable="false" MaxLength="200" />
+          <Property Name="FECHA_ALTA" Type="date" Nullable="false" />
+          <Property Name="FECHA_BAJA" Type="date" />
+          <Property Name="OBSERVACION" Type="varchar2" Nullable="false" MaxLength="500" />
+          <Property Name="FECHA_REG" Type="date" />
+          <Property Name="ID_USR" Type="number" Precision="7" />
+          <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
+          <Property Name="CANT_MOVIL_SOCIO" Type="number" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="SD_LISTAS">
+          <Key>
+            <PropertyRef Name="ID_LISTA" />
+          </Key>
+          <Property Name="ID_LISTA" Type="number" Nullable="false" Precision="7" />
+          <Property Name="LISTA" Type="varchar2" Nullable="false" MaxLength="20" />
+          <Property Name="DESCRIPCION" Type="varchar2" MaxLength="50" />
+          <Property Name="TAM_LIMITE" Type="number" Nullable="false" Precision="5" />
+          <Property Name="TIPO_VALOR" Type="varchar2" Nullable="false" MaxLength="10" />
+          <Property Name="MAYUS_MINUS" Type="varchar2" Nullable="false" MaxLength="5" />
+          <Property Name="ESTADO" Type="varchar2" Nullable="false" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="SD_LISTAS_ITEMS">
+          <Key>
+            <PropertyRef Name="ID_TABLA" />
+          </Key>
+          <Property Name="ID_TABLA" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_PADRE" Type="number" Precision="7" />
+          <Property Name="ID_LISTA" Type="number" Nullable="false" Precision="7" />
+          <Property Name="CODIGO" Type="varchar2" MaxLength="5" />
+          <Property Name="VALOR" Type="varchar2" Nullable="false" MaxLength="30" />
+          <Property Name="ESTADO" Type="char" Nullable="false" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="SD_MENU_OPCIONES">
+          <Key>
+            <PropertyRef Name="ID_OPC" />
+          </Key>
+          <Property Name="ID_OPC" Type="number" Nullable="false" Precision="5" />
+          <Property Name="OPCION" Type="varchar2" Nullable="false" MaxLength="40" />
+          <Property Name="LINK" Type="varchar2" MaxLength="50" />
+          <Property Name="TOOLTIP" Type="varchar2" MaxLength="50" />
+          <Property Name="ICONO" Type="varchar2" MaxLength="50" />
+          <Property Name="ESTILO" Type="varchar2" MaxLength="50" />
+          <Property Name="ID_PADRE" Type="number" Precision="5" />
+          <Property Name="ESTADO" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="ORDEN" Type="number" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SD_MOVILES">
+          <Key>
+            <PropertyRef Name="ID_MOVIL" />
+          </Key>
+          <Property Name="ID_MOVIL" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_LINEA" Type="number" Nullable="false" Precision="7" />
+          <Property Name="NRO_MOVIL" Type="number" Nullable="false" Precision="7" />
+          <Property Name="DESCRIPCION" Type="varchar2" MaxLength="200" />
+          <Property Name="FECHA_ALTA" Type="date" Nullable="false" />
+          <Property Name="FECHA_BAJA" Type="date" />
+          <Property Name="OBSERVACION" Type="varchar2" MaxLength="500" />
+          <Property Name="FECHA_REG" Type="date" />
+          <Property Name="ID_USR" Type="number" Precision="7" />
+          <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="SD_PARADAS">
+          <Key>
+            <PropertyRef Name="ID_PARADA" />
+          </Key>
+          <Property Name="ID_PARADA" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_CAJA" Type="number" Nullable="false" Precision="7" />
+          <Property Name="NOMBRE" Type="varchar2" Nullable="false" MaxLength="50" />
+          <Property Name="DIRECCION" Type="varchar2" Nullable="false" MaxLength="250" />
+          <Property Name="RESPONSABLE" Type="varchar2" Nullable="false" MaxLength="250" />
+          <Property Name="DESCRIPCION" Type="varchar2" Nullable="false" MaxLength="1250" />
+          <Property Name="FECHA_INICIO" Type="date" Nullable="false" />
+          <Property Name="FECHA_FIN" Type="date" />
+          <Property Name="ESTADO" Type="varchar2" Nullable="false" MaxLength="50" />
+          <Property Name="ID_USUARIO" Type="number" Nullable="false" Precision="5" />
+          <Property Name="FECHA_REG" Type="date" />
+        </EntityType>
+        <EntityType Name="SD_PARAMETROS_LINEA">
+          <Key>
+            <PropertyRef Name="ID_PARAMETRO" />
+          </Key>
+          <Property Name="ID_PARAMETRO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="CODIGO" Type="varchar2" Nullable="false" MaxLength="40" />
+          <Property Name="NOMBRE" Type="varchar2" Nullable="false" MaxLength="50" />
+          <Property Name="TIPO" Type="varchar2" Nullable="false" MaxLength="50" />
+          <Property Name="ID_LINEA" Type="number" Nullable="false" Precision="7" />
+          <Property Name="MONTO" Type="number" Nullable="false" Precision="15" Scale="5" />
+          <Property Name="FECHA_INICIO" Type="date" Nullable="false" />
+          <Property Name="FECHA_FIN" Type="date" />
+          <Property Name="ESTADO" Type="varchar2" Nullable="false" MaxLength="50" />
+          <Property Name="ID_USUARIO" Type="number" Nullable="false" Precision="5" />
+          <Property Name="FECHA_REG" Type="date" />
+        </EntityType>
+        <EntityType Name="SD_PERFILES">
+          <Key>
+            <PropertyRef Name="ID_PERFIL" />
+          </Key>
+          <Property Name="ID_PERFIL" Type="number" Nullable="false" Precision="5" />
+          <Property Name="NOMBRE" Type="varchar2" Nullable="false" MaxLength="40" />
+          <Property Name="DESCRIPCION" Type="varchar2" Nullable="false" MaxLength="50" />
+          <Property Name="ESTADO" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="ID_PARADA" Type="number" Precision="7" />
+        </EntityType>
+        <EntityType Name="SD_PERFILES_OPCIONES">
+          <Key>
+            <PropertyRef Name="ID_PRF_OPC" />
+          </Key>
+          <Property Name="ID_PRF_OPC" Type="number" Nullable="false" Precision="5" />
+          <Property Name="ID_PERFIL" Type="number" Nullable="false" Precision="5" />
+          <Property Name="ID_OPC" Type="number" Nullable="false" Precision="5" />
+          <Property Name="ESTADO" Type="char" Nullable="false" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="SD_SOCIO_DESEMPENOS">
+          <Key>
+            <PropertyRef Name="ID_DESEMPEÑO" />
+          </Key>
+          <Property Name="ID_DESEMPEÑO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_SOCIO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="CARGO" Type="varchar2" Nullable="false" MaxLength="50" />
+          <Property Name="OBSERVACION" Type="varchar2" MaxLength="200" />
+          <Property Name="FECHA_DESDE" Type="date" Nullable="false" />
+          <Property Name="FECHA_HASTA" Type="date" />
+          <Property Name="FECHA_REG" Type="date" />
+          <Property Name="ID_USR" Type="number" Precision="7" />
+        </EntityType>
+        <EntityType Name="SD_SOCIO_MOVILES">
+          <Key>
+            <PropertyRef Name="ID_SOCIO_MOVIL" />
+          </Key>
+          <Property Name="ID_SOCIO_MOVIL" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_SOCIO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_MOVIL" Type="number" Nullable="false" Precision="7" />
+          <Property Name="DESCRIPCION" Type="varchar2" MaxLength="200" />
+          <Property Name="TIPO_MOVIL" Type="varchar2" MaxLength="20" />
+          <Property Name="FECHA_ALTA" Type="date" Nullable="false" />
+          <Property Name="FECHA_BAJA" Type="date" />
+          <Property Name="OBSERVACION" Type="varchar2" MaxLength="500" />
+          <Property Name="FECHA_REG" Type="date" />
+          <Property Name="ID_USR" Type="number" Precision="7" />
+          <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="SD_SOCIOS">
+          <Key>
+            <PropertyRef Name="ID_SOCIO" />
+          </Key>
+          <Property Name="ID_SOCIO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="NRO_SOCIO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="NOMBRE" Type="varchar2" Nullable="false" MaxLength="200" />
+          <Property Name="APELLIDO_PATERNO" Type="varchar2" Nullable="false" MaxLength="200" />
+          <Property Name="APELLIDO_MATERNO" Type="varchar2" Nullable="false" MaxLength="200" />
+          <Property Name="NRO_LICENCIA" Type="number" Precision="15" />
+          <Property Name="CATEGORIA_LIC" Type="varchar2" MaxLength="50" />
+          <Property Name="CI" Type="number" Nullable="false" Precision="15" />
+          <Property Name="EXPEDIDO" Type="varchar2" Nullable="false" MaxLength="10" />
+          <Property Name="FECHA_NAC" Type="date" Nullable="false" />
+          <Property Name="FECHA_INGRESO" Type="date" Nullable="false" />
+          <Property Name="FECHA_BAJA" Type="date" />
+          <Property Name="DOMICILIO" Type="varchar2" Nullable="false" MaxLength="500" />
+          <Property Name="OBSERVACION" Type="varchar2" Nullable="false" MaxLength="500" />
+          <Property Name="ESTADO_CIVIL" Type="varchar2" Nullable="false" MaxLength="50" />
+          <Property Name="FECHA_REG" Type="date" />
+          <Property Name="ID_USR" Type="number" Precision="7" />
+          <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
+          <Property Name="TELEFONO" Type="varchar2" MaxLength="50" />
+          <Property Name="CELULAR" Type="varchar2" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SD_USUARIOS">
+          <Key>
+            <PropertyRef Name="ID_USUARIO" />
+          </Key>
+          <Property Name="ID_USUARIO" Type="number" Nullable="false" Precision="5" />
+          <Property Name="LOGIN" Type="varchar2" Nullable="false" MaxLength="15" />
+          <Property Name="NOMBRE" Type="varchar2" Nullable="false" MaxLength="60" />
+          <Property Name="EMAIL" Type="varchar2" MaxLength="30" />
+          <Property Name="FCH_ALTA" Type="date" Nullable="false" />
+          <Property Name="FCH_BAJA" Type="date" />
+          <Property Name="ID_PERFIL" Type="number" Nullable="false" Precision="5" />
+          <Property Name="ESTADO" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="CONTRASENA" Type="varchar2" MaxLength="300" />
+        </EntityType>
+        <!--Se encontraron errores durante la generación:
+      advertencia 6002: La tabla o vista 'SINDICATO.V_TABLAS_COLUMNAS' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+      -->
+        <EntityType Name="V_TABLAS_COLUMNAS">
+          <Key>
+            <PropertyRef Name="TABLA" />
+            <PropertyRef Name="COLUMNA" />
+            <PropertyRef Name="TAMANO" />
+          </Key>
+          <Property Name="ID_TABLA" Type="number" />
+          <Property Name="TABLA" Type="varchar2" Nullable="false" MaxLength="30" />
+          <Property Name="COLUMNA" Type="varchar2" Nullable="false" MaxLength="30" />
+          <Property Name="TIPO" Type="varchar2" MaxLength="106" />
+          <Property Name="PRECISION" Type="number" />
+          <Property Name="ESCALA" Type="number" />
+          <Property Name="TAMANO" Type="number" Nullable="false" />
+          <Property Name="REQUERIDO" Type="varchar2" MaxLength="1" />
+          <Property Name="COMENTARIO" Type="varchar2" />
+        </EntityType>
+        <Association Name="SD_ANTECEDENTES_R02">
+          <End Role="SD_CHOFERES" Type="Model.Store.SD_CHOFERES" Multiplicity="0..1" />
+          <End Role="SD_ANTECEDENTES" Type="Model.Store.SD_ANTECEDENTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CHOFERES">
+              <PropertyRef Name="ID_CHOFER" />
+            </Principal>
+            <Dependent Role="SD_ANTECEDENTES">
+              <PropertyRef Name="ID_CHOFER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_AUTOS_R01">
+          <End Role="SD_MOVILES" Type="Model.Store.SD_MOVILES" Multiplicity="1" />
+          <End Role="SD_AUTOS" Type="Model.Store.SD_AUTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_MOVILES">
+              <PropertyRef Name="ID_MOVIL" />
+            </Principal>
+            <Dependent Role="SD_AUTOS">
+              <PropertyRef Name="ID_MOVIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_CHOFERES_R01">
+          <End Role="SD_SOCIOS" Type="Model.Store.SD_SOCIOS" Multiplicity="1" />
+          <End Role="SD_CHOFERES" Type="Model.Store.SD_CHOFERES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_CHOFERES">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_DOCUMENTACIONES_R02">
+          <End Role="SD_CHOFERES" Type="Model.Store.SD_CHOFERES" Multiplicity="0..1" />
+          <End Role="SD_DOCUMENTACIONES" Type="Model.Store.SD_DOCUMENTACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CHOFERES">
+              <PropertyRef Name="ID_CHOFER" />
+            </Principal>
+            <Dependent Role="SD_DOCUMENTACIONES">
+              <PropertyRef Name="ID_CHOFER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_FAMILIARES_R01">
+          <End Role="SD_SOCIOS" Type="Model.Store.SD_SOCIOS" Multiplicity="0..1" />
+          <End Role="SD_FAMILIARES" Type="Model.Store.SD_FAMILIARES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_FAMILIARES">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_FAMILIARES_R02">
+          <End Role="SD_CHOFERES" Type="Model.Store.SD_CHOFERES" Multiplicity="0..1" />
+          <End Role="SD_FAMILIARES" Type="Model.Store.SD_FAMILIARES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CHOFERES">
+              <PropertyRef Name="ID_CHOFER" />
+            </Principal>
+            <Dependent Role="SD_FAMILIARES">
+              <PropertyRef Name="ID_CHOFER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_HOJAS_CONTROL_R01">
+          <End Role="SD_MOVILES" Type="Model.Store.SD_MOVILES" Multiplicity="1" />
+          <End Role="SD_HOJAS_CONTROL" Type="Model.Store.SD_HOJAS_CONTROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_MOVILES">
+              <PropertyRef Name="ID_MOVIL" />
+            </Principal>
+            <Dependent Role="SD_HOJAS_CONTROL">
+              <PropertyRef Name="ID_MOVIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_HOJAS_CONTROL_R02">
+          <End Role="SD_PARADAS" Type="Model.Store.SD_PARADAS" Multiplicity="1" />
+          <End Role="SD_HOJAS_CONTROL" Type="Model.Store.SD_HOJAS_CONTROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_PARADAS">
+              <PropertyRef Name="ID_PARADA" />
+            </Principal>
+            <Dependent Role="SD_HOJAS_CONTROL">
+              <PropertyRef Name="ID_PARADA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_KARDEX_EFECTIVO_R01">
+          <End Role="SD_CAJAS" Type="Model.Store.SD_CAJAS" Multiplicity="1" />
+          <End Role="SD_KARDEX_EFECTIVO" Type="Model.Store.SD_KARDEX_EFECTIVO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CAJAS">
+              <PropertyRef Name="ID_CAJA" />
+            </Principal>
+            <Dependent Role="SD_KARDEX_EFECTIVO">
+              <PropertyRef Name="ID_CAJA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_MOVILES_R01">
+          <End Role="SD_LINEAS" Type="Model.Store.SD_LINEAS" Multiplicity="1" />
+          <End Role="SD_MOVILES" Type="Model.Store.SD_MOVILES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_LINEAS">
+              <PropertyRef Name="ID_LINEA" />
+            </Principal>
+            <Dependent Role="SD_MOVILES">
+              <PropertyRef Name="ID_LINEA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_PARADAS_R01">
+          <End Role="SD_CAJAS" Type="Model.Store.SD_CAJAS" Multiplicity="1" />
+          <End Role="SD_PARADAS" Type="Model.Store.SD_PARADAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CAJAS">
+              <PropertyRef Name="ID_CAJA" />
+            </Principal>
+            <Dependent Role="SD_PARADAS">
+              <PropertyRef Name="ID_CAJA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_PARAMETROS_LINEA_R01">
+          <End Role="SD_LINEAS" Type="Model.Store.SD_LINEAS" Multiplicity="1" />
+          <End Role="SD_PARAMETROS_LINEA" Type="Model.Store.SD_PARAMETROS_LINEA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_LINEAS">
+              <PropertyRef Name="ID_LINEA" />
+            </Principal>
+            <Dependent Role="SD_PARAMETROS_LINEA">
+              <PropertyRef Name="ID_LINEA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_PERFILES_R01">
+          <End Role="SD_PARADAS" Type="Model.Store.SD_PARADAS" Multiplicity="0..1" />
+          <End Role="SD_PERFILES" Type="Model.Store.SD_PERFILES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_PARADAS">
+              <PropertyRef Name="ID_PARADA" />
+            </Principal>
+            <Dependent Role="SD_PERFILES">
+              <PropertyRef Name="ID_PARADA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_SOCIO_MOVILES_R01">
+          <End Role="SD_SOCIOS" Type="Model.Store.SD_SOCIOS" Multiplicity="1" />
+          <End Role="SD_SOCIO_MOVILES" Type="Model.Store.SD_SOCIO_MOVILES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_SOCIO_MOVILES">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_SOCIO_MOVILES_R02">
+          <End Role="SD_MOVILES" Type="Model.Store.SD_MOVILES" Multiplicity="1" />
+          <End Role="SD_SOCIO_MOVILES" Type="Model.Store.SD_SOCIO_MOVILES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_MOVILES">
+              <PropertyRef Name="ID_MOVIL" />
+            </Principal>
+            <Dependent Role="SD_SOCIO_MOVILES">
+              <PropertyRef Name="ID_MOVIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SG_LISTAS_ITEMS_R01">
+          <End Role="SD_LISTAS" Type="Model.Store.SD_LISTAS" Multiplicity="1" />
+          <End Role="SD_LISTAS_ITEMS" Type="Model.Store.SD_LISTAS_ITEMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_LISTAS">
+              <PropertyRef Name="ID_LISTA" />
+            </Principal>
+            <Dependent Role="SD_LISTAS_ITEMS">
+              <PropertyRef Name="ID_LISTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SG_LISTAS_ITEMS_R02">
+          <End Role="SD_LISTAS_ITEMS" Type="Model.Store.SD_LISTAS_ITEMS" Multiplicity="0..1" />
+          <End Role="SD_LISTAS_ITEMS1" Type="Model.Store.SD_LISTAS_ITEMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_LISTAS_ITEMS">
+              <PropertyRef Name="ID_TABLA" />
+            </Principal>
+            <Dependent Role="SD_LISTAS_ITEMS1">
+              <PropertyRef Name="ID_PADRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SG_PERFILES_OPCIONES_R01">
+          <End Role="SD_PERFILES" Type="Model.Store.SD_PERFILES" Multiplicity="1" />
+          <End Role="SD_PERFILES_OPCIONES" Type="Model.Store.SD_PERFILES_OPCIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_PERFILES">
+              <PropertyRef Name="ID_PERFIL" />
+            </Principal>
+            <Dependent Role="SD_PERFILES_OPCIONES">
+              <PropertyRef Name="ID_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SG_PERFILES_OPCIONES_R02">
+          <End Role="SD_MENU_OPCIONES" Type="Model.Store.SD_MENU_OPCIONES" Multiplicity="1" />
+          <End Role="SD_PERFILES_OPCIONES" Type="Model.Store.SD_PERFILES_OPCIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_MENU_OPCIONES">
+              <PropertyRef Name="ID_OPC" />
+            </Principal>
+            <Dependent Role="SD_PERFILES_OPCIONES">
+              <PropertyRef Name="ID_OPC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SG_USUARIOS_R01">
+          <End Role="SD_PERFILES" Type="Model.Store.SD_PERFILES" Multiplicity="1" />
+          <End Role="SD_USUARIOS" Type="Model.Store.SD_USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_PERFILES">
+              <PropertyRef Name="ID_PERFIL" />
+            </Principal>
+            <Dependent Role="SD_USUARIOS">
+              <PropertyRef Name="ID_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="P_SD_ALTA_AUTOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
+          <Parameter Name="P_ID_AUTO" Type="number" Mode="In" />
+          <Parameter Name="P_ID_MOVIL" Type="number" Mode="In" />
+          <Parameter Name="P_TIPO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_COLOR" Type="varchar2" Mode="In" />
+          <Parameter Name="P_MARCA" Type="varchar2" Mode="In" />
+          <Parameter Name="P_MODELO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_PLACA" Type="varchar2" Mode="In" />
+          <Parameter Name="P_MOTOR" Type="varchar2" Mode="In" />
+          <Parameter Name="P_CHASIS" Type="varchar2" Mode="In" />
+          <Parameter Name="P_DESCRIPCION" Type="varchar2" Mode="In" />
+          <Parameter Name="P_FECHA_ALTA" Type="date" Mode="In" />
+          <Parameter Name="P_FECHA_BAJA" Type="date" Mode="In" />
+          <Parameter Name="P_MOTIVO_CAMBIO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_ID_USR" Type="number" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
+        <Function Name="P_SD_ALTA_LISTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
+          <Parameter Name="P_LISTA" Type="varchar2" Mode="In" />
+          <Parameter Name="P_DESCRIPCION" Type="varchar2" Mode="In" />
+          <Parameter Name="P_TAM_LIMITE" Type="number" Mode="In" />
+          <Parameter Name="P_TIPO_VALOR" Type="varchar2" Mode="In" />
+          <Parameter Name="P_MAYUS_MINUS" Type="varchar2" Mode="In" />
+          <Parameter Name="P_ID_USR" Type="number" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
+        <Function Name="P_SD_ALTA_SD_ANTECEDENTES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
+          <Parameter Name="P_ID_ANTECEDENTE" Type="number" Mode="In" />
+          <Parameter Name="P_ID_SOCIO" Type="number" Mode="In" />
+          <Parameter Name="P_ID_CHOFER" Type="number" Mode="In" />
+          <Parameter Name="P_MOTIVO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_OBSERVACION" Type="varchar2" Mode="In" />
+          <Parameter Name="P_FECHA" Type="date" Mode="In" />
+          <Parameter Name="P_ID_USR" Type="number" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
+        <Function Name="P_SD_ALTA_SD_CHOFERES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
+          <Parameter Name="P_ID_CHOFER" Type="number" Mode="In" />
+          <Parameter Name="P_NRO_CHOFER" Type="number" Mode="In" />
+          <Parameter Name="P_NOMBRE" Type="varchar2" Mode="In" />
+          <Parameter Name="P_APELLIDO_PATERNO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_APELLIDO_MATERNO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_NRO_LICENCIA" Type="number" Mode="In" />
+          <Parameter Name="P_CATEGORIA_LIC" Type="varchar2" Mode="In" />
+          <Parameter Name="P_CI" Type="number" Mode="In" />
+          <Parameter Name="P_EXPEDIDO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_FECHA_NAC" Type="date" Mode="In" />
+          <Parameter Name="P_FECHA_INGRESO" Type="date" Mode="In" />
+          <Parameter Name="P_DOMICILIO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_OBSERVACION" Type="varchar2" Mode="In" />
+          <Parameter Name="P_ESTADO_CIVIL" Type="varchar2" Mode="In" />
+          <Parameter Name="P_TELEFONO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_CELULAR" Type="varchar2" Mode="In" />
+          <Parameter Name="P_ID_SOCIO" Type="number" Mode="In" />
+          <Parameter Name="P_ID_USR" Type="number" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
+        <Function Name="P_SD_ALTA_SD_DOCUMENTACIONES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
+          <Parameter Name="P_ID_DOCUMENTACION" Type="number" Mode="In" />
+          <Parameter Name="P_ID_SOCIO" Type="number" Mode="In" />
+          <Parameter Name="P_ID_CHOFER" Type="number" Mode="In" />
+          <Parameter Name="P_DOCUMENTACION" Type="varchar2" Mode="In" />
+          <Parameter Name="P_TIPO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_OBSERVACION" Type="varchar2" Mode="In" />
+          <Parameter Name="P_FECHA" Type="date" Mode="In" />
+          <Parameter Name="P_ID_USR" Type="number" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
+        <Function Name="P_SD_ALTA_SD_FAMILIARES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
+          <Parameter Name="P_ID_FAMILIAR" Type="number" Mode="In" />
+          <Parameter Name="P_ID_SOCIO" Type="number" Mode="In" />
+          <Parameter Name="P_ID_CHOFER" Type="number" Mode="In" />
+          <Parameter Name="P_NOMBRE" Type="varchar2" Mode="In" />
+          <Parameter Name="P_APELLIDO_PATERNO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_APELLIDO_MATERNO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_CI" Type="number" Mode="In" />
+          <Parameter Name="P_EXPEDIDO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_FECHA_NAC" Type="date" Mode="In" />
+          <Parameter Name="P_PARENTESCO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_OBSERVACION" Type="varchar2" Mode="In" />
+          <Parameter Name="P_DIRECCION" Type="varchar2" Mode="In" />
+          <Parameter Name="P_TELEFONO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_ID_USR" Type="number" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
+        <Function Name="P_SD_ALTA_SD_HOJAS_CONTROL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
+          <Parameter Name="P_ID_MOVIL" Type="number" Mode="In" />
+          <Parameter Name="P_ID_PARADA" Type="number" Mode="In" />
+          <Parameter Name="P_ID_CAJA" Type="number" Mode="In" />
+          <Parameter Name="P_OBSERVACION" Type="varchar2" Mode="In" />
+          <Parameter Name="P_FECHA_COMPRA" Type="date" Mode="In" />
+          <Parameter Name="P_FECHA_USO" Type="date" Mode="In" />
+          <Parameter Name="P_MONTO" Type="number" Mode="In" />
+          <Parameter Name="P_ID_USR" Type="number" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
+        <Function Name="P_SD_ALTA_SD_SOCIOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
+          <Parameter Name="P_ID_SOCIO" Type="number" Mode="In" />
+          <Parameter Name="P_NOMBRE" Type="varchar2" Mode="In" />
+          <Parameter Name="P_APELLIDO_PATERNO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_APELLIDO_MATERNO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_NRO_LICENCIA" Type="number" Mode="In" />
+          <Parameter Name="P_CATEGORIA_LIC" Type="varchar2" Mode="In" />
+          <Parameter Name="P_CI" Type="number" Mode="In" />
+          <Parameter Name="P_EXPEDIDO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_FECHA_NAC" Type="date" Mode="In" />
+          <Parameter Name="P_FECHA_INGRESO" Type="date" Mode="In" />
+          <Parameter Name="P_DOMICILIO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_OBSERVACION" Type="varchar2" Mode="In" />
+          <Parameter Name="P_TELEFONO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_CELULAR" Type="varchar2" Mode="In" />
+          <Parameter Name="P_ESTADO_CIVIL" Type="varchar2" Mode="In" />
+          <Parameter Name="P_ID_USR" Type="number" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
+        <Function Name="P_SD_ELIMINAR_CAJA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
+          <Parameter Name="P_ID" Type="number" Mode="In" />
+          <Parameter Name="P_ID_USR" Type="number" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
+        <Function Name="P_SD_GRABAR_LISTAS_ITEMS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
+          <Parameter Name="P_ID_TABLA" Type="number" Mode="In" />
+          <Parameter Name="P_ID_PADRE" Type="number" Mode="In" />
+          <Parameter Name="P_ID_LISTA" Type="number" Mode="In" />
+          <Parameter Name="P_CODIGO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_VALOR" Type="varchar2" Mode="In" />
+          <Parameter Name="P_ESTADO" Type="char" Mode="In" />
+          <Parameter Name="P_LOGIN_USR" Type="varchar2" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
+        <Function Name="P_SD_GRABAR_SOCIO_MOVILES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
+          <Parameter Name="P_ID_SOCIO_MOVIL" Type="number" Mode="In" />
+          <Parameter Name="P_ID_SOCIO" Type="number" Mode="In" />
+          <Parameter Name="P_ID_MOVIL" Type="number" Mode="In" />
+          <Parameter Name="P_DESCRIPCION" Type="varchar2" Mode="In" />
+          <Parameter Name="P_TIPO_MOVIL" Type="varchar2" Mode="In" />
+          <Parameter Name="P_FECHA_ALTA" Type="date" Mode="In" />
+          <Parameter Name="P_FECHA_BAJA" Type="date" Mode="In" />
+          <Parameter Name="P_OBSERVACION" Type="varchar2" Mode="In" />
+          <Parameter Name="P_ID_USR" Type="number" Mode="In" />
+          <Parameter Name="P_ESTADO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
+        <Function Name="P_SD_GUARDAR_CAJAS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
+          <Parameter Name="P_ID_CAJA" Type="number" Mode="In" />
+          <Parameter Name="P_CODIGO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_NOMBRE" Type="varchar2" Mode="In" />
+          <Parameter Name="P_NRO_CUENTA" Type="varchar2" Mode="In" />
+          <Parameter Name="P_DESCRIPCION" Type="varchar2" Mode="In" />
+          <Parameter Name="P_SALDO" Type="number" Mode="In" />
+          <Parameter Name="P_ID_USR" Type="number" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="SindicatoContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SD_LISTAS" EntityType="Model.SD_LISTAS" />
+          <EntitySet Name="SD_LISTAS_ITEMS" EntityType="Model.SD_LISTAS_ITEMS" />
+          <EntitySet Name="SD_MENU_OPCIONES" EntityType="Model.SD_MENU_OPCIONES" />
+          <EntitySet Name="SD_PERFILES_OPCIONES" EntityType="Model.SD_PERFILES_OPCIONES" />
+          <EntitySet Name="SD_USUARIOS" EntityType="Model.SD_USUARIOS" />
+          <AssociationSet Name="SG_LISTAS_ITEMS_R01" Association="Model.SG_LISTAS_ITEMS_R01">
+            <End Role="SD_LISTAS" EntitySet="SD_LISTAS" />
+            <End Role="SD_LISTAS_ITEMS" EntitySet="SD_LISTAS_ITEMS" />
+          </AssociationSet>
+          <AssociationSet Name="SG_LISTAS_ITEMS_R02" Association="Model.SG_LISTAS_ITEMS_R02">
+            <End Role="SD_LISTAS_ITEMS" EntitySet="SD_LISTAS_ITEMS" />
+            <End Role="SD_LISTAS_ITEMS1" EntitySet="SD_LISTAS_ITEMS" />
+          </AssociationSet>
+          <AssociationSet Name="SG_PERFILES_OPCIONES_R02" Association="Model.SG_PERFILES_OPCIONES_R02">
+            <End EntitySet="SD_MENU_OPCIONES" Role="SD_MENU_OPCIONES" />
+            <End EntitySet="SD_PERFILES_OPCIONES" Role="SD_PERFILES_OPCIONES" />
+          </AssociationSet>
+          <FunctionImport Name="P_SD_ALTA_LISTA">
+            <Parameter Name="P_LISTA" Mode="In" Type="String" />
+            <Parameter Name="P_DESCRIPCION" Mode="In" Type="String" />
+            <Parameter Name="P_TAM_LIMITE" Mode="In" Type="Decimal" />
+            <Parameter Name="P_TIPO_VALOR" Mode="In" Type="String" />
+            <Parameter Name="P_MAYUS_MINUS" Mode="In" Type="String" />
+            <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="P_SD_GRABAR_LISTAS_ITEMS">
+            <Parameter Name="P_ID_TABLA" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ID_PADRE" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ID_LISTA" Mode="In" Type="Decimal" />
+            <Parameter Name="P_CODIGO" Mode="In" Type="String" />
+            <Parameter Name="P_VALOR" Mode="In" Type="String" />
+            <Parameter Name="P_ESTADO" Mode="In" Type="String" />
+            <Parameter Name="P_LOGIN_USR" Mode="In" Type="String" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="SD_SOCIO_DESEMPENOS" EntityType="Model.SD_SOCIO_DESEMPENOS" />
+          <EntitySet Name="V_TABLAS_COLUMNAS" EntityType="Model.V_TABLAS_COLUMNAS" />
+          <EntitySet Name="SD_ANTECEDENTES" EntityType="Model.SD_ANTECEDENTES" />
+          <FunctionImport Name="P_SD_ALTA_SD_ANTECEDENTES">
+            <Parameter Name="P_ID_ANTECEDENTE" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ID_SOCIO" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ID_CHOFER" Mode="In" Type="Decimal" />
+            <Parameter Name="P_MOTIVO" Mode="In" Type="String" />
+            <Parameter Name="P_OBSERVACION" Mode="In" Type="String" />
+            <Parameter Name="P_FECHA" Mode="In" Type="DateTime" />
+            <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="P_SD_ALTA_SD_DOCUMENTACIONES">
+            <Parameter Name="P_ID_DOCUMENTACION" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ID_SOCIO" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ID_CHOFER" Mode="In" Type="Decimal" />
+            <Parameter Name="P_DOCUMENTACION" Mode="In" Type="String" />
+            <Parameter Name="P_TIPO" Mode="In" Type="String" />
+            <Parameter Name="P_OBSERVACION" Mode="In" Type="String" />
+            <Parameter Name="P_FECHA" Mode="In" Type="DateTime" />
+            <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="SD_LINEAS" EntityType="Model.SD_LINEAS" />
+          <EntitySet Name="SD_MOVILES" EntityType="Model.SD_MOVILES" />
+          <EntitySet Name="SD_SOCIO_MOVILES" EntityType="Model.SD_SOCIO_MOVILES" />
+          <EntitySet Name="SD_SOCIOS" EntityType="Model.SD_SOCIOS" />
+          <AssociationSet Name="SD_MOVILES_R01" Association="Model.SD_MOVILES_R01">
+            <End Role="SD_LINEAS" EntitySet="SD_LINEAS" />
+            <End Role="SD_MOVILES" EntitySet="SD_MOVILES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_SOCIO_MOVILES_R02" Association="Model.SD_SOCIO_MOVILES_R02">
+            <End Role="SD_MOVILES" EntitySet="SD_MOVILES" />
+            <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_SOCIO_MOVILES_R01" Association="Model.SD_SOCIO_MOVILES_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
+          </AssociationSet>
+          <EntitySet Name="SD_DOCUMENTACIONES" EntityType="Model.SD_DOCUMENTACIONES" />
+          <EntitySet Name="SD_CHOFERES" EntityType="Model.SD_CHOFERES" />
+          <AssociationSet Name="SD_ANTECEDENTES_R02" Association="Model.SD_ANTECEDENTES_R02">
+            <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
+            <End Role="SD_ANTECEDENTES" EntitySet="SD_ANTECEDENTES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_CHOFERES_R01" Association="Model.SD_CHOFERES_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_DOCUMENTACIONES_R02" Association="Model.SD_DOCUMENTACIONES_R02">
+            <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
+            <End Role="SD_DOCUMENTACIONES" EntitySet="SD_DOCUMENTACIONES" />
+          </AssociationSet>
+          <EntitySet Name="SD_FAMILIARES" EntityType="Model.SD_FAMILIARES" />
+          <AssociationSet Name="SD_FAMILIARES_R02" Association="Model.SD_FAMILIARES_R02">
+            <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
+            <End Role="SD_FAMILIARES" EntitySet="SD_FAMILIARES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_FAMILIARES_R01" Association="Model.SD_FAMILIARES_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_FAMILIARES" EntitySet="SD_FAMILIARES" />
+          </AssociationSet>
+          <FunctionImport Name="P_SD_ALTA_SD_CHOFERES">
+            <Parameter Name="P_ID_CHOFER" Mode="In" Type="Decimal" />
+            <Parameter Name="P_NRO_CHOFER" Mode="In" Type="Decimal" />
+            <Parameter Name="P_NOMBRE" Mode="In" Type="String" />
+            <Parameter Name="P_APELLIDO_PATERNO" Mode="In" Type="String" />
+            <Parameter Name="P_APELLIDO_MATERNO" Mode="In" Type="String" />
+            <Parameter Name="P_NRO_LICENCIA" Mode="In" Type="Decimal" />
+            <Parameter Name="P_CATEGORIA_LIC" Mode="In" Type="String" />
+            <Parameter Name="P_CI" Mode="In" Type="Decimal" />
+            <Parameter Name="P_EXPEDIDO" Mode="In" Type="String" />
+            <Parameter Name="P_FECHA_NAC" Mode="In" Type="DateTime" />
+            <Parameter Name="P_FECHA_INGRESO" Mode="In" Type="DateTime" />
+            <Parameter Name="P_DOMICILIO" Mode="In" Type="String" />
+            <Parameter Name="P_OBSERVACION" Mode="In" Type="String" />
+            <Parameter Name="P_ESTADO_CIVIL" Mode="In" Type="String" />
+            <Parameter Name="P_TELEFONO" Mode="In" Type="String" />
+            <Parameter Name="P_CELULAR" Mode="In" Type="String" />
+            <Parameter Name="P_ID_SOCIO" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="P_SD_ALTA_SD_FAMILIARES">
+            <Parameter Name="P_ID_FAMILIAR" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ID_SOCIO" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ID_CHOFER" Mode="In" Type="Decimal" />
+            <Parameter Name="P_NOMBRE" Mode="In" Type="String" />
+            <Parameter Name="P_APELLIDO_PATERNO" Mode="In" Type="String" />
+            <Parameter Name="P_APELLIDO_MATERNO" Mode="In" Type="String" />
+            <Parameter Name="P_CI" Mode="In" Type="Decimal" />
+            <Parameter Name="P_EXPEDIDO" Mode="In" Type="String" />
+            <Parameter Name="P_FECHA_NAC" Mode="In" Type="DateTime" />
+            <Parameter Name="P_PARENTESCO" Mode="In" Type="String" />
+            <Parameter Name="P_OBSERVACION" Mode="In" Type="String" />
+            <Parameter Name="P_DIRECCION" Mode="In" Type="String" />
+            <Parameter Name="P_TELEFONO" Mode="In" Type="String" />
+            <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="SD_IMAGENES" EntityType="Model.SD_IMAGENES" />
+          <FunctionImport Name="P_SD_ALTA_SD_SOCIOS">
+            <Parameter Name="P_ID_SOCIO" Mode="In" Type="Decimal" />
+            <Parameter Name="P_NOMBRE" Mode="In" Type="String" />
+            <Parameter Name="P_APELLIDO_PATERNO" Mode="In" Type="String" />
+            <Parameter Name="P_APELLIDO_MATERNO" Mode="In" Type="String" />
+            <Parameter Name="P_NRO_LICENCIA" Mode="In" Type="Decimal" />
+            <Parameter Name="P_CATEGORIA_LIC" Mode="In" Type="String" />
+            <Parameter Name="P_CI" Mode="In" Type="Decimal" />
+            <Parameter Name="P_EXPEDIDO" Mode="In" Type="String" />
+            <Parameter Name="P_FECHA_NAC" Mode="In" Type="DateTime" />
+            <Parameter Name="P_FECHA_INGRESO" Mode="In" Type="DateTime" />
+            <Parameter Name="P_DOMICILIO" Mode="In" Type="String" />
+            <Parameter Name="P_OBSERVACION" Mode="In" Type="String" />
+            <Parameter Name="P_TELEFONO" Mode="In" Type="String" />
+            <Parameter Name="P_CELULAR" Mode="In" Type="String" />
+            <Parameter Name="P_ESTADO_CIVIL" Mode="In" Type="String" />
+            <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="P_SD_GRABAR_SOCIO_MOVILES">
+            <Parameter Name="P_ID_SOCIO_MOVIL" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ID_SOCIO" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ID_MOVIL" Mode="In" Type="Decimal" />
+            <Parameter Name="P_DESCRIPCION" Mode="In" Type="String" />
+            <Parameter Name="P_TIPO_MOVIL" Mode="In" Type="String" />
+            <Parameter Name="P_FECHA_ALTA" Mode="In" Type="DateTime" />
+            <Parameter Name="P_FECHA_BAJA" Mode="In" Type="DateTime" />
+            <Parameter Name="P_OBSERVACION" Mode="In" Type="String" />
+            <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ESTADO" Mode="In" Type="String" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="SD_AUTOS" EntityType="Model.SD_AUTOS" />
+          <AssociationSet Name="SD_AUTOS_R01" Association="Model.SD_AUTOS_R01">
+            <End Role="SD_MOVILES" EntitySet="SD_MOVILES" />
+            <End Role="SD_AUTOS" EntitySet="SD_AUTOS" />
+          </AssociationSet>
+          <FunctionImport Name="P_SD_ALTA_AUTOS">
+            <Parameter Name="P_ID_AUTO" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ID_MOVIL" Mode="In" Type="Decimal" />
+            <Parameter Name="P_TIPO" Mode="In" Type="String" />
+            <Parameter Name="P_COLOR" Mode="In" Type="String" />
+            <Parameter Name="P_MARCA" Mode="In" Type="String" />
+            <Parameter Name="P_MODELO" Mode="In" Type="String" />
+            <Parameter Name="P_PLACA" Mode="In" Type="String" />
+            <Parameter Name="P_MOTOR" Mode="In" Type="String" />
+            <Parameter Name="P_CHASIS" Mode="In" Type="String" />
+            <Parameter Name="P_DESCRIPCION" Mode="In" Type="String" />
+            <Parameter Name="P_FECHA_ALTA" Mode="In" Type="DateTime" />
+            <Parameter Name="P_FECHA_BAJA" Mode="In" Type="DateTime" />
+            <Parameter Name="P_MOTIVO_CAMBIO" Mode="In" Type="String" />
+            <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="SD_CAJAS" EntityType="Model.SD_CAJAS" />
+          <EntitySet Name="SD_HOJAS_CONTROL" EntityType="Model.SD_HOJAS_CONTROL" />
+          <EntitySet Name="SD_KARDEX_EFECTIVO" EntityType="Model.SD_KARDEX_EFECTIVO" />
+          <EntitySet Name="SD_PARADAS" EntityType="Model.SD_PARADAS" />
+          <EntitySet Name="SD_PARAMETROS_LINEA" EntityType="Model.SD_PARAMETROS_LINEA" />
+          <EntitySet Name="SD_PERFILES" EntityType="Model.SD_PERFILES" />
+          <AssociationSet Name="SD_KARDEX_EFECTIVO_R01" Association="Model.SD_KARDEX_EFECTIVO_R01">
+            <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
+            <End Role="SD_KARDEX_EFECTIVO" EntitySet="SD_KARDEX_EFECTIVO" />
+          </AssociationSet>
+          <AssociationSet Name="SD_PARADAS_R01" Association="Model.SD_PARADAS_R01">
+            <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
+            <End Role="SD_PARADAS" EntitySet="SD_PARADAS" />
+          </AssociationSet>
+          <AssociationSet Name="SD_HOJAS_CONTROL_R01" Association="Model.SD_HOJAS_CONTROL_R01">
+            <End Role="SD_MOVILES" EntitySet="SD_MOVILES" />
+            <End Role="SD_HOJAS_CONTROL" EntitySet="SD_HOJAS_CONTROL" />
+          </AssociationSet>
+          <AssociationSet Name="SD_HOJAS_CONTROL_R02" Association="Model.SD_HOJAS_CONTROL_R02">
+            <End Role="SD_PARADAS" EntitySet="SD_PARADAS" />
+            <End Role="SD_HOJAS_CONTROL" EntitySet="SD_HOJAS_CONTROL" />
+          </AssociationSet>
+          <AssociationSet Name="SD_PARAMETROS_LINEA_R01" Association="Model.SD_PARAMETROS_LINEA_R01">
+            <End Role="SD_LINEAS" EntitySet="SD_LINEAS" />
+            <End Role="SD_PARAMETROS_LINEA" EntitySet="SD_PARAMETROS_LINEA" />
+          </AssociationSet>
+          <AssociationSet Name="SD_PERFILES_R01" Association="Model.SD_PERFILES_R01">
+            <End Role="SD_PARADAS" EntitySet="SD_PARADAS" />
+            <End Role="SD_PERFILES" EntitySet="SD_PERFILES" />
+          </AssociationSet>
+          <AssociationSet Name="SG_PERFILES_OPCIONES_R01" Association="Model.SG_PERFILES_OPCIONES_R01">
+            <End Role="SD_PERFILES" EntitySet="SD_PERFILES" />
+            <End Role="SD_PERFILES_OPCIONES" EntitySet="SD_PERFILES_OPCIONES" />
+          </AssociationSet>
+          <AssociationSet Name="SG_USUARIOS_R01" Association="Model.SG_USUARIOS_R01">
+            <End Role="SD_PERFILES" EntitySet="SD_PERFILES" />
+            <End Role="SD_USUARIOS" EntitySet="SD_USUARIOS" />
+          </AssociationSet>
+          <FunctionImport Name="P_SD_GUARDAR_CAJAS">
+            <Parameter Name="P_ID_CAJA" Mode="In" Type="Decimal" />
+            <Parameter Name="P_CODIGO" Mode="In" Type="String" />
+            <Parameter Name="P_NOMBRE" Mode="In" Type="String" />
+            <Parameter Name="P_NRO_CUENTA" Mode="In" Type="String" />
+            <Parameter Name="P_DESCRIPCION" Mode="In" Type="String" />
+            <Parameter Name="P_SALDO" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="P_SD_ELIMINAR_CAJA">
+            <Parameter Name="P_ID" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="P_SD_ALTA_SD_HOJAS_CONTROL">
+            <Parameter Name="P_ID_MOVIL" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ID_PARADA" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ID_CAJA" Mode="In" Type="Decimal" />
+            <Parameter Name="P_OBSERVACION" Mode="In" Type="String" />
+            <Parameter Name="P_FECHA_COMPRA" Mode="In" Type="DateTime" />
+            <Parameter Name="P_FECHA_USO" Mode="In" Type="DateTime" />
+            <Parameter Name="P_MONTO" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
+          </EntityContainer>
+        <EntityType Name="SD_LISTAS">
+          <Key>
+            <PropertyRef Name="ID_LISTA" />
+          </Key>
+          <Property Name="ID_LISTA" Type="Int32" Nullable="false" />
+          <Property Name="LISTA" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="TAM_LIMITE" Type="Int16" Nullable="false" />
+          <Property Name="TIPO_VALOR" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="MAYUS_MINUS" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="ESTADO" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="SD_LISTAS_ITEMS" Relationship="Model.SG_LISTAS_ITEMS_R01" FromRole="SD_LISTAS" ToRole="SD_LISTAS_ITEMS" />
+        </EntityType>
+        <EntityType Name="SD_LISTAS_ITEMS">
+          <Key>
+            <PropertyRef Name="ID_TABLA" />
+          </Key>
+          <Property Name="ID_TABLA" Type="Int32" Nullable="false" />
+          <Property Name="ID_PADRE" Type="Int32" />
+          <Property Name="ID_LISTA" Type="Int32" Nullable="false" />
+          <Property Name="CODIGO" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="VALOR" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="ESTADO" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <NavigationProperty Name="SD_LISTAS" Relationship="Model.SG_LISTAS_ITEMS_R01" FromRole="SD_LISTAS_ITEMS" ToRole="SD_LISTAS" />
+          <NavigationProperty Name="SD_LISTAS_ITEMS1" Relationship="Model.SG_LISTAS_ITEMS_R02" FromRole="SD_LISTAS_ITEMS" ToRole="SD_LISTAS_ITEMS1" />
+          <NavigationProperty Name="SD_LISTAS_ITEMS2" Relationship="Model.SG_LISTAS_ITEMS_R02" FromRole="SD_LISTAS_ITEMS1" ToRole="SD_LISTAS_ITEMS" />
+        </EntityType>
+        <EntityType Name="SD_MENU_OPCIONES">
+          <Key>
+            <PropertyRef Name="ID_OPC" />
+          </Key>
+          <Property Name="ID_OPC" Type="Int16" Nullable="false" />
+          <Property Name="OPCION" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
+          <Property Name="LINK" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="TOOLTIP" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ICONO" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ESTILO" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ID_PADRE" Type="Int16" />
+          <Property Name="ESTADO" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="ORDEN" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <NavigationProperty Name="SD_PERFILES_OPCIONES" Relationship="Model.SG_PERFILES_OPCIONES_R02" FromRole="SD_MENU_OPCIONES" ToRole="SD_PERFILES_OPCIONES" />
+        </EntityType>
+        <EntityType Name="SD_PERFILES_OPCIONES">
+          <Key>
+            <PropertyRef Name="ID_PRF_OPC" />
+          </Key>
+          <Property Name="ID_PRF_OPC" Nullable="false" Type="Int16" />
+          <Property Name="ID_PERFIL" Nullable="false" Type="Int16" />
+          <Property Name="ID_OPC" Nullable="false" Type="Int16" />
+          <Property Name="ESTADO" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" Type="String" />
+          <NavigationProperty Name="SD_MENU_OPCIONES" Relationship="Model.SG_PERFILES_OPCIONES_R02" FromRole="SD_PERFILES_OPCIONES" ToRole="SD_MENU_OPCIONES" />
+          <NavigationProperty Name="SD_PERFILES" Relationship="Model.SG_PERFILES_OPCIONES_R01" FromRole="SD_PERFILES_OPCIONES" ToRole="SD_PERFILES" />
+        </EntityType>
+        <EntityType Name="SD_USUARIOS">
+          <Key>
+            <PropertyRef Name="ID_USUARIO" />
+          </Key>
+          <Property Name="ID_USUARIO" Type="Int16" Nullable="false" />
+          <Property Name="LOGIN" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="NOMBRE" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="FCH_ALTA" Type="DateTime" Nullable="false" />
+          <Property Name="FCH_BAJA" Type="DateTime" />
+          <Property Name="ID_PERFIL" Type="Int16" Nullable="false" />
+          <Property Name="ESTADO" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <NavigationProperty Name="SD_PERFILES" Relationship="Model.SG_USUARIOS_R01" FromRole="SD_USUARIOS" ToRole="SD_PERFILES" />
+          <Property Type="String" Name="CONTRASENA" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="SG_LISTAS_ITEMS_R01">
+          <End Role="SD_LISTAS" Type="Model.SD_LISTAS" Multiplicity="1" />
+          <End Role="SD_LISTAS_ITEMS" Type="Model.SD_LISTAS_ITEMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_LISTAS">
+              <PropertyRef Name="ID_LISTA" />
+            </Principal>
+            <Dependent Role="SD_LISTAS_ITEMS">
+              <PropertyRef Name="ID_LISTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SG_LISTAS_ITEMS_R02">
+          <End Role="SD_LISTAS_ITEMS" Type="Model.SD_LISTAS_ITEMS" Multiplicity="0..1" />
+          <End Role="SD_LISTAS_ITEMS1" Type="Model.SD_LISTAS_ITEMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_LISTAS_ITEMS">
+              <PropertyRef Name="ID_TABLA" />
+            </Principal>
+            <Dependent Role="SD_LISTAS_ITEMS1">
+              <PropertyRef Name="ID_PADRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SG_PERFILES_OPCIONES_R02">
+          <End Type="Model.SD_MENU_OPCIONES" Multiplicity="1" Role="SD_MENU_OPCIONES" />
+          <End Type="Model.SD_PERFILES_OPCIONES" Multiplicity="*" Role="SD_PERFILES_OPCIONES" />
+          <ReferentialConstraint>
+            <Principal Role="SD_MENU_OPCIONES">
+              <PropertyRef Name="ID_OPC" />
+            </Principal>
+            <Dependent Role="SD_PERFILES_OPCIONES">
+              <PropertyRef Name="ID_OPC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SD_SOCIO_DESEMPENOS">
+          <Key>
+            <PropertyRef Name="ID_DESEMPEÑO" />
+          </Key>
+          <Property Type="Int32" Name="ID_DESEMPEÑO" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO" Nullable="false" />
+          <Property Type="String" Name="CARGO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_DESDE" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_HASTA" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="Int32" Name="ID_USR" />
+        </EntityType>
+        <EntityType Name="V_TABLAS_COLUMNAS">
+          <Key>
+            <PropertyRef Name="TABLA" />
+            <PropertyRef Name="COLUMNA" />
+            <PropertyRef Name="TAMANO" />
+          </Key>
+          <Property Type="Decimal" Name="ID_TABLA" Precision="38" Scale="0" />
+          <Property Type="String" Name="TABLA" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="COLUMNA" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TIPO" MaxLength="106" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="PRECISION" Precision="38" Scale="0" />
+          <Property Type="Decimal" Name="ESCALA" Precision="38" Scale="0" />
+          <Property Type="Decimal" Name="TAMANO" Nullable="false" Precision="38" Scale="0" />
+          <Property Type="String" Name="REQUERIDO" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="COMENTARIO" MaxLength="4000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SD_ANTECEDENTES">
+          <Key>
+            <PropertyRef Name="ID_ANTECEDENTE" />
+          </Key>
+          <Property Type="Int32" Name="ID_ANTECEDENTE" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO" />
+          <Property Type="Int32" Name="ID_CHOFER" />
+          <Property Type="String" Name="MOTIVO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="Int32" Name="ID_USR" />
+          <NavigationProperty Name="SD_CHOFERES" Relationship="Model.SD_ANTECEDENTES_R02" FromRole="SD_ANTECEDENTES" ToRole="SD_CHOFERES" />
+        </EntityType>
+        <EntityType Name="SD_LINEAS">
+          <Key>
+            <PropertyRef Name="ID_LINEA" />
+          </Key>
+          <Property Type="Int32" Name="ID_LINEA" Nullable="false" />
+          <Property Type="Int32" Name="NRO_LINEA" Nullable="false" />
+          <Property Type="String" Name="DESCRIPCION" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_ALTA" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_BAJA" />
+          <Property Type="String" Name="OBSERVACION" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="Int32" Name="ID_USR" />
+          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="CANT_MOVIL_SOCIO" Nullable="false" />
+          <NavigationProperty Name="SD_MOVILES" Relationship="Model.SD_MOVILES_R01" FromRole="SD_LINEAS" ToRole="SD_MOVILES" />
+          <NavigationProperty Name="SD_PARAMETROS_LINEA" Relationship="Model.SD_PARAMETROS_LINEA_R01" FromRole="SD_LINEAS" ToRole="SD_PARAMETROS_LINEA" />
+        </EntityType>
+        <EntityType Name="SD_MOVILES">
+          <Key>
+            <PropertyRef Name="ID_MOVIL" />
+          </Key>
+          <Property Type="Int32" Name="ID_MOVIL" Nullable="false" />
+          <Property Type="Int32" Name="ID_LINEA" Nullable="false" />
+          <Property Type="Int32" Name="NRO_MOVIL" Nullable="false" />
+          <Property Type="String" Name="DESCRIPCION" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_ALTA" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_BAJA" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="Int32" Name="ID_USR" />
+          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SD_LINEAS" Relationship="Model.SD_MOVILES_R01" FromRole="SD_MOVILES" ToRole="SD_LINEAS" />
+          <NavigationProperty Name="SD_SOCIO_MOVILES" Relationship="Model.SD_SOCIO_MOVILES_R02" FromRole="SD_MOVILES" ToRole="SD_SOCIO_MOVILES" />
+          <NavigationProperty Name="SD_AUTOS" Relationship="Model.SD_AUTOS_R01" FromRole="SD_MOVILES" ToRole="SD_AUTOS" />
+          <NavigationProperty Name="SD_HOJAS_CONTROL" Relationship="Model.SD_HOJAS_CONTROL_R01" FromRole="SD_MOVILES" ToRole="SD_HOJAS_CONTROL" />
+        </EntityType>
+        <EntityType Name="SD_SOCIO_MOVILES">
+          <Key>
+            <PropertyRef Name="ID_SOCIO_MOVIL" />
+          </Key>
+          <Property Type="Int32" Name="ID_SOCIO_MOVIL" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO" Nullable="false" />
+          <Property Type="Int32" Name="ID_MOVIL" Nullable="false" />
+          <Property Type="String" Name="DESCRIPCION" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TIPO_MOVIL" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_ALTA" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_BAJA" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="Int32" Name="ID_USR" />
+          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SD_MOVILES" Relationship="Model.SD_SOCIO_MOVILES_R02" FromRole="SD_SOCIO_MOVILES" ToRole="SD_MOVILES" />
+          <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_SOCIO_MOVILES_R01" FromRole="SD_SOCIO_MOVILES" ToRole="SD_SOCIOS" />
+        </EntityType>
+        <EntityType Name="SD_SOCIOS">
+          <Key>
+            <PropertyRef Name="ID_SOCIO" />
+          </Key>
+          <Property Type="Int32" Name="ID_SOCIO" Nullable="false" />
+          <Property Type="Int32" Name="NRO_SOCIO" Nullable="false" />
+          <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="APELLIDO_PATERNO" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="APELLIDO_MATERNO" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="NRO_LICENCIA" />
+          <Property Type="String" Name="CATEGORIA_LIC" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="CI" Nullable="false" />
+          <Property Type="String" Name="EXPEDIDO" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_NAC" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_INGRESO" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_BAJA" />
+          <Property Type="String" Name="DOMICILIO" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OBSERVACION" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ESTADO_CIVIL" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="Int32" Name="ID_USR" />
+          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TELEFONO" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CELULAR" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SD_SOCIO_MOVILES" Relationship="Model.SD_SOCIO_MOVILES_R01" FromRole="SD_SOCIOS" ToRole="SD_SOCIO_MOVILES" />
+          <NavigationProperty Name="SD_CHOFERES" Relationship="Model.SD_CHOFERES_R01" FromRole="SD_SOCIOS" ToRole="SD_CHOFERES" />
+          <NavigationProperty Name="SD_FAMILIARES" Relationship="Model.SD_FAMILIARES_R01" FromRole="SD_SOCIOS" ToRole="SD_FAMILIARES" />
+        </EntityType>
+        <Association Name="SD_MOVILES_R01">
+          <End Type="Model.SD_LINEAS" Role="SD_LINEAS" Multiplicity="1" />
+          <End Type="Model.SD_MOVILES" Role="SD_MOVILES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_LINEAS">
+              <PropertyRef Name="ID_LINEA" />
+            </Principal>
+            <Dependent Role="SD_MOVILES">
+              <PropertyRef Name="ID_LINEA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_SOCIO_MOVILES_R02">
+          <End Type="Model.SD_MOVILES" Role="SD_MOVILES" Multiplicity="1" />
+          <End Type="Model.SD_SOCIO_MOVILES" Role="SD_SOCIO_MOVILES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_MOVILES">
+              <PropertyRef Name="ID_MOVIL" />
+            </Principal>
+            <Dependent Role="SD_SOCIO_MOVILES">
+              <PropertyRef Name="ID_MOVIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_SOCIO_MOVILES_R01">
+          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
+          <End Type="Model.SD_SOCIO_MOVILES" Role="SD_SOCIO_MOVILES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_SOCIO_MOVILES">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SD_DOCUMENTACIONES">
+          <Key>
+            <PropertyRef Name="ID_DOCUMENTACION" />
+          </Key>
+          <Property Type="Int32" Name="ID_DOCUMENTACION" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO" />
+          <Property Type="Int32" Name="ID_CHOFER" />
+          <Property Type="String" Name="DOCUMENTACION" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TIPO" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="Int32" Name="ID_USR" />
+          <NavigationProperty Name="SD_CHOFERES" Relationship="Model.SD_DOCUMENTACIONES_R02" FromRole="SD_DOCUMENTACIONES" ToRole="SD_CHOFERES" />
+        </EntityType>
+        <EntityType Name="SD_CHOFERES">
+          <Key>
+            <PropertyRef Name="ID_CHOFER" />
+          </Key>
+          <Property Type="Int32" Name="ID_CHOFER" Nullable="false" />
+          <Property Type="Int32" Name="NRO_CHOFER" Nullable="false" />
+          <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="APELLIDO_PATERNO" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="APELLIDO_MATERNO" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="NRO_LICENCIA" />
+          <Property Type="String" Name="CATEGORIA_LIC" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="CI" Nullable="false" />
+          <Property Type="String" Name="EXPEDIDO" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_NAC" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_INGRESO" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_BAJA" />
+          <Property Type="String" Name="DOMICILIO" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OBSERVACION" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ESTADO_CIVIL" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ID_SOCIO" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="Int32" Name="ID_USR" />
+          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TELEFONO" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CELULAR" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SD_ANTECEDENTES" Relationship="Model.SD_ANTECEDENTES_R02" FromRole="SD_CHOFERES" ToRole="SD_ANTECEDENTES" />
+          <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_CHOFERES_R01" FromRole="SD_CHOFERES" ToRole="SD_SOCIOS" />
+          <NavigationProperty Name="SD_DOCUMENTACIONES" Relationship="Model.SD_DOCUMENTACIONES_R02" FromRole="SD_CHOFERES" ToRole="SD_DOCUMENTACIONES" />
+          <NavigationProperty Name="SD_FAMILIARES" Relationship="Model.SD_FAMILIARES_R02" FromRole="SD_CHOFERES" ToRole="SD_FAMILIARES" />
+        </EntityType>
+        <Association Name="SD_ANTECEDENTES_R02">
+          <End Type="Model.SD_CHOFERES" Role="SD_CHOFERES" Multiplicity="0..1" />
+          <End Type="Model.SD_ANTECEDENTES" Role="SD_ANTECEDENTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CHOFERES">
+              <PropertyRef Name="ID_CHOFER" />
+            </Principal>
+            <Dependent Role="SD_ANTECEDENTES">
+              <PropertyRef Name="ID_CHOFER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_CHOFERES_R01">
+          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
+          <End Type="Model.SD_CHOFERES" Role="SD_CHOFERES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_CHOFERES">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_DOCUMENTACIONES_R02">
+          <End Type="Model.SD_CHOFERES" Role="SD_CHOFERES" Multiplicity="0..1" />
+          <End Type="Model.SD_DOCUMENTACIONES" Role="SD_DOCUMENTACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CHOFERES">
+              <PropertyRef Name="ID_CHOFER" />
+            </Principal>
+            <Dependent Role="SD_DOCUMENTACIONES">
+              <PropertyRef Name="ID_CHOFER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SD_FAMILIARES">
+          <Key>
+            <PropertyRef Name="ID_FAMILIAR" />
+          </Key>
+          <Property Type="Int32" Name="ID_FAMILIAR" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO" />
+          <Property Type="Int32" Name="ID_CHOFER" />
+          <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="APELLIDO_PATERNO" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="APELLIDO_MATERNO" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="CI" />
+          <Property Type="String" Name="EXPEDIDO" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_NAC" />
+          <Property Type="String" Name="PARENTESCO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="Int32" Name="ID_USR" />
+          <Property Type="String" Name="TELEFONO" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DIRECCION" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SD_CHOFERES" Relationship="Model.SD_FAMILIARES_R02" FromRole="SD_FAMILIARES" ToRole="SD_CHOFERES" />
+          <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_FAMILIARES_R01" FromRole="SD_FAMILIARES" ToRole="SD_SOCIOS" />
+        </EntityType>
+        <Association Name="SD_FAMILIARES_R02">
+          <End Type="Model.SD_CHOFERES" Role="SD_CHOFERES" Multiplicity="0..1" />
+          <End Type="Model.SD_FAMILIARES" Role="SD_FAMILIARES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CHOFERES">
+              <PropertyRef Name="ID_CHOFER" />
+            </Principal>
+            <Dependent Role="SD_FAMILIARES">
+              <PropertyRef Name="ID_CHOFER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_FAMILIARES_R01">
+          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="0..1" />
+          <End Type="Model.SD_FAMILIARES" Role="SD_FAMILIARES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_FAMILIARES">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SD_IMAGENES">
+          <Key>
+            <PropertyRef Name="ID_IMG" />
+          </Key>
+          <Property Type="Int32" Name="ID_IMG" Nullable="false" />
+          <Property Type="Int32" Name="ID_TABLA" Nullable="false" />
+          <Property Type="String" Name="TABLA" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NOMBRE_IMG" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="EXTENSION" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DESCRIPCION" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="TAMANO" />
+          <Property Type="Binary" Name="IMAGEN" MaxLength="Max" FixedLength="false" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="Int32" Name="ID_USR" />
+          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SD_AUTOS">
+          <Key>
+            <PropertyRef Name="ID_AUTO" />
+          </Key>
+          <Property Type="Int32" Name="ID_AUTO" Nullable="false" />
+          <Property Type="Int32" Name="ID_MOVIL" Nullable="false" />
+          <Property Type="String" Name="TIPO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="COLOR" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MARCA" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MODELO" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PLACA" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MOTOR" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CHASIS" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DESCRIPCION" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_ALTA" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_BAJA" />
+          <Property Type="String" Name="MOTIVO_CAMBIO" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="Int32" Name="ID_USR" />
+          <NavigationProperty Name="SD_MOVILES" Relationship="Model.SD_AUTOS_R01" FromRole="SD_AUTOS" ToRole="SD_MOVILES" />
+        </EntityType>
+        <Association Name="SD_AUTOS_R01">
+          <End Type="Model.SD_MOVILES" Role="SD_MOVILES" Multiplicity="1" />
+          <End Type="Model.SD_AUTOS" Role="SD_AUTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_MOVILES">
+              <PropertyRef Name="ID_MOVIL" />
+            </Principal>
+            <Dependent Role="SD_AUTOS">
+              <PropertyRef Name="ID_MOVIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SD_CAJAS">
+          <Key>
+            <PropertyRef Name="ID_CAJA" />
+          </Key>
+          <Property Type="Int32" Name="ID_CAJA" Nullable="false" />
+          <Property Type="String" Name="CODIGO" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NRO_CUENTA" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DESCRIPCION" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="SALDO" Nullable="false" Precision="15" Scale="5" />
+          <Property Type="Int16" Name="ID_USUARIO" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <NavigationProperty Name="SD_KARDEX_EFECTIVO" Relationship="Model.SD_KARDEX_EFECTIVO_R01" FromRole="SD_CAJAS" ToRole="SD_KARDEX_EFECTIVO" />
+          <NavigationProperty Name="SD_PARADAS" Relationship="Model.SD_PARADAS_R01" FromRole="SD_CAJAS" ToRole="SD_PARADAS" />
+        </EntityType>
+        <EntityType Name="SD_HOJAS_CONTROL">
+          <Key>
+            <PropertyRef Name="ID_HOJA" />
+          </Key>
+          <Property Type="Int32" Name="ID_HOJA" Nullable="false" />
+          <Property Type="Int32" Name="NRO_HOJA" Nullable="false" />
+          <Property Type="Int32" Name="ID_MOVIL" Nullable="false" />
+          <Property Type="Int32" Name="ID_PARADA" Nullable="false" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="1250" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_COMPRA" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_USO" />
+          <Property Type="Decimal" Name="MONTO" Precision="15" Scale="5" />
+          <Property Type="String" Name="ESTADO" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="ID_USUARIO" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <NavigationProperty Name="SD_MOVILES" Relationship="Model.SD_HOJAS_CONTROL_R01" FromRole="SD_HOJAS_CONTROL" ToRole="SD_MOVILES" />
+          <NavigationProperty Name="SD_PARADAS" Relationship="Model.SD_HOJAS_CONTROL_R02" FromRole="SD_HOJAS_CONTROL" ToRole="SD_PARADAS" />
+        </EntityType>
+        <EntityType Name="SD_KARDEX_EFECTIVO">
+          <Key>
+            <PropertyRef Name="ID_KARDEX" />
+          </Key>
+          <Property Type="Int32" Name="ID_KARDEX" Nullable="false" />
+          <Property Type="Int32" Name="ID_CAJA" Nullable="false" />
+          <Property Type="Int32" Name="ID_OPERACION" Nullable="false" />
+          <Property Type="String" Name="OPERACION" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA" Nullable="false" />
+          <Property Type="String" Name="DETALLE" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="INGRESO" Nullable="false" Precision="15" Scale="5" />
+          <Property Type="Decimal" Name="EGRESO" Nullable="false" Precision="15" Scale="5" />
+          <Property Type="Decimal" Name="SALDO" Nullable="false" Precision="15" Scale="5" />
+          <Property Type="Int16" Name="ID_USUARIO" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_KARDEX_EFECTIVO_R01" FromRole="SD_KARDEX_EFECTIVO" ToRole="SD_CAJAS" />
+        </EntityType>
+        <EntityType Name="SD_PARADAS">
+          <Key>
+            <PropertyRef Name="ID_PARADA" />
+          </Key>
+          <Property Type="Int32" Name="ID_PARADA" Nullable="false" />
+          <Property Type="Int32" Name="ID_CAJA" Nullable="false" />
+          <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DIRECCION" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="RESPONSABLE" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DESCRIPCION" Nullable="false" MaxLength="1250" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_INICIO" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_FIN" />
+          <Property Type="String" Name="ESTADO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="ID_USUARIO" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_PARADAS_R01" FromRole="SD_PARADAS" ToRole="SD_CAJAS" />
+          <NavigationProperty Name="SD_HOJAS_CONTROL" Relationship="Model.SD_HOJAS_CONTROL_R02" FromRole="SD_PARADAS" ToRole="SD_HOJAS_CONTROL" />
+          <NavigationProperty Name="SD_PERFILES" Relationship="Model.SD_PERFILES_R01" FromRole="SD_PARADAS" ToRole="SD_PERFILES" />
+        </EntityType>
+        <EntityType Name="SD_PARAMETROS_LINEA">
+          <Key>
+            <PropertyRef Name="ID_PARAMETRO" />
+          </Key>
+          <Property Type="Int32" Name="ID_PARAMETRO" Nullable="false" />
+          <Property Type="String" Name="CODIGO" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TIPO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ID_LINEA" Nullable="false" />
+          <Property Type="Decimal" Name="MONTO" Nullable="false" Precision="15" Scale="5" />
+          <Property Type="DateTime" Name="FECHA_INICIO" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_FIN" />
+          <Property Type="String" Name="ESTADO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="ID_USUARIO" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <NavigationProperty Name="SD_LINEAS" Relationship="Model.SD_PARAMETROS_LINEA_R01" FromRole="SD_PARAMETROS_LINEA" ToRole="SD_LINEAS" />
+        </EntityType>
+        <EntityType Name="SD_PERFILES">
+          <Key>
+            <PropertyRef Name="ID_PERFIL" />
+          </Key>
+          <Property Type="Int16" Name="ID_PERFIL" Nullable="false" />
+          <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DESCRIPCION" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ESTADO" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="ID_PARADA" />
+          <NavigationProperty Name="SD_PARADAS" Relationship="Model.SD_PERFILES_R01" FromRole="SD_PERFILES" ToRole="SD_PARADAS" />
+          <NavigationProperty Name="SD_PERFILES_OPCIONES" Relationship="Model.SG_PERFILES_OPCIONES_R01" FromRole="SD_PERFILES" ToRole="SD_PERFILES_OPCIONES" />
+          <NavigationProperty Name="SD_USUARIOS" Relationship="Model.SG_USUARIOS_R01" FromRole="SD_PERFILES" ToRole="SD_USUARIOS" />
+        </EntityType>
+        <Association Name="SD_KARDEX_EFECTIVO_R01">
+          <End Type="Model.SD_CAJAS" Role="SD_CAJAS" Multiplicity="1" />
+          <End Type="Model.SD_KARDEX_EFECTIVO" Role="SD_KARDEX_EFECTIVO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CAJAS">
+              <PropertyRef Name="ID_CAJA" />
+            </Principal>
+            <Dependent Role="SD_KARDEX_EFECTIVO">
+              <PropertyRef Name="ID_CAJA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_PARADAS_R01">
+          <End Type="Model.SD_CAJAS" Role="SD_CAJAS" Multiplicity="1" />
+          <End Type="Model.SD_PARADAS" Role="SD_PARADAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CAJAS">
+              <PropertyRef Name="ID_CAJA" />
+            </Principal>
+            <Dependent Role="SD_PARADAS">
+              <PropertyRef Name="ID_CAJA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_HOJAS_CONTROL_R01">
+          <End Type="Model.SD_MOVILES" Role="SD_MOVILES" Multiplicity="1" />
+          <End Type="Model.SD_HOJAS_CONTROL" Role="SD_HOJAS_CONTROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_MOVILES">
+              <PropertyRef Name="ID_MOVIL" />
+            </Principal>
+            <Dependent Role="SD_HOJAS_CONTROL">
+              <PropertyRef Name="ID_MOVIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_HOJAS_CONTROL_R02">
+          <End Type="Model.SD_PARADAS" Role="SD_PARADAS" Multiplicity="1" />
+          <End Type="Model.SD_HOJAS_CONTROL" Role="SD_HOJAS_CONTROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_PARADAS">
+              <PropertyRef Name="ID_PARADA" />
+            </Principal>
+            <Dependent Role="SD_HOJAS_CONTROL">
+              <PropertyRef Name="ID_PARADA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_PARAMETROS_LINEA_R01">
+          <End Type="Model.SD_LINEAS" Role="SD_LINEAS" Multiplicity="1" />
+          <End Type="Model.SD_PARAMETROS_LINEA" Role="SD_PARAMETROS_LINEA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_LINEAS">
+              <PropertyRef Name="ID_LINEA" />
+            </Principal>
+            <Dependent Role="SD_PARAMETROS_LINEA">
+              <PropertyRef Name="ID_LINEA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_PERFILES_R01">
+          <End Type="Model.SD_PARADAS" Role="SD_PARADAS" Multiplicity="0..1" />
+          <End Type="Model.SD_PERFILES" Role="SD_PERFILES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_PARADAS">
+              <PropertyRef Name="ID_PARADA" />
+            </Principal>
+            <Dependent Role="SD_PERFILES">
+              <PropertyRef Name="ID_PARADA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SG_PERFILES_OPCIONES_R01">
+          <End Type="Model.SD_PERFILES" Role="SD_PERFILES" Multiplicity="1" />
+          <End Type="Model.SD_PERFILES_OPCIONES" Role="SD_PERFILES_OPCIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_PERFILES">
+              <PropertyRef Name="ID_PERFIL" />
+            </Principal>
+            <Dependent Role="SD_PERFILES_OPCIONES">
+              <PropertyRef Name="ID_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SG_USUARIOS_R01">
+          <End Type="Model.SD_PERFILES" Role="SD_PERFILES" Multiplicity="1" />
+          <End Type="Model.SD_USUARIOS" Role="SD_USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_PERFILES">
+              <PropertyRef Name="ID_PERFIL" />
+            </Principal>
+            <Dependent Role="SD_USUARIOS">
+              <PropertyRef Name="ID_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="SindicatoContext">
+          <EntitySetMapping Name="SD_LISTAS"><EntityTypeMapping TypeName="Model.SD_LISTAS"><MappingFragment StoreEntitySet="SD_LISTAS">
+            <ScalarProperty Name="ID_LISTA" ColumnName="ID_LISTA" />
+            <ScalarProperty Name="LISTA" ColumnName="LISTA" />
+            <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+            <ScalarProperty Name="TAM_LIMITE" ColumnName="TAM_LIMITE" />
+            <ScalarProperty Name="TIPO_VALOR" ColumnName="TIPO_VALOR" />
+            <ScalarProperty Name="MAYUS_MINUS" ColumnName="MAYUS_MINUS" />
+            <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="SD_LISTAS_ITEMS"><EntityTypeMapping TypeName="Model.SD_LISTAS_ITEMS"><MappingFragment StoreEntitySet="SD_LISTAS_ITEMS">
+            <ScalarProperty Name="ID_TABLA" ColumnName="ID_TABLA" />
+            <ScalarProperty Name="ID_PADRE" ColumnName="ID_PADRE" />
+            <ScalarProperty Name="ID_LISTA" ColumnName="ID_LISTA" />
+            <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+            <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+            <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="SD_MENU_OPCIONES"><EntityTypeMapping TypeName="Model.SD_MENU_OPCIONES"><MappingFragment StoreEntitySet="SD_MENU_OPCIONES">
+            <ScalarProperty Name="ID_OPC" ColumnName="ID_OPC" />
+            <ScalarProperty Name="OPCION" ColumnName="OPCION" />
+            <ScalarProperty Name="LINK" ColumnName="LINK" />
+            <ScalarProperty Name="TOOLTIP" ColumnName="TOOLTIP" />
+            <ScalarProperty Name="ICONO" ColumnName="ICONO" />
+            <ScalarProperty Name="ESTILO" ColumnName="ESTILO" />
+            <ScalarProperty Name="ID_PADRE" ColumnName="ID_PADRE" />
+            <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+            <ScalarProperty Name="ORDEN" ColumnName="ORDEN" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="SD_PERFILES_OPCIONES"><EntityTypeMapping TypeName="Model.SD_PERFILES_OPCIONES"><MappingFragment StoreEntitySet="SD_PERFILES_OPCIONES">
+            <ScalarProperty Name="ID_PRF_OPC" ColumnName="ID_PRF_OPC" />
+            <ScalarProperty Name="ID_PERFIL" ColumnName="ID_PERFIL" />
+            <ScalarProperty Name="ID_OPC" ColumnName="ID_OPC" />
+            <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="SD_USUARIOS"><EntityTypeMapping TypeName="Model.SD_USUARIOS"><MappingFragment StoreEntitySet="SD_USUARIOS">
+            <ScalarProperty Name="CONTRASENA" ColumnName="CONTRASENA" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+            <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+            <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+            <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+            <ScalarProperty Name="FCH_ALTA" ColumnName="FCH_ALTA" />
+            <ScalarProperty Name="FCH_BAJA" ColumnName="FCH_BAJA" />
+            <ScalarProperty Name="ID_PERFIL" ColumnName="ID_PERFIL" />
+            <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="P_SD_ALTA_LISTA" FunctionName="Model.Store.P_SD_ALTA_LISTA" />
+          <FunctionImportMapping FunctionImportName="P_SD_GRABAR_LISTAS_ITEMS" FunctionName="Model.Store.P_SD_GRABAR_LISTAS_ITEMS" />
+          <EntitySetMapping Name="SD_SOCIO_DESEMPENOS">
+            <EntityTypeMapping TypeName="Model.SD_SOCIO_DESEMPENOS">
+              <MappingFragment StoreEntitySet="SD_SOCIO_DESEMPENOS">
+                <ScalarProperty Name="ID_USR" ColumnName="ID_USR" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="FECHA_HASTA" ColumnName="FECHA_HASTA" />
+                <ScalarProperty Name="FECHA_DESDE" ColumnName="FECHA_DESDE" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="CARGO" ColumnName="CARGO" />
+                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
+                <ScalarProperty Name="ID_DESEMPEÑO" ColumnName="ID_DESEMPEÑO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_TABLAS_COLUMNAS">
+            <EntityTypeMapping TypeName="Model.V_TABLAS_COLUMNAS">
+              <MappingFragment StoreEntitySet="V_TABLAS_COLUMNAS">
+                <ScalarProperty Name="COMENTARIO" ColumnName="COMENTARIO" />
+                <ScalarProperty Name="REQUERIDO" ColumnName="REQUERIDO" />
+                <ScalarProperty Name="TAMANO" ColumnName="TAMANO" />
+                <ScalarProperty Name="ESCALA" ColumnName="ESCALA" />
+                <ScalarProperty Name="PRECISION" ColumnName="PRECISION" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="COLUMNA" ColumnName="COLUMNA" />
+                <ScalarProperty Name="TABLA" ColumnName="TABLA" />
+                <ScalarProperty Name="ID_TABLA" ColumnName="ID_TABLA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_ANTECEDENTES">
+            <EntityTypeMapping TypeName="Model.SD_ANTECEDENTES">
+              <MappingFragment StoreEntitySet="SD_ANTECEDENTES">
+                <ScalarProperty Name="ID_USR" ColumnName="ID_USR" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="MOTIVO" ColumnName="MOTIVO" />
+                <ScalarProperty Name="ID_CHOFER" ColumnName="ID_CHOFER" />
+                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
+                <ScalarProperty Name="ID_ANTECEDENTE" ColumnName="ID_ANTECEDENTE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="P_SD_ALTA_SD_ANTECEDENTES" FunctionName="Model.Store.P_SD_ALTA_SD_ANTECEDENTES" />
+          <FunctionImportMapping FunctionImportName="P_SD_ALTA_SD_DOCUMENTACIONES" FunctionName="Model.Store.P_SD_ALTA_SD_DOCUMENTACIONES" />
+          <EntitySetMapping Name="SD_LINEAS">
+            <EntityTypeMapping TypeName="Model.SD_LINEAS">
+              <MappingFragment StoreEntitySet="SD_LINEAS">
+                <ScalarProperty Name="CANT_MOVIL_SOCIO" ColumnName="CANT_MOVIL_SOCIO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="ID_USR" ColumnName="ID_USR" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="FECHA_BAJA" ColumnName="FECHA_BAJA" />
+                <ScalarProperty Name="FECHA_ALTA" ColumnName="FECHA_ALTA" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="NRO_LINEA" ColumnName="NRO_LINEA" />
+                <ScalarProperty Name="ID_LINEA" ColumnName="ID_LINEA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_MOVILES">
+            <EntityTypeMapping TypeName="Model.SD_MOVILES">
+              <MappingFragment StoreEntitySet="SD_MOVILES">
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="ID_USR" ColumnName="ID_USR" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="FECHA_BAJA" ColumnName="FECHA_BAJA" />
+                <ScalarProperty Name="FECHA_ALTA" ColumnName="FECHA_ALTA" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="NRO_MOVIL" ColumnName="NRO_MOVIL" />
+                <ScalarProperty Name="ID_LINEA" ColumnName="ID_LINEA" />
+                <ScalarProperty Name="ID_MOVIL" ColumnName="ID_MOVIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_SOCIO_MOVILES">
+            <EntityTypeMapping TypeName="Model.SD_SOCIO_MOVILES">
+              <MappingFragment StoreEntitySet="SD_SOCIO_MOVILES">
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="ID_USR" ColumnName="ID_USR" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="FECHA_BAJA" ColumnName="FECHA_BAJA" />
+                <ScalarProperty Name="FECHA_ALTA" ColumnName="FECHA_ALTA" />
+                <ScalarProperty Name="TIPO_MOVIL" ColumnName="TIPO_MOVIL" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="ID_MOVIL" ColumnName="ID_MOVIL" />
+                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
+                <ScalarProperty Name="ID_SOCIO_MOVIL" ColumnName="ID_SOCIO_MOVIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_SOCIOS">
+            <EntityTypeMapping TypeName="Model.SD_SOCIOS">
+              <MappingFragment StoreEntitySet="SD_SOCIOS">
+                <ScalarProperty Name="CELULAR" ColumnName="CELULAR" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="ID_USR" ColumnName="ID_USR" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="ESTADO_CIVIL" ColumnName="ESTADO_CIVIL" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="DOMICILIO" ColumnName="DOMICILIO" />
+                <ScalarProperty Name="FECHA_BAJA" ColumnName="FECHA_BAJA" />
+                <ScalarProperty Name="FECHA_INGRESO" ColumnName="FECHA_INGRESO" />
+                <ScalarProperty Name="FECHA_NAC" ColumnName="FECHA_NAC" />
+                <ScalarProperty Name="EXPEDIDO" ColumnName="EXPEDIDO" />
+                <ScalarProperty Name="CI" ColumnName="CI" />
+                <ScalarProperty Name="CATEGORIA_LIC" ColumnName="CATEGORIA_LIC" />
+                <ScalarProperty Name="NRO_LICENCIA" ColumnName="NRO_LICENCIA" />
+                <ScalarProperty Name="APELLIDO_MATERNO" ColumnName="APELLIDO_MATERNO" />
+                <ScalarProperty Name="APELLIDO_PATERNO" ColumnName="APELLIDO_PATERNO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="NRO_SOCIO" ColumnName="NRO_SOCIO" />
+                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_DOCUMENTACIONES">
+            <EntityTypeMapping TypeName="Model.SD_DOCUMENTACIONES">
+              <MappingFragment StoreEntitySet="SD_DOCUMENTACIONES">
+                <ScalarProperty Name="ID_USR" ColumnName="ID_USR" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="DOCUMENTACION" ColumnName="DOCUMENTACION" />
+                <ScalarProperty Name="ID_CHOFER" ColumnName="ID_CHOFER" />
+                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
+                <ScalarProperty Name="ID_DOCUMENTACION" ColumnName="ID_DOCUMENTACION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_CHOFERES">
+            <EntityTypeMapping TypeName="Model.SD_CHOFERES">
+              <MappingFragment StoreEntitySet="SD_CHOFERES">
+                <ScalarProperty Name="CELULAR" ColumnName="CELULAR" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="ID_USR" ColumnName="ID_USR" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
+                <ScalarProperty Name="ESTADO_CIVIL" ColumnName="ESTADO_CIVIL" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="DOMICILIO" ColumnName="DOMICILIO" />
+                <ScalarProperty Name="FECHA_BAJA" ColumnName="FECHA_BAJA" />
+                <ScalarProperty Name="FECHA_INGRESO" ColumnName="FECHA_INGRESO" />
+                <ScalarProperty Name="FECHA_NAC" ColumnName="FECHA_NAC" />
+                <ScalarProperty Name="EXPEDIDO" ColumnName="EXPEDIDO" />
+                <ScalarProperty Name="CI" ColumnName="CI" />
+                <ScalarProperty Name="CATEGORIA_LIC" ColumnName="CATEGORIA_LIC" />
+                <ScalarProperty Name="NRO_LICENCIA" ColumnName="NRO_LICENCIA" />
+                <ScalarProperty Name="APELLIDO_MATERNO" ColumnName="APELLIDO_MATERNO" />
+                <ScalarProperty Name="APELLIDO_PATERNO" ColumnName="APELLIDO_PATERNO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="NRO_CHOFER" ColumnName="NRO_CHOFER" />
+                <ScalarProperty Name="ID_CHOFER" ColumnName="ID_CHOFER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_FAMILIARES">
+            <EntityTypeMapping TypeName="Model.SD_FAMILIARES">
+              <MappingFragment StoreEntitySet="SD_FAMILIARES">
+                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="ID_USR" ColumnName="ID_USR" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="PARENTESCO" ColumnName="PARENTESCO" />
+                <ScalarProperty Name="FECHA_NAC" ColumnName="FECHA_NAC" />
+                <ScalarProperty Name="EXPEDIDO" ColumnName="EXPEDIDO" />
+                <ScalarProperty Name="CI" ColumnName="CI" />
+                <ScalarProperty Name="APELLIDO_MATERNO" ColumnName="APELLIDO_MATERNO" />
+                <ScalarProperty Name="APELLIDO_PATERNO" ColumnName="APELLIDO_PATERNO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ID_CHOFER" ColumnName="ID_CHOFER" />
+                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
+                <ScalarProperty Name="ID_FAMILIAR" ColumnName="ID_FAMILIAR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="P_SD_ALTA_SD_CHOFERES" FunctionName="Model.Store.P_SD_ALTA_SD_CHOFERES" />
+          <FunctionImportMapping FunctionImportName="P_SD_ALTA_SD_FAMILIARES" FunctionName="Model.Store.P_SD_ALTA_SD_FAMILIARES" />
+          <EntitySetMapping Name="SD_IMAGENES">
+            <EntityTypeMapping TypeName="Model.SD_IMAGENES">
+              <MappingFragment StoreEntitySet="SD_IMAGENES">
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="ID_USR" ColumnName="ID_USR" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="IMAGEN" ColumnName="IMAGEN" />
+                <ScalarProperty Name="TAMANO" ColumnName="TAMANO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="EXTENSION" ColumnName="EXTENSION" />
+                <ScalarProperty Name="NOMBRE_IMG" ColumnName="NOMBRE_IMG" />
+                <ScalarProperty Name="TABLA" ColumnName="TABLA" />
+                <ScalarProperty Name="ID_TABLA" ColumnName="ID_TABLA" />
+                <ScalarProperty Name="ID_IMG" ColumnName="ID_IMG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="P_SD_ALTA_SD_SOCIOS" FunctionName="Model.Store.P_SD_ALTA_SD_SOCIOS" />
+          <FunctionImportMapping FunctionImportName="P_SD_GRABAR_SOCIO_MOVILES" FunctionName="Model.Store.P_SD_GRABAR_SOCIO_MOVILES" />
+          <EntitySetMapping Name="SD_AUTOS">
+            <EntityTypeMapping TypeName="Model.SD_AUTOS">
+              <MappingFragment StoreEntitySet="SD_AUTOS">
+                <ScalarProperty Name="ID_USR" ColumnName="ID_USR" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="MOTIVO_CAMBIO" ColumnName="MOTIVO_CAMBIO" />
+                <ScalarProperty Name="FECHA_BAJA" ColumnName="FECHA_BAJA" />
+                <ScalarProperty Name="FECHA_ALTA" ColumnName="FECHA_ALTA" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="CHASIS" ColumnName="CHASIS" />
+                <ScalarProperty Name="MOTOR" ColumnName="MOTOR" />
+                <ScalarProperty Name="PLACA" ColumnName="PLACA" />
+                <ScalarProperty Name="MODELO" ColumnName="MODELO" />
+                <ScalarProperty Name="MARCA" ColumnName="MARCA" />
+                <ScalarProperty Name="COLOR" ColumnName="COLOR" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="ID_MOVIL" ColumnName="ID_MOVIL" />
+                <ScalarProperty Name="ID_AUTO" ColumnName="ID_AUTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="P_SD_ALTA_AUTOS" FunctionName="Model.Store.P_SD_ALTA_AUTOS" />
+          <EntitySetMapping Name="SD_CAJAS">
+            <EntityTypeMapping TypeName="Model.SD_CAJAS">
+              <MappingFragment StoreEntitySet="SD_CAJAS">
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="SALDO" ColumnName="SALDO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="NRO_CUENTA" ColumnName="NRO_CUENTA" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_CAJA" ColumnName="ID_CAJA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_HOJAS_CONTROL">
+            <EntityTypeMapping TypeName="Model.SD_HOJAS_CONTROL">
+              <MappingFragment StoreEntitySet="SD_HOJAS_CONTROL">
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="MONTO" ColumnName="MONTO" />
+                <ScalarProperty Name="FECHA_USO" ColumnName="FECHA_USO" />
+                <ScalarProperty Name="FECHA_COMPRA" ColumnName="FECHA_COMPRA" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="ID_PARADA" ColumnName="ID_PARADA" />
+                <ScalarProperty Name="ID_MOVIL" ColumnName="ID_MOVIL" />
+                <ScalarProperty Name="NRO_HOJA" ColumnName="NRO_HOJA" />
+                <ScalarProperty Name="ID_HOJA" ColumnName="ID_HOJA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_KARDEX_EFECTIVO">
+            <EntityTypeMapping TypeName="Model.SD_KARDEX_EFECTIVO">
+              <MappingFragment StoreEntitySet="SD_KARDEX_EFECTIVO">
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="SALDO" ColumnName="SALDO" />
+                <ScalarProperty Name="EGRESO" ColumnName="EGRESO" />
+                <ScalarProperty Name="INGRESO" ColumnName="INGRESO" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="OPERACION" ColumnName="OPERACION" />
+                <ScalarProperty Name="ID_OPERACION" ColumnName="ID_OPERACION" />
+                <ScalarProperty Name="ID_CAJA" ColumnName="ID_CAJA" />
+                <ScalarProperty Name="ID_KARDEX" ColumnName="ID_KARDEX" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_PARADAS">
+            <EntityTypeMapping TypeName="Model.SD_PARADAS">
+              <MappingFragment StoreEntitySet="SD_PARADAS">
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="FECHA_FIN" ColumnName="FECHA_FIN" />
+                <ScalarProperty Name="FECHA_INICIO" ColumnName="FECHA_INICIO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="RESPONSABLE" ColumnName="RESPONSABLE" />
+                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ID_CAJA" ColumnName="ID_CAJA" />
+                <ScalarProperty Name="ID_PARADA" ColumnName="ID_PARADA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_PARAMETROS_LINEA">
+            <EntityTypeMapping TypeName="Model.SD_PARAMETROS_LINEA">
+              <MappingFragment StoreEntitySet="SD_PARAMETROS_LINEA">
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="FECHA_FIN" ColumnName="FECHA_FIN" />
+                <ScalarProperty Name="FECHA_INICIO" ColumnName="FECHA_INICIO" />
+                <ScalarProperty Name="MONTO" ColumnName="MONTO" />
+                <ScalarProperty Name="ID_LINEA" ColumnName="ID_LINEA" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_PARAMETRO" ColumnName="ID_PARAMETRO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_PERFILES">
+            <EntityTypeMapping TypeName="Model.SD_PERFILES">
+              <MappingFragment StoreEntitySet="SD_PERFILES">
+                <ScalarProperty Name="ID_PARADA" ColumnName="ID_PARADA" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ID_PERFIL" ColumnName="ID_PERFIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="P_SD_GUARDAR_CAJAS" FunctionName="Model.Store.P_SD_GUARDAR_CAJAS" />
+          <FunctionImportMapping FunctionImportName="P_SD_ELIMINAR_CAJA" FunctionName="Model.Store.P_SD_ELIMINAR_CAJA" />
+          <FunctionImportMapping FunctionImportName="P_SD_ALTA_SD_HOJAS_CONTROL" FunctionName="Model.Store.P_SD_ALTA_SD_HOJAS_CONTROL" />
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Modelo" ZoomLevel="57">
+        <EntityTypeShape EntityType="Model.SD_LISTAS" Width="1.5" PointX="0.75" PointY="1" Height="2.5571907552083326" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SD_LISTAS_ITEMS" Width="1.5" PointX="3" PointY="1" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SD_MENU_OPCIONES" Width="1.5" PointX="0.5" PointY="11.125" Height="2.9417936197916639" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SD_PERFILES_OPCIONES" PointX="3.375" PointY="7.875" Width="1.5" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SD_USUARIOS" Width="1.5" PointX="0.75" PointY="4.5" Height="2.7494921874999996" IsExpanded="true" />
+        <AssociationConnector Association="Model.SG_LISTAS_ITEMS_R01" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.2785953776041663" />
+          <ConnectorPoint PointX="3" PointY="2.2785953776041663" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.SG_LISTAS_ITEMS_R02" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.5319230769230767" PointY="3.7494921874999996" />
+          <ConnectorPoint PointX="3.5319230769230767" PointY="3.9994921874999996" />
+          <ConnectorPoint PointX="3.9784615384615383" PointY="3.9994921874999996" />
+          <ConnectorPoint PointX="3.9784615384615383" PointY="3.7494921874999996" />
+        </AssociationConnector>
+        <AssociationConnector ManuallyRouted="false" Association="Model.SG_PERFILES_OPCIONES_R02">
+          <ConnectorPoint PointX="2" PointY="12.595896809895834" />
+          <ConnectorPoint PointX="4.125" PointY="12.595896809895834" />
+          <ConnectorPoint PointX="4.125" PointY="10.047587890625" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.SD_SOCIO_DESEMPENOS" Width="1.5" PointX="17.875" PointY="0.5" Height="2.7494921874999996" />
+        <EntityTypeShape EntityType="Model.V_TABLAS_COLUMNAS" Width="1.5" PointX="0.5" PointY="15" Height="2.7494921875000031" />
+        <EntityTypeShape EntityType="Model.SD_ANTECEDENTES" Width="1.5" PointX="11.25" PointY="4.125" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="Model.SD_LINEAS" Width="1.5" PointX="11.375" PointY="8.25" Height="3.1340950520833388" />
+        <EntityTypeShape EntityType="Model.SD_MOVILES" Width="1.5" PointX="13.625" PointY="8.125" Height="3.326396484374996" />
+        <EntityTypeShape EntityType="Model.SD_SOCIO_MOVILES" Width="1.5" PointX="15.875" PointY="8" Height="3.5186979166666674" />
+        <EntityTypeShape EntityType="Model.SD_SOCIOS" Width="1.5" PointX="13.625" PointY="2.25" Height="5.0571093750000031" />
+        <AssociationConnector Association="Model.SD_MOVILES_R01" >
+          <ConnectorPoint PointX="12.875" PointY="9.9131982421875" />
+          <ConnectorPoint PointX="13.625" PointY="9.9131982421875" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.SD_SOCIO_MOVILES_R02" >
+          <ConnectorPoint PointX="15.125" PointY="9.8218489583333337" />
+          <ConnectorPoint PointX="15.291666666666666" PointY="9.8218489583333319" />
+          <ConnectorPoint PointX="15.583333333333334" PointY="9.8218489583333337" />
+          <ConnectorPoint PointX="15.875" PointY="9.8218489583333337" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.SD_SOCIO_MOVILES_R01" >
+          <ConnectorPoint PointX="15.125" PointY="4.27037176983936" />
+          <ConnectorPoint PointX="16.625" PointY="4.27037176983936" />
+          <ConnectorPoint PointX="16.625" PointY="8" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.SD_DOCUMENTACIONES" Width="1.5" PointX="7.875" PointY="14.75" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="Model.SD_CHOFERES" Width="1.5" PointX="15.875" PointY="13" Height="5.8263151041666674" />
+        <AssociationConnector Association="Model.SD_ANTECEDENTES_R02" >
+          <ConnectorPoint PointX="16.625" PointY="13" />
+          <ConnectorPoint PointX="16.625" PointY="11.768697916666667" />
+          <ConnectorPoint PointX="15.583333333333334" PointY="11.768697916666667" />
+          <ConnectorPoint PointX="15.416666666666666" PointY="11.768697916666667" />
+          <ConnectorPoint PointX="15.375" PointY="11.768697916666667" />
+          <ConnectorPoint PointX="15.375" PointY="7.9417122395833317" />
+          <ConnectorPoint PointX="13.125" PointY="7.9417122395833317" />
+          <ConnectorPoint PointX="13.125" PointY="5.49974609375" />
+          <ConnectorPoint PointX="12.75" PointY="5.49974609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.SD_CHOFERES_R01" >
+          <ConnectorPoint PointX="15.125" PointY="7.6905573934294855" />
+          <ConnectorPoint PointX="15.5" PointY="8.0655573934294864" />
+          <ConnectorPoint PointX="15.5" PointY="15.046868961526965" />
+          <ConnectorPoint PointX="15.875" PointY="15.046868961526965" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.SD_DOCUMENTACIONES_R02" >
+          <ConnectorPoint PointX="15.875" PointY="16.431831290659318" />
+          <ConnectorPoint PointX="14.458333333333334" PointY="16.431831290659318" />
+          <ConnectorPoint PointX="14.291666666666666" PointY="16.431831290659318" />
+          <ConnectorPoint PointX="11.333333333333334" PointY="16.431831290659318" />
+          <ConnectorPoint PointX="11.166666666666666" PointY="16.431831290659318" />
+          <ConnectorPoint PointX="9.375" PointY="16.431831290659318" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.SD_FAMILIARES" Width="1.5" PointX="18.125" PointY="8.375" Height="4.2879036458333388" />
+        <AssociationConnector Association="Model.SD_FAMILIARES_R02" >
+          <ConnectorPoint PointX="17.375" PointY="15.913157552083334" />
+          <ConnectorPoint PointX="18.875" PointY="15.913157552083334" />
+          <ConnectorPoint PointX="18.875" PointY="12.662903645833339" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.SD_FAMILIARES_R01" >
+          <ConnectorPoint PointX="15.125" PointY="5.9804645816344228" />
+          <ConnectorPoint PointX="15.416666666666666" PointY="5.980464581634422" />
+          <ConnectorPoint PointX="15.583333333333334" PointY="5.9804645816344228" />
+          <ConnectorPoint PointX="16.541666666666668" PointY="5.980464581634422" />
+          <ConnectorPoint PointX="16.708333333333332" PointY="5.9804645816344228" />
+          <ConnectorPoint PointX="19.53125" PointY="5.9804645816344228" />
+          <ConnectorPoint PointX="19.53125" PointY="8.375" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.SD_IMAGENES" Width="1.5" PointX="5.375" PointY="0.75" Height="3.1340950520833388" />
+        <EntityTypeShape EntityType="Model.SD_AUTOS" Width="1.5" PointX="15.875" PointY="19.875" Height="4.0956022135416674" />
+        <AssociationConnector Association="Model.SD_AUTOS_R01" >
+          <ConnectorPoint PointX="14.375" PointY="11.835999348958332" />
+          <ConnectorPoint PointX="14.375" PointY="21.922801106770834" />
+          <ConnectorPoint PointX="15.875" PointY="21.922801106770834" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.SD_CAJAS" Width="1.5" PointX="2.75" PointY="16.875" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="Model.SD_HOJAS_CONTROL" Width="1.5" PointX="21.875" PointY="6.25" Height="3.5186979166666674" />
+        <EntityTypeShape EntityType="Model.SD_KARDEX_EFECTIVO" Width="1.5" PointX="10.5" PointY="11.625" Height="3.326396484374996" />
+        <EntityTypeShape EntityType="Model.SD_PARADAS" Width="1.5" PointX="5" PointY="11.375" Height="3.7109993489583246" />
+        <EntityTypeShape EntityType="Model.SD_PARAMETROS_LINEA" Width="1.5" PointX="20.375" PointY="13.25" Height="3.3263964843749942" />
+        <EntityTypeShape EntityType="Model.SD_PERFILES" Width="1.5" PointX="0.75" PointY="7.75" Height="2.5571907552083246" />
+        <AssociationConnector Association="Model.SD_KARDEX_EFECTIVO_R01" >
+          <ConnectorPoint PointX="4.25" PointY="18.785543619791667" />
+          <ConnectorPoint PointX="11.25" PointY="18.785543619791667" />
+          <ConnectorPoint PointX="11.25" PointY="14.951396484374996" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.SD_PARADAS_R01" >
+          <ConnectorPoint PointX="3.4375" PointY="16.875" />
+          <ConnectorPoint PointX="3.4375" PointY="13.840948079427079" />
+          <ConnectorPoint PointX="5" PointY="13.840948079427079" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.SD_HOJAS_CONTROL_R01" >
+          <ConnectorPoint PointX="15.125" PointY="8.125" />
+          <ConnectorPoint PointX="15.283295738186375" PointY="7.9667042618136232" />
+          <ConnectorPoint PointX="15.401146868384133" PointY="7.8488531316158658" />
+          <ConnectorPoint PointX="15.5" PointY="7.75" />
+          <ConnectorPoint PointX="15.5" PointY="5.875" />
+          <ConnectorPoint PointX="16.541666666666668" PointY="5.8749999999999991" />
+          <ConnectorPoint PointX="16.708333333333332" PointY="5.875" />
+          <ConnectorPoint PointX="21.5" PointY="5.875" />
+          <ConnectorPoint PointX="21.875" PointY="6.25" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.SD_HOJAS_CONTROL_R02" >
+          <ConnectorPoint PointX="5.95312625" PointY="11.375" />
+          <ConnectorPoint PointX="5.95312625" PointY="7.8458561197916659" />
+          <ConnectorPoint PointX="13.041666666666666" PointY="7.845856119791665" />
+          <ConnectorPoint PointX="13.208333333333334" PointY="7.8458561197916659" />
+          <ConnectorPoint PointX="15.196965393028847" PointY="7.845856119791665" />
+          <ConnectorPoint PointX="15.487477213541666" PointY="7.8458561197916659" />
+          <ConnectorPoint PointX="16.541666666666668" PointY="7.845856119791665" />
+          <ConnectorPoint PointX="16.708333333333332" PointY="7.8458561197916659" />
+          <ConnectorPoint PointX="19.447916666666668" PointY="7.845856119791665" />
+          <ConnectorPoint PointX="19.614583333333332" PointY="7.8458561197916659" />
+          <ConnectorPoint PointX="21.875" PointY="7.8458561197916659" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.SD_PARAMETROS_LINEA_R01" >
+          <ConnectorPoint PointX="12.875" PointY="10.776049363281251" />
+          <ConnectorPoint PointX="13.375" PointY="10.776049363281251" />
+          <ConnectorPoint PointX="13.375" PointY="12.085999348958332" />
+          <ConnectorPoint PointX="14.291666666666666" PointY="12.085999348958332" />
+          <ConnectorPoint PointX="14.458333333333334" PointY="12.085999348958332" />
+          <ConnectorPoint PointX="15.416666666666666" PointY="12.085999348958332" />
+          <ConnectorPoint PointX="15.583333333333334" PointY="12.085999348958332" />
+          <ConnectorPoint PointX="16.541666666666668" PointY="12.085999348958332" />
+          <ConnectorPoint PointX="16.708333333333332" PointY="12.085999348958332" />
+          <ConnectorPoint PointX="17.875" PointY="12.085999348958332" />
+          <ConnectorPoint PointX="17.875" PointY="12.912903645833339" />
+          <ConnectorPoint PointX="18.791666666666668" PointY="12.912903645833339" />
+          <ConnectorPoint PointX="18.958333333333332" PointY="12.912903645833339" />
+          <ConnectorPoint PointX="21.125" PointY="12.912903645833339" />
+          <ConnectorPoint PointX="21.125" PointY="13.25" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.SD_PERFILES_R01" >
+          <ConnectorPoint PointX="5.3437475" PointY="11.375" />
+          <ConnectorPoint PointX="5.3437475" PointY="10.208639322916662" />
+          <ConnectorPoint PointX="4.208333333333333" PointY="10.208639322916662" />
+          <ConnectorPoint PointX="4.041666666666667" PointY="10.208639322916662" />
+          <ConnectorPoint PointX="2.25" PointY="10.208639322916662" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.SG_PERFILES_OPCIONES_R01" >
+          <ConnectorPoint PointX="2.25" PointY="8.9612939453125" />
+          <ConnectorPoint PointX="3.375" PointY="8.9612939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.SG_USUARIOS_R01" >
+          <ConnectorPoint PointX="1.5" PointY="7.75" />
+          <ConnectorPoint PointX="1.5" PointY="7.2494921875" />
+        </AssociationConnector>
+        </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
