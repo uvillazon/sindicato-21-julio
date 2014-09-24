@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutExtjs.cshtml";
+}
+<script type="text/javascript">
+    Ext.Loader.setConfig({ enabled: true });
+    Ext.Loader.setPath('App', 'App');
+    Ext.require([
+    'App.*'
+    ]);
+
+    Ext.application({
+        name: 'App',
+        appFolder: 'App',
+        controllers: ['App.Controller.Main'],
+
+        launch: function () {
+            Ext.tip.QuickTipManager.init();
+            var panel = Ext.create('App.View.Principal.Principal', {
+                //            renderTo: 'contenido'
+            });
+        }
+    });
+
+    //Ext.onReady(function () {
+    //    Ext.tip.QuickTipManager.init();
+    //    var panel = Ext.create('App.View.Principal.Principal', {
+    //        //            renderTo: 'contenido'
+    //    });
+
+    //});
+
+    //var panel = Ext.create('App.View.Principal.Principal', {
+    //    //            renderTo: 'contenido'
+    //});
+    //setTimeout(function () {
+    //    Ext.get('loading').remove();
+    //    Ext.get('loading-mask').fadeOut({ remove: true });
+    //}, 1000);
+    //});
+   </script>

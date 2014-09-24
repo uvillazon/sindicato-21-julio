@@ -1,0 +1,76 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Sindicato.Services.Interfaces;
+using Sindicato.WebSite.Models;
+using System.Web.Script.Serialization;
+using Sindicato.Common;
+using Sindicato.Services.Model;
+using Sindicato.Model;
+using System.Diagnostics;
+using System.IO;
+using Sindicato.WebSite.Controllers.Utils;
+
+namespace Sindicato.WebSite.Controllers
+{
+    public class ChoferesController : Controller
+    {
+        //
+        // GET: /MenuOpciones/
+        private IChoforesServices _serCho;
+
+        public ChoferesController(IChoforesServices serCho)
+        {
+            _serCho = serCho;
+        }
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerChoferesPaginados(PagingInfo paginacion, FiltrosModel<ChoferesModel> filtros, ChoferesModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var choferes = _serCho.ObtenerChoferesPaginados(paginacion, filtros);
+            var formatData = choferes.Select(x => new
+            {
+                ID_SOCIO = x.ID_SOCIO,
+                ID_CHOFER = x.ID_CHOFER,
+                NRO_CHOFER = x.NRO_CHOFER,
+                NOMBRE = x.NOMBRE,
+                APELLIDO_MATERNO = x.APELLIDO_MATERNO,
+                APELLIDO_PATERNO = x.APELLIDO_PATERNO,
+                NRO_LICENCIA = x.NRO_LICENCIA,
+                CATEGORIA_LIC = x.CATEGORIA_LIC,
+                CI = x.CI,
+                EXPEDIDO = x.EXPEDIDO,
+                FECHA_NAC = x.FECHA_NAC,
+                DOMICILIO = x.DOMICILIO,
+                OBSERVACION = x.OBSERVACION,
+                ESTADO_CIVIL = x.ESTADO_CIVIL,
+                FECHA_INGRESO = x.FECHA_INGRESO,
+                FECHA_BAJA = x.FECHA_BAJA,
+                TELEFONO = x.TELEFONO,
+                CELULAR = x.CELULAR,
+                NOMBRE_SOCIO = string.Format("Nro: {0} - {1} {2} {3}", x.SD_SOCIOS.NRO_SOCIO, x.SD_SOCIOS.NOMBRE, x.SD_SOCIOS.APELLIDO_PATERNO, x.SD_SOCIOS.APELLIDO_MATERNO)
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
+
+
+        #region guardarsocio editar eliminar
+        [HttpPost]
+        public JsonResult GuardarChofer(SD_CHOFERES chofer)
+        {
+
+            int id_usr = Convert.ToInt32(User.Identity.Name.Split('-')[3]);
+            UploadFiles uploadFile = new UploadFiles(Request.Files);
+            uploadFile.upload(Path.Combine("Choferes", chofer.CI.ToString()), "FOTO_" + chofer.ID_CHOFER);
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serCho.GuardarChofer(chofer, id_usr);
+            return Json(respuestaSP);
+        }
+        #endregion
+
+    }
+}
