@@ -1,0 +1,3227 @@
+﻿DROP PROCEDURE SINDICATO.P_AUX_CONSTRUCTOR_SP_GRABAR;
+
+CREATE OR REPLACE PROCEDURE SINDICATO.P_AUX_CONSTRUCTOR_SP_GRABAR(p_tabla varchar2, p_parte number) 
+ /*
+ Finalidad: Construccion de un SP base, para a partir de ella se termine la definicion de un SP de ALTA  o MODIFICACION (GRABAR)
+ Recibe:  p_tabla  -> Tabla para la que se construira el SP de
+ Fecha Creacion: 26/07/2013
+ Autor: Henry Terceros 
+ */
+IS
+ v_cnt NUMBER:=0;
+ v_i NUMBER:=0;
+ v_CampoID VARCHAR2(30); -- Nombre del campo ID de una tabla
+ v_cad VARCHAR2(255);
+ v_cNul VARCHAR2(3000):='';
+ v_cIns VARCHAR2(3000):='';
+ v_cVal VARCHAR2(3000):='';
+ v_sep VARCHAR2(2):='';
+ v_fin VARCHAR2(2):='';
+BEGIN
+IF p_parte = 0 OR p_parte = 1 THEN
+    --select count(1) into v_cnt from user_tables;
+  v_cad := 'CREATE OR REPLACE PROCEDURE P_' || SUBSTR(p_tabla,1,2) || '_GRABAR_' || SUBSTR(p_tabla,4,LENGTH(p_tabla)) || '(' ;
+  dbms_output.put_line(v_cad);
+  -- Parametros de entrada
+  FOR x IN (SELECT * FROM  user_tab_columns WHERE table_name = p_tabla ORDER BY column_id)
+  LOOP
+    v_cad := ' p_' || lower(x.column_name) || '  IN ' || p_tabla || '.' || x.column_name || '%TYPE,';
+    dbms_output.put_line(v_cad);
+    -- Construimos la validacion de nulos
+    IF x.nullable = 'N' THEN
+        v_cNul := v_cNul || 'p_' || lower(x.column_name) || ' IS NULL OR ';
+    END IF;
+    -- Construimos la cadena INSERT ... El VALUE sera generado mas abajo
+    v_cIns := v_cIns || lower(x.column_name) || ', ';
+  END LOOP;
+  dbms_output.put_line(' p_login_usr   VARCHAR2,  -- Login del usuario que realiza la operacion');
+  dbms_output.put_line(' p_res OUT  VARCHAR2');
+  dbms_output.put_line(')');
+  v_cNul := substr(v_cNul,1,length(v_cNul)-3);
+  v_cIns := substr(v_cIns,1,length(v_cIns)-2);
+  v_cVal := substr(v_cVal,1,length(v_cVal)-2);
+   -- Segmento de Descripcion general del SP
+   dbms_output.put_line('/*');
+  dbms_output.put_line(' Finalidad: Procedimiento para grabar el alta o modificacion de ' || SUBSTR(p_tabla,4,LENGTH(p_tabla)));
+  dbms_output.put_line(' Recibe:  __ , __ , etc -> Parametros ');
+  FOR x IN (SELECT * FROM  user_tab_columns WHERE table_name = p_tabla ORDER BY column_id)
+  LOOP
+    v_cad := '         p_' || lower(x.column_name) || '  -> ';
+    dbms_output.put_line(v_cad);
+  END LOOP;
+  dbms_output.put_line(' Retorna: p_res ->Mensaje de OK ("1") o Descripcion del error');
+  dbms_output.put_line(' Fecha Creacion: ' || trunc(sysdate) );
+  dbms_output.put_line(' Autor: [nombre] [apellido]'); 
+  dbms_output.put_line(' Rev:');
+  dbms_output.put_line(' */');
+  dbms_output.put_line('IS');
+  -- Variables locales
+  dbms_output.put_line(' v_cnt NUMBER:=0;');
+  dbms_output.put_line(' v_res VARCHAR2(100):=''0''; ');
+  dbms_output.put_line(' v_sql VARCHAR2(2000);'); 
+  dbms_output.put_line(' v_sql1 VARCHAR2(200);'); 
+  dbms_output.put_line(' v_tipo_oper VARCHAR2(10);');
+  dbms_output.put_line(' v_rg    ' || p_tabla || '%ROWTYPE;');
+  dbms_output.put_line(' v_errC   MN_AUX_LOG_ERRORES.cod_error%type;');
+  dbms_output.put_line(' v_errD   MN_AUX_LOG_ERRORES.desc_error%type;');
+  dbms_output.put_line(' v_id_log MN_AUX_LOG_ERRORES.id_log%type;');
+  dbms_output.put_line(' v_id       NUMBER := 0;');
+  dbms_output.put_line('BEGIN');
+  -- Segmento de validacion de nulos
+  dbms_output.put_line('  -- Validamos nulos');
+  dbms_output.put_line('  IF ' || v_cNul || ' THEN');
+  dbms_output.put_line('    v_res := ''Faltan parametros.'';');
+  dbms_output.put_line('  END IF;');
+  -- Segmento validacion de existencia de registro (ojo: para este control, el campo ID de la tabla debe ser el primero)
+  SELECT lower(column_name) INTO v_CampoID FROM  user_tab_columns WHERE table_name = p_tabla AND column_id = 1;
+  dbms_output.put_line('  -- Para el caso de ALTA, validamos que el registro NO exista');
+  dbms_output.put_line('  IF v_res = ''0'' AND (p_' || v_CampoID || ' = 0 OR p_' || v_CampoID || ' IS NULL ) THEN');
+  --dbms_output.put_line('      SELECT COUNT (1) INTO v_cnt FROM ' || p_tabla || ' WHERE XxxxX = p_XxxxX; -- !!!! Cambiar el campo XxxxX por el que corresponda validar duplicados !!!!');
+  dbms_output.put_line('      IF F_MN_EXISTE_REG(''' || p_tabla || ''',''XxxxX='' || p_XxxxX)=TRUE THEN -- !!!! Cambiar el campo XxxxX por el que corresponda validar duplicados !!!!');
+  --dbms_output.put_line('      IF v_cnt > 0 THEN');
+  dbms_output.put_line('         v_res := ''El elemento '' || p_XxxxX || '' ya existe.'';');
+  dbms_output.put_line('      END IF;');
+  dbms_output.put_line('  END IF;');
+  dbms_output.put_line('  -- Para el caso de MODIFICACION, validamos que el registro exista');
+  dbms_output.put_line('  IF v_res = ''0'' AND p_' || v_CampoID || ' > 0 THEN');
+  --dbms_output.put_line('      SELECT COUNT (1) INTO v_cnt FROM ' || p_tabla || ' WHERE ' || v_CampoID || ' = p_' || v_CampoID || ';');
+  dbms_output.put_line('      IF F_MN_EXISTE_REG(''' || p_tabla || ''',''' || v_CampoID || '='' || p_' || v_CampoID || ')=FALSE THEN');
+  dbms_output.put_line('         v_res := ''NO existe el elemento que pretende modificar.'';');
+  dbms_output.put_line('      ELSE');
+  dbms_output.put_line('         SELECT * INTO v_rg FROM ' || p_tabla || ' WHERE ' || v_CampoID || ' = p_' || v_CampoID || ';');
+  dbms_output.put_line('      END IF;');
+  dbms_output.put_line('  END IF;');
+  
+  dbms_output.put_line('  IF v_res=''0'' THEN');
+  dbms_output.put_line('    -- Si se trata de una INSERCION ...');
+  dbms_output.put_line('    IF p_' || v_CampoID || ' = 0 OR p_' || v_CampoID || ' IS NULL THEN');
+  -- Segmento de INSERT
+  dbms_output.put_line('        -- Obtenemos el correlativo');
+  dbms_output.put_line('        SELECT q_' || p_tabla || '.nextval INTO v_id FROM dual;');
+  dbms_output.put_line('        -- Creamos el registro');
+  dbms_output.put_line('        v_sql:=''INSERT INTO ' || p_tabla || '(' || v_cIns || ') '' ||');
+  dbms_output.put_line('               ''VALUES('' || v_id || '', '';');
+  SELECT COUNT(1) INTO v_cnt FROM  user_tab_columns WHERE table_name = p_tabla;  -- Cantidad de columnas que tiene la tabla (Para definir el caracter final de la instruccion INSERT-coma o parentesis)
+  v_i := 0;
+  FOR x IN (SELECT * FROM  user_tab_columns WHERE table_name = p_tabla ORDER BY column_id)
+  LOOP
+    v_i := v_i + 1;
+    IF v_i = v_cnt THEN
+        v_fin := ')';
+    ELSE
+        v_fin := ', ';
+    END IF;
+    IF x.data_precision IS NULL THEN
+        v_sep := '''''';
+    ELSE
+        v_sep := '';
+    END IF;
+    IF substr(x.column_name,1,2)='ID' AND x.column_id = 1 THEN
+        v_cad:= ''; -- Indica que es el campo clave ... ya esta definido su valor lineas arriba
+    ELSE
+      IF x.column_name = 'FECHA_REG' THEN
+        dbms_output.put_line('        v_sql:=v_sql || ''SYSDATE' || v_fin || ''';');
+      ELSE
+        IF x.nullable = 'N' THEN
+          dbms_output.put_line('        v_sql:=v_sql || ''' || v_sep || ''' || ' || 'p_' || lower(x.column_name) || '|| ''' || v_sep || '' || v_fin || '''; ');
+        ELSE
+          IF x.data_precision IS NULL THEN
+            dbms_output.put_line('        IF p_' || lower(x.column_name) || ' IS NULL THEN');
+          ELSE
+            dbms_output.put_line('        IF p_' || lower(x.column_name) || ' IS NULL OR p_' || lower(x.column_name) || '=0 THEN');
+          END IF;
+          dbms_output.put_line('          v_sql:=v_sql || ''NULL' || v_fin || ''';');
+          dbms_output.put_line('        ELSE');
+          dbms_output.put_line('          v_sql:=v_sql || ''' || v_sep || ''' || ' || 'p_' || lower(x.column_name) || '|| ''' || v_sep || '' || v_fin || '''; ');
+          dbms_output.put_line('        END IF; ');
+        END IF;
+      END IF;
+    END IF;
+  END LOOP;
+  dbms_output.put_line('        EXECUTE IMMEDIATE v_sql;');
+  dbms_output.put_line('        -- Historico de estado');
+  dbms_output.put_line('        v_sql:=''INSERT INTO MN_HIST_TRAN_ESTADOS(id_hist, id_tabla, tabla, operacion, est_orig, est_dest, observ, nom_autoriza, fecha_reg, login_usr) '' ||');
+  dbms_output.put_line('               ''VALUES(q_mn_hist_tran_estados.nextval,'' || v_id || '',''''' || p_tabla || ''''',''''xxxOPERACIONxxx'''',''''xxxEST_ORIGxxx'''','''''' || p_estado|| '''''',''''xxxOBSERVACIONxxx'''',''''-'''', SYSDATE,'''''' || p_login_usr || '''''')''; -- !!!! Cambiar valores xxxAAAxxx por los que correspondan !!!!');
+  dbms_output.put_line('        EXECUTE IMMEDIATE v_sql;');
+  dbms_output.put_line('        v_tipo_oper := ''ALTA'';');
+  dbms_output.put_line('    ELSE');
+
+END IF;
+IF p_parte = 0 OR p_parte = 2 THEN  
+
+  -- Construimos el segmento para el UPDATE
+  dbms_output.put_line('        v_id := p_' || v_CampoID || ';');
+  dbms_output.put_line('        -- Construimos la consulta de actualizacion');
+  dbms_output.put_line('        v_sql := '''';');
+  FOR x IN (SELECT * FROM user_tab_columns WHERE table_name = p_tabla ORDER BY column_id)
+  LOOP
+    IF x.data_precision IS NULL THEN
+        v_sep := '''''';
+    ELSE
+        v_sep := '';
+    END IF;
+    IF x.nullable = 'N' THEN
+      v_cad := '        IF p_' || lower(x.column_name) || ' IS NOT NULL AND (p_' || lower(x.column_name) || ' <> v_rg.' || lower(x.column_name) || ' OR v_rg.' || lower(x.column_name) || ' IS NULL) THEN';
+      dbms_output.put_line(v_cad);
+        dbms_output.put_line('            v_sql := v_sql || '' ' || lower(x.column_name) || '=' || v_sep || ''' || p_' || lower(x.column_name) || ' || ''' || v_sep || ','';'); 
+        dbms_output.put_line('        END IF;');
+    ELSE
+      IF x.data_precision IS NULL THEN
+        dbms_output.put_line('        IF p_' || lower(x.column_name) || ' <> v_rg.' || lower(x.column_name) || ' OR (p_' || lower(x.column_name) || ' IS NULL AND v_rg.' || lower(x.column_name) || ' IS NOT NULL) OR (p_' || lower(x.column_name) || ' IS NOT NULL AND v_rg.' || lower(x.column_name) || ' IS NULL) THEN');
+        dbms_output.put_line('            v_sql := v_sql || '' ' || lower(x.column_name) || '=' || v_sep || ''' || p_' || lower(x.column_name) || ' || ''' || v_sep || ','';'); 
+        dbms_output.put_line('        END IF;');
+      ELSE
+        dbms_output.put_line('        IF p_' || lower(x.column_name) || ' <> v_rg.' || lower(x.column_name) || ' OR ((p_' || lower(x.column_name) || ' IS NULL OR p_' || lower(x.column_name) || ' = 0) AND v_rg.' || lower(x.column_name) || ' IS NOT NULL) OR (p_' || lower(x.column_name) || ' IS NOT NULL AND v_rg.' || lower(x.column_name) || ' IS NULL) THEN ');
+        dbms_output.put_line('            IF p_' || lower(x.column_name) || ' IS NULL OR p_' || lower(x.column_name) || ' = 0 THEN');
+        dbms_output.put_line('              v_sql := v_sql || '' ' || lower(x.column_name) || '=NULL,'';'); 
+        dbms_output.put_line('            ELSE');
+        dbms_output.put_line('              v_sql := v_sql || '' ' || lower(x.column_name) || '=' || v_sep || ''' || p_' || lower(x.column_name) || ' || ''' || v_sep || ','';'); 
+        dbms_output.put_line('            END IF;');
+        dbms_output.put_line('        END IF;');
+      END IF;
+    END IF;
+--    dbms_output.put_line(v_cad);
+--    dbms_output.put_line('            v_sql := v_sql || '' ' || lower(x.column_name) || '=' || v_sep || ''' || p_' || lower(x.column_name) || ' || ''' || v_sep || ','';'); 
+            --v_sql := v_sql || ' cod_af=''' || p_cod_af || ' '' ,';
+--    dbms_output.put_line('        END IF;');
+  END LOOP;
+  dbms_output.put_line('        -- Comprobamos si existe algun dato a modificar. ');
+  dbms_output.put_line('        IF v_sql = '''' OR v_sql IS NULL THEN         -- Oracle trata actualemente a las cadenas vacias como NULL');
+  dbms_output.put_line('            v_res := ''No existe ningun dato diferente a ser modificado.'';');
+  dbms_output.put_line('        END IF;');
+  dbms_output.put_line('        IF v_res = ''0'' THEN');
+  dbms_output.put_line('            v_sql := ''UPDATE ' || p_tabla || ' SET '' || SUBSTR (v_sql, 1, LENGTH (v_sql) - 1) || '' WHERE ' || v_CampoID || ' = '' || p_' || v_CampoID || ';');
+      --v_sql := 'UPDATE ttt SET ' || SUBSTR (v_sql, 1, LENGTH (v_sql) - 1) || ' WHERE id_rele = ' || p_id_rele;
+  dbms_output.put_line('            EXECUTE IMMEDIATE (v_sql);');
+  dbms_output.put_line('            v_tipo_oper := ''EDICION'';');
+  dbms_output.put_line('        END IF;');
+  dbms_output.put_line('    END IF;');
+
+  --Segmento para grabar el historico de Alta o ??? Modificacion ???
+  dbms_output.put_line('    IF v_res = ''0'' THEN');
+  dbms_output.put_line('        -- Grabamos historicos (un registro por cada campo no nulo)');
+  FOR x IN (SELECT * FROM user_tab_columns WHERE table_name = p_tabla ORDER BY column_id)
+  LOOP
+     IF (substr(x.column_name,1,2)='ID' AND x.column_id = 1) OR  x.column_name = 'FECHA_REG' OR  x.column_name = 'ID_USR'  THEN
+        v_cad:= ''; -- No se crean historicos para estos campos
+    ELSE
+       dbms_output.put_line('        P_MN_GRABAR_HIST_EDICION_DATOS(v_id, ''' || p_tabla || ''', ''' || lower(x.column_name) || ''', v_rg.' || lower(x.column_name) || ', p_' || lower(x.column_name) || ', v_tipo_oper, p_login_usr, v_res);');
+    END IF;
+  END LOOP;
+  dbms_output.put_line('        COMMIT;');
+  dbms_output.put_line('        v_res := ''1'';');
+  dbms_output.put_line('    END IF;');
+  dbms_output.put_line('  END IF;');
+  
+  dbms_output.put_line('  p_res := v_res;');
+  -- Bloque Excepcion
+  dbms_output.put_line('EXCEPTION');
+  dbms_output.put_line('  WHEN OTHERS THEN');
+  dbms_output.put_line('    ROLLBACK;');
+  dbms_output.put_line('    v_errC:=substr(sqlcode,1,20);');
+  dbms_output.put_line('    v_errD:=substr(sqlerrm,1,200);');
+  dbms_output.put_line('    p_mn_grabar_error_bd(v_errC, v_errD, ''ADM. ' || SUBSTR(p_tabla,4,LENGTH(p_tabla)) || ''', ''P_MN_GRABAR_' || SUBSTR(p_tabla,4,LENGTH(p_tabla)) || ''', v_sql, p_login_usr, v_id_log);');
+  dbms_output.put_line('    p_res :=''ERROR. Avise a TI. LOG generado #'' || v_id_log;');
+
+  dbms_output.put_line('END;');
+END IF;
+    
+END;
+/
+
+
+DROP PROCEDURE SINDICATO.P_GRABAR_ERROR_BD;
+
+CREATE OR REPLACE PROCEDURE SINDICATO.p_grabar_error_bd( 
+ p_errC      SINDICATO.sd_aux_log_errores.cod_error%type,
+ p_errD      SINDICATO.sd_aux_log_errores.desc_error%type,
+ p_modulo    SINDICATO.sd_aux_log_errores.modulo%type,
+ p_nombre_sp SINDICATO.sd_aux_log_errores.nombre_sp%TYPE,
+ p_cad_sql   SINDICATO.sd_aux_log_errores.cad_sql%type,
+ p_login_usr   VARCHAR2,   -- Login del usuario que realiza la operacion
+ p_id_log OUT NUMBER  -- Mensaje de OK ("1") o Descripcion del error
+)
+/*
+ Finalidad: Procedimiento que graba un error ocurrido al realizar una operacion en la BD (En el SisMan)
+ Recibe: parametros del error y usr que estaba ejecutando el proceso
+ Retorna: --
+ Fecha Creacion: 26/07/2013
+ Autor: Henry Terceros
+ */
+IS
+  v_id_log  SINDICATO.sd_aux_log_errores.id_log%type;
+
+  PRAGMA AUTONOMOUS_TRANSACTION; -- Para que solo haga el COMMIT de las operaciones de este SP
+BEGIN
+  SELECT SINDICATO.q_sd_aux_log_errores.nextval INTO v_id_log FROM dual;
+  
+  INSERT INTO SINDICATO.sd_aux_log_errores(id_log, login_usr, fecha, modulo, nombre_sp, cod_error, desc_error, cad_sql) 
+  VALUES(v_id_log, p_login_usr, SYSDATE, p_modulo, p_nombre_sp, p_errC, p_errD, substr(p_cad_sql,1,1000));
+  COMMIT;
+  
+  p_id_log := v_id_log;
+END;
+/
+
+
+DROP PROCEDURE SINDICATO.P_SD_ALTA_LISTA;
+
+CREATE OR REPLACE PROCEDURE SINDICATO.P_SD_ALTA_LISTA(
+ p_lista       IN SD_LISTAS.LISTA%TYPE,
+ p_descripcion IN SD_LISTAS.DESCRIPCION%TYPE,
+ p_tam_limite  IN SD_LISTAS.TAM_LIMITE%TYPE,
+ p_tipo_valor  IN SD_LISTAS.TIPO_VALOR%TYPE,
+ p_mayus_minus IN SD_LISTAS.MAYUS_MINUS%TYPE,
+ p_id_usr   NUMBER,    -- ID del usuario que realiza la operacion
+ p_res OUT  VARCHAR2
+)
+ /*
+ Finalidad: Procedimiento para registrar el alta la LISTA
+ Recibe:  p_lista  .. p_num_proy -> Parametros del elemento
+ Retorna: p_res(parametro de salida)->Mensaje de OK ("1") o Descripcion del error
+ Fecha Creacion: 26/07/2013
+ Autor: Henry Terceros 
+ Rev:
+ */
+IS
+ v_cnt NUMBER:=0;
+ v_res VARCHAR2(100):='0';
+ v_errC SD_AUX_LOG_ERRORES.cod_error%type;
+ v_errD SD_AUX_LOG_ERRORES.desc_error%type;
+ v_id_log SD_AUX_LOG_ERRORES.id_log%type;
+BEGIN
+
+  -- Validamos nulos
+  IF p_lista IS NULL OR p_descripcion IS NULL OR p_tam_limite IS NULL OR p_tipo_valor IS NULL OR p_mayus_minus IS NULL THEN
+    v_res := 'Faltan parametros.';
+  END IF;
+  IF v_res='0' THEN
+    -- Verificamos que la LISTA no exista 
+    SELECT COUNT(*) INTO v_cnt FROM SD_listas WHERE lista = TRIM(p_lista);
+    IF v_cnt > 0 THEN
+      v_res := 'Ya existe la lista con dicho nombre.';
+    END IF;
+  END IF;
+  IF v_res='0' THEN
+      -- Creamos la LISTA
+      INSERT INTO SD_listas(id_lista, lista, descripcion, tam_limite, tipo_valor, mayus_minus,estado)
+      VALUES(q_SD_listas.nextval, p_lista, p_descripcion, p_tam_limite, p_tipo_valor, p_mayus_minus, 'A');
+
+      COMMIT;
+      
+      v_res := '1';
+  END IF;
+    
+  p_res := v_res;
+EXCEPTION
+  WHEN OTHERS THEN
+    ROLLBACK;
+    v_errC:=substr(sqlcode,1,20);
+    v_errD:=substr(sqlerrm,1,200);
+    p_grabar_error_bd(v_errC,v_errD,'Alta Lista','P_SD_ALTA_LISTA','-',1,v_id_log);
+    p_res :='ERROR. Avise a TI. LOG generado #' || v_id_log;
+END;
+/
+
+
+DROP PROCEDURE SINDICATO.P_SD_ALTA_SD_ANTECEDENTES;
+
+CREATE OR REPLACE PROCEDURE SINDICATO.P_SD_ALTA_SD_ANTECEDENTES(
+p_id_antecedente SINDICATO.SD_ANTECEDENTES.ID_ANTECEDENTE%type,
+p_id_socio SINDICATO.SD_ANTECEDENTES.ID_SOCIO%type,
+p_id_chofer SINDICATO.SD_ANTECEDENTES.ID_CHOFER%type,
+p_motivo SINDICATO.SD_ANTECEDENTES.MOTIVO%type,
+p_observacion SINDICATO.SD_ANTECEDENTES.OBSERVACION%type,
+p_fecha SINDICATO.SD_ANTECEDENTES.FECHA%type,
+p_id_usr NUMBER,
+p_res OUT VARCHAR2
+)
+IS
+v_id_antecedente SINDICATO.SD_ANTECEDENTES.ID_ANTECEDENTE%type;
+v_cnt NUMBER:=0;
+v_res VARCHAR2(100):='0';
+v_errC SD_AUX_LOG_ERRORES.cod_error%type;
+v_errD SD_AUX_LOG_ERRORES.desc_error%type;
+v_id_log SINDICATO.sd_aux_log_errores.id_log%type;
+BEGIN
+IF p_id_antecedente IS NULL OR p_motivo IS NULL OR p_fecha IS NULL
+THEN
+    v_res := 'Faltan parametros.';
+END IF;
+IF v_res='0' THEN
+    IF p_id_antecedente = 0 THEN
+       
+        v_id_antecedente := Q_SD_ANTECEDENTES.nextval;
+        
+        INSERT INTO SINDICATO.SD_ANTECEDENTES (id_antecedente ,id_socio ,id_chofer ,motivo ,observacion ,fecha ,fecha_reg ,id_usr )
+        VALUES(v_id_antecedente ,p_id_socio ,p_id_chofer ,p_motivo ,p_observacion ,p_fecha ,sysdate ,p_id_usr );
+        v_res := v_id_antecedente;
+   ELSE
+        UPDATE SD_ANTECEDENTES SET  MOTIVO = p_MOTIVO , OBSERVACION = p_OBSERVACION , FECHA = p_FECHA   WHERE ID_ANTECEDENTE = p_id_antecedente;
+        v_res := p_id_antecedente;
+   END IF;
+END IF;
+p_res := v_res;
+EXCEPTION
+WHEN OTHERS THEN
+ROLLBACK;
+v_errC:=substr(sqlcode,1,20);
+v_errD:=substr(sqlerrm,1,200);
+p_grabar_error_bd(v_errC,v_errD,'P_SD_ALTA_SD_ANTECEDENTES','P_SD_ALTA_SD_ANTECEDENTES','-','-',v_id_log);
+p_res :='ERROR. Avise a TI. LOG generado #' || v_id_log;
+END;
+/
+
+
+DROP PROCEDURE SINDICATO.P_SD_ALTA_SD_CHOFERES;
+
+CREATE OR REPLACE PROCEDURE SINDICATO.P_SD_ALTA_SD_CHOFERES(
+p_id_chofer SINDICATO.SD_CHOFERES.ID_CHOFER%type,
+p_nombre SINDICATO.SD_CHOFERES.NOMBRE%type,
+p_apellido_paterno SINDICATO.SD_CHOFERES.APELLIDO_PATERNO%type,
+p_apellido_materno SINDICATO.SD_CHOFERES.APELLIDO_MATERNO%type,
+p_nro_licencia SINDICATO.SD_CHOFERES.NRO_LICENCIA%type,
+p_categoria_lic SINDICATO.SD_CHOFERES.CATEGORIA_LIC%type,
+p_ci SINDICATO.SD_CHOFERES.CI%type,
+p_expedido SINDICATO.SD_CHOFERES.EXPEDIDO%type,
+p_fecha_nac SINDICATO.SD_CHOFERES.FECHA_NAC%type,
+p_fecha_ingreso SINDICATO.SD_CHOFERES.FECHA_INGRESO%type,
+p_domicilio SINDICATO.SD_CHOFERES.DOMICILIO%type,
+p_observacion SINDICATO.SD_CHOFERES.OBSERVACION%type,
+p_estado_civil SINDICATO.SD_CHOFERES.ESTADO_CIVIL%type,
+p_id_socio SINDICATO.SD_CHOFERES.ID_SOCIO%type,
+p_id_usr NUMBER,
+p_res OUT VARCHAR2
+)
+IS
+v_id_chofer SINDICATO.SD_CHOFERES.ID_CHOFER%type;
+v_cnt NUMBER:=0;
+v_res VARCHAR2(100):='0';
+v_errC SD_AUX_LOG_ERRORES.cod_error%type;
+v_errD SD_AUX_LOG_ERRORES.desc_error%type;
+v_id_log SINDICATO.sd_aux_log_errores.id_log%type;
+BEGIN
+IF p_id_chofer  IS NULL OR p_nombre IS NULL OR p_apellido_paterno IS NULL OR p_apellido_materno IS NULL OR p_ci IS NULL OR p_expedido IS NULL OR p_fecha_nac IS NULL OR p_fecha_ingreso IS NULL OR p_domicilio IS NULL OR p_observacion IS NULL OR p_estado_civil IS NULL OR p_id_socio IS NULL
+THEN
+v_res := 'Faltan parametros.';
+END IF;
+IF v_res='0' THEN
+INSERT INTO SINDICATO.SD_CHOFERES (id_chofer ,nro_chofer ,nombre ,apellido_paterno ,apellido_materno ,nro_licencia ,categoria_lic ,ci ,expedido ,fecha_nac ,fecha_ingreso ,fecha_baja ,domicilio ,observacion ,estado_civil ,id_socio ,fecha_reg ,id_usr ,estado )
+VALUES(Q_SD_CHOFERES.nextval ,1 ,p_nombre ,p_apellido_paterno ,p_apellido_materno ,p_nro_licencia ,p_categoria_lic ,p_ci ,p_expedido ,p_fecha_nac ,p_fecha_ingreso ,null ,p_domicilio ,p_observacion ,p_estado_civil ,p_id_socio ,sysdate ,p_id_usr ,'ALTA' );
+v_res := '1';
+END IF;
+p_res := v_res;
+EXCEPTION
+WHEN OTHERS THEN
+ROLLBACK;
+v_errC:=substr(sqlcode,1,20);
+v_errD:=substr(sqlerrm,1,200);
+p_grabar_error_bd(v_errC,v_errD,'P_EE_ALTA_SD_CHOFERES','P_EE_ALTA_SD_CHOFERES','-','-',v_id_log);
+p_res :='ERROR. Avise a TI. LOG generado #' || v_id_log;
+END;
+/
+
+
+DROP PROCEDURE SINDICATO.P_SD_ALTA_SD_DOCUMENTACIONES;
+
+CREATE OR REPLACE PROCEDURE SINDICATO.P_SD_ALTA_SD_DOCUMENTACIONES(
+p_id_documentacion SINDICATO.SD_DOCUMENTACIONES.ID_DOCUMENTACION%type,
+p_id_socio SINDICATO.SD_DOCUMENTACIONES.ID_SOCIO%type,
+p_id_chofer SINDICATO.SD_DOCUMENTACIONES.ID_CHOFER%type,
+p_documentacion SINDICATO.SD_DOCUMENTACIONES.DOCUMENTACION%type,
+p_tipo SINDICATO.SD_DOCUMENTACIONES.TIPO%type,
+p_observacion SINDICATO.SD_DOCUMENTACIONES.OBSERVACION%type,
+p_fecha SINDICATO.SD_DOCUMENTACIONES.FECHA%type,
+p_id_usr NUMBER,
+p_res OUT VARCHAR2
+)
+IS
+v_id_documentacion SINDICATO.SD_DOCUMENTACIONES.ID_DOCUMENTACION%type;
+v_cnt NUMBER:=0;
+v_res VARCHAR2(100):='0';
+v_errC SD_AUX_LOG_ERRORES.cod_error%type;
+v_errD SD_AUX_LOG_ERRORES.desc_error%type;
+v_id_log SINDICATO.sd_aux_log_errores.id_log%type;
+BEGIN
+IF p_id_documentacion IS NULL OR p_documentacion IS NULL OR p_fecha IS NULL
+THEN
+v_res := 'Faltan parametros.';
+END IF;
+IF v_res='0' THEN
+     IF p_id_documentacion = 0 THEN
+     
+         v_id_documentacion := Q_SD_DOCUMENTACIONES.nextval;
+        INSERT INTO SINDICATO.SD_DOCUMENTACIONES (id_documentacion ,id_socio ,id_chofer ,documentacion ,tipo ,observacion ,fecha ,fecha_reg ,id_usr )
+        VALUES( v_id_documentacion ,p_id_socio ,p_id_chofer ,p_documentacion ,p_tipo ,p_observacion ,p_fecha ,sysdate,p_id_usr );
+        v_res := v_id_documentacion;
+     ELSE 
+        UPDATE SD_DOCUMENTACIONES SET DOCUMENTACION = p_DOCUMENTACION ,TIPO = p_TIPO , OBSERVACION = p_OBSERVACION  , FECHA  = p_FECHA   WHERE ID_DOCUMENTACION = p_id_documentacion;
+         v_res := p_id_documentacion;
+     END IF;
+END IF;
+p_res := v_res;
+EXCEPTION
+WHEN OTHERS THEN
+ROLLBACK;
+v_errC:=substr(sqlcode,1,20);
+v_errD:=substr(sqlerrm,1,200);
+p_grabar_error_bd(v_errC,v_errD,'P_SD_ALTA_SD_DOCUMENTACIONES','P_SD_ALTA_SD_DOCUMENTACIONES','-','-',v_id_log);
+p_res :='ERROR. Avise a TI. LOG generado #' || v_id_log;
+END;
+/
+
+
+DROP PROCEDURE SINDICATO.P_SD_ALTA_SD_FAMILIARES;
+
+CREATE OR REPLACE PROCEDURE SINDICATO.P_SD_ALTA_SD_FAMILIARES(
+p_id_familiar SINDICATO.SD_FAMILIARES.ID_FAMILIAR%type,
+p_id_socio SINDICATO.SD_FAMILIARES.ID_SOCIO%type,
+p_id_chofer SINDICATO.SD_FAMILIARES.ID_CHOFER%type,
+p_nombre SINDICATO.SD_FAMILIARES.NOMBRE%type,
+p_apellido_paterno SINDICATO.SD_FAMILIARES.APELLIDO_PATERNO%type,
+p_apellido_materno SINDICATO.SD_FAMILIARES.APELLIDO_MATERNO%type,
+p_ci SINDICATO.SD_FAMILIARES.CI%type,
+p_expedido SINDICATO.SD_FAMILIARES.EXPEDIDO%type,
+p_fecha_nac SINDICATO.SD_FAMILIARES.FECHA_NAC%type,
+p_parentesco SINDICATO.SD_FAMILIARES.PARENTESCO%type,
+p_observacion SINDICATO.SD_FAMILIARES.OBSERVACION%type,
+p_id_usr NUMBER,
+p_res OUT VARCHAR2
+)
+IS
+v_id_familiar SINDICATO.SD_FAMILIARES.ID_FAMILIAR%type;
+v_cnt NUMBER:=0;
+v_nro  NUMBER := 0;
+v_res VARCHAR2(100):='0';
+v_errC SD_AUX_LOG_ERRORES.cod_error%type;
+v_errD SD_AUX_LOG_ERRORES.desc_error%type;
+v_id_log SINDICATO.sd_aux_log_errores.id_log%type;
+BEGIN
+IF p_id_familiar IS NULL OR p_nombre IS NULL OR p_apellido_paterno IS NULL OR p_apellido_materno IS NULL OR p_fecha_nac IS NULL OR p_parentesco IS NULL
+THEN
+    v_res := 'Faltan parametros.';
+END IF;
+IF v_res='0' THEN
+    IF p_id_familiar = 0 THEN
+       
+        v_id_familiar := Q_SD_FAMILIARES.nextval;
+        INSERT INTO SINDICATO.SD_FAMILIARES (id_familiar ,id_socio ,id_chofer ,nombre ,apellido_paterno ,apellido_materno ,ci ,expedido ,fecha_nac ,parentesco ,observacion ,fecha_reg ,id_usr )
+        VALUES(v_id_familiar ,p_id_socio ,p_id_chofer ,p_nombre ,p_apellido_paterno ,p_apellido_materno ,p_ci ,p_expedido ,p_fecha_nac ,p_parentesco ,p_observacion ,sysdate ,p_id_usr );
+        v_res :=  v_id_familiar;
+   ELSE
+      UPDATE SD_FAMILIARES SET NOMBRE = p_NOMBRE  , APELLIDO_PATERNO = p_APELLIDO_PATERNO , APELLIDO_MATERNO = p_APELLIDO_MATERNO  , CI = p_CI ,EXPEDIDO = p_EXPEDIDO , FECHA_NAC = p_FECHA_NAC , PARENTESCO = p_PARENTESCO , OBSERVACION = p_OBSERVACION    WHERE ID_FAMILIAR = p_id_familiar ;
+          v_res :=  p_id_familiar;
+   END IF;
+END IF;
+p_res := v_res;
+EXCEPTION
+WHEN OTHERS THEN
+ROLLBACK;
+v_errC:=substr(sqlcode,1,20);
+v_errD:=substr(sqlerrm,1,200);
+p_grabar_error_bd(v_errC,v_errD,'P_EE_ALTA_SD_FAMILIARES','P_EE_ALTA_SD_FAMILIARES','-','-',v_id_log);
+p_res :='ERROR. Avise a TI. LOG generado #' || v_id_log;
+END;
+/
+
+
+DROP PROCEDURE SINDICATO.P_SD_ALTA_SD_SOCIOS;
+
+CREATE OR REPLACE PROCEDURE SINDICATO.P_SD_ALTA_SD_SOCIOS(
+p_id_socio SINDICATO.SD_SOCIOS.ID_SOCIO%type,
+p_nro_socio SINDICATO.SD_SOCIOS.NRO_SOCIO%type,
+p_nombre SINDICATO.SD_SOCIOS.NOMBRE%type,
+p_apellido_paterno SINDICATO.SD_SOCIOS.APELLIDO_PATERNO%type,
+p_apellido_materno SINDICATO.SD_SOCIOS.APELLIDO_MATERNO%type,
+p_nro_licencia SINDICATO.SD_SOCIOS.NRO_LICENCIA%type,
+p_categoria_lic SINDICATO.SD_SOCIOS.CATEGORIA_LIC%type,
+p_ci SINDICATO.SD_SOCIOS.CI%type,
+p_expedido SINDICATO.SD_SOCIOS.EXPEDIDO%type,
+p_fecha_nac SINDICATO.SD_SOCIOS.FECHA_NAC%type,
+p_fecha_ingreso SINDICATO.SD_SOCIOS.FECHA_INGRESO%type,
+p_domicilio SINDICATO.SD_SOCIOS.DOMICILIO%type,
+p_observacion SINDICATO.SD_SOCIOS.OBSERVACION%type,
+p_telefono SINDICATO.SD_SOCIOS.TELEFONO%type,
+p_celular SINDICATO.SD_SOCIOS.CELULAR%type,
+p_estado_civil SINDICATO.SD_SOCIOS.ESTADO_CIVIL%type,
+p_id_usr NUMBER,
+p_res OUT VARCHAR2
+)
+IS
+v_id_socio SINDICATO.SD_SOCIOS.ID_SOCIO%type;
+
+v_nro SINDICATO.SD_SOCIOS.NRO_SOCIO%type;
+v_cnt NUMBER:=0;
+v_res VARCHAR2(100):='0';
+v_errC SD_AUX_LOG_ERRORES .cod_error%type;
+v_errD SD_AUX_LOG_ERRORES.desc_error%type;
+v_id_log SINDICATO.SD_AUX_LOG_ERRORES.id_log%type;
+BEGIN
+IF p_id_socio  IS NULL OR p_nombre IS NULL OR p_apellido_paterno IS NULL OR p_apellido_materno IS NULL OR p_ci IS NULL OR p_expedido IS NULL OR p_fecha_nac IS NULL OR p_fecha_ingreso IS NULL OR p_domicilio IS NULL OR p_observacion IS NULL OR p_estado_civil IS NULL
+THEN
+v_res := 'Faltan parametros.';
+END IF;
+IF p_id_socio = 0 THEN
+    IF v_res='0' THEN
+            SELECT COUNT(*) into v_cnt FROM   SD_SOCIOS WHERE NRO_SOCIO = p_nro_socio ;
+            IF v_cnt > 0 THEN
+                    v_res := 'No puede usar ese nro de socio ya esta siendo utilizando por otra persona.';
+            END IF;
+            IF v_res='0' THEN
+               v_id_socio := Q_SD_SOCIOS.nextval;
+              
+                INSERT INTO SINDICATO.SD_SOCIOS (id_socio ,nro_socio ,nombre ,apellido_paterno ,apellido_materno ,nro_licencia ,categoria_lic ,ci ,expedido ,fecha_nac ,fecha_ingreso ,fecha_baja ,domicilio ,observacion ,estado_civil ,fecha_reg ,id_usr ,estado ,telefono , celular)
+                VALUES(v_id_socio ,p_nro_socio ,p_nombre ,p_apellido_paterno ,p_apellido_materno ,p_nro_licencia ,p_categoria_lic ,p_ci ,p_expedido ,p_fecha_nac ,p_fecha_ingreso ,null ,p_domicilio ,p_observacion ,p_estado_civil ,sysdate ,p_id_usr ,'NUEVO' ,p_telefono , p_celular);
+                v_res := v_id_socio;
+             END IF;
+    END IF;
+ELSE
+      SELECT COUNT(*) into v_cnt FROM   SD_SOCIOS WHERE NRO_SOCIO = p_nro_socio AND ID_SOCIO <> p_id_socio;
+      IF v_cnt > 0 THEN
+                    v_res := 'No puede usar ese nro de socio ya esta siendo utilizando por otra persona.';
+      END IF;
+         IF v_res='0' THEN
+              
+         
+                UPDATE SD_SOCIOS SET NRO_SOCIO=p_NRO_SOCIO , NOMBRE = p_NOMBRE , APELLIDO_PATERNO = p_APELLIDO_PATERNO , APELLIDO_MATERNO = p_APELLIDO_MATERNO , NRO_LICENCIA = p_NRO_LICENCIA  , CATEGORIA_LIC = p_CATEGORIA_LIC  , CI = p_CI , EXPEDIDO = p_EXPEDIDO , FECHA_NAC  = p_FECHA_NAC ,FECHA_INGRESO = p_FECHA_INGRESO ,DOMICILIO = p_DOMICILIO  , OBSERVACION = p_OBSERVACION ,ESTADO_CIVIL = p_ESTADO_CIVIL , TELEFONO = p_TELEFONO , CELULAR = p_CELULAR  WHERE ID_SOCIO = p_id_socio;
+                 v_res := p_id_socio;
+          END IF;
+END IF;
+p_res := v_res;
+EXCEPTION
+WHEN OTHERS THEN
+ROLLBACK;
+v_errC:=substr(sqlcode,1,20);
+v_errD:=substr(sqlerrm,1,200);
+p_grabar_error_bd(v_errC,v_errD,'P_EE_ALTA_SD_SOCIOS','P_EE_ALTA_SD_SOCIOS','-','-',v_id_log);
+p_res :='ERROR. Avise a TI. LOG generado #' || v_id_log;
+END;
+/
+
+
+DROP PROCEDURE SINDICATO.P_SD_GRABAR_HIST_EDICION_DATOS;
+
+CREATE OR REPLACE PROCEDURE SINDICATO.P_SD_GRABAR_HIST_EDICION_DATOS(
+ p_id_tabla  IN SD_HIST_EDICION_DATOS.ID_TABLA%TYPE,
+ p_tabla  IN SD_HIST_EDICION_DATOS.TABLA%TYPE,
+ p_campo  IN SD_HIST_EDICION_DATOS.CAMPO%TYPE,
+ p_valor_actual  IN SD_HIST_EDICION_DATOS.VALOR_NUEVO%TYPE,
+ p_valor_nuevo  IN SD_HIST_EDICION_DATOS.VALOR_NUEVO%TYPE,
+ p_motivo  IN SD_HIST_EDICION_DATOS.MOTIVO%TYPE,
+ p_login_usr  IN SD_HIST_EDICION_DATOS.LOGIN_USR%TYPE,
+ p_res OUT  VARCHAR2
+)
+/*
+ Finalidad: Procedimiento para grabar un registro de HIST_EDICION_DATOS
+ Recibe:  p_id_tabla -> ID del registro que se acaba de Insertar y del cual se requiere guardar su historico.
+-- Recibe:  p_id_tabla -> ID del registro que se Inserta / Modifica; Si el valor es mayor a 0 (y diferente de nulo), indica que es una modificacion
+             p_tabla  ->  Nombre de la tabla para la que se genera historico
+             p_campoID  -> Nombre del Campo ID de la tabla para la que se genera historico
+             p_id_usr   -> ID del usuario que realiza la operacion
+ Retorna: p_res ->Mensaje de OK ("1") o Descripcion del error
+ Fecha Creacion: 30-JUL-13
+ Autor: Henry Terceros
+ Rev:
+ */
+IS
+ v_cnt NUMBER:=0;
+ v_res VARCHAR2(100):='0'; 
+ v_sql VARCHAR2(2000);
+ v_errC SD_AUX_LOG_ERRORES.cod_error%type;
+ v_errD SD_AUX_LOG_ERRORES.desc_error%type;
+ v_id_log SD_AUX_LOG_ERRORES.id_log%type;
+BEGIN
+  -- Validamos nulos
+  IF p_id_tabla IS NULL OR p_tabla IS NULL OR p_campo IS NULL OR p_login_usr IS NULL THEN
+      v_res := 'Faltan parametros.';
+  END IF;
+  IF v_res='0' THEN
+    -- Grabamos historico, siempre y cuando el valor nuevo no sea nulo y sea diferente del valor actual (el que esta en la BD)
+    IF p_valor_nuevo IS NOT NULL AND (p_valor_actual IS NULL OR p_valor_actual <> p_valor_nuevo ) THEN
+        v_sql := 'INSERT INTO SD_HIST_EDICION_DATOS(id_hist, id_tabla, tabla, campo, valor_nuevo, motivo, fecha_reg, login_usr)  ' ||
+                     'VALUES(q_SD_hist_edicion_datos.nextval, ' || p_id_tabla || ', ''' || p_tabla || ''', ''' || p_campo || ''', ''' || substr(p_valor_nuevo,1,250) || ''', ''' || p_motivo || ''',SYSDATE ,''' || p_login_usr || ''') '; 
+        EXECUTE IMMEDIATE v_sql;
+--        COMMIT; -- El commit debera hacerse en el SP desde donde se lo llama !!!
+        v_res := '1';
+    END IF;
+  END IF;
+  p_res := v_res;
+EXCEPTION
+  WHEN OTHERS THEN
+    ROLLBACK;
+    v_errC:=substr(sqlcode,1,20);
+    v_errD:=substr(sqlerrm,1,200);
+    p_grabar_error_bd(v_errC,v_errD,'HIST_EDICION_DATOS','P_SD_GRABAR_HIST_EDICION_DATOS',v_sql,1,v_id_log);
+    p_res :='ERROR. Avise a TI. LOG generado #' || v_id_log;
+END;
+/
+
+
+DROP PROCEDURE SINDICATO.P_SD_GRABAR_LISTAS_ITEMS;
+
+CREATE OR REPLACE PROCEDURE SINDICATO.P_SD_GRABAR_LISTAS_ITEMS(
+ p_id_tabla  IN SD_LISTAS_ITEMS.ID_TABLA%TYPE,
+ p_id_padre  IN SD_LISTAS_ITEMS.ID_PADRE%TYPE,
+ p_id_lista  IN SD_LISTAS_ITEMS.ID_LISTA%TYPE,
+ p_codigo  IN SD_LISTAS_ITEMS.CODIGO%TYPE,
+ p_valor  IN SD_LISTAS_ITEMS.VALOR%TYPE,
+ p_estado  IN SD_LISTAS_ITEMS.ESTADO%TYPE,
+ p_login_usr   VARCHAR2,  -- Login del usuario que realiza la operacion
+ p_res OUT  VARCHAR2
+)
+/*
+ Finalidad: Procedimiento para grabar el alta o modificacion de LISTAS_ITEMS
+ Recibe: p_id_tabla  -> ID del Item de Lista que se pretende modificar (Si es nuevo, sera 0)
+         p_id_padre  -> ID del Item de Lista al que se pretende relacionar el item actual 
+         p_id_lista  -> ID de la lista a la que esta asociada este Item
+         p_codigo  -> Codigo del Item
+         p_valor  -> Valor del Item
+         p_estado  -> Estado (A->Activo o I->Inactivo)
+         p_login_usr  -> Login del usr que realiza la operacion
+ Retorna: p_res ->Mensaje de OK ("1") o Descripcion del error
+ Fecha Creacion: 01-AUG-13
+ Autor: [nombre] [apellido]
+ Rev:
+ */
+IS
+ v_cnt NUMBER:=0;
+ v_res VARCHAR2(100):='0'; 
+ v_sql VARCHAR2(2000);
+ v_sql1 VARCHAR2(200);
+ v_tipo_oper VARCHAR2(10);
+ v_rg    SD_LISTAS_ITEMS%ROWTYPE;
+ v_errC SD_AUX_LOG_ERRORES.cod_error%type;
+ v_errD SD_AUX_LOG_ERRORES.desc_error%type;
+ v_id_log SD_AUX_LOG_ERRORES.id_log%type;
+ v_id       NUMBER := 0;
+BEGIN
+  -- Validamos nulos
+  IF p_id_tabla IS NOT NULL AND p_id_padre IS NOT NULL  THEN
+    v_res := '0'; -- Quiere decir que es una creacion de relacion entre items de listas.
+  ELSE
+--    v_res := 'Faltan parametros.';
+    IF p_id_lista IS NULL OR p_codigo IS NULL OR p_valor IS NULL OR p_estado IS NULL  THEN
+      v_res := 'Faltan parametros.';
+    END IF;
+  END IF;
+  -- Para el caso de ALTA, validamos que el registro NO exista
+  IF v_res = '0' AND (p_id_tabla = 0 OR p_id_tabla IS NULL ) THEN
+      SELECT COUNT (1) INTO v_cnt FROM SD_LISTAS_ITEMS WHERE id_lista = p_id_lista AND (codigo = p_codigo OR valor = p_valor);
+      IF v_cnt > 0 THEN
+         v_res := 'El elemento ' || p_codigo || '/' || p_valor || ' ya existe en la lista.';
+      END IF;
+  END IF;
+  -- Para el caso de MODIFICACION, validamos que el registro exista
+  IF v_res = '0' AND p_id_tabla > 0 THEN
+      SELECT COUNT (1) INTO v_cnt FROM SD_LISTAS_ITEMS WHERE id_tabla = p_id_tabla;
+      IF v_cnt = 0 THEN
+         v_res := 'NO existe el elemento que pretende modificar.';
+      ELSE
+         SELECT * INTO v_rg FROM SD_LISTAS_ITEMS WHERE id_tabla = p_id_tabla;
+      END IF;
+  END IF;
+  IF v_res='0' THEN
+    -- Si se trata de una INSERCION ...
+    IF p_id_tabla = 0 OR p_id_tabla IS NULL THEN
+        -- Obtenemos el correlativo
+        SELECT q_SD_LISTAS_ITEMS.nextval INTO v_id FROM dual;
+        -- Creamos el registro
+        v_sql:='INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) ' ||
+               'VALUES(' || v_id || ', ';
+        IF p_id_padre IS NULL THEN
+          v_sql:=v_sql || 'NULL, ';
+        ELSE
+          v_sql:=v_sql || '' || p_id_padre|| ', '; 
+        END IF; 
+        v_sql:=v_sql || '' || p_id_lista|| ', '; 
+        IF p_codigo IS NULL THEN
+          v_sql:=v_sql || 'NULL, ';
+        ELSE
+          v_sql:=v_sql || '''' || p_codigo|| ''', '; 
+        END IF; 
+        v_sql:=v_sql || '''' || p_valor|| ''', '; 
+        v_sql:=v_sql || '''' || p_estado|| ''')'; 
+        EXECUTE IMMEDIATE v_sql;
+        v_tipo_oper := 'ALTA';
+    ELSE
+        -- Construimos la consulta de actualizacion
+        v_sql := '';
+        IF p_id_tabla IS NOT NULL AND (p_id_tabla <> v_rg.id_tabla OR v_rg.id_tabla IS NULL) THEN
+            v_sql := v_sql || ' id_tabla=' || p_id_tabla || ',';
+        END IF;
+        IF p_id_padre <> v_rg.id_padre OR (p_id_padre IS NULL AND v_rg.id_padre IS NOT NULL) OR (p_id_padre IS NOT NULL AND v_rg.id_padre IS NULL) THEN
+            v_sql := v_sql || ' id_padre=' || p_id_padre || ',';
+        END IF;
+        IF p_id_lista IS NOT NULL AND (p_id_lista <> v_rg.id_lista OR v_rg.id_lista IS NULL) THEN
+            v_sql := v_sql || ' id_lista=' || p_id_lista || ',';
+        END IF;
+        IF p_codigo <> v_rg.codigo OR (p_codigo IS NULL AND v_rg.codigo IS NOT NULL) OR (p_codigo IS NOT NULL AND v_rg.codigo IS NULL) THEN
+            v_sql := v_sql || ' codigo=''' || p_codigo || ''',';
+        END IF;
+        IF p_valor IS NOT NULL AND (p_valor <> v_rg.valor OR v_rg.valor IS NULL) THEN
+            v_sql := v_sql || ' valor=''' || p_valor || ''',';
+        END IF;
+        IF p_estado IS NOT NULL AND (p_estado <> v_rg.estado OR v_rg.estado IS NULL) THEN
+            v_sql := v_sql || ' estado=''' || p_estado || ''',';
+        END IF;
+        -- Comprobamos si existe algun dato a modificar. 
+        IF v_sql = '' OR v_sql IS NULL THEN         -- Oracle trata actualemente a las cadenas vacias como NULL
+            v_res := 'No existe ningun dato diferente a ser modificado.';
+        END IF;
+        IF v_res = '0' THEN
+            v_sql := 'UPDATE SD_LISTAS_ITEMS SET ' || SUBSTR (v_sql, 1, LENGTH (v_sql) - 1) || ' WHERE id_tabla = ' || p_id_tabla;
+            EXECUTE IMMEDIATE (v_sql);
+            v_tipo_oper := 'EDICION';
+        END IF;
+    END IF;
+    IF v_res = '0' THEN
+        -- Grabamos historicos (un registro por cada campo no nulo)
+        P_SD_GRABAR_HIST_EDICION_DATOS(v_id, 'SD_LISTAS_ITEMS', 'id_padre', v_rg.id_padre, p_id_padre, v_tipo_oper, p_login_usr, v_res);
+        P_SD_GRABAR_HIST_EDICION_DATOS(v_id, 'SD_LISTAS_ITEMS', 'id_lista', v_rg.id_lista, p_id_lista, v_tipo_oper, p_login_usr, v_res);
+        P_SD_GRABAR_HIST_EDICION_DATOS(v_id, 'SD_LISTAS_ITEMS', 'codigo', v_rg.codigo, p_codigo, v_tipo_oper, p_login_usr, v_res);
+        P_SD_GRABAR_HIST_EDICION_DATOS(v_id, 'SD_LISTAS_ITEMS', 'valor', v_rg.valor, p_valor, v_tipo_oper, p_login_usr, v_res);
+        P_SD_GRABAR_HIST_EDICION_DATOS(v_id, 'SD_LISTAS_ITEMS', 'estado', v_rg.estado, p_estado, v_tipo_oper, p_login_usr, v_res);
+
+        COMMIT;
+        v_res := '1';
+    END IF;
+  END IF;
+  p_res := v_res;
+EXCEPTION
+  WHEN OTHERS THEN
+    ROLLBACK;
+    v_errC:=substr(sqlcode,1,20);
+    v_errD:=substr(sqlerrm,1,200);
+    p_grabar_error_bd(v_errC, v_errD, 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', v_sql, p_login_usr, v_id_log);
+    p_res :='ERROR. Avise a TI. LOG generado #' || v_id_log;
+END;
+/
+
+
+DROP PROCEDURE SINDICATO.P_AUX_REINICIAR_SECUENCIA;
+
+CREATE OR REPLACE PROCEDURE SINDICATO.P_AUX_REINICIAR_SECUENCIA(
+ p_nom_sec VARCHAR2, -- Nombre de la secuencia (debe incluir el ESQUEMA)
+ p_res OUT VARCHAR2)
+ IS
+  v_errc sd_aux_log_errores.cod_error%type;
+  v_errD sd_aux_log_errores.desc_error%type;
+  v_id_log sd_aux_log_errores.id_log%type;
+  v_sec NUMBER:=1;
+  v_sql VARCHAR(100):='';
+ BEGIN
+   -- Obtenemos el siguiente valor de la secuencia (porque currval lo requiere)
+   v_sql := 'SELECT ' || p_nom_sec || '.NEXTVAL FROM dual';   
+   EXECUTE IMMEDIATE (v_sql) INTO v_sec;
+   -- Obtenemos el valor de secuencia actual
+   v_sql := 'SELECT ' || trim(p_nom_sec) || '.CURRVAL FROM dual';
+   EXECUTE IMMEDIATE (v_sql) INTO v_sec;
+   -- Actualizamos el Incremento con el valor actual, pero Negativo
+   v_sql := 'ALTER SEQUENCE ' || p_nom_sec || ' INCREMENT BY -' || v_sec || ' MINVALUE 0'; 
+   EXECUTE IMMEDIATE (v_sql);
+   -- Obtenemos el Siguiente valor con incremento negativo, O sea, reiniciamos a 0 
+   v_sql := 'SELECT ' || p_nom_sec || '.NEXTVAL FROM dual';   
+   EXECUTE IMMEDIATE (v_sql) INTO v_sec;
+   -- Reponemos el Incremento a UNO
+   v_sql := 'ALTER SEQUENCE ' || p_nom_sec || ' INCREMENT BY 1 MINVALUE 0';
+   EXECUTE IMMEDIATE (v_sql);
+    
+   p_res := '1';
+
+ EXCEPTION 
+   WHEN OTHERS THEN
+      ROLLBACK;   
+      v_errC:=substr(sqlcode,1,20);
+      v_errD:=substr(sqlerrm,1,200);
+      p_grabar_error_bd(v_errC,v_errD,'Procedimiento generico','P_REINICIAR_SECUENCIA','-'||p_nom_sec,0,v_id_log);
+      p_res := 'Reset Secuencias  ->ERROR. LOG generado #' || v_id_log;
+ END;
+/
+DROP SEQUENCE SINDICATO.Q_SD_ANTECEDENTES;
+
+CREATE SEQUENCE SINDICATO.Q_SD_ANTECEDENTES
+  START WITH 0
+  MAXVALUE 9999999999999999999999999999
+  MINVALUE 0
+  NOCYCLE
+  NOCACHE
+  NOORDER;
+
+
+DROP SEQUENCE SINDICATO.Q_SD_AUX_LOG_ERRORES;
+
+CREATE SEQUENCE SINDICATO.Q_SD_AUX_LOG_ERRORES
+  START WITH 31
+  MAXVALUE 9999999999999999999999999999
+  MINVALUE 0
+  NOCYCLE
+  NOCACHE
+  NOORDER;
+
+
+DROP SEQUENCE SINDICATO.Q_SD_CHOFERES;
+
+CREATE SEQUENCE SINDICATO.Q_SD_CHOFERES
+  START WITH 3
+  MAXVALUE 9999999999999999999999999999
+  MINVALUE 0
+  NOCYCLE
+  NOCACHE
+  NOORDER;
+
+
+DROP SEQUENCE SINDICATO.Q_SD_DOCUMENTACIONES;
+
+CREATE SEQUENCE SINDICATO.Q_SD_DOCUMENTACIONES
+  START WITH 1
+  MAXVALUE 9999999999999999999999999999
+  MINVALUE 0
+  NOCYCLE
+  NOCACHE
+  NOORDER;
+
+
+DROP SEQUENCE SINDICATO.Q_SD_FAMILIARES;
+
+CREATE SEQUENCE SINDICATO.Q_SD_FAMILIARES
+  START WITH 1
+  MAXVALUE 9999999999999999999999999999
+  MINVALUE 0
+  NOCYCLE
+  NOCACHE
+  NOORDER;
+
+
+DROP SEQUENCE SINDICATO.Q_SD_HIST_EDICION_DATOS;
+
+CREATE SEQUENCE SINDICATO.Q_SD_HIST_EDICION_DATOS
+  START WITH 69
+  MAXVALUE 9999999999999999999999999999
+  MINVALUE 0
+  NOCYCLE
+  NOCACHE
+  NOORDER;
+
+
+DROP SEQUENCE SINDICATO.Q_SD_LISTAS;
+
+CREATE SEQUENCE SINDICATO.Q_SD_LISTAS
+  START WITH 4
+  MAXVALUE 9999999999999999999999999999
+  MINVALUE 0
+  NOCYCLE
+  NOCACHE
+  NOORDER;
+
+
+DROP SEQUENCE SINDICATO.Q_SD_LISTAS_ITEMS;
+
+CREATE SEQUENCE SINDICATO.Q_SD_LISTAS_ITEMS
+  START WITH 42
+  MAXVALUE 9999999999999999999999999999
+  MINVALUE 0
+  NOCYCLE
+  NOCACHE
+  NOORDER;
+
+
+DROP SEQUENCE SINDICATO.Q_SD_SOCIOS;
+
+CREATE SEQUENCE SINDICATO.Q_SD_SOCIOS
+  START WITH 14
+  MAXVALUE 9999999999999999999999999999
+  MINVALUE 0
+  NOCYCLE
+  NOCACHE
+  NOORDER;
+ALTER TABLE SINDICATO.SD_AUX_LOG_ERRORES
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SINDICATO.SD_AUX_LOG_ERRORES CASCADE CONSTRAINTS;
+
+CREATE TABLE SINDICATO.SD_AUX_LOG_ERRORES
+(
+  ID_LOG      NUMBER(12),
+  LOGIN_USR   VARCHAR2(20 BYTE),
+  FECHA       DATE,
+  MODULO      VARCHAR2(100 BYTE),
+  NOMBRE_SP   VARCHAR2(50 BYTE),
+  COD_ERROR   VARCHAR2(50 BYTE),
+  DESC_ERROR  VARCHAR2(200 BYTE),
+  CAD_SQL     VARCHAR2(1000 BYTE)
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+MONITORING;
+
+
+ALTER TABLE SINDICATO.SD_HIST_EDICION_DATOS
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SINDICATO.SD_HIST_EDICION_DATOS CASCADE CONSTRAINTS;
+
+CREATE TABLE SINDICATO.SD_HIST_EDICION_DATOS
+(
+  ID_HIST      NUMBER(12)                       NOT NULL,
+  ID_TABLA     NUMBER(12)                       NOT NULL,
+  TABLA        VARCHAR2(30 BYTE)                NOT NULL,
+  CAMPO        VARCHAR2(30 BYTE)                NOT NULL,
+  VALOR_NUEVO  VARCHAR2(255 BYTE)               NOT NULL,
+  MOTIVO       VARCHAR2(20 BYTE),
+  FECHA_REG    DATE                             NOT NULL,
+  LOGIN_USR    VARCHAR2(20 BYTE)                NOT NULL
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+MONITORING;
+
+
+ALTER TABLE SINDICATO.SD_LISTAS
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SINDICATO.SD_LISTAS CASCADE CONSTRAINTS;
+
+CREATE TABLE SINDICATO.SD_LISTAS
+(
+  ID_LISTA     NUMBER(7)                        NOT NULL,
+  LISTA        VARCHAR2(20 BYTE)                NOT NULL,
+  DESCRIPCION  VARCHAR2(50 BYTE),
+  TAM_LIMITE   NUMBER(5)                        NOT NULL,
+  TIPO_VALOR   VARCHAR2(10 BYTE)                NOT NULL,
+  MAYUS_MINUS  VARCHAR2(5 BYTE)                 NOT NULL,
+  ESTADO       VARCHAR2(15 BYTE)                NOT NULL
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+MONITORING;
+
+COMMENT ON TABLE SINDICATO.SD_LISTAS IS 'Tabla de parametros. Definicion de cabecera de listas de parametros predefinidos.';
+
+COMMENT ON COLUMN SINDICATO.SD_LISTAS.ID_LISTA IS 'Identificador unico para cada registro';
+
+COMMENT ON COLUMN SINDICATO.SD_LISTAS.LISTA IS 'Nombre del parametro de lista';
+
+COMMENT ON COLUMN SINDICATO.SD_LISTAS.DESCRIPCION IS 'Descripcion del elemento';
+
+COMMENT ON COLUMN SINDICATO.SD_LISTAS.TAM_LIMITE IS 'Cantidad de caracteres o digitos que puede contener';
+
+COMMENT ON COLUMN SINDICATO.SD_LISTAS.TIPO_VALOR IS 'Tipo de valor que acepta (CADENA o NUMERICO)';
+
+COMMENT ON COLUMN SINDICATO.SD_LISTAS.MAYUS_MINUS IS 'Indica si se aceptan solo mayusculas (MAYUS) o ambos (MINUS)';
+
+COMMENT ON COLUMN SINDICATO.SD_LISTAS.ESTADO IS 'Estado en el que se encuentra el documento';
+
+
+ALTER TABLE SINDICATO.SD_LISTAS_ITEMS
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SINDICATO.SD_LISTAS_ITEMS CASCADE CONSTRAINTS;
+
+CREATE TABLE SINDICATO.SD_LISTAS_ITEMS
+(
+  ID_TABLA  NUMBER(7)                           NOT NULL,
+  ID_PADRE  NUMBER(7),
+  ID_LISTA  NUMBER(7)                           NOT NULL,
+  CODIGO    VARCHAR2(5 BYTE),
+  VALOR     VARCHAR2(30 BYTE)                   NOT NULL,
+  ESTADO    CHAR(1 BYTE)                        NOT NULL
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+MONITORING;
+
+
+ALTER TABLE SINDICATO.SD_MENU_OPCIONES
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SINDICATO.SD_MENU_OPCIONES CASCADE CONSTRAINTS;
+
+CREATE TABLE SINDICATO.SD_MENU_OPCIONES
+(
+  ID_OPC    NUMBER(5)                           NOT NULL,
+  OPCION    VARCHAR2(40 BYTE)                   NOT NULL,
+  LINK      VARCHAR2(50 BYTE),
+  TOOLTIP   VARCHAR2(50 BYTE),
+  ICONO     VARCHAR2(50 BYTE),
+  ESTILO    VARCHAR2(50 BYTE),
+  ID_PADRE  NUMBER(5),
+  ESTADO    CHAR(1 BYTE)                        NOT NULL,
+  ORDEN     NUMBER                              NOT NULL
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+MONITORING;
+
+
+ALTER TABLE SINDICATO.SD_PERFILES
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SINDICATO.SD_PERFILES CASCADE CONSTRAINTS;
+
+CREATE TABLE SINDICATO.SD_PERFILES
+(
+  ID_PERFIL    NUMBER(5)                        NOT NULL,
+  NOMBRE       VARCHAR2(40 BYTE)                NOT NULL,
+  DESCRIPCION  VARCHAR2(50 BYTE)                NOT NULL,
+  ESTADO       CHAR(1 BYTE)                     NOT NULL
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+MONITORING;
+
+COMMENT ON COLUMN SINDICATO.SD_PERFILES.NOMBRE IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_PERFILES.DESCRIPCION IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_PERFILES.ESTADO IS 'grid , lista';
+
+
+ALTER TABLE SINDICATO.SD_PERFILES_OPCIONES
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SINDICATO.SD_PERFILES_OPCIONES CASCADE CONSTRAINTS;
+
+CREATE TABLE SINDICATO.SD_PERFILES_OPCIONES
+(
+  ID_PRF_OPC  NUMBER(5)                         NOT NULL,
+  ID_PERFIL   NUMBER(5)                         NOT NULL,
+  ID_OPC      NUMBER(5)                         NOT NULL,
+  ESTADO      CHAR(1 BYTE)                      NOT NULL
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+MONITORING;
+
+
+ALTER TABLE SINDICATO.SD_SOCIOS
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SINDICATO.SD_SOCIOS CASCADE CONSTRAINTS;
+
+CREATE TABLE SINDICATO.SD_SOCIOS
+(
+  ID_SOCIO          NUMBER(7)                   NOT NULL,
+  NRO_SOCIO         NUMBER(7)                   NOT NULL,
+  NOMBRE            VARCHAR2(200 BYTE)          NOT NULL,
+  APELLIDO_PATERNO  VARCHAR2(200 BYTE)          NOT NULL,
+  APELLIDO_MATERNO  VARCHAR2(200 BYTE)          NOT NULL,
+  NRO_LICENCIA      NUMBER(15),
+  CATEGORIA_LIC     VARCHAR2(50 BYTE),
+  CI                NUMBER(15)                  NOT NULL,
+  EXPEDIDO          VARCHAR2(10 BYTE)           NOT NULL,
+  FECHA_NAC         DATE                        NOT NULL,
+  FECHA_INGRESO     DATE                        NOT NULL,
+  FECHA_BAJA        DATE,
+  DOMICILIO         VARCHAR2(500 BYTE)          NOT NULL,
+  OBSERVACION       VARCHAR2(500 BYTE)          NOT NULL,
+  ESTADO_CIVIL      VARCHAR2(50 BYTE)           NOT NULL,
+  FECHA_REG         DATE,
+  ID_USR            NUMBER(7),
+  ESTADO            VARCHAR2(20 BYTE),
+  TELEFONO          VARCHAR2(50 BYTE),
+  CELULAR           VARCHAR2(50 BYTE)
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+MONITORING;
+
+COMMENT ON COLUMN SINDICATO.SD_SOCIOS.NRO_SOCIO IS 'grid ';
+
+COMMENT ON COLUMN SINDICATO.SD_SOCIOS.NOMBRE IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_SOCIOS.APELLIDO_PATERNO IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_SOCIOS.APELLIDO_MATERNO IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_SOCIOS.NRO_LICENCIA IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_SOCIOS.CATEGORIA_LIC IS 'grid  , lista';
+
+COMMENT ON COLUMN SINDICATO.SD_SOCIOS.CI IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_SOCIOS.EXPEDIDO IS 'grid ,  lista';
+
+COMMENT ON COLUMN SINDICATO.SD_SOCIOS.FECHA_NAC IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_SOCIOS.DOMICILIO IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_SOCIOS.ESTADO_CIVIL IS 'grid , lista';
+
+
+ALTER TABLE SINDICATO.SD_USUARIOS
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SINDICATO.SD_USUARIOS CASCADE CONSTRAINTS;
+
+CREATE TABLE SINDICATO.SD_USUARIOS
+(
+  ID_USUARIO  NUMBER(5)                         NOT NULL,
+  LOGIN       VARCHAR2(15 BYTE)                 NOT NULL,
+  NOMBRE      VARCHAR2(60 BYTE)                 NOT NULL,
+  EMAIL       VARCHAR2(30 BYTE),
+  FCH_ALTA    DATE                              NOT NULL,
+  FCH_BAJA    DATE,
+  ID_PERFIL   NUMBER(5)                         NOT NULL,
+  ESTADO      CHAR(1 BYTE)                      NOT NULL
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+MONITORING;
+
+
+CREATE UNIQUE INDEX SINDICATO.PK_SG_LISTAS ON SINDICATO.SD_LISTAS
+(ID_LISTA)
+LOGGING
+TABLESPACE USERS
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+NOPARALLEL;
+
+
+CREATE UNIQUE INDEX SINDICATO.SD_AUX_LOG_ERRORES_PK ON SINDICATO.SD_AUX_LOG_ERRORES
+(ID_LOG)
+LOGGING
+TABLESPACE USERS
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+NOPARALLEL;
+
+
+CREATE UNIQUE INDEX SINDICATO.SD_HIST_EDICION_DATOS_PK ON SINDICATO.SD_HIST_EDICION_DATOS
+(ID_HIST)
+LOGGING
+TABLESPACE USERS
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+NOPARALLEL;
+
+
+CREATE UNIQUE INDEX SINDICATO.SD_LISTAS_ITEMS_PK ON SINDICATO.SD_LISTAS_ITEMS
+(ID_TABLA)
+LOGGING
+TABLESPACE USERS
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+NOPARALLEL;
+
+
+CREATE UNIQUE INDEX SINDICATO.SD_MENU_OPCIONES_PK ON SINDICATO.SD_MENU_OPCIONES
+(ID_OPC)
+LOGGING
+TABLESPACE USERS
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+NOPARALLEL;
+
+
+CREATE UNIQUE INDEX SINDICATO.SD_PERFILES_OPCIONES_PK ON SINDICATO.SD_PERFILES_OPCIONES
+(ID_PRF_OPC)
+LOGGING
+TABLESPACE USERS
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+NOPARALLEL;
+
+
+CREATE UNIQUE INDEX SINDICATO.SD_PERFILES_PK ON SINDICATO.SD_PERFILES
+(ID_PERFIL)
+LOGGING
+TABLESPACE USERS
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+NOPARALLEL;
+
+
+CREATE UNIQUE INDEX SINDICATO.SD_SOCIOS_PK ON SINDICATO.SD_SOCIOS
+(ID_SOCIO)
+LOGGING
+TABLESPACE USERS
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+NOPARALLEL;
+
+
+CREATE UNIQUE INDEX SINDICATO.SD_SOCIOS_U01 ON SINDICATO.SD_SOCIOS
+(NRO_SOCIO)
+LOGGING
+TABLESPACE USERS
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+NOPARALLEL;
+
+
+CREATE UNIQUE INDEX SINDICATO.SD_USUARIOS_PK ON SINDICATO.SD_USUARIOS
+(ID_USUARIO)
+LOGGING
+TABLESPACE USERS
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+NOPARALLEL;
+
+
+ALTER TABLE SINDICATO.SD_CHOFERES
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SINDICATO.SD_CHOFERES CASCADE CONSTRAINTS;
+
+CREATE TABLE SINDICATO.SD_CHOFERES
+(
+  ID_CHOFER         NUMBER(7)                   NOT NULL,
+  NRO_CHOFER        NUMBER(7)                   NOT NULL,
+  NOMBRE            VARCHAR2(200 BYTE)          NOT NULL,
+  APELLIDO_PATERNO  VARCHAR2(200 BYTE)          NOT NULL,
+  APELLIDO_MATERNO  VARCHAR2(200 BYTE)          NOT NULL,
+  NRO_LICENCIA      NUMBER(15),
+  CATEGORIA_LIC     VARCHAR2(50 BYTE),
+  CI                NUMBER(15)                  NOT NULL,
+  EXPEDIDO          VARCHAR2(10 BYTE)           NOT NULL,
+  FECHA_NAC         DATE                        NOT NULL,
+  FECHA_INGRESO     DATE                        NOT NULL,
+  FECHA_BAJA        DATE,
+  DOMICILIO         VARCHAR2(500 BYTE)          NOT NULL,
+  OBSERVACION       VARCHAR2(500 BYTE)          NOT NULL,
+  ESTADO_CIVIL      VARCHAR2(50 BYTE)           NOT NULL,
+  ID_SOCIO          NUMBER(7)                   NOT NULL,
+  FECHA_REG         DATE,
+  ID_USR            NUMBER(7),
+  ESTADO            VARCHAR2(20 BYTE),
+  TELEFONO          VARCHAR2(50 BYTE),
+  CELULAR           VARCHAR2(50 BYTE)
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+MONITORING;
+
+COMMENT ON COLUMN SINDICATO.SD_CHOFERES.NRO_CHOFER IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_CHOFERES.NOMBRE IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_CHOFERES.APELLIDO_PATERNO IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_CHOFERES.APELLIDO_MATERNO IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_CHOFERES.NRO_LICENCIA IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_CHOFERES.CATEGORIA_LIC IS 'grid , lista';
+
+COMMENT ON COLUMN SINDICATO.SD_CHOFERES.CI IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_CHOFERES.EXPEDIDO IS 'grid  lista';
+
+COMMENT ON COLUMN SINDICATO.SD_CHOFERES.FECHA_NAC IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_CHOFERES.FECHA_INGRESO IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_CHOFERES.DOMICILIO IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_CHOFERES.OBSERVACION IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_CHOFERES.ESTADO_CIVIL IS 'grid  lista';
+
+COMMENT ON COLUMN SINDICATO.SD_CHOFERES.ID_SOCIO IS 'lista';
+
+
+ALTER TABLE SINDICATO.SD_DOCUMENTACIONES
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SINDICATO.SD_DOCUMENTACIONES CASCADE CONSTRAINTS;
+
+CREATE TABLE SINDICATO.SD_DOCUMENTACIONES
+(
+  ID_DOCUMENTACION  NUMBER(7)                   NOT NULL,
+  ID_SOCIO          NUMBER(7),
+  ID_CHOFER         NUMBER(7),
+  DOCUMENTACION     VARCHAR2(50 BYTE)           NOT NULL,
+  TIPO              VARCHAR2(50 BYTE),
+  OBSERVACION       VARCHAR2(200 BYTE),
+  FECHA             DATE                        NOT NULL,
+  FECHA_REG         DATE,
+  ID_USR            NUMBER(7)
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+MONITORING;
+
+COMMENT ON COLUMN SINDICATO.SD_DOCUMENTACIONES.DOCUMENTACION IS 'grid , lista';
+
+COMMENT ON COLUMN SINDICATO.SD_DOCUMENTACIONES.TIPO IS 'lista';
+
+COMMENT ON COLUMN SINDICATO.SD_DOCUMENTACIONES.OBSERVACION IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_DOCUMENTACIONES.FECHA IS 'grid';
+
+
+ALTER TABLE SINDICATO.SD_FAMILIARES
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SINDICATO.SD_FAMILIARES CASCADE CONSTRAINTS;
+
+CREATE TABLE SINDICATO.SD_FAMILIARES
+(
+  ID_FAMILIAR       NUMBER(7)                   NOT NULL,
+  ID_SOCIO          NUMBER(7),
+  ID_CHOFER         NUMBER(7),
+  NOMBRE            VARCHAR2(200 BYTE)          NOT NULL,
+  APELLIDO_PATERNO  VARCHAR2(200 BYTE)          NOT NULL,
+  APELLIDO_MATERNO  VARCHAR2(200 BYTE)          NOT NULL,
+  CI                NUMBER(15),
+  EXPEDIDO          VARCHAR2(10 BYTE),
+  FECHA_NAC         DATE                        NOT NULL,
+  PARENTESCO        VARCHAR2(50 BYTE)           NOT NULL,
+  OBSERVACION       VARCHAR2(500 BYTE),
+  FECHA_REG         DATE,
+  ID_USR            NUMBER(7)
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+MONITORING;
+
+COMMENT ON COLUMN SINDICATO.SD_FAMILIARES.NOMBRE IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_FAMILIARES.CI IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_FAMILIARES.EXPEDIDO IS 'lista';
+
+COMMENT ON COLUMN SINDICATO.SD_FAMILIARES.FECHA_NAC IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_FAMILIARES.PARENTESCO IS 'grid , lista';
+
+COMMENT ON COLUMN SINDICATO.SD_FAMILIARES.OBSERVACION IS 'grid';
+
+
+ALTER TABLE SINDICATO.SD_SOCIO_DESEMPENOS
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SINDICATO.SD_SOCIO_DESEMPENOS CASCADE CONSTRAINTS;
+
+CREATE TABLE SINDICATO.SD_SOCIO_DESEMPENOS
+(
+  ID_DESEMPEÑO  NUMBER(7)                       NOT NULL,
+  ID_SOCIO      NUMBER(7)                       NOT NULL,
+  CARGO         VARCHAR2(50 BYTE)               NOT NULL,
+  OBSERVACION   VARCHAR2(200 BYTE),
+  FECHA_DESDE   DATE                            NOT NULL,
+  FECHA_HASTA   DATE,
+  FECHA_REG     DATE,
+  ID_USR        NUMBER(7)
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+MONITORING;
+
+COMMENT ON COLUMN SINDICATO.SD_SOCIO_DESEMPENOS.CARGO IS 'lista , grid';
+
+COMMENT ON COLUMN SINDICATO.SD_SOCIO_DESEMPENOS.OBSERVACION IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_SOCIO_DESEMPENOS.FECHA_DESDE IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_SOCIO_DESEMPENOS.FECHA_HASTA IS 'grid';
+
+
+CREATE UNIQUE INDEX SINDICATO.SD_CHOFERES_PK ON SINDICATO.SD_CHOFERES
+(ID_CHOFER)
+LOGGING
+TABLESPACE USERS
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+NOPARALLEL;
+
+
+CREATE UNIQUE INDEX SINDICATO.SD_DOCUMENTACIONES_PK ON SINDICATO.SD_DOCUMENTACIONES
+(ID_DOCUMENTACION)
+LOGGING
+TABLESPACE USERS
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+NOPARALLEL;
+
+
+CREATE UNIQUE INDEX SINDICATO.SD_FAMILIARES_PK ON SINDICATO.SD_FAMILIARES
+(ID_FAMILIAR)
+LOGGING
+TABLESPACE USERS
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+NOPARALLEL;
+
+
+CREATE UNIQUE INDEX SINDICATO.SD_SOCIO_DESEMPENOS_PK ON SINDICATO.SD_SOCIO_DESEMPENOS
+(ID_DESEMPEÑO)
+LOGGING
+TABLESPACE USERS
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+NOPARALLEL;
+
+
+ALTER TABLE SINDICATO.SD_ANTECEDENTES
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SINDICATO.SD_ANTECEDENTES CASCADE CONSTRAINTS;
+
+CREATE TABLE SINDICATO.SD_ANTECEDENTES
+(
+  ID_ANTECEDENTE  NUMBER(7)                     NOT NULL,
+  ID_SOCIO        NUMBER(7),
+  ID_CHOFER       NUMBER(7),
+  MOTIVO          VARCHAR2(50 BYTE)             NOT NULL,
+  OBSERVACION     VARCHAR2(200 BYTE),
+  FECHA           DATE                          NOT NULL,
+  FECHA_REG       DATE,
+  ID_USR          NUMBER(7)
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+MONITORING;
+
+COMMENT ON COLUMN SINDICATO.SD_ANTECEDENTES.MOTIVO IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_ANTECEDENTES.OBSERVACION IS 'grid';
+
+COMMENT ON COLUMN SINDICATO.SD_ANTECEDENTES.FECHA IS 'grid';
+
+
+CREATE UNIQUE INDEX SINDICATO.SD_ANTECEDENTES_PK ON SINDICATO.SD_ANTECEDENTES
+(ID_ANTECEDENTE)
+LOGGING
+TABLESPACE USERS
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+NOPARALLEL;
+
+
+ALTER TABLE SINDICATO.SD_AUX_LOG_ERRORES ADD (
+  CONSTRAINT SD_AUX_LOG_ERRORES_PK
+ PRIMARY KEY
+ (ID_LOG)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+ALTER TABLE SINDICATO.SD_HIST_EDICION_DATOS ADD (
+  CONSTRAINT SD_HIST_EDICION_DATOS_PK
+ PRIMARY KEY
+ (ID_HIST)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+ALTER TABLE SINDICATO.SD_LISTAS ADD (
+  CONSTRAINT PK_SG_LISTAS
+ PRIMARY KEY
+ (ID_LISTA)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+ALTER TABLE SINDICATO.SD_LISTAS_ITEMS ADD (
+  CONSTRAINT SG_LISTAS_ITEMS_PK
+ PRIMARY KEY
+ (ID_TABLA));
+
+ALTER TABLE SINDICATO.SD_MENU_OPCIONES ADD (
+  CONSTRAINT SG_MENU_OPCIONES_PK
+ PRIMARY KEY
+ (ID_OPC));
+
+ALTER TABLE SINDICATO.SD_PERFILES ADD (
+  CONSTRAINT SG_PERFILES_PK
+ PRIMARY KEY
+ (ID_PERFIL));
+
+ALTER TABLE SINDICATO.SD_PERFILES_OPCIONES ADD (
+  CONSTRAINT SG_PERFILES_OPCIONES_PK
+ PRIMARY KEY
+ (ID_PRF_OPC));
+
+ALTER TABLE SINDICATO.SD_SOCIOS ADD (
+  CONSTRAINT SD_SOCIOS_PK
+ PRIMARY KEY
+ (ID_SOCIO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ),
+  CONSTRAINT SD_SOCIOS_U01
+ UNIQUE (NRO_SOCIO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+ALTER TABLE SINDICATO.SD_USUARIOS ADD (
+  CONSTRAINT SG_USUARIOS_PK
+ PRIMARY KEY
+ (ID_USUARIO));
+
+ALTER TABLE SINDICATO.SD_CHOFERES ADD (
+  CONSTRAINT SD_CHOFERES_PK
+ PRIMARY KEY
+ (ID_CHOFER)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+ALTER TABLE SINDICATO.SD_DOCUMENTACIONES ADD (
+  CONSTRAINT SD_DOCUMENTACIONES_PK
+ PRIMARY KEY
+ (ID_DOCUMENTACION)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+ALTER TABLE SINDICATO.SD_FAMILIARES ADD (
+  CONSTRAINT SD_FAMILIARES_PK
+ PRIMARY KEY
+ (ID_FAMILIAR)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+ALTER TABLE SINDICATO.SD_SOCIO_DESEMPENOS ADD (
+  CONSTRAINT SD_SOCIO_DESEMPENOS_PK
+ PRIMARY KEY
+ (ID_DESEMPEÑO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+ALTER TABLE SINDICATO.SD_ANTECEDENTES ADD (
+  CONSTRAINT SD_ANTECEDENTES_PK
+ PRIMARY KEY
+ (ID_ANTECEDENTE)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+ALTER TABLE SINDICATO.SD_LISTAS_ITEMS ADD (
+  CONSTRAINT SG_LISTAS_ITEMS_R01 
+ FOREIGN KEY (ID_LISTA) 
+ REFERENCES SINDICATO.SD_LISTAS (ID_LISTA),
+  CONSTRAINT SG_LISTAS_ITEMS_R02 
+ FOREIGN KEY (ID_PADRE) 
+ REFERENCES SINDICATO.SD_LISTAS_ITEMS (ID_TABLA));
+
+ALTER TABLE SINDICATO.SD_PERFILES_OPCIONES ADD (
+  CONSTRAINT SG_PERFILES_OPCIONES_R01 
+ FOREIGN KEY (ID_PERFIL) 
+ REFERENCES SINDICATO.SD_PERFILES (ID_PERFIL),
+  CONSTRAINT SG_PERFILES_OPCIONES_R02 
+ FOREIGN KEY (ID_OPC) 
+ REFERENCES SINDICATO.SD_MENU_OPCIONES (ID_OPC));
+
+ALTER TABLE SINDICATO.SD_USUARIOS ADD (
+  CONSTRAINT SG_USUARIOS_R01 
+ FOREIGN KEY (ID_PERFIL) 
+ REFERENCES SINDICATO.SD_PERFILES (ID_PERFIL));
+
+ALTER TABLE SINDICATO.SD_CHOFERES ADD (
+  CONSTRAINT SD_CHOFERES_R01 
+ FOREIGN KEY (ID_SOCIO) 
+ REFERENCES SINDICATO.SD_SOCIOS (ID_SOCIO));
+
+ALTER TABLE SINDICATO.SD_DOCUMENTACIONES ADD (
+  CONSTRAINT SD_DOCUMENTACIONES_R01 
+ FOREIGN KEY (ID_SOCIO) 
+ REFERENCES SINDICATO.SD_SOCIOS (ID_SOCIO),
+  CONSTRAINT SD_DOCUMENTACIONES_R02 
+ FOREIGN KEY (ID_CHOFER) 
+ REFERENCES SINDICATO.SD_CHOFERES (ID_CHOFER));
+
+ALTER TABLE SINDICATO.SD_FAMILIARES ADD (
+  CONSTRAINT SD_FAMILIARES_R01 
+ FOREIGN KEY (ID_SOCIO) 
+ REFERENCES SINDICATO.SD_SOCIOS (ID_SOCIO),
+  CONSTRAINT SD_FAMILIARES_R02 
+ FOREIGN KEY (ID_CHOFER) 
+ REFERENCES SINDICATO.SD_CHOFERES (ID_CHOFER));
+
+ALTER TABLE SINDICATO.SD_SOCIO_DESEMPENOS ADD (
+  CONSTRAINT SD_SOCIO_DESEMPENOS_R01 
+ FOREIGN KEY (ID_SOCIO) 
+ REFERENCES SINDICATO.SD_SOCIOS (ID_SOCIO));
+
+ALTER TABLE SINDICATO.SD_ANTECEDENTES ADD (
+  CONSTRAINT SD_ANTECEDENTES_R01 
+ FOREIGN KEY (ID_SOCIO) 
+ REFERENCES SINDICATO.SD_SOCIOS (ID_SOCIO),
+  CONSTRAINT SD_ANTECEDENTES_R02 
+ FOREIGN KEY (ID_CHOFER) 
+ REFERENCES SINDICATO.SD_CHOFERES (ID_CHOFER));
+DROP VIEW SINDICATO.V_TABLAS_COLUMNAS;
+
+/* Formatted on 07/03/2014 22:34:02 (QP5 v5.136.908.31019) */
+CREATE OR REPLACE FORCE VIEW SINDICATO.V_TABLAS_COLUMNAS
+(
+   ID_TABLA,
+   TABLA,
+   COLUMNA,
+   TIPO,
+   PRECISION,
+   ESCALA,
+   TAMANO,
+   REQUERIDO,
+   COMENTARIO
+)
+AS
+   SELECT u.COLUMN_ID,
+          u.TABLE_NAME,
+          U.COLUMN_NAME,
+          U.DATA_TYPE,
+          U.DATA_PRECISION,
+          U.DATA_SCALE,
+          U.DATA_LENGTH,
+          U.NULLABLE,
+          A.COMMENTS
+     FROM USER_TAB_COLUMNS u, ALL_COL_COMMENTS a
+    WHERE     u.table_name = a.table_NAME
+          AND a.owner = 'SINDICATO'
+          AND a.column_name = u.column_name;
+SET DEFINE OFF;
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (1, 'admin', TO_DATE('02/28/2014 11:00:19', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(1, NULL, 1, ''CBBA'', ''CBBA'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (2, 'admin', TO_DATE('02/28/2014 11:00:22', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(2, NULL, 1, ''CBBA'', ''CBBA'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (3, 'admin', TO_DATE('02/28/2014 11:00:24', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(3, NULL, 1, ''CBBA'', ''CBBA'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (4, 'admin', TO_DATE('02/28/2014 11:00:33', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(5, NULL, 1, ''OR'', ''OR'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (5, 'admin', TO_DATE('02/28/2014 11:00:36', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(6, NULL, 1, ''OR'', ''OR'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (6, 'admin', TO_DATE('02/28/2014 11:00:39', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(7, NULL, 1, ''OR'', ''OR'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (7, 'admin', TO_DATE('02/28/2014 11:02:05', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(8, NULL, 1, ''OR'', ''OR'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (8, 'admin', TO_DATE('02/28/2014 11:02:10', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(9, NULL, 1, ''OR'', ''OR'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (9, 'admin', TO_DATE('02/28/2014 11:02:12', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(10, NULL, 1, ''OR'', ''OR'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (10, 'admin', TO_DATE('02/28/2014 11:02:16', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(11, NULL, 1, ''OR'', ''OR'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (11, 'admin', TO_DATE('02/28/2014 11:02:18', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(12, NULL, 1, ''OR'', ''OR'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (12, 'admin', TO_DATE('02/28/2014 11:02:20', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(13, NULL, 1, ''OR'', ''OR'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (13, 'admin', TO_DATE('02/28/2014 11:02:22', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(14, NULL, 1, ''OR'', ''OR'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (14, 'admin', TO_DATE('02/28/2014 11:02:24', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(15, NULL, 1, ''OR'', ''OR'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (15, 'admin', TO_DATE('02/28/2014 11:02:26', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(16, NULL, 1, ''OR'', ''OR'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (16, 'admin', TO_DATE('02/28/2014 11:02:28', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(17, NULL, 1, ''OR'', ''OR'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (17, 'admin', TO_DATE('02/28/2014 11:02:31', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(18, NULL, 1, ''OR'', ''OR'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (18, 'admin', TO_DATE('02/28/2014 11:02:46', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(20, NULL, 1, ''SCZ'', ''SCZ'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (19, 'admin', TO_DATE('02/28/2014 11:02:49', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(21, NULL, 1, ''SCZ'', ''SCZ'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (20, 'admin', TO_DATE('02/28/2014 11:02:51', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(22, NULL, 1, ''SCZ'', ''SCZ'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (21, 'admin', TO_DATE('02/28/2014 11:02:54', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(23, NULL, 1, ''SCZ'', ''SCZ'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (22, 'admin', TO_DATE('02/28/2014 11:02:56', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(24, NULL, 1, ''SCZ'', ''SCZ'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (23, 'admin', TO_DATE('02/28/2014 11:02:58', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SG_LISTAS_ITEMS_PK) violated', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(25, NULL, 1, ''SCZ'', ''SCZ'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (24, 'admin', TO_DATE('02/28/2014 11:07:23', 'MM/DD/YYYY HH24:MI:SS'), 'ADM. LISTAS_ITEMS', 'P_SD_GRABAR_LISTAS_ITEMS', 
+    '-12899', 'ORA-12899: value too large for column "SINDICATO"."SD_LISTAS_ITEMS"."CODIGO" (actual: 7, maximum: 5)', 'INSERT INTO SD_LISTAS_ITEMS(id_tabla, id_padre, id_lista, codigo, valor, estado) VALUES(36, NULL, 3, ''SOLTERO'', ''SOLTERO'', ''A'')');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (25, '-', TO_DATE('03/01/2014 20:18:46', 'MM/DD/YYYY HH24:MI:SS'), 'P_EE_ALTA_SD_CHOFERES', 'P_EE_ALTA_SD_CHOFERES', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SD_CHOFERES_PK) violated', '-');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (26, '-', TO_DATE('03/06/2014 18:01:43', 'MM/DD/YYYY HH24:MI:SS'), 'P_EE_ALTA_SD_SOCIOS', 'P_EE_ALTA_SD_SOCIOS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SD_SOCIOS_U01) violated', '-');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (27, '-', TO_DATE('03/06/2014 18:05:43', 'MM/DD/YYYY HH24:MI:SS'), 'P_EE_ALTA_SD_SOCIOS', 'P_EE_ALTA_SD_SOCIOS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SD_SOCIOS_U01) violated', '-');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (28, '-', TO_DATE('03/06/2014 18:05:45', 'MM/DD/YYYY HH24:MI:SS'), 'P_EE_ALTA_SD_SOCIOS', 'P_EE_ALTA_SD_SOCIOS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SD_SOCIOS_U01) violated', '-');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (29, '-', TO_DATE('03/06/2014 18:06:48', 'MM/DD/YYYY HH24:MI:SS'), 'P_EE_ALTA_SD_SOCIOS', 'P_EE_ALTA_SD_SOCIOS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SD_SOCIOS_U01) violated', '-');
+Insert into SINDICATO.SD_AUX_LOG_ERRORES
+   (ID_LOG, LOGIN_USR, FECHA, MODULO, NOMBRE_SP, 
+    COD_ERROR, DESC_ERROR, CAD_SQL)
+ Values
+   (30, '-', TO_DATE('03/06/2014 18:09:09', 'MM/DD/YYYY HH24:MI:SS'), 'P_EE_ALTA_SD_SOCIOS', 'P_EE_ALTA_SD_SOCIOS', 
+    '-1', 'ORA-00001: unique constraint (SINDICATO.SD_SOCIOS_U01) violated', '-');
+COMMIT;
+
+SET DEFINE OFF;
+Insert into SINDICATO.SD_CHOFERES
+   (ID_CHOFER, NRO_CHOFER, NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, 
+    NRO_LICENCIA, CATEGORIA_LIC, CI, EXPEDIDO, FECHA_NAC, 
+    FECHA_INGRESO, FECHA_BAJA, DOMICILIO, OBSERVACION, ESTADO_CIVIL, 
+    ID_SOCIO, FECHA_REG, ID_USR, ESTADO, TELEFONO, 
+    CELULAR)
+ Values
+   (1, 123, 'ubaldo', 'jklsdaskj', 'kjhkjsdhaskdj', 
+    23324, 'a', 234234234, 'cbba', TO_DATE('03/05/2014 00:00:00', 'MM/DD/YYYY HH24:MI:SS'), 
+    TO_DATE('03/01/2014 19:27:14', 'MM/DD/YYYY HH24:MI:SS'), NULL, 'dfsdfsf', 'sdfsdf', 'sdfsdf', 
+    2, TO_DATE('03/01/2014 19:27:34', 'MM/DD/YYYY HH24:MI:SS'), 1, 'a', NULL, 
+    NULL);
+Insert into SINDICATO.SD_CHOFERES
+   (ID_CHOFER, NRO_CHOFER, NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, 
+    NRO_LICENCIA, CATEGORIA_LIC, CI, EXPEDIDO, FECHA_NAC, 
+    FECHA_INGRESO, FECHA_BAJA, DOMICILIO, OBSERVACION, ESTADO_CIVIL, 
+    ID_SOCIO, FECHA_REG, ID_USR, ESTADO, TELEFONO, 
+    CELULAR)
+ Values
+   (2, 1, 'SDFSDFQSDFSDF', 'KJHKHKJ', 'KJHKJHKJH', 
+    3242342, 'A', 1, 'BENI', TO_DATE('03/01/2014 00:00:00', 'MM/DD/YYYY HH24:MI:SS'), 
+    TO_DATE('03/01/2014 00:00:00', 'MM/DD/YYYY HH24:MI:SS'), NULL, 'SDASDA', 'SDASDQW', 'CASADO', 
+    4, TO_DATE('03/01/2014 20:19:12', 'MM/DD/YYYY HH24:MI:SS'), 2, 'ALTA', NULL, 
+    NULL);
+COMMIT;
+
+SET DEFINE OFF;
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (1, 4, 'SD_LISTAS_ITEMS', 'id_lista', '1', 
+    'ALTA', TO_DATE('02/28/2014 11:00:26', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (2, 4, 'SD_LISTAS_ITEMS', 'codigo', 'CBBA', 
+    'ALTA', TO_DATE('02/28/2014 11:00:26', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (3, 4, 'SD_LISTAS_ITEMS', 'valor', 'CBBA', 
+    'ALTA', TO_DATE('02/28/2014 11:00:26', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (4, 4, 'SD_LISTAS_ITEMS', 'estado', 'A', 
+    'ALTA', TO_DATE('02/28/2014 11:00:26', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (5, 19, 'SD_LISTAS_ITEMS', 'id_lista', '1', 
+    'ALTA', TO_DATE('02/28/2014 11:02:33', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (6, 19, 'SD_LISTAS_ITEMS', 'codigo', 'OR', 
+    'ALTA', TO_DATE('02/28/2014 11:02:33', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (7, 19, 'SD_LISTAS_ITEMS', 'valor', 'OR', 
+    'ALTA', TO_DATE('02/28/2014 11:02:33', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (8, 19, 'SD_LISTAS_ITEMS', 'estado', 'A', 
+    'ALTA', TO_DATE('02/28/2014 11:02:33', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (9, 26, 'SD_LISTAS_ITEMS', 'id_lista', '1', 
+    'ALTA', TO_DATE('02/28/2014 11:03:01', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (10, 26, 'SD_LISTAS_ITEMS', 'codigo', 'SCZ', 
+    'ALTA', TO_DATE('02/28/2014 11:03:01', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (11, 26, 'SD_LISTAS_ITEMS', 'valor', 'SCZ', 
+    'ALTA', TO_DATE('02/28/2014 11:03:01', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (12, 26, 'SD_LISTAS_ITEMS', 'estado', 'A', 
+    'ALTA', TO_DATE('02/28/2014 11:03:01', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (13, 27, 'SD_LISTAS_ITEMS', 'id_lista', '1', 
+    'ALTA', TO_DATE('02/28/2014 11:03:13', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (14, 27, 'SD_LISTAS_ITEMS', 'codigo', 'LPZ', 
+    'ALTA', TO_DATE('02/28/2014 11:03:13', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (15, 27, 'SD_LISTAS_ITEMS', 'valor', 'LPZ', 
+    'ALTA', TO_DATE('02/28/2014 11:03:13', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (16, 27, 'SD_LISTAS_ITEMS', 'estado', 'A', 
+    'ALTA', TO_DATE('02/28/2014 11:03:13', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (17, 28, 'SD_LISTAS_ITEMS', 'id_lista', '1', 
+    'ALTA', TO_DATE('02/28/2014 11:03:23', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (18, 28, 'SD_LISTAS_ITEMS', 'codigo', 'TRJ', 
+    'ALTA', TO_DATE('02/28/2014 11:03:23', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (19, 28, 'SD_LISTAS_ITEMS', 'valor', 'TRJ', 
+    'ALTA', TO_DATE('02/28/2014 11:03:23', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (20, 28, 'SD_LISTAS_ITEMS', 'estado', 'A', 
+    'ALTA', TO_DATE('02/28/2014 11:03:23', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (21, 29, 'SD_LISTAS_ITEMS', 'id_lista', '1', 
+    'ALTA', TO_DATE('02/28/2014 11:03:35', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (22, 29, 'SD_LISTAS_ITEMS', 'codigo', 'CH', 
+    'ALTA', TO_DATE('02/28/2014 11:03:35', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (23, 29, 'SD_LISTAS_ITEMS', 'valor', 'CH', 
+    'ALTA', TO_DATE('02/28/2014 11:03:35', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (24, 29, 'SD_LISTAS_ITEMS', 'estado', 'A', 
+    'ALTA', TO_DATE('02/28/2014 11:03:35', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (25, 30, 'SD_LISTAS_ITEMS', 'id_lista', '1', 
+    'ALTA', TO_DATE('02/28/2014 11:03:51', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (26, 30, 'SD_LISTAS_ITEMS', 'codigo', 'PA', 
+    'ALTA', TO_DATE('02/28/2014 11:03:51', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (27, 30, 'SD_LISTAS_ITEMS', 'valor', 'PA', 
+    'ALTA', TO_DATE('02/28/2014 11:03:51', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (28, 30, 'SD_LISTAS_ITEMS', 'estado', 'A', 
+    'ALTA', TO_DATE('02/28/2014 11:03:51', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (29, 31, 'SD_LISTAS_ITEMS', 'id_lista', '1', 
+    'ALTA', TO_DATE('02/28/2014 11:03:59', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (30, 31, 'SD_LISTAS_ITEMS', 'codigo', 'BN', 
+    'ALTA', TO_DATE('02/28/2014 11:03:59', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (31, 31, 'SD_LISTAS_ITEMS', 'valor', 'BN', 
+    'ALTA', TO_DATE('02/28/2014 11:03:59', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (32, 31, 'SD_LISTAS_ITEMS', 'estado', 'A', 
+    'ALTA', TO_DATE('02/28/2014 11:03:59', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (33, 32, 'SD_LISTAS_ITEMS', 'id_lista', '2', 
+    'ALTA', TO_DATE('02/28/2014 11:05:41', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (34, 32, 'SD_LISTAS_ITEMS', 'codigo', 'A', 
+    'ALTA', TO_DATE('02/28/2014 11:05:41', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (35, 32, 'SD_LISTAS_ITEMS', 'valor', 'A', 
+    'ALTA', TO_DATE('02/28/2014 11:05:41', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (36, 32, 'SD_LISTAS_ITEMS', 'estado', 'A', 
+    'ALTA', TO_DATE('02/28/2014 11:05:41', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (37, 33, 'SD_LISTAS_ITEMS', 'id_lista', '2', 
+    'ALTA', TO_DATE('02/28/2014 11:05:46', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (38, 33, 'SD_LISTAS_ITEMS', 'codigo', 'B', 
+    'ALTA', TO_DATE('02/28/2014 11:05:46', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (39, 33, 'SD_LISTAS_ITEMS', 'valor', 'B', 
+    'ALTA', TO_DATE('02/28/2014 11:05:46', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (40, 33, 'SD_LISTAS_ITEMS', 'estado', 'A', 
+    'ALTA', TO_DATE('02/28/2014 11:05:46', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (41, 34, 'SD_LISTAS_ITEMS', 'id_lista', '2', 
+    'ALTA', TO_DATE('02/28/2014 11:05:51', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (42, 34, 'SD_LISTAS_ITEMS', 'codigo', 'C', 
+    'ALTA', TO_DATE('02/28/2014 11:05:51', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (43, 34, 'SD_LISTAS_ITEMS', 'valor', 'C', 
+    'ALTA', TO_DATE('02/28/2014 11:05:51', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (44, 34, 'SD_LISTAS_ITEMS', 'estado', 'A', 
+    'ALTA', TO_DATE('02/28/2014 11:05:51', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (45, 35, 'SD_LISTAS_ITEMS', 'id_lista', '3', 
+    'ALTA', TO_DATE('02/28/2014 11:07:13', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (46, 35, 'SD_LISTAS_ITEMS', 'codigo', 'CASA', 
+    'ALTA', TO_DATE('02/28/2014 11:07:13', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (47, 35, 'SD_LISTAS_ITEMS', 'valor', 'CASADO', 
+    'ALTA', TO_DATE('02/28/2014 11:07:13', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (48, 35, 'SD_LISTAS_ITEMS', 'estado', 'A', 
+    'ALTA', TO_DATE('02/28/2014 11:07:13', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (49, 37, 'SD_LISTAS_ITEMS', 'id_lista', '3', 
+    'ALTA', TO_DATE('02/28/2014 11:07:30', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (50, 37, 'SD_LISTAS_ITEMS', 'codigo', 'SOL', 
+    'ALTA', TO_DATE('02/28/2014 11:07:30', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (51, 37, 'SD_LISTAS_ITEMS', 'valor', 'SOLTERO', 
+    'ALTA', TO_DATE('02/28/2014 11:07:30', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (52, 37, 'SD_LISTAS_ITEMS', 'estado', 'A', 
+    'ALTA', TO_DATE('02/28/2014 11:07:30', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (53, 38, 'SD_LISTAS_ITEMS', 'id_lista', '3', 
+    'ALTA', TO_DATE('02/28/2014 11:07:38', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (54, 38, 'SD_LISTAS_ITEMS', 'codigo', 'VIU', 
+    'ALTA', TO_DATE('02/28/2014 11:07:38', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (55, 38, 'SD_LISTAS_ITEMS', 'valor', 'VIUDO', 
+    'ALTA', TO_DATE('02/28/2014 11:07:38', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (56, 38, 'SD_LISTAS_ITEMS', 'estado', 'A', 
+    'ALTA', TO_DATE('02/28/2014 11:07:38', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (57, 39, 'SD_LISTAS_ITEMS', 'id_lista', '3', 
+    'ALTA', TO_DATE('02/28/2014 11:07:50', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (58, 39, 'SD_LISTAS_ITEMS', 'codigo', 'DIV', 
+    'ALTA', TO_DATE('02/28/2014 11:07:50', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (59, 39, 'SD_LISTAS_ITEMS', 'valor', 'DIVORCIADO', 
+    'ALTA', TO_DATE('02/28/2014 11:07:50', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (60, 39, 'SD_LISTAS_ITEMS', 'estado', 'A', 
+    'ALTA', TO_DATE('02/28/2014 11:07:50', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (61, 40, 'SD_LISTAS_ITEMS', 'id_lista', '3', 
+    'ALTA', TO_DATE('02/28/2014 11:07:58', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (62, 40, 'SD_LISTAS_ITEMS', 'codigo', 'SEP', 
+    'ALTA', TO_DATE('02/28/2014 11:07:58', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (63, 40, 'SD_LISTAS_ITEMS', 'valor', 'SEPARADO', 
+    'ALTA', TO_DATE('02/28/2014 11:07:58', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (64, 40, 'SD_LISTAS_ITEMS', 'estado', 'A', 
+    'ALTA', TO_DATE('02/28/2014 11:07:58', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (65, 41, 'SD_LISTAS_ITEMS', 'id_lista', '1', 
+    'ALTA', TO_DATE('02/28/2014 11:09:34', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (66, 41, 'SD_LISTAS_ITEMS', 'codigo', 'SUC', 
+    'ALTA', TO_DATE('02/28/2014 11:09:34', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (67, 41, 'SD_LISTAS_ITEMS', 'valor', 'SUCRE', 
+    'ALTA', TO_DATE('02/28/2014 11:09:34', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+Insert into SINDICATO.SD_HIST_EDICION_DATOS
+   (ID_HIST, ID_TABLA, TABLA, CAMPO, VALOR_NUEVO, 
+    MOTIVO, FECHA_REG, LOGIN_USR)
+ Values
+   (68, 41, 'SD_LISTAS_ITEMS', 'estado', 'A', 
+    'ALTA', TO_DATE('02/28/2014 11:09:34', 'MM/DD/YYYY HH24:MI:SS'), 'admin');
+COMMIT;
+
+SET DEFINE OFF;
+Insert into SINDICATO.SD_LISTAS
+   (ID_LISTA, LISTA, DESCRIPCION, TAM_LIMITE, TIPO_VALOR, 
+    MAYUS_MINUS, ESTADO)
+ Values
+   (10, 'TIPO_COMPRA', 'TIPO COMPRA', 20, 'CADENA', 
+    'MAYUS', 'A');
+Insert into SINDICATO.SD_LISTAS
+   (ID_LISTA, LISTA, DESCRIPCION, TAM_LIMITE, TIPO_VALOR, 
+    MAYUS_MINUS, ESTADO)
+ Values
+   (11, 'MOVIMIENTO', 'MOVIEMINTO DE INGRESO Y EGRESO', 20, 'CADENA', 
+    'MAYUS', 'A');
+Insert into SINDICATO.SD_LISTAS
+   (ID_LISTA, LISTA, DESCRIPCION, TAM_LIMITE, TIPO_VALOR, 
+    MAYUS_MINUS, ESTADO)
+ Values
+   (12, 'MONEDA', 'MONEDA', 20, 'CADENA', 
+    'MAYUS', 'A');
+Insert into SINDICATO.SD_LISTAS
+   (ID_LISTA, LISTA, DESCRIPCION, TAM_LIMITE, TIPO_VALOR, 
+    MAYUS_MINUS, ESTADO)
+ Values
+   (9, 'ANIO', 'ANIO', 4, 'NUMERICO', 
+    'MINUS', 'A');
+Insert into SINDICATO.SD_LISTAS
+   (ID_LISTA, LISTA, DESCRIPCION, TAM_LIMITE, TIPO_VALOR, 
+    MAYUS_MINUS, ESTADO)
+ Values
+   (7, 'MES', 'MESES', 20, 'CADENA', 
+    'MAYUS', 'A');
+Insert into SINDICATO.SD_LISTAS
+   (ID_LISTA, LISTA, DESCRIPCION, TAM_LIMITE, TIPO_VALOR, 
+    MAYUS_MINUS, ESTADO)
+ Values
+   (8, 'TURNO', 'TURNOS DE OPERADORES', 20, 'CADENA', 
+    'MAYUS', 'A');
+Insert into SINDICATO.SD_LISTAS
+   (ID_LISTA, LISTA, DESCRIPCION, TAM_LIMITE, TIPO_VALOR, 
+    MAYUS_MINUS, ESTADO)
+ Values
+   (1, 'EXPEDIDO_CI', 'EXPEDICIONES DE CARNET DE IDENTIDAD', 10, 'CADENA', 
+    'MAYUS', 'A');
+Insert into SINDICATO.SD_LISTAS
+   (ID_LISTA, LISTA, DESCRIPCION, TAM_LIMITE, TIPO_VALOR, 
+    MAYUS_MINUS, ESTADO)
+ Values
+   (2, 'CATEGORIA_LIC', 'CATEGORIA DE LICENCIAS', 1, 'CADENA', 
+    'MAYUS', 'A');
+Insert into SINDICATO.SD_LISTAS
+   (ID_LISTA, LISTA, DESCRIPCION, TAM_LIMITE, TIPO_VALOR, 
+    MAYUS_MINUS, ESTADO)
+ Values
+   (3, 'ESTADO_CIVIL', 'ESTADO CIVIL', 20, 'CADENA', 
+    'MAYUS', 'A');
+COMMIT;
+
+SET DEFINE OFF;
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (20, NULL, 10, '1', 'ASIGNACION', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (21, NULL, 10, '2', 'ADICIONAL', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (22, NULL, 9, '2014', '2014', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (23, NULL, 11, '1', 'OTROS INGRESOS', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (24, NULL, 11, '2', 'OTROS EGRESOS', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (25, NULL, 12, 'BOB', 'BOB', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (1, NULL, 7, '01', 'ENERO', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (2, NULL, 7, '02', 'FEBRERO', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (3, NULL, 7, '03', 'MARZO', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (7, NULL, 7, '06', 'JUNIO', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (5, NULL, 7, '04', 'ABRIL', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (6, NULL, 7, '05', 'MAYO', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (8, NULL, 7, '07', 'JULIO', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (9, NULL, 7, '08', 'AGOSTO', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (10, NULL, 7, '09', 'SEPTIEMBRE', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (11, NULL, 7, '10', 'OCTUBRE', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (12, NULL, 7, '11', 'NOVIEMBRE', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (13, NULL, 7, '12', 'DICIEMBRE', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (14, NULL, 8, '1', 'DIA', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (15, NULL, 8, '2', 'TARDE', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (16, NULL, 8, '3', 'NOCHE', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (17, NULL, 9, '2012', '2012', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (18, NULL, 9, '2013', '2013', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (4, NULL, 1, 'CBBA', 'COCHABAMBA', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (19, NULL, 1, 'OR', 'ORURO', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (26, NULL, 1, 'SCZ', 'SANTACRUZ', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (27, NULL, 1, 'LPZ', 'LAPAZ', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (28, NULL, 1, 'TRJ', 'TARIJA', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (29, NULL, 1, 'CH', 'CHUQUISACA', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (30, NULL, 1, 'PA', 'PANDO', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (31, NULL, 1, 'BN', 'BENI', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (32, NULL, 2, 'A', 'A', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (33, NULL, 2, 'B', 'B', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (34, NULL, 2, 'C', 'C', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (35, NULL, 3, 'CASA', 'CASADO', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (37, NULL, 3, 'SOL', 'SOLTERO', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (38, NULL, 3, 'VIU', 'VIUDO', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (39, NULL, 3, 'DIV', 'DIVORCIADO', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (40, NULL, 3, 'SEP', 'SEPARADO', 
+    'A');
+Insert into SINDICATO.SD_LISTAS_ITEMS
+   (ID_TABLA, ID_PADRE, ID_LISTA, CODIGO, VALOR, 
+    ESTADO)
+ Values
+   (41, NULL, 1, 'SUC', 'SUCRE', 
+    'A');
+COMMIT;
+
+SET DEFINE OFF;
+Insert into SINDICATO.SD_MENU_OPCIONES
+   (ID_OPC, OPCION, LINK, TOOLTIP, ICONO, 
+    ESTILO, ID_PADRE, ESTADO, ORDEN)
+ Values
+   (5, 'Efectivo', 'App.View.Cajas.Principal', 'Modulo de Efectivo', 'money-icon', 
+    NULL, NULL, 'A', 3);
+Insert into SINDICATO.SD_MENU_OPCIONES
+   (ID_OPC, OPCION, LINK, TOOLTIP, ICONO, 
+    ESTILO, ID_PADRE, ESTADO, ORDEN)
+ Values
+   (3, 'Otros Egresos', 'App.View.Egresos.Principal', 'Modulo de Otros Egresos', 'coin-delete-icon', 
+    NULL, NULL, 'A', 4);
+Insert into SINDICATO.SD_MENU_OPCIONES
+   (ID_OPC, OPCION, LINK, TOOLTIP, ICONO, 
+    ESTILO, ID_PADRE, ESTADO, ORDEN)
+ Values
+   (6, 'Cuentas por Cobrar', 'App.View.CuentasPC.Principal', 'Modulo de Cuentas Por Cobrar', 'Public-Documents-icon', 
+    NULL, NULL, 'A', 5);
+Insert into SINDICATO.SD_MENU_OPCIONES
+   (ID_OPC, OPCION, LINK, TOOLTIP, ICONO, 
+    ESTILO, ID_PADRE, ESTADO, ORDEN)
+ Values
+   (2, 'Otros Ingresos', 'App.View.Ingresos.Principal', 'Modulo de Otros Ingresos', 'coin-add-icon', 
+    NULL, NULL, 'A', 2);
+Insert into SINDICATO.SD_MENU_OPCIONES
+   (ID_OPC, OPCION, LINK, TOOLTIP, ICONO, 
+    ESTILO, ID_PADRE, ESTADO, ORDEN)
+ Values
+   (4, 'Configuracion Listas', 'App.View.Listas.Principal', 'Modulo de Configuraciones de Listas del Sistema', 'application-settings-icon', 
+    NULL, NULL, 'A', 10);
+Insert into SINDICATO.SD_MENU_OPCIONES
+   (ID_OPC, OPCION, LINK, TOOLTIP, ICONO, 
+    ESTILO, ID_PADRE, ESTADO, ORDEN)
+ Values
+   (1, 'Adm Socios', 'App.View.Socios.Principal', 'Modulo de Socios', 'Actions-view-pim-contacts-icon', 
+    NULL, NULL, 'A', 1);
+Insert into SINDICATO.SD_MENU_OPCIONES
+   (ID_OPC, OPCION, LINK, TOOLTIP, ICONO, 
+    ESTILO, ID_PADRE, ESTADO, ORDEN)
+ Values
+   (100, 'Crear Formularios', 'App.View.Utils.Principal', 'crear Formularios dinamicos apartir de una tabla', 'money-icon', 
+    NULL, NULL, 'A', 100);
+Insert into SINDICATO.SD_MENU_OPCIONES
+   (ID_OPC, OPCION, LINK, TOOLTIP, ICONO, 
+    ESTILO, ID_PADRE, ESTADO, ORDEN)
+ Values
+   (7, 'Adm Choferes', 'App.View.Choferes.Principal', 'Modulo de Choferes', 'Actions-view-pim-contacts-icon', 
+    NULL, NULL, 'A', 2);
+COMMIT;
+
+SET DEFINE OFF;
+Insert into SINDICATO.SD_PERFILES
+   (ID_PERFIL, NOMBRE, DESCRIPCION, ESTADO)
+ Values
+   (1, 'ADMINISTRADOR', 'Administrador del sistema ', 'A');
+Insert into SINDICATO.SD_PERFILES
+   (ID_PERFIL, NOMBRE, DESCRIPCION, ESTADO)
+ Values
+   (2, 'ADM CONFIG', 'Administrador de configuracion del sistema', 'A');
+COMMIT;
+
+SET DEFINE OFF;
+Insert into SINDICATO.SD_PERFILES_OPCIONES
+   (ID_PRF_OPC, ID_PERFIL, ID_OPC, ESTADO)
+ Values
+   (1, 1, 1, 'A');
+Insert into SINDICATO.SD_PERFILES_OPCIONES
+   (ID_PRF_OPC, ID_PERFIL, ID_OPC, ESTADO)
+ Values
+   (2, 1, 2, 'A');
+Insert into SINDICATO.SD_PERFILES_OPCIONES
+   (ID_PRF_OPC, ID_PERFIL, ID_OPC, ESTADO)
+ Values
+   (3, 1, 3, 'A');
+Insert into SINDICATO.SD_PERFILES_OPCIONES
+   (ID_PRF_OPC, ID_PERFIL, ID_OPC, ESTADO)
+ Values
+   (4, 1, 4, 'A');
+Insert into SINDICATO.SD_PERFILES_OPCIONES
+   (ID_PRF_OPC, ID_PERFIL, ID_OPC, ESTADO)
+ Values
+   (5, 1, 5, 'A');
+Insert into SINDICATO.SD_PERFILES_OPCIONES
+   (ID_PRF_OPC, ID_PERFIL, ID_OPC, ESTADO)
+ Values
+   (6, 1, 6, 'A');
+Insert into SINDICATO.SD_PERFILES_OPCIONES
+   (ID_PRF_OPC, ID_PERFIL, ID_OPC, ESTADO)
+ Values
+   (7, 1, 100, 'A');
+Insert into SINDICATO.SD_PERFILES_OPCIONES
+   (ID_PRF_OPC, ID_PERFIL, ID_OPC, ESTADO)
+ Values
+   (8, 1, 7, 'A');
+COMMIT;
+
+SET DEFINE OFF;
+Insert into SINDICATO.SD_SOCIOS
+   (ID_SOCIO, NRO_SOCIO, NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, 
+    NRO_LICENCIA, CATEGORIA_LIC, CI, EXPEDIDO, FECHA_NAC, 
+    FECHA_INGRESO, FECHA_BAJA, DOMICILIO, OBSERVACION, ESTADO_CIVIL, 
+    FECHA_REG, ID_USR, ESTADO, TELEFONO, CELULAR)
+ Values
+   (1, 1, '123123123123', '21321', 'SADEQWE3WQ', 
+    NULL, 'B', 123123, 'COCHABAMBA', TO_DATE('02/13/2014 00:00:00', 'MM/DD/YYYY HH24:MI:SS'), 
+    TO_DATE('02/13/2014 00:00:00', 'MM/DD/YYYY HH24:MI:SS'), NULL, 'SDQWEQWEWQE', 'QWEWQEQWEQWE', 'DIVORCIADO', 
+    TO_DATE('02/28/2014 14:30:42', 'MM/DD/YYYY HH24:MI:SS'), 2, 'NUEVO', NULL, NULL);
+Insert into SINDICATO.SD_SOCIOS
+   (ID_SOCIO, NRO_SOCIO, NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, 
+    NRO_LICENCIA, CATEGORIA_LIC, CI, EXPEDIDO, FECHA_NAC, 
+    FECHA_INGRESO, FECHA_BAJA, DOMICILIO, OBSERVACION, ESTADO_CIVIL, 
+    FECHA_REG, ID_USR, ESTADO, TELEFONO, CELULAR)
+ Values
+   (2, 2200, 'UBALDO FRANCISCO', 'VILLAZON', 'VILLCA', 
+    5190630, 'B', 5190630, 'COCHABAMBA', TO_DATE('06/04/1982 00:00:00', 'MM/DD/YYYY HH24:MI:SS'), 
+    TO_DATE('02/27/2014 00:00:00', 'MM/DD/YYYY HH24:MI:SS'), NULL, 'AVENIDA CHAPARE # 4767', 'NUEVO SOCIO ', 'CASADO', 
+    TO_DATE('02/28/2014 14:32:39', 'MM/DD/YYYY HH24:MI:SS'), 2, 'NUEVO', NULL, NULL);
+Insert into SINDICATO.SD_SOCIOS
+   (ID_SOCIO, NRO_SOCIO, NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, 
+    NRO_LICENCIA, CATEGORIA_LIC, CI, EXPEDIDO, FECHA_NAC, 
+    FECHA_INGRESO, FECHA_BAJA, DOMICILIO, OBSERVACION, ESTADO_CIVIL, 
+    FECHA_REG, ID_USR, ESTADO, TELEFONO, CELULAR)
+ Values
+   (3, 3001, 'UBALDO', 'VILLCA', '5190630', 
+    12312321, 'A', 5190630, 'COCHABAMBA', TO_DATE('02/08/2014 00:00:00', 'MM/DD/YYYY HH24:MI:SS'), 
+    TO_DATE('02/28/2014 00:00:00', 'MM/DD/YYYY HH24:MI:SS'), NULL, 'ASDQWEWQ', 'WQEWQEQWEQWEQEQWE', 'DIVORCIADO', 
+    TO_DATE('02/28/2014 14:41:54', 'MM/DD/YYYY HH24:MI:SS'), 2, 'NUEVO', NULL, NULL);
+Insert into SINDICATO.SD_SOCIOS
+   (ID_SOCIO, NRO_SOCIO, NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, 
+    NRO_LICENCIA, CATEGORIA_LIC, CI, EXPEDIDO, FECHA_NAC, 
+    FECHA_INGRESO, FECHA_BAJA, DOMICILIO, OBSERVACION, ESTADO_CIVIL, 
+    FECHA_REG, ID_USR, ESTADO, TELEFONO, CELULAR)
+ Values
+   (4, 3002, 'JHOVANA INCA VALERIAN', 'JHO', 'JDH', 
+    324234, 'A', 324234, 'COCHABAMBA', TO_DATE('09/13/2012 00:00:00', 'MM/DD/YYYY HH24:MI:SS'), 
+    TO_DATE('03/01/2014 00:00:00', 'MM/DD/YYYY HH24:MI:SS'), NULL, 'WERWERWWR', 'WRWEREWRWRWERWERWERW RWERWRWERWRW', 'DIVORCIADO', 
+    TO_DATE('03/01/2014 18:09:36', 'MM/DD/YYYY HH24:MI:SS'), 2, 'NUEVO', NULL, NULL);
+Insert into SINDICATO.SD_SOCIOS
+   (ID_SOCIO, NRO_SOCIO, NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, 
+    NRO_LICENCIA, CATEGORIA_LIC, CI, EXPEDIDO, FECHA_NAC, 
+    FECHA_INGRESO, FECHA_BAJA, DOMICILIO, OBSERVACION, ESTADO_CIVIL, 
+    FECHA_REG, ID_USR, ESTADO, TELEFONO, CELULAR)
+ Values
+   (5, 2000, 'UBALDO FRANCISCO ', 'VILLAZON', 'VILLCA', 
+    5190630, 'B', 519060, 'COCHABAMBA', TO_DATE('06/04/1982 00:00:00', 'MM/DD/YYYY HH24:MI:SS'), 
+    TO_DATE('03/06/2014 00:00:00', 'MM/DD/YYYY HH24:MI:SS'), NULL, 'AVENIDA CHAPARE', 'NINGUNA OBSERVA CION', 'CASADO', 
+    TO_DATE('03/06/2014 16:31:21', 'MM/DD/YYYY HH24:MI:SS'), 2, 'NUEVO', '4721340 - 4254234 - 4330334', '72708767 - 70703918');
+Insert into SINDICATO.SD_SOCIOS
+   (ID_SOCIO, NRO_SOCIO, NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, 
+    NRO_LICENCIA, CATEGORIA_LIC, CI, EXPEDIDO, FECHA_NAC, 
+    FECHA_INGRESO, FECHA_BAJA, DOMICILIO, OBSERVACION, ESTADO_CIVIL, 
+    FECHA_REG, ID_USR, ESTADO, TELEFONO, CELULAR)
+ Values
+   (6, 2001, 'ASDSADASDADSADGHFGH', 'ASDASDAS', 'SADASD', 
+    95245454, 'A', 5454655754, 'COCHABAMBA', TO_DATE('03/06/2014 00:00:00', 'MM/DD/YYYY HH24:MI:SS'), 
+    TO_DATE('03/06/2014 00:00:00', 'MM/DD/YYYY HH24:MI:SS'), NULL, 'SADASD', 'SADASDSA', 'CASADO', 
+    TO_DATE('03/06/2014 16:52:09', 'MM/DD/YYYY HH24:MI:SS'), 2, 'NUEVO', 'ASDSADAD', 'ASDASDAS');
+Insert into SINDICATO.SD_SOCIOS
+   (ID_SOCIO, NRO_SOCIO, NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, 
+    NRO_LICENCIA, CATEGORIA_LIC, CI, EXPEDIDO, FECHA_NAC, 
+    FECHA_INGRESO, FECHA_BAJA, DOMICILIO, OBSERVACION, ESTADO_CIVIL, 
+    FECHA_REG, ID_USR, ESTADO, TELEFONO, CELULAR)
+ Values
+   (7, 201451, 'ASDDASD', 'SADA', 'ASDASD', 
+    234234, 'A', 545465456, 'BENI', TO_DATE('03/06/2014 00:00:00', 'MM/DD/YYYY HH24:MI:SS'), 
+    TO_DATE('03/06/2014 00:00:00', 'MM/DD/YYYY HH24:MI:SS'), NULL, 'ASDASDA', 'ASDASD', 'CASADO', 
+    TO_DATE('03/06/2014 16:53:57', 'MM/DD/YYYY HH24:MI:SS'), 2, 'NUEVO', 'ASDASDASD', 'ASDASDAD');
+Insert into SINDICATO.SD_SOCIOS
+   (ID_SOCIO, NRO_SOCIO, NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, 
+    NRO_LICENCIA, CATEGORIA_LIC, CI, EXPEDIDO, FECHA_NAC, 
+    FECHA_INGRESO, FECHA_BAJA, DOMICILIO, OBSERVACION, ESTADO_CIVIL, 
+    FECHA_REG, ID_USR, ESTADO, TELEFONO, CELULAR)
+ Values
+   (8, 5190630, 'ASDASDADAS', 'SADASDAS', 'SADASD', 
+    1213, 'A', 51654654, 'COCHABAMBA', TO_DATE('03/06/2014 00:00:00', 'MM/DD/YYYY HH24:MI:SS'), 
+    TO_DATE('03/06/2014 00:00:00', 'MM/DD/YYYY HH24:MI:SS'), NULL, 'ASDASD', 'SFADA', 'CASADO', 
+    TO_DATE('03/06/2014 16:59:13', 'MM/DD/YYYY HH24:MI:SS'), 2, 'NUEVO', 'ASDSADA', 'ASDASD');
+COMMIT;
+
+SET DEFINE OFF;
+Insert into SINDICATO.SD_USUARIOS
+   (ID_USUARIO, LOGIN, NOMBRE, EMAIL, FCH_ALTA, 
+    FCH_BAJA, ID_PERFIL, ESTADO)
+ Values
+   (1, 'CITYTRUCK', 'Administrador', 'roly@importmercado.com', TO_DATE('12/21/2013 15:49:29', 'MM/DD/YYYY HH24:MI:SS'), 
+    NULL, 1, 'A');
+Insert into SINDICATO.SD_USUARIOS
+   (ID_USUARIO, LOGIN, NOMBRE, EMAIL, FCH_ALTA, 
+    FCH_BAJA, ID_PERFIL, ESTADO)
+ Values
+   (2, 'ADMIN', 'Administrador2 ', 'admin@importmercado.com', TO_DATE('12/21/2013 21:23:20', 'MM/DD/YYYY HH24:MI:SS'), 
+    NULL, 1, 'A');
+COMMIT;
