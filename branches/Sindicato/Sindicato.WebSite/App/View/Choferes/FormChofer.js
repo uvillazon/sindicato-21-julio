@@ -91,7 +91,7 @@
         Funciones.CrearMenu('btn_BajaFamiliar', 'Baja', Constantes.ICONO_BAJA, me.EventosForm, me.toolbarFamiliares, this, null, true);
         me.gridFamiliares = Ext.create("App.View.Choferes.Grids", {
             opcion: 'GridFamiliares',
-            height: 250,
+            height: 200,
             fbarmenu: me.toolbarFamiliares
         });
         me.gridFamiliares.on('itemclick', me.onItemClick, this);
@@ -104,7 +104,7 @@
 
         me.gridDocumentos = Ext.create("App.View.Choferes.Grids", {
             opcion: 'GridDocumentos',
-            height: 250,
+            height: 200,
             fbarmenu: me.toolbarDocumentos
         });
 
@@ -114,7 +114,7 @@
         Funciones.CrearMenu('btn_BajaFondoAsalariado', 'Baja', Constantes.ICONO_BAJA, me.EventosForm, me.toolbarFondoAsalariado, this);
         me.gridFondoAsalariado = Ext.create("App.View.Choferes.Grids", {
             opcion: 'GridFondoAsalariado',
-            height: 250,
+            height: 200,
             fbarmenu: me.toolbarFondoAsalariado
         });
 
@@ -124,13 +124,13 @@
         Funciones.CrearMenu('btn_BajaAntecedente', 'Baja', Constantes.ICONO_BAJA, me.EventosForm, me.toolbarAntecedente, this);
         me.gridAntecedentes = Ext.create("App.View.Choferes.Grids", {
             opcion: 'GridAntecedentes',
-            height: 250,
+            height: 200,
             fbarmenu: me.toolbarAntecedente
         });
 
         me.tabPanel = Ext.create('Ext.tab.Panel', {
             width: 960,
-            height: 300,
+            height: 235,
             colspan: 4,
             items: [
                 me.gridFamiliares,
@@ -166,7 +166,7 @@
             me.cargarDatos(record[0]);
             me.record = record[0];
             me.Bloquear();
-            me.formImagen.CargarImagen(record[0].get('ID_CHOFER'));
+            me.formImagen.CargarImagen(record[0].get('ID_IMG'));
         });
         me.txt_id.on('change', function (cmb, n, o) {
             var disabled = n === "";

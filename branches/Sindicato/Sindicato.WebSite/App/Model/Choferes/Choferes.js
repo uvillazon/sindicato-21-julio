@@ -23,6 +23,8 @@
         { type: "string", name: "NOMBRE_SOCIO" },
         { type: "string", name: "TELEFONO" },
         { type: "string", name: "CELULAR" },
+        { type: "int", name: "ID_IMG" },
+        
 
     ]
 });

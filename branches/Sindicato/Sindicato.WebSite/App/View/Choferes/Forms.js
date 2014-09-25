@@ -55,7 +55,7 @@
     },
     CargarImagen: function (id) {
         var me = this;
-        var originalSrc = Constantes.URLIMAGEN + 'id=' + id + '&tamano=200&TABLA=SD_CHOFERES';
+        var originalSrc = Constantes.URLIMAGEN + 'id=' + id + '&tamano=200';
 //        alert(originalSrc);
         me.changingImage.setSrc(originalSrc);
     },

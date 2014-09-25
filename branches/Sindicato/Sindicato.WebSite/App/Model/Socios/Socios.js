@@ -24,6 +24,9 @@
         { type: "int", name: "ID_USR" },
         { type: "string", name: "TELEFONO" },
         { type: "string", name: "CELULAR" },
-        { type: "string", name: "ESTADO" }
+        { type: "string", name: "ESTADO" },
+//        { name: 'CON_IMAGEN', type: 'boolean' },
+        { type: "int", name: "ID_IMG" },
+
     ]
 });
