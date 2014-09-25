@@ -17,9 +17,11 @@ namespace Sindicato.WebSite.Controllers
         //
         // GET: /MenuOpciones/
         private ISociosServices _serSoc;
-        public SociosController(ISociosServices serSoc)
+        private IImagenesServices _serImg;
+        public SociosController(ISociosServices serSoc, IImagenesServices serImg)
         {
             _serSoc = serSoc;
+            _serImg = serImg;
         }
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult ObtenerSociosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
@@ -50,7 +52,9 @@ namespace Sindicato.WebSite.Controllers
                 
                 FECHA_BAJA = x.SD_SOCIOS.FECHA_BAJA,
                 TELEFONO = x.SD_SOCIOS.TELEFONO,
-                CELULAR = x.SD_SOCIOS.CELULAR
+                CELULAR = x.SD_SOCIOS.CELULAR,
+                ID_IMG = _serImg.ConImagen(x.ID_SOCIO , "SD_SOCIOS")
+                //ID_IMG = 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
@@ -91,7 +95,8 @@ namespace Sindicato.WebSite.Controllers
                 DESCRIPCION = x.DESCRIPCION,
                 PLACA = x.PLACA,
                 MOTOR = x.MOTOR,
-                FECHA_ALTA = x.FECHA_ALTA
+                FECHA_ALTA = x.FECHA_ALTA,
+                ID_IMG = _serImg.ConImagen(x.ID_AUTO, "SD_AUTOS")
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";

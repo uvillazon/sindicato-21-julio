@@ -126,7 +126,7 @@
         me.store = Ext.create("App.Store.Socios.Autos");
         me.columns = [
            { xtype: "rownumberer", width: 30, sortable: false },
-            { header: "Img", width: 155, sortable: true, dataIndex: 'ID_AUTO', renderer: me.renderImagenAuto },
+            { header: "Img", width: 155, sortable: true, dataIndex: 'ID_IMG', renderer: me.renderImagenAuto },
             { header: "Nro Movil", width: 70, sortable: true, dataIndex: "MOVIL" },
             { header: "Tipo", width: 100, sortable: true, dataIndex: "TIPO" },
             { header: "Marca", width: 100, sortable: true, dataIndex: "MARCA" },
@@ -139,11 +139,11 @@
         ];
     },
     renderImagenAuto: function (val, metaData, record) {
-        if (record.data.ID_AUTO == 0) {
-            return '<img src="../Content/Iconos/no-imagen.jpg" />';
+        if (record.data.ID_IMG == 0) {
+            return null;
         }
         else {
-            return '<img src="' + Constantes.URLIMAGEN + 'id=' + val + '&tamano=150&TABLA=SD_AUTOS"/>';
+            return '<img src="' + Constantes.URLIMAGEN + 'id=' + val + '&tamano=150"/>';
         }
     }
 });

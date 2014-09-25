@@ -20,10 +20,11 @@ namespace Sindicato.WebSite.Controllers
         //
         // GET: /MenuOpciones/
         private IChoforesServices _serCho;
-
-        public ChoferesController(IChoforesServices serCho)
+        private IImagenesServices _serImg;
+        public ChoferesController(IChoforesServices serCho, IImagenesServices serImg)
         {
             _serCho = serCho;
+            _serImg = serImg;
         }
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult ObtenerChoferesPaginados(PagingInfo paginacion, FiltrosModel<ChoferesModel> filtros, ChoferesModel entidad)
@@ -50,6 +51,7 @@ namespace Sindicato.WebSite.Controllers
                 FECHA_BAJA = x.FECHA_BAJA,
                 TELEFONO = x.TELEFONO,
                 CELULAR = x.CELULAR,
+                ID_IMG = _serImg.ConImagen(x.ID_CHOFER, "SD_CHOFERES"),
                 NOMBRE_SOCIO = string.Format("Nro: {0} - {1} {2} {3}", x.SD_SOCIOS.NRO_SOCIO, x.SD_SOCIOS.NOMBRE, x.SD_SOCIOS.APELLIDO_PATERNO, x.SD_SOCIOS.APELLIDO_MATERNO)
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();

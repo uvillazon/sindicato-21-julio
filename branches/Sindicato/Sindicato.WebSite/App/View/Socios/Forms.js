@@ -39,7 +39,7 @@
         me.scope = me.scope == null ? this : me.scope;
         me.changingImage = Ext.create('Ext.Img', {
             colspan : 2,
-            src : Constantes.URLIMAGEN + 'id=' + me.val + '&tamano=300&TABLA=SD_SOCIOS'
+            src : Constantes.URLIMAGEN + 'id=' + me.val + '&tamano=300'
 
         });
         me.items = [
@@ -234,7 +234,7 @@
     },
     CargarImagen : function(id){
         var me = this;
-        var originalSrc =   Constantes.URLIMAGEN + 'id=' + id + '&tamano=200&TABLA=SD_CHOFERES';
+        var originalSrc =   Constantes.URLIMAGEN + 'id=' + id + '&tamano=200';
         me.changingImage.setSrc(originalSrc);
     },
     CargarFormMovil : function (){
