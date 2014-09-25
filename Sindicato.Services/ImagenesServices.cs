@@ -60,7 +60,7 @@ namespace Sindicato.Services
             ExecuteManager(uow =>
             {
                 var manager = new SD_IMAGENESManager(uow);
-                var res = manager.BuscarTodos(criterio).OrderByDescending(x=>x.ID_IMG);
+                var res = manager.BuscarTodos(criterio).OrderByDescending(x => x.ID_IMG);
 
 
                 result = res.FirstOrDefault();
@@ -97,6 +97,20 @@ namespace Sindicato.Services
                     result.msg = e.ToString();
                     result.success = false;
                 }
+
+            });
+            return result;
+        }
+
+
+        public int ConImagen(int ID, string TABLA)
+        {
+            int result = 0;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_IMAGENESManager(uow);
+                var res = manager.BuscarTodos(x => x.TABLA == TABLA && x.ID_TABLA == ID);
+                result = res.Count() > 0 ? res.OrderByDescending(x=>x.ID_IMG).FirstOrDefault().ID_IMG : 0;
 
             });
             return result;

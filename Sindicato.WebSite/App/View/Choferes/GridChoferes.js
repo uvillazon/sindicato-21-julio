@@ -24,7 +24,7 @@
         me.columns = [
              { xtype: "rownumberer", width: 30, sortable: false },
         //            { header: " - ", width: 30, sortable: false, dataIndex: "ID_CHOFER", hidden: true },
-            {header: "Img", width: 155, sortable: true, dataIndex: 'ID_CHOFER', renderer: me.renderImagen },
+            {header: "Img", width: 155, sortable: true, dataIndex: 'ID_IMG', renderer: me.renderImagen },
             { header: "Nro<br>Chofer", width: 70, sortable: true, dataIndex: "NRO_CHOFER" },
             { header: "Nombre", width: 100, sortable: true, dataIndex: "NOMBRE" },
             { header: "Apellido<br>Paterno", width: 100, sortable: true, dataIndex: "APELLIDO_PATERNO" },
@@ -49,11 +49,11 @@
     },
     renderImagen: function (val, metaData, record) {
         //  alert(record.data.ID)
-        if (record.data.ID_SOCIO == 0) {
-            return '<img src="../Content/Iconos/no-imagen.jpg" />';
+        if (record.data.ID_IMG == 0) {
+            return null;
         }
         else {
-            return '<img src="' + Constantes.URLIMAGEN + 'id=' + val + '&tamano=150&TABLA=SD_CHOFERES"/>';
+            return '<img src="' + Constantes.URLIMAGEN + 'id=' + val + '&tamano=150"/>';
         }
     }
 });

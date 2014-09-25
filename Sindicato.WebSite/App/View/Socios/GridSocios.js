@@ -20,8 +20,8 @@
         me.CargarComponentes();
         me.columns = [
           { xtype: "rownumberer", width: 30, sortable: false },
-//        { header: " - ", width: 30, sortable: false, dataIndex: "ID_SOCIO", hidden: true },
-        { header: "Img", width: 155, sortable: true, dataIndex: 'ID_SOCIO', renderer: me.renderImagen },
+        //        { header: " - ", width: 30, sortable: false, dataIndex: "ID_SOCIO", hidden: true },
+        {header: "Img", width: 155, sortable: true, dataIndex: 'ID_IMG', renderer: me.renderImagen },
         { header: "Nro<br>Movil", width: 70, sortable: true, dataIndex: "NRO_MOVIL" },
         { header: "Tipo<br>Movil", width: 100, sortable: true, dataIndex: "TIPO_MOVIL" },
         { header: "Fecha <br>Ingreso", width: 80, sortable: true, dataIndex: "FECHA_INGRESO", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
@@ -39,15 +39,16 @@
         { header: "Estado<br>Civil", width: 70, sortable: true, dataIndex: "ESTADO_CIVIL" }
         ];
 
-       
+
     },
     renderImagen: function (val, metaData, record) {
         //  alert(record.data.ID)
-        if (record.data.ID_SOCIO == 0) {
-            return '<img src="../Content/Iconos/no-imagen.jpg" />';
+        if (record.data.ID_IMG == 0) {
+            //            return '<img src="../Content/Iconos/no-imagen.jpg" />';
+            return null;
         }
         else {
-            return '<img src="' + Constantes.URLIMAGEN + 'id=' + val + '&tamano=150&TABLA=SD_SOCIOS"/>';
+            return '<img src="' + Constantes.URLIMAGEN + 'id=' + val + '&tamano=150"/>';
         }
     }
 });

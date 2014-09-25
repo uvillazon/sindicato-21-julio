@@ -108,7 +108,7 @@
         Funciones.CrearMenu('btn_ImagenAuto', 'Imagen', 'image_add', me.EventosForm, me.toolbarAuto, this,null,true);
         me.gridAutos = Ext.create("App.View.Socios.Grids", {
             opcion: 'GridAutomoviles',
-            height: 250,
+            height: 200,
             fbarmenu: me.toolbarAuto
         });
          me.gridAutos.getSelectionModel().on('selectionchange', me.onSelectChangeAuto, this);
@@ -119,7 +119,7 @@
         Funciones.CrearMenu('btn_BajaFamiliar', 'Baja', Constantes.ICONO_BAJA, me.EventosForm, me.toolbarFamiliares, this);
         me.gridFamiliares = Ext.create("App.View.Socios.Grids", {
             opcion: 'GridFamiliares',
-            height: 250,
+            height: 200,
             fbarmenu: me.toolbarFamiliares
         });
 
@@ -130,7 +130,7 @@
 
         me.gridDocumentos = Ext.create("App.View.Socios.Grids", {
             opcion: 'GridDocumentos',
-            height: 250,
+            height: 200,
             fbarmenu: me.toolbarDocumentos
         });
 
@@ -140,7 +140,7 @@
         Funciones.CrearMenu('btn_BajaDesempeno', 'Baja', Constantes.ICONO_BAJA, me.EventosForm, me.toolbarDesempeno, this);
         me.gridDesempeno = Ext.create("App.View.Socios.Grids", {
             opcion: 'GridDesempenos',
-            height: 250,
+            height: 200,
             fbarmenu: me.toolbarDesempeno
         });
 
@@ -150,13 +150,13 @@
         Funciones.CrearMenu('btn_BajaAntecedente', 'Baja', Constantes.ICONO_BAJA, me.EventosForm, me.toolbarAntecedente, this);
         me.gridAntecedentes = Ext.create("App.View.Socios.Grids", {
             opcion: 'GridAntecedentes',
-            height: 250,
+            height: 200,
             fbarmenu: me.toolbarAntecedente
         });
 
         me.tabPanel = Ext.create('Ext.tab.Panel', {
             width: 960,
-            height: 300,
+            height: 230,
             colspan: 4,
             items: [
                 me.gridAutos,
@@ -186,7 +186,7 @@
             me.gridAutos.getStore().setExtraParams({ ID_MOVIL: record[0].get('ID_MOVIL') });
             me.gridAutos.getStore().load();
 //            alert("asdas2");
-            me.formImagen.CargarImagen(record[0].get('ID_SOCIO'));
+            me.formImagen.CargarImagen(record[0].get('ID_IMG'));
         });
         me.txt_id_movil.on('change', function (cmb, n, o) {
             var disabled = n === "";

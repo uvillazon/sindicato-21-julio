@@ -14,7 +14,7 @@ namespace Sindicato.Services.Interfaces
         IEnumerable<SD_IMAGENES> ObtenerImagenesPaginado(PagingInfo paginacion, FiltrosModel<ImagenesModel> filtros);
         SD_IMAGENES BuscarImagen(Expression<Func<SD_IMAGENES, bool>> criterio);
         RespuestaSP GuarbarImagen(SD_IMAGENES img, int ID_USR);
-
+        int ConImagen(int ID, string TABLA);
         //SD_USUARIOS
     }
 }
