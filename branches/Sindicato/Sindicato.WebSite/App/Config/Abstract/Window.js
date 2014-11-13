@@ -6,7 +6,7 @@ Ext.define("App.Config.Abstract.Window", {
     maxWidth: Constantes.MAXANCHO,
     maxHeight: Constantes.MAXALTO,
     resizable: true,
-    draggable: false,
+    draggable: true,
     modal: true,
     closable: false,
     autoScroll: true,
@@ -17,6 +17,7 @@ Ext.define("App.Config.Abstract.Window", {
     botones: false,
     mostrarBotonCerrar: false,
     btn3 : null,
+    gridLoads : null,
     buttons: '',
     textGuardar: 'Guardar',
     textCerrar : 'Cerrar',
@@ -29,15 +30,10 @@ Ext.define("App.Config.Abstract.Window", {
                     text: me.textCerrar,
                     iconCls: 'cross',
                     minHeight: 27,
+                     scope : this,
                     minWidth: 80,
                     hidden : me.mostrarBotonCerrar,
-                    handler: function () {
-                        //this.up('form').getForm().reset();
-                        this.up('window').hide();
-                        //this.up('window').maximize();
-                        //this.maximize();
-                        //this.toFront();
-                    }
+                    handler: me.CerrarVentana
 
                 }
                 ];
@@ -55,13 +51,9 @@ Ext.define("App.Config.Abstract.Window", {
                 textAlign: 'center',
                 //margin: 10,
                 iconCls: 'cross',
+                 scope : this,
                 hidden: me.mostrarBotonCerrar,
-                handler: function () {
-                    this.up('window').hide();
-
-
-                }
-
+                handler: me.CerrarVentana
             });
             this.btn_guardar = Ext.create('Ext.Button', {
                 text: me.textGuardar,
@@ -81,5 +73,15 @@ Ext.define("App.Config.Abstract.Window", {
         //       var me = this;
         //        me.on('minimize', me.minimizar,this);
         this.callParent(arguments);
+    },
+    CerrarVentana: function () {
+        var me = this;
+        me.hide();
+        if (me.gridLoads != null) {
+            for (i = 0 ; i < me.gridLoads.length ; i++) {
+                me.gridLoads[i].getStore().load();
+            }
+        }
+        //this.up('window').hide();
     }
 });
