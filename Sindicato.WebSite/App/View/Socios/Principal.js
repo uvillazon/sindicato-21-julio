@@ -32,7 +32,7 @@
     EventosPrincipal: function (btn) {
         var me = this;
         if (btn.getItemId() == "btn_Detalle") {
-            var win = Ext.create("App.Config.Abstract.Window");
+            var win = Ext.create("App.Config.Abstract.Window", {gridLoads : [me.grid]});
             var form = Ext.create("App.View.Socios.FormSocio", {
                 columns: 4,
                 title: 'Formulario de Registro de Socios (Afiliados) ',
@@ -44,7 +44,7 @@
             win.show();
         }
         else if (btn.getItemId() == "btn_ImprimirReporte") {
-            var win = Ext.create("App.Config.Abstract.Window", {botones : true , title : 'Datos de Reporte'});
+            var win = Ext.create("App.Config.Abstract.Window", { botones: true, title: 'Datos de Reporte' });
             var form = Ext.create("App.View.Socios.Forms", { opcion: 'FormReporte' });
             win.add(form);
             win.show();
