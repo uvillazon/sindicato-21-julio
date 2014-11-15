@@ -3686,6 +3686,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\Choferes\" />
+    <Folder Include="InterfacesUsuario\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
