@@ -1557,6 +1557,7 @@
     <Content Include="InterfacesUsuario\FormHoja.png" />
     <Content Include="InterfacesUsuario\GridChoferes.png" />
     <Content Include="InterfacesUsuario\GridHojas.png" />
+    <Content Include="InterfacesUsuario\GridSocios.png" />
     <Content Include="Reportes\ReporteSocioMovil.aspx" />
     <Content Include="Scripts\Extjs\bootstrap.js" />
     <Content Include="Scripts\Extjs\build.xml" />
@@ -3719,7 +3720,10 @@
   <ItemGroup>
     <None Include="InterfacesUsuario\Adm Choferes.mck" />
     <None Include="InterfacesUsuario\Fondo Emergencia Chofer.mck" />
+    <None Include="InterfacesUsuario\Modulo  Nivelaciones.mck" />
+    <None Include="InterfacesUsuario\Modulo de Descuentos.mck" />
     <None Include="InterfacesUsuario\Modulo de Hojas.mck" />
+    <None Include="InterfacesUsuario\Modulo de Retiros.mck" />
     <None Include="InterfacesUsuario\Socios.mck" />
     <None Include="Scripts\Extjs\resources\ext-theme-classic-sandbox\Readme.md" />
     <None Include="Scripts\Extjs\resources\ext-theme-classic\Readme.md" />
