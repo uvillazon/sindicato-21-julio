@@ -212,6 +212,7 @@
     <Content Include="App\Model\Cajas\Cajas.js" />
     <Content Include="App\Model\Cajas\Kardex.js" />
     <Content Include="App\Model\Choferes\Choferes.js" />
+    <Content Include="App\Model\Choferes\Garantes.js" />
     <Content Include="App\Model\Clientes\Clientes.js" />
     <Content Include="App\Model\Clientes\Kardex.js" />
     <Content Include="App\Model\Combustibles\Ajustes.js" />
