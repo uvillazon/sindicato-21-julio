@@ -17,6 +17,7 @@
         //        Funciones.CrearMenu('btn_Eliminar', 'Eliminar', Constantes.ICONO_BAJA, me.EventosCliente, me.toolbar, this);
         //        Funciones.CrearMenu('btn_Imprimir', 'Imprimir', 'printer', me.ImprimirReporteGrid, me.toolbar, this);
         Funciones.CrearMenu('btn_Detalle', 'Detalle Chofer (F4)', 'report', me.EventosPrincipal, me.toolbar, this);
+        Funciones.CrearMenu('btn_CambiarGarante', 'Cambiar Garante', Constantes.ICONO_CREAR, me.EventosPrincipal, me.toolbar, this,null,true);
         //        Funciones.CrearMenu('btn_Kardex', 'Kardex', 'report', me.EventosCliente, me.toolbar, this);
 
         me.grid = Ext.create('App.View.Choferes.GridChoferes', {
@@ -24,7 +25,8 @@
             opcion: 'GridPrincipal',
             width: '100%',
             height: '100%',
-            fbarmenu: me.toolbar
+            fbarmenu: me.toolbar,
+            fbarmenuArray: ["btn_CambiarGarante"]
 
         });
         //        me.grid.bar.add(me.toolbar);
@@ -32,19 +34,25 @@
         me.grid.on('itemclick', me.onItemClick, this);
 
     },
-    onItemClick: function (view, record, item, index, e) {
-        var me = this;
-        me.recordSelected = record;
-    },
     EventosPrincipal: function (btn) {
         var me = this;
-        if (btn.getItemId() == "btn_Detalle") {
-            me.MostrarForm();
+        switch (btn.getItemId()) {
+            case "btn_CambiarGarante":
+                break;
+            case "btn_Detalle":
+                me.MostrarForm();
+                break;
+            default:
+                Ext.Msg.alert("Aviso", "No Existe el botton");
         }
-        else {
-            Ext.Msg.alert("Aviso", "No Existe el botton");
-        }
-    }, MostrarForm: function () {
+        //if (btn.getItemId() == "btn_Detalle") {
+        //    me.MostrarForm();
+        //}
+        //else {
+        //    Ext.Msg.alert("Aviso", "No Existe el botton");
+        //}
+    },
+    MostrarForm: function () {
         var me = this;
         if (me.win == null) {
             me.win = Ext.create("App.Config.Abstract.Window");
