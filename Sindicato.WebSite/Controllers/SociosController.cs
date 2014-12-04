@@ -60,6 +60,37 @@ namespace Sindicato.WebSite.Controllers
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
             return JavaScript(callback1);
         }
+        public ActionResult ObtenerSoloSociosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var socios = _serSoc.ObtenerSoloSociosPaginados(paginacion, filtros);
+            var formatData = socios.Select(x => new
+            {
+                ID_SOCIO = x.ID_SOCIO,
+                SOCIO = string.Format("{0} {1} {2}",x.NOMBRE,x.APELLIDO_PATERNO,x.APELLIDO_MATERNO),
+                NRO_SOCIO = x.NRO_SOCIO,
+                NOMBRE = x.NOMBRE,
+                APELLIDO_MATERNO = x.APELLIDO_MATERNO,
+                APELLIDO_PATERNO = x.APELLIDO_PATERNO,
+                NRO_LICENCIA = x.NRO_LICENCIA,
+                CATEGORIA_LIC = x.CATEGORIA_LIC,
+                CI = x.CI,
+                EXPEDIDO = x.EXPEDIDO,
+                FECHA_NAC = x.FECHA_NAC,
+                DOMICILIO = x.DOMICILIO,
+                OBSERVACION = x.OBSERVACION,
+                ESTADO_CIVIL = x.ESTADO_CIVIL,
+
+                FECHA_BAJA = x.FECHA_BAJA,
+                TELEFONO = x.TELEFONO,
+                CELULAR = x.CELULAR,
+                ID_IMG = _serImg.ConImagen(x.ID_SOCIO, "SD_SOCIOS")
+                //ID_IMG = 
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
         [HttpPost]
         public JsonResult ObtenerSocioMovil(int ID_SOCIO_MOVIL)
         {
