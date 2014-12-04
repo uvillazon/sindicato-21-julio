@@ -283,6 +283,7 @@
     <Content Include="App\Store\Cajas\Cajas.js" />
     <Content Include="App\Store\Cajas\Kardex.js" />
     <Content Include="App\Store\Choferes\Choferes.js" />
+    <Content Include="App\Store\Choferes\Garantes.js" />
     <Content Include="App\Store\Clientes\Clientes.js" />
     <Content Include="App\Store\Clientes\Kardex.js" />
     <Content Include="App\Store\Combustibles\Ajustes.js" />
@@ -340,6 +341,7 @@
     <Content Include="App\Store\Responsables\Responsables.js" />
     <Content Include="App\Store\Socios\Antecedentes.js" />
     <Content Include="App\Store\Socios\Autos.js" />
+    <Content Include="App\Store\Socios\SoloSocios.js" />
     <Content Include="App\Store\Socios\Desempenos.js" />
     <Content Include="App\Store\Socios\Documentos.js" />
     <Content Include="App\Store\Familiares\Familiares.js" />

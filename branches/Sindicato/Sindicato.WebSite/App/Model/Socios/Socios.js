@@ -6,6 +6,7 @@
         { type: "int", name: "ID_SOCIO_MOVIL" },
         { type: "int", name: "NRO_MOVIL" },
         { type: "string", name: "DESCRIPCION" },
+        { type: "string", name: "SOCIO" },//detalle Completo
         { type: "string", name: "TIPO_MOVIL" },
         { type: "string", name: "NOMBRE" },
         { type: "string", name: "APELLIDO_PATERNO" },

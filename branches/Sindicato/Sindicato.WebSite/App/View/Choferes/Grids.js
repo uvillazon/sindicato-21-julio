@@ -8,29 +8,35 @@
     fbarmenu: null,
     initComponent: function () {
         var me = this;
-        //me.store = Ext.create("App.Store.Listas.Listas");
-        if (me.opcion == "GridFamiliares") {
-            me.title = "Familiares";
-            me.pieTitulo = "Familiares";
-            me.CargarGridFamiliares();
-        }
-        else if (me.opcion == "GridDocumentos") {
-            me.title = "Documentos";
-            me.pieTitulo = "Documentos";
-            me.CargarGridDocumentos();
-        }
-        else if (me.opcion == "GridAntecedentes") {
-            me.title = "Antecedentes";
-            me.pieTitulo = "Antecedentes";
-            me.CargarGridAntecedentes();
-        }
-        else if (me.opcion == "GridFondoAsalariado") {
-            me.title = "Fondo Asalariado";
-            me.pieTitulo = "Fondo Asalariado";
-            me.CargarGridFondoAsalariado();
-        }
-        else {
-            alert("Defina el tipo primero");
+        switch (me.opcion) {
+            case "GridFamiliares":
+                me.title = "Familiares";
+                me.pieTitulo = "Familiares";
+                me.CargarGridFamiliares();
+                break;
+            case "GridDocumentos":
+                me.title = "Documentos";
+                me.pieTitulo = "Documentos";
+                me.CargarGridDocumentos();
+                break;
+            case "GridAntecedentes":
+                me.title = "Antecedentes";
+                me.pieTitulo = "Antecedentes";
+                me.CargarGridAntecedentes();
+                break;
+            case "GridFondoAsalariado":
+                me.title = "Fondo Asalariado";
+                me.pieTitulo = "Fondo Asalariado";
+                me.CargarGridFondoAsalariado();
+                break;
+            case "GridHistoricoGarante":
+                me.title = "Historico Cambio de Garante";
+                me.pieTitulo = "Detalles";
+                me.CargarGridHistoricoGarante();
+                break;
+            default:
+                alert("Defina el tipo primero");
+
         }
         me.bbar = Ext.create('Ext.PagingToolbar', {
             store: me.store,
@@ -57,7 +63,7 @@
             { header: "Dirección", width: 200, sortable: true, dataIndex: "DIRECCION" },
             { header: "Teléfono", width: 200, sortable: true, dataIndex: "TELEFONO" },
         //{ header: "Observaciones", width: 200, sortable: true, dataIndex: "OBSERVACION" },
-            {header: " - ", width: 30, sortable: false, dataIndex: "ID_USR", hidden: true }
+            { header: " - ", width: 30, sortable: false, dataIndex: "ID_USR", hidden: true }
         ];
 
     },
@@ -110,6 +116,19 @@
             { header: "Tipo<br>Documento", width: 150, sortable: true, dataIndex: "MOTIVO" },
             { header: "Detalle", width: 250, sortable: true, dataIndex: "DETALLE" },
             { header: " - ", width: 30, sortable: false, dataIndex: "ID_USR", hidden: true },
+        ];
+    },
+    CargarGridHistoricoGarante: function () {
+        var me = this;
+        //me.store = Ext.create("App.Store.Socios.Antecedentes");
+        me.columns = [
+            { xtype: "rownumberer", width: 30, sortable: false },
+            { header: "Garante", width: 150, sortable: false, dataIndex: "GARANTE" },
+
+            { header: "Fecha Inicio", width: 80, sortable: true, dataIndex: "FECHA_INI", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
+            { header: "Fecha Fin", width: 80, sortable: true, dataIndex: "FECHA_FIN", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
+            { header: "Observaciones", width: 200, sortable: true, dataIndex: "DETALLE" },
+            { header: "Login", width: 70, sortable: false, dataIndex: "LOGIN" },
         ];
     }
 });

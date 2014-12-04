@@ -74,5 +74,20 @@ namespace Sindicato.WebSite.Controllers
         }
         #endregion
 
+
+        #region Cambio de Garante
+        [HttpPost]
+        public JsonResult GuardarCambioGarante(SD_SOCIOS Socio)
+        {
+
+            //int id_usr = Convert.ToInt32(User.Identity.Name.Split('-')[3]);
+            //UploadFiles uploadFile = new UploadFiles(Request.Files);
+            //uploadFile.upload(Path.Combine("Choferes", chofer.CI.ToString()), "FOTO_" + chofer.ID_CHOFER);
+            //RespuestaSP respuestaSP = new RespuestaSP();
+            //respuestaSP = _serCho.GuardarChofer(chofer, id_usr);
+            return Json(new { success = true , msg = "Proceso Ejecutado Correctamente"});
+        }
+        
+        #endregion
     }
 }
