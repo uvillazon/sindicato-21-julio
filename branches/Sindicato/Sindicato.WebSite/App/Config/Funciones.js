@@ -232,7 +232,13 @@ Ext.define("App.Config.Funciones", {
                                 }
                             }
                             if (win != null) {
-                                win.hide();
+                                try {
+                                    win.destruirWin ? win.close() : win.hide();
+                                }
+                                catch (err) {
+                                    win.hide();
+                                }
+
                             }
                         },
                         failure: function (form, action) {

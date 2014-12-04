@@ -51,6 +51,30 @@ namespace Sindicato.Services
             });
             return result;
         }
+        public IEnumerable<SD_SOCIOS> ObtenerSoloSociosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)
+        {
+            IQueryable<SD_SOCIOS> result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_SOCIOSManager(uow);
+
+                result = manager.BuscarTodos();
+                filtros.FiltrarDatos();
+                result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+
+
+                if (!string.IsNullOrEmpty(filtros.Contiene))
+                {
+                    result = result.Where(SD_SOCIOS.Contiene(filtros.Contiene));
+                }
+
+                paginacion.total = result.Count();
+
+                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
+
+            });
+            return result;
+        }
 
         public IEnumerable<SD_DOCUMENTACIONES> ObtenerSocioDocumentacionesPaginado(PagingInfo paginacion)
         {
@@ -260,5 +284,8 @@ namespace Sindicato.Services
 
             return result;
         }
+
+
+        
     }
 }
