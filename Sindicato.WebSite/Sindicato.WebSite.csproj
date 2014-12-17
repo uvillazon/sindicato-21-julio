@@ -152,6 +152,7 @@
     <Content Include="App\Config\ux\Formatter.js" />
     <Content Include="App\Config\ux\form\ClearButton.js" />
     <Content Include="App\Config\ux\GMapPanelv02.js" />
+    <Content Include="App\Config\ux\IFrame.js" />
     <Content Include="App\Config\ux\Printer.js" />
     <Content Include="App\Config\ux\ProgressBarPager.js" />
     <Content Include="App\Config\ux\RemoteToLocalComboBox.js" />
@@ -384,6 +385,8 @@
     <Content Include="App\View\Clientes\GridClientes.js" />
     <Content Include="App\View\Clientes\Grids.js" />
     <Content Include="App\View\Clientes\Principal.js" />
+    <Content Include="App\View\FondoEmergencia\ReporteFondoEmergencia.js" />
+    <Content Include="App\View\FondoEmergencia\Principal.js" />
     <Content Include="App\View\Hojas\FormHoja.js" />
     <Content Include="App\View\Hojas\Forms.js" />
     <Content Include="App\View\Hojas\GridHojas.js" />
