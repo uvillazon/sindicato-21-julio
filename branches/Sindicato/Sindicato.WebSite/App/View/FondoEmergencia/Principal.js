@@ -54,8 +54,14 @@
         win.show();
 
     },
-    VentanaDetalleFondo: function () {
-
+    VentanaDetalleFondo: function (record) {
+        var me = this;
+        var win = Ext.create("App.Config.Abstract.Window", { botones: false, destruirWin: true });
+        var form = Ext.create("App.View.FondoEmergencia.DetalleFondoEmergencia", { title: 'Detalle Fondo Emergencia' });
+        form.getForm().loadRecord(record);
+        win.add(form);
+        win.show();
+        //App.View.FondoEmergencia.DetalleFondoEmergencia
     }
 
 });

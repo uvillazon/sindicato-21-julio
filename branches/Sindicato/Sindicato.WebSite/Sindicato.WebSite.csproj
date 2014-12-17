@@ -385,6 +385,8 @@
     <Content Include="App\View\Clientes\GridClientes.js" />
     <Content Include="App\View\Clientes\Grids.js" />
     <Content Include="App\View\Clientes\Principal.js" />
+    <Content Include="App\View\FondoEmergencia\DetalleFondoEmergencia.js" />
+    <Content Include="App\View\FondoEmergencia\Grids.js" />
     <Content Include="App\View\FondoEmergencia\ReporteFondoEmergencia.js" />
     <Content Include="App\View\FondoEmergencia\Principal.js" />
     <Content Include="App\View\Hojas\FormHoja.js" />
