@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Sindicato.WebSite.Infraestructura;
 
 namespace Sindicato.WebSite
 {
@@ -39,6 +40,7 @@ namespace Sindicato.WebSite
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+            DependencyResolver.SetResolver(new NinjectDependencyResolver(null));
         }
     }
 }
