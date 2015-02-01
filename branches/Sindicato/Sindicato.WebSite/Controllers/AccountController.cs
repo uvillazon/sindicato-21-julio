@@ -52,7 +52,7 @@ namespace Sindicato.WebSite.Controllers
                         FormsAuthentication.SetAuthCookie(loginUsername + "-" + testConexion.CadenaConexion + "-" + usuarios.ID_PERFIL + "-" + usuarios.ID_USUARIO + "-0", true);
                     }
 
-                    DependencyResolver.SetResolver(new NinjectDependencyResolver(testConexion.CadenaConexion));
+                   
 
                     //FormsAuthentication.SetAuthCookie(loginUsername, true);
 
