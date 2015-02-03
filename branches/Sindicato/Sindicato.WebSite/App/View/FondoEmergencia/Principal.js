@@ -42,9 +42,25 @@
             case "btn_detalleFondo":
                 me.VentanaDetalleFondo(me.grid.record);
                 break;
+
+            case "btn_deposito":
+                me.VentanaDepositoRetiro("Deposito");
+                break;
+            case "btn_retiro":
+                me.VentanaDepositoRetiro("Retiro");
+                break;
             default :
                 Ext.Msg.alert("Aviso", "No Existe el botton");
         }
+    },
+
+    VentanaDepositoRetiro: function (accion) {
+        var me = this;
+        var win = Ext.create("App.Config.Abstract.Window", { botones: true, destruirWin: true });
+        var form = Ext.create("App.View.FondoEmergencia.FormRetiroDeposito", { title: 'Reporte Fondo Emergencia',botones : false , accion : accion});
+        win.add(form);
+        win.show();
+
     },
     VentanaReporte: function () {
         var me = this;
