@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SD_GARANTESManager.cs" />
     <Compile Include="SD_HOJAS_CONTROLManager.cs" />
     <Compile Include="SD_PARAMETROS_LINEAManager.cs" />
     <Compile Include="SD_KARDEX_EFECTIVOManager.cs" />

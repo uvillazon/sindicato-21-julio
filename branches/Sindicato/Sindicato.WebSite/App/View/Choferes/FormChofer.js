@@ -239,8 +239,9 @@
             botones: false
         });
         if(bool == false){
+            Funciones.DesbloquearFormularioReadOnly(form, ["FECHA_BAJA", "ESTADO", "NOMBRE_SOCIO"], false);
             form.loadRecord(me.record);
-             Funciones.DesbloquearFormularioReadOnly(form, ["FECHA_BAJA", "ESTADO"], false);
+           
         }
         win.btn_guardar.on('click', function () {
             Funciones.AjaxRequestWin("Choferes", "GuardarChofer", win, form, null, "Esta Seguro de Guardar", null, win);

@@ -15,6 +15,10 @@ namespace Sindicato.Services.Interfaces
 
         RespuestaSP GuardarChofer(SD_CHOFERES chofer, int ID_USR);
 
+        IEnumerable<SD_GARANTES> ObtenerGarantesPaginados(PagingInfo paginacion, FiltrosModel<ChoferesModel> filtros);
+
+        RespuestaSP GuardarGarante(SD_GARANTES garante, string login);
+
         //SD_USUARIOS
     }
 }

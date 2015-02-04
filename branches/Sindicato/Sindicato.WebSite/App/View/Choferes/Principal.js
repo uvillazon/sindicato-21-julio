@@ -54,9 +54,10 @@
         var me = this;
         var win = Ext.create("App.Config.Abstract.Window", { botones: true, textGuardar: 'Guardar Cambio Garante', destruirWin: true });
         var form = Ext.create("App.View.Choferes.FormCambioGarante", { botones: false, });
+        //form.loadRecord(me.grid.record);
         win.add(form);
         win.show();
-        form.CargarDatos(this.grid.record);
+        form.CargarDatos(me.grid.record);
         win.btn_guardar.on('click', function () {
             Funciones.AjaxRequestWin("Choferes", "GuardarCambioGarante", win, form, me.grid, "Esta Seguro de Guardar Los Cambios", null, win);
         });
@@ -64,7 +65,9 @@
     VentanaHistorico : function(){
         var me = this;
         var win = Ext.create("App.Config.Abstract.Window", { botones: false,  destruirWin: true });
-        var grid = Ext.create("App.View.Choferes.Grids", { opcion: 'GridHistoricoGarante',width : 550 , height : 400 });
+        var grid = Ext.create("App.View.Choferes.Grids", { opcion: 'GridHistoricoGarante', width: 550, height: 400 });
+        grid.getStore().setExtraParams({ ID_CHOFER: me.grid.record.get('ID_CHOFER') });
+        grid.getStore().load();
         win.add(grid);
         win.show();
        

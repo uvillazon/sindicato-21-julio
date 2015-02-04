@@ -120,14 +120,15 @@
     },
     CargarGridHistoricoGarante: function () {
         var me = this;
-        //me.store = Ext.create("App.Store.Socios.Antecedentes");
+        me.store = Ext.create("App.Store.Choferes.Garantes");
         me.columns = [
             { xtype: "rownumberer", width: 30, sortable: false },
-            { header: "Garante", width: 150, sortable: false, dataIndex: "GARANTE" },
+            { header: "Garante", width: 150, sortable: false, dataIndex: "SOCIO" },
 
             { header: "Fecha Inicio", width: 80, sortable: true, dataIndex: "FECHA_INI", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
             { header: "Fecha Fin", width: 80, sortable: true, dataIndex: "FECHA_FIN", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
-            { header: "Observaciones", width: 200, sortable: true, dataIndex: "DETALLE" },
+            { header: "Observaciones", width: 200, sortable: true, dataIndex: "OBSERVACION" },
+            { header: "Estado", width: 70, sortable: false, dataIndex: "ESTADO" },
             { header: "Login", width: 70, sortable: false, dataIndex: "LOGIN" },
         ];
     }
