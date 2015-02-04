@@ -21,6 +21,7 @@
         { type: "int", name: "ID_USR" },
         { type: "string", name: "ESTADO" },
         { type: "string", name: "NOMBRE_SOCIO" },
+        { type: "string", name: "NOMBRE_CHOFER" },
         { type: "string", name: "TELEFONO" },
         { type: "string", name: "CELULAR" },
         { type: "int", name: "ID_IMG" },

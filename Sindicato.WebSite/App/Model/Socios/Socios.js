@@ -9,6 +9,8 @@
         { type: "string", name: "SOCIO" },//detalle Completo
         { type: "string", name: "TIPO_MOVIL" },
         { type: "string", name: "NOMBRE" },
+        { type: "string", name: "NOMBRE_SOCIO" },
+        
         { type: "string", name: "APELLIDO_PATERNO" },
         { type: "string", name: "APELLIDO_MATERNO" },
         { type: "int", name: "NRO_LICENCIA" },

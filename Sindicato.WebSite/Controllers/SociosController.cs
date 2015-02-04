@@ -49,7 +49,7 @@ namespace Sindicato.WebSite.Controllers
                 DOMICILIO = x.SD_SOCIOS.DOMICILIO,
                 OBSERVACION = x.SD_SOCIOS.OBSERVACION,
                 ESTADO_CIVIL = x.SD_SOCIOS.ESTADO_CIVIL,
-                
+                NOMBRE_SOCIO = string.Format("{0} {1} {2}", x.SD_SOCIOS.NOMBRE, x.SD_SOCIOS.APELLIDO_PATERNO, x.SD_SOCIOS.APELLIDO_MATERNO),
                 FECHA_BAJA = x.SD_SOCIOS.FECHA_BAJA,
                 TELEFONO = x.SD_SOCIOS.TELEFONO,
                 CELULAR = x.SD_SOCIOS.CELULAR,

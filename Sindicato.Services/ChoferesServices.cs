@@ -83,5 +83,64 @@ namespace Sindicato.Services
 
             return result;
         }
+
+
+        public IEnumerable<SD_GARANTES> ObtenerGarantesPaginados(PagingInfo paginacion, FiltrosModel<ChoferesModel> filtros)
+        {
+            IQueryable<SD_GARANTES> result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_GARANTESManager(uow);
+                //obtener un query de la tabla choferes
+                result = manager.BuscarTodos();
+
+                //arma dinamicamente la consulta de criterios
+                filtros.FiltrarDatos();
+                //si tiene filtros se adiciona al query si no es la query
+                result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+                //if (!string.IsNullOrEmpty(filtros.Contiene))
+                //{
+                //    //result = result.Where(SD_SOCIOS
+                //    //query filtrado por la variable contiene
+                //    result = result.Where(SD_CHOFERES.Contiene(filtros.Contiene));
+
+                //}
+
+                paginacion.total = result.Count();
+
+                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
+
+            });
+            return result;
+        }
+
+        public RespuestaSP GuardarGarante(SD_GARANTES garante, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var context = (SindicatoContext)uow.Context;
+                ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
+                context.P_SD_CAMBIO_GARANTE(garante.ID_CHOFER,garante.FECHA_INI,garante.OBSERVACION,garante.ID_SOCIO,login, p_res);
+
+                int id;
+                bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
+
+                if (esNumero && id > 0)
+                {
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                    result.id = id;
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = p_res.Value.ToString();
+                }
+
+            });
+
+            return result;
+        }
     }
 }
