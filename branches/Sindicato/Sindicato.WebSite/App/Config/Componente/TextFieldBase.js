@@ -34,6 +34,9 @@
                 me.setValue(text);
             });
         }
+        if (me.readOnly) {
+            me.maxLength = 100030;
+        }
         //        
 
         me.callParent(arguments);

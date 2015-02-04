@@ -23,7 +23,6 @@ namespace Sindicato.Services
             catch (Exception)
             {
                 uow.Rollback();
-                throw;
             }
 
         }

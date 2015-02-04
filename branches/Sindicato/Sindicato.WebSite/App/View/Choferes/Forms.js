@@ -56,7 +56,7 @@
     CargarImagen: function (id) {
         var me = this;
         var originalSrc = Constantes.URLIMAGEN + 'id=' + id + '&tamano=200';
-//        alert(originalSrc);
+        //        alert(originalSrc);
         me.changingImage.setSrc(originalSrc);
     },
     //    CargarFormImagen: function () {
@@ -208,10 +208,10 @@
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false
         });
-        me.txt_observacion = Ext.create("App.Config.Componente.TextFieldBase", {
+        me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
             fieldLabel: "Observacion",
             name: "OBSERVACION",
-            width: 720,
+            width: 480,
             colspan: 3,
             maxLength: 500,
             afterLabelTextTpl: Constantes.REQUERIDO,
@@ -234,15 +234,20 @@
 
         me.cbx_socio = Ext.create("App.Config.Componente.ComboAutoBase", {
             fieldLabel: "Socio",
-            name: "ID_SOCIO",
+            name: "NOMBRE_SOCIO",
             displayField: 'NOMBRE',
             valueField: 'ID_SOCIO',
             store: me.store_socio,
+            colspan: 2,
+            width: 480,
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
-            textoTpl: function () { return "Nro Socio :{NRO_SOCIO} - {NOMBRE} {APELLIDO_PATERNO}" }
+            textoTpl: function () { return "Nro Movil :{NRO_MOVIL} - {NOMBRE} {APELLIDO_PATERNO}" }
         });
-
+        me.cbx_socio.on('select', function (cbx, rec) {
+            
+            me.id_socio.setValue(rec[0].get('ID_SOCIO'));
+        });
         me.txt_telefono = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Telefonos",
             name: "TELEFONO",
@@ -270,11 +275,16 @@
             fieldLabel: "Estado",
             name: "ESTADO",
             width: 240,
+            value: 'ALTA',
+            readOnly : true,
             maxLength: 20
         });
         me.txt_id = Ext.create("App.Config.Componente.TextFieldBase", {
             name: "ID_CHOFER",
             hidden: true
+        });
+        me.id_socio = Ext.widget('hiddenfield', {
+            name: 'ID_SOCIO',
         });
     },
     CargarFormCofer: function () {
@@ -282,6 +292,7 @@
         me.ComponentesChofer();
         me.items = [
           me.txt_id,
+          me.id_socio,
         me.txt_id_usr,
         me.num_id,
         me.num_nro_chofer,
@@ -296,9 +307,9 @@
         me.dat_fecha_ingreso,
         me.dat_fecha_baja,
         me.txt_domicilio,
-
+         me.cbx_socio,
         me.cbx_estado_civil,
-        me.cbx_socio,
+
         me.txt_estado,
         me.txt_telefono,
         me.txt_celular,

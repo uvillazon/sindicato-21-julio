@@ -37,6 +37,7 @@ namespace Sindicato.WebSite.Controllers
                 ID_CHOFER = x.ID_CHOFER,
                 NRO_CHOFER = x.NRO_CHOFER,
                 NOMBRE = x.NOMBRE,
+                NOMBRE_CHOFER =string.Format("{0} {1} {2}", x.NOMBRE, x.APELLIDO_PATERNO, x.APELLIDO_MATERNO),
                 APELLIDO_MATERNO = x.APELLIDO_MATERNO,
                 APELLIDO_PATERNO = x.APELLIDO_PATERNO,
                 NRO_LICENCIA = x.NRO_LICENCIA,
@@ -52,7 +53,7 @@ namespace Sindicato.WebSite.Controllers
                 TELEFONO = x.TELEFONO,
                 CELULAR = x.CELULAR,
                 ID_IMG = _serImg.ConImagen(x.ID_CHOFER, "SD_CHOFERES"),
-                NOMBRE_SOCIO = string.Format("Nro: {0} - {1} {2} {3}", x.SD_SOCIOS.NRO_SOCIO, x.SD_SOCIOS.NOMBRE, x.SD_SOCIOS.APELLIDO_PATERNO, x.SD_SOCIOS.APELLIDO_MATERNO)
+                NOMBRE_SOCIO = string.Format("{0} {1} {2}", x.SD_SOCIOS.NOMBRE, x.SD_SOCIOS.APELLIDO_PATERNO, x.SD_SOCIOS.APELLIDO_MATERNO)
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
@@ -77,17 +78,36 @@ namespace Sindicato.WebSite.Controllers
 
         #region Cambio de Garante
         [HttpPost]
-        public JsonResult GuardarCambioGarante(SD_SOCIOS Socio)
+        public JsonResult GuardarCambioGarante(SD_GARANTES garante)
         {
 
-            //int id_usr = Convert.ToInt32(User.Identity.Name.Split('-')[3]);
+            string login = (User.Identity.Name.Split('-')[0]).ToString();
             //UploadFiles uploadFile = new UploadFiles(Request.Files);
             //uploadFile.upload(Path.Combine("Choferes", chofer.CI.ToString()), "FOTO_" + chofer.ID_CHOFER);
-            //RespuestaSP respuestaSP = new RespuestaSP();
-            //respuestaSP = _serCho.GuardarChofer(chofer, id_usr);
-            return Json(new { success = true , msg = "Proceso Ejecutado Correctamente"});
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serCho.GuardarGarante(garante, login);
+            return Json(respuestaSP);
         }
-        
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerGarantesPaginados(PagingInfo paginacion, FiltrosModel<ChoferesModel> filtros, ChoferesModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var choferes = _serCho.ObtenerGarantesPaginados(paginacion, filtros);
+            var formatData = choferes.Select(x => new
+            {
+                ID_SOCIO = x.ID_SOCIO,
+                ID_CHOFER = x.ID_CHOFER,
+                FECHA_INI = x.FECHA_INI,
+                FECHA_FIN = x.FECHA_FIN,
+                OBSERVACION = x.OBSERVACION,
+                ESTADO = x.ESTADO,
+                LOGIN = x.LOGIN,
+                SOCIO = string.Format("{0} {1} {2}", x.SD_SOCIOS.NOMBRE, x.SD_SOCIOS.APELLIDO_PATERNO, x.SD_SOCIOS.APELLIDO_MATERNO)
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
         #endregion
     }
 }

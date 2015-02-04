@@ -12,6 +12,7 @@
           <EntitySet Name="SD_CHOFERES" EntityType="Model.Store.SD_CHOFERES" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_DOCUMENTACIONES" EntityType="Model.Store.SD_DOCUMENTACIONES" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_FAMILIARES" EntityType="Model.Store.SD_FAMILIARES" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_GARANTES" EntityType="Model.Store.SD_GARANTES" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_HOJAS_CONTROL" EntityType="Model.Store.SD_HOJAS_CONTROL" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_IMAGENES" EntityType="Model.Store.SD_IMAGENES" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_KARDEX_EFECTIVO" EntityType="Model.Store.SD_KARDEX_EFECTIVO" store:Type="Tables" Schema="SINDICATO" />
@@ -64,6 +65,14 @@
           <AssociationSet Name="SD_FAMILIARES_R02" Association="Model.Store.SD_FAMILIARES_R02">
             <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
             <End Role="SD_FAMILIARES" EntitySet="SD_FAMILIARES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_GARANTES_R01" Association="Model.Store.SD_GARANTES_R01">
+            <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
+            <End Role="SD_GARANTES" EntitySet="SD_GARANTES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_GARANTES_R02" Association="Model.Store.SD_GARANTES_R02">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_GARANTES" EntitySet="SD_GARANTES" />
           </AssociationSet>
           <AssociationSet Name="SD_HOJAS_CONTROL_R01" Association="Model.Store.SD_HOJAS_CONTROL_R01">
             <End Role="SD_MOVILES" EntitySet="SD_MOVILES" />
@@ -193,6 +202,7 @@
           <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
           <Property Name="TELEFONO" Type="varchar2" MaxLength="50" />
           <Property Name="CELULAR" Type="varchar2" MaxLength="50" />
+          <Property Name="FONDO_EMERGENCIA" Type="number" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="SD_DOCUMENTACIONES">
           <Key>
@@ -227,6 +237,21 @@
           <Property Name="ID_USR" Type="number" Precision="7" />
           <Property Name="TELEFONO" Type="varchar2" MaxLength="50" />
           <Property Name="DIRECCION" Type="varchar2" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="SD_GARANTES">
+          <Key>
+            <PropertyRef Name="ID_GARANTE" />
+          </Key>
+          <Property Name="ID_GARANTE" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_CHOFER" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_SOCIO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="OBSERVACION" Type="varchar2" MaxLength="200" />
+          <Property Name="FECHA_INI" Type="date" Nullable="false" />
+          <Property Name="FECHA_FIN" Type="date" />
+          <Property Name="FECHA_REG" Type="date" />
+          <Property Name="ESTADO" Type="varchar2" MaxLength="200" />
+          <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
+          <Property Name="ID_USR" Type="number" Precision="7" />
         </EntityType>
         <EntityType Name="SD_HOJAS_CONTROL">
           <Key>
@@ -553,6 +578,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="SD_GARANTES_R01">
+          <End Role="SD_CHOFERES" Type="Model.Store.SD_CHOFERES" Multiplicity="1" />
+          <End Role="SD_GARANTES" Type="Model.Store.SD_GARANTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CHOFERES">
+              <PropertyRef Name="ID_CHOFER" />
+            </Principal>
+            <Dependent Role="SD_GARANTES">
+              <PropertyRef Name="ID_CHOFER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_GARANTES_R02">
+          <End Role="SD_SOCIOS" Type="Model.Store.SD_SOCIOS" Multiplicity="1" />
+          <End Role="SD_GARANTES" Type="Model.Store.SD_GARANTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_GARANTES">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="SD_HOJAS_CONTROL_R01">
           <End Role="SD_MOVILES" Type="Model.Store.SD_MOVILES" Multiplicity="1" />
           <End Role="SD_HOJAS_CONTROL" Type="Model.Store.SD_HOJAS_CONTROL" Multiplicity="*" />
@@ -834,6 +883,14 @@
           <Parameter Name="P_CELULAR" Type="varchar2" Mode="In" />
           <Parameter Name="P_ESTADO_CIVIL" Type="varchar2" Mode="In" />
           <Parameter Name="P_ID_USR" Type="number" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
+        <Function Name="P_SD_CAMBIO_GARANTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
+          <Parameter Name="P_ID_CHOFER" Type="number" Mode="In" />
+          <Parameter Name="P_FECHA_INI" Type="date" Mode="In" />
+          <Parameter Name="P_OBSERVACION" Type="varchar2" Mode="In" />
+          <Parameter Name="P_ID_SOCIO" Type="number" Mode="In" />
+          <Parameter Name="P_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
         <Function Name="P_SD_ELIMINAR_CAJA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
@@ -1135,6 +1192,23 @@
             <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
             <Parameter Name="P_RES" Mode="Out" Type="String" />
           </FunctionImport>
+          <EntitySet Name="SD_GARANTES" EntityType="Model.SD_GARANTES" />
+          <AssociationSet Name="SD_GARANTES_R01" Association="Model.SD_GARANTES_R01">
+            <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
+            <End Role="SD_GARANTES" EntitySet="SD_GARANTES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_GARANTES_R02" Association="Model.SD_GARANTES_R02">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_GARANTES" EntitySet="SD_GARANTES" />
+          </AssociationSet>
+          <FunctionImport Name="P_SD_CAMBIO_GARANTE">
+            <Parameter Name="P_ID_CHOFER" Mode="In" Type="Decimal" />
+            <Parameter Name="P_FECHA_INI" Mode="In" Type="DateTime" />
+            <Parameter Name="P_OBSERVACION" Mode="In" Type="String" />
+            <Parameter Name="P_ID_SOCIO" Mode="In" Type="Decimal" />
+            <Parameter Name="P_USR" Mode="In" Type="String" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="SD_LISTAS">
           <Key>
@@ -1197,8 +1271,8 @@
           <Property Name="LOGIN" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="NOMBRE" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
           <Property Name="EMAIL" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
-          <Property Name="FCH_ALTA" Type="DateTime" Nullable="false" />
-          <Property Name="FCH_BAJA" Type="DateTime" />
+          <Property Name="FCH_ALTA" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FCH_BAJA" Type="DateTime" Precision="0" />
           <Property Name="ID_PERFIL" Type="Int16" Nullable="false" />
           <Property Name="ESTADO" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
           <NavigationProperty Name="SD_PERFILES" Relationship="Model.SG_USUARIOS_R01" FromRole="SD_USUARIOS" ToRole="SD_PERFILES" />
@@ -1248,9 +1322,9 @@
           <Property Type="Int32" Name="ID_SOCIO" Nullable="false" />
           <Property Type="String" Name="CARGO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="OBSERVACION" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_DESDE" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_HASTA" />
-          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="DateTime" Name="FECHA_DESDE" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_HASTA" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <Property Type="Int32" Name="ID_USR" />
         </EntityType>
         <EntityType Name="V_TABLAS_COLUMNAS">
@@ -1278,8 +1352,8 @@
           <Property Type="Int32" Name="ID_CHOFER" />
           <Property Type="String" Name="MOTIVO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="OBSERVACION" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="DateTime" Name="FECHA" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <Property Type="Int32" Name="ID_USR" />
           <NavigationProperty Name="SD_CHOFERES" Relationship="Model.SD_ANTECEDENTES_R02" FromRole="SD_ANTECEDENTES" ToRole="SD_CHOFERES" />
         </EntityType>
@@ -1290,10 +1364,10 @@
           <Property Type="Int32" Name="ID_LINEA" Nullable="false" />
           <Property Type="Int32" Name="NRO_LINEA" Nullable="false" />
           <Property Type="String" Name="DESCRIPCION" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_ALTA" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_BAJA" />
+          <Property Type="DateTime" Name="FECHA_ALTA" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_BAJA" Precision="0" />
           <Property Type="String" Name="OBSERVACION" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <Property Type="Int32" Name="ID_USR" />
           <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="CANT_MOVIL_SOCIO" Nullable="false" />
@@ -1308,10 +1382,10 @@
           <Property Type="Int32" Name="ID_LINEA" Nullable="false" />
           <Property Type="Int32" Name="NRO_MOVIL" Nullable="false" />
           <Property Type="String" Name="DESCRIPCION" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_ALTA" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_BAJA" />
+          <Property Type="DateTime" Name="FECHA_ALTA" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_BAJA" Precision="0" />
           <Property Type="String" Name="OBSERVACION" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <Property Type="Int32" Name="ID_USR" />
           <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SD_LINEAS" Relationship="Model.SD_MOVILES_R01" FromRole="SD_MOVILES" ToRole="SD_LINEAS" />
@@ -1328,10 +1402,10 @@
           <Property Type="Int32" Name="ID_MOVIL" Nullable="false" />
           <Property Type="String" Name="DESCRIPCION" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="TIPO_MOVIL" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_ALTA" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_BAJA" />
+          <Property Type="DateTime" Name="FECHA_ALTA" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_BAJA" Precision="0" />
           <Property Type="String" Name="OBSERVACION" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <Property Type="Int32" Name="ID_USR" />
           <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SD_MOVILES" Relationship="Model.SD_SOCIO_MOVILES_R02" FromRole="SD_SOCIO_MOVILES" ToRole="SD_MOVILES" />
@@ -1350,13 +1424,13 @@
           <Property Type="String" Name="CATEGORIA_LIC" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Int64" Name="CI" Nullable="false" />
           <Property Type="String" Name="EXPEDIDO" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_NAC" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_INGRESO" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_BAJA" />
+          <Property Type="DateTime" Name="FECHA_NAC" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_INGRESO" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_BAJA" Precision="0" />
           <Property Type="String" Name="DOMICILIO" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="OBSERVACION" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ESTADO_CIVIL" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <Property Type="Int32" Name="ID_USR" />
           <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="TELEFONO" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1364,6 +1438,7 @@
           <NavigationProperty Name="SD_SOCIO_MOVILES" Relationship="Model.SD_SOCIO_MOVILES_R01" FromRole="SD_SOCIOS" ToRole="SD_SOCIO_MOVILES" />
           <NavigationProperty Name="SD_CHOFERES" Relationship="Model.SD_CHOFERES_R01" FromRole="SD_SOCIOS" ToRole="SD_CHOFERES" />
           <NavigationProperty Name="SD_FAMILIARES" Relationship="Model.SD_FAMILIARES_R01" FromRole="SD_SOCIOS" ToRole="SD_FAMILIARES" />
+          <NavigationProperty Name="SD_GARANTES" Relationship="Model.SD_GARANTES_R02" FromRole="SD_SOCIOS" ToRole="SD_GARANTES" />
         </EntityType>
         <Association Name="SD_MOVILES_R01">
           <End Type="Model.SD_LINEAS" Role="SD_LINEAS" Multiplicity="1" />
@@ -1411,8 +1486,8 @@
           <Property Type="String" Name="DOCUMENTACION" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="TIPO" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="OBSERVACION" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="DateTime" Name="FECHA" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <Property Type="Int32" Name="ID_USR" />
           <NavigationProperty Name="SD_CHOFERES" Relationship="Model.SD_DOCUMENTACIONES_R02" FromRole="SD_DOCUMENTACIONES" ToRole="SD_CHOFERES" />
         </EntityType>
@@ -1429,14 +1504,14 @@
           <Property Type="String" Name="CATEGORIA_LIC" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Int64" Name="CI" Nullable="false" />
           <Property Type="String" Name="EXPEDIDO" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_NAC" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_INGRESO" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_BAJA" />
+          <Property Type="DateTime" Name="FECHA_NAC" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_INGRESO" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_BAJA" Precision="0" />
           <Property Type="String" Name="DOMICILIO" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="OBSERVACION" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ESTADO_CIVIL" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="ID_SOCIO" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <Property Type="Int32" Name="ID_USR" />
           <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="TELEFONO" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1445,6 +1520,8 @@
           <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_CHOFERES_R01" FromRole="SD_CHOFERES" ToRole="SD_SOCIOS" />
           <NavigationProperty Name="SD_DOCUMENTACIONES" Relationship="Model.SD_DOCUMENTACIONES_R02" FromRole="SD_CHOFERES" ToRole="SD_DOCUMENTACIONES" />
           <NavigationProperty Name="SD_FAMILIARES" Relationship="Model.SD_FAMILIARES_R02" FromRole="SD_CHOFERES" ToRole="SD_FAMILIARES" />
+          <Property Type="Decimal" Name="FONDO_EMERGENCIA" Precision="10" Scale="2" />
+          <NavigationProperty Name="SD_GARANTES" Relationship="Model.SD_GARANTES_R01" FromRole="SD_CHOFERES" ToRole="SD_GARANTES" />
         </EntityType>
         <Association Name="SD_ANTECEDENTES_R02">
           <End Type="Model.SD_CHOFERES" Role="SD_CHOFERES" Multiplicity="0..1" />
@@ -1494,10 +1571,10 @@
           <Property Type="String" Name="APELLIDO_MATERNO" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="Int64" Name="CI" />
           <Property Type="String" Name="EXPEDIDO" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_NAC" />
+          <Property Type="DateTime" Name="FECHA_NAC" Precision="0" />
           <Property Type="String" Name="PARENTESCO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="OBSERVACION" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <Property Type="Int32" Name="ID_USR" />
           <Property Type="String" Name="TELEFONO" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="DIRECCION" MaxLength="250" FixedLength="false" Unicode="false" />
@@ -1540,7 +1617,7 @@
           <Property Type="String" Name="DESCRIPCION" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="Int64" Name="TAMANO" />
           <Property Type="Binary" Name="IMAGEN" MaxLength="Max" FixedLength="false" />
-          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <Property Type="Int32" Name="ID_USR" />
           <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -1558,10 +1635,10 @@
           <Property Type="String" Name="MOTOR" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="CHASIS" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="DESCRIPCION" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_ALTA" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_BAJA" />
+          <Property Type="DateTime" Name="FECHA_ALTA" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_BAJA" Precision="0" />
           <Property Type="String" Name="MOTIVO_CAMBIO" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <Property Type="Int32" Name="ID_USR" />
           <NavigationProperty Name="SD_MOVILES" Relationship="Model.SD_AUTOS_R01" FromRole="SD_AUTOS" ToRole="SD_MOVILES" />
         </EntityType>
@@ -1588,7 +1665,7 @@
           <Property Type="String" Name="DESCRIPCION" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Type="Decimal" Name="SALDO" Nullable="false" Precision="15" Scale="5" />
           <Property Type="Int16" Name="ID_USUARIO" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <NavigationProperty Name="SD_KARDEX_EFECTIVO" Relationship="Model.SD_KARDEX_EFECTIVO_R01" FromRole="SD_CAJAS" ToRole="SD_KARDEX_EFECTIVO" />
           <NavigationProperty Name="SD_PARADAS" Relationship="Model.SD_PARADAS_R01" FromRole="SD_CAJAS" ToRole="SD_PARADAS" />
         </EntityType>
@@ -1601,12 +1678,12 @@
           <Property Type="Int32" Name="ID_MOVIL" Nullable="false" />
           <Property Type="Int32" Name="ID_PARADA" Nullable="false" />
           <Property Type="String" Name="OBSERVACION" MaxLength="1250" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_COMPRA" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_USO" />
+          <Property Type="DateTime" Name="FECHA_COMPRA" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_USO" Precision="0" />
           <Property Type="Decimal" Name="MONTO" Precision="15" Scale="5" />
           <Property Type="String" Name="ESTADO" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Int16" Name="ID_USUARIO" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <NavigationProperty Name="SD_MOVILES" Relationship="Model.SD_HOJAS_CONTROL_R01" FromRole="SD_HOJAS_CONTROL" ToRole="SD_MOVILES" />
           <NavigationProperty Name="SD_PARADAS" Relationship="Model.SD_HOJAS_CONTROL_R02" FromRole="SD_HOJAS_CONTROL" ToRole="SD_PARADAS" />
         </EntityType>
@@ -1618,13 +1695,13 @@
           <Property Type="Int32" Name="ID_CAJA" Nullable="false" />
           <Property Type="Int32" Name="ID_OPERACION" Nullable="false" />
           <Property Type="String" Name="OPERACION" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA" Nullable="false" Precision="0" />
           <Property Type="String" Name="DETALLE" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Type="Decimal" Name="INGRESO" Nullable="false" Precision="15" Scale="5" />
           <Property Type="Decimal" Name="EGRESO" Nullable="false" Precision="15" Scale="5" />
           <Property Type="Decimal" Name="SALDO" Nullable="false" Precision="15" Scale="5" />
           <Property Type="Int16" Name="ID_USUARIO" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_KARDEX_EFECTIVO_R01" FromRole="SD_KARDEX_EFECTIVO" ToRole="SD_CAJAS" />
         </EntityType>
         <EntityType Name="SD_PARADAS">
@@ -1637,11 +1714,11 @@
           <Property Type="String" Name="DIRECCION" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="RESPONSABLE" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="DESCRIPCION" Nullable="false" MaxLength="1250" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_INICIO" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_FIN" />
+          <Property Type="DateTime" Name="FECHA_INICIO" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_FIN" Precision="0" />
           <Property Type="String" Name="ESTADO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Int16" Name="ID_USUARIO" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_PARADAS_R01" FromRole="SD_PARADAS" ToRole="SD_CAJAS" />
           <NavigationProperty Name="SD_HOJAS_CONTROL" Relationship="Model.SD_HOJAS_CONTROL_R02" FromRole="SD_PARADAS" ToRole="SD_HOJAS_CONTROL" />
           <NavigationProperty Name="SD_PERFILES" Relationship="Model.SD_PERFILES_R01" FromRole="SD_PARADAS" ToRole="SD_PERFILES" />
@@ -1656,11 +1733,11 @@
           <Property Type="String" Name="TIPO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="ID_LINEA" Nullable="false" />
           <Property Type="Decimal" Name="MONTO" Nullable="false" Precision="15" Scale="5" />
-          <Property Type="DateTime" Name="FECHA_INICIO" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_FIN" />
+          <Property Type="DateTime" Name="FECHA_INICIO" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_FIN" Precision="0" />
           <Property Type="String" Name="ESTADO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Int16" Name="ID_USUARIO" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <NavigationProperty Name="SD_LINEAS" Relationship="Model.SD_PARAMETROS_LINEA_R01" FromRole="SD_PARAMETROS_LINEA" ToRole="SD_LINEAS" />
         </EntityType>
         <EntityType Name="SD_PERFILES">
@@ -1769,6 +1846,47 @@
             </Principal>
             <Dependent Role="SD_USUARIOS">
               <PropertyRef Name="ID_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SD_GARANTES">
+          <Key>
+            <PropertyRef Name="ID_GARANTE" />
+          </Key>
+          <Property Type="Int32" Name="ID_GARANTE" Nullable="false" />
+          <Property Type="Int32" Name="ID_CHOFER" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO" Nullable="false" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_INI" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_FIN" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <Property Type="String" Name="ESTADO" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ID_USR" />
+          <NavigationProperty Name="SD_CHOFERES" Relationship="Model.SD_GARANTES_R01" FromRole="SD_GARANTES" ToRole="SD_CHOFERES" />
+          <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_GARANTES_R02" FromRole="SD_GARANTES" ToRole="SD_SOCIOS" />
+        </EntityType>
+        <Association Name="SD_GARANTES_R01">
+          <End Type="Model.SD_CHOFERES" Role="SD_CHOFERES" Multiplicity="1" />
+          <End Type="Model.SD_GARANTES" Role="SD_GARANTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CHOFERES">
+              <PropertyRef Name="ID_CHOFER" />
+            </Principal>
+            <Dependent Role="SD_GARANTES">
+              <PropertyRef Name="ID_CHOFER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_GARANTES_R02">
+          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
+          <End Type="Model.SD_GARANTES" Role="SD_GARANTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_GARANTES">
+              <PropertyRef Name="ID_SOCIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1963,6 +2081,7 @@
           <EntitySetMapping Name="SD_CHOFERES">
             <EntityTypeMapping TypeName="Model.SD_CHOFERES">
               <MappingFragment StoreEntitySet="SD_CHOFERES">
+                <ScalarProperty Name="FONDO_EMERGENCIA" ColumnName="FONDO_EMERGENCIA" />
                 <ScalarProperty Name="CELULAR" ColumnName="CELULAR" />
                 <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
                 <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
@@ -2147,6 +2266,23 @@
           <FunctionImportMapping FunctionImportName="P_SD_GUARDAR_CAJAS" FunctionName="Model.Store.P_SD_GUARDAR_CAJAS" />
           <FunctionImportMapping FunctionImportName="P_SD_ELIMINAR_CAJA" FunctionName="Model.Store.P_SD_ELIMINAR_CAJA" />
           <FunctionImportMapping FunctionImportName="P_SD_ALTA_SD_HOJAS_CONTROL" FunctionName="Model.Store.P_SD_ALTA_SD_HOJAS_CONTROL" />
+          <EntitySetMapping Name="SD_GARANTES">
+            <EntityTypeMapping TypeName="Model.SD_GARANTES">
+              <MappingFragment StoreEntitySet="SD_GARANTES">
+                <ScalarProperty Name="ID_USR" ColumnName="ID_USR" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="FECHA_FIN" ColumnName="FECHA_FIN" />
+                <ScalarProperty Name="FECHA_INI" ColumnName="FECHA_INI" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
+                <ScalarProperty Name="ID_CHOFER" ColumnName="ID_CHOFER" />
+                <ScalarProperty Name="ID_GARANTE" ColumnName="ID_GARANTE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="P_SD_CAMBIO_GARANTE" FunctionName="Model.Store.P_SD_CAMBIO_GARANTE" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2331,6 +2467,9 @@
           <ConnectorPoint PointX="1.5" PointY="7.75" />
           <ConnectorPoint PointX="1.5" PointY="7.2494921875" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="Model.SD_GARANTES" Width="1.5" PointX="0.625" PointY="18" />
+        <AssociationConnector Association="Model.SD_GARANTES_R01" />
+        <AssociationConnector Association="Model.SD_GARANTES_R02" />
         </Diagram>
     </Diagrams>
   </Designer>
