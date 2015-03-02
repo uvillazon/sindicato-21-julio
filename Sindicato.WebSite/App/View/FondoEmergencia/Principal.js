@@ -49,7 +49,7 @@
             case "btn_retiro":
                 me.VentanaDepositoRetiro("Retiro");
                 break;
-            default :
+            default:
                 Ext.Msg.alert("Aviso", "No Existe el botton");
         }
     },
@@ -57,9 +57,16 @@
     VentanaDepositoRetiro: function (accion) {
         var me = this;
         var win = Ext.create("App.Config.Abstract.Window", { botones: true, destruirWin: true });
-        var form = Ext.create("App.View.FondoEmergencia.FormRetiroDeposito", { title: 'Reporte Fondo Emergencia',botones : false , accion : accion});
+        var form = Ext.create("App.View.FondoEmergencia.FormRetiroDeposito", { title: 'Reporte Fondo Emergencia', botones: false, accion: accion });
+        form.loadRecord(me.grid.record);
         win.add(form);
         win.show();
+        win.btn_guardar.on('click', function () {
+            var ingreso = accion === "Deposito" ? form.num_monto.getValue() : 0;
+            var egreso = accion === "Retiro" ? form.num_monto.getValue() : 0;
+            var operacion = accion === "Deposito" ? 'DEPOSITO' : 'RETIRO';
+            Funciones.AjaxRequestWin("Choferes", "GuardarFondoEmergenciaChofer", win, form, me.grid, "Esta Seguro de Guardar Los Cambios", { INGRESO: ingreso, EGRESO: egreso, OPERACION: operacion }, win);
+        });
 
     },
     VentanaReporte: function () {
@@ -69,12 +76,15 @@
         win.add(form);
         win.show();
 
+
     },
     VentanaDetalleFondo: function (record) {
         var me = this;
         var win = Ext.create("App.Config.Abstract.Window", { botones: false, destruirWin: true });
         var form = Ext.create("App.View.FondoEmergencia.DetalleFondoEmergencia", { title: 'Detalle Fondo Emergencia' });
-        form.getForm().loadRecord(record);
+        form.loadRecord(record);
+        form.grid.getStore().setExtraParams({ ID_CHOFER: record.get('ID_CHOFER') });
+        form.grid.getStore().load();
         win.add(form);
         win.show();
         //App.View.FondoEmergencia.DetalleFondoEmergencia

@@ -31,6 +31,7 @@ namespace Sindicato.WebSite.Controllers
         {
             filtros.Entidad = entidad;
             var choferes = _serCho.ObtenerChoferesPaginados(paginacion, filtros);
+            var fondo_emergencia = _serCho.FondoEmergenciaActual();
             var formatData = choferes.Select(x => new
             {
                 ID_SOCIO = x.ID_SOCIO,
@@ -42,7 +43,9 @@ namespace Sindicato.WebSite.Controllers
                 APELLIDO_PATERNO = x.APELLIDO_PATERNO,
                 NRO_LICENCIA = x.NRO_LICENCIA,
                 CATEGORIA_LIC = x.CATEGORIA_LIC,
+                LICENCIA = string.Format("{0} {1}",x.NRO_LICENCIA,x.CATEGORIA_LIC),
                 CI = x.CI,
+                CARNET = string.Format("{0} {1}",x.CI,x.EXPEDIDO),
                 EXPEDIDO = x.EXPEDIDO,
                 FECHA_NAC = x.FECHA_NAC,
                 DOMICILIO = x.DOMICILIO,
@@ -53,6 +56,8 @@ namespace Sindicato.WebSite.Controllers
                 TELEFONO = x.TELEFONO,
                 CELULAR = x.CELULAR,
                 ID_IMG = _serImg.ConImagen(x.ID_CHOFER, "SD_CHOFERES"),
+                FONDO_EMERGENCIA = fondo_emergencia,
+                SALDO_FONDO_EMERGENCIA = x.FONDO_EMERGENCIA,
                 NOMBRE_SOCIO = string.Format("{0} {1} {2}", x.SD_SOCIOS.NOMBRE, x.SD_SOCIOS.APELLIDO_PATERNO, x.SD_SOCIOS.APELLIDO_MATERNO)
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
@@ -75,6 +80,42 @@ namespace Sindicato.WebSite.Controllers
         }
         #endregion
 
+        #region Fondo Emergencia
+        [HttpPost]
+        public JsonResult GuardarFondoEmergenciaChofer(SD_KARDEX_FM fm)
+        {
+
+            string login = User.Identity.Name.Split('-')[0];
+          
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serCho.GuardarFondoEmergenciaChofer(fm, login);
+            return Json(respuestaSP);
+        }
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerKardexFondoEmergenciaPaginados(PagingInfo paginacion, FiltrosModel<ChoferesModel> filtros, ChoferesModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var choferes = _serCho.ObtenerKardexFondoEmergenciaPaginados(paginacion, filtros);
+            var fondo_emergencia = _serCho.FondoEmergenciaActual();
+            var formatData = choferes.Select(x => new
+            {
+                ID_KARDEX =  x.ID_KARDEX,
+                ID_CHOFER = x.ID_CHOFER,
+                INGRESO = x.INGRESO,
+                EGRESO = x.EGRESO,
+                FECHA = x.FECHA,
+                OPERACION = x.OPERACION,
+                LOGIN = x.LOGIN,
+                NRO_CMP = x.NRO_CMP,
+                SALDO = x.SALDO,
+                OBSERVACION = x.OBSERVACION
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
+
+        #endregion
 
         #region Cambio de Garante
         [HttpPost]
@@ -109,5 +150,7 @@ namespace Sindicato.WebSite.Controllers
             return JavaScript(callback1);
         }
         #endregion
+
+        
     }
 }
