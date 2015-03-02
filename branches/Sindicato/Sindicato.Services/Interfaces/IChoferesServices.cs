@@ -18,6 +18,10 @@ namespace Sindicato.Services.Interfaces
         IEnumerable<SD_GARANTES> ObtenerGarantesPaginados(PagingInfo paginacion, FiltrosModel<ChoferesModel> filtros);
 
         RespuestaSP GuardarGarante(SD_GARANTES garante, string login);
+        decimal FondoEmergenciaActual();
+        IEnumerable<SD_KARDEX_FM> ObtenerKardexFondoEmergenciaPaginados(PagingInfo paginacion, FiltrosModel<ChoferesModel> filtros);
+        RespuestaSP GuardarFondoEmergenciaChofer(SD_KARDEX_FM fm, string login);
+        //SD_Fo
 
         //SD_USUARIOS
     }

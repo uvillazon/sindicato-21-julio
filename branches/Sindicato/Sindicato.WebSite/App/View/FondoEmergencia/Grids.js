@@ -32,11 +32,12 @@
     CargarKardexFondoEmergencia: function () {
 
         var me = this;
-        //me.store = Ext.create("App.Store.Familiares.Familiares");
+        me.store = Ext.create("App.Store.FondoEmergencia.Kardex");
         me.columns = [
             { xtype: "rownumberer", width: 30, sortable: false },
             { header: "Fecha", width: 80, sortable: true, dataIndex: "FECHA", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
-            { header: "Nro Recibo", width: 80, sortable: true, dataIndex: "NRO_RECIBO" },
+            { header: "Operacion", width: 80, sortable: true, dataIndex: "OPERACION" },
+            { header: "Nro Recibo", width: 80, sortable: true, dataIndex: "NRO_CMP" },
             { header: "Ingreso", width: 80, sortable: true, dataIndex: "INGRESO" },
             { header: "Egreso", width: 80, sortable: true, dataIndex: "EGRESO" },
             { header: "Saldo", width: 80, sortable: true, dataIndex: "SALDO" },

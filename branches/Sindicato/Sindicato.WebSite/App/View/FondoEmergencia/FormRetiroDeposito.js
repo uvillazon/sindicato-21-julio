@@ -16,11 +16,11 @@
             name: 'ID_CHOFER',
         });
         me.id_comprobante = Ext.widget('hiddenfield', {
-            name: 'ID_COMPROBANTE',
+            name: 'ID_KARDEX',
         });
         me.txt_chofer = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Chofer",
-            name: "CHOFER",
+            name: "NOMBRE_CHOFER",
             width: 480,
             colspan : 2,
             readOnly: true
@@ -32,12 +32,12 @@
         });
         me.txt_fondo_emergencia_actual = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Fondo Emergencia Actual",
-            name: "FONDO_EMERGENCIA_ACTUAL",
+            name: "SALDO_FONDO_EMERGENCIA",
             readOnly: true
         });
         me.num_nro_recibo = Ext.create("App.Config.Componente.NumberFieldBase", {
             fieldLabel: "Nro Recibo",
-            name: "NRO_RECIBO",
+            name: "NRO_CMP",
             maxLength: 12,
             colspan : 2,
             allowNegative: false,

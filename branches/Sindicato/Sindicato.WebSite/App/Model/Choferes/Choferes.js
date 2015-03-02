@@ -24,8 +24,11 @@
         { type: "string", name: "NOMBRE_CHOFER" },
         { type: "string", name: "TELEFONO" },
         { type: "string", name: "CELULAR" },
+        { type: "string", name: "CARNET" },
+        { type: "string", name: "LICENCIA" },
         { type: "int", name: "ID_IMG" },
-        
+        { type: "float", name: "FONDO_EMERGENCIA" },
+        { type: "float", name: "SALDO_FONDO_EMERGENCIA" },
 
     ]
 });

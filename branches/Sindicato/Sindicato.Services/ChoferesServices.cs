@@ -23,7 +23,7 @@ namespace Sindicato.Services
         {
             //_manListas = manListas;
         }
-        
+
         public IEnumerable<SD_CHOFERES> ObtenerChoferesPaginados(PagingInfo paginacion, FiltrosModel<ChoferesModel> filtros)
         {
             IQueryable<SD_CHOFERES> result = null;
@@ -91,7 +91,6 @@ namespace Sindicato.Services
             ExecuteManager(uow =>
             {
                 var manager = new SD_GARANTESManager(uow);
-                //obtener un query de la tabla choferes
                 result = manager.BuscarTodos();
 
                 //arma dinamicamente la consulta de criterios
@@ -121,8 +120,67 @@ namespace Sindicato.Services
             {
                 var context = (SindicatoContext)uow.Context;
                 ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
-                context.P_SD_CAMBIO_GARANTE(garante.ID_CHOFER,garante.FECHA_INI,garante.OBSERVACION,garante.ID_SOCIO,login, p_res);
+                context.P_SD_CAMBIO_GARANTE(garante.ID_CHOFER, garante.FECHA_INI, garante.OBSERVACION, garante.ID_SOCIO, login, p_res);
 
+                int id;
+                bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
+
+                if (esNumero && id > 0)
+                {
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                    result.id = id;
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = p_res.Value.ToString();
+                }
+
+            });
+
+            return result;
+        }
+        public decimal FondoEmergenciaActual()
+        {
+            decimal result = 0;
+            ExecuteManager(uow =>
+            {
+                var context = (SindicatoContext)uow.Context;
+
+                var query = context.SD_FONDO_EMERGENCIAS.Where(x => x.ESTADO == "ACTIVO");
+                if (query.Count() > 0)
+                {
+                    result = query.FirstOrDefault().FONDO_EMERGENCIA;
+                }
+            });
+
+            return result;
+        }
+        public IEnumerable<SD_KARDEX_FM> ObtenerKardexFondoEmergenciaPaginados(PagingInfo paginacion, FiltrosModel<ChoferesModel> filtros)
+        {
+            IQueryable<SD_KARDEX_FM> result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_KARDEX_FMManager(uow);
+                result = manager.BuscarTodos();
+                filtros.FiltrarDatos();
+                result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+                paginacion.total = result.Count();
+                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
+
+            });
+            return result;
+        }
+
+        public RespuestaSP GuardarFondoEmergenciaChofer(SD_KARDEX_FM fm, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var context = (SindicatoContext)uow.Context;
+                ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
+                context.P_SD_GUARDAR_FONDO_EMER(fm.ID_CHOFER,fm.ID_KARDEX,fm.NRO_CMP,fm.OPERACION,fm.FECHA,fm.INGRESO,fm.EGRESO, fm.OBSERVACION,login, p_res);
                 int id;
                 bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
 

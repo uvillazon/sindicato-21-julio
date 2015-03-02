@@ -29,5 +29,7 @@ namespace Sindicato.Services.Interfaces
         RespuestaSP GuardarSocioMovil(SD_SOCIO_MOVILES socio, int ID_USR);
         RespuestaSP GuardarAutos(SD_AUTOS auto, int ID_USR);
         //SD_USUARIOS
+        IEnumerable<SD_OBLIGACIONES_SOCIO> ObtenerObligaciones(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
+        IEnumerable<SD_KARDEX_OBLIGACION> ObtenerKardexObligaciones(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
     }
 }

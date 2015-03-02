@@ -20,5 +20,6 @@ namespace Sindicato.Services.Model
         public string DOMICILIO { get; set; }
         public string OBSERVACION { get; set; }
         public string ESTADO { get; set; }
+        public int? ID_OBLIGACION { get; set; }
     }
 }
