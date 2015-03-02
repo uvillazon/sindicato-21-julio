@@ -228,6 +228,7 @@
     <Content Include="App\Model\Combustibles\Ajustes.js" />
     <Content Include="App\Model\Combustibles\Combustibles.js" />
     <Content Include="App\Model\Combustibles\Kardex.js" />
+    <Content Include="App\Model\FondoEmergencia\Kardex.js" />
     <Content Include="App\Model\Hojas\Hojas.js" />
     <Content Include="App\Model\ConsumoPropio\Clientes.js" />
     <Content Include="App\Model\ConsumoPropio\ConsumoPropio.js" />
@@ -290,6 +291,7 @@
     <Content Include="App\Store\Combustibles\Ajustes.js" />
     <Content Include="App\Store\Combustibles\Combustibles.js" />
     <Content Include="App\Store\Combustibles\Kardex.js" />
+    <Content Include="App\Store\FondoEmergencia\Kardex.js" />
     <Content Include="App\Store\Hojas\Hojas.js" />
     <Content Include="App\Store\ConsumoPropio\Clientes.js" />
     <Content Include="App\Store\ConsumoPropio\ClientesConsumo.js" />

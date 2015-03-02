@@ -39,14 +39,14 @@ namespace Sindicato.Services
             return result;
         }
 
-        public RespuestaSP SP_GrabarCaja(SD_CAJAS caja, int ID_USR)
+        public RespuestaSP SP_GrabarCaja(SD_CAJAS caja, string login)
         {
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
                 var context = (SindicatoContext)uow.Context;
                 ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
-                context.P_SD_GUARDAR_CAJAS(caja.ID_CAJA, caja.CODIGO, caja.NOMBRE, caja.NRO_CUENTA,  caja.DESCRIPCION, caja.SALDO, ID_USR, p_res);
+                context.P_SD_GUARDAR_CAJAS(caja.ID_CAJA, caja.CODIGO, caja.NOMBRE, caja.NRO_CUENTA,  caja.DESCRIPCION, caja.SALDO, login, p_res);
 
 
                 try

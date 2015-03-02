@@ -71,9 +71,9 @@ namespace Sindicato.WebSite.Controllers
         [HttpPost]
         public JsonResult GuardarCaja(SD_CAJAS caj)
         {
-            int id_usr = Convert.ToInt32(User.Identity.Name.Split('-')[3]);
+            string login = User.Identity.Name.Split('-')[0];
             RespuestaSP respuestaSP = new RespuestaSP();
-            respuestaSP = _serCaj.SP_GrabarCaja(caj, id_usr);
+            respuestaSP = _serCaj.SP_GrabarCaja(caj, login);
             return Json(respuestaSP);
         }
 

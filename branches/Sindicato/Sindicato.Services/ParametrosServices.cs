@@ -60,6 +60,26 @@ namespace Sindicato.Services
             });
             return result;
         }
+        public RespuestaSP ObtenerParametro(string COD_PAR , int ID_LINEA = 1)
+        {
+            RespuestaSP result = null;
+            ExecuteManager(uow =>
+            {
+                var context = (SindicatoContext)uow.Context;
+                ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
+                context.P_REC_PARAMETROS(COD_PAR, ID_LINEA, p_res);
+                if (p_res.Value.ToString().Contains("Error"))
+                {
+                    result.success = false;
+                    result.msg = p_res.Value.ToString();
+                }
+                else {
+                    result.success = true;
+                    result.msg = p_res.Value.ToString();
+                }
+            });
+            return result;
+        }
 
         public RespuestaSP GuardarParametros(SD_PARAMETROS_LINEA parametro, int ID_USR)
         {
