@@ -318,6 +318,33 @@ namespace Sindicato.Services
             return result;
         }
 
+        public RespuestaSP GuardarObligacion(SD_KARDEX_OBLIGACION kardex, int ID_SOCIO , string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var context = (SindicatoContext)uow.Context;
+                ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
+                context.P_SD_ACT_OBLIGACIONES(ID_SOCIO,kardex.ID_OBLIGACION,kardex.FECHA,kardex.MOTIVO,kardex.IMPORTE_NUEVO,login, p_res);
+                int idsocio;
+                bool esNumero = int.TryParse(p_res.Value.ToString(), out idsocio);
+                if (esNumero)
+                {
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                    result.id = idsocio;
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = p_res.Value.ToString();
+                }
+
+            });
+
+            return result;
+        }
+
 
         
     }

@@ -11,14 +11,19 @@ Ext.define("App.Config.Funciones", {
     alternateClassName: "Funciones",
     singleton: true,
     Fecha: function (value, record) {
-        if (value == null) {
-            return null;
+        try {
+            if (value == null) {
+                return null;
+            }
+            else {
+                var milli = value.replace(/\/Date\((-?\d+)\)\//, '$1');
+                var d = new Date(parseInt(milli));
+                return d;
+            }
+        } catch (e) {
+            return value;
         }
-        else {
-            var milli = value.replace(/\/Date\((-?\d+)\)\//, '$1');
-            var d = new Date(parseInt(milli));
-            return d;
-        }
+        
     },
     BloquearFormulario: function (form, array, btn) {
         var els = form.query('.field');

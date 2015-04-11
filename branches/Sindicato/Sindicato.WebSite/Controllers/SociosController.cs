@@ -41,10 +41,13 @@ namespace Sindicato.WebSite.Controllers
                 NOMBRE = x.SD_SOCIOS.NOMBRE,
                 APELLIDO_MATERNO = x.SD_SOCIOS.APELLIDO_MATERNO,
                 APELLIDO_PATERNO = x.SD_SOCIOS.APELLIDO_PATERNO,
+                //NOMBRE_SOCIO = string.Format("{0} {1} {2}",x.SD_SOCIOS.NOMBRE,x.SD_SOCIOS.APELLIDO_PATERNO,x.SD_SOCIOS.APELLIDO_MATERNO),
                 NRO_LICENCIA = x.SD_SOCIOS.NRO_LICENCIA,
                 CATEGORIA_LIC = x.SD_SOCIOS.CATEGORIA_LIC,
+                LICENCIA = string.Format("{0} {1}",x.SD_SOCIOS.NRO_LICENCIA,x.SD_SOCIOS.CATEGORIA_LIC),
                 CI = x.SD_SOCIOS.CI,
                 EXPEDIDO = x.SD_SOCIOS.EXPEDIDO,
+                CARNET = string.Format("{0} {1}",x.SD_SOCIOS.CI,x.SD_SOCIOS.EXPEDIDO),
                 FECHA_NAC = x.SD_SOCIOS.FECHA_NAC,
                 DOMICILIO = x.SD_SOCIOS.DOMICILIO,
                 OBSERVACION = x.SD_SOCIOS.OBSERVACION,
@@ -161,5 +164,52 @@ namespace Sindicato.WebSite.Controllers
         }
         #endregion
 
+        #region Obligaciones Socio
+        [HttpGet]
+        public JavaScriptResult ObtenerObligaciones(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var autos = _serSoc.ObtenerObligaciones(paginacion, filtros);
+            var formatData = autos.Select(x => new
+            {
+                ID_OBLIGACION = x.ID_OBLIGACION,
+                ID_SOCIO = x.ID_SOCIO,
+                IMPORTE = x.IMPORTE,
+                LOGIN = x.LOGIN,
+                OBLIGACION = x.OBLIGACION
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
+        [HttpGet]
+        public JavaScriptResult ObtenerKardexObligaciones(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var autos = _serSoc.ObtenerKardexObligaciones(paginacion, filtros);
+            var formatData = autos.Select(x => new
+            {
+                ID_OBLIGACION = x.ID_OBLIGACION,
+                FECHA = x.FECHA,
+                ID_KARDEX = x.ID_KARDEX,
+                LOGIN = x.LOGIN,
+                MOTIVO = x.MOTIVO,
+                IMPORTE_ANTERIOR = x.IMPORTE_ANTERIOR,
+                IMPORTE_NUEVO = x.IMPORTE_NUEVO
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
+        [HttpPost]
+        public JsonResult GuardarObligacion(SD_KARDEX_OBLIGACION kardex,int ID_SOCIO)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serSoc.GuardarObligacion(kardex,ID_SOCIO, login);
+            return Json(respuestaSP);
+        }
+        //GuardarObligacion
+        #endregion
     }
 }

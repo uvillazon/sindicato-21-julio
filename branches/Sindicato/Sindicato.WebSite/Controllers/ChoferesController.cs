@@ -58,6 +58,7 @@ namespace Sindicato.WebSite.Controllers
                 ID_IMG = _serImg.ConImagen(x.ID_CHOFER, "SD_CHOFERES"),
                 FONDO_EMERGENCIA = fondo_emergencia,
                 SALDO_FONDO_EMERGENCIA = x.FONDO_EMERGENCIA,
+                SALDO = fondo_emergencia -  x.FONDO_EMERGENCIA,
                 NOMBRE_SOCIO = string.Format("{0} {1} {2}", x.SD_SOCIOS.NOMBRE, x.SD_SOCIOS.APELLIDO_PATERNO, x.SD_SOCIOS.APELLIDO_MATERNO)
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();

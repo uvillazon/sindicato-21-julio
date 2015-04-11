@@ -34,6 +34,16 @@
             me.pieTitulo = "Automoviles";
             me.CargarGridAutomoviles();
         }
+        else if (me.opcion == "GridObligaciones") {
+            me.title = "Obligaciones";
+            me.pieTitulo = "Obligaciones";
+            me.CargarGridObligaciones();
+        }
+        else if (me.opcion == "GridKardexObligaciones") {
+            me.title = "Kardex Obligaciones";
+            me.pieTitulo = "Detalles";
+            me.CargarGridKardexObligaciones();
+        }
         else {
             alert("Defina el tipo primero");
         }
@@ -44,23 +54,15 @@
             emptyMsg: "No existen " + me.pieTitulo + ".",
             items: me.fbarmenu
         });
-        me.on('itemclick', me.onItemClick, this);
+        //me.on('itemclick', me.onItemClick, this);
         me.getSelectionModel().on('selectionchange', me.onSelectChange, this);
         this.callParent(arguments);
     },
-    onItemClick: function (view, record, item, index, e) {
-        var me = this;
-        me.record = record;
-        me.id = record.get('ID_SOCIO');
-    },
+
     onSelectChange: function (selModel, selections) {
         var me = this;
         var disabled = selections.length === 0;
-        if (disabled) {
-            me.record = null;
-        }
-        //        Funce = this;
-        //       iones.DisabledButton('btn_Detalle', me.toolbar, disabled);
+        me.record = disabled ? null : selections[0];
     },
     CargarGridFamiliares: function () {
         var me = this;
@@ -138,6 +140,29 @@
             { header: " - ", width: 30, sortable: false, dataIndex: "ID_USR", hidden: true },
         ];
     },
+    CargarGridObligaciones: function () {
+        var me = this;
+        me.store = Ext.create("App.Store.Socios.Obligaciones");
+        me.columns = [
+           { header: "Obligacion", width: 90, sortable: false, dataIndex: "OBLIGACION" },
+           { header: "Importe", width: 60, sortable: false, dataIndex: "IMPORTE" }
+        ];
+    },
+    CargarGridKardexObligaciones: function () {
+        var me = this;
+        me.store = Ext.create("App.Store.Socios.KardexObligaciones");
+        //me.store.setExtraParams({ Estados: 'RECH_INSP' });
+        //me.store.load();
+        me.columns = [
+           { xtype: "rownumberer", width: 30, sortable: false },
+            { header: "Fecha", width: 70, sortable: false, dataIndex: "FECHA", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
+            { header: "Motivo", width: 100, sortable: true, dataIndex: "MOTIVO" },
+            { header: "Importe <br>Anterior", width: 60, sortable: true, dataIndex: "IMPORTE_ANTERIOR" },
+            { header: "Importe <br>Nuevo", width: 60, sortable: true, dataIndex: "IMPORTE_NUEVO" },
+            { header: "Responsable", width: 60, sortable: true, dataIndex: "LOGIN" },
+
+        ];
+    },
     renderImagenAuto: function (val, metaData, record) {
         if (record.data.ID_IMG == 0) {
             return null;
@@ -147,4 +172,3 @@
         }
     }
 });
-
