@@ -85,6 +85,7 @@
     <Compile Include="Controllers\AppSindicatoController.cs" />
     <Compile Include="Controllers\ChoferesController.cs" />
     <Compile Include="Controllers\CajasController.cs" />
+    <Compile Include="Controllers\ParadasController.cs" />
     <Compile Include="Controllers\VentaHojasController.cs" />
     <Compile Include="Controllers\ParametrosController.cs" />
     <Compile Include="Controllers\FamiliaresController.cs" />
@@ -228,6 +229,7 @@
     <Content Include="App\Model\Combustibles\Ajustes.js" />
     <Content Include="App\Model\Combustibles\Combustibles.js" />
     <Content Include="App\Model\Combustibles\Kardex.js" />
+    <Content Include="App\Model\Paradas\Paradas.js" />
     <Content Include="App\Model\FondoEmergencia\Kardex.js" />
     <Content Include="App\Model\Hojas\Hojas.js" />
     <Content Include="App\Model\ConsumoPropio\Clientes.js" />
@@ -269,6 +271,8 @@
     <Content Include="App\Model\Responsables\Responsables.js" />
     <Content Include="App\Model\Socios\Antecedentes.js" />
     <Content Include="App\Model\Socios\Autos.js" />
+    <Content Include="App\Model\Socios\KardexObligaciones.js" />
+    <Content Include="App\Model\Socios\Obligaciones.js" />
     <Content Include="App\Model\Socios\Desempenos.js" />
     <Content Include="App\Model\Socios\Documentos.js" />
     <Content Include="App\Model\Familiares\Familiares.js" />
@@ -291,6 +295,7 @@
     <Content Include="App\Store\Combustibles\Ajustes.js" />
     <Content Include="App\Store\Combustibles\Combustibles.js" />
     <Content Include="App\Store\Combustibles\Kardex.js" />
+    <Content Include="App\Store\Paradas\Paradas.js" />
     <Content Include="App\Store\FondoEmergencia\Kardex.js" />
     <Content Include="App\Store\Hojas\Hojas.js" />
     <Content Include="App\Store\ConsumoPropio\Clientes.js" />
@@ -344,6 +349,8 @@
     <Content Include="App\Store\Responsables\Responsables.js" />
     <Content Include="App\Store\Socios\Antecedentes.js" />
     <Content Include="App\Store\Socios\Autos.js" />
+    <Content Include="App\Store\Socios\Obligaciones.js" />
+    <Content Include="App\Store\Socios\KardexObligaciones.js" />
     <Content Include="App\Store\Socios\SoloSocios.js" />
     <Content Include="App\Store\Socios\Desempenos.js" />
     <Content Include="App\Store\Socios\Documentos.js" />
@@ -405,6 +412,7 @@
     <Content Include="App\View\Parametros\GridParametros.js" />
     <Content Include="App\View\Parametros\Grids.js" />
     <Content Include="App\View\Parametros\Principal.js" />
+    <Content Include="App\View\Socios\FormObligacionSocio.js" />
     <Content Include="App\View\Socios\FormSocio.js" />
     <Content Include="App\View\Socios\Forms.js" />
     <Content Include="App\View\Socios\Forms\FormAuto.js" />

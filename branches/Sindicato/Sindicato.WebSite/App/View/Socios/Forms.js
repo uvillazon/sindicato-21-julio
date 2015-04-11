@@ -3,10 +3,10 @@
     title: "",
     botones: false,
     columns: 2,
-    icono : '',
-    EventosForm : null,
-    scope : null,
-    val : 0,
+    icono: '',
+    EventosForm: null,
+    scope: null,
+    val: 0,
     initComponent: function () {
         var me = this;
         if (me.opcion == "FormImagen") {
@@ -21,35 +21,37 @@
             me.title = "Resumen";
             me.CargarFormResumen();
         }
-        else if (me.opcion == "FormMovil"){
-//            me.title = "E"
+        else if (me.opcion == "FormMovil") {
+            //            me.title = "E"
             me.CargarFormMovil();
         }
-        else if(me.opcion == "FormSocio"){
+        else if (me.opcion == "FormSocio") {
             me.CargarFormSocio();
         }
-        else if (me.opcion == "FormReporte"){
+        else if (me.opcion == "FormReporte") {
             me.CargarFormReporte();
         }
-        
+        else if (me.opcion == "FormCambioObligacion") {
+            me.CargarFormCambioObligacion();
+        }
         this.callParent(arguments);
     },
     CargarFormImagen: function () {
         var me = this;
         me.scope = me.scope == null ? this : me.scope;
         me.changingImage = Ext.create('Ext.Img', {
-            colspan : 2,
-            src : Constantes.URLIMAGEN + 'id=' + me.val + '&tamano=300'
+            colspan: 2,
+            src: Constantes.URLIMAGEN + 'id=' + me.val + '&tamano=300'
 
         });
         me.items = [
-        me.changingImage 
+        me.changingImage
         ];
     },
-    CargarFormReporte : function(){
+    CargarFormReporte: function () {
         var me = this;
         me.dat_fecha = Ext.create("App.Config.Componente.DateFieldBase", {
-//            opcion: "sin fecha",
+            //            opcion: "sin fecha",
             fieldLabel: "Fecha",
             name: "fecha",
             width: 240,
@@ -58,7 +60,7 @@
         });
         me.items = [me.dat_fecha];
     },
-    ComponentesSocio : function(me){
+    ComponentesSocio: function (me) {
 
         var me = me == null ? this : me;
         me.txt_id_socio = Ext.create("App.Config.Componente.TextFieldBase", {
@@ -172,7 +174,7 @@
             name: "ESTADO",
             width: 240,
             maxLength: 20,
-            readOnly : true
+            readOnly: true
         });
         me.dat_fecha_ingreso = Ext.create("App.Config.Componente.DateFieldBase", {
             opcion: "sin fecha",
@@ -187,8 +189,8 @@
             fieldLabel: "Fecha Retiro",
             name: "FECHA_BAJA",
             width: 240,
-            readOnly : true
-//            colspan: 2
+            readOnly: true
+            //            colspan: 2
         });
         me.txt_telefono = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Telefonos",
@@ -204,11 +206,11 @@
             maxLength: 50
         });
     },
-    CargarFormSocio : function(){
+    CargarFormSocio: function () {
         var me = this;
         me.ComponentesSocio();
         me.items = [
-           
+
             me.txt_id_socio,
             me.num_ci,
             me.cbx_expedido,
@@ -230,14 +232,14 @@
             me.txt_observacion
 
         ];
-        
+
     },
-    CargarImagen : function(id){
+    CargarImagen: function (id) {
         var me = this;
-        var originalSrc =   Constantes.URLIMAGEN + 'id=' + id + '&tamano=200';
+        var originalSrc = Constantes.URLIMAGEN + 'id=' + id + '&tamano=200';
         me.changingImage.setSrc(originalSrc);
     },
-    CargarFormMovil : function (){
+    CargarFormMovil: function () {
         var me = this;
         me.txt_id_socio = Ext.create("App.Config.Componente.TextFieldBase", {
             name: "ID_SOCIO",
@@ -254,10 +256,10 @@
         me.num_nro_movil = Ext.create("App.Config.Componente.NumberFieldBase", {
             fieldLabel: "Nro Movil",
             name: "NRO_MOVIL",
-            colspan : 2
-           
+            colspan: 2
+
         });
-         me.txt_nombre = Ext.create("App.Config.Componente.TextFieldBase", {
+        me.txt_nombre = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Nombres Socio",
             name: "NOMBRE",
             width: 480,
@@ -282,17 +284,17 @@
             allowBlank: false
         });
         me.txt_descripcion = Ext.create("App.Config.Componente.TextAreaBase", {
-                fieldLabel: "Descripcion",
-                name: "DESCRIPCION",
-                width: 480,
-                colspan : 2,
-                maxLength: 500,
-            });
+            fieldLabel: "Descripcion",
+            name: "DESCRIPCION",
+            width: 480,
+            colspan: 2,
+            maxLength: 500,
+        });
         me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
             fieldLabel: "Observacion",
             name: "OBSERVACION",
             width: 480,
-            colspan : 2,
+            colspan: 2,
             maxLength: 500,
         });
         me.items = [
@@ -307,101 +309,158 @@
             me.txt_observacion
         ];
     },
-    CargarFormFamiliar : function(){
+    CargarFormFamiliar: function () {
         var me = this;
-            me.txt_id = Ext.create("App.Config.Componente.TextFieldBase", {
-                name: "ID_FAMILIAR",
-                hidden: true,
-            });
-            me.txt_id_socio = Ext.create("App.Config.Componente.TextFieldBase", {
-                name: "ID_SOCIO",
-                hidden: true,
-            });
-            me.txt_id_chofer = Ext.create("App.Config.Componente.TextFieldBase", {
-                name: "ID_CHOFER",
-                hidden: true,
-            });
-            me.txt_nombre = Ext.create("App.Config.Componente.TextFieldBase", {
-                fieldLabel: "Nombres",
-                name: "NOMBRE",
-                width: 480,
-                colspan : 2,
-                maxLength: 200,
-                afterLabelTextTpl: Constantes.REQUERIDO,
-                allowBlank: false,
-            });
-            me.txt_apellido_paterno = Ext.create("App.Config.Componente.TextFieldBase", {
-                fieldLabel: "Ap.Paterno",
-                name: "APELLIDO_PATERNO",
-                width: 240,
-                maxLength: 200,
-                afterLabelTextTpl: Constantes.REQUERIDO,
-                allowBlank: false,
-            });
-            me.txt_apellido_materno = Ext.create("App.Config.Componente.TextFieldBase", {
-                fieldLabel: "Ap.Materno",
-                name: "APELLIDO_MATERNO",
-                width: 240,
-                maxLength: 200,
-                afterLabelTextTpl: Constantes.REQUERIDO,
-                allowBlank: false,
-            });
-            me.num_ci = Ext.create("App.Config.Componente.NumberFieldBase", {
-                fieldLabel: "Carnet Identidad",
-                name: "CI",
-                width: 240,
-                maxLength: 15,
-                allowNegative: false,
-                allowDecimals: false,
-            });
-            me.store_expedido = Ext.create('App.Store.Listas.StoreLista');
-            me.store_expedido.setExtraParam('ID_LISTA', Lista.Buscar('EXPEDIDO_CI'));
-            me.cbx_expedido = Ext.create("App.Config.Componente.ComboBase", {
-                fieldLabel: "Expedido",
-                name: "EXPEDIDO",
-                width: 240,
-                store : me.store_expedido,
-                selectOnFocus: true,
-            });
-            me.dat_fecha_nac = Ext.create("App.Config.Componente.DateFieldBase", {
-                opcion :"sin fecha",
-                fieldLabel: "Fecha Nacimiento",
-                name: "FECHA_NAC",
-                width: 240,
-                afterLabelTextTpl: Constantes.REQUERIDO,
-                allowBlank: false,
-            });
-            me.store_parentesco = Ext.create('App.Store.Listas.StoreLista');
-            me.store_parentesco.setExtraParam('ID_LISTA', Lista.Buscar('PARENTESCO'));
-            me.cbx_parentesco = Ext.create("App.Config.Componente.ComboBase", {
-                fieldLabel: "Parentesco",
-                name: "PARENTESCO",
-                width: 240,
-                store : me.store_parentesco,
-                selectOnFocus: true,
-                afterLabelTextTpl: Constantes.REQUERIDO,
-                allowBlank: false,
-            });
-            me.txt_observacion = Ext.create("App.Config.Componente.TextFieldBase", {
-                fieldLabel: "Observaciones",
-                name: "OBSERVACION",
-                width: 480,
-                colspan : 2,
-                maxLength: 500,
-            });
-            
-            me.items = [
-                me.txt_id,
-                me.txt_id_socio,
-                me.txt_id_chofer,
-                me.txt_nombre,
-                me.txt_apellido_paterno,
-                me.txt_apellido_materno,
-                me.num_ci,
-                me.cbx_expedido,
-                me.dat_fecha_nac,
-                me.cbx_parentesco,
-                me.txt_observacion,
-            ];
+        me.txt_id = Ext.create("App.Config.Componente.TextFieldBase", {
+            name: "ID_FAMILIAR",
+            hidden: true,
+        });
+        me.txt_id_socio = Ext.create("App.Config.Componente.TextFieldBase", {
+            name: "ID_SOCIO",
+            hidden: true,
+        });
+        me.txt_id_chofer = Ext.create("App.Config.Componente.TextFieldBase", {
+            name: "ID_CHOFER",
+            hidden: true,
+        });
+        me.txt_nombre = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Nombres",
+            name: "NOMBRE",
+            width: 480,
+            colspan: 2,
+            maxLength: 200,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+        });
+        me.txt_apellido_paterno = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Ap.Paterno",
+            name: "APELLIDO_PATERNO",
+            width: 240,
+            maxLength: 200,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+        });
+        me.txt_apellido_materno = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Ap.Materno",
+            name: "APELLIDO_MATERNO",
+            width: 240,
+            maxLength: 200,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+        });
+        me.num_ci = Ext.create("App.Config.Componente.NumberFieldBase", {
+            fieldLabel: "Carnet Identidad",
+            name: "CI",
+            width: 240,
+            maxLength: 15,
+            allowNegative: false,
+            allowDecimals: false,
+        });
+        me.store_expedido = Ext.create('App.Store.Listas.StoreLista');
+        me.store_expedido.setExtraParam('ID_LISTA', Lista.Buscar('EXPEDIDO_CI'));
+        me.cbx_expedido = Ext.create("App.Config.Componente.ComboBase", {
+            fieldLabel: "Expedido",
+            name: "EXPEDIDO",
+            width: 240,
+            store: me.store_expedido,
+            selectOnFocus: true,
+        });
+        me.dat_fecha_nac = Ext.create("App.Config.Componente.DateFieldBase", {
+            opcion: "sin fecha",
+            fieldLabel: "Fecha Nacimiento",
+            name: "FECHA_NAC",
+            width: 240,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+        });
+        me.store_parentesco = Ext.create('App.Store.Listas.StoreLista');
+        me.store_parentesco.setExtraParam('ID_LISTA', Lista.Buscar('PARENTESCO'));
+        me.cbx_parentesco = Ext.create("App.Config.Componente.ComboBase", {
+            fieldLabel: "Parentesco",
+            name: "PARENTESCO",
+            width: 240,
+            store: me.store_parentesco,
+            selectOnFocus: true,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+        });
+        me.txt_observacion = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Observaciones",
+            name: "OBSERVACION",
+            width: 480,
+            colspan: 2,
+            maxLength: 500,
+        });
+
+        me.items = [
+            me.txt_id,
+            me.txt_id_socio,
+            me.txt_id_chofer,
+            me.txt_nombre,
+            me.txt_apellido_paterno,
+            me.txt_apellido_materno,
+            me.num_ci,
+            me.cbx_expedido,
+            me.dat_fecha_nac,
+            me.cbx_parentesco,
+            me.txt_observacion,
+        ];
+    },
+
+    CargarFormCambioObligacion: function () {
+        var me = this;
+        me.id_obligacion = Ext.widget('hiddenfield', {
+            name: 'ID_OBLIGACION',
+        });
+        me.id_socio = Ext.widget('hiddenfield', {
+            name: 'ID_SOCIO',
+        });
+
+        me.txt_obligacion = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Obligacion",
+            name: "OBLIGACION",
+            //width: 480,
+            readOnly: true
+        });
+        me.txt_importe = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Importe",
+            name: "IMPORTE",
+            //width: 480,
+            readOnly: true
+        });
+
+        me.dat_fecha = Ext.create("App.Config.Componente.DateFieldBase", {
+            //opcion: "sin fecha",
+            fieldLabel: "Fecha",
+            maximo: 'Con MAximo',
+            name: "FECHA",
+            width: 240,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false
+        });
+        me.num_importe = Ext.create("App.Config.Componente.NumberFieldBase", {
+            fieldLabel: "Nuevo Importe",
+            name: "IMPORTE_NUEVO",
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false
+        });
+        me.txt_motivo = Ext.create("App.Config.Componente.TextAreaBase", {
+            fieldLabel: "Motivo",
+            name: "MOTIVO",
+            width: 240,
+            maxLength: 500,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false
+        });
+
+        me.items = [
+            me.id_obligacion,
+            me.id_socio,
+            me.txt_obligacion,
+            me.txt_importe,
+            me.dat_fecha,
+            me.num_importe,
+            me.txt_motivo
+        ];
     }
 });

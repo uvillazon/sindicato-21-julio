@@ -41,11 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SD_PARADASManager.cs" />
+    <Compile Include="SD_VENTA_HOJAS_CONTROLManager.cs" />
+    <Compile Include="SD_DETALLE_HOJASManager.cs" />
     <Compile Include="SD_KARDEX_OBLIGACIONManager.cs" />
     <Compile Include="SD_OBLIGACIONES_SOCIOManager.cs" />
     <Compile Include="SD_KARDEX_FMManager.cs" />
     <Compile Include="SD_GARANTESManager.cs" />
-    <Compile Include="SD_HOJAS_CONTROLManager.cs" />
     <Compile Include="SD_PARAMETROS_LINEAManager.cs" />
     <Compile Include="SD_KARDEX_EFECTIVOManager.cs" />
     <Compile Include="SD_CAJASManager.cs" />

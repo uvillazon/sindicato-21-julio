@@ -54,12 +54,8 @@
         me.columns = [
             { xtype: "rownumberer", width: 30, sortable: false },
             { header: "Nro <br>Hoja", width: 100, sortable: false, dataIndex: "NRO_HOJA" },
-            { header: "Parada", width: 100, sortable: false, dataIndex: "PARADA" },
-            { header: "Fecha Compra", width: 100, sortable: true, dataIndex: "FECHA_COMPRA", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
             { header: "Fecha Uso", width: 100, sortable: true, dataIndex: "FECHA_USO", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
             { header: "Monto", width: 100, sortable: false, dataIndex: "MONTO" },
-            { header: "Socio", width: 100, sortable: false, dataIndex: "SOCIO" },
-            { header: "Nro Movil", width: 100, sortable: false, dataIndex: "NRO_MOVIL" },
             { header: "Observacion", width: 150, sortable: false, dataIndex: "OBSERVACION" }
         ];
 

@@ -29,6 +29,6 @@
         { type: "int", name: "ID_IMG" },
         { type: "float", name: "FONDO_EMERGENCIA" },
         { type: "float", name: "SALDO_FONDO_EMERGENCIA" },
-
+         { type: "float", name: "SALDO" },
     ]
 });
