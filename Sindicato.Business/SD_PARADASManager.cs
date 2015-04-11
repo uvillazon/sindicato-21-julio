@@ -10,9 +10,11 @@ using System.Data.Objects;
 
 namespace Sindicato.Business
 {
-    public class SD_HOJAS_CONTROLManager : Repository<SD_HOJAS_CONTROL>
+    public class SD_PARADASManager : Repository<SD_PARADAS>
     {
-        public SD_HOJAS_CONTROLManager(IUnitOfWork uow) : base(uow) { }
+
+
+        public SD_PARADASManager(IUnitOfWork uow) : base(uow) { }
 
         //test
         

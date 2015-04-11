@@ -50,7 +50,10 @@
     <Compile Include="BaseService.cs" />
     <Compile Include="ChoferesServices.cs" />
     <Compile Include="CajasServices.cs" />
+    <Compile Include="ParadasServices.cs" />
+    <Compile Include="Interfaces\IParadasServices.cs" />
     <Compile Include="Interfaces\ICajasServices.cs" />
+    <Compile Include="Model\ParadasModel.cs" />
     <Compile Include="Model\KardexEfectivoModel.cs" />
     <Compile Include="VentaHojasServices.cs" />
     <Compile Include="Interfaces\IVentaHojasServices.cs" />

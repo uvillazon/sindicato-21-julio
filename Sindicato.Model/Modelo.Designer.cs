@@ -31,8 +31,6 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "SD_FAMILIARES_R02", "SD_CHOFERES", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sindicato.Model.SD_CHOFERES), "SD_FAMILIARES", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_FAMILIARES), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_FAMILIARES_R01", "SD_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sindicato.Model.SD_SOCIOS), "SD_FAMILIARES", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_FAMILIARES), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_AUTOS_R01", "SD_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_MOVILES), "SD_AUTOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_AUTOS), true)]
-[assembly: EdmRelationshipAttribute("Model", "SD_HOJAS_CONTROL_R01", "SD_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_MOVILES), "SD_HOJAS_CONTROL", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_HOJAS_CONTROL), true)]
-[assembly: EdmRelationshipAttribute("Model", "SD_HOJAS_CONTROL_R02", "SD_PARADAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_PARADAS), "SD_HOJAS_CONTROL", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_HOJAS_CONTROL), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_PERFILES_R01", "SD_PARADAS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sindicato.Model.SD_PARADAS), "SD_PERFILES", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PERFILES), true)]
 [assembly: EdmRelationshipAttribute("Model", "SG_PERFILES_OPCIONES_R01", "SD_PERFILES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_PERFILES), "SD_PERFILES_OPCIONES", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PERFILES_OPCIONES), true)]
 [assembly: EdmRelationshipAttribute("Model", "SG_USUARIOS_R01", "SD_PERFILES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_PERFILES), "SD_USUARIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_USUARIOS), true)]
@@ -42,8 +40,12 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "SD_KARDEX_FM_R01", "SD_CHOFERES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CHOFERES), "SD_KARDEX_FM", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_KARDEX_FM), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_KARDEX_EFECTIVO_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_KARDEX_EFECTIVO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_KARDEX_EFECTIVO), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_PARADAS_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_PARADAS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PARADAS), true)]
-[assembly: EdmRelationshipAttribute("Model", "SD_KARDEX_OBLIGACION_R01", "SD_OBLIGACIONES_SOCIO", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_OBLIGACIONES_SOCIO), "SD_KARDEX_OBLIGACION", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_KARDEX_OBLIGACION), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_OBLIGACIONES_SOCIO_R01", "SD_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIOS), "SD_OBLIGACIONES_SOCIO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_OBLIGACIONES_SOCIO), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_KARDEX_OBLIGACION_R01", "SD_OBLIGACIONES_SOCIO", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_OBLIGACIONES_SOCIO), "SD_KARDEX_OBLIGACION", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_KARDEX_OBLIGACION), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_VENTA_HOJAS_CONTROL_R03", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_VENTA_HOJAS_CONTROL", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_VENTA_HOJAS_CONTROL), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_HOJAS_R01", "SD_VENTA_HOJAS_CONTROL", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_VENTA_HOJAS_CONTROL), "SD_DETALLE_HOJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_HOJAS), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_VENTA_HOJAS_CONTROL_R01", "SD_PARADAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_PARADAS), "SD_VENTA_HOJAS_CONTROL", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_VENTA_HOJAS_CONTROL), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_VENTA_HOJAS_CONTROL_R02", "SD_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIOS), "SD_VENTA_HOJAS_CONTROL", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_VENTA_HOJAS_CONTROL), true)]
 
 #endregion
 
@@ -370,22 +372,6 @@ namespace Sindicato.Model
         /// <summary>
         /// No hay documentación de metadatos disponible.
         /// </summary>
-        public ObjectSet<SD_HOJAS_CONTROL> SD_HOJAS_CONTROL
-        {
-            get
-            {
-                if ((_SD_HOJAS_CONTROL == null))
-                {
-                    _SD_HOJAS_CONTROL = base.CreateObjectSet<SD_HOJAS_CONTROL>("SD_HOJAS_CONTROL");
-                }
-                return _SD_HOJAS_CONTROL;
-            }
-        }
-        private ObjectSet<SD_HOJAS_CONTROL> _SD_HOJAS_CONTROL;
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
         public ObjectSet<SD_PARADAS> SD_PARADAS
         {
             get
@@ -514,6 +500,22 @@ namespace Sindicato.Model
         /// <summary>
         /// No hay documentación de metadatos disponible.
         /// </summary>
+        public ObjectSet<SD_OBLIGACIONES_SOCIO> SD_OBLIGACIONES_SOCIO
+        {
+            get
+            {
+                if ((_SD_OBLIGACIONES_SOCIO == null))
+                {
+                    _SD_OBLIGACIONES_SOCIO = base.CreateObjectSet<SD_OBLIGACIONES_SOCIO>("SD_OBLIGACIONES_SOCIO");
+                }
+                return _SD_OBLIGACIONES_SOCIO;
+            }
+        }
+        private ObjectSet<SD_OBLIGACIONES_SOCIO> _SD_OBLIGACIONES_SOCIO;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
         public ObjectSet<SD_KARDEX_OBLIGACION> SD_KARDEX_OBLIGACION
         {
             get
@@ -530,18 +532,34 @@ namespace Sindicato.Model
         /// <summary>
         /// No hay documentación de metadatos disponible.
         /// </summary>
-        public ObjectSet<SD_OBLIGACIONES_SOCIO> SD_OBLIGACIONES_SOCIO
+        public ObjectSet<SD_DETALLE_HOJAS> SD_DETALLE_HOJAS
         {
             get
             {
-                if ((_SD_OBLIGACIONES_SOCIO == null))
+                if ((_SD_DETALLE_HOJAS == null))
                 {
-                    _SD_OBLIGACIONES_SOCIO = base.CreateObjectSet<SD_OBLIGACIONES_SOCIO>("SD_OBLIGACIONES_SOCIO");
+                    _SD_DETALLE_HOJAS = base.CreateObjectSet<SD_DETALLE_HOJAS>("SD_DETALLE_HOJAS");
                 }
-                return _SD_OBLIGACIONES_SOCIO;
+                return _SD_DETALLE_HOJAS;
             }
         }
-        private ObjectSet<SD_OBLIGACIONES_SOCIO> _SD_OBLIGACIONES_SOCIO;
+        private ObjectSet<SD_DETALLE_HOJAS> _SD_DETALLE_HOJAS;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<SD_VENTA_HOJAS_CONTROL> SD_VENTA_HOJAS_CONTROL
+        {
+            get
+            {
+                if ((_SD_VENTA_HOJAS_CONTROL == null))
+                {
+                    _SD_VENTA_HOJAS_CONTROL = base.CreateObjectSet<SD_VENTA_HOJAS_CONTROL>("SD_VENTA_HOJAS_CONTROL");
+                }
+                return _SD_VENTA_HOJAS_CONTROL;
+            }
+        }
+        private ObjectSet<SD_VENTA_HOJAS_CONTROL> _SD_VENTA_HOJAS_CONTROL;
 
         #endregion
 
@@ -684,14 +702,6 @@ namespace Sindicato.Model
         }
     
         /// <summary>
-        /// Método desusado para agregar un nuevo objeto al EntitySet SD_HOJAS_CONTROL. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
-        /// </summary>
-        public void AddToSD_HOJAS_CONTROL(SD_HOJAS_CONTROL sD_HOJAS_CONTROL)
-        {
-            base.AddObject("SD_HOJAS_CONTROL", sD_HOJAS_CONTROL);
-        }
-    
-        /// <summary>
         /// Método desusado para agregar un nuevo objeto al EntitySet SD_PARADAS. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
         /// </summary>
         public void AddToSD_PARADAS(SD_PARADAS sD_PARADAS)
@@ -756,6 +766,14 @@ namespace Sindicato.Model
         }
     
         /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet SD_OBLIGACIONES_SOCIO. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToSD_OBLIGACIONES_SOCIO(SD_OBLIGACIONES_SOCIO sD_OBLIGACIONES_SOCIO)
+        {
+            base.AddObject("SD_OBLIGACIONES_SOCIO", sD_OBLIGACIONES_SOCIO);
+        }
+    
+        /// <summary>
         /// Método desusado para agregar un nuevo objeto al EntitySet SD_KARDEX_OBLIGACION. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
         /// </summary>
         public void AddToSD_KARDEX_OBLIGACION(SD_KARDEX_OBLIGACION sD_KARDEX_OBLIGACION)
@@ -764,11 +782,19 @@ namespace Sindicato.Model
         }
     
         /// <summary>
-        /// Método desusado para agregar un nuevo objeto al EntitySet SD_OBLIGACIONES_SOCIO. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// Método desusado para agregar un nuevo objeto al EntitySet SD_DETALLE_HOJAS. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
         /// </summary>
-        public void AddToSD_OBLIGACIONES_SOCIO(SD_OBLIGACIONES_SOCIO sD_OBLIGACIONES_SOCIO)
+        public void AddToSD_DETALLE_HOJAS(SD_DETALLE_HOJAS sD_DETALLE_HOJAS)
         {
-            base.AddObject("SD_OBLIGACIONES_SOCIO", sD_OBLIGACIONES_SOCIO);
+            base.AddObject("SD_DETALLE_HOJAS", sD_DETALLE_HOJAS);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet SD_VENTA_HOJAS_CONTROL. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToSD_VENTA_HOJAS_CONTROL(SD_VENTA_HOJAS_CONTROL sD_VENTA_HOJAS_CONTROL)
+        {
+            base.AddObject("SD_VENTA_HOJAS_CONTROL", sD_VENTA_HOJAS_CONTROL);
         }
 
         #endregion
@@ -2372,6 +2398,81 @@ namespace Sindicato.Model
     
             return base.ExecuteFunction("P_SD_GUARDAR_CAJAS", p_ID_CAJAParameter, p_CODIGOParameter, p_NOMBREParameter, p_NRO_CUENTAParameter, p_DESCRIPCIONParameter, p_SALDOParameter, p_LOGINParameter, p_RES);
         }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        /// <param name="p_ID_SOCIO">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_ID_OBLIGACION">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_FECHA">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_MOTIVO">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_IMPORTE_NUEVO">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_USR">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_RES">No hay documentación de metadatos disponible.</param>
+        public int P_SD_ACT_OBLIGACIONES(Nullable<global::System.Decimal> p_ID_SOCIO, Nullable<global::System.Decimal> p_ID_OBLIGACION, Nullable<global::System.DateTime> p_FECHA, global::System.String p_MOTIVO, Nullable<global::System.Decimal> p_IMPORTE_NUEVO, global::System.String p_USR, ObjectParameter p_RES)
+        {
+            ObjectParameter p_ID_SOCIOParameter;
+            if (p_ID_SOCIO.HasValue)
+            {
+                p_ID_SOCIOParameter = new ObjectParameter("P_ID_SOCIO", p_ID_SOCIO);
+            }
+            else
+            {
+                p_ID_SOCIOParameter = new ObjectParameter("P_ID_SOCIO", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_ID_OBLIGACIONParameter;
+            if (p_ID_OBLIGACION.HasValue)
+            {
+                p_ID_OBLIGACIONParameter = new ObjectParameter("P_ID_OBLIGACION", p_ID_OBLIGACION);
+            }
+            else
+            {
+                p_ID_OBLIGACIONParameter = new ObjectParameter("P_ID_OBLIGACION", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_FECHAParameter;
+            if (p_FECHA.HasValue)
+            {
+                p_FECHAParameter = new ObjectParameter("P_FECHA", p_FECHA);
+            }
+            else
+            {
+                p_FECHAParameter = new ObjectParameter("P_FECHA", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter p_MOTIVOParameter;
+            if (p_MOTIVO != null)
+            {
+                p_MOTIVOParameter = new ObjectParameter("P_MOTIVO", p_MOTIVO);
+            }
+            else
+            {
+                p_MOTIVOParameter = new ObjectParameter("P_MOTIVO", typeof(global::System.String));
+            }
+    
+            ObjectParameter p_IMPORTE_NUEVOParameter;
+            if (p_IMPORTE_NUEVO.HasValue)
+            {
+                p_IMPORTE_NUEVOParameter = new ObjectParameter("P_IMPORTE_NUEVO", p_IMPORTE_NUEVO);
+            }
+            else
+            {
+                p_IMPORTE_NUEVOParameter = new ObjectParameter("P_IMPORTE_NUEVO", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_USRParameter;
+            if (p_USR != null)
+            {
+                p_USRParameter = new ObjectParameter("P_USR", p_USR);
+            }
+            else
+            {
+                p_USRParameter = new ObjectParameter("P_USR", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("P_SD_ACT_OBLIGACIONES", p_ID_SOCIOParameter, p_ID_OBLIGACIONParameter, p_FECHAParameter, p_MOTIVOParameter, p_IMPORTE_NUEVOParameter, p_USRParameter, p_RES);
+        }
 
         #endregion
 
@@ -3373,6 +3474,28 @@ namespace Sindicato.Model
                 }
             }
         }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_VENTA_HOJAS_CONTROL_R03", "SD_VENTA_HOJAS_CONTROL")]
+        public EntityCollection<SD_VENTA_HOJAS_CONTROL> SD_VENTA_HOJAS_CONTROL
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_VENTA_HOJAS_CONTROL>("Model.SD_VENTA_HOJAS_CONTROL_R03", "SD_VENTA_HOJAS_CONTROL");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_VENTA_HOJAS_CONTROL>("Model.SD_VENTA_HOJAS_CONTROL_R03", "SD_VENTA_HOJAS_CONTROL", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -4107,6 +4230,279 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_KARDEX_FM>("Model.SD_KARDEX_FM_R01", "SD_KARDEX_FM", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Model", Name="SD_DETALLE_HOJAS")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SD_DETALLE_HOJAS : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto SD_DETALLE_HOJAS.
+        /// </summary>
+        /// <param name="iD_HOJA">Valor inicial de la propiedad ID_HOJA.</param>
+        /// <param name="nRO_HOJA">Valor inicial de la propiedad NRO_HOJA.</param>
+        /// <param name="iD_VENTA">Valor inicial de la propiedad ID_VENTA.</param>
+        /// <param name="fECHA_USO">Valor inicial de la propiedad FECHA_USO.</param>
+        public static SD_DETALLE_HOJAS CreateSD_DETALLE_HOJAS(global::System.Int32 iD_HOJA, global::System.Int32 nRO_HOJA, global::System.Int32 iD_VENTA, global::System.DateTime fECHA_USO)
+        {
+            SD_DETALLE_HOJAS sD_DETALLE_HOJAS = new SD_DETALLE_HOJAS();
+            sD_DETALLE_HOJAS.ID_HOJA = iD_HOJA;
+            sD_DETALLE_HOJAS.NRO_HOJA = nRO_HOJA;
+            sD_DETALLE_HOJAS.ID_VENTA = iD_VENTA;
+            sD_DETALLE_HOJAS.FECHA_USO = fECHA_USO;
+            return sD_DETALLE_HOJAS;
+        }
+
+        #endregion
+
+        #region Propiedades primitivas
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_HOJA
+        {
+            get
+            {
+                return _ID_HOJA;
+            }
+            set
+            {
+                if (_ID_HOJA != value)
+                {
+                    OnID_HOJAChanging(value);
+                    ReportPropertyChanging("ID_HOJA");
+                    _ID_HOJA = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID_HOJA");
+                    OnID_HOJAChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID_HOJA;
+        partial void OnID_HOJAChanging(global::System.Int32 value);
+        partial void OnID_HOJAChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 NRO_HOJA
+        {
+            get
+            {
+                return _NRO_HOJA;
+            }
+            set
+            {
+                OnNRO_HOJAChanging(value);
+                ReportPropertyChanging("NRO_HOJA");
+                _NRO_HOJA = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NRO_HOJA");
+                OnNRO_HOJAChanged();
+            }
+        }
+        private global::System.Int32 _NRO_HOJA;
+        partial void OnNRO_HOJAChanging(global::System.Int32 value);
+        partial void OnNRO_HOJAChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_VENTA
+        {
+            get
+            {
+                return _ID_VENTA;
+            }
+            set
+            {
+                OnID_VENTAChanging(value);
+                ReportPropertyChanging("ID_VENTA");
+                _ID_VENTA = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ID_VENTA");
+                OnID_VENTAChanged();
+            }
+        }
+        private global::System.Int32 _ID_VENTA;
+        partial void OnID_VENTAChanging(global::System.Int32 value);
+        partial void OnID_VENTAChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String OBSERVACION
+        {
+            get
+            {
+                return _OBSERVACION;
+            }
+            set
+            {
+                OnOBSERVACIONChanging(value);
+                ReportPropertyChanging("OBSERVACION");
+                _OBSERVACION = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("OBSERVACION");
+                OnOBSERVACIONChanged();
+            }
+        }
+        private global::System.String _OBSERVACION;
+        partial void OnOBSERVACIONChanging(global::System.String value);
+        partial void OnOBSERVACIONChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime FECHA_USO
+        {
+            get
+            {
+                return _FECHA_USO;
+            }
+            set
+            {
+                OnFECHA_USOChanging(value);
+                ReportPropertyChanging("FECHA_USO");
+                _FECHA_USO = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FECHA_USO");
+                OnFECHA_USOChanged();
+            }
+        }
+        private global::System.DateTime _FECHA_USO;
+        partial void OnFECHA_USOChanging(global::System.DateTime value);
+        partial void OnFECHA_USOChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> MONTO
+        {
+            get
+            {
+                return _MONTO;
+            }
+            set
+            {
+                OnMONTOChanging(value);
+                ReportPropertyChanging("MONTO");
+                _MONTO = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("MONTO");
+                OnMONTOChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _MONTO;
+        partial void OnMONTOChanging(Nullable<global::System.Decimal> value);
+        partial void OnMONTOChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String LOGIN
+        {
+            get
+            {
+                return _LOGIN;
+            }
+            set
+            {
+                OnLOGINChanging(value);
+                ReportPropertyChanging("LOGIN");
+                _LOGIN = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("LOGIN");
+                OnLOGINChanged();
+            }
+        }
+        private global::System.String _LOGIN;
+        partial void OnLOGINChanging(global::System.String value);
+        partial void OnLOGINChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> FECHA_REG
+        {
+            get
+            {
+                return _FECHA_REG;
+            }
+            set
+            {
+                OnFECHA_REGChanging(value);
+                ReportPropertyChanging("FECHA_REG");
+                _FECHA_REG = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FECHA_REG");
+                OnFECHA_REGChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _FECHA_REG;
+        partial void OnFECHA_REGChanging(Nullable<global::System.DateTime> value);
+        partial void OnFECHA_REGChanged();
+
+        #endregion
+
+    
+        #region Propiedades de navegación
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_DETALLE_HOJAS_R01", "SD_VENTA_HOJAS_CONTROL")]
+        public SD_VENTA_HOJAS_CONTROL SD_VENTA_HOJAS_CONTROL
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_VENTA_HOJAS_CONTROL>("Model.SD_DETALLE_HOJAS_R01", "SD_VENTA_HOJAS_CONTROL").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_VENTA_HOJAS_CONTROL>("Model.SD_DETALLE_HOJAS_R01", "SD_VENTA_HOJAS_CONTROL").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SD_VENTA_HOJAS_CONTROL> SD_VENTA_HOJAS_CONTROLReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_VENTA_HOJAS_CONTROL>("Model.SD_DETALLE_HOJAS_R01", "SD_VENTA_HOJAS_CONTROL");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_VENTA_HOJAS_CONTROL>("Model.SD_DETALLE_HOJAS_R01", "SD_VENTA_HOJAS_CONTROL", value);
                 }
             }
         }
@@ -5478,393 +5874,6 @@ namespace Sindicato.Model
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model", Name="SD_HOJAS_CONTROL")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class SD_HOJAS_CONTROL : EntityObject
-    {
-        #region Método de generador
-    
-        /// <summary>
-        /// Crear un nuevo objeto SD_HOJAS_CONTROL.
-        /// </summary>
-        /// <param name="iD_HOJA">Valor inicial de la propiedad ID_HOJA.</param>
-        /// <param name="nRO_HOJA">Valor inicial de la propiedad NRO_HOJA.</param>
-        /// <param name="iD_MOVIL">Valor inicial de la propiedad ID_MOVIL.</param>
-        /// <param name="iD_PARADA">Valor inicial de la propiedad ID_PARADA.</param>
-        /// <param name="fECHA_COMPRA">Valor inicial de la propiedad FECHA_COMPRA.</param>
-        /// <param name="iD_USUARIO">Valor inicial de la propiedad ID_USUARIO.</param>
-        public static SD_HOJAS_CONTROL CreateSD_HOJAS_CONTROL(global::System.Int32 iD_HOJA, global::System.Int32 nRO_HOJA, global::System.Int32 iD_MOVIL, global::System.Int32 iD_PARADA, global::System.DateTime fECHA_COMPRA, global::System.Int16 iD_USUARIO)
-        {
-            SD_HOJAS_CONTROL sD_HOJAS_CONTROL = new SD_HOJAS_CONTROL();
-            sD_HOJAS_CONTROL.ID_HOJA = iD_HOJA;
-            sD_HOJAS_CONTROL.NRO_HOJA = nRO_HOJA;
-            sD_HOJAS_CONTROL.ID_MOVIL = iD_MOVIL;
-            sD_HOJAS_CONTROL.ID_PARADA = iD_PARADA;
-            sD_HOJAS_CONTROL.FECHA_COMPRA = fECHA_COMPRA;
-            sD_HOJAS_CONTROL.ID_USUARIO = iD_USUARIO;
-            return sD_HOJAS_CONTROL;
-        }
-
-        #endregion
-
-        #region Propiedades primitivas
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 ID_HOJA
-        {
-            get
-            {
-                return _ID_HOJA;
-            }
-            set
-            {
-                if (_ID_HOJA != value)
-                {
-                    OnID_HOJAChanging(value);
-                    ReportPropertyChanging("ID_HOJA");
-                    _ID_HOJA = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("ID_HOJA");
-                    OnID_HOJAChanged();
-                }
-            }
-        }
-        private global::System.Int32 _ID_HOJA;
-        partial void OnID_HOJAChanging(global::System.Int32 value);
-        partial void OnID_HOJAChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 NRO_HOJA
-        {
-            get
-            {
-                return _NRO_HOJA;
-            }
-            set
-            {
-                OnNRO_HOJAChanging(value);
-                ReportPropertyChanging("NRO_HOJA");
-                _NRO_HOJA = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("NRO_HOJA");
-                OnNRO_HOJAChanged();
-            }
-        }
-        private global::System.Int32 _NRO_HOJA;
-        partial void OnNRO_HOJAChanging(global::System.Int32 value);
-        partial void OnNRO_HOJAChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 ID_MOVIL
-        {
-            get
-            {
-                return _ID_MOVIL;
-            }
-            set
-            {
-                OnID_MOVILChanging(value);
-                ReportPropertyChanging("ID_MOVIL");
-                _ID_MOVIL = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ID_MOVIL");
-                OnID_MOVILChanged();
-            }
-        }
-        private global::System.Int32 _ID_MOVIL;
-        partial void OnID_MOVILChanging(global::System.Int32 value);
-        partial void OnID_MOVILChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 ID_PARADA
-        {
-            get
-            {
-                return _ID_PARADA;
-            }
-            set
-            {
-                OnID_PARADAChanging(value);
-                ReportPropertyChanging("ID_PARADA");
-                _ID_PARADA = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ID_PARADA");
-                OnID_PARADAChanged();
-            }
-        }
-        private global::System.Int32 _ID_PARADA;
-        partial void OnID_PARADAChanging(global::System.Int32 value);
-        partial void OnID_PARADAChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String OBSERVACION
-        {
-            get
-            {
-                return _OBSERVACION;
-            }
-            set
-            {
-                OnOBSERVACIONChanging(value);
-                ReportPropertyChanging("OBSERVACION");
-                _OBSERVACION = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("OBSERVACION");
-                OnOBSERVACIONChanged();
-            }
-        }
-        private global::System.String _OBSERVACION;
-        partial void OnOBSERVACIONChanging(global::System.String value);
-        partial void OnOBSERVACIONChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime FECHA_COMPRA
-        {
-            get
-            {
-                return _FECHA_COMPRA;
-            }
-            set
-            {
-                OnFECHA_COMPRAChanging(value);
-                ReportPropertyChanging("FECHA_COMPRA");
-                _FECHA_COMPRA = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("FECHA_COMPRA");
-                OnFECHA_COMPRAChanged();
-            }
-        }
-        private global::System.DateTime _FECHA_COMPRA;
-        partial void OnFECHA_COMPRAChanging(global::System.DateTime value);
-        partial void OnFECHA_COMPRAChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> FECHA_USO
-        {
-            get
-            {
-                return _FECHA_USO;
-            }
-            set
-            {
-                OnFECHA_USOChanging(value);
-                ReportPropertyChanging("FECHA_USO");
-                _FECHA_USO = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("FECHA_USO");
-                OnFECHA_USOChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _FECHA_USO;
-        partial void OnFECHA_USOChanging(Nullable<global::System.DateTime> value);
-        partial void OnFECHA_USOChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> MONTO
-        {
-            get
-            {
-                return _MONTO;
-            }
-            set
-            {
-                OnMONTOChanging(value);
-                ReportPropertyChanging("MONTO");
-                _MONTO = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("MONTO");
-                OnMONTOChanged();
-            }
-        }
-        private Nullable<global::System.Decimal> _MONTO;
-        partial void OnMONTOChanging(Nullable<global::System.Decimal> value);
-        partial void OnMONTOChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String ESTADO
-        {
-            get
-            {
-                return _ESTADO;
-            }
-            set
-            {
-                OnESTADOChanging(value);
-                ReportPropertyChanging("ESTADO");
-                _ESTADO = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("ESTADO");
-                OnESTADOChanged();
-            }
-        }
-        private global::System.String _ESTADO;
-        partial void OnESTADOChanging(global::System.String value);
-        partial void OnESTADOChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int16 ID_USUARIO
-        {
-            get
-            {
-                return _ID_USUARIO;
-            }
-            set
-            {
-                OnID_USUARIOChanging(value);
-                ReportPropertyChanging("ID_USUARIO");
-                _ID_USUARIO = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ID_USUARIO");
-                OnID_USUARIOChanged();
-            }
-        }
-        private global::System.Int16 _ID_USUARIO;
-        partial void OnID_USUARIOChanging(global::System.Int16 value);
-        partial void OnID_USUARIOChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> FECHA_REG
-        {
-            get
-            {
-                return _FECHA_REG;
-            }
-            set
-            {
-                OnFECHA_REGChanging(value);
-                ReportPropertyChanging("FECHA_REG");
-                _FECHA_REG = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("FECHA_REG");
-                OnFECHA_REGChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _FECHA_REG;
-        partial void OnFECHA_REGChanging(Nullable<global::System.DateTime> value);
-        partial void OnFECHA_REGChanged();
-
-        #endregion
-
-    
-        #region Propiedades de navegación
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_HOJAS_CONTROL_R01", "SD_MOVILES")]
-        public SD_MOVILES SD_MOVILES
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_MOVILES>("Model.SD_HOJAS_CONTROL_R01", "SD_MOVILES").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_MOVILES>("Model.SD_HOJAS_CONTROL_R01", "SD_MOVILES").Value = value;
-            }
-        }
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<SD_MOVILES> SD_MOVILESReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_MOVILES>("Model.SD_HOJAS_CONTROL_R01", "SD_MOVILES");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_MOVILES>("Model.SD_HOJAS_CONTROL_R01", "SD_MOVILES", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_HOJAS_CONTROL_R02", "SD_PARADAS")]
-        public SD_PARADAS SD_PARADAS
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_PARADAS>("Model.SD_HOJAS_CONTROL_R02", "SD_PARADAS").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_PARADAS>("Model.SD_HOJAS_CONTROL_R02", "SD_PARADAS").Value = value;
-            }
-        }
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<SD_PARADAS> SD_PARADASReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_PARADAS>("Model.SD_HOJAS_CONTROL_R02", "SD_PARADAS");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_PARADAS>("Model.SD_HOJAS_CONTROL_R02", "SD_PARADAS", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No hay documentación de metadatos disponible.
-    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="Model", Name="SD_IMAGENES")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -6896,17 +6905,17 @@ namespace Sindicato.Model
         /// <param name="iD_OBLIGACION">Valor inicial de la propiedad ID_OBLIGACION.</param>
         /// <param name="mOTIVO">Valor inicial de la propiedad MOTIVO.</param>
         /// <param name="fECHA">Valor inicial de la propiedad FECHA.</param>
-        /// <param name="iMPORTE_ANTEIOR">Valor inicial de la propiedad IMPORTE_ANTEIOR.</param>
+        /// <param name="iMPORTE_ANTERIOR">Valor inicial de la propiedad IMPORTE_ANTERIOR.</param>
         /// <param name="iMPORTE_NUEVO">Valor inicial de la propiedad IMPORTE_NUEVO.</param>
         /// <param name="lOGIN">Valor inicial de la propiedad LOGIN.</param>
-        public static SD_KARDEX_OBLIGACION CreateSD_KARDEX_OBLIGACION(global::System.Int32 iD_KARDEX, global::System.Int32 iD_OBLIGACION, global::System.String mOTIVO, global::System.DateTime fECHA, global::System.Decimal iMPORTE_ANTEIOR, global::System.Decimal iMPORTE_NUEVO, global::System.String lOGIN)
+        public static SD_KARDEX_OBLIGACION CreateSD_KARDEX_OBLIGACION(global::System.Int32 iD_KARDEX, global::System.Int32 iD_OBLIGACION, global::System.String mOTIVO, global::System.DateTime fECHA, global::System.Decimal iMPORTE_ANTERIOR, global::System.Decimal iMPORTE_NUEVO, global::System.String lOGIN)
         {
             SD_KARDEX_OBLIGACION sD_KARDEX_OBLIGACION = new SD_KARDEX_OBLIGACION();
             sD_KARDEX_OBLIGACION.ID_KARDEX = iD_KARDEX;
             sD_KARDEX_OBLIGACION.ID_OBLIGACION = iD_OBLIGACION;
             sD_KARDEX_OBLIGACION.MOTIVO = mOTIVO;
             sD_KARDEX_OBLIGACION.FECHA = fECHA;
-            sD_KARDEX_OBLIGACION.IMPORTE_ANTEIOR = iMPORTE_ANTEIOR;
+            sD_KARDEX_OBLIGACION.IMPORTE_ANTERIOR = iMPORTE_ANTERIOR;
             sD_KARDEX_OBLIGACION.IMPORTE_NUEVO = iMPORTE_NUEVO;
             sD_KARDEX_OBLIGACION.LOGIN = lOGIN;
             return sD_KARDEX_OBLIGACION;
@@ -7020,24 +7029,24 @@ namespace Sindicato.Model
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Decimal IMPORTE_ANTEIOR
+        public global::System.Decimal IMPORTE_ANTERIOR
         {
             get
             {
-                return _IMPORTE_ANTEIOR;
+                return _IMPORTE_ANTERIOR;
             }
             set
             {
-                OnIMPORTE_ANTEIORChanging(value);
-                ReportPropertyChanging("IMPORTE_ANTEIOR");
-                _IMPORTE_ANTEIOR = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("IMPORTE_ANTEIOR");
-                OnIMPORTE_ANTEIORChanged();
+                OnIMPORTE_ANTERIORChanging(value);
+                ReportPropertyChanging("IMPORTE_ANTERIOR");
+                _IMPORTE_ANTERIOR = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IMPORTE_ANTERIOR");
+                OnIMPORTE_ANTERIORChanged();
             }
         }
-        private global::System.Decimal _IMPORTE_ANTEIOR;
-        partial void OnIMPORTE_ANTEIORChanging(global::System.Decimal value);
-        partial void OnIMPORTE_ANTEIORChanged();
+        private global::System.Decimal _IMPORTE_ANTERIOR;
+        partial void OnIMPORTE_ANTERIORChanging(global::System.Decimal value);
+        partial void OnIMPORTE_ANTERIORChanged();
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -8652,28 +8661,6 @@ namespace Sindicato.Model
                 }
             }
         }
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_HOJAS_CONTROL_R01", "SD_HOJAS_CONTROL")]
-        public EntityCollection<SD_HOJAS_CONTROL> SD_HOJAS_CONTROL
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_HOJAS_CONTROL>("Model.SD_HOJAS_CONTROL_R01", "SD_HOJAS_CONTROL");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_HOJAS_CONTROL>("Model.SD_HOJAS_CONTROL_R01", "SD_HOJAS_CONTROL", value);
-                }
-            }
-        }
 
         #endregion
 
@@ -8868,28 +8855,6 @@ namespace Sindicato.Model
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_KARDEX_OBLIGACION_R01", "SD_KARDEX_OBLIGACION")]
-        public EntityCollection<SD_KARDEX_OBLIGACION> SD_KARDEX_OBLIGACION
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_KARDEX_OBLIGACION>("Model.SD_KARDEX_OBLIGACION_R01", "SD_KARDEX_OBLIGACION");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_KARDEX_OBLIGACION>("Model.SD_KARDEX_OBLIGACION_R01", "SD_KARDEX_OBLIGACION", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Model", "SD_OBLIGACIONES_SOCIO_R01", "SD_SOCIOS")]
         public SD_SOCIOS SD_SOCIOS
         {
@@ -8918,6 +8883,28 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_SOCIOS>("Model.SD_OBLIGACIONES_SOCIO_R01", "SD_SOCIOS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_KARDEX_OBLIGACION_R01", "SD_KARDEX_OBLIGACION")]
+        public EntityCollection<SD_KARDEX_OBLIGACION> SD_KARDEX_OBLIGACION
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_KARDEX_OBLIGACION>("Model.SD_KARDEX_OBLIGACION_R01", "SD_KARDEX_OBLIGACION");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_KARDEX_OBLIGACION>("Model.SD_KARDEX_OBLIGACION_R01", "SD_KARDEX_OBLIGACION", value);
                 }
             }
         }
@@ -9245,28 +9232,6 @@ namespace Sindicato.Model
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_HOJAS_CONTROL_R02", "SD_HOJAS_CONTROL")]
-        public EntityCollection<SD_HOJAS_CONTROL> SD_HOJAS_CONTROL
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_HOJAS_CONTROL>("Model.SD_HOJAS_CONTROL_R02", "SD_HOJAS_CONTROL");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_HOJAS_CONTROL>("Model.SD_HOJAS_CONTROL_R02", "SD_HOJAS_CONTROL", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Model", "SD_PERFILES_R01", "SD_PERFILES")]
         public EntityCollection<SD_PERFILES> SD_PERFILES
         {
@@ -9317,6 +9282,28 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_CAJAS>("Model.SD_PARADAS_R01", "SD_CAJAS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_VENTA_HOJAS_CONTROL_R01", "SD_VENTA_HOJAS_CONTROL")]
+        public EntityCollection<SD_VENTA_HOJAS_CONTROL> SD_VENTA_HOJAS_CONTROL
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_VENTA_HOJAS_CONTROL>("Model.SD_VENTA_HOJAS_CONTROL_R01", "SD_VENTA_HOJAS_CONTROL");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_VENTA_HOJAS_CONTROL>("Model.SD_VENTA_HOJAS_CONTROL_R01", "SD_VENTA_HOJAS_CONTROL", value);
                 }
             }
         }
@@ -11422,6 +11409,28 @@ namespace Sindicato.Model
                 }
             }
         }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_VENTA_HOJAS_CONTROL_R02", "SD_VENTA_HOJAS_CONTROL")]
+        public EntityCollection<SD_VENTA_HOJAS_CONTROL> SD_VENTA_HOJAS_CONTROL
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_VENTA_HOJAS_CONTROL>("Model.SD_VENTA_HOJAS_CONTROL_R02", "SD_VENTA_HOJAS_CONTROL");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_VENTA_HOJAS_CONTROL>("Model.SD_VENTA_HOJAS_CONTROL_R02", "SD_VENTA_HOJAS_CONTROL", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -11720,6 +11729,501 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_PERFILES>("Model.SG_USUARIOS_R01", "SD_PERFILES", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Model", Name="SD_VENTA_HOJAS_CONTROL")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SD_VENTA_HOJAS_CONTROL : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto SD_VENTA_HOJAS_CONTROL.
+        /// </summary>
+        /// <param name="iD_VENTA">Valor inicial de la propiedad ID_VENTA.</param>
+        /// <param name="iD_PARADA">Valor inicial de la propiedad ID_PARADA.</param>
+        /// <param name="nRO_MOVIL">Valor inicial de la propiedad NRO_MOVIL.</param>
+        /// <param name="iD_SOCIO">Valor inicial de la propiedad ID_SOCIO.</param>
+        /// <param name="fECHA_VENTA">Valor inicial de la propiedad FECHA_VENTA.</param>
+        /// <param name="iD_CAJA">Valor inicial de la propiedad ID_CAJA.</param>
+        public static SD_VENTA_HOJAS_CONTROL CreateSD_VENTA_HOJAS_CONTROL(global::System.Int32 iD_VENTA, global::System.Int32 iD_PARADA, global::System.Int32 nRO_MOVIL, global::System.Int32 iD_SOCIO, global::System.DateTime fECHA_VENTA, global::System.Int32 iD_CAJA)
+        {
+            SD_VENTA_HOJAS_CONTROL sD_VENTA_HOJAS_CONTROL = new SD_VENTA_HOJAS_CONTROL();
+            sD_VENTA_HOJAS_CONTROL.ID_VENTA = iD_VENTA;
+            sD_VENTA_HOJAS_CONTROL.ID_PARADA = iD_PARADA;
+            sD_VENTA_HOJAS_CONTROL.NRO_MOVIL = nRO_MOVIL;
+            sD_VENTA_HOJAS_CONTROL.ID_SOCIO = iD_SOCIO;
+            sD_VENTA_HOJAS_CONTROL.FECHA_VENTA = fECHA_VENTA;
+            sD_VENTA_HOJAS_CONTROL.ID_CAJA = iD_CAJA;
+            return sD_VENTA_HOJAS_CONTROL;
+        }
+
+        #endregion
+
+        #region Propiedades primitivas
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_VENTA
+        {
+            get
+            {
+                return _ID_VENTA;
+            }
+            set
+            {
+                if (_ID_VENTA != value)
+                {
+                    OnID_VENTAChanging(value);
+                    ReportPropertyChanging("ID_VENTA");
+                    _ID_VENTA = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID_VENTA");
+                    OnID_VENTAChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID_VENTA;
+        partial void OnID_VENTAChanging(global::System.Int32 value);
+        partial void OnID_VENTAChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_PARADA
+        {
+            get
+            {
+                return _ID_PARADA;
+            }
+            set
+            {
+                OnID_PARADAChanging(value);
+                ReportPropertyChanging("ID_PARADA");
+                _ID_PARADA = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ID_PARADA");
+                OnID_PARADAChanged();
+            }
+        }
+        private global::System.Int32 _ID_PARADA;
+        partial void OnID_PARADAChanging(global::System.Int32 value);
+        partial void OnID_PARADAChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 NRO_MOVIL
+        {
+            get
+            {
+                return _NRO_MOVIL;
+            }
+            set
+            {
+                OnNRO_MOVILChanging(value);
+                ReportPropertyChanging("NRO_MOVIL");
+                _NRO_MOVIL = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NRO_MOVIL");
+                OnNRO_MOVILChanged();
+            }
+        }
+        private global::System.Int32 _NRO_MOVIL;
+        partial void OnNRO_MOVILChanging(global::System.Int32 value);
+        partial void OnNRO_MOVILChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_SOCIO
+        {
+            get
+            {
+                return _ID_SOCIO;
+            }
+            set
+            {
+                OnID_SOCIOChanging(value);
+                ReportPropertyChanging("ID_SOCIO");
+                _ID_SOCIO = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ID_SOCIO");
+                OnID_SOCIOChanged();
+            }
+        }
+        private global::System.Int32 _ID_SOCIO;
+        partial void OnID_SOCIOChanging(global::System.Int32 value);
+        partial void OnID_SOCIOChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String OBSERVACION
+        {
+            get
+            {
+                return _OBSERVACION;
+            }
+            set
+            {
+                OnOBSERVACIONChanging(value);
+                ReportPropertyChanging("OBSERVACION");
+                _OBSERVACION = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("OBSERVACION");
+                OnOBSERVACIONChanged();
+            }
+        }
+        private global::System.String _OBSERVACION;
+        partial void OnOBSERVACIONChanging(global::System.String value);
+        partial void OnOBSERVACIONChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime FECHA_VENTA
+        {
+            get
+            {
+                return _FECHA_VENTA;
+            }
+            set
+            {
+                OnFECHA_VENTAChanging(value);
+                ReportPropertyChanging("FECHA_VENTA");
+                _FECHA_VENTA = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FECHA_VENTA");
+                OnFECHA_VENTAChanged();
+            }
+        }
+        private global::System.DateTime _FECHA_VENTA;
+        partial void OnFECHA_VENTAChanging(global::System.DateTime value);
+        partial void OnFECHA_VENTAChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> TOTAL
+        {
+            get
+            {
+                return _TOTAL;
+            }
+            set
+            {
+                OnTOTALChanging(value);
+                ReportPropertyChanging("TOTAL");
+                _TOTAL = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TOTAL");
+                OnTOTALChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _TOTAL;
+        partial void OnTOTALChanging(Nullable<global::System.Decimal> value);
+        partial void OnTOTALChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> DESCUENTO
+        {
+            get
+            {
+                return _DESCUENTO;
+            }
+            set
+            {
+                OnDESCUENTOChanging(value);
+                ReportPropertyChanging("DESCUENTO");
+                _DESCUENTO = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DESCUENTO");
+                OnDESCUENTOChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _DESCUENTO;
+        partial void OnDESCUENTOChanging(Nullable<global::System.Decimal> value);
+        partial void OnDESCUENTOChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TOTAL_HOJAS
+        {
+            get
+            {
+                return _TOTAL_HOJAS;
+            }
+            set
+            {
+                OnTOTAL_HOJASChanging(value);
+                ReportPropertyChanging("TOTAL_HOJAS");
+                _TOTAL_HOJAS = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TOTAL_HOJAS");
+                OnTOTAL_HOJASChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TOTAL_HOJAS;
+        partial void OnTOTAL_HOJASChanging(Nullable<global::System.Int32> value);
+        partial void OnTOTAL_HOJASChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ESTADO
+        {
+            get
+            {
+                return _ESTADO;
+            }
+            set
+            {
+                OnESTADOChanging(value);
+                ReportPropertyChanging("ESTADO");
+                _ESTADO = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ESTADO");
+                OnESTADOChanged();
+            }
+        }
+        private global::System.String _ESTADO;
+        partial void OnESTADOChanging(global::System.String value);
+        partial void OnESTADOChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String LOGIN
+        {
+            get
+            {
+                return _LOGIN;
+            }
+            set
+            {
+                OnLOGINChanging(value);
+                ReportPropertyChanging("LOGIN");
+                _LOGIN = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("LOGIN");
+                OnLOGINChanged();
+            }
+        }
+        private global::System.String _LOGIN;
+        partial void OnLOGINChanging(global::System.String value);
+        partial void OnLOGINChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> FECHA_REG
+        {
+            get
+            {
+                return _FECHA_REG;
+            }
+            set
+            {
+                OnFECHA_REGChanging(value);
+                ReportPropertyChanging("FECHA_REG");
+                _FECHA_REG = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FECHA_REG");
+                OnFECHA_REGChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _FECHA_REG;
+        partial void OnFECHA_REGChanging(Nullable<global::System.DateTime> value);
+        partial void OnFECHA_REGChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_CAJA
+        {
+            get
+            {
+                return _ID_CAJA;
+            }
+            set
+            {
+                OnID_CAJAChanging(value);
+                ReportPropertyChanging("ID_CAJA");
+                _ID_CAJA = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ID_CAJA");
+                OnID_CAJAChanged();
+            }
+        }
+        private global::System.Int32 _ID_CAJA;
+        partial void OnID_CAJAChanging(global::System.Int32 value);
+        partial void OnID_CAJAChanged();
+
+        #endregion
+
+    
+        #region Propiedades de navegación
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_VENTA_HOJAS_CONTROL_R03", "SD_CAJAS")]
+        public SD_CAJAS SD_CAJAS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS>("Model.SD_VENTA_HOJAS_CONTROL_R03", "SD_CAJAS").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS>("Model.SD_VENTA_HOJAS_CONTROL_R03", "SD_CAJAS").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SD_CAJAS> SD_CAJASReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS>("Model.SD_VENTA_HOJAS_CONTROL_R03", "SD_CAJAS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_CAJAS>("Model.SD_VENTA_HOJAS_CONTROL_R03", "SD_CAJAS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_DETALLE_HOJAS_R01", "SD_DETALLE_HOJAS")]
+        public EntityCollection<SD_DETALLE_HOJAS> SD_DETALLE_HOJAS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_DETALLE_HOJAS>("Model.SD_DETALLE_HOJAS_R01", "SD_DETALLE_HOJAS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_DETALLE_HOJAS>("Model.SD_DETALLE_HOJAS_R01", "SD_DETALLE_HOJAS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_VENTA_HOJAS_CONTROL_R01", "SD_PARADAS")]
+        public SD_PARADAS SD_PARADAS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_PARADAS>("Model.SD_VENTA_HOJAS_CONTROL_R01", "SD_PARADAS").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_PARADAS>("Model.SD_VENTA_HOJAS_CONTROL_R01", "SD_PARADAS").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SD_PARADAS> SD_PARADASReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_PARADAS>("Model.SD_VENTA_HOJAS_CONTROL_R01", "SD_PARADAS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_PARADAS>("Model.SD_VENTA_HOJAS_CONTROL_R01", "SD_PARADAS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_VENTA_HOJAS_CONTROL_R02", "SD_SOCIOS")]
+        public SD_SOCIOS SD_SOCIOS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_SOCIOS>("Model.SD_VENTA_HOJAS_CONTROL_R02", "SD_SOCIOS").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_SOCIOS>("Model.SD_VENTA_HOJAS_CONTROL_R02", "SD_SOCIOS").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SD_SOCIOS> SD_SOCIOSReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_SOCIOS>("Model.SD_VENTA_HOJAS_CONTROL_R02", "SD_SOCIOS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_SOCIOS>("Model.SD_VENTA_HOJAS_CONTROL_R02", "SD_SOCIOS", value);
                 }
             }
         }

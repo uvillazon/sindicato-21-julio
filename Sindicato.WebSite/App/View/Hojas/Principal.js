@@ -20,7 +20,7 @@
         Funciones.CrearMenu('btn_CerrarCaja', 'Cerrar Caja', 'folder_database', me.EventosPrincipal, me.toolbar, this);
         //        Funciones.CrearMenu('btn_Kardex', 'Kardex', 'report', me.EventosCliente, me.toolbar, this);
 //        alert(Constantes.Usuario.ID_CAJA)   
-        me.grid = Ext.create('App.View.Hojas.GridHojas', {
+        me.grid = Ext.create('App.View.Ventas.GridVentas', {
             region: 'center',
             opcion: 'GridHojas',
             width: '100%',
