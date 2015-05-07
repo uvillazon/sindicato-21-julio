@@ -19,6 +19,8 @@
         //alert(document.documentElement.clientHeight);
         //creamos un componente
         Constantes.CargarTamano();
+
+        //console.dir(me);
 //        Funciones.cargarValidaciones();
         //me.CalendarioEspanol();
         me.bbar_pie = new Ext.Toolbar({

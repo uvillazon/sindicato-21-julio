@@ -10,31 +10,30 @@ using System.Data.Objects;
 
 namespace Sindicato.Business
 {
-    public class SD_SOCIO_MOVILESManager : Repository<SD_SOCIO_MOVILES>
+    public class SD_MOVILESManager : Repository<SD_MOVILES>
     {
 
 
-        public SD_SOCIO_MOVILESManager(IUnitOfWork uow) : base(uow) { }
+        public SD_MOVILESManager(IUnitOfWork uow) : base(uow) { }
 
-        public string GuardarMovilSocio(SD_SOCIO_MOVILES movil, int ID_USR)
-        {
+        //test
+        public string GuardarMovil(SD_MOVILES movil, int ID_USR) {
             try
             {
                 string result = "";
-                var verificar = BuscarTodos(x => x.ID_MOVIL == movil.ID_MOVIL);
+                var verificar = BuscarTodos(x => x.NRO_MOVIL == movil.NRO_MOVIL);
                 if (verificar.Count() > 0)
                 {
-                    result = string.Format("Existe el numero de movil {0} ya asociado a otro Socio", movil.ID_MOVIL);
+                    result = string.Format("Existe el numero de movil {0} ya asociado a otro Socio", movil.NRO_MOVIL);
                 }
-                else
-                {
-                    movil.ID_SOCIO_MOVIL = ObtenerSecuencia();
+                else {
+                    movil.ID_MOVIL = ObtenerSecuencia();
                     movil.ESTADO = "ACTIVO";
                     movil.FECHA_REG = DateTime.Now;
                     movil.ID_USR = ID_USR;
                     Add(movil);
                     Save();
-                    result = movil.ID_SOCIO_MOVIL.ToString();
+                    result = movil.ID_MOVIL.ToString();
                 }
                 return result;
 
@@ -45,6 +44,5 @@ namespace Sindicato.Business
                 //throw;
             }
         } 
-        
     }
 }

@@ -25,6 +25,10 @@
             //            me.title = "E"
             me.CargarFormMovil();
         }
+        else if (me.opcion == "FormCrearMovil") {
+            //            me.title = "E"
+            me.CargarFormCrearMovil();
+        }
         else if (me.opcion == "FormSocio") {
             me.CargarFormSocio();
         }
@@ -41,7 +45,7 @@
         me.scope = me.scope == null ? this : me.scope;
         me.changingImage = Ext.create('Ext.Img', {
             colspan: 2,
-            src: Constantes.URLIMAGEN + 'id=' + me.val + '&tamano=300'
+            src: Constantes.URLIMAGEN + 'id=' + me.val + '&tamano=450'
 
         });
         me.items = [
@@ -236,7 +240,8 @@
     },
     CargarImagen: function (id) {
         var me = this;
-        var originalSrc = Constantes.URLIMAGEN + 'id=' + id + '&tamano=200';
+        console.log(id);
+        var originalSrc = Constantes.URLIMAGEN + 'id=' + id + '&tamano=350';
         me.changingImage.setSrc(originalSrc);
     },
     CargarFormMovil: function () {
@@ -461,6 +466,75 @@
             me.dat_fecha,
             me.num_importe,
             me.txt_motivo
+        ];
+    },
+    CargarFormCrearMovil: function () {
+        var me = this;
+        me.txt_id_socio = Ext.create("App.Config.Componente.TextFieldBase", {
+            name: "ID_SOCIO",
+            hidden: true
+        });
+        
+        me.num_nro_movil = Ext.create("App.Config.Componente.NumberFieldBase", {
+            fieldLabel: "Nro Movil",
+            name: "NRO_MOVIL",
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false
+            //colspan: 2
+
+        });
+        me.store_socio = Ext.create('App.Store.Socios.SoloSocios');
+        me.store_socio.setExtraParams({ codigo: 'SIN MOVIL' });
+        me.cbx_socio = Ext.create("App.Config.Componente.ComboAutoBase", {
+            fieldLabel: "Socio",
+            name: "ID_SOCIO_1",
+            displayField: 'SOCIO',
+            store: me.store_socio,
+            colspan: 2,
+            width: 480,
+            //textoTpl: function () { return "Nro Movil :{NRO_MOVIL} - {NOMBRE} {APELLIDO_PATERNO} {APELLIDO_MATERNO}" }
+        });
+        me.cbx_socio.on('select', function (cbx, rec) {
+            console.dir(rec[0]);
+            me.txt_id_socio.setValue(rec[0].get('ID_SOCIO'));
+        });
+        me.txt_tipo_linea = Ext.create("App.Config.Componente.TextFieldBase", {
+            name: "TIPO_MOVIL",
+            fieldLabel: "Tipo Movil",
+            width: 240,
+            readOnly: true,
+            value : 'PRIMARIO',
+            colspan : 2,
+        });
+        me.dat_fecha_ingreso = Ext.create("App.Config.Componente.DateFieldBase", {
+            opcion: "sin fecha",
+            fieldLabel: "Fecha Ingreso",
+            name: "FECHA_ALTA",
+            width: 240,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false
+        });
+        me.txt_descripcion = Ext.create("App.Config.Componente.TextAreaBase", {
+            fieldLabel: "Descripcion",
+            name: "DESCRIPCION",
+            width: 480,
+            colspan: 2,
+            maxLength: 500,
+        });
+        me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
+            fieldLabel: "Observacion",
+            name: "OBSERVACION",
+            width: 480,
+            colspan: 2,
+            maxLength: 500,
+        });
+        me.items = [
+            me.txt_id_socio,
+            me.cbx_socio,
+            me.num_nro_movil,   me.dat_fecha_ingreso,
+            me.txt_tipo_linea,
+            me.txt_descripcion,
+            me.txt_observacion
         ];
     }
 });

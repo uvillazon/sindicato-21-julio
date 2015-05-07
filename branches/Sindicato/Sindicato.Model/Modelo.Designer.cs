@@ -2473,6 +2473,37 @@ namespace Sindicato.Model
     
             return base.ExecuteFunction("P_SD_ACT_OBLIGACIONES", p_ID_SOCIOParameter, p_ID_OBLIGACIONParameter, p_FECHAParameter, p_MOTIVOParameter, p_IMPORTE_NUEVOParameter, p_USRParameter, p_RES);
         }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        /// <param name="p_COD_TABLA">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_ID_USR">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_RES">No hay documentación de metadatos disponible.</param>
+        public int P_EE_SECUENCIA(global::System.String p_COD_TABLA, Nullable<global::System.Decimal> p_ID_USR, ObjectParameter p_RES)
+        {
+            ObjectParameter p_COD_TABLAParameter;
+            if (p_COD_TABLA != null)
+            {
+                p_COD_TABLAParameter = new ObjectParameter("P_COD_TABLA", p_COD_TABLA);
+            }
+            else
+            {
+                p_COD_TABLAParameter = new ObjectParameter("P_COD_TABLA", typeof(global::System.String));
+            }
+    
+            ObjectParameter p_ID_USRParameter;
+            if (p_ID_USR.HasValue)
+            {
+                p_ID_USRParameter = new ObjectParameter("P_ID_USR", p_ID_USR);
+            }
+            else
+            {
+                p_ID_USRParameter = new ObjectParameter("P_ID_USR", typeof(global::System.Decimal));
+            }
+    
+            return base.ExecuteFunction("P_EE_SECUENCIA", p_COD_TABLAParameter, p_ID_USRParameter, p_RES);
+        }
 
         #endregion
 

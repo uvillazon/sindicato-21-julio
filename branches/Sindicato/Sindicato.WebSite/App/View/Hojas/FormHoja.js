@@ -39,6 +39,10 @@
             me.cbx_diasDisponibles.getStore().load({ params: { FECHA_VENTA: fecha, ID_SOCIO: rec[0].get('ID_SOCIO'), NRO_MOVIL: rec[0].get('NRO_MOVIL') } });
             //me.txt_apellido.setValue(rec[0].get('APELLIDO_PATERNO') + " "+rec[0].get('APELLIDO_MATERNO'));
         });
+        me.date_fecha.on('select', function (dat, val) {
+            console.dir(val);
+            alert("2ntro");
+        });
 
 
     },

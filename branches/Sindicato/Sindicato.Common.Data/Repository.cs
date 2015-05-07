@@ -41,6 +41,14 @@ namespace Sindicato.Common.Data
                 throw new ArgumentNullException("unitOfWork");
             _ctx = unitOfWork.Context;
         }
+        public int ObtenerSecuencia()
+        {
+            ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+             ObjectParameter p_COD_TABLAParameter = new ObjectParameter("P_COD_TABLA", typeof(TEntity).Name);
+            ObjectParameter p_ID_USRParameter = new ObjectParameter("P_ID_USR", 0);
+            _ctx.ExecuteFunction("P_EE_SECUENCIA", p_COD_TABLAParameter, p_ID_USRParameter, p_RES);
+            return Convert.ToInt32(p_RES.Value);
+        }
 
         #region IRepository<E> Members
 
@@ -94,7 +102,7 @@ namespace Sindicato.Common.Data
         public IQueryable<TEntity> BuscarTodos(Expression<Func<TEntity, bool>> criterio = null)
         {
             return null != criterio ? Query().Where(criterio) : Query();
-                //Set<TEntity>().Where(criterio) : _ctx.Set<TEntity>();
+            //Set<TEntity>().Where(criterio) : _ctx.Set<TEntity>();
         }
 
         /// <summary>
@@ -207,7 +215,7 @@ namespace Sindicato.Common.Data
                 IQueryable<TEntity> iQuery;
                 var param = Expression.Parameter(typeof(TEntity), "entity");
                 var idProperty = param.GetType().GetGenericArguments().FirstOrDefault();
-                var columnnames = (from t in typeof(TEntity).GetProperties() select t).FirstOrDefault();
+                var columnnames = (from t in typeof(TEntity).GetProperties() where t.Name.Contains("ID") select t).FirstOrDefault();
 
                 //var res = SelectByKey("Key");
                 var propertyExpression1 = Expression.Property(param, columnnames.Name.ToString());
