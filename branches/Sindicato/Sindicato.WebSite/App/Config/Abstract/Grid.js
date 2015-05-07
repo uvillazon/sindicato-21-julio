@@ -276,6 +276,9 @@ Ext.define("App.Config.Abstract.Grid", {
     moverInicio: function () {
         var me = this;
         me.bar.moveFirst();
-    }
+    },
+    AgregarBtnToolbar: function (btn) {
+        this.toolBar.add(btn);
+    },
 
 });

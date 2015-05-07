@@ -16,6 +16,8 @@ namespace Sindicato.Services.Model
         public string[] MostrarPara { get; set; }
         public DateTime? FECHA_INICIAL { get; set; }
         public DateTime? FECHA_FINAL { get; set; }
+        public string codigo { get; set; }
+        //public bool ConMovil { get; set; }
 
         public string Predicado { get; set; }
         public Dictionary<string, object> Diccionario { get; set; }

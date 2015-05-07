@@ -924,6 +924,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="P_EE_SECUENCIA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
+          <Parameter Name="P_COD_TABLA" Type="varchar2" Mode="In" />
+          <Parameter Name="P_ID_USR" Type="number" Mode="In" />
+          <Parameter Name="P_RES" Type="number" Mode="Out" />
+        </Function>
         <Function Name="P_REC_PARAMETROS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
           <Parameter Name="P_COD_PAR" Type="varchar2" Mode="In" />
           <Parameter Name="P_ID_LINEA" Type="number" Mode="In" />
@@ -1440,6 +1445,11 @@
             <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
             <End Role="SD_VENTA_HOJAS_CONTROL" EntitySet="SD_VENTA_HOJAS_CONTROL" />
           </AssociationSet>
+          <FunctionImport Name="P_EE_SECUENCIA">
+            <Parameter Name="P_COD_TABLA" Mode="In" Type="String" />
+            <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
+            <Parameter Name="P_RES" Mode="Out" Type="Decimal" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="SD_LISTAS">
           <Key>
@@ -2730,6 +2740,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="P_EE_SECUENCIA" FunctionName="Model.Store.P_EE_SECUENCIA" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

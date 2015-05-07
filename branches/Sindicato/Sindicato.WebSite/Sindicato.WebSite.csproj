@@ -412,6 +412,7 @@
     <Content Include="App\View\Parametros\GridParametros.js" />
     <Content Include="App\View\Parametros\Grids.js" />
     <Content Include="App\View\Parametros\Principal.js" />
+    <Content Include="App\View\Socios\Copia de FormSocio.js" />
     <Content Include="App\View\Socios\FormObligacionSocio.js" />
     <Content Include="App\View\Socios\FormSocio.js" />
     <Content Include="App\View\Socios\Forms.js" />

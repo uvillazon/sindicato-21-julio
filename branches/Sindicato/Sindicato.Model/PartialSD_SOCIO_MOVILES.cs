@@ -8,6 +8,7 @@ namespace Sindicato.Model
 {
     public partial class SD_SOCIO_MOVILES
     {
+        public int NRO_MOVIL { get; set; }
         public static Expression<Func<SD_SOCIO_MOVILES, bool>> Contiene(string contiene)
         {
             List<int> id = new List<int>();

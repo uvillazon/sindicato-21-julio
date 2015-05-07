@@ -25,7 +25,7 @@ Ext.define("App.Config.Abstract.Window", {
     buttons: null,
     textGuardar: 'Guardar',
     textCerrar: 'Cerrar',
-    destruirWin: false,
+    destruirWin: true,
     initComponent: function () {
         var me = this;
         if (!me.botones) {
