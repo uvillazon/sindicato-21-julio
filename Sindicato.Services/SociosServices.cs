@@ -68,6 +68,20 @@ namespace Sindicato.Services
                     result = result.Where(SD_SOCIOS.Contiene(filtros.Contiene));
                 }
 
+                if (!string.IsNullOrEmpty(filtros.codigo))
+                {
+                    switch (filtros.codigo)
+                    {
+                        case "SIN MOVIL":
+                            result = result.Where(x=>x.SD_SOCIO_MOVILES.Count() == 0);
+                            break;
+                        case "CON MOVIL":
+                            result = result.Where(x => x.SD_SOCIO_MOVILES.Count() > 0);
+                            break;
+                        default:
+                            break;
+                    }
+                }
                 paginacion.total = result.Count();
 
                 result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
@@ -179,6 +193,44 @@ namespace Sindicato.Services
 
             return result;
         }
+        public RespuestaSP GuardarNuevoSocioMovilPrimario(SD_SOCIO_MOVILES socio, int ID_USR)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var mnMovil = new SD_MOVILESManager(uow);
+                var mnSocioMovil = new SD_SOCIO_MOVILESManager(uow);
+                var movil = mnMovil.GuardarMovil(new SD_MOVILES() {ID_LINEA = 1 , DESCRIPCION = socio.DESCRIPCION , ESTADO = "ACTIVO",FECHA_ALTA=socio.FECHA_ALTA,OBSERVACION=socio.OBSERVACION ,NRO_MOVIL = socio.NRO_MOVIL}, ID_USR);
+                int idMovil;
+                bool esNumero = int.TryParse(movil, out idMovil);
+                if (esNumero)
+                {
+                    socio.ID_MOVIL = idMovil;
+                    var socioMovil = mnSocioMovil.GuardarMovilSocio(socio, ID_USR);
+                    int idSocioMovil;
+                    esNumero = int.TryParse(socioMovil, out idSocioMovil);
+                    if (esNumero)
+                    {
+                        result.success = true;
+                        result.msg = "Proceso Ejecutado Correctamente";
+                        result.id = idMovil;
+                    }
+                    else {
+                        result.success = false;
+                        result.msg = socioMovil;
+                        var mov = mnMovil.BuscarTodos(x=>x.ID_MOVIL == idMovil).FirstOrDefault();
+                        mnMovil.Delete(mov);
+                    }
+                }
+                else {
+                    result.success = false;
+                    result.msg = movil;
+                }
+
+            });
+
+            return result;
+        }
 
         public RespuestaSP GuardarSocioDocumento(SD_DOCUMENTACIONES doc, int ID_USR)
         {
@@ -265,7 +317,7 @@ namespace Sindicato.Services
             {
                 var context = (SindicatoContext)uow.Context;
                 ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
-                context.P_SD_ALTA_AUTOS(auto.ID_AUTO,auto.ID_MOVIL,auto.TIPO,auto.COLOR,auto.MARCA,auto.MODELO,auto.PLACA,auto.MOTOR,auto.CHASIS,auto.DESCRIPCION,auto.FECHA_ALTA,auto.FECHA_BAJA,auto.MOTIVO_CAMBIO, ID_USR, p_res);
+                context.P_SD_ALTA_AUTOS(auto.ID_AUTO, auto.ID_MOVIL, auto.TIPO, auto.COLOR, auto.MARCA, auto.MODELO, auto.PLACA, auto.MOTOR, auto.CHASIS, auto.DESCRIPCION, auto.FECHA_ALTA, auto.FECHA_BAJA, auto.MOTIVO_CAMBIO, ID_USR, p_res);
                 int idsocio;
                 bool esNumero = int.TryParse(p_res.Value.ToString(), out idsocio);
                 if (esNumero)
@@ -318,14 +370,14 @@ namespace Sindicato.Services
             return result;
         }
 
-        public RespuestaSP GuardarObligacion(SD_KARDEX_OBLIGACION kardex, int ID_SOCIO , string login)
+        public RespuestaSP GuardarObligacion(SD_KARDEX_OBLIGACION kardex, int ID_SOCIO, string login)
         {
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
                 var context = (SindicatoContext)uow.Context;
                 ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
-                context.P_SD_ACT_OBLIGACIONES(ID_SOCIO,kardex.ID_OBLIGACION,kardex.FECHA,kardex.MOTIVO,kardex.IMPORTE_NUEVO,login, p_res);
+                context.P_SD_ACT_OBLIGACIONES(ID_SOCIO, kardex.ID_OBLIGACION, kardex.FECHA, kardex.MOTIVO, kardex.IMPORTE_NUEVO, login, p_res);
                 int idsocio;
                 bool esNumero = int.TryParse(p_res.Value.ToString(), out idsocio);
                 if (esNumero)
@@ -346,6 +398,6 @@ namespace Sindicato.Services
         }
 
 
-        
+
     }
 }

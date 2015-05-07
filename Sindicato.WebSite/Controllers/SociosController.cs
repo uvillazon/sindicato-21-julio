@@ -56,6 +56,7 @@ namespace Sindicato.WebSite.Controllers
                 FECHA_BAJA = x.SD_SOCIOS.FECHA_BAJA,
                 TELEFONO = x.SD_SOCIOS.TELEFONO,
                 CELULAR = x.SD_SOCIOS.CELULAR,
+                ESTADO = x.ESTADO,
                 ID_IMG = _serImg.ConImagen(x.ID_SOCIO , "SD_SOCIOS")
                 //ID_IMG = 
             });
@@ -87,6 +88,7 @@ namespace Sindicato.WebSite.Controllers
                 FECHA_BAJA = x.FECHA_BAJA,
                 TELEFONO = x.TELEFONO,
                 CELULAR = x.CELULAR,
+                ESTADO = x.ESTADO,
                 ID_IMG = _serImg.ConImagen(x.ID_SOCIO, "SD_SOCIOS")
                 //ID_IMG = 
             });
@@ -154,6 +156,15 @@ namespace Sindicato.WebSite.Controllers
             respuestaSP = _serSoc.GuardarSocioMovil(socio, id_usr);
             return Json(respuestaSP);
         }
+        [HttpPost]
+        public JsonResult GuardarNuevoSocioMovilPrimario(SD_SOCIO_MOVILES socio)
+        {
+            int id_usr = Convert.ToInt32(User.Identity.Name.Split('-')[3]);
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serSoc.GuardarNuevoSocioMovilPrimario(socio, id_usr);
+            return Json(respuestaSP);
+        }
+        
         [HttpPost]
         public JsonResult GuardarAuto(SD_AUTOS auto)
         {

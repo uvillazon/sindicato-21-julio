@@ -27,6 +27,7 @@ namespace Sindicato.Services.Interfaces
         RespuestaSP GuardarSocioDesempeno(SD_SOCIO_DESEMPENOS des, int ID_USR);
         RespuestaSP GuardarSocioAntecedente(SD_ANTECEDENTES ant, int ID_USR);
         RespuestaSP GuardarSocioMovil(SD_SOCIO_MOVILES socio, int ID_USR);
+        RespuestaSP GuardarNuevoSocioMovilPrimario(SD_SOCIO_MOVILES socio, int ID_USR);
         RespuestaSP GuardarAutos(SD_AUTOS auto, int ID_USR);
         //SD_USUARIOS
         IEnumerable<SD_OBLIGACIONES_SOCIO> ObtenerObligaciones(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
