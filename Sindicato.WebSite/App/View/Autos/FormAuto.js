@@ -1,4 +1,4 @@
-﻿Ext.define("App.View.Socios.FormSocio", {
+﻿Ext.define("App.View.Autos.FormAuto", {
     extend: "App.Config.Abstract.Form",
     //    title: "Datos de Orden de Trabajo",gertertertert
     cargarStores: true,
@@ -23,79 +23,27 @@
 ////        Funciones.CrearMenu('btn_Baja', 'Baja Socio', Constantes.ICONO_BAJA, me.EventosForm, me.toolbar, this, null, true);
 //        Funciones.CrearMenu('btn_Imagen', 'Imagen', 'image_add', me.EventosForm, me.toolbar, this, null, true);
         //        me.toolbar.add(me.cbx_socio);
-        //me.formImagen = Ext.create('App.View.Socios.Forms', {
-        //    opcion: 'FormImagen',
-        //    colspan: 2,
-        //    width: 480,
-        //    height: 250,
-        //    //solo cuando el evento esta fuera del formulario se envia el scope
-        //    //            EventosForm : me.EventosForm,
-        //    scope: me
-        //});
         me.formImagen = Ext.create('App.View.Imagenes.ViewImagenes', {
             //opcion: 'FormImagen',
             colspan: 2,
             //width: 550,
             //height: 250,
-            TABLA: 'SD_SOCIOS'
+            TABLA: 'SD_AUTOS'
             //ID_TABLA :15
         });
-
-        
-        me.txt_id_movil = Ext.create("App.Config.Componente.TextFieldBase", {
-            name: "ID_MOVIL",
-            hidden: true
+        //me.formImagen.store.load();
+        me.form = Ext.create("App.View.Socios.Forms.FormAuto", {
+            //            opcion: 'formFamiliar',
+            columns: 2,
+            colspan : 2,
+            botones: false
         });
-        me.num_nro_socio = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "Nro Movil",
-            name: "NRO_MOVIL",
-            width: 240,
-            maxLength: 7,
-            allowNegative: false,
-            allowDecimals: false,
-            afterLabelTextTpl: Constantes.REQUERIDO,
-            allowBlank: false
-        });
-        me.txt_tipo_movil = Ext.create("App.Config.Componente.TextFieldBase", {
-            fieldLabel: "Tipo Movil",
-            name: "TIPO_MOVIL",
-            
-        });
-        me.componentes = Ext.create("App.View.Socios.Forms");
-        me.componentes.ComponentesSocio(me);
-        me.txt_telefono.colspan = 2;
-        me.txt_celular.colspan = 2;
-        me.txt_observacion.colspan = 2;
-        me.txt_estado.colspan = 2;
+        me.form.BloquearFormulario();
         //me.CargarTabPanel();
         me.items = [
-           
-            me.txt_id_socio,
-            me.txt_id_movil,
-            me.cbx_socio,
-            me.num_nro_socio,
-            me.txt_tipo_movil,
-            me.num_ci,
-            me.cbx_expedido,
-            me.txt_nombre,
-            me.txt_apellido_paterno,
-            me.txt_apellido_materno,
-            me.cbx_estado_civil,
-            me.num_nro_licencia,
-            me.cbx_categoria_lic,
-            me.dat_fecha_nac,
-          
-            me.dat_fecha_ingreso,
-            me.dat_fecha_baja,
-            me.txt_telefono ,
-            me.txt_celular,
-            me.txt_domicilio,
-
-            me.txt_observacion,
-            me.txt_estado,
+            me.form,
             me.formImagen
-            //me.tabPanel
-
+            //me.form
         ];
     },
 //    CargarTabPanel: function () {

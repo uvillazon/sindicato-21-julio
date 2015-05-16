@@ -39,14 +39,15 @@
         me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_editar, me.btn_crearMovil,me.btn_editarMovil, me.btn_crearImagen]);
 
         me.form = form = Ext.create("App.View.Socios.FormSocio", {
-            title: 'Datos Socio',
+            title: 'Datos Socio2',
             opcion: 'FormSocio',
            
             botones: false
         });
         me.form.BloquearFormulario();
+        me.panelAutos = Ext.create("App.View.Socios.PanelAutos");
         me.tabPanel = Ext.create('Ext.tab.Panel', {
-            items: [me.form],
+            items: [me.form , me.panelAutos],
             region: 'center',
             width: '50%'
         });
@@ -55,16 +56,26 @@
         me.grid.getSelectionModel().on('selectionchange', me.CargarDatos, this);
 
     },
+    CargarGridSocio : function(){
+        var me = this;
+    },
     CargarDatos: function (selModel, selections) {
         var me = this;
         var disabled = selections.length === 0;
         if (!disabled) {
             me.form.loadRecord(selections[0]);
-            me.form.formImagen.CargarImagen(selections[0].get('ID_IMG'));
+            me.form.formImagen.CargarImagen(selections[0].get('ID_SOCIO'));
+            me.tabPanel.getLayout().setActiveItem(0);
+            me.panelAutos.setDisabled(false);
         }
         else {
             me.form.getForm().reset();
             me.form.formImagen.CargarImagen(0);
+            me.tabPanel.getLayout().setActiveItem(0);
+            console.dir(me.tabPanel);
+            me.panelAutos.setDisabled(true);
+            //me..setActiveTab(me.form);
+            
         }
     },
     //        me.cbx_socio.on('select', function (cmb, record) {
