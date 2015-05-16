@@ -30,6 +30,7 @@
           <EntitySet Name="SD_PERFILES" EntityType="Model.Store.SD_PERFILES" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_PERFILES_OPCIONES" EntityType="Model.Store.SD_PERFILES_OPCIONES" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_SOCIO_DESEMPENOS" EntityType="Model.Store.SD_SOCIO_DESEMPENOS" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_SOCIO_MOVIL_AUTOS" EntityType="Model.Store.SD_SOCIO_MOVIL_AUTOS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_SOCIO_MOVILES" EntityType="Model.Store.SD_SOCIO_MOVILES" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_SOCIOS" EntityType="Model.Store.SD_SOCIOS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_USUARIOS" EntityType="Model.Store.SD_USUARIOS" store:Type="Tables" Schema="SINDICATO" />
@@ -50,10 +51,6 @@
           <AssociationSet Name="SD_ANTECEDENTES_R02" Association="Model.Store.SD_ANTECEDENTES_R02">
             <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
             <End Role="SD_ANTECEDENTES" EntitySet="SD_ANTECEDENTES" />
-          </AssociationSet>
-          <AssociationSet Name="SD_AUTOS_R01" Association="Model.Store.SD_AUTOS_R01">
-            <End Role="SD_MOVILES" EntitySet="SD_MOVILES" />
-            <End Role="SD_AUTOS" EntitySet="SD_AUTOS" />
           </AssociationSet>
           <AssociationSet Name="SD_CHOFERES_R01" Association="Model.Store.SD_CHOFERES_R01">
             <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
@@ -115,6 +112,14 @@
             <End Role="SD_PARADAS" EntitySet="SD_PARADAS" />
             <End Role="SD_PERFILES" EntitySet="SD_PERFILES" />
           </AssociationSet>
+          <AssociationSet Name="SD_SOCIO_MOVIL_AUTOS_R01" Association="Model.Store.SD_SOCIO_MOVIL_AUTOS_R01">
+            <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
+            <End Role="SD_SOCIO_MOVIL_AUTOS" EntitySet="SD_SOCIO_MOVIL_AUTOS" />
+          </AssociationSet>
+          <AssociationSet Name="SD_SOCIO_MOVIL_AUTOS_R02" Association="Model.Store.SD_SOCIO_MOVIL_AUTOS_R02">
+            <End Role="SD_AUTOS" EntitySet="SD_AUTOS" />
+            <End Role="SD_SOCIO_MOVIL_AUTOS" EntitySet="SD_SOCIO_MOVIL_AUTOS" />
+          </AssociationSet>
           <AssociationSet Name="SD_SOCIO_MOVILES_R01" Association="Model.Store.SD_SOCIO_MOVILES_R01">
             <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
             <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
@@ -174,20 +179,18 @@
             <PropertyRef Name="ID_AUTO" />
           </Key>
           <Property Name="ID_AUTO" Type="number" Nullable="false" Precision="7" />
-          <Property Name="ID_MOVIL" Type="number" Nullable="false" Precision="7" />
           <Property Name="TIPO" Type="varchar2" Nullable="false" MaxLength="50" />
           <Property Name="COLOR" Type="varchar2" Nullable="false" MaxLength="50" />
           <Property Name="MARCA" Type="varchar2" MaxLength="50" />
           <Property Name="MODELO" Type="varchar2" MaxLength="50" />
-          <Property Name="PLACA" Type="varchar2" MaxLength="50" />
+          <Property Name="PLACA" Type="varchar2" Nullable="false" MaxLength="50" />
           <Property Name="MOTOR" Type="varchar2" MaxLength="50" />
           <Property Name="CHASIS" Type="varchar2" MaxLength="50" />
           <Property Name="DESCRIPCION" Type="varchar2" MaxLength="200" />
           <Property Name="FECHA_ALTA" Type="date" Nullable="false" />
           <Property Name="FECHA_BAJA" Type="date" />
-          <Property Name="MOTIVO_CAMBIO" Type="varchar2" MaxLength="200" />
           <Property Name="FECHA_REG" Type="date" />
-          <Property Name="ID_USR" Type="number" Precision="7" />
+          <Property Name="LOGIN_USR" Type="varchar2" MaxLength="20" />
         </EntityType>
         <EntityType Name="SD_CAJAS">
           <Key>
@@ -508,6 +511,23 @@
           <Property Name="FECHA_REG" Type="date" />
           <Property Name="ID_USR" Type="number" Precision="7" />
         </EntityType>
+        <EntityType Name="SD_SOCIO_MOVIL_AUTOS">
+          <Key>
+            <PropertyRef Name="ID_SOCIO_MOVIL_AUTO" />
+          </Key>
+          <Property Name="ID_SOCIO_MOVIL_AUTO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_SOCIO_MOVIL" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_AUTO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="TIPO" Type="varchar2" Nullable="false" MaxLength="50" />
+          <Property Name="MOTIVO_ALTA" Type="varchar2" Nullable="false" MaxLength="200" />
+          <Property Name="MOTIVO_BAJA" Type="varchar2" MaxLength="200" />
+          <Property Name="FECHA_ALTA" Type="date" Nullable="false" />
+          <Property Name="FECHA_BAJA" Type="date" />
+          <Property Name="FECHA_REG" Type="date" />
+          <Property Name="LOGIN_ALTA" Type="varchar2" MaxLength="20" />
+          <Property Name="LOGIN_BAJA" Type="varchar2" MaxLength="20" />
+          <Property Name="ESTADO" Type="varchar2" Nullable="false" MaxLength="10" />
+        </EntityType>
         <EntityType Name="SD_SOCIO_MOVILES">
           <Key>
             <PropertyRef Name="ID_SOCIO_MOVIL" />
@@ -609,18 +629,6 @@
             </Principal>
             <Dependent Role="SD_ANTECEDENTES">
               <PropertyRef Name="ID_CHOFER" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="SD_AUTOS_R01">
-          <End Role="SD_MOVILES" Type="Model.Store.SD_MOVILES" Multiplicity="1" />
-          <End Role="SD_AUTOS" Type="Model.Store.SD_AUTOS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_MOVILES">
-              <PropertyRef Name="ID_MOVIL" />
-            </Principal>
-            <Dependent Role="SD_AUTOS">
-              <PropertyRef Name="ID_MOVIL" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -804,6 +812,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="SD_SOCIO_MOVIL_AUTOS_R01">
+          <End Role="SD_SOCIO_MOVILES" Type="Model.Store.SD_SOCIO_MOVILES" Multiplicity="1" />
+          <End Role="SD_SOCIO_MOVIL_AUTOS" Type="Model.Store.SD_SOCIO_MOVIL_AUTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIO_MOVILES">
+              <PropertyRef Name="ID_SOCIO_MOVIL" />
+            </Principal>
+            <Dependent Role="SD_SOCIO_MOVIL_AUTOS">
+              <PropertyRef Name="ID_SOCIO_MOVIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_SOCIO_MOVIL_AUTOS_R02">
+          <End Role="SD_AUTOS" Type="Model.Store.SD_AUTOS" Multiplicity="1" />
+          <End Role="SD_SOCIO_MOVIL_AUTOS" Type="Model.Store.SD_SOCIO_MOVIL_AUTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_AUTOS">
+              <PropertyRef Name="ID_AUTO" />
+            </Principal>
+            <Dependent Role="SD_SOCIO_MOVIL_AUTOS">
+              <PropertyRef Name="ID_AUTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="SD_SOCIO_MOVILES_R01">
           <End Role="SD_SOCIOS" Type="Model.Store.SD_SOCIOS" Multiplicity="1" />
           <End Role="SD_SOCIO_MOVILES" Type="Model.Store.SD_SOCIO_MOVILES" Multiplicity="*" />
@@ -945,7 +977,6 @@
         </Function>
         <Function Name="P_SD_ALTA_AUTOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
           <Parameter Name="P_ID_AUTO" Type="number" Mode="In" />
-          <Parameter Name="P_ID_MOVIL" Type="number" Mode="In" />
           <Parameter Name="P_TIPO" Type="varchar2" Mode="In" />
           <Parameter Name="P_COLOR" Type="varchar2" Mode="In" />
           <Parameter Name="P_MARCA" Type="varchar2" Mode="In" />
@@ -956,8 +987,7 @@
           <Parameter Name="P_DESCRIPCION" Type="varchar2" Mode="In" />
           <Parameter Name="P_FECHA_ALTA" Type="date" Mode="In" />
           <Parameter Name="P_FECHA_BAJA" Type="date" Mode="In" />
-          <Parameter Name="P_MOTIVO_CAMBIO" Type="varchar2" Mode="In" />
-          <Parameter Name="P_ID_USR" Type="number" Mode="In" />
+          <Parameter Name="P_ID_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
         <Function Name="P_SD_ALTA_LISTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
@@ -1291,28 +1321,6 @@
             <Parameter Name="P_ESTADO" Mode="In" Type="String" />
             <Parameter Name="P_RES" Mode="Out" Type="String" />
           </FunctionImport>
-          <EntitySet Name="SD_AUTOS" EntityType="Model.SD_AUTOS" />
-          <AssociationSet Name="SD_AUTOS_R01" Association="Model.SD_AUTOS_R01">
-            <End Role="SD_MOVILES" EntitySet="SD_MOVILES" />
-            <End Role="SD_AUTOS" EntitySet="SD_AUTOS" />
-          </AssociationSet>
-          <FunctionImport Name="P_SD_ALTA_AUTOS">
-            <Parameter Name="P_ID_AUTO" Mode="In" Type="Decimal" />
-            <Parameter Name="P_ID_MOVIL" Mode="In" Type="Decimal" />
-            <Parameter Name="P_TIPO" Mode="In" Type="String" />
-            <Parameter Name="P_COLOR" Mode="In" Type="String" />
-            <Parameter Name="P_MARCA" Mode="In" Type="String" />
-            <Parameter Name="P_MODELO" Mode="In" Type="String" />
-            <Parameter Name="P_PLACA" Mode="In" Type="String" />
-            <Parameter Name="P_MOTOR" Mode="In" Type="String" />
-            <Parameter Name="P_CHASIS" Mode="In" Type="String" />
-            <Parameter Name="P_DESCRIPCION" Mode="In" Type="String" />
-            <Parameter Name="P_FECHA_ALTA" Mode="In" Type="DateTime" />
-            <Parameter Name="P_FECHA_BAJA" Mode="In" Type="DateTime" />
-            <Parameter Name="P_MOTIVO_CAMBIO" Mode="In" Type="String" />
-            <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
-            <Parameter Name="P_RES" Mode="Out" Type="String" />
-          </FunctionImport>
           <EntitySet Name="SD_PARADAS" EntityType="Model.SD_PARADAS" />
           <EntitySet Name="SD_PERFILES" EntityType="Model.SD_PERFILES" />
           <AssociationSet Name="SD_PERFILES_R01" Association="Model.SD_PERFILES_R01">
@@ -1449,6 +1457,31 @@
             <Parameter Name="P_COD_TABLA" Mode="In" Type="String" />
             <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
             <Parameter Name="P_RES" Mode="Out" Type="Decimal" />
+          </FunctionImport>
+          <EntitySet Name="SD_SOCIO_MOVIL_AUTOS" EntityType="Model.SD_SOCIO_MOVIL_AUTOS" />
+          <AssociationSet Name="SD_SOCIO_MOVIL_AUTOS_R01" Association="Model.SD_SOCIO_MOVIL_AUTOS_R01">
+            <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
+            <End Role="SD_SOCIO_MOVIL_AUTOS" EntitySet="SD_SOCIO_MOVIL_AUTOS" />
+          </AssociationSet>
+          <EntitySet Name="SD_AUTOS" EntityType="Model.SD_AUTOS" />
+          <AssociationSet Name="SD_SOCIO_MOVIL_AUTOS_R02" Association="Model.SD_SOCIO_MOVIL_AUTOS_R02">
+            <End Role="SD_AUTOS" EntitySet="SD_AUTOS" />
+            <End Role="SD_SOCIO_MOVIL_AUTOS" EntitySet="SD_SOCIO_MOVIL_AUTOS" />
+          </AssociationSet>
+          <FunctionImport Name="P_SD_ALTA_AUTOS">
+            <Parameter Name="P_ID_AUTO" Mode="In" Type="Decimal" />
+            <Parameter Name="P_TIPO" Mode="In" Type="String" />
+            <Parameter Name="P_COLOR" Mode="In" Type="String" />
+            <Parameter Name="P_MARCA" Mode="In" Type="String" />
+            <Parameter Name="P_MODELO" Mode="In" Type="String" />
+            <Parameter Name="P_PLACA" Mode="In" Type="String" />
+            <Parameter Name="P_MOTOR" Mode="In" Type="String" />
+            <Parameter Name="P_CHASIS" Mode="In" Type="String" />
+            <Parameter Name="P_DESCRIPCION" Mode="In" Type="String" />
+            <Parameter Name="P_FECHA_ALTA" Mode="In" Type="DateTime" />
+            <Parameter Name="P_FECHA_BAJA" Mode="In" Type="DateTime" />
+            <Parameter Name="P_ID_USR" Mode="In" Type="String" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="SD_LISTAS">
@@ -1631,7 +1664,6 @@
           <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SD_LINEAS" Relationship="Model.SD_MOVILES_R01" FromRole="SD_MOVILES" ToRole="SD_LINEAS" />
           <NavigationProperty Name="SD_SOCIO_MOVILES" Relationship="Model.SD_SOCIO_MOVILES_R02" FromRole="SD_MOVILES" ToRole="SD_SOCIO_MOVILES" />
-          <NavigationProperty Name="SD_AUTOS" Relationship="Model.SD_AUTOS_R01" FromRole="SD_MOVILES" ToRole="SD_AUTOS" />
         </EntityType>
         <EntityType Name="SD_SOCIO_MOVILES">
           <Key>
@@ -1650,6 +1682,7 @@
           <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SD_MOVILES" Relationship="Model.SD_SOCIO_MOVILES_R02" FromRole="SD_SOCIO_MOVILES" ToRole="SD_MOVILES" />
           <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_SOCIO_MOVILES_R01" FromRole="SD_SOCIO_MOVILES" ToRole="SD_SOCIOS" />
+          <NavigationProperty Name="SD_SOCIO_MOVIL_AUTOS" Relationship="Model.SD_SOCIO_MOVIL_AUTOS_R01" FromRole="SD_SOCIO_MOVILES" ToRole="SD_SOCIO_MOVIL_AUTOS" />
         </EntityType>
         <EntityType Name="SD_SOCIOS">
           <Key>
@@ -1864,39 +1897,6 @@
           <Property Type="Int32" Name="ID_USR" />
           <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="SD_AUTOS">
-          <Key>
-            <PropertyRef Name="ID_AUTO" />
-          </Key>
-          <Property Type="Int32" Name="ID_AUTO" Nullable="false" />
-          <Property Type="Int32" Name="ID_MOVIL" Nullable="false" />
-          <Property Type="String" Name="TIPO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="COLOR" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="MARCA" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="MODELO" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="PLACA" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="MOTOR" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="CHASIS" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="DESCRIPCION" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_ALTA" Nullable="false" Precision="0" />
-          <Property Type="DateTime" Name="FECHA_BAJA" Precision="0" />
-          <Property Type="String" Name="MOTIVO_CAMBIO" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
-          <Property Type="Int32" Name="ID_USR" />
-          <NavigationProperty Name="SD_MOVILES" Relationship="Model.SD_AUTOS_R01" FromRole="SD_AUTOS" ToRole="SD_MOVILES" />
-        </EntityType>
-        <Association Name="SD_AUTOS_R01">
-          <End Type="Model.SD_MOVILES" Role="SD_MOVILES" Multiplicity="1" />
-          <End Type="Model.SD_AUTOS" Role="SD_AUTOS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_MOVILES">
-              <PropertyRef Name="ID_MOVIL" />
-            </Principal>
-            <Dependent Role="SD_AUTOS">
-              <PropertyRef Name="ID_MOVIL" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="SD_PARADAS">
           <Key>
             <PropertyRef Name="ID_PARADA" />
@@ -2270,6 +2270,68 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SD_SOCIO_MOVIL_AUTOS">
+          <Key>
+            <PropertyRef Name="ID_SOCIO_MOVIL_AUTO" />
+          </Key>
+          <Property Type="Int32" Name="ID_SOCIO_MOVIL_AUTO" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO_MOVIL" Nullable="false" />
+          <Property Type="Int32" Name="ID_AUTO" Nullable="false" />
+          <Property Type="String" Name="TIPO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MOTIVO_ALTA" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MOTIVO_BAJA" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_ALTA" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_BAJA" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <Property Type="String" Name="LOGIN_ALTA" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LOGIN_BAJA" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ESTADO" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SD_SOCIO_MOVILES" Relationship="Model.SD_SOCIO_MOVIL_AUTOS_R01" FromRole="SD_SOCIO_MOVIL_AUTOS" ToRole="SD_SOCIO_MOVILES" />
+          <NavigationProperty Name="SD_AUTOS" Relationship="Model.SD_SOCIO_MOVIL_AUTOS_R02" FromRole="SD_SOCIO_MOVIL_AUTOS" ToRole="SD_AUTOS" />
+        </EntityType>
+        <Association Name="SD_SOCIO_MOVIL_AUTOS_R01">
+          <End Type="Model.SD_SOCIO_MOVILES" Role="SD_SOCIO_MOVILES" Multiplicity="1" />
+          <End Type="Model.SD_SOCIO_MOVIL_AUTOS" Role="SD_SOCIO_MOVIL_AUTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIO_MOVILES">
+              <PropertyRef Name="ID_SOCIO_MOVIL" />
+            </Principal>
+            <Dependent Role="SD_SOCIO_MOVIL_AUTOS">
+              <PropertyRef Name="ID_SOCIO_MOVIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SD_AUTOS">
+          <Key>
+            <PropertyRef Name="ID_AUTO" />
+          </Key>
+          <Property Type="Int32" Name="ID_AUTO" Nullable="false" />
+          <Property Type="String" Name="TIPO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="COLOR" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MARCA" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MODELO" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PLACA" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MOTOR" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CHASIS" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DESCRIPCION" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_ALTA" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_BAJA" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <Property Type="String" Name="LOGIN_USR" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SD_SOCIO_MOVIL_AUTOS" Relationship="Model.SD_SOCIO_MOVIL_AUTOS_R02" FromRole="SD_AUTOS" ToRole="SD_SOCIO_MOVIL_AUTOS" />
+        </EntityType>
+        <Association Name="SD_SOCIO_MOVIL_AUTOS_R02">
+          <End Type="Model.SD_AUTOS" Role="SD_AUTOS" Multiplicity="1" />
+          <End Type="Model.SD_SOCIO_MOVIL_AUTOS" Role="SD_SOCIO_MOVIL_AUTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_AUTOS">
+              <PropertyRef Name="ID_AUTO" />
+            </Principal>
+            <Dependent Role="SD_SOCIO_MOVIL_AUTOS">
+              <PropertyRef Name="ID_AUTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2528,28 +2590,6 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="P_SD_ALTA_SD_SOCIOS" FunctionName="Model.Store.P_SD_ALTA_SD_SOCIOS" />
           <FunctionImportMapping FunctionImportName="P_SD_GRABAR_SOCIO_MOVILES" FunctionName="Model.Store.P_SD_GRABAR_SOCIO_MOVILES" />
-          <EntitySetMapping Name="SD_AUTOS">
-            <EntityTypeMapping TypeName="Model.SD_AUTOS">
-              <MappingFragment StoreEntitySet="SD_AUTOS">
-                <ScalarProperty Name="ID_USR" ColumnName="ID_USR" />
-                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
-                <ScalarProperty Name="MOTIVO_CAMBIO" ColumnName="MOTIVO_CAMBIO" />
-                <ScalarProperty Name="FECHA_BAJA" ColumnName="FECHA_BAJA" />
-                <ScalarProperty Name="FECHA_ALTA" ColumnName="FECHA_ALTA" />
-                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
-                <ScalarProperty Name="CHASIS" ColumnName="CHASIS" />
-                <ScalarProperty Name="MOTOR" ColumnName="MOTOR" />
-                <ScalarProperty Name="PLACA" ColumnName="PLACA" />
-                <ScalarProperty Name="MODELO" ColumnName="MODELO" />
-                <ScalarProperty Name="MARCA" ColumnName="MARCA" />
-                <ScalarProperty Name="COLOR" ColumnName="COLOR" />
-                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
-                <ScalarProperty Name="ID_MOVIL" ColumnName="ID_MOVIL" />
-                <ScalarProperty Name="ID_AUTO" ColumnName="ID_AUTO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="P_SD_ALTA_AUTOS" FunctionName="Model.Store.P_SD_ALTA_AUTOS" />
           <EntitySetMapping Name="SD_PARADAS">
             <EntityTypeMapping TypeName="Model.SD_PARADAS">
               <MappingFragment StoreEntitySet="SD_PARADAS">
@@ -2741,6 +2781,44 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="P_EE_SECUENCIA" FunctionName="Model.Store.P_EE_SECUENCIA" />
+          <EntitySetMapping Name="SD_SOCIO_MOVIL_AUTOS">
+            <EntityTypeMapping TypeName="Model.SD_SOCIO_MOVIL_AUTOS">
+              <MappingFragment StoreEntitySet="SD_SOCIO_MOVIL_AUTOS">
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="LOGIN_BAJA" ColumnName="LOGIN_BAJA" />
+                <ScalarProperty Name="LOGIN_ALTA" ColumnName="LOGIN_ALTA" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="FECHA_BAJA" ColumnName="FECHA_BAJA" />
+                <ScalarProperty Name="FECHA_ALTA" ColumnName="FECHA_ALTA" />
+                <ScalarProperty Name="MOTIVO_BAJA" ColumnName="MOTIVO_BAJA" />
+                <ScalarProperty Name="MOTIVO_ALTA" ColumnName="MOTIVO_ALTA" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="ID_AUTO" ColumnName="ID_AUTO" />
+                <ScalarProperty Name="ID_SOCIO_MOVIL" ColumnName="ID_SOCIO_MOVIL" />
+                <ScalarProperty Name="ID_SOCIO_MOVIL_AUTO" ColumnName="ID_SOCIO_MOVIL_AUTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_AUTOS">
+            <EntityTypeMapping TypeName="Model.SD_AUTOS">
+              <MappingFragment StoreEntitySet="SD_AUTOS">
+                <ScalarProperty Name="LOGIN_USR" ColumnName="LOGIN_USR" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="FECHA_BAJA" ColumnName="FECHA_BAJA" />
+                <ScalarProperty Name="FECHA_ALTA" ColumnName="FECHA_ALTA" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="CHASIS" ColumnName="CHASIS" />
+                <ScalarProperty Name="MOTOR" ColumnName="MOTOR" />
+                <ScalarProperty Name="PLACA" ColumnName="PLACA" />
+                <ScalarProperty Name="MODELO" ColumnName="MODELO" />
+                <ScalarProperty Name="MARCA" ColumnName="MARCA" />
+                <ScalarProperty Name="COLOR" ColumnName="COLOR" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="ID_AUTO" ColumnName="ID_AUTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="P_SD_ALTA_AUTOS" FunctionName="Model.Store.P_SD_ALTA_AUTOS" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2847,12 +2925,6 @@
           <ConnectorPoint PointX="19.53125" PointY="8.375" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Model.SD_IMAGENES" Width="1.5" PointX="5.375" PointY="0.75" Height="3.1340950520833388" />
-        <EntityTypeShape EntityType="Model.SD_AUTOS" Width="1.5" PointX="15.875" PointY="19.875" Height="4.0956022135416674" />
-        <AssociationConnector Association="Model.SD_AUTOS_R01" >
-          <ConnectorPoint PointX="14.375" PointY="11.835999348958332" />
-          <ConnectorPoint PointX="14.375" PointY="21.922801106770834" />
-          <ConnectorPoint PointX="15.875" PointY="21.922801106770834" />
-        </AssociationConnector>
         <EntityTypeShape EntityType="Model.SD_PARADAS" Width="1.5" PointX="5" PointY="11.375" Height="3.7109993489583246" />
         <EntityTypeShape EntityType="Model.SD_PERFILES" Width="1.5" PointX="0.75" PointY="7.75" Height="2.5571907552083246" />
         <AssociationConnector Association="Model.SD_PERFILES_R01" >
@@ -2892,6 +2964,10 @@
         <AssociationConnector Association="Model.SD_DETALLE_HOJAS_R01" />
         <AssociationConnector Association="Model.SD_VENTA_HOJAS_CONTROL_R01" />
         <AssociationConnector Association="Model.SD_VENTA_HOJAS_CONTROL_R02" />
+        <EntityTypeShape EntityType="Model.SD_SOCIO_MOVIL_AUTOS" Width="1.5" PointX="2.993162206836586" PointY="8.0286421813204143" />
+        <AssociationConnector Association="Model.SD_SOCIO_MOVIL_AUTOS_R01" />
+        <EntityTypeShape EntityType="Model.SD_AUTOS" Width="1.5" PointX="5.3863658892858615" PointY="28.790907068546353" />
+        <AssociationConnector Association="Model.SD_SOCIO_MOVIL_AUTOS_R02" />
         </Diagram>
     </Diagrams>
   </Designer>

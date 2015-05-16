@@ -115,23 +115,23 @@ namespace Sindicato.WebSite.Controllers
         }
 
         [HttpGet]
-        public JavaScriptResult ObtenerAutos(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
+        public JavaScriptResult ObtenerAutosSocios(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
         {
             filtros.Entidad = entidad;
-            var autos = _serSoc.ObtenerAutosPaginado(paginacion,filtros);
+            var autos = _serSoc.ObtenerAutosSocioPaginado(paginacion, filtros);
             var formatData = autos.Select(x => new
             {
-                ID_MOVIL = x.ID_MOVIL,
-                ID_AUTO = x.ID_AUTO,
-                MOVIL = x.SD_MOVILES.NRO_MOVIL,
-                MARCA = x.MARCA,
-                MODELO = x.MODELO,
+                ID_AUTO = x.SD_AUTOS.ID_AUTO,
+                ID_SOCIO_MOVIL = x.ID_SOCIO_MOVIL,
+                MARCA = x.SD_AUTOS.MARCA,
+                MODELO = x.SD_AUTOS.MODELO,
                 TIPO = x.TIPO,
-                COLOR = x.COLOR,
-                DESCRIPCION = x.DESCRIPCION,
-                PLACA = x.PLACA,
-                MOTOR = x.MOTOR,
+                COLOR = x.SD_AUTOS.COLOR,
+                DESCRIPCION = x.SD_AUTOS.DESCRIPCION,
+                PLACA = x.SD_AUTOS.PLACA,
+                MOTOR = x.SD_AUTOS.MOTOR,
                 FECHA_ALTA = x.FECHA_ALTA,
+               
                 ID_IMG = _serImg.ConImagen(x.ID_AUTO, "SD_AUTOS")
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();

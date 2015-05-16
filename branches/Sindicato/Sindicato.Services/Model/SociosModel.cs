@@ -8,6 +8,7 @@ namespace Sindicato.Services.Model
     public class SociosModel
     {
         public int? ID_SOCIO { get; set; }
+        public int? ID_SOCIO_MOVIL { get; set; }
         public int? ID_MOVIL { get; set; }
         public int? ID_CHOFER { get; set; }
         public int? NRO_SOCIO { get; set; }
