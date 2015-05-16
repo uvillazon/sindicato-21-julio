@@ -17,7 +17,7 @@ namespace Sindicato.Services.Interfaces
         IEnumerable<SD_DOCUMENTACIONES> ObtenerSocioDocumentacionesPaginado(PagingInfo paginacion);
         IEnumerable<SD_SOCIO_DESEMPENOS> ObtenerSocioDesempenosPaginado(PagingInfo paginacion);
         IEnumerable<SD_ANTECEDENTES> ObtenerSocioAntecedentesPaginado(PagingInfo paginacion);
-        IEnumerable<SD_AUTOS> ObtenerAutosPaginado(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
+        IEnumerable<SD_SOCIO_MOVIL_AUTOS> ObtenerAutosSocioPaginado(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
 
         SD_SOCIOS ObtenerSocioPorCriterio(Expression<Func<SD_SOCIOS, bool>> criterio);
         SD_SOCIO_MOVILES ObtenerSocioMovilPorCriterio(Expression<Func<SD_SOCIO_MOVILES, bool>> criterio);

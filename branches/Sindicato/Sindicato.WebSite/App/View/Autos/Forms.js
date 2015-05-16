@@ -472,9 +472,7 @@
         var me = this;
         me.txt_id_socio = Ext.create("App.Config.Componente.TextFieldBase", {
             name: "ID_SOCIO",
-            hidden: true,
-            afterLabelTextTpl: Constantes.REQUERIDO,
-            allowBlank: false
+            hidden: true
         });
         
         me.num_nro_movil = Ext.create("App.Config.Componente.NumberFieldBase", {
@@ -494,8 +492,6 @@
             store: me.store_socio,
             colspan: 2,
             width: 480,
-            afterLabelTextTpl: Constantes.REQUERIDO,
-            allowBlank: false
             //textoTpl: function () { return "Nro Movil :{NRO_MOVIL} - {NOMBRE} {APELLIDO_PATERNO} {APELLIDO_MATERNO}" }
         });
         me.cbx_socio.on('select', function (cbx, rec) {

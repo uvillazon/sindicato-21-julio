@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SD_SOCIO_MOVIL_AUTOSManager.cs" />
     <Compile Include="SD_MOVILESManager.cs" />
     <Compile Include="SD_PARADASManager.cs" />
     <Compile Include="SD_VENTA_HOJAS_CONTROLManager.cs" />

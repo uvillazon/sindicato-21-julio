@@ -50,6 +50,9 @@
     <Compile Include="BaseService.cs" />
     <Compile Include="ChoferesServices.cs" />
     <Compile Include="CajasServices.cs" />
+    <Compile Include="AutosServices.cs" />
+    <Compile Include="Interfaces\IAutosServices.cs" />
+    <Compile Include="Model\AutosModel.cs" />
     <Compile Include="ParadasServices.cs" />
     <Compile Include="Interfaces\IParadasServices.cs" />
     <Compile Include="Interfaces\ICajasServices.cs" />
