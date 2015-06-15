@@ -32,6 +32,8 @@ namespace Sindicato.Services.Interfaces
         RespuestaSP GuardarSocioMovilAuto(SD_SOCIO_MOVIL_AUTOS soc,int DIAS, string login);
 
         IEnumerable<SD_KARDEX_SOCIO> ObtenerKardexSociosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
+        IEnumerable<SD_INGRESOS_SOCIO> ObtenerIngresosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
+        SD_INGRESOS_SOCIO ObtenerIngresosPorCriterio(Expression<Func<SD_INGRESOS_SOCIO, bool>> criterio);
         RespuestaSP GuardarIngresoSocio(SD_INGRESOS_SOCIO ingreso, string login);
         RespuestaSP EliminarIngresoSocio(int ID_INGRESO);
     }

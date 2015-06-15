@@ -229,6 +229,7 @@
     <Content Include="App\Model\Clientes\Clientes.js" />
     <Content Include="App\Model\Clientes\Kardex.js" />
     <Content Include="App\Model\Autos\Autos.js" />
+    <Content Include="App\Model\IngresosSocio\Ingresos.js" />
     <Content Include="App\Model\Paradas\Paradas.js" />
     <Content Include="App\Model\FondoEmergencia\Kardex.js" />
     <Content Include="App\Model\Hojas\Hojas.js" />
@@ -243,6 +244,7 @@
     <Content Include="App\Model\Moviles\Moviles.js" />
     <Content Include="App\Model\Socios\Antecedentes.js" />
     <Content Include="App\Model\Socios\Autos.js" />
+    <Content Include="App\Model\Socios\Kardex.js" />
     <Content Include="App\Model\Socios\KardexObligaciones.js" />
     <Content Include="App\Model\Socios\Obligaciones.js" />
     <Content Include="App\Model\Socios\Desempenos.js" />
@@ -262,6 +264,7 @@
     <Content Include="App\Store\Clientes\Clientes.js" />
     <Content Include="App\Store\Clientes\Kardex.js" />
     <Content Include="App\Store\Autos\Autos.js" />
+    <Content Include="App\Store\IngresosSocio\Ingresos.js" />
     <Content Include="App\Store\Paradas\Paradas.js" />
     <Content Include="App\Store\FondoEmergencia\Kardex.js" />
     <Content Include="App\Store\Hojas\Hojas.js" />
@@ -277,6 +280,7 @@
     <Content Include="App\Store\Moviles\Moviles.js" />
     <Content Include="App\Store\Socios\Antecedentes.js" />
     <Content Include="App\Store\Socios\Autos.js" />
+    <Content Include="App\Store\Socios\Kardex.js" />
     <Content Include="App\Store\Socios\Obligaciones.js" />
     <Content Include="App\Store\Socios\KardexObligaciones.js" />
     <Content Include="App\Store\Socios\SoloSocios.js" />
@@ -321,6 +325,12 @@
     <Content Include="App\View\Autos\Grids.js" />
     <Content Include="App\View\Autos\GridAutos.js" />
     <Content Include="App\View\Autos\Principal.js" />
+    <Content Include="App\View\IngresosSocio\FormIngreso.js" />
+    <Content Include="App\View\IngresosSocio\Forms.js" />
+    <Content Include="App\View\IngresosSocio\GridIngresos.js" />
+    <Content Include="App\View\IngresosSocio\Grids.js" />
+    <Content Include="App\View\IngresosSocio\PanelIngresos.js" />
+    <Content Include="App\View\IngresosSocio\Principal.js" />
     <Content Include="App\View\FondoEmergencia\DetalleFondoEmergencia.js" />
     <Content Include="App\View\FondoEmergencia\FormRetiroDeposito.js" />
     <Content Include="App\View\FondoEmergencia\Grids.js" />
@@ -339,7 +349,8 @@
     <Content Include="App\View\Parametros\GridParametros.js" />
     <Content Include="App\View\Parametros\Grids.js" />
     <Content Include="App\View\Parametros\Principal.js" />
-    <Content Include="App\View\Socios\PanelDesenpenos.js" />
+    <Content Include="App\View\Socios\GridKardex.js" />
+    <Content Include="App\View\Socios\PanelDesempenos.js" />
     <Content Include="App\View\Socios\PanelDocumentaciones.js" />
     <Content Include="App\View\Socios\PanelAntecedentes.js" />
     <Content Include="App\View\Socios\PanelFamiliares.js" />

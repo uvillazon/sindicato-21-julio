@@ -73,7 +73,7 @@ namespace Sindicato.Services
                     switch (filtros.codigo)
                     {
                         case "SIN MOVIL":
-                            result = result.Where(x=>x.SD_SOCIO_MOVILES.Count() == 0);
+                            result = result.Where(x => x.SD_SOCIO_MOVILES.Count() == 0);
                             break;
                         case "CON MOVIL":
                             result = result.Where(x => x.SD_SOCIO_MOVILES.Count() > 0);
@@ -90,23 +90,8 @@ namespace Sindicato.Services
             return result;
         }
 
-       
-        public IEnumerable<SD_SOCIO_DESEMPENOS> ObtenerDesempenosPaginado(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)
-        {
-            IQueryable<SD_SOCIO_DESEMPENOS> result = null;
-            ExecuteManager(uow =>
-            {
-                var manager = new SD_SOCIO_DESEMPENOSManager(uow);
 
-                result = manager.BuscarTodos();
 
-                paginacion.total = result.Count();
-
-                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
-
-            });
-            return result;
-        }
 
         public RespuestaSP GuardarSocio(SD_SOCIOS socio, int ID_USR)
         {
@@ -167,7 +152,7 @@ namespace Sindicato.Services
             {
                 var mnMovil = new SD_MOVILESManager(uow);
                 var mnSocioMovil = new SD_SOCIO_MOVILESManager(uow);
-                var movil = mnMovil.GuardarMovil(new SD_MOVILES() {ID_LINEA = 1 , DESCRIPCION = socio.DESCRIPCION , ESTADO = "ACTIVO",FECHA_ALTA=socio.FECHA_ALTA,OBSERVACION=socio.OBSERVACION ,NRO_MOVIL = socio.NRO_MOVIL}, ID_USR);
+                var movil = mnMovil.GuardarMovil(new SD_MOVILES() { ID_LINEA = 1, DESCRIPCION = socio.DESCRIPCION, ESTADO = "ACTIVO", FECHA_ALTA = socio.FECHA_ALTA, OBSERVACION = socio.OBSERVACION, NRO_MOVIL = socio.NRO_MOVIL }, ID_USR);
                 int idMovil;
                 bool esNumero = int.TryParse(movil, out idMovil);
                 if (esNumero)
@@ -182,14 +167,16 @@ namespace Sindicato.Services
                         result.msg = "Proceso Ejecutado Correctamente";
                         result.id = idMovil;
                     }
-                    else {
+                    else
+                    {
                         result.success = false;
                         result.msg = socioMovil;
-                        var mov = mnMovil.BuscarTodos(x=>x.ID_MOVIL == idMovil).FirstOrDefault();
+                        var mov = mnMovil.BuscarTodos(x => x.ID_MOVIL == idMovil).FirstOrDefault();
                         mnMovil.Delete(mov);
                     }
                 }
-                else {
+                else
+                {
                     result.success = false;
                     result.msg = movil;
                 }
@@ -351,13 +338,13 @@ namespace Sindicato.Services
 
 
 
-        public RespuestaSP GuardarSocioMovilAuto(SD_SOCIO_MOVIL_AUTOS soc,int DIAS, string login)
+        public RespuestaSP GuardarSocioMovilAuto(SD_SOCIO_MOVIL_AUTOS soc, int DIAS, string login)
         {
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
                 var managerSocioMovilAuto = new SD_SOCIO_MOVIL_AUTOSManager(uow);
-                var socio = managerSocioMovilAuto.GuardarSocioMovilAuto(soc,DIAS ,login);
+                var socio = managerSocioMovilAuto.GuardarSocioMovilAuto(soc, DIAS, login);
                 int idSocioMovilAuto;
                 bool esNumero = int.TryParse(socio, out idSocioMovilAuto);
                 if (esNumero)
@@ -366,7 +353,8 @@ namespace Sindicato.Services
                     result.msg = "Proceso Ejecutado Correctamente";
                     result.id = idSocioMovilAuto;
                 }
-                else {
+                else
+                {
                     result.success = false;
                     result.msg = socio;
                 }
@@ -375,5 +363,112 @@ namespace Sindicato.Services
 
             return result;
         }
+
+        #region Kardex Socio Ingresos , Egresos
+        public IEnumerable<SD_KARDEX_SOCIO> ObtenerKardexSociosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)
+        {
+            IQueryable<SD_KARDEX_SOCIO> result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_KARDEX_SOCIOManager(uow);
+
+                result = manager.BuscarTodos();
+                filtros.FiltrarDatos();
+                result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+                paginacion.total = result.Count();
+                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
+
+            });
+            return result;
+        }
+        #endregion
+        #region Ingresos Socio Eliminar , Crear , listado y por criterio
+        public RespuestaSP GuardarIngresoSocio(SD_INGRESOS_SOCIO ingreso, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_INGRESOS_SOCIOManager(uow);
+                var ing = manager.GuardarIngreso(ingreso, login);
+                int id;
+                bool esNumero = int.TryParse(ing, out id);
+                if (esNumero)
+                {
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                    result.id = id;
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = ing;
+                }
+
+            });
+
+            return result;
+        }
+
+        public RespuestaSP EliminarIngresoSocio(int ID_INGRESO)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_INGRESOS_SOCIOManager(uow);
+                var context = (SindicatoContext)manager.Context;
+                var ant = manager.BuscarTodos(x => x.ID_INGRESO == ID_INGRESO).FirstOrDefault();
+                if (ant != null)
+                {
+                    manager.Delete(ant);
+                    var kardex = context.SD_KARDEX_SOCIO.Where(x => x.OPERACION == "INGRESOS" && x.ID_OPERACION == ant.ID_INGRESO && x.ID_SOCIO == ant.ID_SOCIO);
+                    foreach (var item in kardex)
+                    {
+                        context.SD_KARDEX_SOCIO.DeleteObject(item);
+                    }
+                    ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+                    manager.Save();
+                    context.P_SD_ACT_KARDEX_SOCIO(ant.ID_SOCIO, ant.FECHA, ant.LOGIN, p_RES);
+                    result.success = true;
+                    result.msg = "Se elimino Correctamente";
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = "Ocurrio algun Problema";
+                }
+            });
+            return result;
+        }
+        public IEnumerable<SD_INGRESOS_SOCIO> ObtenerIngresosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)
+        {
+            IQueryable<SD_INGRESOS_SOCIO> result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_INGRESOS_SOCIOManager(uow);
+
+                result = manager.BuscarTodos();
+                filtros.FiltrarDatos();
+                result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+                paginacion.total = result.Count();
+                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
+
+            });
+            return result;
+        }
+
+        public SD_INGRESOS_SOCIO ObtenerIngresosPorCriterio(Expression<Func<SD_INGRESOS_SOCIO, bool>> criterio)
+        {
+            SD_INGRESOS_SOCIO result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_INGRESOS_SOCIOManager(uow);
+                result = manager.BuscarTodos(criterio).FirstOrDefault();
+            });
+            return result;
+        }
+        #endregion
+
+
+
     }
 }

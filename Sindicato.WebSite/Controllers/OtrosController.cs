@@ -54,7 +54,7 @@ namespace Sindicato.WebSite.Controllers
             };
             return Json(new { data = data, success = true });
         }
-        [HttpPost,ValidateInput(false)]
+        [HttpPost, ValidateInput(false)]
         public JsonResult GuardarAntecedente(SD_ANTECEDENTES ant)
         {
             string login = User.Identity.Name.Split('-')[0];
@@ -70,7 +70,7 @@ namespace Sindicato.WebSite.Controllers
             respuestaSP = _serOtro.EliminarAntecedente(ID_ANTECEDENTE);
             return Json(respuestaSP);
         }
-        #region Documentacion 
+        #region Documentacion
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult ObtenerDocumentacionesPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
         {
@@ -123,6 +123,64 @@ namespace Sindicato.WebSite.Controllers
             string login = User.Identity.Name.Split('-')[0];
             RespuestaSP respuestaSP = new RespuestaSP();
             respuestaSP = _serOtro.EliminarDocumentaciones(ID_DOCUMENTACION);
+            return Json(respuestaSP);
+        }
+
+        #endregion
+
+        #region Desempenos Socio Crear Editar Listar Obtener
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerDesempenoPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var socios = _serOtro.ObtenerDesempenosPaginado(paginacion, filtros);
+            var formatData = socios.Select(x => new
+            {
+                ID_DESEMPENO = x.ID_DESEMPENO,
+                ID_SOCIO = x.ID_SOCIO,
+                CARGO = x.CARGO,
+                FECHA_DESDE = x.FECHA_DESDE,
+                FECHA_HASTA = x.FECHA_HASTA,
+                FECHA_REG = x.FECHA_REG,
+                LOGIN = x.LOGIN,
+                OBSERVACION = x.OBSERVACION
+
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
+        [HttpPost]
+        public JsonResult ObtenerDesempenoPorId(int ID_DESEMPENO)
+        {
+            var x = _serOtro.ObtenerDesempenoPorCriterio(y => y.ID_DESEMPENO == ID_DESEMPENO);
+            var data = new
+            {
+                ID_DESEMPENO = x.ID_DESEMPENO,
+                ID_SOCIO = x.ID_SOCIO,
+                CARGO = x.CARGO,
+                FECHA_REG = x.FECHA_REG,
+                LOGIN = x.LOGIN,
+                OBSERVACION = x.OBSERVACION,
+                FECHA_DESDE = String.Format("{0:dd/MM/yyyy}", x.FECHA_DESDE),
+                FECHA_HASTA = String.Format("{0:dd/MM/yyyy}", x.FECHA_HASTA),
+            };
+            return Json(new { data = data, success = true });
+        }
+        [HttpPost, ValidateInput(false)]
+        public JsonResult GuardarDesempeno(SD_SOCIO_DESEMPENOS ant)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serOtro.GuardarDesempeno(ant, login);
+            return Json(respuestaSP);
+        }
+        [HttpPost]
+        public JsonResult EliminarDesempeno(int ID_DESEMPENO)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serOtro.EliminarDesempeno(ID_DESEMPENO);
             return Json(respuestaSP);
         }
 

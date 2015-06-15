@@ -57,7 +57,9 @@ namespace Sindicato.WebSite.Controllers
                 TELEFONO = x.SD_SOCIOS.TELEFONO,
                 CELULAR = x.SD_SOCIOS.CELULAR,
                 ESTADO = x.ESTADO,
-                ID_IMG = _serImg.ConImagen(x.ID_SOCIO , "SD_SOCIOS")
+                ID_IMG = _serImg.ConImagen(x.ID_SOCIO , "SD_SOCIOS"),
+                SALDO = x.SD_SOCIOS.SALDO,
+                DEUDA = x.SD_SOCIOS.DEUDA
                 //ID_IMG = 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
@@ -231,6 +233,91 @@ namespace Sindicato.WebSite.Controllers
             return Json(respuestaSP);
         }
         //GuardarObligacion
+        #endregion
+
+        #region Ingresos
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerIngresosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var ingresos = _serSoc.ObtenerIngresosPaginados(paginacion, filtros);
+            var formatData = ingresos.Select(x => new
+            {
+                ID_INGRESO = x.ID_INGRESO,
+                ID_SOCIO = x.ID_SOCIO,
+                FECHA = x.FECHA,
+                FECHA_REG = x.FECHA_REG,
+                INGRESO = x.INGRESO,
+                LOGIN = x.LOGIN,
+                NRO_RECIBO = x.NRO_RECIBO,
+                OBSERVACION = x.OBSERVACION
+
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
+        [HttpPost]
+        public JsonResult ObtenerIngresoPorId(int ID_INGRESO)
+        {
+            var x = _serSoc.ObtenerIngresosPorCriterio(y => y.ID_INGRESO == ID_INGRESO);
+            var data = new
+            {
+                ID_INGRESO = x.ID_INGRESO,
+                ID_SOCIO = x.ID_SOCIO,
+                NRO_RECIBO = x.NRO_RECIBO,
+                INGRESO = x.INGRESO,
+                LOGIN = x.LOGIN,
+                OBSERVACION = x.OBSERVACION,
+                FECHA = String.Format("{0:dd/MM/yyyy}", x.FECHA),
+                FECHA_REG = String.Format("{0:dd/MM/yyyy}", x.FECHA_REG),
+            };
+            return Json(new { data = data, success = true });
+        }
+        [HttpPost, ValidateInput(false)]
+        public JsonResult GuardarIngreso(SD_INGRESOS_SOCIO ant)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serSoc.GuardarIngresoSocio(ant, login);
+            return Json(respuestaSP);
+        }
+        [HttpPost]
+        public JsonResult EliminarIngreso(int ID_INGRESO)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serSoc.EliminarIngresoSocio(ID_INGRESO);
+            return Json(respuestaSP);
+        }
+        #endregion
+
+        #region Kardex Socio Ahorros
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerKardexPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var ingresos = _serSoc.ObtenerKardexSociosPaginados(paginacion, filtros);
+            var formatData = ingresos.Select(x => new
+            {
+                DETALLE = x.DETALLE,
+                ID_SOCIO = x.ID_SOCIO,
+                FECHA = x.FECHA,
+                FECHA_REG = x.FECHA_REG,
+                INGRESO = x.INGRESO,
+                LOGIN = x.LOGIN,
+                EGRESO = x.EGRESO,
+                SALDO = x.SALDO,
+                ID_KARDEX = x.ID_KARDEX,
+                ID_OPERACION = x.ID_OPERACION,
+                OPERACION = x.OPERACION
+
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
         #endregion
     }
 }
