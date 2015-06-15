@@ -1,8 +1,5 @@
 ﻿Ext.define("App.View.Autos.Principal", {
     extend: "App.Config.Abstract.PanelPrincipal",
-    controlador: 'Clientes',
-    accionGrabar: 'GrarbarCliente',
-    view: '',
     initComponent: function () {
         var me = this;
         me.CargarComponentes();
@@ -35,7 +32,7 @@
             region: 'center',
             width: '50%',
         });
-        //me.form.BloquearFormulario();
+        me.form.BloquearFormulario();
 
         me.items = [me.grid, me.form];
         me.grid.getSelectionModel().on('selectionchange', me.CargarDatos, this);
@@ -48,7 +45,8 @@
         var me = this;
         var disabled = selections.length === 0;
         if (!disabled) {
-            me.form.loadRecord(selections[0]);
+            //me.form.loadRecord(selections[0]);
+            me.form.loadFormulario("Autos", "ObtenerAutoPorId", {ID_AUTO : selections[0].get('ID_AUTO')});
             me.form.formImagen.CargarImagen(selections[0].get('ID_AUTO'));
         }
         else {

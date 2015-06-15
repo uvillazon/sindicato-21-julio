@@ -57,5 +57,31 @@ namespace Sindicato.WebSite.Controllers
             return Json(respuestaSP);
         }
 
+        [HttpPost]
+        public JsonResult ObtenerFamiliarPorId(int ID_FAMILIAR)
+        {
+            var familiar = _serFlia.ObtenerFamiliarPorCriterio(x => x.ID_FAMILIAR == ID_FAMILIAR);
+            var data = new
+            {
+                ID_FAMILIAR = familiar.ID_FAMILIAR,
+                ID_SOCIO = familiar.ID_SOCIO,
+                ID_CHOFER = familiar.ID_CHOFER,
+                NOMBRE = familiar.NOMBRE,
+                APELLIDO_MATERNO = familiar.APELLIDO_MATERNO,
+                APELLIDO_PATERNO = familiar.APELLIDO_PATERNO,
+                NOMBRE_COMPLETO = string.Format("{0} {1} {2} ", familiar.NOMBRE, familiar.APELLIDO_PATERNO, familiar.APELLIDO_MATERNO),
+                PARENTESCO = familiar.PARENTESCO,
+                CI = familiar.CI,
+                EXPEDIDO = familiar.EXPEDIDO,
+                FECHA_NAC = String.Format("{0:dd/MM/yyyy}", familiar.FECHA_NAC),
+                //familiar.FECHA_NAC,
+                EDAD = (DateTime.Now.Year - familiar.FECHA_NAC.Value.Year),
+                DIRECCION = familiar.DIRECCION,
+                TELEFONO = familiar.TELEFONO,
+                OBSERVACION = familiar.OBSERVACION
+            };
+            return Json(new { data = data, success = true });
+        }
+
     }
 }

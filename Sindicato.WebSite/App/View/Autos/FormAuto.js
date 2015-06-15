@@ -1,314 +1,123 @@
 ﻿Ext.define("App.View.Autos.FormAuto", {
     extend: "App.Config.Abstract.Form",
-    //    title: "Datos de Orden de Trabajo",gertertertert
     cargarStores: true,
     columns: 2,
-    gridPrincipal: null,
+    mostrarImagenes: true,
     initComponent: function () {
         var me = this;
         me.CargarComponentes();
-
-        //me.cargarEventos();
         this.callParent(arguments);
-        //Funciones.BloquearFormularioReadOnly(me, ["ID_SOCIO1"], "botones");
     },
     CargarComponentes: function () {
         var me = this;
-
-       
-//        me.toolbar = Funciones.CrearMenuBar();
-//        Funciones.CrearMenu('btn_Crear', 'Crear Socio', Constantes.ICONO_CREAR, me.EventosForm, me.toolbar, this);
-//        Funciones.CrearMenu('btn_Editar', 'Modificar Socio','user_edit', me.EventosForm, me.toolbar, this, null, true);
-//        Funciones.CrearMenu('btn_EditarMovil', 'Modificar Movil', Constantes.ICONO_EDITAR, me.EventosForm, me.toolbar, this, null, true);
-////        Funciones.CrearMenu('btn_Baja', 'Baja Socio', Constantes.ICONO_BAJA, me.EventosForm, me.toolbar, this, null, true);
-//        Funciones.CrearMenu('btn_Imagen', 'Imagen', 'image_add', me.EventosForm, me.toolbar, this, null, true);
-        //        me.toolbar.add(me.cbx_socio);
-        me.formImagen = Ext.create('App.View.Imagenes.ViewImagenes', {
-            //opcion: 'FormImagen',
+        me.txt_id = Ext.create("App.Config.Componente.TextFieldBase", {
+            name: "ID_AUTO",
+            hidden: true,
+        });
+        me.txt_id_movil = Ext.create("App.Config.Componente.TextFieldBase", {
+            name: "ID_MOVIL",
+            hidden: true,
+        });
+        me.store_tipo = Ext.create('App.Store.Listas.StoreLista');
+        me.store_tipo.setExtraParam('ID_LISTA', Lista.Buscar('TIPO_AUTO'));
+        me.cbx_tipo = Ext.create("App.Config.Componente.ComboBase", {
+            fieldLabel: "Tipo",
+            name: "TIPO",
+            width: 240,
+            store: me.store_tipo,
+            selectOnFocus: true,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+        });
+        me.store_color = Ext.create('App.Store.Listas.StoreLista');
+        me.store_color.setExtraParam('ID_LISTA', Lista.Buscar('COLOR'));
+        me.cbx_color = Ext.create("App.Config.Componente.ComboBase", {
+            fieldLabel: "Color",
+            name: "COLOR",
+            width: 240,
+            store: me.store_color,
+            selectOnFocus: true,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+        });
+        me.store_marca = Ext.create('App.Store.Listas.StoreLista');
+        me.store_marca.setExtraParam('ID_LISTA', Lista.Buscar('MARCA_AUTO'));
+        me.cbx_marca = Ext.create("App.Config.Componente.ComboBase", {
+            fieldLabel: "Marca",
+            name: "MARCA",
+            width: 240,
+            store: me.store_marca,
+            selectOnFocus: true,
+        });
+        me.txt_modelo = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Modelo",
+            name: "MODELO",
+            width: 240,
+            maxLength: 50,
+        });
+        me.txt_placa = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Placa",
+            name: "PLACA",
+            width: 240,
+            maxLength: 50,
+        });
+        me.txt_motor = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Motor",
+            name: "MOTOR",
+            width: 240,
+            maxLength: 50,
+        });
+        me.txt_chasis = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Chasis",
+            name: "CHASIS",
+            width: 240,
+            maxLength: 50,
+        });
+        me.txt_descripcion = Ext.create("App.Config.Componente.TextAreaBase", {
+            fieldLabel: "Descripcion",
+            name: "DESCRIPCION",
+            width: 480,
             colspan: 2,
-            //width: 550,
-            //height: 250,
-            TABLA: 'SD_AUTOS'
-            //ID_TABLA :15
+            maxLength: 200,
         });
-        //me.formImagen.store.load();
-        me.form = Ext.create("App.View.Socios.Forms.FormAuto", {
-            //            opcion: 'formFamiliar',
-            columns: 2,
-            colspan : 2,
-            botones: false
+        me.dat_fecha_alta = Ext.create("App.Config.Componente.DateFieldBase", {
+            opcion: "sin fecha",
+            fieldLabel: "Fecha Alta",
+            name: "FECHA_ALTA",
+            width: 240,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
         });
-        me.form.BloquearFormulario();
-        //me.CargarTabPanel();
-        me.items = [
-            me.form,
-            me.formImagen
-            //me.form
-        ];
-    },
-//    CargarTabPanel: function () {
-//        var me = this;
-
-//        me.toolbarAuto = Funciones.CrearMenuBar();
-//        Funciones.CrearMenu('btn_CrearAuto', 'Crear', Constantes.ICONO_CREAR, me.EventosForm, me.toolbarAuto, this);
-//        Funciones.CrearMenu('btn_EditarAuto', 'Editar', Constantes.ICONO_EDITAR, me.EventosForm, me.toolbarAuto, this,null,true);
-//        Funciones.CrearMenu('btn_ImagenAuto', 'Imagen', 'image_add', me.EventosForm, me.toolbarAuto, this,null,true);
-//        me.gridAutos = Ext.create("App.View.Socios.Grids", {
-//            opcion: 'GridAutomoviles',
-//            height: 200,;
-//            fbarmenu: me.toolbarAuto
-//        });
-//         me.gridAutos.getSelectionModel().on('selectionchange', me.onSelectChangeAuto, this);
-
-//        me.toolbarFamiliares = Funciones.CrearMenuBar();
-//        Funciones.CrearMenu('btn_CrearFamiliar', 'Crear', Constantes.ICONO_CREAR, me.EventosForm, me.toolbarFamiliares, this);
-//        Funciones.CrearMenu('btn_EditarFamiliar', 'Editar', Constantes.ICONO_EDITAR, me.EventosForm, me.toolbarFamiliares, this);
-//        Funciones.CrearMenu('btn_BajaFamiliar', 'Baja', Constantes.ICONO_BAJA, me.EventosForm, me.toolbarFamiliares, this);
-//        me.gridFamiliares = Ext.create("App.View.Socios.Grids", {
-//            opcion: 'GridFamiliares',
-//            height: 200,
-//            fbarmenu: me.toolbarFamiliares
-//        });
-
-//        me.toolbarDocumentos = Funciones.CrearMenuBar();
-//        Funciones.CrearMenu('btn_CrearDocumento', 'Crear', Constantes.ICONO_CREAR, me.EventosForm, me.toolbarDocumentos, this);
-//        Funciones.CrearMenu('btn_EditarDocumento', 'Editar', Constantes.ICONO_EDITAR, me.EventosForm, me.toolbarDocumentos, this);
-//        Funciones.CrearMenu('btn_BajaDocumento', 'Baja', Constantes.ICONO_BAJA, me.EventosForm, me.toolbarDocumentos, this);
-
-//        me.gridDocumentos = Ext.create("App.View.Socios.Grids", {
-//            opcion: 'GridDocumentos',
-//            height: 200,
-//            fbarmenu: me.toolbarDocumentos
-//        });
-
-//        me.toolbarDesempeno = Funciones.CrearMenuBar();
-//        Funciones.CrearMenu('btn_CrearDesempeno', 'Crear', Constantes.ICONO_CREAR, me.EventosForm, me.toolbarDesempeno, this);
-//        Funciones.CrearMenu('btn_EditarDesempeno', 'Editar', Constantes.ICONO_EDITAR, me.EventosForm, me.toolbarDesempeno, this);
-//        Funciones.CrearMenu('btn_BajaDesempeno', 'Baja', Constantes.ICONO_BAJA, me.EventosForm, me.toolbarDesempeno, this);
-//        me.gridDesempeno = Ext.create("App.View.Socios.Grids", {
-//            opcion: 'GridDesempenos',
-//            height: 200,
-//            fbarmenu: me.toolbarDesempeno
-//        });
-
-//        me.toolbarAntecedente = Funciones.CrearMenuBar();
-//        Funciones.CrearMenu('btn_CrearAntecedente', 'Crear', Constantes.ICONO_CREAR, me.EventosForm, me.toolbarAntecedente, this);
-//        Funciones.CrearMenu('btn_EditarAntecedente', 'Editar', Constantes.ICONO_EDITAR, me.EventosForm, me.toolbarAntecedente, this);
-//        Funciones.CrearMenu('btn_BajaAntecedente', 'Baja', Constantes.ICONO_BAJA, me.EventosForm, me.toolbarAntecedente, this);
-//        me.gridAntecedentes = Ext.create("App.View.Socios.Grids", {
-//            opcion: 'GridAntecedentes',
-//            height: 200,
-//            fbarmenu: me.toolbarAntecedente
-//        });
-
-//        me.tabPanel = Ext.create('Ext.tab.Panel', {
-//            width: 960,
-//            height: 230,
-//            colspan: 4,
-//            items: [
-//                me.gridAutos,
-//                me.gridFamiliares,
-//                me.gridDocumentos,
-//                me.gridDesempeno,
-//                me.gridAntecedentes
-//            ]
-//        });
-//    },
-//    onSelectChangeAuto: function (selModel, selections) {
-//        var me = this;
-//        var disabled = selections.length === 0;
-//        me.recordAuto = disabled ? null : selections[0];
-//        console.log('disbled: ' + disabled);
-//        Funciones.DisabledButton('btn_ImagenAuto', me.toolbarAuto, disabled);
-////        Funciones.DisabledButton('btn_BajaFamiliarbtn_ImagenAuto', me.toolbarFamiliares, disabled);
-//    },
-//    cargarEventos: function () {
-//        var me = this;
-//        me.cbx_socio.on('select', function (cmb, record) {
-//            me.loadRecord(record[0]);
-//            me.record = record[0];
-//            Funciones.BloquearFormularioReadOnly(me, ["ID_SOCIO1"], "botones");
-//            me.gridFamiliares.getStore().setExtraParams({ ID_SOCIO: record[0].get('ID_SOCIO') });
-//            me.gridFamiliares.getStore().load();
-//            me.gridAutos.getStore().setExtraParams({ ID_MOVIL: record[0].get('ID_MOVIL') });
-//            me.gridAutos.getStore().load();
-////            alert("asdas2");
-//            me.formImagen.CargarImagen(record[0].get('ID_IMG'));
-//        });
-//        me.txt_id_movil.on('change', function (cmb, n, o) {
-//            var disabled = n === "";
-//            Funciones.DisabledButton('btn_Editar', me.toolbar, disabled);
-//            Funciones.DisabledButton('btn_EditarMovil', me.toolbar, disabled);
-//            Funciones.DisabledButton('btn_Baja', me.toolbar, disabled);
-//            Funciones.DisabledButton('btn_Imagen', me.toolbar, disabled);
-
-//        });
-//    },
-//    EventosForm: function (btn) {
-//        var me = this;
-//        switch (btn.getItemId()) {
-//            case "btn_Crear":
-////                me.BotonesSocio(false);
-//                me.CrearSocio(true);
-
-//                break;
-//            case "btn_Editar":
-////                me.BotonesSocio(false);
-//                me.CrearSocio(false);
-//                break;
-//            case "btn_EditarMovil":
-//                me.EditarLinea();
-//                break;
+        
+        me.formImagen = Ext.create('App.View.Imagenes.ViewImagenes', {
+            colspan: 2,
             
-//            case "btn_Imagen":
-//                me.CrearImagen(true);
-//                break;
-//            case "btn_Detalle":
-//                me.MostrarFormEgreso(false, true);
-//                break;
-//            case "btn_Eliminar":
-//                me.EliminarRegistro();
-//                break;
-//            case "btn_CrearFamiliar":
-//                me.CrearFamiliar();
-//                break;
-//            case "btn_EditarFamiliar":
-//                if (me.gridFamiliares.record != null) {
-//                    me.CrearFamiliar(me.gridFamiliares.record);
-//                }
-//                else {
-//                    Ext.Msg.alert("Error", "Seleccione un Registro...");
-//                }
-//                break;
-//            case "btn_CrearAuto":
-//                if (me.record != null){
-//                    me.FormAuto();
-//                }
-//                else {Ext.Msg.alert("Aviso","Seleccione un Registro")}
-//                break;
-//            case "btn_ImagenAuto":
-//                me.CrearImagenAuto(true);
-//                break;
-                
-//            default:
-//                Ext.Msg.alert("Aviso", "No Existe el botton");
-//        }
-//    },
-//    CrearImagenAuto: function () {
-//        var me = this;
-//        if (me.recordAuto != null) {
-//            var form = Ext.create("App.View.Imagenes.FormImagen", { opcion: 'FormImagen' });
-//            form.MostrarWindowImagen("SD_AUTOS", me.recordAuto.get('ID_AUTO'), null);
-//        }
-//        else {
-//            Ext.MessageBox.alert('Error', "Seleccione un Registro");
-//        }
-//    },
-//    CrearImagen: function () {
-//        var me = this;
-//        if (me.cbx_socio.getValue() != null) {
-//            var form = Ext.create("App.View.Imagenes.FormImagen", { opcion: 'FormImagen' });
-//            form.MostrarWindowImagen("SD_SOCIOS", me.cbx_socio.datos[0].get('ID_SOCIO'), null);
-//        }
-//        else {
-//            Ext.MessageBox.alert('Error', "Seleccione un Registro");
-//        }
-//    },
-//    EditarLinea : function(){
-//        var me = this;
-//        var win = Ext.create("App.Config.Abstract.Window", { botones: true });
-//        var form = Ext.create("App.View.Socios.Forms", {
-//            title : 'Datos Socio Movil',
-//            opcion: 'FormMovil',
-//            botones: false
-//        });
-//        Funciones.BloquearFormularioReadOnly(form,["FECHA_ALTA","OBSERVACION" ,"DESCRIPCION" , "TIPO_MOVIL"], "botones");
-////        form.loadRecord(me.record);
-//        form.loadFormulario('Socios', 'ObtenerSocioMovil', {ID_SOCIO_MOVIL  : me.record.get('ID_SOCIO_MOVIL')});
-//        win.add(form);
-//        win.show();
-//        win.btn_guardar.on('click', function () {
-//            Funciones.AjaxRequestWin("Socios", "GuardarSocioMovil", win, form, null, "Esta Seguro de Guardar", null, win);
-//        });
-//    },
-//    CrearSocio: function (bool) {
-//        var me = this;
-//        var win = Ext.create("App.Config.Abstract.Window", { botones: true });
-//        var form = Ext.create("App.View.Socios.Forms", {
-//            title : 'Datos Socio',
-//            opcion: 'FormSocio',
-//            botones: false
-//        });
-//        if(bool == false){
-//            form.loadRecord(me.record);
-//        }
-//        win.btn_guardar.on('click', function () {
-//            Funciones.AjaxRequestWin("Socios", "GuardarSocio", win, form, null, "Esta Seguro de Guardar", null, win);
-//        });
-////        Funciones.BloquearFormularioReadOnly(form,["FECHA_INGRESO" , "TIPO_MOVIL"], "botones");
-////        form.loadRecord(me.record);
-//        win.add(form);
-//        win.show();
-//    },
-//    BotonesSocio: function (hidden) {
-//        var me = this;
-//        if (hidden) {
-//            me.btn_guardar.hide();
-//            me.btn_limpiar.hide();
-//        }
-//        else {
-//            me.btn_guardar.show();
-//            me.btn_limpiar.show();
-//        }
-//    },
-//    GuardarSocio: function () {
-//        var me = this;
-//        Funciones.AjaxRequestForm("Socios", "GuardarSocio", me, me, me.gridPrincipal, "Esta Seguro de Guardar Socio", null, me);
-//    },
-//    BloquearFormulario: function (result) {
-//        var me = this;
-//        me.BotonesSocio(true);
-//        me.txt_id.setValue(result.id);
-//        Funciones.BloquearFormularioReadOnly(me, ["ID_SOCIO1"], "botones");
-//    },
-//    CrearFamiliar: function (record) {
-//        var me = this;
-//        var win = Ext.create("App.Config.Abstract.Window", { botones: true });
-//        var form = Ext.create("App.View.Socios.Forms", {
-//            opcion: 'formFamiliar',
-//            botones: false
-//        });
-//        if (record == null) {
-//            form.txt_id_socio.setValue(me.txt_id.getValue());
-//        }
-//        else {
-//            form.loadRecord(record);
+            TABLA: 'SD_AUTOS',
+            hidden: !me.mostrarImagenes
+        });
+        me.panelImagen = Ext.create('Ext.panel.Panel', {
+            title: 'Visor de Imagenes',
+            //width: 200,
+            colspan : 2,
+            items: [me.formImagen]
+        });
+        me.items = [
+        me.txt_id,
+        me.txt_id_movil,
+        me.cbx_tipo,
+        me.cbx_color,
+        me.cbx_marca,
+        me.txt_modelo,
+        me.txt_placa,
+        me.txt_motor,
+        me.txt_chasis,
 
-//        }
-//        win.add(form);
-//        win.show();
-//        win.btn_guardar.on('click', function () {
-//            Funciones.AjaxRequestWin("Familiares", "GuardarFamiliar", win, form, me.gridFamiliares, "Esta Seguro de Guardar", null, win);
-//        });
-//    },
-//    FormAuto: function (editar) {
-//        var me = this;
-//        var win = Ext.create("App.Config.Abstract.Window", { botones: true });
-//        var form = Ext.create("App.View.Socios.Forms.FormAuto", {
-////            opcion: 'formFamiliar',
-//            columns: 2,
-//            botones: false
-//        });
-//        if (editar) {
-//            form.loadRecord(me.recordSelected);
-//        }
-//        else {
-//            form.txt_id_movil.setValue(me.txt_id_movil.getValue());
-//        }
-//        win.add(form);
-//        win.show();
-//        win.btn_guardar.on('click', function () {
-//            Funciones.AjaxRequestWin("Socios", "GuardarAuto", win, form, me.gridAutos, "Esta Seguro de Guardar", null, win);
-//        });
-//    },
+        me.dat_fecha_alta,
+         me.txt_descripcion,
+         me.panelImagen
+        ];
+
+
+
+    },
 });

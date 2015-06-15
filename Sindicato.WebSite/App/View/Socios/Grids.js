@@ -92,7 +92,7 @@
             { header: "Tipo<br>Documento", width: 100, sortable: true, dataIndex: "TIPO" },
             { header: "Observaciones", width: 250, sortable: true, dataIndex: "OBSERVACION" },
             { header: "Fecha Presentacion", width: 100, sortable: true, dataIndex: "FECHA", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
-            { header: " - ", width: 30, sortable: false, dataIndex: "ID_USR", hidden: true }
+            { header: "login", width: 30, sortable: false, dataIndex: "LOGIN" }
         ];
 
     },
@@ -125,19 +125,16 @@
     },
     CargarGridAutomoviles: function () {
         var me = this;
-        me.store = Ext.create("App.Store.Socios.Autos");
+        me.store = Ext.create("App.Store.Autos.AutosSocios");
         me.columns = [
-           { xtype: "rownumberer", width: 30, sortable: false },
-            //{ header: "Img", width: 155, sortable: true, dataIndex: 'ID_IMG', renderer: me.renderImagenAuto },
-            { header: "Nro Movil", width: 70, sortable: true, dataIndex: "MOVIL" },
-            { header: "Tipo", width: 100, sortable: true, dataIndex: "TIPO" },
-            { header: "Marca", width: 100, sortable: true, dataIndex: "MARCA" },
-            { header: "Modelo", width: 100, sortable: true, dataIndex: "MODELO" },
-            { header: "Placa", width: 100, sortable: true, dataIndex: "PLACA" },
-            { header: "Color", width: 100, sortable: true, dataIndex: "COLOR" },
-            { header: "Descripcion", width: 100, sortable: true, dataIndex: "DESCRIPCION" },
-            { header: "Fecha", width: 100, sortable: true, dataIndex: "FECHA_ALTA", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
-            { header: " - ", width: 30, sortable: false, dataIndex: "ID_USR", hidden: true },
+            { xtype: "", width: 30, sortable: false },
+            { header: "Tipo", width: 90, sortable: true, dataIndex: "TIPO" },
+            { header: "Automovil", width: 150, sortable: true, dataIndex: "AUTO" },
+            { header: "Estado", width: 80, sortable: true, dataIndex: "ESTADO" },
+            { header: "Motivo Alta", width: 80, sortable: true, dataIndex: "MOTIVO_ALTA" },
+            { header: "Motivo Baja", width: 80, sortable: true, dataIndex: "MOTIVO_BAJA" },
+            { header: "Fecha Alta", width: 90, sortable: true, dataIndex: "FECHA_ALTA", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
+            { header: "Fecha Baja", width: 90, sortable: true, dataIndex: "FECHA_BAJA", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
         ];
     },
     CargarGridObligaciones: function () {

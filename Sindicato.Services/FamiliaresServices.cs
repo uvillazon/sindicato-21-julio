@@ -41,7 +41,7 @@ namespace Sindicato.Services
             {
                 var context = (SindicatoContext)uow.Context;
                 ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
-                
+
                 context.P_SD_ALTA_SD_FAMILIARES(fam.ID_FAMILIAR, fam.ID_SOCIO, fam.ID_CHOFER, fam.NOMBRE, fam.APELLIDO_PATERNO, fam.APELLIDO_MATERNO, fam.CI, fam.EXPEDIDO, fam.FECHA_NAC, fam.PARENTESCO, fam.OBSERVACION, "asdasd", fam.TELEFONO, ID_USR, p_res);
                 int id;
                 bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
@@ -60,6 +60,19 @@ namespace Sindicato.Services
             });
 
             return result;
+        }
+
+
+        public SD_FAMILIARES ObtenerFamiliarPorCriterio(Expression<Func<SD_FAMILIARES, bool>> criterio)
+        {
+            SD_FAMILIARES result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_FAMILIARESManager(uow);
+                result = manager.BuscarTodos(criterio).FirstOrDefault();
+            });
+            return result;
+            //throw new NotImplementedException();
         }
     }
 }

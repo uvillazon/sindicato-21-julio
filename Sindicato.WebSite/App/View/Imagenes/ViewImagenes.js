@@ -18,6 +18,7 @@ Ext.define('App.View.Imagenes.ViewImagenes', {
     autoScroll: true,
     opcion: '',
     verReporte: null,
+    tamano : 200,
     initComponent: function () {
         var me = this;
         me.store = Ext.create('App.Store.Imagenes.Imagenes');
@@ -33,8 +34,8 @@ Ext.define('App.View.Imagenes.ViewImagenes', {
            '<tpl for=".">',
                '<div class="thumb-wrap">',
                    '<div class="thumb">',
-                   (!Ext.isIE6 ? '<img src="' + me.direccion + 'id={ID_IMG}&tamano=200" />' :
-                   '<div style="width:74px;height:74px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + me.direccion + 'id={ID_IMG}&tamano=200\')"></div>'),
+                   (!Ext.isIE6 ? '<img src="' + me.direccion + 'id={ID_IMG}&tamano='+me.tamano+'" />' :
+                   '<div style="width:74px;height:74px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + me.direccion + 'id={ID_IMG}&tamano='+me.tamano+'\')"></div>'),
                    '</div>',
                    '<span>{DESCRIPCION}</span>',
                '</div>',
