@@ -14,7 +14,7 @@ namespace Sindicato.Services.Interfaces
 
         IEnumerable<SD_FAMILIARES> ObtenerFamiliaresPaginados(PagingInfo paginacion, FiltrosModel<FamiliaresModel> filtros);
         RespuestaSP GuardarFamiliar(SD_FAMILIARES fam, int ID_USR);
-
+        SD_FAMILIARES ObtenerFamiliarPorCriterio(Expression<Func<SD_FAMILIARES, bool>> criterio);
         //SD_USUARIOS
     }
 }

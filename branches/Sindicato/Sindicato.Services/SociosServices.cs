@@ -90,46 +90,13 @@ namespace Sindicato.Services
             return result;
         }
 
-        public IEnumerable<SD_DOCUMENTACIONES> ObtenerSocioDocumentacionesPaginado(PagingInfo paginacion)
-        {
-            IQueryable<SD_DOCUMENTACIONES> result = null;
-            ExecuteManager(uow =>
-            {
-                var manager = new SD_DOCUMENTACIONESManager(uow);
-
-                result = manager.BuscarTodos();
-
-                paginacion.total = result.Count();
-
-                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
-
-            });
-            return result;
-        }
-
-        public IEnumerable<SD_SOCIO_DESEMPENOS> ObtenerSocioDesempenosPaginado(PagingInfo paginacion)
+       
+        public IEnumerable<SD_SOCIO_DESEMPENOS> ObtenerDesempenosPaginado(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)
         {
             IQueryable<SD_SOCIO_DESEMPENOS> result = null;
             ExecuteManager(uow =>
             {
                 var manager = new SD_SOCIO_DESEMPENOSManager(uow);
-
-                result = manager.BuscarTodos();
-
-                paginacion.total = result.Count();
-
-                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
-
-            });
-            return result;
-        }
-
-        public IEnumerable<SD_ANTECEDENTES> ObtenerSocioAntecedentesPaginado(PagingInfo paginacion)
-        {
-            IQueryable<SD_ANTECEDENTES> result = null;
-            ExecuteManager(uow =>
-            {
-                var manager = new SD_ANTECEDENTESManager(uow);
 
                 result = manager.BuscarTodos();
 
@@ -231,23 +198,6 @@ namespace Sindicato.Services
 
             return result;
         }
-
-        public RespuestaSP GuardarSocioDocumento(SD_DOCUMENTACIONES doc, int ID_USR)
-        {
-            throw new NotImplementedException();
-        }
-
-        public RespuestaSP GuardarSocioDesempeno(SD_SOCIO_DESEMPENOS des, int ID_USR)
-        {
-            throw new NotImplementedException();
-        }
-
-        public RespuestaSP GuardarSocioAntecedente(SD_ANTECEDENTES ant, int ID_USR)
-        {
-            throw new NotImplementedException();
-        }
-
-
         public SD_SOCIOS ObtenerSocioPorCriterio(Expression<Func<SD_SOCIOS, bool>> criterio)
         {
             SD_SOCIOS result = null;
@@ -399,5 +349,31 @@ namespace Sindicato.Services
 
 
 
+
+
+        public RespuestaSP GuardarSocioMovilAuto(SD_SOCIO_MOVIL_AUTOS soc,int DIAS, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var managerSocioMovilAuto = new SD_SOCIO_MOVIL_AUTOSManager(uow);
+                var socio = managerSocioMovilAuto.GuardarSocioMovilAuto(soc,DIAS ,login);
+                int idSocioMovilAuto;
+                bool esNumero = int.TryParse(socio, out idSocioMovilAuto);
+                if (esNumero)
+                {
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                    result.id = idSocioMovilAuto;
+                }
+                else {
+                    result.success = false;
+                    result.msg = socio;
+                }
+
+            });
+
+            return result;
+        }
     }
 }

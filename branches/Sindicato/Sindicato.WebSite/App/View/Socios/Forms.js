@@ -7,6 +7,7 @@
     EventosForm: null,
     scope: null,
     val: 0,
+    conHtml: true,
     initComponent: function () {
         var me = this;
         if (me.opcion == "FormImagen") {
@@ -37,6 +38,12 @@
         }
         else if (me.opcion == "FormCambioObligacion") {
             me.CargarFormCambioObligacion();
+        }
+        else if (me.opcion == "FormAntecedente") {
+            me.CargarFormAntecedente();
+        }
+        else if (me.opcion == "FormDocumentacion") {
+            me.CargarFormDocumentacion();
         }
         this.callParent(arguments);
     },
@@ -389,6 +396,7 @@
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
         });
+
         me.txt_observacion = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Observaciones",
             name: "OBSERVACION",
@@ -396,6 +404,7 @@
             colspan: 2,
             maxLength: 500,
         });
+
 
         me.items = [
             me.txt_id,
@@ -476,7 +485,7 @@
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false
         });
-        
+
         me.num_nro_movil = Ext.create("App.Config.Componente.NumberFieldBase", {
             fieldLabel: "Nro Movil",
             name: "NRO_MOVIL",
@@ -507,8 +516,8 @@
             fieldLabel: "Tipo Movil",
             width: 240,
             readOnly: true,
-            value : 'PRIMARIO',
-            colspan : 2,
+            value: 'PRIMARIO',
+            colspan: 2,
         });
         me.dat_fecha_ingreso = Ext.create("App.Config.Componente.DateFieldBase", {
             opcion: "sin fecha",
@@ -535,10 +544,142 @@
         me.items = [
             me.txt_id_socio,
             me.cbx_socio,
-            me.num_nro_movil,   me.dat_fecha_ingreso,
+            me.num_nro_movil, me.dat_fecha_ingreso,
             me.txt_tipo_linea,
             me.txt_descripcion,
             me.txt_observacion
         ];
+    },
+    CargarFormAntecedente: function () {
+        var me = this;
+        me.txt_id = Ext.create("App.Config.Componente.TextFieldBase", {
+            name: "ID_ANTECEDENTE",
+            hidden: true,
+        });
+        me.txt_id_socio = Ext.create("App.Config.Componente.TextFieldBase", {
+            name: "ID_SOCIO",
+            hidden: true,
+        });
+        me.txt_id_chofer = Ext.create("App.Config.Componente.TextFieldBase", {
+            name: "ID_CHOFER",
+            hidden: true,
+        });
+
+        me.store_motivoAntecedente = Ext.create('App.Store.Listas.StoreLista');
+        me.store_motivoAntecedente.setExtraParam('ID_LISTA', Lista.Buscar('MOTIVO_ANTECEDENTE'));
+        me.cbx_antecedente = Ext.create("App.Config.Componente.ComboBase", {
+            fieldLabel: "Motivo",
+            name: "MOTIVO",
+            width: 480,
+            colspan: 2,
+            store: me.store_motivoAntecedente,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+        });
+        me.dat_fecha = Ext.create("App.Config.Componente.DateFieldBase", {
+            opcion: "sin fecha",
+            fieldLabel: "Fecha",
+            name: "FECHA",
+            width: 240,
+            colspan: 2,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+        });
+
+        if (me.conHtml) {
+            me.txt_observacion = Ext.create("Ext.form.HtmlEditor", {
+                fieldLabel: "Observaciones",
+                name: "OBSERVACION",
+                width: 480,
+                //height: 150,
+                colspan: 2,
+                maxLength: 1500,
+            });
+        }
+        else {
+            me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
+                fieldLabel: "Observaciones",
+                name: "OBSERVACION",
+                width: 480,
+                height: 150,
+                colspan: 2,
+                maxLength: 1500,
+            });
+        }
+        //alert("entro");
+        me.items = [
+           me.txt_id,
+           me.txt_id_socio,
+           me.txt_id_chofer,
+           me.cbx_antecedente,
+           me.dat_fecha,
+           me.txt_observacion,
+        ];
+
+    },
+    CargarFormDocumentacion: function () {
+        var me = this;
+        me.txt_id = Ext.create("App.Config.Componente.TextFieldBase", {
+            name: "ID_DOCUMENTACION",
+            hidden: true,
+        });
+        me.txt_id_socio = Ext.create("App.Config.Componente.TextFieldBase", {
+            name: "ID_SOCIO",
+            hidden: true,
+        });
+        me.txt_id_chofer = Ext.create("App.Config.Componente.TextFieldBase", {
+            name: "ID_CHOFER",
+            hidden: true,
+        });
+        me.txt_documento = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Documento",
+            name: "DOCUMENTACION",
+            width: 480,
+            colspan: 2,
+            maxLength: 50,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+        });
+
+        me.store_tipo = Ext.create('App.Store.Listas.StoreLista');
+        me.store_tipo.setExtraParam('ID_LISTA', Lista.Buscar('TIPO_DOCUMENTO'));
+        me.cbx_tipo = Ext.create("App.Config.Componente.ComboBase", {
+            fieldLabel: "Tipo Doc",
+            name: "TIPO",
+            width: 480,
+            colspan: 2,
+            store: me.store_tipo,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+        });
+        me.dat_fecha = Ext.create("App.Config.Componente.DateFieldBase", {
+            opcion: "sin fecha",
+            fieldLabel: "Fecha",
+            name: "FECHA",
+            width: 240,
+            colspan: 2,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+        });
+        me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
+            fieldLabel: "Observaciones",
+            name: "OBSERVACION",
+            width: 480,
+            //height: 150,
+            colspan: 2,
+            maxLength: 1500,
+        });
+        //alert("entro");
+        me.items = [
+           me.txt_id,
+           me.txt_id_socio,
+           me.txt_id_chofer,
+           me.txt_documento,
+           me.cbx_tipo,
+           me.dat_fecha,
+           me.txt_observacion,
+        ];
+
     }
+
 });

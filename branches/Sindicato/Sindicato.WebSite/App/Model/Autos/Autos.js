@@ -19,6 +19,14 @@
             { type: "int", name: "ID_IMG" },
             { type: "string", name: "TIPO_ACTUAL" },
             { type: "string", name: "MOVIL_ACTUAL" },
+            { type: "string", name: "AUTO" },
+            { type: "int", name: "ID_SOCIO_MOVIL_AUTO" },
+            { type: "int", name: "ID_SOCIO_MOVIL" },
+            { type: "string", name: "MOTIVO_ALTA" },
+            { type: "string", name: "MOTIVO_BAJA" },
+            { type: "string", name: "LOGIN_ALTA" },
+            { type: "string", name: "LOGIN_BAJA" },
+            { type: "string", name: "ESTADO" }
             
     ]
 });

@@ -16,5 +16,8 @@ namespace Sindicato.Services.Interfaces
         SD_AUTOS ObtenereAutoPorCriterio(Expression<Func<SD_AUTOS, bool>> criterio);
         RespuestaSP GuardarAuto(SD_AUTOS auto, string login);
         //SD_USUARIOS
+
+        IEnumerable<SD_SOCIO_MOVIL_AUTOS> ObtenerAutosSociosPaginados(PagingInfo paginacion, FiltrosModel<AutosModel> filtros);
+        //IEnumerable<SD_SOCIO_MOVIL_AUTOS> ObtenerAutosSociosPaginados(PagingInfo paginacion, FiltrosModel<AutosModel> filtros)
     }
 }

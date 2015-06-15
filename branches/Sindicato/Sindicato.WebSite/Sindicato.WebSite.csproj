@@ -86,6 +86,7 @@
     <Compile Include="Controllers\ChoferesController.cs" />
     <Compile Include="Controllers\CajasController.cs" />
     <Compile Include="Controllers\AutosController.cs" />
+    <Compile Include="Controllers\OtrosController.cs" />
     <Compile Include="Controllers\ParadasController.cs" />
     <Compile Include="Controllers\VentaHojasController.cs" />
     <Compile Include="Controllers\ParametrosController.cs" />
@@ -253,6 +254,7 @@
     <Content Include="App\Model\Ventas\Precios.js" />
     <Content Include="App\Model\Ventas\Ventas.js" />
     <Content Include="App\Model\Ventas\VentasCredito.js" />
+    <Content Include="App\Store\Autos\AutosSocios.js" />
     <Content Include="App\Store\Cajas\Cajas.js" />
     <Content Include="App\Store\Cajas\Kardex.js" />
     <Content Include="App\Store\Choferes\Choferes.js" />
@@ -337,7 +339,11 @@
     <Content Include="App\View\Parametros\GridParametros.js" />
     <Content Include="App\View\Parametros\Grids.js" />
     <Content Include="App\View\Parametros\Principal.js" />
-    <Content Include="App\View\Socios\Copia de FormSocio.js" />
+    <Content Include="App\View\Socios\PanelDesenpenos.js" />
+    <Content Include="App\View\Socios\PanelDocumentaciones.js" />
+    <Content Include="App\View\Socios\PanelAntecedentes.js" />
+    <Content Include="App\View\Socios\PanelFamiliares.js" />
+    <Content Include="App\View\Socios\FormAutoSocio.js" />
     <Content Include="App\View\Socios\PanelAutos.js" />
     <Content Include="App\View\Socios\FormObligacionSocio.js" />
     <Content Include="App\View\Socios\FormSocio.js" />

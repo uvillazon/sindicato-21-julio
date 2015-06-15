@@ -40,8 +40,13 @@
             TABLA: 'SD_SOCIOS'
             //ID_TABLA :15
         });
+        me.panelImagen = Ext.create('Ext.panel.Panel', {
+            title: 'Visor de Imagenes',
+            //width: 200,
+            colspan: 2,
+            items: [me.formImagen]
+        });
 
-        
         me.txt_id_movil = Ext.create("App.Config.Componente.TextFieldBase", {
             name: "ID_MOVIL",
             hidden: true
@@ -93,7 +98,7 @@
 
             me.txt_observacion,
             me.txt_estado,
-            me.formImagen
+            me.panelImagen
             //me.tabPanel
 
         ];

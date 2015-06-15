@@ -174,7 +174,17 @@ namespace Sindicato.WebSite.Controllers
             return Json(respuestaSP);
         }
         #endregion
+        #region Automoviles Socio Movil Autos
+        [HttpPost]
+        public JsonResult GuardarSocioMovilAutoPrincipal(SD_SOCIO_MOVIL_AUTOS soc, int DIAS) {
 
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serSoc.GuardarSocioMovilAuto(soc,DIAS, login);
+            return Json(respuestaSP);
+        }
+        
+        #endregion
         #region Obligaciones Socio
         [HttpGet]
         public JavaScriptResult ObtenerObligaciones(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)

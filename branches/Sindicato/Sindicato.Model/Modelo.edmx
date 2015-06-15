@@ -16,9 +16,11 @@
           <EntitySet Name="SD_FONDO_EMERGENCIAS" EntityType="Model.Store.SD_FONDO_EMERGENCIAS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_GARANTES" EntityType="Model.Store.SD_GARANTES" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_IMAGENES" EntityType="Model.Store.SD_IMAGENES" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_INGRESOS_SOCIO" EntityType="Model.Store.SD_INGRESOS_SOCIO" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_KARDEX_EFECTIVO" EntityType="Model.Store.SD_KARDEX_EFECTIVO" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_KARDEX_FM" EntityType="Model.Store.SD_KARDEX_FM" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_KARDEX_OBLIGACION" EntityType="Model.Store.SD_KARDEX_OBLIGACION" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_KARDEX_SOCIO" EntityType="Model.Store.SD_KARDEX_SOCIO" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_LINEAS" EntityType="Model.Store.SD_LINEAS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_LISTAS" EntityType="Model.Store.SD_LISTAS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_LISTAS_ITEMS" EntityType="Model.Store.SD_LISTAS_ITEMS" store:Type="Tables" Schema="SINDICATO" />
@@ -29,6 +31,7 @@
           <EntitySet Name="SD_PARAMETROS_LINEA" EntityType="Model.Store.SD_PARAMETROS_LINEA" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_PERFILES" EntityType="Model.Store.SD_PERFILES" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_PERFILES_OPCIONES" EntityType="Model.Store.SD_PERFILES_OPCIONES" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_RETIRO_SOCIO" EntityType="Model.Store.SD_RETIRO_SOCIO" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_SOCIO_DESEMPENOS" EntityType="Model.Store.SD_SOCIO_DESEMPENOS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_SOCIO_MOVIL_AUTOS" EntityType="Model.Store.SD_SOCIO_MOVIL_AUTOS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_SOCIO_MOVILES" EntityType="Model.Store.SD_SOCIO_MOVILES" store:Type="Tables" Schema="SINDICATO" />
@@ -80,6 +83,10 @@
             <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
             <End Role="SD_GARANTES" EntitySet="SD_GARANTES" />
           </AssociationSet>
+          <AssociationSet Name="SD_INGRESOS_SOCIO_R01" Association="Model.Store.SD_INGRESOS_SOCIO_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_INGRESOS_SOCIO" EntitySet="SD_INGRESOS_SOCIO" />
+          </AssociationSet>
           <AssociationSet Name="SD_KARDEX_EFECTIVO_R01" Association="Model.Store.SD_KARDEX_EFECTIVO_R01">
             <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
             <End Role="SD_KARDEX_EFECTIVO" EntitySet="SD_KARDEX_EFECTIVO" />
@@ -91,6 +98,10 @@
           <AssociationSet Name="SD_KARDEX_OBLIGACION_R01" Association="Model.Store.SD_KARDEX_OBLIGACION_R01">
             <End Role="SD_OBLIGACIONES_SOCIO" EntitySet="SD_OBLIGACIONES_SOCIO" />
             <End Role="SD_KARDEX_OBLIGACION" EntitySet="SD_KARDEX_OBLIGACION" />
+          </AssociationSet>
+          <AssociationSet Name="SD_KARDEX_SOCIO_R01" Association="Model.Store.SD_KARDEX_SOCIO_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_KARDEX_SOCIO" EntitySet="SD_KARDEX_SOCIO" />
           </AssociationSet>
           <AssociationSet Name="SD_MOVILES_R01" Association="Model.Store.SD_MOVILES_R01">
             <End Role="SD_LINEAS" EntitySet="SD_LINEAS" />
@@ -111,6 +122,14 @@
           <AssociationSet Name="SD_PERFILES_R01" Association="Model.Store.SD_PERFILES_R01">
             <End Role="SD_PARADAS" EntitySet="SD_PARADAS" />
             <End Role="SD_PERFILES" EntitySet="SD_PERFILES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_RETIRO_SOCIO_R01" Association="Model.Store.SD_RETIRO_SOCIO_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_RETIRO_SOCIO" EntitySet="SD_RETIRO_SOCIO" />
+          </AssociationSet>
+          <AssociationSet Name="SD_SOCIO_DESEMPENOS_R01" Association="Model.Store.SD_SOCIO_DESEMPENOS_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_SOCIO_DESEMPENOS" EntitySet="SD_SOCIO_DESEMPENOS" />
           </AssociationSet>
           <AssociationSet Name="SD_SOCIO_MOVIL_AUTOS_R01" Association="Model.Store.SD_SOCIO_MOVIL_AUTOS_R01">
             <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
@@ -168,11 +187,11 @@
           <Property Name="ID_ANTECEDENTE" Type="number" Nullable="false" Precision="7" />
           <Property Name="ID_SOCIO" Type="number" Precision="7" />
           <Property Name="ID_CHOFER" Type="number" Precision="7" />
-          <Property Name="MOTIVO" Type="varchar2" Nullable="false" MaxLength="50" />
-          <Property Name="OBSERVACION" Type="varchar2" MaxLength="200" />
+          <Property Name="MOTIVO" Type="varchar2" Nullable="false" MaxLength="100" />
+          <Property Name="OBSERVACION" Type="varchar2" MaxLength="1500" />
           <Property Name="FECHA" Type="date" Nullable="false" />
           <Property Name="FECHA_REG" Type="date" />
-          <Property Name="ID_USR" Type="number" Precision="7" />
+          <Property Name="LOGIN" Type="varchar2" MaxLength="50" />
         </EntityType>
         <EntityType Name="SD_AUTOS">
           <Key>
@@ -254,10 +273,10 @@
           <Property Name="ID_CHOFER" Type="number" Precision="7" />
           <Property Name="DOCUMENTACION" Type="varchar2" Nullable="false" MaxLength="50" />
           <Property Name="TIPO" Type="varchar2" MaxLength="50" />
-          <Property Name="OBSERVACION" Type="varchar2" MaxLength="200" />
+          <Property Name="OBSERVACION" Type="varchar2" MaxLength="1500" />
           <Property Name="FECHA" Type="date" Nullable="false" />
           <Property Name="FECHA_REG" Type="date" />
-          <Property Name="ID_USR" Type="number" Precision="7" />
+          <Property Name="LOGIN" Type="varchar2" MaxLength="50" />
         </EntityType>
         <EntityType Name="SD_FAMILIARES">
           <Key>
@@ -323,6 +342,20 @@
           <Property Name="ID_USR" Type="number" Precision="7" />
           <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
         </EntityType>
+        <EntityType Name="SD_INGRESOS_SOCIO">
+          <Key>
+            <PropertyRef Name="ID_INGRESO" />
+          </Key>
+          <Property Name="ID_INGRESO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_SOCIO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="NRO_RECIBO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="INGRESO" Type="number" Nullable="false" Precision="15" Scale="2" />
+          <Property Name="FECHA" Type="date" />
+          <Property Name="OBSERVACION" Type="varchar2" MaxLength="500" />
+          <Property Name="FECHA_REG" Type="date" />
+          <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
+          <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
+        </EntityType>
         <EntityType Name="SD_KARDEX_EFECTIVO">
           <Key>
             <PropertyRef Name="ID_KARDEX" />
@@ -366,6 +399,22 @@
           <Property Name="IMPORTE_ANTERIOR" Type="number" Nullable="false" Precision="15" Scale="5" />
           <Property Name="IMPORTE_NUEVO" Type="number" Nullable="false" Precision="15" Scale="5" />
           <Property Name="LOGIN" Type="varchar2" Nullable="false" MaxLength="20" />
+          <Property Name="FECHA_REG" Type="date" />
+        </EntityType>
+        <EntityType Name="SD_KARDEX_SOCIO">
+          <Key>
+            <PropertyRef Name="ID_KARDEX" />
+          </Key>
+          <Property Name="ID_KARDEX" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_SOCIO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_OPERACION" Type="number" Nullable="false" Precision="7" />
+          <Property Name="OPERACION" Type="varchar2" Nullable="false" MaxLength="250" />
+          <Property Name="FECHA" Type="date" Nullable="false" />
+          <Property Name="DETALLE" Type="varchar2" Nullable="false" MaxLength="250" />
+          <Property Name="INGRESO" Type="number" Nullable="false" Precision="15" Scale="5" />
+          <Property Name="EGRESO" Type="number" Nullable="false" Precision="15" Scale="5" />
+          <Property Name="SALDO" Type="number" Nullable="false" Precision="15" Scale="5" />
+          <Property Name="LOGIN" Type="varchar2" Nullable="false" MaxLength="250" />
           <Property Name="FECHA_REG" Type="date" />
         </EntityType>
         <EntityType Name="SD_LINEAS">
@@ -498,18 +547,32 @@
           <Property Name="ID_OPC" Type="number" Nullable="false" Precision="5" />
           <Property Name="ESTADO" Type="char" Nullable="false" MaxLength="1" />
         </EntityType>
+        <EntityType Name="SD_RETIRO_SOCIO">
+          <Key>
+            <PropertyRef Name="ID_RETIRO" />
+          </Key>
+          <Property Name="ID_RETIRO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_SOCIO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="NRO_RECIBO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="RETIRO" Type="number" Nullable="false" Precision="15" Scale="2" />
+          <Property Name="FECHA" Type="date" />
+          <Property Name="OBSERVACION" Type="varchar2" MaxLength="500" />
+          <Property Name="FECHA_REG" Type="date" />
+          <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
+          <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
+        </EntityType>
         <EntityType Name="SD_SOCIO_DESEMPENOS">
           <Key>
-            <PropertyRef Name="ID_DESEMPEÑO" />
+            <PropertyRef Name="ID_DESEMPENO" />
           </Key>
-          <Property Name="ID_DESEMPEÑO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_DESEMPENO" Type="number" Nullable="false" Precision="7" />
           <Property Name="ID_SOCIO" Type="number" Nullable="false" Precision="7" />
           <Property Name="CARGO" Type="varchar2" Nullable="false" MaxLength="50" />
-          <Property Name="OBSERVACION" Type="varchar2" MaxLength="200" />
+          <Property Name="OBSERVACION" Type="varchar2" MaxLength="1500" />
           <Property Name="FECHA_DESDE" Type="date" Nullable="false" />
           <Property Name="FECHA_HASTA" Type="date" />
           <Property Name="FECHA_REG" Type="date" />
-          <Property Name="ID_USR" Type="number" Precision="7" />
+          <Property Name="LOGIN" Type="varchar2" MaxLength="50" />
         </EntityType>
         <EntityType Name="SD_SOCIO_MOVIL_AUTOS">
           <Key>
@@ -568,6 +631,8 @@
           <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
           <Property Name="TELEFONO" Type="varchar2" MaxLength="50" />
           <Property Name="CELULAR" Type="varchar2" MaxLength="50" />
+          <Property Name="SALDO" Type="number" Precision="15" Scale="5" />
+          <Property Name="DEUDA" Type="number" Precision="15" Scale="5" />
         </EntityType>
         <EntityType Name="SD_USUARIOS">
           <Key>
@@ -716,6 +781,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="SD_INGRESOS_SOCIO_R01">
+          <End Role="SD_SOCIOS" Type="Model.Store.SD_SOCIOS" Multiplicity="1" />
+          <End Role="SD_INGRESOS_SOCIO" Type="Model.Store.SD_INGRESOS_SOCIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_INGRESOS_SOCIO">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="SD_KARDEX_EFECTIVO_R01">
           <End Role="SD_CAJAS" Type="Model.Store.SD_CAJAS" Multiplicity="1" />
           <End Role="SD_KARDEX_EFECTIVO" Type="Model.Store.SD_KARDEX_EFECTIVO" Multiplicity="*" />
@@ -749,6 +826,18 @@
             </Principal>
             <Dependent Role="SD_KARDEX_OBLIGACION">
               <PropertyRef Name="ID_OBLIGACION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_KARDEX_SOCIO_R01">
+          <End Role="SD_SOCIOS" Type="Model.Store.SD_SOCIOS" Multiplicity="1" />
+          <End Role="SD_KARDEX_SOCIO" Type="Model.Store.SD_KARDEX_SOCIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_KARDEX_SOCIO">
+              <PropertyRef Name="ID_SOCIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -809,6 +898,30 @@
             </Principal>
             <Dependent Role="SD_PERFILES">
               <PropertyRef Name="ID_PARADA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_RETIRO_SOCIO_R01">
+          <End Role="SD_SOCIOS" Type="Model.Store.SD_SOCIOS" Multiplicity="1" />
+          <End Role="SD_RETIRO_SOCIO" Type="Model.Store.SD_RETIRO_SOCIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_RETIRO_SOCIO">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_SOCIO_DESEMPENOS_R01">
+          <End Role="SD_SOCIOS" Type="Model.Store.SD_SOCIOS" Multiplicity="1" />
+          <End Role="SD_SOCIO_DESEMPENOS" Type="Model.Store.SD_SOCIO_DESEMPENOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_SOCIO_DESEMPENOS">
+              <PropertyRef Name="ID_SOCIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -964,6 +1077,12 @@
         <Function Name="P_REC_PARAMETROS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
           <Parameter Name="P_COD_PAR" Type="varchar2" Mode="In" />
           <Parameter Name="P_ID_LINEA" Type="number" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
+        <Function Name="P_SD_ACT_KARDEX_SOCIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
+          <Parameter Name="P_ID_SOCIO" Type="number" Mode="In" />
+          <Parameter Name="P_FECHA" Type="date" Mode="In" />
+          <Parameter Name="P_LOGIN" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
         <Function Name="P_SD_ACT_OBLIGACIONES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
@@ -1187,9 +1306,7 @@
             <Parameter Name="P_LOGIN_USR" Mode="In" Type="String" />
             <Parameter Name="P_RES" Mode="Out" Type="String" />
           </FunctionImport>
-          <EntitySet Name="SD_SOCIO_DESEMPENOS" EntityType="Model.SD_SOCIO_DESEMPENOS" />
           <EntitySet Name="V_TABLAS_COLUMNAS" EntityType="Model.V_TABLAS_COLUMNAS" />
-          <EntitySet Name="SD_ANTECEDENTES" EntityType="Model.SD_ANTECEDENTES" />
           <FunctionImport Name="P_SD_ALTA_SD_ANTECEDENTES">
             <Parameter Name="P_ID_ANTECEDENTE" Mode="In" Type="Decimal" />
             <Parameter Name="P_ID_SOCIO" Mode="In" Type="Decimal" />
@@ -1214,7 +1331,6 @@
           <EntitySet Name="SD_LINEAS" EntityType="Model.SD_LINEAS" />
           <EntitySet Name="SD_MOVILES" EntityType="Model.SD_MOVILES" />
           <EntitySet Name="SD_SOCIO_MOVILES" EntityType="Model.SD_SOCIO_MOVILES" />
-          <EntitySet Name="SD_SOCIOS" EntityType="Model.SD_SOCIOS" />
           <AssociationSet Name="SD_MOVILES_R01" Association="Model.SD_MOVILES_R01">
             <End Role="SD_LINEAS" EntitySet="SD_LINEAS" />
             <End Role="SD_MOVILES" EntitySet="SD_MOVILES" />
@@ -1223,31 +1339,10 @@
             <End Role="SD_MOVILES" EntitySet="SD_MOVILES" />
             <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
           </AssociationSet>
-          <AssociationSet Name="SD_SOCIO_MOVILES_R01" Association="Model.SD_SOCIO_MOVILES_R01">
-            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
-            <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
-          </AssociationSet>
-          <EntitySet Name="SD_DOCUMENTACIONES" EntityType="Model.SD_DOCUMENTACIONES" />
           <EntitySet Name="SD_CHOFERES" EntityType="Model.SD_CHOFERES" />
-          <AssociationSet Name="SD_ANTECEDENTES_R02" Association="Model.SD_ANTECEDENTES_R02">
-            <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
-            <End Role="SD_ANTECEDENTES" EntitySet="SD_ANTECEDENTES" />
-          </AssociationSet>
-          <AssociationSet Name="SD_CHOFERES_R01" Association="Model.SD_CHOFERES_R01">
-            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
-            <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
-          </AssociationSet>
-          <AssociationSet Name="SD_DOCUMENTACIONES_R02" Association="Model.SD_DOCUMENTACIONES_R02">
-            <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
-            <End Role="SD_DOCUMENTACIONES" EntitySet="SD_DOCUMENTACIONES" />
-          </AssociationSet>
           <EntitySet Name="SD_FAMILIARES" EntityType="Model.SD_FAMILIARES" />
           <AssociationSet Name="SD_FAMILIARES_R02" Association="Model.SD_FAMILIARES_R02">
             <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
-            <End Role="SD_FAMILIARES" EntitySet="SD_FAMILIARES" />
-          </AssociationSet>
-          <AssociationSet Name="SD_FAMILIARES_R01" Association="Model.SD_FAMILIARES_R01">
-            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
             <End Role="SD_FAMILIARES" EntitySet="SD_FAMILIARES" />
           </AssociationSet>
           <FunctionImport Name="P_SD_ALTA_SD_CHOFERES">
@@ -1356,10 +1451,6 @@
             <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
             <End Role="SD_GARANTES" EntitySet="SD_GARANTES" />
           </AssociationSet>
-          <AssociationSet Name="SD_GARANTES_R02" Association="Model.SD_GARANTES_R02">
-            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
-            <End Role="SD_GARANTES" EntitySet="SD_GARANTES" />
-          </AssociationSet>
           <FunctionImport Name="P_SD_CAMBIO_GARANTE">
             <Parameter Name="P_ID_CHOFER" Mode="In" Type="Decimal" />
             <Parameter Name="P_FECHA_INI" Mode="In" Type="DateTime" />
@@ -1417,10 +1508,6 @@
             <Parameter Name="P_RES" Mode="Out" Type="String" />
           </FunctionImport>
           <EntitySet Name="SD_OBLIGACIONES_SOCIO" EntityType="Model.SD_OBLIGACIONES_SOCIO" />
-          <AssociationSet Name="SD_OBLIGACIONES_SOCIO_R01" Association="Model.SD_OBLIGACIONES_SOCIO_R01">
-            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
-            <End Role="SD_OBLIGACIONES_SOCIO" EntitySet="SD_OBLIGACIONES_SOCIO" />
-          </AssociationSet>
           <EntitySet Name="SD_KARDEX_OBLIGACION" EntityType="Model.SD_KARDEX_OBLIGACION" />
           <AssociationSet Name="SD_KARDEX_OBLIGACION_R01" Association="Model.SD_KARDEX_OBLIGACION_R01">
             <End Role="SD_OBLIGACIONES_SOCIO" EntitySet="SD_OBLIGACIONES_SOCIO" />
@@ -1447,10 +1534,6 @@
           </AssociationSet>
           <AssociationSet Name="SD_VENTA_HOJAS_CONTROL_R01" Association="Model.SD_VENTA_HOJAS_CONTROL_R01">
             <End Role="SD_PARADAS" EntitySet="SD_PARADAS" />
-            <End Role="SD_VENTA_HOJAS_CONTROL" EntitySet="SD_VENTA_HOJAS_CONTROL" />
-          </AssociationSet>
-          <AssociationSet Name="SD_VENTA_HOJAS_CONTROL_R02" Association="Model.SD_VENTA_HOJAS_CONTROL_R02">
-            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
             <End Role="SD_VENTA_HOJAS_CONTROL" EntitySet="SD_VENTA_HOJAS_CONTROL" />
           </AssociationSet>
           <FunctionImport Name="P_EE_SECUENCIA">
@@ -1481,6 +1564,67 @@
             <Parameter Name="P_FECHA_ALTA" Mode="In" Type="DateTime" />
             <Parameter Name="P_FECHA_BAJA" Mode="In" Type="DateTime" />
             <Parameter Name="P_ID_USR" Mode="In" Type="String" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="SD_ANTECEDENTES" EntityType="Model.SD_ANTECEDENTES" />
+          <EntitySet Name="SD_DOCUMENTACIONES" EntityType="Model.SD_DOCUMENTACIONES" />
+          <AssociationSet Name="SD_ANTECEDENTES_R02" Association="Model.SD_ANTECEDENTES_R02">
+            <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
+            <End Role="SD_ANTECEDENTES" EntitySet="SD_ANTECEDENTES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_DOCUMENTACIONES_R02" Association="Model.SD_DOCUMENTACIONES_R02">
+            <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
+            <End Role="SD_DOCUMENTACIONES" EntitySet="SD_DOCUMENTACIONES" />
+          </AssociationSet>
+          <EntitySet Name="SD_KARDEX_SOCIO" EntityType="Model.SD_KARDEX_SOCIO" />
+          <EntitySet Name="SD_SOCIO_DESEMPENOS" EntityType="Model.SD_SOCIO_DESEMPENOS" />
+          <EntitySet Name="SD_INGRESOS_SOCIO" EntityType="Model.SD_INGRESOS_SOCIO" />
+          <EntitySet Name="SD_RETIRO_SOCIO" EntityType="Model.SD_RETIRO_SOCIO" />
+          <EntitySet Name="SD_SOCIOS" EntityType="Model.SD_SOCIOS" />
+          <AssociationSet Name="SD_CHOFERES_R01" Association="Model.SD_CHOFERES_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_FAMILIARES_R01" Association="Model.SD_FAMILIARES_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_FAMILIARES" EntitySet="SD_FAMILIARES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_GARANTES_R02" Association="Model.SD_GARANTES_R02">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_GARANTES" EntitySet="SD_GARANTES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_INGRESOS_SOCIO_R01" Association="Model.SD_INGRESOS_SOCIO_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_INGRESOS_SOCIO" EntitySet="SD_INGRESOS_SOCIO" />
+          </AssociationSet>
+          <AssociationSet Name="SD_KARDEX_SOCIO_R01" Association="Model.SD_KARDEX_SOCIO_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_KARDEX_SOCIO" EntitySet="SD_KARDEX_SOCIO" />
+          </AssociationSet>
+          <AssociationSet Name="SD_OBLIGACIONES_SOCIO_R01" Association="Model.SD_OBLIGACIONES_SOCIO_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_OBLIGACIONES_SOCIO" EntitySet="SD_OBLIGACIONES_SOCIO" />
+          </AssociationSet>
+          <AssociationSet Name="SD_RETIRO_SOCIO_R01" Association="Model.SD_RETIRO_SOCIO_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_RETIRO_SOCIO" EntitySet="SD_RETIRO_SOCIO" />
+          </AssociationSet>
+          <AssociationSet Name="SD_SOCIO_DESEMPENOS_R01" Association="Model.SD_SOCIO_DESEMPENOS_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_SOCIO_DESEMPENOS" EntitySet="SD_SOCIO_DESEMPENOS" />
+          </AssociationSet>
+          <AssociationSet Name="SD_SOCIO_MOVILES_R01" Association="Model.SD_SOCIO_MOVILES_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_VENTA_HOJAS_CONTROL_R02" Association="Model.SD_VENTA_HOJAS_CONTROL_R02">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_VENTA_HOJAS_CONTROL" EntitySet="SD_VENTA_HOJAS_CONTROL" />
+          </AssociationSet>
+          <FunctionImport Name="P_SD_ACT_KARDEX_SOCIO">
+            <Parameter Name="P_ID_SOCIO" Mode="In" Type="Decimal" />
+            <Parameter Name="P_FECHA" Mode="In" Type="DateTime" />
+            <Parameter Name="P_LOGIN" Mode="In" Type="String" />
             <Parameter Name="P_RES" Mode="Out" Type="String" />
           </FunctionImport>
           </EntityContainer>
@@ -1588,19 +1732,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="SD_SOCIO_DESEMPENOS">
-          <Key>
-            <PropertyRef Name="ID_DESEMPEÑO" />
-          </Key>
-          <Property Type="Int32" Name="ID_DESEMPEÑO" Nullable="false" />
-          <Property Type="Int32" Name="ID_SOCIO" Nullable="false" />
-          <Property Type="String" Name="CARGO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="OBSERVACION" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_DESDE" Nullable="false" Precision="0" />
-          <Property Type="DateTime" Name="FECHA_HASTA" Precision="0" />
-          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
-          <Property Type="Int32" Name="ID_USR" />
-        </EntityType>
         <EntityType Name="V_TABLAS_COLUMNAS">
           <Key>
             <PropertyRef Name="TABLA" />
@@ -1616,20 +1747,6 @@
           <Property Type="Decimal" Name="TAMANO" Nullable="false" Precision="38" Scale="0" />
           <Property Type="String" Name="REQUERIDO" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="COMENTARIO" MaxLength="4000" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="SD_ANTECEDENTES">
-          <Key>
-            <PropertyRef Name="ID_ANTECEDENTE" />
-          </Key>
-          <Property Type="Int32" Name="ID_ANTECEDENTE" Nullable="false" />
-          <Property Type="Int32" Name="ID_SOCIO" />
-          <Property Type="Int32" Name="ID_CHOFER" />
-          <Property Type="String" Name="MOTIVO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="OBSERVACION" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA" Nullable="false" Precision="0" />
-          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
-          <Property Type="Int32" Name="ID_USR" />
-          <NavigationProperty Name="SD_CHOFERES" Relationship="Model.SD_ANTECEDENTES_R02" FromRole="SD_ANTECEDENTES" ToRole="SD_CHOFERES" />
         </EntityType>
         <EntityType Name="SD_LINEAS">
           <Key>
@@ -1681,39 +1798,8 @@
           <Property Type="Int32" Name="ID_USR" />
           <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SD_MOVILES" Relationship="Model.SD_SOCIO_MOVILES_R02" FromRole="SD_SOCIO_MOVILES" ToRole="SD_MOVILES" />
-          <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_SOCIO_MOVILES_R01" FromRole="SD_SOCIO_MOVILES" ToRole="SD_SOCIOS" />
           <NavigationProperty Name="SD_SOCIO_MOVIL_AUTOS" Relationship="Model.SD_SOCIO_MOVIL_AUTOS_R01" FromRole="SD_SOCIO_MOVILES" ToRole="SD_SOCIO_MOVIL_AUTOS" />
-        </EntityType>
-        <EntityType Name="SD_SOCIOS">
-          <Key>
-            <PropertyRef Name="ID_SOCIO" />
-          </Key>
-          <Property Type="Int32" Name="ID_SOCIO" Nullable="false" />
-          <Property Type="Int32" Name="NRO_SOCIO" Nullable="false" />
-          <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="APELLIDO_PATERNO" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="APELLIDO_MATERNO" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="NRO_LICENCIA" />
-          <Property Type="String" Name="CATEGORIA_LIC" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="CI" Nullable="false" />
-          <Property Type="String" Name="EXPEDIDO" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_NAC" Nullable="false" Precision="0" />
-          <Property Type="DateTime" Name="FECHA_INGRESO" Nullable="false" Precision="0" />
-          <Property Type="DateTime" Name="FECHA_BAJA" Precision="0" />
-          <Property Type="String" Name="DOMICILIO" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="OBSERVACION" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ESTADO_CIVIL" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
-          <Property Type="Int32" Name="ID_USR" />
-          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="TELEFONO" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="CELULAR" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SD_SOCIO_MOVILES" Relationship="Model.SD_SOCIO_MOVILES_R01" FromRole="SD_SOCIOS" ToRole="SD_SOCIO_MOVILES" />
-          <NavigationProperty Name="SD_CHOFERES" Relationship="Model.SD_CHOFERES_R01" FromRole="SD_SOCIOS" ToRole="SD_CHOFERES" />
-          <NavigationProperty Name="SD_FAMILIARES" Relationship="Model.SD_FAMILIARES_R01" FromRole="SD_SOCIOS" ToRole="SD_FAMILIARES" />
-          <NavigationProperty Name="SD_GARANTES" Relationship="Model.SD_GARANTES_R02" FromRole="SD_SOCIOS" ToRole="SD_GARANTES" />
-          <NavigationProperty Name="SD_OBLIGACIONES_SOCIO" Relationship="Model.SD_OBLIGACIONES_SOCIO_R01" FromRole="SD_SOCIOS" ToRole="SD_OBLIGACIONES_SOCIO" />
-          <NavigationProperty Name="SD_VENTA_HOJAS_CONTROL" Relationship="Model.SD_VENTA_HOJAS_CONTROL_R02" FromRole="SD_SOCIOS" ToRole="SD_VENTA_HOJAS_CONTROL" />
+          <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_SOCIO_MOVILES_R01" FromRole="SD_SOCIO_MOVILES" ToRole="SD_SOCIOS" />
         </EntityType>
         <Association Name="SD_MOVILES_R01">
           <End Type="Model.SD_LINEAS" Role="SD_LINEAS" Multiplicity="1" />
@@ -1739,33 +1825,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="SD_SOCIO_MOVILES_R01">
-          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
-          <End Type="Model.SD_SOCIO_MOVILES" Role="SD_SOCIO_MOVILES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_SOCIOS">
-              <PropertyRef Name="ID_SOCIO" />
-            </Principal>
-            <Dependent Role="SD_SOCIO_MOVILES">
-              <PropertyRef Name="ID_SOCIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="SD_DOCUMENTACIONES">
-          <Key>
-            <PropertyRef Name="ID_DOCUMENTACION" />
-          </Key>
-          <Property Type="Int32" Name="ID_DOCUMENTACION" Nullable="false" />
-          <Property Type="Int32" Name="ID_SOCIO" />
-          <Property Type="Int32" Name="ID_CHOFER" />
-          <Property Type="String" Name="DOCUMENTACION" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="TIPO" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="OBSERVACION" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA" Nullable="false" Precision="0" />
-          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
-          <Property Type="Int32" Name="ID_USR" />
-          <NavigationProperty Name="SD_CHOFERES" Relationship="Model.SD_DOCUMENTACIONES_R02" FromRole="SD_DOCUMENTACIONES" ToRole="SD_CHOFERES" />
-        </EntityType>
         <EntityType Name="SD_CHOFERES">
           <Key>
             <PropertyRef Name="ID_CHOFER" />
@@ -1791,50 +1850,14 @@
           <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="TELEFONO" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="CELULAR" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SD_ANTECEDENTES" Relationship="Model.SD_ANTECEDENTES_R02" FromRole="SD_CHOFERES" ToRole="SD_ANTECEDENTES" />
-          <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_CHOFERES_R01" FromRole="SD_CHOFERES" ToRole="SD_SOCIOS" />
-          <NavigationProperty Name="SD_DOCUMENTACIONES" Relationship="Model.SD_DOCUMENTACIONES_R02" FromRole="SD_CHOFERES" ToRole="SD_DOCUMENTACIONES" />
           <NavigationProperty Name="SD_FAMILIARES" Relationship="Model.SD_FAMILIARES_R02" FromRole="SD_CHOFERES" ToRole="SD_FAMILIARES" />
           <Property Type="Decimal" Name="FONDO_EMERGENCIA" Precision="10" Scale="2" />
           <NavigationProperty Name="SD_GARANTES" Relationship="Model.SD_GARANTES_R01" FromRole="SD_CHOFERES" ToRole="SD_GARANTES" />
           <NavigationProperty Name="SD_KARDEX_FM" Relationship="Model.SD_KARDEX_FM_R01" FromRole="SD_CHOFERES" ToRole="SD_KARDEX_FM" />
+          <NavigationProperty Name="SD_ANTECEDENTES" Relationship="Model.SD_ANTECEDENTES_R02" FromRole="SD_CHOFERES" ToRole="SD_ANTECEDENTES" />
+          <NavigationProperty Name="SD_DOCUMENTACIONES" Relationship="Model.SD_DOCUMENTACIONES_R02" FromRole="SD_CHOFERES" ToRole="SD_DOCUMENTACIONES" />
+          <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_CHOFERES_R01" FromRole="SD_CHOFERES" ToRole="SD_SOCIOS" />
         </EntityType>
-        <Association Name="SD_ANTECEDENTES_R02">
-          <End Type="Model.SD_CHOFERES" Role="SD_CHOFERES" Multiplicity="0..1" />
-          <End Type="Model.SD_ANTECEDENTES" Role="SD_ANTECEDENTES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_CHOFERES">
-              <PropertyRef Name="ID_CHOFER" />
-            </Principal>
-            <Dependent Role="SD_ANTECEDENTES">
-              <PropertyRef Name="ID_CHOFER" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="SD_CHOFERES_R01">
-          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
-          <End Type="Model.SD_CHOFERES" Role="SD_CHOFERES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_SOCIOS">
-              <PropertyRef Name="ID_SOCIO" />
-            </Principal>
-            <Dependent Role="SD_CHOFERES">
-              <PropertyRef Name="ID_SOCIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="SD_DOCUMENTACIONES_R02">
-          <End Type="Model.SD_CHOFERES" Role="SD_CHOFERES" Multiplicity="0..1" />
-          <End Type="Model.SD_DOCUMENTACIONES" Role="SD_DOCUMENTACIONES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_CHOFERES">
-              <PropertyRef Name="ID_CHOFER" />
-            </Principal>
-            <Dependent Role="SD_DOCUMENTACIONES">
-              <PropertyRef Name="ID_CHOFER" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="SD_FAMILIARES">
           <Key>
             <PropertyRef Name="ID_FAMILIAR" />
@@ -1866,18 +1889,6 @@
             </Principal>
             <Dependent Role="SD_FAMILIARES">
               <PropertyRef Name="ID_CHOFER" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="SD_FAMILIARES_R01">
-          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="0..1" />
-          <End Type="Model.SD_FAMILIARES" Role="SD_FAMILIARES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_SOCIOS">
-              <PropertyRef Name="ID_SOCIO" />
-            </Principal>
-            <Dependent Role="SD_FAMILIARES">
-              <PropertyRef Name="ID_SOCIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1991,18 +2002,6 @@
             </Principal>
             <Dependent Role="SD_GARANTES">
               <PropertyRef Name="ID_CHOFER" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="SD_GARANTES_R02">
-          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
-          <End Type="Model.SD_GARANTES" Role="SD_GARANTES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_SOCIOS">
-              <PropertyRef Name="ID_SOCIO" />
-            </Principal>
-            <Dependent Role="SD_GARANTES">
-              <PropertyRef Name="ID_SOCIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2145,21 +2144,9 @@
           <Property Type="Decimal" Name="IMPORTE" Nullable="false" Precision="15" Scale="5" />
           <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_OBLIGACIONES_SOCIO_R01" FromRole="SD_OBLIGACIONES_SOCIO" ToRole="SD_SOCIOS" />
           <NavigationProperty Name="SD_KARDEX_OBLIGACION" Relationship="Model.SD_KARDEX_OBLIGACION_R01" FromRole="SD_OBLIGACIONES_SOCIO" ToRole="SD_KARDEX_OBLIGACION" />
+          <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_OBLIGACIONES_SOCIO_R01" FromRole="SD_OBLIGACIONES_SOCIO" ToRole="SD_SOCIOS" />
         </EntityType>
-        <Association Name="SD_OBLIGACIONES_SOCIO_R01">
-          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
-          <End Type="Model.SD_OBLIGACIONES_SOCIO" Role="SD_OBLIGACIONES_SOCIO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_SOCIOS">
-              <PropertyRef Name="ID_SOCIO" />
-            </Principal>
-            <Dependent Role="SD_OBLIGACIONES_SOCIO">
-              <PropertyRef Name="ID_SOCIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="SD_KARDEX_OBLIGACION">
           <Key>
             <PropertyRef Name="ID_KARDEX" />
@@ -2258,18 +2245,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="SD_VENTA_HOJAS_CONTROL_R02">
-          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
-          <End Type="Model.SD_VENTA_HOJAS_CONTROL" Role="SD_VENTA_HOJAS_CONTROL" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_SOCIOS">
-              <PropertyRef Name="ID_SOCIO" />
-            </Principal>
-            <Dependent Role="SD_VENTA_HOJAS_CONTROL">
-              <PropertyRef Name="ID_SOCIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="SD_SOCIO_MOVIL_AUTOS">
           <Key>
             <PropertyRef Name="ID_SOCIO_MOVIL_AUTO" />
@@ -2332,6 +2307,277 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SD_ANTECEDENTES">
+          <Key>
+            <PropertyRef Name="ID_ANTECEDENTE" />
+          </Key>
+          <Property Type="Int32" Name="ID_ANTECEDENTE" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO" />
+          <Property Type="Int32" Name="ID_CHOFER" />
+          <Property Type="String" Name="MOTIVO" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <Property Type="String" Name="LOGIN" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SD_CHOFERES" Relationship="Model.SD_ANTECEDENTES_R02" FromRole="SD_ANTECEDENTES" ToRole="SD_CHOFERES" />
+        </EntityType>
+        <EntityType Name="SD_DOCUMENTACIONES">
+          <Key>
+            <PropertyRef Name="ID_DOCUMENTACION" />
+          </Key>
+          <Property Type="Int32" Name="ID_DOCUMENTACION" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO" />
+          <Property Type="Int32" Name="ID_CHOFER" />
+          <Property Type="String" Name="DOCUMENTACION" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TIPO" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <Property Type="String" Name="LOGIN" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SD_CHOFERES" Relationship="Model.SD_DOCUMENTACIONES_R02" FromRole="SD_DOCUMENTACIONES" ToRole="SD_CHOFERES" />
+        </EntityType>
+        <Association Name="SD_ANTECEDENTES_R02">
+          <End Type="Model.SD_CHOFERES" Role="SD_CHOFERES" Multiplicity="0..1" />
+          <End Type="Model.SD_ANTECEDENTES" Role="SD_ANTECEDENTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CHOFERES">
+              <PropertyRef Name="ID_CHOFER" />
+            </Principal>
+            <Dependent Role="SD_ANTECEDENTES">
+              <PropertyRef Name="ID_CHOFER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_DOCUMENTACIONES_R02">
+          <End Type="Model.SD_CHOFERES" Role="SD_CHOFERES" Multiplicity="0..1" />
+          <End Type="Model.SD_DOCUMENTACIONES" Role="SD_DOCUMENTACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CHOFERES">
+              <PropertyRef Name="ID_CHOFER" />
+            </Principal>
+            <Dependent Role="SD_DOCUMENTACIONES">
+              <PropertyRef Name="ID_CHOFER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SD_KARDEX_SOCIO">
+          <Key>
+            <PropertyRef Name="ID_KARDEX" />
+          </Key>
+          <Property Type="Int32" Name="ID_KARDEX" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO" Nullable="false" />
+          <Property Type="Int32" Name="ID_OPERACION" Nullable="false" />
+          <Property Type="String" Name="OPERACION" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA" Nullable="false" Precision="0" />
+          <Property Type="String" Name="DETALLE" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="INGRESO" Nullable="false" Precision="15" Scale="5" />
+          <Property Type="Decimal" Name="EGRESO" Nullable="false" Precision="15" Scale="5" />
+          <Property Type="Decimal" Name="SALDO" Nullable="false" Precision="15" Scale="5" />
+          <Property Type="String" Name="LOGIN" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_KARDEX_SOCIO_R01" FromRole="SD_KARDEX_SOCIO" ToRole="SD_SOCIOS" />
+        </EntityType>
+        <EntityType Name="SD_SOCIO_DESEMPENOS">
+          <Key>
+            <PropertyRef Name="ID_DESEMPENO" />
+          </Key>
+          <Property Type="Int32" Name="ID_DESEMPENO" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO" Nullable="false" />
+          <Property Type="String" Name="CARGO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_DESDE" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_HASTA" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <Property Type="String" Name="LOGIN" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_SOCIO_DESEMPENOS_R01" FromRole="SD_SOCIO_DESEMPENOS" ToRole="SD_SOCIOS" />
+        </EntityType>
+        <EntityType Name="SD_INGRESOS_SOCIO">
+          <Key>
+            <PropertyRef Name="ID_INGRESO" />
+          </Key>
+          <Property Type="Int32" Name="ID_INGRESO" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO" Nullable="false" />
+          <Property Type="Int32" Name="NRO_RECIBO" Nullable="false" />
+          <Property Type="Decimal" Name="INGRESO" Nullable="false" Precision="15" Scale="2" />
+          <Property Type="DateTime" Name="FECHA" Precision="0" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_INGRESOS_SOCIO_R01" FromRole="SD_INGRESOS_SOCIO" ToRole="SD_SOCIOS" />
+        </EntityType>
+        <EntityType Name="SD_RETIRO_SOCIO">
+          <Key>
+            <PropertyRef Name="ID_RETIRO" />
+          </Key>
+          <Property Type="Int32" Name="ID_RETIRO" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO" Nullable="false" />
+          <Property Type="Int32" Name="NRO_RECIBO" Nullable="false" />
+          <Property Type="Decimal" Name="RETIRO" Nullable="false" Precision="15" Scale="2" />
+          <Property Type="DateTime" Name="FECHA" Precision="0" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_RETIRO_SOCIO_R01" FromRole="SD_RETIRO_SOCIO" ToRole="SD_SOCIOS" />
+        </EntityType>
+        <EntityType Name="SD_SOCIOS">
+          <Key>
+            <PropertyRef Name="ID_SOCIO" />
+          </Key>
+          <Property Type="Int32" Name="ID_SOCIO" Nullable="false" />
+          <Property Type="Int32" Name="NRO_SOCIO" Nullable="false" />
+          <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="APELLIDO_PATERNO" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="APELLIDO_MATERNO" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="NRO_LICENCIA" />
+          <Property Type="String" Name="CATEGORIA_LIC" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="CI" Nullable="false" />
+          <Property Type="String" Name="EXPEDIDO" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_NAC" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_INGRESO" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_BAJA" Precision="0" />
+          <Property Type="String" Name="DOMICILIO" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OBSERVACION" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ESTADO_CIVIL" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <Property Type="Int32" Name="ID_USR" />
+          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TELEFONO" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CELULAR" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="SALDO" Precision="15" Scale="5" />
+          <Property Type="Decimal" Name="DEUDA" Precision="15" Scale="5" />
+          <NavigationProperty Name="SD_CHOFERES" Relationship="Model.SD_CHOFERES_R01" FromRole="SD_SOCIOS" ToRole="SD_CHOFERES" />
+          <NavigationProperty Name="SD_FAMILIARES" Relationship="Model.SD_FAMILIARES_R01" FromRole="SD_SOCIOS" ToRole="SD_FAMILIARES" />
+          <NavigationProperty Name="SD_GARANTES" Relationship="Model.SD_GARANTES_R02" FromRole="SD_SOCIOS" ToRole="SD_GARANTES" />
+          <NavigationProperty Name="SD_INGRESOS_SOCIO" Relationship="Model.SD_INGRESOS_SOCIO_R01" FromRole="SD_SOCIOS" ToRole="SD_INGRESOS_SOCIO" />
+          <NavigationProperty Name="SD_KARDEX_SOCIO" Relationship="Model.SD_KARDEX_SOCIO_R01" FromRole="SD_SOCIOS" ToRole="SD_KARDEX_SOCIO" />
+          <NavigationProperty Name="SD_OBLIGACIONES_SOCIO" Relationship="Model.SD_OBLIGACIONES_SOCIO_R01" FromRole="SD_SOCIOS" ToRole="SD_OBLIGACIONES_SOCIO" />
+          <NavigationProperty Name="SD_RETIRO_SOCIO" Relationship="Model.SD_RETIRO_SOCIO_R01" FromRole="SD_SOCIOS" ToRole="SD_RETIRO_SOCIO" />
+          <NavigationProperty Name="SD_SOCIO_DESEMPENOS" Relationship="Model.SD_SOCIO_DESEMPENOS_R01" FromRole="SD_SOCIOS" ToRole="SD_SOCIO_DESEMPENOS" />
+          <NavigationProperty Name="SD_SOCIO_MOVILES" Relationship="Model.SD_SOCIO_MOVILES_R01" FromRole="SD_SOCIOS" ToRole="SD_SOCIO_MOVILES" />
+          <NavigationProperty Name="SD_VENTA_HOJAS_CONTROL" Relationship="Model.SD_VENTA_HOJAS_CONTROL_R02" FromRole="SD_SOCIOS" ToRole="SD_VENTA_HOJAS_CONTROL" />
+        </EntityType>
+        <Association Name="SD_CHOFERES_R01">
+          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
+          <End Type="Model.SD_CHOFERES" Role="SD_CHOFERES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_CHOFERES">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_FAMILIARES_R01">
+          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="0..1" />
+          <End Type="Model.SD_FAMILIARES" Role="SD_FAMILIARES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_FAMILIARES">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_GARANTES_R02">
+          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
+          <End Type="Model.SD_GARANTES" Role="SD_GARANTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_GARANTES">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_INGRESOS_SOCIO_R01">
+          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
+          <End Type="Model.SD_INGRESOS_SOCIO" Role="SD_INGRESOS_SOCIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_INGRESOS_SOCIO">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_KARDEX_SOCIO_R01">
+          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
+          <End Type="Model.SD_KARDEX_SOCIO" Role="SD_KARDEX_SOCIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_KARDEX_SOCIO">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_OBLIGACIONES_SOCIO_R01">
+          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
+          <End Type="Model.SD_OBLIGACIONES_SOCIO" Role="SD_OBLIGACIONES_SOCIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_OBLIGACIONES_SOCIO">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_RETIRO_SOCIO_R01">
+          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
+          <End Type="Model.SD_RETIRO_SOCIO" Role="SD_RETIRO_SOCIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_RETIRO_SOCIO">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_SOCIO_DESEMPENOS_R01">
+          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
+          <End Type="Model.SD_SOCIO_DESEMPENOS" Role="SD_SOCIO_DESEMPENOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_SOCIO_DESEMPENOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_SOCIO_MOVILES_R01">
+          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
+          <End Type="Model.SD_SOCIO_MOVILES" Role="SD_SOCIO_MOVILES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_SOCIO_MOVILES">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_VENTA_HOJAS_CONTROL_R02">
+          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
+          <End Type="Model.SD_VENTA_HOJAS_CONTROL" Role="SD_VENTA_HOJAS_CONTROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_VENTA_HOJAS_CONTROL">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2385,20 +2631,6 @@
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <FunctionImportMapping FunctionImportName="P_SD_ALTA_LISTA" FunctionName="Model.Store.P_SD_ALTA_LISTA" />
           <FunctionImportMapping FunctionImportName="P_SD_GRABAR_LISTAS_ITEMS" FunctionName="Model.Store.P_SD_GRABAR_LISTAS_ITEMS" />
-          <EntitySetMapping Name="SD_SOCIO_DESEMPENOS">
-            <EntityTypeMapping TypeName="Model.SD_SOCIO_DESEMPENOS">
-              <MappingFragment StoreEntitySet="SD_SOCIO_DESEMPENOS">
-                <ScalarProperty Name="ID_USR" ColumnName="ID_USR" />
-                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
-                <ScalarProperty Name="FECHA_HASTA" ColumnName="FECHA_HASTA" />
-                <ScalarProperty Name="FECHA_DESDE" ColumnName="FECHA_DESDE" />
-                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
-                <ScalarProperty Name="CARGO" ColumnName="CARGO" />
-                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
-                <ScalarProperty Name="ID_DESEMPEÑO" ColumnName="ID_DESEMPEÑO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="V_TABLAS_COLUMNAS">
             <EntityTypeMapping TypeName="Model.V_TABLAS_COLUMNAS">
               <MappingFragment StoreEntitySet="V_TABLAS_COLUMNAS">
@@ -2411,20 +2643,6 @@
                 <ScalarProperty Name="COLUMNA" ColumnName="COLUMNA" />
                 <ScalarProperty Name="TABLA" ColumnName="TABLA" />
                 <ScalarProperty Name="ID_TABLA" ColumnName="ID_TABLA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SD_ANTECEDENTES">
-            <EntityTypeMapping TypeName="Model.SD_ANTECEDENTES">
-              <MappingFragment StoreEntitySet="SD_ANTECEDENTES">
-                <ScalarProperty Name="ID_USR" ColumnName="ID_USR" />
-                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
-                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
-                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
-                <ScalarProperty Name="MOTIVO" ColumnName="MOTIVO" />
-                <ScalarProperty Name="ID_CHOFER" ColumnName="ID_CHOFER" />
-                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
-                <ScalarProperty Name="ID_ANTECEDENTE" ColumnName="ID_ANTECEDENTE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2476,47 +2694,6 @@
                 <ScalarProperty Name="ID_MOVIL" ColumnName="ID_MOVIL" />
                 <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
                 <ScalarProperty Name="ID_SOCIO_MOVIL" ColumnName="ID_SOCIO_MOVIL" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SD_SOCIOS">
-            <EntityTypeMapping TypeName="Model.SD_SOCIOS">
-              <MappingFragment StoreEntitySet="SD_SOCIOS">
-                <ScalarProperty Name="CELULAR" ColumnName="CELULAR" />
-                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
-                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
-                <ScalarProperty Name="ID_USR" ColumnName="ID_USR" />
-                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
-                <ScalarProperty Name="ESTADO_CIVIL" ColumnName="ESTADO_CIVIL" />
-                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
-                <ScalarProperty Name="DOMICILIO" ColumnName="DOMICILIO" />
-                <ScalarProperty Name="FECHA_BAJA" ColumnName="FECHA_BAJA" />
-                <ScalarProperty Name="FECHA_INGRESO" ColumnName="FECHA_INGRESO" />
-                <ScalarProperty Name="FECHA_NAC" ColumnName="FECHA_NAC" />
-                <ScalarProperty Name="EXPEDIDO" ColumnName="EXPEDIDO" />
-                <ScalarProperty Name="CI" ColumnName="CI" />
-                <ScalarProperty Name="CATEGORIA_LIC" ColumnName="CATEGORIA_LIC" />
-                <ScalarProperty Name="NRO_LICENCIA" ColumnName="NRO_LICENCIA" />
-                <ScalarProperty Name="APELLIDO_MATERNO" ColumnName="APELLIDO_MATERNO" />
-                <ScalarProperty Name="APELLIDO_PATERNO" ColumnName="APELLIDO_PATERNO" />
-                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
-                <ScalarProperty Name="NRO_SOCIO" ColumnName="NRO_SOCIO" />
-                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SD_DOCUMENTACIONES">
-            <EntityTypeMapping TypeName="Model.SD_DOCUMENTACIONES">
-              <MappingFragment StoreEntitySet="SD_DOCUMENTACIONES">
-                <ScalarProperty Name="ID_USR" ColumnName="ID_USR" />
-                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
-                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
-                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
-                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
-                <ScalarProperty Name="DOCUMENTACION" ColumnName="DOCUMENTACION" />
-                <ScalarProperty Name="ID_CHOFER" ColumnName="ID_CHOFER" />
-                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
-                <ScalarProperty Name="ID_DOCUMENTACION" ColumnName="ID_DOCUMENTACION" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2819,6 +2996,125 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="P_SD_ALTA_AUTOS" FunctionName="Model.Store.P_SD_ALTA_AUTOS" />
+          <EntitySetMapping Name="SD_ANTECEDENTES">
+            <EntityTypeMapping TypeName="Model.SD_ANTECEDENTES">
+              <MappingFragment StoreEntitySet="SD_ANTECEDENTES">
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="MOTIVO" ColumnName="MOTIVO" />
+                <ScalarProperty Name="ID_CHOFER" ColumnName="ID_CHOFER" />
+                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
+                <ScalarProperty Name="ID_ANTECEDENTE" ColumnName="ID_ANTECEDENTE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_DOCUMENTACIONES">
+            <EntityTypeMapping TypeName="Model.SD_DOCUMENTACIONES">
+              <MappingFragment StoreEntitySet="SD_DOCUMENTACIONES">
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="DOCUMENTACION" ColumnName="DOCUMENTACION" />
+                <ScalarProperty Name="ID_CHOFER" ColumnName="ID_CHOFER" />
+                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
+                <ScalarProperty Name="ID_DOCUMENTACION" ColumnName="ID_DOCUMENTACION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_KARDEX_SOCIO">
+            <EntityTypeMapping TypeName="Model.SD_KARDEX_SOCIO">
+              <MappingFragment StoreEntitySet="SD_KARDEX_SOCIO">
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="SALDO" ColumnName="SALDO" />
+                <ScalarProperty Name="EGRESO" ColumnName="EGRESO" />
+                <ScalarProperty Name="INGRESO" ColumnName="INGRESO" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="OPERACION" ColumnName="OPERACION" />
+                <ScalarProperty Name="ID_OPERACION" ColumnName="ID_OPERACION" />
+                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
+                <ScalarProperty Name="ID_KARDEX" ColumnName="ID_KARDEX" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_SOCIO_DESEMPENOS">
+            <EntityTypeMapping TypeName="Model.SD_SOCIO_DESEMPENOS">
+              <MappingFragment StoreEntitySet="SD_SOCIO_DESEMPENOS">
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="FECHA_HASTA" ColumnName="FECHA_HASTA" />
+                <ScalarProperty Name="FECHA_DESDE" ColumnName="FECHA_DESDE" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="CARGO" ColumnName="CARGO" />
+                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
+                <ScalarProperty Name="ID_DESEMPENO" ColumnName="ID_DESEMPENO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_INGRESOS_SOCIO">
+            <EntityTypeMapping TypeName="Model.SD_INGRESOS_SOCIO">
+              <MappingFragment StoreEntitySet="SD_INGRESOS_SOCIO">
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="INGRESO" ColumnName="INGRESO" />
+                <ScalarProperty Name="NRO_RECIBO" ColumnName="NRO_RECIBO" />
+                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
+                <ScalarProperty Name="ID_INGRESO" ColumnName="ID_INGRESO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_RETIRO_SOCIO">
+            <EntityTypeMapping TypeName="Model.SD_RETIRO_SOCIO">
+              <MappingFragment StoreEntitySet="SD_RETIRO_SOCIO">
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="RETIRO" ColumnName="RETIRO" />
+                <ScalarProperty Name="NRO_RECIBO" ColumnName="NRO_RECIBO" />
+                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
+                <ScalarProperty Name="ID_RETIRO" ColumnName="ID_RETIRO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_SOCIOS">
+            <EntityTypeMapping TypeName="Model.SD_SOCIOS">
+              <MappingFragment StoreEntitySet="SD_SOCIOS">
+                <ScalarProperty Name="DEUDA" ColumnName="DEUDA" />
+                <ScalarProperty Name="SALDO" ColumnName="SALDO" />
+                <ScalarProperty Name="CELULAR" ColumnName="CELULAR" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="ID_USR" ColumnName="ID_USR" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="ESTADO_CIVIL" ColumnName="ESTADO_CIVIL" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="DOMICILIO" ColumnName="DOMICILIO" />
+                <ScalarProperty Name="FECHA_BAJA" ColumnName="FECHA_BAJA" />
+                <ScalarProperty Name="FECHA_INGRESO" ColumnName="FECHA_INGRESO" />
+                <ScalarProperty Name="FECHA_NAC" ColumnName="FECHA_NAC" />
+                <ScalarProperty Name="EXPEDIDO" ColumnName="EXPEDIDO" />
+                <ScalarProperty Name="CI" ColumnName="CI" />
+                <ScalarProperty Name="CATEGORIA_LIC" ColumnName="CATEGORIA_LIC" />
+                <ScalarProperty Name="NRO_LICENCIA" ColumnName="NRO_LICENCIA" />
+                <ScalarProperty Name="APELLIDO_MATERNO" ColumnName="APELLIDO_MATERNO" />
+                <ScalarProperty Name="APELLIDO_PATERNO" ColumnName="APELLIDO_PATERNO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="NRO_SOCIO" ColumnName="NRO_SOCIO" />
+                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="P_SD_ACT_KARDEX_SOCIO" FunctionName="Model.Store.P_SD_ACT_KARDEX_SOCIO" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2860,13 +3156,10 @@
           <ConnectorPoint PointX="4.125" PointY="12.595896809895834" />
           <ConnectorPoint PointX="4.125" PointY="10.047587890625" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="Model.SD_SOCIO_DESEMPENOS" Width="1.5" PointX="17.875" PointY="0.5" Height="2.7494921874999996" />
         <EntityTypeShape EntityType="Model.V_TABLAS_COLUMNAS" Width="1.5" PointX="0.5" PointY="15" Height="2.7494921875000031" />
-        <EntityTypeShape EntityType="Model.SD_ANTECEDENTES" Width="1.5" PointX="11.25" PointY="4.125" Height="2.9417936197916674" />
         <EntityTypeShape EntityType="Model.SD_LINEAS" Width="1.5" PointX="11.375" PointY="8.25" Height="3.1340950520833388" />
         <EntityTypeShape EntityType="Model.SD_MOVILES" Width="1.5" PointX="13.625" PointY="8.125" Height="3.326396484374996" />
         <EntityTypeShape EntityType="Model.SD_SOCIO_MOVILES" Width="1.5" PointX="15.875" PointY="8" Height="3.5186979166666674" />
-        <EntityTypeShape EntityType="Model.SD_SOCIOS" Width="1.5" PointX="13.625" PointY="2.25" Height="5.0571093750000031" />
         <AssociationConnector Association="Model.SD_MOVILES_R01" >
           <ConnectorPoint PointX="12.875" PointY="9.9131982421875" />
           <ConnectorPoint PointX="13.625" PointY="9.9131982421875" />
@@ -2877,52 +3170,12 @@
           <ConnectorPoint PointX="15.583333333333334" PointY="9.8218489583333337" />
           <ConnectorPoint PointX="15.875" PointY="9.8218489583333337" />
         </AssociationConnector>
-        <AssociationConnector Association="Model.SD_SOCIO_MOVILES_R01" >
-          <ConnectorPoint PointX="15.125" PointY="4.27037176983936" />
-          <ConnectorPoint PointX="16.625" PointY="4.27037176983936" />
-          <ConnectorPoint PointX="16.625" PointY="8" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="Model.SD_DOCUMENTACIONES" Width="1.5" PointX="7.875" PointY="14.75" Height="2.9417936197916674" />
         <EntityTypeShape EntityType="Model.SD_CHOFERES" Width="1.5" PointX="15.875" PointY="13" Height="5.8263151041666674" />
-        <AssociationConnector Association="Model.SD_ANTECEDENTES_R02" >
-          <ConnectorPoint PointX="16.625" PointY="13" />
-          <ConnectorPoint PointX="16.625" PointY="11.768697916666667" />
-          <ConnectorPoint PointX="15.583333333333334" PointY="11.768697916666667" />
-          <ConnectorPoint PointX="15.416666666666666" PointY="11.768697916666667" />
-          <ConnectorPoint PointX="15.375" PointY="11.768697916666667" />
-          <ConnectorPoint PointX="15.375" PointY="7.9417122395833317" />
-          <ConnectorPoint PointX="13.125" PointY="7.9417122395833317" />
-          <ConnectorPoint PointX="13.125" PointY="5.49974609375" />
-          <ConnectorPoint PointX="12.75" PointY="5.49974609375" />
-        </AssociationConnector>
-        <AssociationConnector Association="Model.SD_CHOFERES_R01" >
-          <ConnectorPoint PointX="15.125" PointY="7.6905573934294855" />
-          <ConnectorPoint PointX="15.5" PointY="8.0655573934294864" />
-          <ConnectorPoint PointX="15.5" PointY="15.046868961526965" />
-          <ConnectorPoint PointX="15.875" PointY="15.046868961526965" />
-        </AssociationConnector>
-        <AssociationConnector Association="Model.SD_DOCUMENTACIONES_R02" >
-          <ConnectorPoint PointX="15.875" PointY="16.431831290659318" />
-          <ConnectorPoint PointX="14.458333333333334" PointY="16.431831290659318" />
-          <ConnectorPoint PointX="14.291666666666666" PointY="16.431831290659318" />
-          <ConnectorPoint PointX="11.333333333333334" PointY="16.431831290659318" />
-          <ConnectorPoint PointX="11.166666666666666" PointY="16.431831290659318" />
-          <ConnectorPoint PointX="9.375" PointY="16.431831290659318" />
-        </AssociationConnector>
         <EntityTypeShape EntityType="Model.SD_FAMILIARES" Width="1.5" PointX="18.125" PointY="8.375" Height="4.2879036458333388" />
         <AssociationConnector Association="Model.SD_FAMILIARES_R02" >
           <ConnectorPoint PointX="17.375" PointY="15.913157552083334" />
           <ConnectorPoint PointX="18.875" PointY="15.913157552083334" />
           <ConnectorPoint PointX="18.875" PointY="12.662903645833339" />
-        </AssociationConnector>
-        <AssociationConnector Association="Model.SD_FAMILIARES_R01" >
-          <ConnectorPoint PointX="15.125" PointY="5.9804645816344228" />
-          <ConnectorPoint PointX="15.416666666666666" PointY="5.980464581634422" />
-          <ConnectorPoint PointX="15.583333333333334" PointY="5.9804645816344228" />
-          <ConnectorPoint PointX="16.541666666666668" PointY="5.980464581634422" />
-          <ConnectorPoint PointX="16.708333333333332" PointY="5.9804645816344228" />
-          <ConnectorPoint PointX="19.53125" PointY="5.9804645816344228" />
-          <ConnectorPoint PointX="19.53125" PointY="8.375" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Model.SD_IMAGENES" Width="1.5" PointX="5.375" PointY="0.75" Height="3.1340950520833388" />
         <EntityTypeShape EntityType="Model.SD_PARADAS" Width="1.5" PointX="5" PointY="11.375" Height="3.7109993489583246" />
@@ -2944,7 +3197,6 @@
         </AssociationConnector>
         <EntityTypeShape EntityType="Model.SD_GARANTES" Width="1.5" PointX="0.625" PointY="18" />
         <AssociationConnector Association="Model.SD_GARANTES_R01" />
-        <AssociationConnector Association="Model.SD_GARANTES_R02" />
         <EntityTypeShape EntityType="Model.SD_PARAMETROS_LINEA" Width="1.5" PointX="8.125" PointY="31.625" />
         <AssociationConnector Association="Model.SD_PARAMETROS_LINEA_R01" />
         <EntityTypeShape EntityType="Model.SD_FONDO_EMERGENCIAS" Width="1.5" PointX="2.6444498666769127" PointY="31.624641790811271" />
@@ -2955,7 +3207,6 @@
         <AssociationConnector Association="Model.SD_KARDEX_EFECTIVO_R01" />
         <AssociationConnector Association="Model.SD_PARADAS_R01" />
         <EntityTypeShape EntityType="Model.SD_OBLIGACIONES_SOCIO" Width="1.5" PointX="1.1773175602673169" PointY="3.4872387067821058" />
-        <AssociationConnector Association="Model.SD_OBLIGACIONES_SOCIO_R01" />
         <EntityTypeShape EntityType="Model.SD_KARDEX_OBLIGACION" Width="1.5" PointX="11.605115778560339" PointY="6.8036141427250643" />
         <AssociationConnector Association="Model.SD_KARDEX_OBLIGACION_R01" />
         <EntityTypeShape EntityType="Model.SD_DETALLE_HOJAS" Width="1.5" PointX="1.0303749800801161" PointY="9.8694529430332842" />
@@ -2963,11 +3214,29 @@
         <AssociationConnector Association="Model.SD_VENTA_HOJAS_CONTROL_R03" />
         <AssociationConnector Association="Model.SD_DETALLE_HOJAS_R01" />
         <AssociationConnector Association="Model.SD_VENTA_HOJAS_CONTROL_R01" />
-        <AssociationConnector Association="Model.SD_VENTA_HOJAS_CONTROL_R02" />
         <EntityTypeShape EntityType="Model.SD_SOCIO_MOVIL_AUTOS" Width="1.5" PointX="2.993162206836586" PointY="8.0286421813204143" />
         <AssociationConnector Association="Model.SD_SOCIO_MOVIL_AUTOS_R01" />
         <EntityTypeShape EntityType="Model.SD_AUTOS" Width="1.5" PointX="5.3863658892858615" PointY="28.790907068546353" />
         <AssociationConnector Association="Model.SD_SOCIO_MOVIL_AUTOS_R02" />
+        <EntityTypeShape EntityType="Model.SD_ANTECEDENTES" Width="1.5" PointX="9.625" PointY="35.625" />
+        <EntityTypeShape EntityType="Model.SD_DOCUMENTACIONES" Width="1.5" PointX="12.625" PointY="37.125" />
+        <AssociationConnector Association="Model.SD_ANTECEDENTES_R02" />
+        <AssociationConnector Association="Model.SD_DOCUMENTACIONES_R02" />
+        <EntityTypeShape EntityType="Model.SD_KARDEX_SOCIO" Width="1.5" PointX="21.75" PointY="6.25" />
+        <EntityTypeShape EntityType="Model.SD_SOCIO_DESEMPENOS" Width="1.5" PointX="24.75" PointY="7.75" />
+        <EntityTypeShape EntityType="Model.SD_INGRESOS_SOCIO" Width="1.5" PointX="10.75" PointY="0.5" />
+        <EntityTypeShape EntityType="Model.SD_RETIRO_SOCIO" Width="1.5" PointX="13.75" PointY="2" />
+        <EntityTypeShape EntityType="Model.SD_SOCIOS" Width="1.5" PointX="17.25" PointY="0.5" />
+        <AssociationConnector Association="Model.SD_CHOFERES_R01" />
+        <AssociationConnector Association="Model.SD_FAMILIARES_R01" />
+        <AssociationConnector Association="Model.SD_GARANTES_R02" />
+        <AssociationConnector Association="Model.SD_INGRESOS_SOCIO_R01" />
+        <AssociationConnector Association="Model.SD_KARDEX_SOCIO_R01" />
+        <AssociationConnector Association="Model.SD_OBLIGACIONES_SOCIO_R01" />
+        <AssociationConnector Association="Model.SD_RETIRO_SOCIO_R01" />
+        <AssociationConnector Association="Model.SD_SOCIO_DESEMPENOS_R01" />
+        <AssociationConnector Association="Model.SD_SOCIO_MOVILES_R01" />
+        <AssociationConnector Association="Model.SD_VENTA_HOJAS_CONTROL_R02" />
         </Diagram>
     </Diagrams>
   </Designer>
