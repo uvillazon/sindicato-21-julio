@@ -32,6 +32,9 @@
         { type: "string", name: "ESTADO" },
 //        { name: 'CON_IMAGEN', type: 'boolean' },
         { type: "int", name: "ID_IMG" },
+        { type: "float", name: "SALDO" , defaultValue : 0 },
+        { type: "float", name: "DEUDA" , defaultValue : 0},
+
 
     ]
 });

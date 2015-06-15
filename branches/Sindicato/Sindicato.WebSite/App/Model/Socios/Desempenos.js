@@ -1,7 +1,7 @@
 ﻿Ext.define("App.Model.Socios.Desempenos", {
     extend: "Ext.data.Model",
     fields: [
-       { type: "int", name: "ID_DESEMPEÑO" },
+       { type: "int", name: "ID_DESEMPENO" },
         { type: "int", name: "ID_SOCIO" },
         { type: "string", name: "CARGO" },
         { type: "string", name: "OBSERVACION" },

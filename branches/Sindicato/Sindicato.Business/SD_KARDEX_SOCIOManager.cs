@@ -15,6 +15,7 @@ namespace Sindicato.Business
 
 
         public SD_KARDEX_SOCIOManager(IUnitOfWork uow) : base(uow) { }
+        
 
         //test
 

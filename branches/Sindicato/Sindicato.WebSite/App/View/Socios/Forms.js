@@ -45,6 +45,9 @@
         else if (me.opcion == "FormDocumentacion") {
             me.CargarFormDocumentacion();
         }
+        else if (me.opcion == "FormDesempenos") {
+            me.CargarFormDesempenos();
+        }
         this.callParent(arguments);
     },
     CargarFormImagen: function () {
@@ -397,7 +400,7 @@
             allowBlank: false,
         });
 
-        me.txt_observacion = Ext.create("App.Config.Componente.TextFieldBase", {
+        me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
             fieldLabel: "Observaciones",
             name: "OBSERVACION",
             width: 480,
@@ -680,6 +683,63 @@
            me.txt_observacion,
         ];
 
+    },
+    CargarFormDesempenos: function () {
+        var me = this;
+        var me = this;
+        me.txt_id = Ext.create("App.Config.Componente.TextFieldBase", {
+            name: "ID_DESEMPENO",
+            hidden: true,
+        });
+        me.txt_id_socio = Ext.create("App.Config.Componente.TextFieldBase", {
+            name: "ID_SOCIO",
+            hidden: true,
+        });
+        me.txt_cargo = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Cargo",
+            name: "CARGO",
+            width: 480,
+            colspan: 2,
+            maxLength: 50,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+        });
+
+        me.dat_fecha_desde = Ext.create("App.Config.Componente.DateFieldBase", {
+            opcion: "sin fecha",
+            fieldLabel: "Fecha Desde",
+            name: "FECHA_DESDE",
+            width: 240,
+            //colspan: 2,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+        });
+        me.dat_fecha_hasta = Ext.create("App.Config.Componente.DateFieldBase", {
+            opcion: "sin fecha",
+            fieldLabel: "Fecha Hasta",
+            name: "FECHA_HASTA",
+            width: 240,
+            //colspan: 2,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+        });
+        me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
+            fieldLabel: "Observaciones",
+            name: "OBSERVACION",
+            width: 480,
+            //height: 150,
+            colspan: 2,
+            maxLength: 1500,
+        });
+        //alert("entro");
+        me.items = [
+           me.txt_id,
+           me.txt_id_socio,
+           me.txt_cargo,
+           me.dat_fecha_desde,
+           me.dat_fecha_hasta,
+           me.txt_observacion,
+        ];
     }
 
 });
