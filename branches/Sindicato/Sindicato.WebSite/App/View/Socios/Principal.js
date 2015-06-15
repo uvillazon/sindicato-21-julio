@@ -37,7 +37,7 @@
         me.btn_crearImagen = Funciones.CrearMenu('btn_Imagen', 'Imagen', 'image_add', me.EventosPrincipal, null, this, null, true);
         me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_editar, me.btn_crearMovil, me.btn_editarMovil, me.btn_crearImagen]);
 
-        me.form = form = Ext.create("App.View.Socios.FormSocio", {
+        me.form = Ext.create("App.View.Socios.FormSocio", {
             title: 'Datos Socio',
             botones: false
         });
@@ -46,8 +46,11 @@
         me.panelFamiliar = Ext.create("App.View.Socios.PanelFamiliares");
         me.panelAntecedente = Ext.create("App.View.Socios.PanelAntecedentes");
         me.panelDocumentaciones = Ext.create("App.View.Socios.PanelDocumentaciones");
+        me.panelDesempeno = Ext.create("App.View.Socios.PanelDesempenos");
         me.tabPanel = Ext.create('Ext.tab.Panel', {
-            items: [me.form, me.panelAutos, me.panelFamiliar , me.panelAntecedente , me.panelDocumentaciones],
+            items: [
+                me.form, me.panelAutos, me.panelFamiliar, me.panelAntecedente, me.panelDocumentaciones, me.panelDesempeno
+            ],
             region: 'center',
             width: '50%'
         });
@@ -62,6 +65,7 @@
     CargarDatos: function (selModel, selections) {
         var me = this;
         var disabled = selections.length === 0;
+        me.socio = disabled ? null : selections[0];
         if (!disabled) {
             me.form.loadRecord(selections[0]);
             me.form.formImagen.CargarImagen(selections[0].get('ID_SOCIO'));
@@ -74,7 +78,9 @@
             me.panelAntecedente.CargarDatos(selections[0]);
             me.panelDocumentaciones.setDisabled(false);
             me.panelDocumentaciones.CargarDatos(selections[0]);
-            
+            me.panelDesempeno.setDisabled(false);
+            me.panelDesempeno.CargarDatos(selections[0]);
+
         }
         else {
             me.form.getForm().reset();
@@ -85,6 +91,7 @@
             me.panelFamiliar.setDisabled(true);
             me.panelAntecedente.setDisabled(true);
             me.panelDocumentaciones.setDisabled(true);
+            me.panelDesempeno.setDisabled(true);
             //me..setActiveTab(me.form);
 
         }
@@ -149,6 +156,9 @@
             case "btn_Imagen":
                 me.CrearImagen();
                 break;
+            case "btn_Kardex":
+                me.VentanaKardex();
+                break;
             default:
                 Ext.Msg.alert("Aviso", "No Existe el botton");
                 break;
@@ -209,5 +219,16 @@
         var form = Ext.create("App.View.Imagenes.FormImagen", { opcion: 'FormImagen', grid: me.grid });
         form.MostrarWindowImagen("SD_SOCIOS", me.grid.record.get('ID_SOCIO'), null);
     },
-
+    VentanaKardex: function () {
+        var me = this;
+        var win = Ext.create("App.Config.Abstract.Window", { botones: false });
+        var grid = Ext.create("App.View.Socios.GridKardex", {
+            region: 'center',
+            width: 760,
+            height: 450,
+            id_socio: me.socio.get('ID_SOCIO')
+        });
+        win.add(grid);
+        win.show();
+    }
 });
