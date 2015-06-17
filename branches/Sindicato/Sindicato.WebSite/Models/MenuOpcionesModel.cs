@@ -13,12 +13,13 @@ namespace Sindicato.WebSite.Models
         public string tooltip { get; set; }
         public string iconCls { get; set; }
         public string estilo { get; set; }
+        public decimal orden { get; set; }
         //public List<MenuOpcionesModel> menus { get; set; }
         //public bool leaf { get; set; }
 
         public List<MenuOpcionesModel> MenuBotton(IList<SD_MENU_OPCIONES> menus) {
             List<MenuOpcionesModel> result = new List<MenuOpcionesModel>();
-            foreach (var item in menus)
+            foreach (var item in menus.OrderBy(x=>x.ORDEN))
             {
                 if (item.ESTADO == "A") {
                     MenuOpcionesModel menu = new MenuOpcionesModel();
@@ -29,6 +30,7 @@ namespace Sindicato.WebSite.Models
                         menu.clase = item.LINK;
                         menu.iconCls = item.ICONO;
                         menu.estilo = item.ESTILO;
+                        menu.orden = item.ORDEN;
                         result.Add(menu);
                     }
                 }

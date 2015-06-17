@@ -1,6 +1,6 @@
 ﻿Ext.define("App.View.Socios.PanelFamiliares", {
     extend: "Ext.panel.Panel",
-    title: "Familiares Socios",
+    title: "Familiares",
     mostrarAcciones: true,
     botones: false,
     esSocio: true,

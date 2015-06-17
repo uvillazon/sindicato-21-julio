@@ -50,6 +50,7 @@ namespace Sindicato.WebSite.Controllers
                     MONTO = x.MONTO
                 }).ToList();
                 var menuOpciones = menu1.MenuBotton(menus.ToList());
+                //menuOpciones = menuOpciones.OrderBy(x => x.orden);
                 var Usr = new
                 {
                     Login = usuario.LOGIN,
