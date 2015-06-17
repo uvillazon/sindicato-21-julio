@@ -41,16 +41,16 @@ namespace Sindicato.WebSite.Controllers
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
             return JavaScript(callback1);
         }
-        [HttpPost]
+        [HttpGet]
         public JsonResult ObtenerUltimoRegistro()
         {
             var cierre = _serCierre.ObtenerUltimoRegistroCierre();
             if (cierre != null)
             {
-                return Json(new { disabled = true, value = String.Format("{0:dd/MM/yyyy}", cierre.FECHA_FIN) });
+                return Json(new { disabled = true, value = String.Format("{0:dd/MM/yyyy}", cierre.FECHA_FIN.AddDays(1)) },JsonRequestBehavior.AllowGet);
             }
             else {
-                return Json(new { disabled = false});
+                return Json(new { disabled = false},JsonRequestBehavior.AllowGet);
             }
             
         }
