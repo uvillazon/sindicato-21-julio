@@ -14,6 +14,7 @@ namespace Sindicato.Services.Interfaces
 
         IEnumerable<SD_DESCUENTOS> ObtenerDescuentosPaginados(PagingInfo paginacion, FiltrosModel<OtrosModel> filtros);
         IEnumerable<SD_DESCUENTOS_SOCIO> ObtenerDetalleDescuentos(PagingInfo paginacion, FiltrosModel<OtrosModel> filtros);
+        //asdasd
         
         RespuestaSP GuardarCierre(SD_CIERRES cierre, string login);
 
