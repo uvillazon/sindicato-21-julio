@@ -86,6 +86,7 @@
     <Compile Include="Controllers\ChoferesController.cs" />
     <Compile Include="Controllers\CajasController.cs" />
     <Compile Include="Controllers\AutosController.cs" />
+    <Compile Include="Controllers\CierresController.cs" />
     <Compile Include="Controllers\OtrosController.cs" />
     <Compile Include="Controllers\ParadasController.cs" />
     <Compile Include="Controllers\VentaHojasController.cs" />
@@ -229,6 +230,7 @@
     <Content Include="App\Model\Clientes\Clientes.js" />
     <Content Include="App\Model\Clientes\Kardex.js" />
     <Content Include="App\Model\Autos\Autos.js" />
+    <Content Include="App\Model\RetirosSocio\Retiros.js" />
     <Content Include="App\Model\IngresosSocio\Ingresos.js" />
     <Content Include="App\Model\Paradas\Paradas.js" />
     <Content Include="App\Model\FondoEmergencia\Kardex.js" />
@@ -264,6 +266,7 @@
     <Content Include="App\Store\Clientes\Clientes.js" />
     <Content Include="App\Store\Clientes\Kardex.js" />
     <Content Include="App\Store\Autos\Autos.js" />
+    <Content Include="App\Store\RetirosSocio\Retiros.js" />
     <Content Include="App\Store\IngresosSocio\Ingresos.js" />
     <Content Include="App\Store\Paradas\Paradas.js" />
     <Content Include="App\Store\FondoEmergencia\Kardex.js" />
@@ -301,6 +304,8 @@
     <Content Include="App\View\Cajas\GridKardexCaja.js" />
     <Content Include="App\View\Cajas\Grids.js" />
     <Content Include="App\View\Cajas\Principal.js" />
+    <Content Include="App\View\Choferes\Copia de FormChofer.js" />
+    <Content Include="App\View\Choferes\Copia de Principal.js" />
     <Content Include="App\View\Choferes\FormCambioGarante.js" />
     <Content Include="App\View\Choferes\FormChofer.js" />
     <Content Include="App\View\Choferes\Forms.js" />
@@ -325,6 +330,12 @@
     <Content Include="App\View\Autos\Grids.js" />
     <Content Include="App\View\Autos\GridAutos.js" />
     <Content Include="App\View\Autos\Principal.js" />
+    <Content Include="App\View\RetirosSocio\FormRetiro.js" />
+    <Content Include="App\View\RetirosSocio\Forms.js" />
+    <Content Include="App\View\RetirosSocio\GridRetiros.js" />
+    <Content Include="App\View\RetirosSocio\Grids.js" />
+    <Content Include="App\View\RetirosSocio\PanelIngresos.js" />
+    <Content Include="App\View\RetirosSocio\Principal.js" />
     <Content Include="App\View\IngresosSocio\FormIngreso.js" />
     <Content Include="App\View\IngresosSocio\Forms.js" />
     <Content Include="App\View\IngresosSocio\GridIngresos.js" />

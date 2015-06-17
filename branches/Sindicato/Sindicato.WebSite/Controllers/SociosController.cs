@@ -44,10 +44,10 @@ namespace Sindicato.WebSite.Controllers
                 //NOMBRE_SOCIO = string.Format("{0} {1} {2}",x.SD_SOCIOS.NOMBRE,x.SD_SOCIOS.APELLIDO_PATERNO,x.SD_SOCIOS.APELLIDO_MATERNO),
                 NRO_LICENCIA = x.SD_SOCIOS.NRO_LICENCIA,
                 CATEGORIA_LIC = x.SD_SOCIOS.CATEGORIA_LIC,
-                LICENCIA = string.Format("{0} {1}",x.SD_SOCIOS.NRO_LICENCIA,x.SD_SOCIOS.CATEGORIA_LIC),
+                LICENCIA = string.Format("{0} {1}", x.SD_SOCIOS.NRO_LICENCIA, x.SD_SOCIOS.CATEGORIA_LIC),
                 CI = x.SD_SOCIOS.CI,
                 EXPEDIDO = x.SD_SOCIOS.EXPEDIDO,
-                CARNET = string.Format("{0} {1}",x.SD_SOCIOS.CI,x.SD_SOCIOS.EXPEDIDO),
+                CARNET = string.Format("{0} {1}", x.SD_SOCIOS.CI, x.SD_SOCIOS.EXPEDIDO),
                 FECHA_NAC = x.SD_SOCIOS.FECHA_NAC,
                 DOMICILIO = x.SD_SOCIOS.DOMICILIO,
                 OBSERVACION = x.SD_SOCIOS.OBSERVACION,
@@ -57,7 +57,7 @@ namespace Sindicato.WebSite.Controllers
                 TELEFONO = x.SD_SOCIOS.TELEFONO,
                 CELULAR = x.SD_SOCIOS.CELULAR,
                 ESTADO = x.ESTADO,
-                ID_IMG = _serImg.ConImagen(x.ID_SOCIO , "SD_SOCIOS"),
+                ID_IMG = _serImg.ConImagen(x.ID_SOCIO, "SD_SOCIOS"),
                 SALDO = x.SD_SOCIOS.SALDO,
                 DEUDA = x.SD_SOCIOS.DEUDA
                 //ID_IMG = 
@@ -73,7 +73,7 @@ namespace Sindicato.WebSite.Controllers
             var formatData = socios.Select(x => new
             {
                 ID_SOCIO = x.ID_SOCIO,
-                SOCIO = string.Format("{0} {1} {2}",x.NOMBRE,x.APELLIDO_PATERNO,x.APELLIDO_MATERNO),
+                SOCIO = string.Format("{0} {1} {2}", x.NOMBRE, x.APELLIDO_PATERNO, x.APELLIDO_MATERNO),
                 NRO_SOCIO = x.NRO_SOCIO,
                 NOMBRE = x.NOMBRE,
                 APELLIDO_MATERNO = x.APELLIDO_MATERNO,
@@ -91,7 +91,9 @@ namespace Sindicato.WebSite.Controllers
                 TELEFONO = x.TELEFONO,
                 CELULAR = x.CELULAR,
                 ESTADO = x.ESTADO,
-                ID_IMG = _serImg.ConImagen(x.ID_SOCIO, "SD_SOCIOS")
+                ID_IMG = _serImg.ConImagen(x.ID_SOCIO, "SD_SOCIOS"),
+                SALDO = x.SALDO,
+                DEUDA = x.DEUDA
                 //ID_IMG = 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
@@ -101,9 +103,10 @@ namespace Sindicato.WebSite.Controllers
         [HttpPost]
         public JsonResult ObtenerSocioMovil(int ID_SOCIO_MOVIL)
         {
-            var socios = _serSoc.ObtenerSocioMovilPorCriterio(x=>x.ID_SOCIO_MOVIL == ID_SOCIO_MOVIL);
-            var data = new {
-                ID_SOCIO_MOVIL =socios.ID_SOCIO_MOVIL,
+            var socios = _serSoc.ObtenerSocioMovilPorCriterio(x => x.ID_SOCIO_MOVIL == ID_SOCIO_MOVIL);
+            var data = new
+            {
+                ID_SOCIO_MOVIL = socios.ID_SOCIO_MOVIL,
                 ID_SOCIO = socios.ID_SOCIO,
                 ID_MOVIL = socios.ID_MOVIL,
                 FECHA_ALTA = String.Format("{0:dd/MM/yyyy}", socios.FECHA_ALTA),
@@ -111,9 +114,9 @@ namespace Sindicato.WebSite.Controllers
                 OBSERVACION = socios.OBSERVACION,
                 TIPO_MOVIL = socios.TIPO_MOVIL,
                 NRO_MOVIL = socios.SD_MOVILES.NRO_MOVIL,
-                NOMBRE = string.Format("{0} {1} {2}",socios.SD_SOCIOS.NOMBRE , socios.SD_SOCIOS.APELLIDO_PATERNO , socios.SD_SOCIOS.APELLIDO_MATERNO)
+                NOMBRE = string.Format("{0} {1} {2}", socios.SD_SOCIOS.NOMBRE, socios.SD_SOCIOS.APELLIDO_PATERNO, socios.SD_SOCIOS.APELLIDO_MATERNO)
             };
-            return Json(new { data = data , success = true});
+            return Json(new { data = data, success = true });
         }
 
         [HttpGet]
@@ -133,7 +136,7 @@ namespace Sindicato.WebSite.Controllers
                 PLACA = x.SD_AUTOS.PLACA,
                 MOTOR = x.SD_AUTOS.MOTOR,
                 FECHA_ALTA = x.FECHA_ALTA,
-               
+
                 ID_IMG = _serImg.ConImagen(x.ID_AUTO, "SD_AUTOS")
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
@@ -166,7 +169,7 @@ namespace Sindicato.WebSite.Controllers
             respuestaSP = _serSoc.GuardarNuevoSocioMovilPrimario(socio, id_usr);
             return Json(respuestaSP);
         }
-        
+
         [HttpPost]
         public JsonResult GuardarAuto(SD_AUTOS auto)
         {
@@ -178,14 +181,15 @@ namespace Sindicato.WebSite.Controllers
         #endregion
         #region Automoviles Socio Movil Autos
         [HttpPost]
-        public JsonResult GuardarSocioMovilAutoPrincipal(SD_SOCIO_MOVIL_AUTOS soc, int DIAS) {
+        public JsonResult GuardarSocioMovilAutoPrincipal(SD_SOCIO_MOVIL_AUTOS soc, int DIAS)
+        {
 
             string login = User.Identity.Name.Split('-')[0];
             RespuestaSP respuestaSP = new RespuestaSP();
-            respuestaSP = _serSoc.GuardarSocioMovilAuto(soc,DIAS, login);
+            respuestaSP = _serSoc.GuardarSocioMovilAuto(soc, DIAS, login);
             return Json(respuestaSP);
         }
-        
+
         #endregion
         #region Obligaciones Socio
         [HttpGet]
@@ -225,11 +229,11 @@ namespace Sindicato.WebSite.Controllers
             return JavaScript(callback1);
         }
         [HttpPost]
-        public JsonResult GuardarObligacion(SD_KARDEX_OBLIGACION kardex,int ID_SOCIO)
+        public JsonResult GuardarObligacion(SD_KARDEX_OBLIGACION kardex, int ID_SOCIO)
         {
             string login = User.Identity.Name.Split('-')[0];
             RespuestaSP respuestaSP = new RespuestaSP();
-            respuestaSP = _serSoc.GuardarObligacion(kardex,ID_SOCIO, login);
+            respuestaSP = _serSoc.GuardarObligacion(kardex, ID_SOCIO, login);
             return Json(respuestaSP);
         }
         //GuardarObligacion
@@ -317,6 +321,64 @@ namespace Sindicato.WebSite.Controllers
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
             return JavaScript(callback1);
+        }
+        #endregion
+
+        #region Retiros de Socios Listar Obtener Crear Eliminar
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerRetirosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var retiros = _serSoc.ObtenerRetirosPaginados(paginacion, filtros);
+            var formatData = retiros.Select(x => new
+            {
+                ID_RETIRO = x.ID_RETIRO,
+                ID_SOCIO = x.ID_SOCIO,
+                FECHA = x.FECHA,
+                FECHA_REG = x.FECHA_REG,
+                RETIRO = x.RETIRO,
+                LOGIN = x.LOGIN,
+                NOMBRE_SOCIO = string.Format("{0} {1} {2}", x.SD_SOCIOS.NOMBRE, x.SD_SOCIOS.APELLIDO_PATERNO, x.SD_SOCIOS.APELLIDO_MATERNO),
+                NRO_RECIBO = x.NRO_RECIBO,
+                OBSERVACION = x.OBSERVACION
+
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
+        [HttpPost]
+        public JsonResult ObtenerRetiroPorId(int ID_RETIRO)
+        {
+            var x = _serSoc.ObtenerRetiroPorCriterio(y => y.ID_RETIRO == ID_RETIRO);
+            var data = new
+            {
+                ID_RETIRO = x.ID_RETIRO,
+                ID_SOCIO = x.ID_SOCIO,
+                RETIRO = x.RETIRO,
+                LOGIN = x.LOGIN,
+                NRO_RECIBO = x.NRO_RECIBO,
+                OBSERVACION = x.OBSERVACION,
+                FECHA = String.Format("{0:dd/MM/yyyy}", x.FECHA),
+                FECHA_REG = String.Format("{0:dd/MM/yyyy}", x.FECHA_REG),
+            };
+            return Json(new { data = data, success = true });
+        }
+        [HttpPost, ValidateInput(false)]
+        public JsonResult GuardarRetiroSocio(SD_RETIRO_SOCIO ant)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serSoc.GuardarRetiroSocio(ant, login);
+            return Json(respuestaSP);
+        }
+        [HttpPost]
+        public JsonResult EliminarRetiroSocio(int ID_RETIRO)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serSoc.EliminarRetiroSocio(ID_RETIRO);
+            return Json(respuestaSP);
         }
         #endregion
     }
