@@ -36,5 +36,12 @@ namespace Sindicato.Services.Interfaces
         SD_INGRESOS_SOCIO ObtenerIngresosPorCriterio(Expression<Func<SD_INGRESOS_SOCIO, bool>> criterio);
         RespuestaSP GuardarIngresoSocio(SD_INGRESOS_SOCIO ingreso, string login);
         RespuestaSP EliminarIngresoSocio(int ID_INGRESO);
+
+        #region Retiros
+        IEnumerable<SD_RETIRO_SOCIO> ObtenerRetirosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
+        SD_RETIRO_SOCIO ObtenerRetiroPorCriterio(Expression<Func<SD_RETIRO_SOCIO, bool>> criterio);
+        RespuestaSP GuardarRetiroSocio(SD_RETIRO_SOCIO ingreso, string login);
+        RespuestaSP EliminarRetiroSocio(int ID_RETIRO);
+        #endregion
     }
 }

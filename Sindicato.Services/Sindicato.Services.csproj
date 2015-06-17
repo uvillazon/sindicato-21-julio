@@ -51,6 +51,8 @@
     <Compile Include="ChoferesServices.cs" />
     <Compile Include="CajasServices.cs" />
     <Compile Include="AutosServices.cs" />
+    <Compile Include="CierresServices.cs" />
+    <Compile Include="Interfaces\ICierresServices.cs" />
     <Compile Include="OtrosServices.cs" />
     <Compile Include="Interfaces\IOtrosServices.cs" />
     <Compile Include="Interfaces\IAutosServices.cs" />

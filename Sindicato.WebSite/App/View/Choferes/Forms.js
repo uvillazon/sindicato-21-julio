@@ -106,7 +106,7 @@
             fieldLabel: "Nro Chofer",
             name: "NRO_CHOFER",
             width: 240,
-            colspan: 3,
+            //colspan: 3,
             maxLength: 7,
             allowNegative: false,
             allowDecimals: false,

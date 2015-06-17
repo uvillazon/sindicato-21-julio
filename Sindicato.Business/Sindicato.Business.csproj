@@ -41,6 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SD_CIERRESManager.cs" />
+    <Compile Include="SD_DESCUENTOS_SOCIOManager.cs" />
+    <Compile Include="SD_DESCUENTOSManager.cs" />
+    <Compile Include="SD_RETIRO_SOCIOManager.cs" />
     <Compile Include="SD_INGRESOS_SOCIOManager.cs" />
     <Compile Include="SD_KARDEX_SOCIOManager.cs" />
     <Compile Include="SD_SOCIO_MOVIL_AUTOSManager.cs" />

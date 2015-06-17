@@ -470,5 +470,92 @@ namespace Sindicato.Services
 
 
 
+
+        #region Retiros Obtener , Listar Crear Eliminar 
+        public IEnumerable<SD_RETIRO_SOCIO> ObtenerRetirosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)
+        {
+            IQueryable<SD_RETIRO_SOCIO> result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_RETIRO_SOCIOManager(uow);
+
+                result = manager.BuscarTodos();
+                filtros.FiltrarDatos();
+                result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+                paginacion.total = result.Count();
+                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
+
+            });
+            return result;
+        }
+
+        public SD_RETIRO_SOCIO ObtenerRetiroPorCriterio(Expression<Func<SD_RETIRO_SOCIO, bool>> criterio)
+        {
+            SD_RETIRO_SOCIO result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_RETIRO_SOCIOManager(uow);
+                result = manager.BuscarTodos(criterio).FirstOrDefault();
+            });
+            return result;
+        }
+
+        public RespuestaSP GuardarRetiroSocio(SD_RETIRO_SOCIO ingreso, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_RETIRO_SOCIOManager(uow);
+                var ing = manager.GuardarRetiro(ingreso, login);
+                int id;
+                bool esNumero = int.TryParse(ing, out id);
+                if (esNumero)
+                {
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                    result.id = id;
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = ing;
+                }
+
+            });
+
+            return result;
+        }
+
+        public RespuestaSP EliminarRetiroSocio(int ID_RETIRO)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_RETIRO_SOCIOManager(uow);
+                var context = (SindicatoContext)manager.Context;
+                var ant = manager.BuscarTodos(x => x.ID_RETIRO == ID_RETIRO).FirstOrDefault();
+                if (ant != null)
+                {
+                    manager.Delete(ant);
+                    var kardex = context.SD_KARDEX_SOCIO.Where(x => x.OPERACION == "RETIROS" && x.ID_OPERACION == ant.ID_RETIRO && x.ID_SOCIO == ant.ID_SOCIO);
+                    foreach (var item in kardex)
+                    {
+                        context.SD_KARDEX_SOCIO.DeleteObject(item);
+                    }
+                    ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+                    manager.Save();
+                    context.P_SD_ACT_KARDEX_SOCIO(ant.ID_SOCIO, ant.FECHA, ant.LOGIN, p_RES);
+                    result.success = true;
+                    result.msg = "Se elimino Correctamente";
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = "Ocurrio algun Problema";
+                }
+            });
+            return result;
+        }
+        #endregion
     }
 }

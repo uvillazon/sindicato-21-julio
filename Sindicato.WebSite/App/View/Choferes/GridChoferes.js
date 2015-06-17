@@ -24,7 +24,7 @@
         me.columns = [
              { xtype: "rownumberer", width: 30, sortable: false },
         //            { header: " - ", width: 30, sortable: false, dataIndex: "ID_CHOFER", hidden: true },
-            {header: "Img", width: 155, sortable: true, dataIndex: 'ID_IMG', renderer: me.renderImagen },
+            //{header: "Img", width: 155, sortable: true, dataIndex: 'ID_IMG', renderer: me.renderImagen },
             { header: "Nro<br>Chofer", width: 70, sortable: true, dataIndex: "NRO_CHOFER" },
             { header: "Nombre Completo", width: 150, sortable: true, dataIndex: "NOMBRE_CHOFER" },
             { header: "Fondo<br>Emergencia", width: 50, sortable: true, dataIndex: "FONDO_EMERGENCIA" },

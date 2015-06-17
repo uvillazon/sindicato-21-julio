@@ -86,7 +86,6 @@
             me.form.getForm().reset();
             me.form.formImagen.CargarImagen(0);
             me.tabPanel.getLayout().setActiveItem(0);
-            console.dir(me.tabPanel);
             me.panelAutos.setDisabled(true);
             me.panelFamiliar.setDisabled(true);
             me.panelAntecedente.setDisabled(true);
@@ -142,10 +141,10 @@
 
                 break;
             case "btn_Crear":
-                me.CrearSocio();
+                me.CrearSocio(null);
                 break;
             case "btn_Editar":
-                me.CrearSocio();
+                me.CrearSocio(me.grid.record);
                 break;
             case "btn_CrearMovil":
                 me.CrearSocioMovil();
@@ -164,7 +163,7 @@
                 break;
         }
     },
-    CrearSocio: function () {
+    CrearSocio: function (record) {
         var me = this;
         var win = Ext.create("App.Config.Abstract.Window", { botones: true });
         var form = Ext.create("App.View.Socios.Forms", {
@@ -172,8 +171,8 @@
             opcion: 'FormSocio',
             botones: false
         });
-        if (me.grid.record != null) {
-            form.loadRecord(me.grid.record);
+        if (record != null) {
+            form.loadRecord(record);
         }
         win.btn_guardar.on('click', function () {
             Funciones.AjaxRequestWin("Socios", "GuardarSocio", win, form, me.grid, "Esta Seguro de Guardar", null, win);
