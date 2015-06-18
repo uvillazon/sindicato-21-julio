@@ -28,6 +28,7 @@ namespace Sindicato.WebSite.Controllers
             var formatData = socios.Select(x => new
             {
                 ID_CIERRE = x.ID_CIERRE,
+                PERIODO = x.SD_CIERRES.CODIGO,
                 DESCRIPCION = x.DESCRIPCION,
                 DESCUENTO = x.DESCUENTO,
                 FECHA = x.FECHA,
@@ -48,12 +49,14 @@ namespace Sindicato.WebSite.Controllers
             var socios = _serDesc.ObtenerDetalleDescuentos(paginacion, filtros);
             var formatData = socios.Select(x => new
             {
-                ID_CIERRE = x.DETALLE,
-                DESCRIPCION = x.ID_DESCUENTO,
-                DESCUENTO = x.ID_DESCUENTO_SOCIO,
-                FECHA = x.ID_SOCIO,
-                ID_DESCUENTO = x.IMPORTE,
-                LOGIN = x.LOGIN
+                DETALLE = x.DETALLE,
+                ID_DESCUENTO = x.ID_DESCUENTO,
+                ID_DESCUENTO_SOCIO = x.ID_DESCUENTO_SOCIO,
+                ID_SOCIO = x.ID_SOCIO,
+                IMPORTE = x.IMPORTE,
+                LOGIN = x.LOGIN,
+                DESCUENTO = x.SD_DESCUENTOS.DESCUENTO,
+                SOCIO = string.Format("{0} {1} {2}",x.SD_SOCIOS.NOMBRE,x.SD_SOCIOS.APELLIDO_PATERNO,x.SD_SOCIOS.APELLIDO_MATERNO)
 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();

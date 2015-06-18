@@ -16,56 +16,48 @@ namespace Sindicato.Business
 
         public SD_DESCUENTOSManager(IUnitOfWork uow) : base(uow) { }
 
-        //public string GuardarAntecedente(SD_ANTECEDENTES ant, string login)
-        //{
-        //    try
-        //    {
-        //        string result = "";
-        //        if (ant.ID_ANTECEDENTE == 0)
-        //        {
-                  
+        public string GuardarDescuento(SD_DESCUENTOS ant, string login)
+        {
+            try
+            {
+                string result = "";
+                if (ant.ID_DESCUENTO == 0)
+                {
+                    ant.ID_DESCUENTO = ObtenerSecuencia();
+                    ant.LOGIN = login; 
+                    ant.FECHA_REG = DateTime.Now;
+                    ant.ESTADO = "NUEVO";
+                    Add(ant);
+                    Save();
+                    result = ant.ID_DESCUENTO.ToString();
+                    return result;
+                }
+                else
+                {
+                    var antActual = BuscarTodos(x => x.ID_DESCUENTO == ant.ID_DESCUENTO).FirstOrDefault();
+                    if (antActual != null)
+                    {
+                        antActual.DESCUENTO = ant.DESCUENTO;
+                        antActual.TOTAL = ant.TOTAL;
+                        antActual.FECHA = ant.FECHA;
+                        antActual.DESCRIPCION = ant.DESCRIPCION;
+                        Save();
+                        result = antActual.ID_DESCUENTO.ToString();
+                    }
+                    else
+                    {
+                        result = "No Existe ese Antecedente";
+                    }
+                    return result;
+                }
 
-        //                //ant.ID_CHOFER = ;
-        //                ant.ID_ANTECEDENTE = ObtenerSecuencia();
-        //                ant.LOGIN = login; ;
-        //                ant.FECHA_REG = DateTime.Now;
-
-        //            //}
-        //            //else
-        //            //{
-        //            //    ant.ID_SOCIO = null;
-        //            //    ant.ID_ANTECEDENTE = ObtenerSecuencia();
-        //            //    ant.LOGIN = login; ;
-        //            //    ant.FECHA_REG = DateTime.Now;
-        //            //}
-        //            Add(ant);
-        //            Save();
-        //            result = ant.ID_ANTECEDENTE.ToString();
-        //            return result;
-        //        }
-        //        else {
-        //            var antActual = BuscarTodos(x => x.ID_ANTECEDENTE == ant.ID_ANTECEDENTE).FirstOrDefault();
-        //            if (antActual != null)
-        //            {
-        //                antActual.MOTIVO = ant.MOTIVO;
-        //                antActual.OBSERVACION = ant.OBSERVACION;
-        //                antActual.FECHA = ant.FECHA;
-        //                Save();
-        //                result = antActual.ID_ANTECEDENTE.ToString();
-        //            }
-        //            else {
-        //                result = "No Existe ese Antecedente";
-        //            }
-        //            return result;
-        //        }
-
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return e.ToString();
-        //        //throw;
-        //    }
-        //}
+            }
+            catch (Exception e)
+            {
+                return e.ToString();
+                //throw;
+            }
+        }
 
         //test
 

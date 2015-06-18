@@ -64,6 +64,13 @@ namespace Sindicato.Services
                 result = manager.BuscarTodos();
                 filtros.FiltrarDatos();
                 result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+                if (!string.IsNullOrEmpty(filtros.Contiene))
+                {
+                    var contiene = filtros.Contiene.Trim().ToUpper();
+                    //result = result.Where(SD_SOCIOS
+                    result = result.Where(x=>x.SD_SOCIOS.NOMBRE.ToUpper().Contains(contiene)|| x.SD_SOCIOS.APELLIDO_PATERNO.ToUpper().Contains(contiene)||x.SD_SOCIOS.APELLIDO_MATERNO.ToUpper().Contains(contiene));
+
+                }
                 paginacion.total = result.Count();
 
                 result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);

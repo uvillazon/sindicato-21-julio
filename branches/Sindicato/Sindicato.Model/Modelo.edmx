@@ -66,6 +66,10 @@
             <End Role="SD_CIERRES" EntitySet="SD_CIERRES" />
             <End Role="SD_DESCUENTOS" EntitySet="SD_DESCUENTOS" />
           </AssociationSet>
+          <AssociationSet Name="SD_DESCUENTOS_R02" Association="Model.Store.SD_DESCUENTOS_R02">
+            <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
+            <End Role="SD_DESCUENTOS" EntitySet="SD_DESCUENTOS" />
+          </AssociationSet>
           <AssociationSet Name="SD_DESCUENTOS_SOCIO_R01" Association="Model.Store.SD_DESCUENTOS_SOCIO_R01">
             <End Role="SD_DESCUENTOS" EntitySet="SD_DESCUENTOS" />
             <End Role="SD_DESCUENTOS_SOCIO" EntitySet="SD_DESCUENTOS_SOCIO" />
@@ -292,6 +296,13 @@
           <Property Name="FECHA_REG" Type="date" />
           <Property Name="ESTADO" Type="varchar2" Nullable="false" MaxLength="20" />
           <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
+          <Property Name="OBSERV_APROBOADO" Type="varchar2" MaxLength="1500" />
+          <Property Name="LOGIN_APROBADO" Type="varchar2" MaxLength="50" />
+          <Property Name="ID_CAJA" Type="number" Precision="7" />
+          <Property Name="OBSERV_DEBITO" Type="varchar2" MaxLength="1500" />
+          <Property Name="LOGIN_DEBITO" Type="varchar2" MaxLength="50" />
+          <Property Name="FECHA_APROBADO" Type="date" />
+          <Property Name="FECHA_DEBITO" Type="date" />
         </EntityType>
         <EntityType Name="SD_DESCUENTOS_SOCIO">
           <Key>
@@ -302,7 +313,7 @@
           <Property Name="ID_SOCIO" Type="number" Nullable="false" Precision="7" />
           <Property Name="DETALLE" Type="varchar2" MaxLength="150" />
           <Property Name="IMPORTE" Type="number" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="LOGIN" Type="number" Nullable="false" Precision="5" />
+          <Property Name="LOGIN" Type="varchar2" Nullable="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="SD_DETALLE_HOJAS">
           <Key>
@@ -771,6 +782,18 @@
             </Principal>
             <Dependent Role="SD_DESCUENTOS">
               <PropertyRef Name="ID_CIERRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_DESCUENTOS_R02">
+          <End Role="SD_CAJAS" Type="Model.Store.SD_CAJAS" Multiplicity="0..1" />
+          <End Role="SD_DESCUENTOS" Type="Model.Store.SD_DESCUENTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CAJAS">
+              <PropertyRef Name="ID_CAJA" />
+            </Principal>
+            <Dependent Role="SD_DESCUENTOS">
+              <PropertyRef Name="ID_CAJA" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1698,6 +1721,10 @@
           <EntitySet Name="SD_CIERRES" EntityType="Model.SD_CIERRES" />
           <EntitySet Name="SD_DESCUENTOS" EntityType="Model.SD_DESCUENTOS" />
           <EntitySet Name="SD_DESCUENTOS_SOCIO" EntityType="Model.SD_DESCUENTOS_SOCIO" />
+          <AssociationSet Name="SD_DESCUENTOS_R02" Association="Model.SD_DESCUENTOS_R02">
+            <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
+            <End Role="SD_DESCUENTOS" EntitySet="SD_DESCUENTOS" />
+          </AssociationSet>
           <AssociationSet Name="SD_DESCUENTOS_R01" Association="Model.SD_DESCUENTOS_R01">
             <End Role="SD_CIERRES" EntitySet="SD_CIERRES" />
             <End Role="SD_DESCUENTOS" EntitySet="SD_DESCUENTOS" />
@@ -2175,6 +2202,7 @@
           <NavigationProperty Name="SD_KARDEX_EFECTIVO" Relationship="Model.SD_KARDEX_EFECTIVO_R01" FromRole="SD_CAJAS" ToRole="SD_KARDEX_EFECTIVO" />
           <NavigationProperty Name="SD_PARADAS" Relationship="Model.SD_PARADAS_R01" FromRole="SD_CAJAS" ToRole="SD_PARADAS" />
           <NavigationProperty Name="SD_VENTA_HOJAS_CONTROL" Relationship="Model.SD_VENTA_HOJAS_CONTROL_R03" FromRole="SD_CAJAS" ToRole="SD_VENTA_HOJAS_CONTROL" />
+          <NavigationProperty Name="SD_DESCUENTOS" Relationship="Model.SD_DESCUENTOS_R02" FromRole="SD_CAJAS" ToRole="SD_DESCUENTOS" />
         </EntityType>
         <EntityType Name="SD_KARDEX_EFECTIVO">
           <Key>
@@ -2689,6 +2717,14 @@
           <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <Property Type="String" Name="ESTADO" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OBSERV_APROBOADO" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LOGIN_APROBADO" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ID_CAJA" />
+          <Property Type="String" Name="OBSERV_DEBITO" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LOGIN_DEBITO" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_APROBADO" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_DEBITO" Precision="0" />
+          <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_DESCUENTOS_R02" FromRole="SD_DESCUENTOS" ToRole="SD_CAJAS" />
           <NavigationProperty Name="SD_CIERRES" Relationship="Model.SD_DESCUENTOS_R01" FromRole="SD_DESCUENTOS" ToRole="SD_CIERRES" />
           <NavigationProperty Name="SD_DESCUENTOS_SOCIO" Relationship="Model.SD_DESCUENTOS_SOCIO_R01" FromRole="SD_DESCUENTOS" ToRole="SD_DESCUENTOS_SOCIO" />
         </EntityType>
@@ -2701,10 +2737,22 @@
           <Property Type="Int32" Name="ID_SOCIO" Nullable="false" />
           <Property Type="String" Name="DETALLE" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Type="Decimal" Name="IMPORTE" Nullable="false" Precision="15" Scale="5" />
-          <Property Type="Int16" Name="LOGIN" Nullable="false" />
+          <Property Type="String" Name="LOGIN" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SD_DESCUENTOS" Relationship="Model.SD_DESCUENTOS_SOCIO_R01" FromRole="SD_DESCUENTOS_SOCIO" ToRole="SD_DESCUENTOS" />
           <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_DESCUENTOS_SOCIO_R02" FromRole="SD_DESCUENTOS_SOCIO" ToRole="SD_SOCIOS" />
         </EntityType>
+        <Association Name="SD_DESCUENTOS_R02">
+          <End Type="Model.SD_CAJAS" Role="SD_CAJAS" Multiplicity="0..1" />
+          <End Type="Model.SD_DESCUENTOS" Role="SD_DESCUENTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CAJAS">
+              <PropertyRef Name="ID_CAJA" />
+            </Principal>
+            <Dependent Role="SD_DESCUENTOS">
+              <PropertyRef Name="ID_CAJA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="SD_DESCUENTOS_R01">
           <End Type="Model.SD_CIERRES" Role="SD_CIERRES" Multiplicity="1" />
           <End Type="Model.SD_DESCUENTOS" Role="SD_DESCUENTOS" Multiplicity="*" />
@@ -3293,6 +3341,13 @@
           <EntitySetMapping Name="SD_DESCUENTOS">
             <EntityTypeMapping TypeName="Model.SD_DESCUENTOS">
               <MappingFragment StoreEntitySet="SD_DESCUENTOS">
+                <ScalarProperty Name="FECHA_DEBITO" ColumnName="FECHA_DEBITO" />
+                <ScalarProperty Name="FECHA_APROBADO" ColumnName="FECHA_APROBADO" />
+                <ScalarProperty Name="LOGIN_DEBITO" ColumnName="LOGIN_DEBITO" />
+                <ScalarProperty Name="OBSERV_DEBITO" ColumnName="OBSERV_DEBITO" />
+                <ScalarProperty Name="ID_CAJA" ColumnName="ID_CAJA" />
+                <ScalarProperty Name="LOGIN_APROBADO" ColumnName="LOGIN_APROBADO" />
+                <ScalarProperty Name="OBSERV_APROBOADO" ColumnName="OBSERV_APROBOADO" />
                 <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
                 <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
                 <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
@@ -3337,7 +3392,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Modelo" ZoomLevel="13">
+      <Diagram Name="Modelo" ZoomLevel="37">
         <EntityTypeShape EntityType="Model.SD_LISTAS" Width="1.5" PointX="0.75" PointY="1" Height="2.5571907552083326" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.SD_LISTAS_ITEMS" Width="1.5" PointX="3" PointY="1" Height="2.7494921874999996" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.SD_MENU_OPCIONES" Width="1.5" PointX="0.5" PointY="11.125" Height="2.9417936197916639" IsExpanded="true" />
@@ -3440,8 +3495,9 @@
         <AssociationConnector Association="Model.SD_SOCIO_MOVILES_R01" />
         <AssociationConnector Association="Model.SD_VENTA_HOJAS_CONTROL_R02" />
         <EntityTypeShape EntityType="Model.SD_CIERRES" Width="1.5" PointX="22.5" PointY="1.5" />
-        <EntityTypeShape EntityType="Model.SD_DESCUENTOS" Width="1.5" PointX="25.5" PointY="3" />
-        <EntityTypeShape EntityType="Model.SD_DESCUENTOS_SOCIO" Width="1.5" PointX="19.875" PointY="3.875" />
+        <EntityTypeShape EntityType="Model.SD_DESCUENTOS" Width="1.5" PointX="26.875" PointY="2.75" />
+        <EntityTypeShape EntityType="Model.SD_DESCUENTOS_SOCIO" Width="1.5" PointX="29.875" PointY="4.25" />
+        <AssociationConnector Association="Model.SD_DESCUENTOS_R02" />
         <AssociationConnector Association="Model.SD_DESCUENTOS_R01" />
         <AssociationConnector Association="Model.SD_DESCUENTOS_SOCIO_R01" />
         <AssociationConnector Association="Model.SD_DESCUENTOS_SOCIO_R02" />

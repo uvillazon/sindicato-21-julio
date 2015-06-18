@@ -87,6 +87,7 @@
     <Compile Include="Controllers\CajasController.cs" />
     <Compile Include="Controllers\AutosController.cs" />
     <Compile Include="Controllers\CierresController.cs" />
+    <Compile Include="Controllers\DescuentosController.cs" />
     <Compile Include="Controllers\OtrosController.cs" />
     <Compile Include="Controllers\ParadasController.cs" />
     <Compile Include="Controllers\VentaHojasController.cs" />
@@ -231,6 +232,8 @@
     <Content Include="App\Model\Clientes\Kardex.js" />
     <Content Include="App\Model\Autos\Autos.js" />
     <Content Include="App\Model\Cierres\Cierres.js" />
+    <Content Include="App\Model\Descuentos\Detalles.js" />
+    <Content Include="App\Model\Descuentos\Descuentos.js" />
     <Content Include="App\Model\RetirosSocio\Retiros.js" />
     <Content Include="App\Model\IngresosSocio\Ingresos.js" />
     <Content Include="App\Model\Paradas\Paradas.js" />
@@ -268,6 +271,8 @@
     <Content Include="App\Store\Clientes\Kardex.js" />
     <Content Include="App\Store\Autos\Autos.js" />
     <Content Include="App\Store\Cierres\Cierres.js" />
+    <Content Include="App\Store\Descuentos\Detalles.js" />
+    <Content Include="App\Store\Descuentos\Descuentos.js" />
     <Content Include="App\Store\RetirosSocio\Retiros.js" />
     <Content Include="App\Store\IngresosSocio\Ingresos.js" />
     <Content Include="App\Store\Paradas\Paradas.js" />
@@ -335,6 +340,10 @@
     <Content Include="App\View\Cierres\FormCierre.js" />
     <Content Include="App\View\Cierres\GridCierres.js" />
     <Content Include="App\View\Cierres\Principal.js" />
+    <Content Include="App\View\Descuentos\GridDetalles.js" />
+    <Content Include="App\View\Descuentos\FormDescuento.js" />
+    <Content Include="App\View\Descuentos\GridDescuentos.js" />
+    <Content Include="App\View\Descuentos\Principal.js" />
     <Content Include="App\View\RetirosSocio\FormRetiro.js" />
     <Content Include="App\View\RetirosSocio\GridRetiros.js" />
     <Content Include="App\View\RetirosSocio\Principal.js" />
