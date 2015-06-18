@@ -16,7 +16,7 @@ namespace Sindicato.WebSite.Controllers
         //
         // GET: /Otros/
         private IDescuentosServices _serDesc;
-        public DescuentosController(IDescuentosServices serDesc )
+        public DescuentosController(IDescuentosServices serDesc)
         {
             this._serDesc = serDesc;
         }
@@ -36,7 +36,7 @@ namespace Sindicato.WebSite.Controllers
                 TOTAL = x.TOTAL,
                 FECHA_REG = x.FECHA_REG,
                 LOGIN = x.LOGIN
-                
+
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
@@ -56,21 +56,36 @@ namespace Sindicato.WebSite.Controllers
                 IMPORTE = x.IMPORTE,
                 LOGIN = x.LOGIN,
                 DESCUENTO = x.SD_DESCUENTOS.DESCUENTO,
-                SOCIO = string.Format("{0} {1} {2}",x.SD_SOCIOS.NOMBRE,x.SD_SOCIOS.APELLIDO_PATERNO,x.SD_SOCIOS.APELLIDO_MATERNO)
+                SOCIO = string.Format("{0} {1} {2}", x.SD_SOCIOS.NOMBRE, x.SD_SOCIOS.APELLIDO_PATERNO, x.SD_SOCIOS.APELLIDO_MATERNO)
 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
             return JavaScript(callback1);
         }
-       
-        //[HttpPost]
-        //public JsonResult GuardarCierre(SD_CIERRES cierre)
-        //{
-        //    string login = User.Identity.Name.Split('-')[0];
-        //    RespuestaSP respuestaSP = new RespuestaSP();
-        //    respuestaSP = _serCierre.GuardarCierre(cierre, login);
-        //    return Json(respuestaSP);
-        //}
-     }
+
+        [HttpPost]
+        public JsonResult GenerarDescuentos(SD_DESCUENTOS desc, decimal? IMPORTE_TOTAL, decimal? IMPORTE_SOCIO)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serDesc.GenerarDescuentos(desc, IMPORTE_SOCIO, IMPORTE_TOTAL, login);
+            return Json(respuestaSP);
+        }
+        [HttpPost]
+        public JsonResult ObtenerTotal(int ID_DESCUENTO)
+        {
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serDesc.CalcularSaldo(ID_DESCUENTO);
+            return Json(respuestaSP, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult GuardarDetalle(SD_DESCUENTOS_SOCIO det)
+        {
+            RespuestaSP respuestaSP = new RespuestaSP();
+            string login = User.Identity.Name.Split('-')[0];
+            respuestaSP = _serDesc.GuardarDetalle(det, login);
+            return Json(respuestaSP, JsonRequestBehavior.AllowGet);
+        }
+    }
 }

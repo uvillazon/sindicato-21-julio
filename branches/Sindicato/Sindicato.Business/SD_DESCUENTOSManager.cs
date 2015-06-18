@@ -58,6 +58,33 @@ namespace Sindicato.Business
                 //throw;
             }
         }
+        public string ActualizarTotal(int ID_DESCUENTO)
+        {
+            try
+            {
+                string result = "";
+
+                var antActual = BuscarTodos(x => x.ID_DESCUENTO == ID_DESCUENTO).FirstOrDefault();
+                    if (antActual != null)
+                    {
+                        var total = antActual.SD_DESCUENTOS_SOCIO.Sum(x => x.IMPORTE);
+                        antActual.TOTAL = total;
+                        Save();
+                        result = total.ToString();
+                    }
+                    else
+                    {
+                        result = "No Existe ese Antecedente";
+                    }
+                    return result;
+
+            }
+            catch (Exception e)
+            {
+                return e.ToString();
+                //throw;
+            }
+        }
 
         //test
 

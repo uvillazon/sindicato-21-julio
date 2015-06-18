@@ -31,7 +31,8 @@
 
         me.gridDetalles = Ext.create('App.View.Descuentos.GridDetalles', {
             width: '100%',
-            height : 400
+            height: 400,
+            cargarStore : false
             
         });
         me.form = Ext.create("App.View.Descuentos.FormDescuento", {

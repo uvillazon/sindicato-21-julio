@@ -8,6 +8,6 @@
             { type: "string", name: "DESCUENTO" },
             { type: "string", name: "DETALLE" },
             { type: "float", name: "IMPORTE" },
-            { type: "int", name: "LOGIN" }
+            { type: "string", name: "LOGIN" }
         ]
 });

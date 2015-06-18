@@ -16,7 +16,9 @@ namespace Sindicato.Services.Interfaces
         IEnumerable<SD_DESCUENTOS_SOCIO> ObtenerDetalleDescuentos(PagingInfo paginacion, FiltrosModel<OtrosModel> filtros);
         //asdasd
         
-        //RespuestaSP GuardarCierre(SD_CIERRES cierre, string login);
+        RespuestaSP GenerarDescuentos(SD_DESCUENTOS desc,decimal? IMPORTE_SOCIO,decimal? IMPORTE_TOTAL  , string login);
+        RespuestaSP GuardarDetalle(SD_DESCUENTOS_SOCIO detalle, string login);
+        RespuestaSP CalcularSaldo(int ID_DESCUENTO);
 
         //SD_CIERRES ObtenerUltimoRegistroCierre();
         

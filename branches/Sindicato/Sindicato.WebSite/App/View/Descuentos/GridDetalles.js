@@ -36,6 +36,7 @@
                clicksToEdit: 1
            })
         ];
+        me.store = Ext.create("App.Store.Descuentos.Detalles");
         me.CargarComponentes();
         me.columns = [
                 { xtype: "rownumberer", width: 30, sortable: false },

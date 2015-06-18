@@ -91,7 +91,7 @@
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false
         });
-        
+
         me.txt_descripcion = Ext.create("App.Config.Componente.TextAreaBase", {
             fieldLabel: "Descripcion",
             name: "DESCRIPCION",
@@ -102,7 +102,7 @@
 
         me.num_importeSocio = Ext.create("App.Config.Componente.NumberFieldBase", {
             name: "IMPORTE_SOCIO",
-            width : 200,
+            width: 200,
             fieldLabel: "Importe p/Socio",
             maxLength: 12,
             allowNegative: false,
@@ -117,10 +117,10 @@
             allowDecimals: true
         });
         //me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Descuento', Constantes.ICONO_CREAR, null, null, this);
-        me.btn_generar = Ext.create('Ext.Button', { text: 'Generar',iconCls : 'cog' });
+        me.btn_generar = Ext.create('Ext.Button', { text: 'Generar', iconCls: 'cog' });
         var cmp_generar = Ext.create('Ext.form.FieldContainer', {
             colspan: 2,
-            width : 480,
+            width: 480,
             layout: {
                 type: 'table',
                 columns: 3
@@ -129,9 +129,10 @@
         });
         me.gridDetalles = Ext.create('App.View.Descuentos.GridDetalles', {
             width: 500,
-            colspan : 2,
+            colspan: 2,
             height: 450,
-            modoEdicion : true
+            modoEdicion: true,
+            cargarStore: false
 
 
         });
@@ -140,11 +141,11 @@
             name: "TOTAL",
             readOnly: true,
             width: 480,
-            colspan : 2
+            colspan: 2
 
         });
         me.items = [
-            me.hid_id,me.hid_idCierre,
+            me.hid_id, me.hid_idCierre,
             me.txt_descuento,
             me.cbx_periodo, me.date_fecha,
             me.txt_descripcion,
@@ -152,11 +153,33 @@
             me.gridDetalles,
             me.txt_total
         ];
-       
+
     },
     cargarEventos: function () {
         var me = this;
-        me.num_importeSocio.on('change', function (f,n,o) {
+        me.gridDetalles.on('edit', function (editor, e) {
+            console.dir(e);
+            var params = {};
+            if (e.field === "IMPORTE") {
+                params = { ID_DESCUENTO_SOCIO: e.record.get('ID_DESCUENTO_SOCIO'), IMPORTE: e.value , DETALLE : e.record.get('DETALLE') };
+            }
+            if (e.field === "DETALLE") {
+                params = { ID_DESCUENTO_SOCIO: e.record.get('ID_DESCUENTO_SOCIO'), DETALLE: e.value , IMPORTE : e.record.get('IMPORTE')};
+            }
+            Ext.Ajax.request({
+                url: Constantes.HOST + 'Descuentos/GuardarDetalle',
+                params: params,
+                success: function (response) {
+                    var str = Ext.JSON.decode(response.responseText);
+                    if (str.success == true) {
+                        me.CalcularTotal(e.record.get('ID_DESCUENTO'));
+                        //me.txt_total.setValue(str.msg);
+                    }
+
+                }
+            });
+        });
+        me.num_importeSocio.on('change', function (f, n, o) {
             if (!Funciones.isEmpty(n)) {
                 me.num_importeTotal.reset();
             }
@@ -166,7 +189,7 @@
                 me.num_importeSocio.reset();
             }
         });
-        me.cbx_periodo.on('select', function (cbx,rec) {
+        me.cbx_periodo.on('select', function (cbx, rec) {
             me.hid_idCierre.setValue(rec[0].get('ID_CIERRE'));
         });
         me.btn_generar.on('click', function () {
@@ -177,7 +200,25 @@
                     Ext.Msg.alert("Error", "Escriba un Importe");
                 }
                 else {
-                    console.log("dasdsads");
+                    me.getForm().submit({
+                        submitEmptyText: false,
+                        url: Constantes.HOST + 'Descuentos/GenerarDescuentos',
+                        timeout: 1200,
+                        success: function (form, action) {
+                            Ext.MessageBox.alert('Exito', action.result.msg, function () {
+                                me.gridDetalles.getStore().setExtraParams({ ID_DESCUENTO: action.result.id });
+                                me.gridDetalles.getStore().load();
+                                me.hid_id.setValue(action.result.id);
+                                me.CalcularTotal(action.result.id);
+                                me.bloquearEdicion();
+                            });
+                            //me.Formulario.Bloquear();
+
+                        },
+                        failure: function (form, action) {
+                            Ext.MessageBox.alert('Error', action.result.msg);
+                        }
+                    });
                 }
             }
             else {
@@ -185,26 +226,25 @@
             }
         });
     },
+    bloquearEdicion: function () {
+        var me = this;
+        me.num_importeSocio.setDisabled(true);
+        me.num_importeTotal.setDisabled(true);
+        me.btn_generar.setDisabled(true);
+        me.cbx_periodo.setReadOnly(true);
+    },
+    CalcularTotal: function (ID) {
+        var me = this;
+        Ext.Ajax.request({
+            url: Constantes.HOST + 'Descuentos/ObtenerTotal',
+            params: { ID_DESCUENTO: ID },
+            success: function (response) {
+                var str = Ext.JSON.decode(response.responseText);
+                if (str.success == true) {
+                    me.txt_total.setValue(str.msg);
+                }
 
-    //actualizarNuevoSaldo: function (isNew) {
-    //    var me = this;
-    //    var res = me.num_saldo.getValue() - me.num_ingreso.getValue();
-    //    if (res < 0) {
-    //        Ext.Msg.alert("Error", "No Puede Retirar mas de lo que tiene", function () {
-    //            me.txt_nuevo_saldo.reset();
-    //            me.num_ingreso.reset();
-    //        });
-
-
-    //    }
-    //    else {
-    //        me.txt_nuevo_saldo.setValue(res);
-    //    }
-    //},
-    //ocultarSaldos: function (value) {
-    //    var me = this;
-    //    me.num_saldo.setVisible(value);
-    //    me.txt_nuevo_saldo.setVisible(value);
-    //    me.cbx_socio.setVisible(value);
-    //}
+            }
+        });
+    }
 });
