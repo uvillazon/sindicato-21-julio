@@ -46,6 +46,7 @@
 /branches/Sindicato/Sindicato.Model/obj/
 #branches/Sindicato/Sindicato.Services/Interfaces/IDescuentosServices.cs
 #branches/Sindicato/Sindicato.Services/Model/OtrosModel.cs
-/branches/Sindicato/Sindicato.Services/obj/
+/branches/Sindicato/Sindicato.Services/obj
+/branches/Sindicato/Sindicato.Services/bin
 /branches/Sindicato/Sindicato.WebSite/bin/
 /branches/Sindicato/Sindicato.WebSite/obj/
