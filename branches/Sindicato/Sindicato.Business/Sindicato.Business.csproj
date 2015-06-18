@@ -86,6 +86,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DataMigration\DLL18062015.sql" />
     <Content Include="DataMigration\OrdenScripts.sql" />
     <Content Include="DataMigration\P_SD_ALTA_SD_CHOFERES.sql" />
     <Content Include="DataMigration\P_SD_ALTA_SD_FAMILIARES.sql" />

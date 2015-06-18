@@ -118,7 +118,7 @@
         });
         //me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Descuento', Constantes.ICONO_CREAR, null, null, this);
         me.btn_generar = Ext.create('Ext.Button', { text: 'Generar', iconCls: 'cog' });
-        var cmp_generar = Ext.create('Ext.form.FieldContainer', {
+        me.cmp_generar = Ext.create('Ext.form.FieldContainer', {
             colspan: 2,
             width: 480,
             layout: {
@@ -149,7 +149,7 @@
             me.txt_descuento,
             me.cbx_periodo, me.date_fecha,
             me.txt_descripcion,
-            cmp_generar,
+            me.cmp_generar,
             me.gridDetalles,
             me.txt_total
         ];
@@ -228,6 +228,7 @@
     },
     bloquearEdicion: function () {
         var me = this;
+        console.dir(me);
         me.num_importeSocio.setDisabled(true);
         me.num_importeTotal.setDisabled(true);
         me.btn_generar.setDisabled(true);

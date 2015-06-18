@@ -25,7 +25,7 @@
         });
         me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Descuento', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
         me.btn_editar = Funciones.CrearMenu('btn_editar', 'Editar Descuento', Constantes.ICONO_EDITAR, me.EventosPrincipal, null, this, null, true);
-        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Eliminar Descuento', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
+        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Anular Descuento', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
         me.grid.AgregarBtnToolbar([me.btn_crear,me.btn_editar, me.btn_eliminar]);
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
 
@@ -74,9 +74,10 @@
             case "btn_crear":
                 me.FormCrearDeposito();
                 break;
-            //case "btn_eliminar":
-            //    Funciones.AjaxRequestGrid("Socios", "EliminarRetiroSocio", me.grid, "Esta seguro de Eliminar el Retiro?", { ID_RETIRO: me.record.get('ID_RETIRO') }, me.grid, null);
-            //    break;
+            case "btn_editar":
+                me.FormCrearDeposito(me.record);
+                //Funciones.AjaxRequestGrid("Socios", "EliminarRetiroSocio", me.grid, "Esta seguro de Eliminar el Retiro?", { ID_RETIRO: me.record.get('ID_RETIRO') }, me.grid, null);
+                break;
             //case "btn_Kardex":
             //    me.VentanaKardex();
             //    break;
@@ -85,7 +86,7 @@
                 break;
         }
     },
-    FormCrearDeposito: function () {
+    FormCrearDeposito: function (record) {
         var me = this;
         var win = Ext.create("App.Config.Abstract.Window", { botones: true });
         var form = Ext.create("App.View.Descuentos.FormDescuento", {
@@ -93,6 +94,12 @@
             columns: 2,
             botones: false
         });
+        if (record != null) {
+            form.bloquearEdicion();
+            form.getForm().loadRecord(record);
+            form.gridDetalles.getStore().setExtraParams({ ID_DESCUENTO: record.get('ID_DESCUENTO') });
+            form.gridDetalles.getStore().load();
+        }
         //form.txt_socio.setVisible(false);
         //form.getForm().loadRecord(me.socio);
         win.add(form);
