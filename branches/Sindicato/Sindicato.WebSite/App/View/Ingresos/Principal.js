@@ -1,8 +1,5 @@
 ﻿Ext.define("App.View.Ingresos.Principal", {
     extend: "App.Config.Abstract.PanelPrincipal",
-    controlador: 'Ingresos',
-    accionGrabar: 'GrabarIngresos',
-    view: '',
     initComponent: function () {
         var me = this;
         me.CargarComponentes();
@@ -12,89 +9,95 @@
         var me = this;
 
         me.toolbar = Funciones.CrearMenuBar();
-        Funciones.CrearMenu('btn_CrearIngreso', 'Crear Ingreso', Constantes.ICONO_CREAR, me.EventosIngreso, me.toolbar, this);
-        Funciones.CrearMenu('btn_Imprimir', 'Imprimir', Constantes.ICONO_IMPRIMIR, me.ImprimirReporteGrid, me.toolbar, this);
-        // Funciones.CrearMenu('btn_Detalle', 'Detalle', 'report', me.EventosIngreso, me.toolbar, this, null, true);
-        Funciones.CrearMenu('btn_Editar', 'Editar', Constantes.ICONO_EDITAR, me.EventosIngreso, me.toolbar, this, null, true);
-        Funciones.CrearMenu('btn_Eliminar', 'Eliminar', Constantes.ICONO_BAJA, me.EventosIngreso, me.toolbar, this, null, true);
+        //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
+        Funciones.CrearMenu('btn_Kardex', 'Kardex Caja', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
+        //Funciones.CrearMenu('btn_KardexDestino', 'Kardex Caja Destino', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
+        //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
+
+
 
         me.grid = Ext.create('App.View.Ingresos.GridIngresos', {
-            region: 'center',
-            height: 350,
-            imagenes: false,
-            opcion: 'GridIngresos',
-            toolbar: me.toolbar
+            region: 'west',
+            width: '50%',
+            fbarmenu: me.toolbar,
+            fbarmenuArray: ["btn_Kardex", "btn_eliminar"]
 
         });
-        me.items = [me.grid];
+        me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Ingreso', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
+        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Eliminar Ingreso', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
+        me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar]);
+        //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
 
-        me.grid.on('itemclick', me.onItemClick, this);
-        me.grid.getSelectionModel().on('selectionchange', me.onSelectChange, this);
+        me.form = Ext.create("App.View.Ingresos.FormIngreso", {
+            region: 'center',
+            width: '50%',
+            columns: 2,
+            modoConsulta: true,
+        });
+
+        me.form.BloquearFormulario();
+        me.items = [me.grid, me.form];
+        me.grid.getSelectionModel().on('selectionchange', me.CargarDatos, this);
 
     },
-    onItemClick: function (view, record, item, index, e) {
-        var me = this;
-        me.recordSelected = record;
-        me.id_ingreso = record.get('ID_INGRESO');
-    },
-    onSelectChange: function (selModel, selections) {
+    CargarDatos: function (selModel, selections) {
         var me = this;
         var disabled = selections.length === 0;
-        Funciones.DisabledButton('btn_Editar', me.toolbar, disabled);
-        //Funciones.DisabledButton('btn_Detalle', me.toolbar, disabled);
-        Funciones.DisabledButton('btn_Eliminar', me.toolbar, disabled);
+        me.record = disabled ? null : selections[0];
+        if (!disabled) {
+            me.form.getForm().loadRecord(selections[0])
+        }
+        else {
+            me.form.getForm().reset();
+
+        }
     },
-    EventosIngreso: function (btn) {
+
+    EventosPrincipal: function (btn) {
         var me = this;
         switch (btn.getItemId()) {
-            case "btn_CrearIngreso":
-                me.MostrarFormIngreso(true);
+            case "btn_crear":
+                me.FormCrearIngreso();
                 break;
-            case "btn_Editar":
-                me.MostrarFormIngreso(false, false);
+            case "btn_eliminar":
+                Funciones.AjaxRequestGrid("Transferencias", "EliminarIngreso", me.grid, "Esta seguro de Eliminar la Ingreso?", { ID_INGRESO: me.record.get('ID_INGRESO') }, me.grid, null);
                 break;
-            case "btn_Detalle":
-                me.MostrarFormIngreso(false, true);
-                break;
-            case "btn_Eliminar":
-                me.EliminarRegistro();
+            case "btn_Kardex":
+                me.VentanaKardex(me.record.get('ID_CAJA'));
                 break;
             default:
                 Ext.Msg.alert("Aviso", "No Existe el botton");
+                break;
         }
     },
-    MostrarFormIngreso: function (isNew, block) {
+    FormCrearIngreso: function () {
         var me = this;
-        if (me.winCrearIngreso == null) {
-            me.winCrearIngreso = Ext.create("App.Config.Abstract.Window", { botones: true, textGuardar: 'Guardar' });
-            me.formIngreso = Ext.create("App.View.Ingresos.FormIngreso", {
-                columns: 1,
-                title: 'Registro de Otros Ingresos ',
-                botones: false
-            });
+        var win = Ext.create("App.Config.Abstract.Window", { botones: true });
+        var form = Ext.create("App.View.Ingresos.FormIngreso", {
+            title: 'Datos Ingreso a Caja',
+            columns: 2,
+            botones: false
+        });
+        win.add(form);
+        win.show();
+        win.btn_guardar.on('click', function () {
+            //console.dir(params);
+            Funciones.AjaxRequestWin("Transferencias", "GuardarIngreso", win, form, me.grid, "Esta Seguro de Guardar", null, win);
+        });
 
-            me.winCrearIngreso.add(me.formIngreso);
-            me.winCrearIngreso.btn_guardar.on('click', me.GuardarIngresos, this);
-        } else {
-            me.formIngreso.getForm().reset();
-            me.formIngreso.CargarStore();
-        }
-        if (!isNew && !Funciones.isEmpty(me.recordSelected)) {
-            me.formIngreso.ocultarSaldos(false);
-            me.formIngreso.CargarStore();
-            me.formIngreso.CargarDatos(me.recordSelected);
-        } else
-            me.formIngreso.ocultarSaldos(true);
-        me.winCrearIngreso.show();
     },
-    GuardarIngresos: function () {
+    VentanaKardex: function (id_caja) {
         var me = this;
-        Funciones.AjaxRequestWin('Ingresos', 'GuardarIngreso', me.winCrearIngreso, me.formIngreso, me.grid, 'Esta Seguro de Guardar el Ingreso?', null, me.winCrearIngreso);
-    },
+        var win = Ext.create("App.Config.Abstract.Window", { botones: false });
+        var grid = Ext.create("App.View.Cajas.GridKardexCaja", {
+            region: 'center',
+            width: 760,
+            height: 450,
+            id_caja: id_caja
+        });
+        win.add(grid);
+        win.show();
 
-    EliminarRegistro: function () {
-        var me = this;
-        Funciones.AjaxRequestGrid("Ingresos", "EliminarIngreso", me, "Esta Seguro de Eliminar este Registro", { ID_INGRESO: me.id_ingreso }, me.grid, null);
     }
 
 });

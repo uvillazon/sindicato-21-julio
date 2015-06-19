@@ -1,8 +1,8 @@
-﻿Ext.define("App.View.RetirosSocio.FormRetiro", {
+﻿Ext.define("App.View.Transferencias.FormTransferencia", {
     extend: "App.Config.Abstract.Form",
     columns: 1,
     record: '',
-    title: 'Datos del Retiro',
+    title: 'Datos del Ingreso',
     Eventos: true,
     modoConsulta: false,
     initComponent: function () {
@@ -247,7 +247,7 @@
             var nuevoSaldoOrigen = saldoOrigen - newvalue;
             if (nuevoSaldoOrigen < 0) {
                 Ext.Msg.alert("Error", "No El Saldo no es Suficiente para Transferir Saldo Actual : " + saldoOrigen + " Importe Total : " + newvalue, function () {
-                    me.num_nuevoSaldoOrigen.reset(saldoOrigen);
+                    me.num_nuevoSaldoOrigen.setValue(saldoOrigen);
                     me.num_nuevoSaldoDestino.setValue(saldoDestino);
                     num.reset();
                 });
