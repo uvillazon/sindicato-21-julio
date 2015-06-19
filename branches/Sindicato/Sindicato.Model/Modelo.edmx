@@ -41,6 +41,7 @@
           <EntitySet Name="SD_SOCIO_MOVIL_AUTOS" EntityType="Model.Store.SD_SOCIO_MOVIL_AUTOS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_SOCIO_MOVILES" EntityType="Model.Store.SD_SOCIO_MOVILES" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_SOCIOS" EntityType="Model.Store.SD_SOCIOS" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_TRANSFERENCIAS" EntityType="Model.Store.SD_TRANSFERENCIAS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_USUARIOS" EntityType="Model.Store.SD_USUARIOS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_VENTA_HOJAS_CONTROL" EntityType="Model.Store.SD_VENTA_HOJAS_CONTROL" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="V_TABLAS_COLUMNAS" EntityType="Model.Store.V_TABLAS_COLUMNAS" store:Type="Views" store:Schema="SINDICATO" store:Name="V_TABLAS_COLUMNAS">
@@ -175,6 +176,14 @@
           <AssociationSet Name="SD_SOCIO_MOVILES_R02" Association="Model.Store.SD_SOCIO_MOVILES_R02">
             <End Role="SD_MOVILES" EntitySet="SD_MOVILES" />
             <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_TRANSFERENCIAS_R01" Association="Model.Store.SD_TRANSFERENCIAS_R01">
+            <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
+            <End Role="SD_TRANSFERENCIAS" EntitySet="SD_TRANSFERENCIAS" />
+          </AssociationSet>
+          <AssociationSet Name="SD_TRANSFERENCIAS_R02" Association="Model.Store.SD_TRANSFERENCIAS_R02">
+            <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
+            <End Role="SD_TRANSFERENCIAS" EntitySet="SD_TRANSFERENCIAS" />
           </AssociationSet>
           <AssociationSet Name="SD_VENTA_HOJAS_CONTROL_R01" Association="Model.Store.SD_VENTA_HOJAS_CONTROL_R01">
             <End Role="SD_PARADAS" EntitySet="SD_PARADAS" />
@@ -736,6 +745,21 @@
           <Property Name="SALDO" Type="number" Precision="15" Scale="5" />
           <Property Name="DEUDA" Type="number" Precision="15" Scale="5" />
         </EntityType>
+        <EntityType Name="SD_TRANSFERENCIAS">
+          <Key>
+            <PropertyRef Name="ID_TRANSFERENCIA" />
+          </Key>
+          <Property Name="ID_TRANSFERENCIA" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_CAJA_ORIGEN" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_CAJA_DESTINO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="NRO_RECIBO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="FECHA" Type="date" Nullable="false" />
+          <Property Name="CONCEPTO" Type="varchar2" Nullable="false" MaxLength="140" />
+          <Property Name="OBSERVACION" Type="varchar2" MaxLength="1500" />
+          <Property Name="IMPORTE" Type="number" Nullable="false" Precision="15" Scale="5" />
+          <Property Name="LOGIN" Type="varchar2" MaxLength="50" />
+          <Property Name="FECHA_REG" Type="date" />
+        </EntityType>
         <EntityType Name="SD_USUARIOS">
           <Key>
             <PropertyRef Name="ID_USUARIO" />
@@ -1144,6 +1168,30 @@
             </Principal>
             <Dependent Role="SD_SOCIO_MOVILES">
               <PropertyRef Name="ID_MOVIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_TRANSFERENCIAS_R01">
+          <End Role="SD_CAJAS" Type="Model.Store.SD_CAJAS" Multiplicity="1" />
+          <End Role="SD_TRANSFERENCIAS" Type="Model.Store.SD_TRANSFERENCIAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CAJAS">
+              <PropertyRef Name="ID_CAJA" />
+            </Principal>
+            <Dependent Role="SD_TRANSFERENCIAS">
+              <PropertyRef Name="ID_CAJA_ORIGEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_TRANSFERENCIAS_R02">
+          <End Role="SD_CAJAS" Type="Model.Store.SD_CAJAS" Multiplicity="1" />
+          <End Role="SD_TRANSFERENCIAS" Type="Model.Store.SD_TRANSFERENCIAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CAJAS">
+              <PropertyRef Name="ID_CAJA" />
+            </Principal>
+            <Dependent Role="SD_TRANSFERENCIAS">
+              <PropertyRef Name="ID_CAJA_DESTINO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1821,6 +1869,15 @@
             <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
             <End Role="SD_INGRESOS" EntitySet="SD_INGRESOS" />
           </AssociationSet>
+          <EntitySet Name="SD_TRANSFERENCIAS" EntityType="Model.SD_TRANSFERENCIAS" />
+          <AssociationSet Name="SD_TRANSFERENCIAS_R01" Association="Model.SD_TRANSFERENCIAS_R01">
+            <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
+            <End Role="SD_TRANSFERENCIAS" EntitySet="SD_TRANSFERENCIAS" />
+          </AssociationSet>
+          <AssociationSet Name="SD_TRANSFERENCIAS_R02" Association="Model.SD_TRANSFERENCIAS_R02">
+            <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
+            <End Role="SD_TRANSFERENCIAS" EntitySet="SD_TRANSFERENCIAS" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="SD_LISTAS">
           <Key>
@@ -2289,6 +2346,8 @@
           <NavigationProperty Name="SD_DESCUENTOS" Relationship="Model.SD_DESCUENTOS_R02" FromRole="SD_CAJAS" ToRole="SD_DESCUENTOS" />
           <NavigationProperty Name="SD_EGRESOS" Relationship="Model.SD_EGRESOS_R01" FromRole="SD_CAJAS" ToRole="SD_EGRESOS" />
           <NavigationProperty Name="SD_INGRESOS" Relationship="Model.SD_INGRESOS_R01" FromRole="SD_CAJAS" ToRole="SD_INGRESOS" />
+          <NavigationProperty Name="SD_TRANSFERENCIAS" Relationship="Model.SD_TRANSFERENCIAS_R01" FromRole="SD_CAJAS" ToRole="SD_TRANSFERENCIAS" />
+          <NavigationProperty Name="SD_TRANSFERENCIAS1" Relationship="Model.SD_TRANSFERENCIAS_R02" FromRole="SD_CAJAS" ToRole="SD_TRANSFERENCIAS" />
         </EntityType>
         <EntityType Name="SD_KARDEX_EFECTIVO">
           <Key>
@@ -2929,6 +2988,47 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SD_TRANSFERENCIAS">
+          <Key>
+            <PropertyRef Name="ID_TRANSFERENCIA" />
+          </Key>
+          <Property Type="Int32" Name="ID_TRANSFERENCIA" Nullable="false" />
+          <Property Type="Int32" Name="ID_CAJA_ORIGEN" Nullable="false" />
+          <Property Type="Int32" Name="ID_CAJA_DESTINO" Nullable="false" />
+          <Property Type="Int32" Name="NRO_RECIBO" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA" Nullable="false" Precision="0" />
+          <Property Type="String" Name="CONCEPTO" Nullable="false" MaxLength="140" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="IMPORTE" Nullable="false" Precision="15" Scale="5" />
+          <Property Type="String" Name="LOGIN" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_TRANSFERENCIAS_R01" FromRole="SD_TRANSFERENCIAS" ToRole="SD_CAJAS" />
+          <NavigationProperty Name="SD_CAJAS1" Relationship="Model.SD_TRANSFERENCIAS_R02" FromRole="SD_TRANSFERENCIAS" ToRole="SD_CAJAS" />
+        </EntityType>
+        <Association Name="SD_TRANSFERENCIAS_R01">
+          <End Type="Model.SD_CAJAS" Role="SD_CAJAS" Multiplicity="1" />
+          <End Type="Model.SD_TRANSFERENCIAS" Role="SD_TRANSFERENCIAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CAJAS">
+              <PropertyRef Name="ID_CAJA" />
+            </Principal>
+            <Dependent Role="SD_TRANSFERENCIAS">
+              <PropertyRef Name="ID_CAJA_ORIGEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_TRANSFERENCIAS_R02">
+          <End Type="Model.SD_CAJAS" Role="SD_CAJAS" Multiplicity="1" />
+          <End Type="Model.SD_TRANSFERENCIAS" Role="SD_TRANSFERENCIAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CAJAS">
+              <PropertyRef Name="ID_CAJA" />
+            </Principal>
+            <Dependent Role="SD_TRANSFERENCIAS">
+              <PropertyRef Name="ID_CAJA_DESTINO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3543,6 +3643,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SD_TRANSFERENCIAS">
+            <EntityTypeMapping TypeName="Model.SD_TRANSFERENCIAS">
+              <MappingFragment StoreEntitySet="SD_TRANSFERENCIAS">
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="IMPORTE" ColumnName="IMPORTE" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="CONCEPTO" ColumnName="CONCEPTO" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="NRO_RECIBO" ColumnName="NRO_RECIBO" />
+                <ScalarProperty Name="ID_CAJA_DESTINO" ColumnName="ID_CAJA_DESTINO" />
+                <ScalarProperty Name="ID_CAJA_ORIGEN" ColumnName="ID_CAJA_ORIGEN" />
+                <ScalarProperty Name="ID_TRANSFERENCIA" ColumnName="ID_TRANSFERENCIA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -3563,7 +3679,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Modelo" ZoomLevel="14">
+      <Diagram Name="Modelo" ZoomLevel="94">
         <EntityTypeShape EntityType="Model.SD_LISTAS" Width="1.5" PointX="0.75" PointY="1" Height="2.5571907552083326" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.SD_LISTAS_ITEMS" Width="1.5" PointX="3" PointY="1" Height="2.7494921874999996" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.SD_MENU_OPCIONES" Width="1.5" PointX="0.5" PointY="11.125" Height="2.9417936197916639" IsExpanded="true" />
@@ -3676,6 +3792,9 @@
         <EntityTypeShape EntityType="Model.SD_INGRESOS" Width="1.5" PointX="3.5" PointY="25" />
         <AssociationConnector Association="Model.SD_EGRESOS_R01" />
         <AssociationConnector Association="Model.SD_INGRESOS_R01" />
+        <EntityTypeShape EntityType="Model.SD_TRANSFERENCIAS" Width="1.5" PointX="7.75" PointY="25.25" />
+        <AssociationConnector Association="Model.SD_TRANSFERENCIAS_R01" />
+        <AssociationConnector Association="Model.SD_TRANSFERENCIAS_R02" />
         </Diagram>
     </Diagrams>
   </Designer>
