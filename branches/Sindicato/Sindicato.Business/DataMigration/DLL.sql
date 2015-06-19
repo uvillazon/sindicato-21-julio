@@ -56060,3 +56060,47 @@ Insert into SINDICATO.SD_USUARIOS
    (2, 'ADMIN', 'Administrador2 ', 'admin@importmercado.com', TO_DATE('12/21/2013 21:23:20', 'MM/DD/YYYY HH24:MI:SS'), 
     NULL, 1, 'A', 'admin');
 COMMIT;
+
+
+CREATE TABLE SINDICATO.SD_OTRAS_OBLIGACIONES
+(
+  ID_OBLIGACION  NUMBER(7)                   NOT NULL,
+  ID_SOCIO  NUMBER(7)                   NOT NULL,
+  ID_CIERRE  NUMBER(7)                   NOT NULL,
+  FECHA             DATE                        NOT NULL,
+  CONCEPTO          VARCHAR2(140 BYTE)          NOT NULL,
+  OBSERVACION       VARCHAR2(1500 BYTE),
+  IMPORTE           NUMBER(15,5)                NOT NULL,
+  LOGIN             VARCHAR2(50 BYTE),
+  ESTADO          VARCHAR2(20 BYTE)          ,
+  FECHA_REG         DATE
+)
+CREATE TABLE SINDICATO.SD_NIVELACIONES
+(
+  ID_OBLIGACION  NUMBER(7)                   NOT NULL,
+  ID_SOCIO  NUMBER(7)                   NOT NULL,
+  ID_CIERRE  NUMBER(7)                   NOT NULL,
+  FECHA             DATE                        NOT NULL,
+  CONCEPTO          VARCHAR2(140 BYTE)          NOT NULL,
+  OBSERVACION       VARCHAR2(1500 BYTE),
+  IMPORTE           NUMBER(15,5)                NOT NULL,
+  LOGIN             VARCHAR2(50 BYTE),
+  ESTADO          VARCHAR2(20 BYTE)          ,
+  FECHA_REG         DATE
+)
+
+
+CREATE TABLE SINDICATO.SD_KARDEX_SOCIO_DEBE
+(
+  ID_KARDEX     NUMBER(7)                       NOT NULL,
+  ID_SOCIO      NUMBER(7)                       NOT NULL,
+  ID_OPERACION  NUMBER(7)                       NOT NULL,
+  OPERACION     VARCHAR2(250 BYTE)              NOT NULL,
+  FECHA         DATE                            NOT NULL,
+  DETALLE       VARCHAR2(250 BYTE)              NOT NULL,
+  DEBE       NUMBER(15,5)                    NOT NULL,
+  AMORTIZACION        NUMBER(15,5)                    NOT NULL,
+  SALDO_DEBE         NUMBER(15,5)                    NOT NULL,
+  LOGIN         VARCHAR2(250 BYTE)              NOT NULL,
+  FECHA_REG     DATE
+)
