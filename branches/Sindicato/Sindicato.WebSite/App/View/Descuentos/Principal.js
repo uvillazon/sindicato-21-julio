@@ -59,11 +59,15 @@
         me.record = disabled ? null : selections[0];
         if (!disabled) {
             me.form.getForm().loadRecord(selections[0])
+            me.gridDetalles.getStore().setExtraParams({ ID_DESCUENTO: selections[0].get('ID_DESCUENTO') });
+            me.gridDetalles.getStore().load();
             //me.form.CargarDatos(selections[0]);
 
         }
         else {
             me.form.getForm().reset();
+            me.gridDetalles.getStore().setExtraParams({ ID_DESCUENTO: 0 });
+            me.gridDetalles.getStore().load();
           
         }
     },
@@ -75,8 +79,16 @@
                 me.FormCrearDeposito();
                 break;
             case "btn_editar":
-                me.FormCrearDeposito(me.record);
+                if (me.record.get('ESTADO') == "NUEVO") {
+                    me.FormCrearDeposito(me.record);
+                }
+                else {
+                    Ext.Msg.alert("Error", "Descuento en estado Inapropiado.");
+                }
                 //Funciones.AjaxRequestGrid("Socios", "EliminarRetiroSocio", me.grid, "Esta seguro de Eliminar el Retiro?", { ID_RETIRO: me.record.get('ID_RETIRO') }, me.grid, null);
+                break;
+            case "btn_eliminar":
+                Funciones.AjaxRequestGrid("Descuentos", "AnularAprobarDebitoDecuento", me.grid, "Esta seguro de Anular  el Descuento?", { ID_DESCUENTO: me.record.get('ID_DESCUENTO') , ACCION : 'ANULAR' }, me.grid, null);
                 break;
             //case "btn_Kardex":
             //    me.VentanaKardex();
@@ -88,7 +100,7 @@
     },
     FormCrearDeposito: function (record) {
         var me = this;
-        var win = Ext.create("App.Config.Abstract.Window", { botones: true });
+        var win = Ext.create("App.Config.Abstract.Window", { botones: true  , gridLoads : [me.grid]});
         var form = Ext.create("App.View.Descuentos.FormDescuento", {
             title: 'Datos Descuento',
             columns: 2,

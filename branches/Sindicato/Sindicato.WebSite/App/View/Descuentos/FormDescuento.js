@@ -49,9 +49,16 @@
             width: 480,
             colspan: 2
         });
+        me.txt_periodo = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Periodo",
+            name: "PERIODO",
+            width: 480,
+            colspan: 2
+        });
         me.items = [
             me.hid_id,
             me.txt_descuento,
+            me.txt_periodo,
             me.date_fecha, me.txt_total,
             me.txt_descripcion,
             me.txt_estado
@@ -79,7 +86,7 @@
         me.store_periodo.setExtraParams({ ESTADO: 'ACTIVO' });
         me.cbx_periodo = Ext.create("App.Config.Componente.ComboAutoBase", {
             fieldLabel: "Periodo",
-            name: "ID_CIERRE",
+            name: "PERIODO",
             displayField: 'CODIGO',
             store: me.store_periodo,
             afterLabelTextTpl: Constantes.REQUERIDO,

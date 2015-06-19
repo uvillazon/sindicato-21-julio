@@ -35,7 +35,8 @@ namespace Sindicato.WebSite.Controllers
                 ID_DESCUENTO = x.ID_DESCUENTO,
                 TOTAL = x.TOTAL,
                 FECHA_REG = x.FECHA_REG,
-                LOGIN = x.LOGIN
+                LOGIN = x.LOGIN,
+                ESTADO = x.ESTADO
 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
