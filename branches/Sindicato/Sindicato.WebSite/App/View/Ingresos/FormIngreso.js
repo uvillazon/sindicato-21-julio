@@ -111,8 +111,8 @@
             textoTpl: function () { return "{NOMBRE} - {DESCRIPCION}" }
         });
         me.num_saldo = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "Saldo Origen",
-            name: "SALDO_ORIGEN",
+            fieldLabel: "Saldo",
+            name: "SALDO",
             readOnly: true,
             allowDecimals: true,
             maxValue: 999999999

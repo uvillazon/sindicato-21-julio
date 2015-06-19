@@ -98,7 +98,7 @@ namespace Sindicato.WebSite.Controllers
             return Json(respuestaSP);
         }
         [HttpPost]
-        public JsonResult EliminarRetiroSocio(int ID_EGRESO)
+        public JsonResult EliminarEgreso(int ID_EGRESO)
         {
             string login = User.Identity.Name.Split('-')[0];
             RespuestaSP respuestaSP = new RespuestaSP();
