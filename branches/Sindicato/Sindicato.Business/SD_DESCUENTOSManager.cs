@@ -101,18 +101,29 @@ namespace Sindicato.Business
                 var desc = BuscarTodos(x => x.ID_DESCUENTO == ID_DESCUENTO).FirstOrDefault();
                 if (desc != null)
                 {
-                    if (desc.ESTADO == "NUEVO")
+                    if (ACCION == "ANULADO" || ACCION == "APROBADO")
                     {
-                        desc.ESTADO = ACCION;
-                        desc.LOGIN_APROBADO = ACCION == "APROBADO" ? login : null;
-                        desc.FECHA_APROBADO = ACCION == "APROBADO" ? (DateTime?)DateTime.Now : null;
-                        desc.FECHA_DEBITO = ACCION == "DEBITADO" ? (DateTime?)DateTime.Now : null;
-                        desc.LOGIN_DEBITO = ACCION == "DEBITADO" ? login : null;
-                        desc.OBSERV_APROBOADO = ACCION == "APROBADOO" ? OBSERVACION : null;
-                        desc.OBSERV_DEBITO = ACCION == "DEBITADO" ? OBSERVACION : null;
-                        
-                        //Save();
-                        if (ACCION == "DEBITADO")
+                        if (desc.ESTADO == "NUEVO")
+                        {
+                            desc.ESTADO = ACCION;
+                            desc.LOGIN_APROBADO = ACCION == "APROBADO" ? login : null;
+                            desc.FECHA_APROBADO = ACCION == "APROBADO" ? (DateTime?)DateTime.Now : null;
+                            desc.FECHA_DEBITO = ACCION == "DEBITADO" ? (DateTime?)DateTime.Now : null;
+                            desc.LOGIN_DEBITO = ACCION == "DEBITADO" ? login : null;
+                            desc.OBSERV_APROBOADO = ACCION == "APROBADO" ? OBSERVACION : null;
+                            desc.OBSERV_DEBITO = ACCION == "DEBITADO" ? OBSERVACION : null;
+                            result = desc.ID_DESCUENTO.ToString();
+                            Save();
+
+                        }
+                        else
+                        {
+                            result = "Descuento en estado INADECUADO";
+                        }
+                    }
+                    else
+                    {
+                        if (desc.ESTADO == "APROBADO")
                         {
                             var caja = context.SD_CAJAS.Where(x => x.ID_CAJA == ID_CAJA).FirstOrDefault();
                             if (caja == null)
@@ -140,25 +151,29 @@ namespace Sindicato.Business
                                         ID_CAJA = (int)ID_CAJA,
                                         ID_OPERACION = desc.ID_DESCUENTO,
                                         OPERACION = "DESCUENTO",
+                                        LOGIN = login
                                     };
                                     context.SD_KARDEX_EFECTIVO.AddObject(kardex);
+                                    desc.ESTADO = ACCION;
+                                    desc.LOGIN_APROBADO = ACCION == "APROBADO" ? login : null;
+                                    desc.FECHA_APROBADO = ACCION == "APROBADO" ? (DateTime?)DateTime.Now : null;
+                                    desc.FECHA_DEBITO = ACCION == "DEBITADO" ? (DateTime?)DateTime.Now : null;
+                                    desc.LOGIN_DEBITO = ACCION == "DEBITADO" ? login : null;
+                                    desc.OBSERV_APROBOADO = ACCION == "APROBADO" ? OBSERVACION : null;
+                                    desc.OBSERV_DEBITO = ACCION == "DEBITADO" ? OBSERVACION : null;
                                     Save();
                                     context.P_SD_ACT_KARDEX_EFECTIVO(ID_CAJA, DateTime.Today, 1, p_RES);
                                     result = desc.ID_DESCUENTO.ToString();
                                 }
 
                             }
-                        }
-                        else {
-                            result = desc.ID_DESCUENTO.ToString();
-                            Save();
-                        }
-                    }
-                    else
-                    {
-                        result = "Descuento en estado INADECUADO";
-                    }
 
+                        }
+                        else
+                        {
+                            result = "Descuento en estado INADECUADO";
+                        }
+                    }
                 }
                 else
                 {

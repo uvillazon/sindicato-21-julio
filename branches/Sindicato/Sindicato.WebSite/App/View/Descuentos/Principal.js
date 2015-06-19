@@ -97,7 +97,16 @@
                 break;
             case "btn_aprobar":
                 if (me.record.get('ESTADO') == "NUEVO") {
-                    Funciones.AjaxRequestGrid("Descuentos", "AnularAprobarDebitoDecuento", me.grid, "Esta seguro de Aprobar  el Descuento?", { ID_DESCUENTO: me.record.get('ID_DESCUENTO'), ACCION: 'APROBADO' , OBSERVACION : 'APROBADO EL DESCUENTO POR SISTEMA' }, me.grid, null);
+                    Funciones.AjaxRequestGrid("Descuentos", "AnularAprobarDebitoDecuento", me.grid, "Esta seguro de Aprobar  el Descuento?", { ID_DESCUENTO: me.record.get('ID_DESCUENTO'), ACCION: 'APROBADO', OBSERVACION: 'APROBADO EL DESCUENTO POR SISTEMA' }, me.grid, null);
+                }
+                else {
+                    Ext.Msg.alert("Error", "Descuento en estado Inapropiado.");
+                }
+                break;
+            case "btn_debitar":
+                if (me.record.get('ESTADO') == "APROBADO") {
+                    me.FormDebitarDeposito(me.record);
+                    //Funciones.AjaxRequestGrid("Descuentos", "AnularAprobarDebitoDecuento", me.grid, "Esta seguro de Aprobar  el Descuento?", { ID_DESCUENTO: me.record.get('ID_DESCUENTO'), ACCION: 'APROBADO', OBSERVACION: 'APROBADO EL DESCUENTO POR SISTEMA' }, me.grid, null);
                 }
                 else {
                     Ext.Msg.alert("Error", "Descuento en estado Inapropiado.");
@@ -132,6 +141,25 @@
         win.btn_guardar.on('click', function () {
             //console.dir(params);
             Funciones.AjaxRequestWin("Descuentos", "GuardarDescuento", win, form, me.grid, "Esta Seguro de Guardar", null, win);
+        });
+
+    },
+    FormDebitarDeposito: function (record) {
+        var me = this;
+        var win = Ext.create("App.Config.Abstract.Window", { botones: true, gridLoads: [me.grid] });
+        var form = Ext.create("App.View.Descuentos.FormDebito", {
+            title: 'Datos del Debito',
+            columns: 2,
+            botones: false
+        });
+        form.getForm().loadRecord(record);
+        //form.txt_socio.setVisible(false);
+        //form.getForm().loadRecord(me.socio);
+        win.add(form);
+        win.show();
+        win.btn_guardar.on('click', function () {
+            //console.dir(params);
+            Funciones.AjaxRequestWin("Descuentos", "AnularAprobarDebitoDecuento", win, form, me.grid, "Esta Seguro de Generar el Debito", null, win);
         });
 
     },

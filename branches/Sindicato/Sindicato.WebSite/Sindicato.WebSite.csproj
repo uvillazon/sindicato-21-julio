@@ -340,6 +340,7 @@
     <Content Include="App\View\Cierres\FormCierre.js" />
     <Content Include="App\View\Cierres\GridCierres.js" />
     <Content Include="App\View\Cierres\Principal.js" />
+    <Content Include="App\View\Descuentos\FormDebito.js" />
     <Content Include="App\View\Descuentos\GridDetalles.js" />
     <Content Include="App\View\Descuentos\FormDescuento.js" />
     <Content Include="App\View\Descuentos\GridDescuentos.js" />
