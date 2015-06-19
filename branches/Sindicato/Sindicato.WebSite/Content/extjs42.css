@@ -620,4 +620,9 @@
     margin-right: 10px;
     font-size:12px;
 }
+.EstadoAnulado .x-grid-cell
+{
+    background-color: #EB4823 !important;
+    color: #000000; /*font-weight: bold;*/
+}
 

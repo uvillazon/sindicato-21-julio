@@ -20,7 +20,7 @@ namespace Sindicato.Services.Interfaces
         RespuestaSP GuardarDetalle(SD_DESCUENTOS_SOCIO detalle, string login);
         RespuestaSP CalcularSaldo(int ID_DESCUENTO);
         RespuestaSP AprobarAnularDebitoDescuento(int ID_DESCUENTO, string ACCION, string OBSERVACION, int? ID_CAJA, string login);
-
+        RespuestaSP GuardarDescuento(SD_DESCUENTOS desc, string login);
         //SD_CIERRES ObtenerUltimoRegistroCierre();
         
     }

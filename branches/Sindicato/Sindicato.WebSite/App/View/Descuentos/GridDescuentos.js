@@ -12,8 +12,16 @@
     },
     CargarGrid: function () {
         var me = this;
+        me.viewConfig = {
+            getRowClass: function (record, rowIndex, rowParams, store) {
+                //if(record.get('ESTADO')== "")
+                console.dir(record);
+                return Constantes.CargarCssEstados(record.get("ESTADO"), 'DESCUENTO');
+            }
+        };
         me.store = Ext.create("App.Store.Descuentos.Descuentos");
         me.CargarComponentes();
+       
         me.columns = [
                 { xtype: "rownumberer", width: 30, sortable: false },
                 { header: "Periodo", width: 80, sortable: false, dataIndex: "PERIODO" },

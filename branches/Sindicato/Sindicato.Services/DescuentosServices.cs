@@ -175,7 +175,32 @@ namespace Sindicato.Services
                 bool esNumero = decimal.TryParse(resp, out tot);
                 if (esNumero)
                 {
+                    result.msg = "Proceso Ejecutado Correctamente.";
+                    result.success = true;
+                }
+                else
+                {
                     result.msg = resp.ToString();
+                    result.success = false;
+                }
+
+            });
+            return result;
+        }
+
+
+        public RespuestaSP GuardarDescuento(SD_DESCUENTOS desc, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_DESCUENTOSManager(uow);
+                var resp = manager.GuardarDescuento(desc, login);
+                decimal tot;
+                bool esNumero = decimal.TryParse(resp, out tot);
+                if (esNumero)
+                {
+                    result.msg = "Proceso Ejecutado Correctamente";
                     result.success = true;
                 }
                 else

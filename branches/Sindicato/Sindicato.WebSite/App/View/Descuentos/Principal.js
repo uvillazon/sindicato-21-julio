@@ -11,7 +11,7 @@
         me.toolbar = Funciones.CrearMenuBar();
         //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
         Funciones.CrearMenu('btn_aprobar', 'Aprobar Descuento', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
-        Funciones.CrearMenu('btn_debitar', 'Debistar Descuento', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_debitar', 'Debitar Descuento', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
         //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
 
 
@@ -26,23 +26,23 @@
         me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Descuento', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
         me.btn_editar = Funciones.CrearMenu('btn_editar', 'Editar Descuento', Constantes.ICONO_EDITAR, me.EventosPrincipal, null, this, null, true);
         me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Anular Descuento', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
-        me.grid.AgregarBtnToolbar([me.btn_crear,me.btn_editar, me.btn_eliminar]);
+        me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_editar, me.btn_eliminar]);
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
 
         me.gridDetalles = Ext.create('App.View.Descuentos.GridDetalles', {
             width: '100%',
             height: 400,
-            cargarStore : false
-            
+            cargarStore: false
+
         });
         me.form = Ext.create("App.View.Descuentos.FormDescuento", {
             //region: 'center',
             //width: '50%',
             columns: 2,
-            modoConsulta : true
+            modoConsulta: true
         });
         me.form.BloquearFormulario();
-      
+
         me.panel = Ext.create("Ext.panel.Panel", {
             region: 'center',
             width: '50%',
@@ -68,10 +68,10 @@
             me.form.getForm().reset();
             me.gridDetalles.getStore().setExtraParams({ ID_DESCUENTO: 0 });
             me.gridDetalles.getStore().load();
-          
+
         }
     },
-   
+
     EventosPrincipal: function (btn) {
         var me = this;
         switch (btn.getItemId()) {
@@ -88,11 +88,24 @@
                 //Funciones.AjaxRequestGrid("Socios", "EliminarRetiroSocio", me.grid, "Esta seguro de Eliminar el Retiro?", { ID_RETIRO: me.record.get('ID_RETIRO') }, me.grid, null);
                 break;
             case "btn_eliminar":
-                Funciones.AjaxRequestGrid("Descuentos", "AnularAprobarDebitoDecuento", me.grid, "Esta seguro de Anular  el Descuento?", { ID_DESCUENTO: me.record.get('ID_DESCUENTO') , ACCION : 'ANULAR' }, me.grid, null);
+                if (me.record.get('ESTADO') == "NUEVO") {
+                    Funciones.AjaxRequestGrid("Descuentos", "AnularAprobarDebitoDecuento", me.grid, "Esta seguro de Anular  el Descuento?", { ID_DESCUENTO: me.record.get('ID_DESCUENTO'), ACCION: 'ANULADO' }, me.grid, null);
+                }
+                else {
+                    Ext.Msg.alert("Error", "Descuento en estado Inapropiado.");
+                }
                 break;
-            //case "btn_Kardex":
-            //    me.VentanaKardex();
-            //    break;
+            case "btn_aprobar":
+                if (me.record.get('ESTADO') == "NUEVO") {
+                    Funciones.AjaxRequestGrid("Descuentos", "AnularAprobarDebitoDecuento", me.grid, "Esta seguro de Aprobar  el Descuento?", { ID_DESCUENTO: me.record.get('ID_DESCUENTO'), ACCION: 'APROBADO' , OBSERVACION : 'APROBADO EL DESCUENTO POR SISTEMA' }, me.grid, null);
+                }
+                else {
+                    Ext.Msg.alert("Error", "Descuento en estado Inapropiado.");
+                }
+                break;
+                //case "btn_Kardex":
+                //    me.VentanaKardex();
+                //    break;
             default:
                 Ext.Msg.alert("Aviso", "No Existe el botton");
                 break;
@@ -100,7 +113,7 @@
     },
     FormCrearDeposito: function (record) {
         var me = this;
-        var win = Ext.create("App.Config.Abstract.Window", { botones: true  , gridLoads : [me.grid]});
+        var win = Ext.create("App.Config.Abstract.Window", { botones: true, gridLoads: [me.grid] });
         var form = Ext.create("App.View.Descuentos.FormDescuento", {
             title: 'Datos Descuento',
             columns: 2,
@@ -118,7 +131,7 @@
         win.show();
         win.btn_guardar.on('click', function () {
             //console.dir(params);
-            Funciones.AjaxRequestWin("Socios", "GuardarRetiroSocio", win, form, me.grid, "Esta Seguro de Guardar", null, win);
+            Funciones.AjaxRequestWin("Descuentos", "GuardarDescuento", win, form, me.grid, "Esta Seguro de Guardar", null, win);
         });
 
     },

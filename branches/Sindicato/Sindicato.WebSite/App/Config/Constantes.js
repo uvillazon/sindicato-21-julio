@@ -42,11 +42,11 @@ Ext.define("App.Config.Constantes", {
         }
     },
     CargarCssEstados: function (estado, tipo) {
-        if (tipo == 'SM') {
+        if (tipo == 'DESCUENTO') {
             if (estado == 'NUEVA') return 'SMNueva';
             else if (estado == 'RECH_INSP') return 'SMRech_Insp';
             else if (estado == 'APROBADA') return 'SMAprobada';
-            else if (estado == 'RECHAZADA') return 'SMRechazada';
+            else if (estado == 'ANULADO') return 'OTAsignada';
             else if (estado == 'APR_JF_MN') return 'SMApr_Jf_Mn';
             else if (estado == 'CON_OT') return 'SMCon_Ot';
             else if (estado == 'CERRADA') return 'SMCerrada';
