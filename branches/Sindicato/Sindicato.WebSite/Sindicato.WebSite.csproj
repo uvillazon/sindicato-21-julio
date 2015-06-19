@@ -272,6 +272,7 @@
     <Content Include="App\Store\Clientes\Kardex.js" />
     <Content Include="App\Store\Autos\Autos.js" />
     <Content Include="App\Store\Cierres\Cierres.js" />
+    <Content Include="App\Store\Transferencias\Transferencias.js" />
     <Content Include="App\Store\Descuentos\Detalles.js" />
     <Content Include="App\Store\Descuentos\Descuentos.js" />
     <Content Include="App\Store\RetirosSocio\Retiros.js" />
@@ -340,6 +341,9 @@
     <Content Include="App\View\Cierres\FormCierre.js" />
     <Content Include="App\View\Cierres\GridCierres.js" />
     <Content Include="App\View\Cierres\Principal.js" />
+    <Content Include="App\View\Transferencias\FormTransferencia.js" />
+    <Content Include="App\View\Transferencias\GridTransferencias.js" />
+    <Content Include="App\View\Transferencias\Principal.js" />
     <Content Include="App\View\Descuentos\FormDebito.js" />
     <Content Include="App\View\Descuentos\GridDetalles.js" />
     <Content Include="App\View\Descuentos\FormDescuento.js" />
