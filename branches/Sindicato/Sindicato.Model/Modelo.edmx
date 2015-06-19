@@ -1191,6 +1191,12 @@
           <Parameter Name="P_ID_LINEA" Type="number" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
+        <Function Name="P_SD_ACT_KARDEX_EFECTIVO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
+          <Parameter Name="P_ID_CAJA" Type="number" Mode="In" />
+          <Parameter Name="P_FECHA" Type="date" Mode="In" />
+          <Parameter Name="P_ID_USR" Type="number" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
         <Function Name="P_SD_ACT_KARDEX_SOCIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
           <Parameter Name="P_ID_SOCIO" Type="number" Mode="In" />
           <Parameter Name="P_FECHA" Type="date" Mode="In" />
@@ -1737,6 +1743,12 @@
             <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
             <End Role="SD_DESCUENTOS_SOCIO" EntitySet="SD_DESCUENTOS_SOCIO" />
           </AssociationSet>
+          <FunctionImport Name="P_SD_ACT_KARDEX_EFECTIVO">
+            <Parameter Name="P_ID_CAJA" Mode="In" Type="Decimal" />
+            <Parameter Name="P_FECHA" Mode="In" Type="DateTime" />
+            <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="SD_LISTAS">
           <Key>
@@ -3372,6 +3384,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="P_SD_ACT_KARDEX_EFECTIVO" FunctionName="Model.Store.P_SD_ACT_KARDEX_EFECTIVO" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

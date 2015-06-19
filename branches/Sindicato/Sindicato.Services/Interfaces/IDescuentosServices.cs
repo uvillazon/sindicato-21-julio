@@ -19,6 +19,7 @@ namespace Sindicato.Services.Interfaces
         RespuestaSP GenerarDescuentos(SD_DESCUENTOS desc,decimal? IMPORTE_SOCIO,decimal? IMPORTE_TOTAL  , string login);
         RespuestaSP GuardarDetalle(SD_DESCUENTOS_SOCIO detalle, string login);
         RespuestaSP CalcularSaldo(int ID_DESCUENTO);
+        RespuestaSP AprobarAnularDebitoDescuento(int ID_DESCUENTO, string ACCION, string OBSERVACION, int? ID_CAJA, string login);
 
         //SD_CIERRES ObtenerUltimoRegistroCierre();
         

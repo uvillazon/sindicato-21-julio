@@ -2701,6 +2701,48 @@ namespace Sindicato.Model
     
             return base.ExecuteFunction("P_SD_ACT_KARDEX_SOCIO", p_ID_SOCIOParameter, p_FECHAParameter, p_LOGINParameter, p_RES);
         }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        /// <param name="p_ID_CAJA">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_FECHA">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_ID_USR">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_RES">No hay documentación de metadatos disponible.</param>
+        public int P_SD_ACT_KARDEX_EFECTIVO(Nullable<global::System.Decimal> p_ID_CAJA, Nullable<global::System.DateTime> p_FECHA, Nullable<global::System.Decimal> p_ID_USR, ObjectParameter p_RES)
+        {
+            ObjectParameter p_ID_CAJAParameter;
+            if (p_ID_CAJA.HasValue)
+            {
+                p_ID_CAJAParameter = new ObjectParameter("P_ID_CAJA", p_ID_CAJA);
+            }
+            else
+            {
+                p_ID_CAJAParameter = new ObjectParameter("P_ID_CAJA", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_FECHAParameter;
+            if (p_FECHA.HasValue)
+            {
+                p_FECHAParameter = new ObjectParameter("P_FECHA", p_FECHA);
+            }
+            else
+            {
+                p_FECHAParameter = new ObjectParameter("P_FECHA", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter p_ID_USRParameter;
+            if (p_ID_USR.HasValue)
+            {
+                p_ID_USRParameter = new ObjectParameter("P_ID_USR", p_ID_USR);
+            }
+            else
+            {
+                p_ID_USRParameter = new ObjectParameter("P_ID_USR", typeof(global::System.Decimal));
+            }
+    
+            return base.ExecuteFunction("P_SD_ACT_KARDEX_EFECTIVO", p_ID_CAJAParameter, p_FECHAParameter, p_ID_USRParameter, p_RES);
+        }
 
         #endregion
 

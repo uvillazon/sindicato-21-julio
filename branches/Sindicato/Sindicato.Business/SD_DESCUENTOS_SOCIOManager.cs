@@ -36,10 +36,16 @@ namespace Sindicato.Business
                     var antActual = BuscarTodos(x => x.ID_DESCUENTO_SOCIO == ant.ID_DESCUENTO_SOCIO).FirstOrDefault();
                     if (antActual != null)
                     {
-                        antActual.IMPORTE = ant.IMPORTE;
-                        antActual.DETALLE = ant.DETALLE;
-                        Save();
-                        result = antActual.ID_DESCUENTO_SOCIO.ToString();
+                        if (antActual.SD_DESCUENTOS.ESTADO == "NUEVO")
+                        {
+                            antActual.IMPORTE = ant.IMPORTE;
+                            antActual.DETALLE = ant.DETALLE;
+                            Save();
+                            result = antActual.ID_DESCUENTO_SOCIO.ToString();
+                        }
+                        else {
+                            result = string.Format("No puedo Modificar en Estado : {0} , es permitido modificar en estado NUEVO", antActual.SD_DESCUENTOS.ESTADO);
+                        }
                     }
                     else
                     {

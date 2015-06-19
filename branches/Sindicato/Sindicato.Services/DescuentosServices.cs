@@ -162,5 +162,30 @@ namespace Sindicato.Services
             });
             return result;
         }
+
+
+        public RespuestaSP AprobarAnularDebitoDescuento(int ID_DESCUENTO, string ACCION, string OBSERVACION, int? ID_CAJA, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_DESCUENTOSManager(uow);
+                var resp = manager.AprobarAnularDebitoDescuento(ID_DESCUENTO, ACCION, OBSERVACION, ID_CAJA, login);
+                decimal tot;
+                bool esNumero = decimal.TryParse(resp, out tot);
+                if (esNumero)
+                {
+                    result.msg = resp.ToString();
+                    result.success = true;
+                }
+                else
+                {
+                    result.msg = resp.ToString();
+                    result.success = false;
+                }
+
+            });
+            return result;
+        }
     }
 }

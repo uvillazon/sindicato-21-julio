@@ -87,5 +87,13 @@ namespace Sindicato.WebSite.Controllers
             respuestaSP = _serDesc.GuardarDetalle(det, login);
             return Json(respuestaSP, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public JsonResult AnularAprobarDebitoDecuento(int ID_DESCUENTO, string ACCION, string OBSERVACION, int? ID_CAJA)
+        {
+            RespuestaSP respuestaSP = new RespuestaSP();
+            string login = User.Identity.Name.Split('-')[0];
+            respuestaSP = _serDesc.AprobarAnularDebitoDescuento(ID_DESCUENTO, ACCION, OBSERVACION, ID_CAJA, login);
+            return Json(respuestaSP, JsonRequestBehavior.AllowGet);
+        }
     }
 }
