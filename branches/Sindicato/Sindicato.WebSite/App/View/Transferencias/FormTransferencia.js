@@ -3,54 +3,81 @@
     columns: 1,
     record: '',
     title: 'Datos del Retiro',
-    Eventos : true,
+    Eventos: true,
+    modoConsulta: false,
     initComponent: function () {
         var me = this;
-        me.CargarComponentes();
-        if (me.Eventos) {
-            me.cargarEventos();
+        if (!me.modoConsulta) {
+            me.CargarComponentes();
+            if (me.Eventos) {
+                me.cargarEventos();
+            }
+        }
+        else {
+            me.CargarComponentesConsulta();
         }
         this.callParent(arguments);
     },
+    CargarComponentesConsulta: function () {
+        var me = this;
+        me.hid_id = Ext.widget('hiddenfield', {
+            name: 'ID_TRANSFERENCIA',
+        });
+        me.txt_nro_recibo = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Nro. Recibo",
+            name: "NRO_RECIBO"
+
+        });
+        me.date_fecha = Ext.create("App.Config.Componente.DateFieldBase", {
+            fieldLabel: "Fecha",
+            name: "FECHA",
+        });
+        me.txt_concepto = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Concepto",
+            name: "CONCEPTO",
+            width: 480,
+            colspan: 2
+        });
+
+        me.txt_caja_origen = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Caja Origen",
+            name: "CAJA_ORIGEN"
+
+        });
+        me.txt_caja_destino = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Caja Destino",
+            name: "CAJA_DESTINO"
+
+        });
+        me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
+            fieldLabel: "Observacion",
+            name: "OBSERVACION",
+            width: 480,
+            colspan: 2,
+            //maxLength: 500,
+        });
+        me.txt_total = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Importe Total BS",
+            name: "IMPORTE",
+            width: 480,
+            colspan: 2
+
+        });
+        me.items = [
+            me.hid_id,
+            me.txt_nro_recibo, me.date_fecha,
+            me.txt_concepto,
+            me.txt_caja_origen, me.txt_caja_destino,
+            me.txt_observacion,
+            me.txt_total
+        ];
+    },
     CargarComponentes: function () {
         var me = this;
-        me.txt_id = Ext.create("App.Config.Componente.TextFieldBase", {
-            hidden: true,
-            name: "ID_RETIRO"
+        me.hid_id = Ext.widget('hiddenfield', {
+            name: 'ID_TRANSFERENCIA',
+        });
 
-        });
-        me.txt_id_socio = Ext.create("App.Config.Componente.TextFieldBase", {
-            hidden: true,
-            name: "ID_SOCIO"
-
-        });
-        me.store_socio = Ext.create('App.Store.Socios.SoloSocios');
-        //me.store_socio.setExtraParams({ codigo: 'COn MOVIL' });
-        me.cbx_socio = Ext.create("App.Config.Componente.ComboAutoBase", {
-            fieldLabel: "Buscar Socio",
-            name: "ID_SOCIO_1",
-            displayField: 'SOCIO',
-            store: me.store_socio,
-            colspan: 2,
-            width: 480,
-            afterLabelTextTpl: Constantes.REQUERIDO,
-            allowBlank: false
-            //textoTpl: function () { return "Nro Movil :{NRO_MOVIL} - {NOMBRE} {APELLIDO_PATERNO} {APELLIDO_MATERNO}" }
-        });
-        if (me.Eventos) {
-            me.cbx_socio.on('select', function (cbx, rec) {
-                //console.dir(rec[0]);
-                me.txt_id_socio.setValue(rec[0].get('ID_SOCIO'));
-                me.num_saldo.setValue(rec[0].get('SALDO'));
-            });
-        }
-        me.txt_socio = Ext.create("App.Config.Componente.TextFieldBase", {
-            fieldLabel: "Socio",
-            name: "NOMBRE_SOCIO",
-            width: 480,
-            colspan: 2,
-            readOnly: true
-        });
         me.txt_nro_recibo = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Nro Recibo",
             afterLabelTextTpl: Constantes.REQUERIDO,
@@ -64,29 +91,71 @@
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false
         });
-
-        me.num_saldo = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "Saldo",
-            name: "SALDO",
+        me.txt_concepto = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Concepto",
+            name: "CONCEPTO",
+            width: 480,
+            colspan: 2,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false
+        });
+        me.store_cajaOrigen = Ext.create('App.Store.Cajas.Cajas');
+        me.cbx_caja_origen = Ext.create("App.Config.Componente.ComboAutoBase", {
+            fieldLabel: "Caja Origen",
+            name: "ID_CAJA_ORIGEN",
+            displayField: 'NOMBRE',
+            colspan: 2,
+            width: 480,
+            valueField: 'ID_CAJA',
+            store: me.store_cajaOrigen,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            textoTpl: function () { return "{NOMBRE} - {DESCRIPCION}" }
+        });
+        me.num_saldoOrigen = Ext.create("App.Config.Componente.NumberFieldBase", {
+            fieldLabel: "Saldo Origen",
+            name: "SALDO_ORIGEN",
             readOnly: true,
             allowDecimals: true,
             maxValue: 999999999
         });
-
-        me.num_ingreso = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "Importe",
-            name: "RETIRO",
-            colspan: 2,
+        me.num_nuevoSaldoOrigen = Ext.create("App.Config.Componente.NumberFieldBase", {
+            fieldLabel: "Nuevo Saldo Origen",
+            name: "NUEVO_SALDO_ORIGEN",
+            readOnly: true,
             allowDecimals: true,
             maxValue: 999999999,
-            afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false
         });
-        me.txt_nuevo_saldo = Ext.create("App.Config.Componente.TextFieldBase", {
-            fieldLabel: "Nuevo Saldo",
-            name: "NUEVO_SALDO",
-            readOnly: true
+        me.store_cajaDestino = Ext.create('App.Store.Cajas.Cajas');
+        me.cbx_caja_destino = Ext.create("App.Config.Componente.ComboAutoBase", {
+            fieldLabel: "Caja Destino",
+            name: "ID_CAJA_DESTINO",
+            displayField: 'NOMBRE',
+            colspan: 2,
+            width: 480,
+            valueField: 'ID_CAJA',
+            store: me.store_cajaDestino,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            textoTpl: function () { return "{NOMBRE} - {DESCRIPCION}" }
         });
+        me.num_saldoDestino = Ext.create("App.Config.Componente.NumberFieldBase", {
+            fieldLabel: "Saldo Destino",
+            name: "SALDO_DESTINO",
+            readOnly: true,
+            allowDecimals: true,
+            maxValue: 999999999
+        });
+        me.num_nuevoSaldoDestino = Ext.create("App.Config.Componente.NumberFieldBase", {
+            fieldLabel: "Nuevo Saldo Destino",
+            name: "NUEVO_SALDO_DESTINO",
+            readOnly: true,
+            allowDecimals: true,
+            maxValue: 999999999,
+            allowBlank: false
+        });
+
         me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
             fieldLabel: "Observaciones",
             name: "OBSERVACION",
@@ -94,14 +163,27 @@
             colspan: 2,
             maxLength: 500,
         });
+        me.num_importe = Ext.create("App.Config.Componente.NumberFieldBase", {
+            fieldLabel: "Importe",
+            name: "IMPORTE",
+            colspan: 2,
+            width: 480,
+            allowDecimals: true,
+            maxValue: 999999999,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false
+        });
+
         me.items = [
-            me.txt_id, me.txt_id_socio,
+            me.hid_id,
             me.txt_nro_recibo, me.date_fecha,
-            me.cbx_socio,
-            me.txt_socio,
-            me.num_ingreso,
-            me.num_saldo, me.txt_nuevo_saldo,
-            me.txt_observacion
+            me.txt_concepto,
+            me.cbx_caja_origen,
+            me.num_saldoOrigen, me.num_nuevoSaldoOrigen,
+            me.cbx_caja_destino,
+            me.num_saldoDestino, me.num_nuevoSaldoDestino,
+            me.txt_observacion,
+            me.num_importe
         ];
 
 
@@ -109,30 +191,71 @@
     },
     cargarEventos: function () {
         var me = this;
-        me.num_ingreso.on('change', function (num, newvalue, oldvalue) {
-            me.actualizarNuevoSaldo(true);
+        me.cbx_caja_origen.on('select', function (cbx, record) {
+            var idCajaDestino = me.cbx_caja_destino.getValue();
+            var importeTotal = me.num_importe.getValue();
+            if (record[0].get('ID_CAJA') === idCajaDestino) {
+                Ext.Msg.alert("Error", "No puede Seleccionar la misma Caja Destino", function () {
+                    cbx.reset();
+                    me.num_saldoOrigen.reset();
+                    me.num_nuevoSaldoOrigen.reset();
+                });
+            }
+            else {
+                me.num_saldoOrigen.setValue(record[0].get('SALDO'));
+                if (!Funciones.isEmpty(importeTotal)) {
+                    if (importeTotal > record[0].get('SALDO')) {
+                        Ext.Msg.alert("Error", "No El Saldo no es Suficiente para Transferir Saldo Actual : " + record[0].get('SALDO') + " Importe Total : " + importeTotal, function () {
+                            cbx.reset();
+                            me.num_saldoOrigen.reset();
+                            me.num_nuevoSaldoOrigen.reset();
+                        });
+                    }
+                    else {
+                        me.num_nuevoSaldoOrigen.setValue(record[0].get('SALDO') - importeTotal);
+                    }
+                }
+                else {
+                    me.num_nuevoSaldoOrigen.setValue(record[0].get('SALDO'));
+                }
+            }
+        });
+        me.cbx_caja_destino.on('select', function (cbx, record) {
+            var idCajaOrigen = me.cbx_caja_origen.getValue();
+            var importeTotal = me.num_importe.getValue();
+            if (record[0].get('ID_CAJA') === idCajaOrigen) {
+                Ext.Msg.alert("Error", "No puede Seleccionar la misma Caja Origen", function () {
+                    cbx.reset();
+                    me.num_saldoDestino.reset();
+                    me.num_nuevoSaldoDestino.reset();
+                });
+            }
+            else {
+                me.num_saldoOrigen.setValue(record[0].get('SALDO'));
+                if (!Funciones.isEmpty(importeTotal)) {
+                    me.num_nuevoSaldoDestino.setValue(record[0].get('SALDO') + importeTotal);
+                }
+                else {
+                    me.num_nuevoSaldoDestino.setValue(record[0].get('SALDO'));
+                }
+            }
+        });
+        me.num_importe.on('change', function (num, newvalue, oldvalue) {
+            var saldoOrigen = me.num_saldoOrigen.getValue();
+            var saldoDestino = me.num_saldoDestino.getValue();
+
+            var nuevoSaldoOrigen = saldoOrigen - newvalue;
+            if (nuevoSaldoOrigen < 0) {
+                Ext.Msg.alert("Error", "No El Saldo no es Suficiente para Transferir Saldo Actual : " + saldoOrigen + " Importe Total : " + newvalue, function () {
+                    me.num_nuevoSaldoOrigen.reset(saldoOrigen);
+                    me.num_nuevoSaldoDestino.setValue(saldoDestino);
+                    num.reset();
+                });
+            }
+            else {
+                me.num_nuevoSaldoDestino.setValue(saldoDestino + newvalue);
+                me.num_nuevoSaldoOrigen.setValue(saldoOrigen - newvalue);
+            }
         });
     },
-
-    actualizarNuevoSaldo: function (isNew) {
-        var me = this;
-        var res = me.num_saldo.getValue() - me.num_ingreso.getValue();
-        if (res < 0) {
-            Ext.Msg.alert("Error", "No Puede Retirar mas de lo que tiene", function () {
-                me.txt_nuevo_saldo.reset();
-                me.num_ingreso.reset();
-            });
-            
-
-        }
-        else { 
-            me.txt_nuevo_saldo.setValue(res);
-        }
-    },
-    ocultarSaldos: function (value) {
-        var me = this;
-        me.num_saldo.setVisible(value);
-        me.txt_nuevo_saldo.setVisible(value);
-        me.cbx_socio.setVisible(value);
-    }
 });

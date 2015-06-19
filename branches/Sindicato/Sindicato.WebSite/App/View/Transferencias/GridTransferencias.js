@@ -1,9 +1,9 @@
-﻿Ext.define("App.View.RetirosSocio.GridRetiros", {
+﻿Ext.define("App.View.Transferencias.GridTransferencias", {
     extend: "App.Config.Abstract.Grid",
     criterios: true,
-    textBusqueda: 'Retiros',
+    textBusqueda: 'Transferencias',
     tamBusqueda: 50,
-    title: 'Retiros Registrados',
+    title: 'Transferencias Registrados',
     equipo: '',
     initComponent: function () {
         var me = this;
@@ -12,15 +12,17 @@
     },
     CargarGrid: function () {
         var me = this;
-        me.store = Ext.create("App.Store.RetirosSocio.Retiros");
+        me.store = Ext.create("App.Store.Transferencias.Transferencias");
         me.CargarComponentes();
         me.columns = [
                 { xtype: "rownumberer", width: 30, sortable: false },
                 { header: "Nro <br>Recibo", width: 80, sortable: false, dataIndex: "NRO_RECIBO" },
-                { header: "Socio", width: 150, sortable: false, dataIndex: "NOMBRE_SOCIO" },
                 { header: "Fecha", width: 80, sortable: true, dataIndex: "FECHA", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
-                { header: "Detalle", width: 250, sortable: false, dataIndex: "OBSERVACION" },
-                { header: "Importe<br>Retiro BOB", width: 100, sortable: false, dataIndex: "RETIRO" },
+                { header: "Caja Origen", width: 100, sortable: false, dataIndex: "CAJA_ORIGEN" },
+                { header: "Caja Destino", width: 100, sortable: false, dataIndex: "CAJA_DESTINO" },
+                { header: "Concepto", width: 100, sortable: false, dataIndex: "CONCEPTO" },
+                { header: "Observacion", width: 200, sortable: false, dataIndex: "OBSERVACION" },
+                { header: "Importe<br>Retiro BOB", width: 100, sortable: false, dataIndex: "IMPORTE" },
                 { header: "Login", width: 80, sortable: false, dataIndex: "LOGIN" }
         ];
 

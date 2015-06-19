@@ -1,4 +1,4 @@
-﻿Ext.define("App.View.RetirosSocio.Principal", {
+﻿Ext.define("App.View.Transferencias.Principal", {
     extend: "App.Config.Abstract.PanelPrincipal",
     initComponent: function () {
         var me = this;
@@ -10,33 +10,32 @@
 
         me.toolbar = Funciones.CrearMenuBar();
         //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
-        Funciones.CrearMenu('btn_Kardex', 'Kardex Socio', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_KardexOrigen', 'Kardex Caja Origen', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_KardexDestino', 'Kardex Caja Destino', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
         //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
 
 
 
-        me.grid = Ext.create('App.View.RetirosSocio.GridRetiros', {
+        me.grid = Ext.create('App.View.Transferencias.GridTransferencias', {
             region: 'west',
             width: '50%',
             fbarmenu: me.toolbar,
-            fbarmenuArray: ["btn_Kardex", "btn_eliminar"]
+            fbarmenuArray: ["btn_KardexOrigen", "btn_KardexDestino", "btn_eliminar"]
 
         });
-        me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Retiro', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
-        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Eliminar Retiro', Constantes.ICONO_BAJA, me.EventosPrincipal,null, this, null, true);
+        me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Transferencia', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
+        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Eliminar Transferencia', Constantes.ICONO_BAJA, me.EventosPrincipal,null, this, null, true);
         me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar]);
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
 
-        me.form = Ext.create("App.View.RetirosSocio.FormRetiro", {
+        me.form = Ext.create("App.View.Transferencias.FormTransferencia", {
             region: 'center',
             width: '50%',
             columns: 2,
-            Eventos : false
+            modoConsulta : true,
         });
-        me.form.ocultarSaldos(false);
+
         me.form.BloquearFormulario();
-      
-        //        me.grid.bar.add(me.toolbar);
         me.items = [me.grid, me.form];
         me.grid.getSelectionModel().on('selectionchange', me.CargarDatos, this);
 
@@ -47,8 +46,6 @@
         me.record = disabled ? null : selections[0];
         if (!disabled) {
             me.form.getForm().loadRecord(selections[0])
-            //me.form.CargarDatos(selections[0]);
-
         }
         else {
             me.form.getForm().reset();
@@ -60,48 +57,50 @@
         var me = this;
         switch (btn.getItemId()) {
             case "btn_crear":
-                me.FormCrearRetiro();
+                me.FormCrearTransferencia();
                 break;
             case "btn_eliminar":
-                Funciones.AjaxRequestGrid("Socios", "EliminarRetiroSocio", me.grid, "Esta seguro de Eliminar el Retiro?", { ID_RETIRO: me.record.get('ID_RETIRO') }, me.grid, null);
+                Funciones.AjaxRequestGrid("Transferencias", "EliminarTransferencia", me.grid, "Esta seguro de Eliminar la Transferencia?", { ID_TRANSFERENCIA: me.record.get('ID_TRANSFERENCIA') }, me.grid, null);
                 break;
-            case "btn_Kardex":
-                me.VentanaKardex();
+            case "btn_KardexOrigen":
+                me.VentanaKardex(me.record.get('ID_CAJA_ORIGEN'));
+                break;
+            case "btn_KardexDestino":
+                me.VentanaKardex(me.record.get('ID_CAJA_DESTINO'));
                 break;
             default:
                 Ext.Msg.alert("Aviso", "No Existe el botton");
                 break;
         }
     },
-    FormCrearRetiro: function () {
+    FormCrearTransferencia: function () {
         var me = this;
         var win = Ext.create("App.Config.Abstract.Window", { botones: true });
-        var form = Ext.create("App.View.RetirosSocio.FormRetiro", {
-            title: 'Datos Retiros Por Socios',
+        var form = Ext.create("App.View.Transferencias.FormTransferencia", {
+            title: 'Datos Transferencia entre Cuentas',
             columns: 2,
             botones: false
         });
-        form.txt_socio.setVisible(false);
-        //form.getForm().loadRecord(me.socio);
         win.add(form);
         win.show();
         win.btn_guardar.on('click', function () {
             //console.dir(params);
-            Funciones.AjaxRequestWin("Socios", "GuardarRetiroSocio", win, form, me.grid, "Esta Seguro de Guardar", null, win);
+            Funciones.AjaxRequestWin("Transferencias", "GuardarTransferencia", win, form, me.grid, "Esta Seguro de Guardar", null, win);
         });
 
     },
-    VentanaKardex: function () {
+    VentanaKardex: function (id_caja) {
         var me = this;
         var win = Ext.create("App.Config.Abstract.Window", { botones: false });
-        var grid = Ext.create("App.View.Socios.GridKardex", {
+        var grid = Ext.create("App.View.Cajas.GridKardexCaja", {
             region: 'center',
             width: 760,
             height: 450,
-            id_socio: me.record.get('ID_SOCIO')
+            id_caja: id_caja
         });
         win.add(grid);
         win.show();
+
     }
 
 });
