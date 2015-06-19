@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SD_EGRESOSManager.cs" />
+    <Compile Include="SD_INGRESOSManager.cs" />
     <Compile Include="SD_CIERRESManager.cs" />
     <Compile Include="SD_DESCUENTOS_SOCIOManager.cs" />
     <Compile Include="SD_DESCUENTOSManager.cs" />

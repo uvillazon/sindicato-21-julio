@@ -87,6 +87,7 @@
     <Compile Include="Controllers\CajasController.cs" />
     <Compile Include="Controllers\AutosController.cs" />
     <Compile Include="Controllers\CierresController.cs" />
+    <Compile Include="Controllers\TransferenciasController.cs" />
     <Compile Include="Controllers\DescuentosController.cs" />
     <Compile Include="Controllers\OtrosController.cs" />
     <Compile Include="Controllers\ParadasController.cs" />
@@ -242,7 +243,6 @@
     <Content Include="App\Model\Parametros\Parametros.js" />
     <Content Include="App\Model\Egresos\Egresos.js" />
     <Content Include="App\Model\Imagenes\Imagenes.js" />
-    <Content Include="App\Model\Ingresos\DetallesVenta.js" />
     <Content Include="App\Model\Ingresos\Ingresos.js" />
     <Content Include="App\Model\Listas\Catalogo.js" />
     <Content Include="App\Model\Listas\Listas.js" />
