@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SD_OTRAS_OBLIGACIONESManager.cs" />
+    <Compile Include="SD_AMORTIZACIONESManager.cs" />
+    <Compile Include="SD_KARDEX_SOCIO_DEBEManager.cs" />
     <Compile Include="SD_TRANSFERENCIASManager.cs" />
     <Compile Include="SD_EGRESOSManager.cs" />
     <Compile Include="SD_INGRESOSManager.cs" />

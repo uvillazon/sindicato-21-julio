@@ -10,5 +10,6 @@ namespace Sindicato.Services.Model
         public int? ID_CIERRE { get; set; }
         public int? ID_DESCUENTO { get; set; }
         public int? ID_SOCIO { get; set; }
+
     }
 }

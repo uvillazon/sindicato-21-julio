@@ -52,6 +52,8 @@
     <Compile Include="CajasServices.cs" />
     <Compile Include="AutosServices.cs" />
     <Compile Include="CierresServices.cs" />
+    <Compile Include="ObligacionesServices.cs" />
+    <Compile Include="Interfaces\IObligacionesServices.cs" />
     <Compile Include="TransferenciasServices.cs" />
     <Compile Include="DescuentosServices.cs" />
     <Compile Include="Interfaces\ITransferenciasServices.cs" />

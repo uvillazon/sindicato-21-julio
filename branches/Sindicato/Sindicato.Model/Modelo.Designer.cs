@@ -59,10 +59,11 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "SD_INGRESOS_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_INGRESOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_INGRESOS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_TRANSFERENCIAS_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_TRANSFERENCIAS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_TRANSFERENCIAS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_TRANSFERENCIAS_R02", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_TRANSFERENCIAS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_TRANSFERENCIAS), true)]
-[assembly: EdmRelationshipAttribute("Model", "SD_AMORTIZACIONES_R01", "SD_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIOS), "SD_AMORTIZACIONES", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_AMORTIZACIONES), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_OTRAS_OBLIGACIONES_R02", "SD_CIERRES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CIERRES), "SD_OTRAS_OBLIGACIONES", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_OTRAS_OBLIGACIONES), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_KARDEX_SOCIO_DEBE_R01", "SD_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIOS), "SD_KARDEX_SOCIO_DEBE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_KARDEX_SOCIO_DEBE), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_OTRAS_OBLIGACIONES_R01", "SD_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIOS), "SD_OTRAS_OBLIGACIONES", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_OTRAS_OBLIGACIONES), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_AMORTIZACIONES_R01", "SD_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIOS), "SD_AMORTIZACIONES", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_AMORTIZACIONES), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_AMORTIZACIONES_R02", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_AMORTIZACIONES", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_AMORTIZACIONES), true)]
 
 #endregion
 
@@ -741,22 +742,6 @@ namespace Sindicato.Model
         /// <summary>
         /// No hay documentación de metadatos disponible.
         /// </summary>
-        public ObjectSet<SD_AMORTIZACIONES> SD_AMORTIZACIONES
-        {
-            get
-            {
-                if ((_SD_AMORTIZACIONES == null))
-                {
-                    _SD_AMORTIZACIONES = base.CreateObjectSet<SD_AMORTIZACIONES>("SD_AMORTIZACIONES");
-                }
-                return _SD_AMORTIZACIONES;
-            }
-        }
-        private ObjectSet<SD_AMORTIZACIONES> _SD_AMORTIZACIONES;
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
         public ObjectSet<SD_KARDEX_SOCIO_DEBE> SD_KARDEX_SOCIO_DEBE
         {
             get
@@ -785,6 +770,22 @@ namespace Sindicato.Model
             }
         }
         private ObjectSet<SD_OTRAS_OBLIGACIONES> _SD_OTRAS_OBLIGACIONES;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<SD_AMORTIZACIONES> SD_AMORTIZACIONES
+        {
+            get
+            {
+                if ((_SD_AMORTIZACIONES == null))
+                {
+                    _SD_AMORTIZACIONES = base.CreateObjectSet<SD_AMORTIZACIONES>("SD_AMORTIZACIONES");
+                }
+                return _SD_AMORTIZACIONES;
+            }
+        }
+        private ObjectSet<SD_AMORTIZACIONES> _SD_AMORTIZACIONES;
 
         #endregion
 
@@ -1103,14 +1104,6 @@ namespace Sindicato.Model
         }
     
         /// <summary>
-        /// Método desusado para agregar un nuevo objeto al EntitySet SD_AMORTIZACIONES. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
-        /// </summary>
-        public void AddToSD_AMORTIZACIONES(SD_AMORTIZACIONES sD_AMORTIZACIONES)
-        {
-            base.AddObject("SD_AMORTIZACIONES", sD_AMORTIZACIONES);
-        }
-    
-        /// <summary>
         /// Método desusado para agregar un nuevo objeto al EntitySet SD_KARDEX_SOCIO_DEBE. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
         /// </summary>
         public void AddToSD_KARDEX_SOCIO_DEBE(SD_KARDEX_SOCIO_DEBE sD_KARDEX_SOCIO_DEBE)
@@ -1124,6 +1117,14 @@ namespace Sindicato.Model
         public void AddToSD_OTRAS_OBLIGACIONES(SD_OTRAS_OBLIGACIONES sD_OTRAS_OBLIGACIONES)
         {
             base.AddObject("SD_OTRAS_OBLIGACIONES", sD_OTRAS_OBLIGACIONES);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet SD_AMORTIZACIONES. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToSD_AMORTIZACIONES(SD_AMORTIZACIONES sD_AMORTIZACIONES)
+        {
+            base.AddObject("SD_AMORTIZACIONES", sD_AMORTIZACIONES);
         }
 
         #endregion
@@ -2965,7 +2966,8 @@ namespace Sindicato.Model
         /// <param name="cONCEPTO">Valor inicial de la propiedad CONCEPTO.</param>
         /// <param name="fECHA">Valor inicial de la propiedad FECHA.</param>
         /// <param name="iMPORTE">Valor inicial de la propiedad IMPORTE.</param>
-        public static SD_AMORTIZACIONES CreateSD_AMORTIZACIONES(global::System.Int32 iD_AMORTIZACION, global::System.Int32 iD_SOCIO, global::System.Int32 nRO_RECIBO, global::System.String cONCEPTO, global::System.DateTime fECHA, global::System.Decimal iMPORTE)
+        /// <param name="iD_CAJA">Valor inicial de la propiedad ID_CAJA.</param>
+        public static SD_AMORTIZACIONES CreateSD_AMORTIZACIONES(global::System.Int32 iD_AMORTIZACION, global::System.Int32 iD_SOCIO, global::System.Int32 nRO_RECIBO, global::System.String cONCEPTO, global::System.DateTime fECHA, global::System.Decimal iMPORTE, global::System.Int32 iD_CAJA)
         {
             SD_AMORTIZACIONES sD_AMORTIZACIONES = new SD_AMORTIZACIONES();
             sD_AMORTIZACIONES.ID_AMORTIZACION = iD_AMORTIZACION;
@@ -2974,6 +2976,7 @@ namespace Sindicato.Model
             sD_AMORTIZACIONES.CONCEPTO = cONCEPTO;
             sD_AMORTIZACIONES.FECHA = fECHA;
             sD_AMORTIZACIONES.IMPORTE = iMPORTE;
+            sD_AMORTIZACIONES.ID_CAJA = iD_CAJA;
             return sD_AMORTIZACIONES;
         }
 
@@ -3199,6 +3202,30 @@ namespace Sindicato.Model
         private Nullable<global::System.DateTime> _FECHA_REG;
         partial void OnFECHA_REGChanging(Nullable<global::System.DateTime> value);
         partial void OnFECHA_REGChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_CAJA
+        {
+            get
+            {
+                return _ID_CAJA;
+            }
+            set
+            {
+                OnID_CAJAChanging(value);
+                ReportPropertyChanging("ID_CAJA");
+                _ID_CAJA = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ID_CAJA");
+                OnID_CAJAChanged();
+            }
+        }
+        private global::System.Int32 _ID_CAJA;
+        partial void OnID_CAJAChanging(global::System.Int32 value);
+        partial void OnID_CAJAChanged();
 
         #endregion
 
@@ -3239,6 +3266,44 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_SOCIOS>("Model.SD_AMORTIZACIONES_R01", "SD_SOCIOS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_AMORTIZACIONES_R02", "SD_CAJAS")]
+        public SD_CAJAS SD_CAJAS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS>("Model.SD_AMORTIZACIONES_R02", "SD_CAJAS").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS>("Model.SD_AMORTIZACIONES_R02", "SD_CAJAS").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SD_CAJAS> SD_CAJASReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS>("Model.SD_AMORTIZACIONES_R02", "SD_CAJAS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_CAJAS>("Model.SD_AMORTIZACIONES_R02", "SD_CAJAS", value);
                 }
             }
         }
@@ -4304,6 +4369,28 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_TRANSFERENCIAS>("Model.SD_TRANSFERENCIAS_R02", "SD_TRANSFERENCIAS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_AMORTIZACIONES_R02", "SD_AMORTIZACIONES")]
+        public EntityCollection<SD_AMORTIZACIONES> SD_AMORTIZACIONES
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_AMORTIZACIONES>("Model.SD_AMORTIZACIONES_R02", "SD_AMORTIZACIONES");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_AMORTIZACIONES>("Model.SD_AMORTIZACIONES_R02", "SD_AMORTIZACIONES", value);
                 }
             }
         }
@@ -16208,28 +16295,6 @@ namespace Sindicato.Model
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_AMORTIZACIONES_R01", "SD_AMORTIZACIONES")]
-        public EntityCollection<SD_AMORTIZACIONES> SD_AMORTIZACIONES
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_AMORTIZACIONES>("Model.SD_AMORTIZACIONES_R01", "SD_AMORTIZACIONES");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_AMORTIZACIONES>("Model.SD_AMORTIZACIONES_R01", "SD_AMORTIZACIONES", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Model", "SD_KARDEX_SOCIO_DEBE_R01", "SD_KARDEX_SOCIO_DEBE")]
         public EntityCollection<SD_KARDEX_SOCIO_DEBE> SD_KARDEX_SOCIO_DEBE
         {
@@ -16264,6 +16329,28 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_OTRAS_OBLIGACIONES>("Model.SD_OTRAS_OBLIGACIONES_R01", "SD_OTRAS_OBLIGACIONES", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_AMORTIZACIONES_R01", "SD_AMORTIZACIONES")]
+        public EntityCollection<SD_AMORTIZACIONES> SD_AMORTIZACIONES
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_AMORTIZACIONES>("Model.SD_AMORTIZACIONES_R01", "SD_AMORTIZACIONES");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_AMORTIZACIONES>("Model.SD_AMORTIZACIONES_R01", "SD_AMORTIZACIONES", value);
                 }
             }
         }

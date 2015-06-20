@@ -87,6 +87,7 @@
     <Compile Include="Controllers\CajasController.cs" />
     <Compile Include="Controllers\AutosController.cs" />
     <Compile Include="Controllers\CierresController.cs" />
+    <Compile Include="Controllers\ObligacionesController.cs" />
     <Compile Include="Controllers\TransferenciasController.cs" />
     <Compile Include="Controllers\DescuentosController.cs" />
     <Compile Include="Controllers\OtrosController.cs" />
