@@ -11,6 +11,7 @@
         me.toolbar = Funciones.CrearMenuBar();
         //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
         Funciones.CrearMenu('btn_Kardex', 'Kardex Obligaciones', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_KardexCaja', 'Kardex Caja', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
         //Funciones.CrearMenu('btn_KardexDestino', 'Kardex Caja Destino', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
         //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
 
@@ -20,7 +21,7 @@
             region: 'west',
             width: '50%',
             fbarmenu: me.toolbar,
-            fbarmenuArray: ["btn_Kardex", "btn_eliminar"]
+            fbarmenuArray: ["btn_Kardex", "btn_eliminar", "btn_KardexCaja"]
 
         });
         me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Amortizacion', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
@@ -63,6 +64,10 @@
                 Funciones.AjaxRequestGrid("Obligaciones", "EliminarAmortizacion", me.grid, "Esta seguro de Eliminar la Amortizacion?", { ID_AMORTIZACION: me.record.get('ID_AMORTIZACION') }, me.grid, null);
                 break;
             case "btn_Kardex":
+                me.VentanaKardexDebe(me.record.get('ID_SOCIO'));
+                break;
+
+            case "btn_KardexCaja":
                 me.VentanaKardex(me.record.get('ID_CAJA'));
                 break;
             default:
@@ -84,6 +89,19 @@
             //console.dir(params);
             Funciones.AjaxRequestWin("Obligaciones", "GuardarAmortizacion", win, form, me.grid, "Esta Seguro de Guardar", null, win);
         });
+
+    },
+    VentanaKardexDebe: function (id_socio) {
+        var me = this;
+        var win = Ext.create("App.Config.Abstract.Window", { botones: false });
+        var grid = Ext.create("App.View.Socios.GridKardexDebe", {
+            region: 'center',
+            width: 760,
+            height: 450,
+            id_socio: id_socio
+        });
+        win.add(grid);
+        win.show();
 
     },
     VentanaKardex: function (id_caja) {

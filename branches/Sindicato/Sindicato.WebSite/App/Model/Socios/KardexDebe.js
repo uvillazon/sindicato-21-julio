@@ -1,4 +1,4 @@
-﻿Ext.define('App.Model.Amortizaciones.Kardex', {
+﻿Ext.define('App.Model.Socios.KardexDebe', {
     extend: 'Ext.data.Model',
     fields: [
             { type: "date", name: "FECHA", dateFormat: "d/m/Y", convert: Funciones.Fecha },

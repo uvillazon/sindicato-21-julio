@@ -226,7 +226,7 @@
     <Content Include="App\extensible\locale\extensible-lang-sv_SE.js" />
     <Content Include="App\extensible\locale\extensible-lang-zh_CN.js" />
     <Content Include="App\extensible\locale\extensible-lang-zh_TW.js" />
-    <Content Include="App\Model\Amortizaciones\Kardex.js" />
+    <Content Include="App\Model\Socios\KardexDebe.js" />
     <Content Include="App\Model\Cajas\Cajas.js" />
     <Content Include="App\Model\Cajas\Kardex.js" />
     <Content Include="App\Model\Choferes\Choferes.js" />
@@ -267,7 +267,7 @@
     <Content Include="App\Model\Ventas\Precios.js" />
     <Content Include="App\Model\Ventas\Ventas.js" />
     <Content Include="App\Model\Ventas\VentasCredito.js" />
-    <Content Include="App\Store\Amortizaciones\Kardex.js" />
+    <Content Include="App\Store\Socios\KardexDebe.js" />
     <Content Include="App\Store\Autos\AutosSocios.js" />
     <Content Include="App\Store\Cajas\Cajas.js" />
     <Content Include="App\Store\Cajas\Kardex.js" />
@@ -354,6 +354,7 @@
     <Content Include="App\View\Copia de Egresos\FormEgreso.js" />
     <Content Include="App\View\Copia de Egresos\GridEgresos.js" />
     <Content Include="App\View\Copia de Egresos\Principal.js" />
+    <Content Include="App\View\Socios\GridKardexDebe.js" />
     <Content Include="App\View\Transferencias\FormTransferencia.js" />
     <Content Include="App\View\Transferencias\GridTransferencias.js" />
     <Content Include="App\View\Transferencias\Principal.js" />

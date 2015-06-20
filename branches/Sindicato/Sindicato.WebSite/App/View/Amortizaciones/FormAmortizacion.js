@@ -110,6 +110,7 @@
             fieldLabel: "Buscar Socio",
             name: "ID_SOCIO",
             displayField: 'SOCIO',
+            valueField : 'ID_SOCIO',
             store: me.store_socio,
             colspan: 2,
             width: 480,
