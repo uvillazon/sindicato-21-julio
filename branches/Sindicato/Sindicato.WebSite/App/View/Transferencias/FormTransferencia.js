@@ -231,7 +231,7 @@
                 });
             }
             else {
-                me.num_saldoOrigen.setValue(record[0].get('SALDO'));
+                me.num_saldoDestino.setValue(record[0].get('SALDO'));
                 if (!Funciones.isEmpty(importeTotal)) {
                     me.num_nuevoSaldoDestino.setValue(record[0].get('SALDO') + importeTotal);
                 }

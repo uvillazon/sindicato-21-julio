@@ -55,6 +55,7 @@
 
     EventosPrincipal: function (btn) {
         var me = this;
+        console.log(btn.getItemId());
         switch (btn.getItemId()) {
             case "btn_crear":
                 me.FormCrearIngreso();

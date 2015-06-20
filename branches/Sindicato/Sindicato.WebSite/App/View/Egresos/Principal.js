@@ -73,7 +73,7 @@
     FormCrearEgreso: function () {
         var me = this;
         var win = Ext.create("App.Config.Abstract.Window", { botones: true });
-        var form = Ext.create("App.View.Ingresos.FormEgreso", {
+        var form = Ext.create("App.View.Egresos.FormEgreso", {
             title: 'Datos Egresos',
             columns: 2,
             botones: false

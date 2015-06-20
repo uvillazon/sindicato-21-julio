@@ -87,8 +87,8 @@ Ext.define("App.Config.Constantes", {
         this.ALTO = document.documentElement.clientHeight - 100;
         this.MAXALTO = document.documentElement.clientHeight - 40;
         this.MAXANCHO = document.documentElement.clientWidth - 50;
-        this.BTNANCHO = (document.documentElement.clientWidth - 100) / 5;
-        this.BTNALTO = (document.documentElement.clientHeight - 100) / 5;
+        this.BTNANCHO = (document.documentElement.clientWidth - 100) / 6;
+        this.BTNALTO = (document.documentElement.clientHeight - 100) / 6;
     },
     CargarPrecios: function (GAS, DIE) { 
         this.CONFIG_PRECIO_VENTA_GAS = GAS.PRECIO_VENTA;

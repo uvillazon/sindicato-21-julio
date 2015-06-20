@@ -8,7 +8,7 @@
     data: '',
     layout: {
         type: 'table',
-        columns: 5
+        columns: 6
     },
     tabPanel: null,
     initComponent: function () {

@@ -159,7 +159,7 @@
     },
     cargarEventos: function () {
         var me = this;
-        me.cbx_caja_origen.on('select', function (cbx, record) {
+        me.cbx_caja.on('select', function (cbx, record) {
             var importeTotal = me.num_importe.getValue();
             me.num_saldo.setValue(record[0].get('SALDO'));
             if (!Funciones.isEmpty(importeTotal)) {
@@ -182,7 +182,7 @@
             var saldo = me.num_saldo.getValue();
 
             var nuevoSaldo = saldo - newvalue;
-            if (nuevoSaldoOrigen < 0) {
+            if (nuevoSaldo < 0) {
                 Ext.Msg.alert("Error", "No El Saldo no es Suficiente. Saldo Actual : " + saldo + " Importe Total : " + newvalue, function () {
                     me.num_nuevoSaldo.setValue(saldo);
                     num.reset();

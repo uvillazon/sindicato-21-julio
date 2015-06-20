@@ -6,6 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="Model.Store" Alias="Self" Provider="Oracle.DataAccess.Client" ProviderManifestToken="11.2" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="SD_AMORTIZACIONES" EntityType="Model.Store.SD_AMORTIZACIONES" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_ANTECEDENTES" EntityType="Model.Store.SD_ANTECEDENTES" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_AUTOS" EntityType="Model.Store.SD_AUTOS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_CAJAS" EntityType="Model.Store.SD_CAJAS" store:Type="Tables" Schema="SINDICATO" />
@@ -26,12 +27,14 @@
           <EntitySet Name="SD_KARDEX_FM" EntityType="Model.Store.SD_KARDEX_FM" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_KARDEX_OBLIGACION" EntityType="Model.Store.SD_KARDEX_OBLIGACION" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_KARDEX_SOCIO" EntityType="Model.Store.SD_KARDEX_SOCIO" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_KARDEX_SOCIO_DEBE" EntityType="Model.Store.SD_KARDEX_SOCIO_DEBE" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_LINEAS" EntityType="Model.Store.SD_LINEAS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_LISTAS" EntityType="Model.Store.SD_LISTAS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_LISTAS_ITEMS" EntityType="Model.Store.SD_LISTAS_ITEMS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_MENU_OPCIONES" EntityType="Model.Store.SD_MENU_OPCIONES" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_MOVILES" EntityType="Model.Store.SD_MOVILES" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_OBLIGACIONES_SOCIO" EntityType="Model.Store.SD_OBLIGACIONES_SOCIO" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_OTRAS_OBLIGACIONES" EntityType="Model.Store.SD_OTRAS_OBLIGACIONES" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_PARADAS" EntityType="Model.Store.SD_PARADAS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_PARAMETROS_LINEA" EntityType="Model.Store.SD_PARAMETROS_LINEA" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_PERFILES" EntityType="Model.Store.SD_PERFILES" store:Type="Tables" Schema="SINDICATO" />
@@ -57,6 +60,10 @@
       "V_TABLAS_COLUMNAS"."COMENTARIO" AS "COMENTARIO"
       FROM "SINDICATO"."V_TABLAS_COLUMNAS" "V_TABLAS_COLUMNAS"</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="SD_AMORTIZACIONES_R01" Association="Model.Store.SD_AMORTIZACIONES_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_AMORTIZACIONES" EntitySet="SD_AMORTIZACIONES" />
+          </AssociationSet>
           <AssociationSet Name="SD_ANTECEDENTES_R02" Association="Model.Store.SD_ANTECEDENTES_R02">
             <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
             <End Role="SD_ANTECEDENTES" EntitySet="SD_ANTECEDENTES" />
@@ -129,6 +136,10 @@
             <End Role="SD_OBLIGACIONES_SOCIO" EntitySet="SD_OBLIGACIONES_SOCIO" />
             <End Role="SD_KARDEX_OBLIGACION" EntitySet="SD_KARDEX_OBLIGACION" />
           </AssociationSet>
+          <AssociationSet Name="SD_KARDEX_SOCIO_DEBE_R01" Association="Model.Store.SD_KARDEX_SOCIO_DEBE_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_KARDEX_SOCIO_DEBE" EntitySet="SD_KARDEX_SOCIO_DEBE" />
+          </AssociationSet>
           <AssociationSet Name="SD_KARDEX_SOCIO_R01" Association="Model.Store.SD_KARDEX_SOCIO_R01">
             <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
             <End Role="SD_KARDEX_SOCIO" EntitySet="SD_KARDEX_SOCIO" />
@@ -140,6 +151,14 @@
           <AssociationSet Name="SD_OBLIGACIONES_SOCIO_R01" Association="Model.Store.SD_OBLIGACIONES_SOCIO_R01">
             <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
             <End Role="SD_OBLIGACIONES_SOCIO" EntitySet="SD_OBLIGACIONES_SOCIO" />
+          </AssociationSet>
+          <AssociationSet Name="SD_OTRAS_OBLIGACIONES_R01" Association="Model.Store.SD_OTRAS_OBLIGACIONES_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_OTRAS_OBLIGACIONES" EntitySet="SD_OTRAS_OBLIGACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_OTRAS_OBLIGACIONES_R02" Association="Model.Store.SD_OTRAS_OBLIGACIONES_R02">
+            <End Role="SD_CIERRES" EntitySet="SD_CIERRES" />
+            <End Role="SD_OTRAS_OBLIGACIONES" EntitySet="SD_OTRAS_OBLIGACIONES" />
           </AssociationSet>
           <AssociationSet Name="SD_PARADAS_R01" Association="Model.Store.SD_PARADAS_R01">
             <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
@@ -218,6 +237,20 @@
             <End Role="SD_USUARIOS" EntitySet="SD_USUARIOS" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="SD_AMORTIZACIONES">
+          <Key>
+            <PropertyRef Name="ID_AMORTIZACION" />
+          </Key>
+          <Property Name="ID_AMORTIZACION" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_SOCIO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="NRO_RECIBO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="CONCEPTO" Type="varchar2" Nullable="false" MaxLength="140" />
+          <Property Name="FECHA" Type="date" Nullable="false" />
+          <Property Name="OBSERVACION" Type="varchar2" MaxLength="1500" />
+          <Property Name="IMPORTE" Type="number" Nullable="false" Precision="15" Scale="5" />
+          <Property Name="LOGIN" Type="varchar2" MaxLength="50" />
+          <Property Name="FECHA_REG" Type="date" />
+        </EntityType>
         <EntityType Name="SD_ANTECEDENTES">
           <Key>
             <PropertyRef Name="ID_ANTECEDENTE" />
@@ -528,6 +561,22 @@
           <Property Name="LOGIN" Type="varchar2" Nullable="false" MaxLength="250" />
           <Property Name="FECHA_REG" Type="date" />
         </EntityType>
+        <EntityType Name="SD_KARDEX_SOCIO_DEBE">
+          <Key>
+            <PropertyRef Name="ID_KARDEX" />
+          </Key>
+          <Property Name="ID_KARDEX" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_SOCIO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_OPERACION" Type="number" Nullable="false" Precision="7" />
+          <Property Name="OPERACION" Type="varchar2" Nullable="false" MaxLength="250" />
+          <Property Name="FECHA" Type="date" Nullable="false" />
+          <Property Name="DETALLE" Type="varchar2" Nullable="false" MaxLength="250" />
+          <Property Name="DEBE" Type="number" Nullable="false" Precision="15" Scale="5" />
+          <Property Name="AMORTIZACION" Type="number" Nullable="false" Precision="15" Scale="5" />
+          <Property Name="SALDO_DEBE" Type="number" Nullable="false" Precision="15" Scale="5" />
+          <Property Name="LOGIN" Type="varchar2" Nullable="false" MaxLength="250" />
+          <Property Name="FECHA_REG" Type="date" />
+        </EntityType>
         <EntityType Name="SD_LINEAS">
           <Key>
             <PropertyRef Name="ID_LINEA" />
@@ -605,6 +654,21 @@
           <Property Name="IMPORTE" Type="number" Nullable="false" Precision="15" Scale="5" />
           <Property Name="FECHA_REG" Type="date" />
           <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="SD_OTRAS_OBLIGACIONES">
+          <Key>
+            <PropertyRef Name="ID_OBLIGACION" />
+          </Key>
+          <Property Name="ID_OBLIGACION" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_SOCIO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_CIERRE" Type="number" Nullable="false" Precision="7" />
+          <Property Name="FECHA" Type="date" Nullable="false" />
+          <Property Name="CONCEPTO" Type="varchar2" Nullable="false" MaxLength="140" />
+          <Property Name="OBSERVACION" Type="varchar2" MaxLength="1500" />
+          <Property Name="IMPORTE" Type="number" Nullable="false" Precision="15" Scale="5" />
+          <Property Name="LOGIN" Type="varchar2" MaxLength="50" />
+          <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
+          <Property Name="FECHA_REG" Type="date" />
         </EntityType>
         <EntityType Name="SD_PARADAS">
           <Key>
@@ -811,6 +875,18 @@
           <Property Name="REQUERIDO" Type="varchar2" MaxLength="1" />
           <Property Name="COMENTARIO" Type="varchar2" />
         </EntityType>
+        <Association Name="SD_AMORTIZACIONES_R01">
+          <End Role="SD_SOCIOS" Type="Model.Store.SD_SOCIOS" Multiplicity="1" />
+          <End Role="SD_AMORTIZACIONES" Type="Model.Store.SD_AMORTIZACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_AMORTIZACIONES">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="SD_ANTECEDENTES_R02">
           <End Role="SD_CHOFERES" Type="Model.Store.SD_CHOFERES" Multiplicity="0..1" />
           <End Role="SD_ANTECEDENTES" Type="Model.Store.SD_ANTECEDENTES" Multiplicity="*" />
@@ -1027,6 +1103,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="SD_KARDEX_SOCIO_DEBE_R01">
+          <End Role="SD_SOCIOS" Type="Model.Store.SD_SOCIOS" Multiplicity="1" />
+          <End Role="SD_KARDEX_SOCIO_DEBE" Type="Model.Store.SD_KARDEX_SOCIO_DEBE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_KARDEX_SOCIO_DEBE">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="SD_KARDEX_SOCIO_R01">
           <End Role="SD_SOCIOS" Type="Model.Store.SD_SOCIOS" Multiplicity="1" />
           <End Role="SD_KARDEX_SOCIO" Type="Model.Store.SD_KARDEX_SOCIO" Multiplicity="*" />
@@ -1060,6 +1148,30 @@
             </Principal>
             <Dependent Role="SD_OBLIGACIONES_SOCIO">
               <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_OTRAS_OBLIGACIONES_R01">
+          <End Role="SD_SOCIOS" Type="Model.Store.SD_SOCIOS" Multiplicity="1" />
+          <End Role="SD_OTRAS_OBLIGACIONES" Type="Model.Store.SD_OTRAS_OBLIGACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_OTRAS_OBLIGACIONES">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_OTRAS_OBLIGACIONES_R02">
+          <End Role="SD_CIERRES" Type="Model.Store.SD_CIERRES" Multiplicity="1" />
+          <End Role="SD_OTRAS_OBLIGACIONES" Type="Model.Store.SD_OTRAS_OBLIGACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CIERRES">
+              <PropertyRef Name="ID_CIERRE" />
+            </Principal>
+            <Dependent Role="SD_OTRAS_OBLIGACIONES">
+              <PropertyRef Name="ID_CIERRE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1299,6 +1411,12 @@
         <Function Name="P_REC_PARAMETROS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
           <Parameter Name="P_COD_PAR" Type="varchar2" Mode="In" />
           <Parameter Name="P_ID_LINEA" Type="number" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
+        <Function Name="P_SD_ACT_KARDEX_DEBE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
+          <Parameter Name="P_ID_SOCIO" Type="number" Mode="In" />
+          <Parameter Name="P_FECHA" Type="date" Mode="In" />
+          <Parameter Name="P_ID_USR" Type="number" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
         <Function Name="P_SD_ACT_KARDEX_EFECTIVO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO">
@@ -1878,6 +1996,31 @@
             <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
             <End Role="SD_TRANSFERENCIAS" EntitySet="SD_TRANSFERENCIAS" />
           </AssociationSet>
+          <EntitySet Name="SD_AMORTIZACIONES" EntityType="Model.SD_AMORTIZACIONES" />
+          <EntitySet Name="SD_KARDEX_SOCIO_DEBE" EntityType="Model.SD_KARDEX_SOCIO_DEBE" />
+          <EntitySet Name="SD_OTRAS_OBLIGACIONES" EntityType="Model.SD_OTRAS_OBLIGACIONES" />
+          <AssociationSet Name="SD_AMORTIZACIONES_R01" Association="Model.SD_AMORTIZACIONES_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_AMORTIZACIONES" EntitySet="SD_AMORTIZACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_OTRAS_OBLIGACIONES_R02" Association="Model.SD_OTRAS_OBLIGACIONES_R02">
+            <End Role="SD_CIERRES" EntitySet="SD_CIERRES" />
+            <End Role="SD_OTRAS_OBLIGACIONES" EntitySet="SD_OTRAS_OBLIGACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_KARDEX_SOCIO_DEBE_R01" Association="Model.SD_KARDEX_SOCIO_DEBE_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_KARDEX_SOCIO_DEBE" EntitySet="SD_KARDEX_SOCIO_DEBE" />
+          </AssociationSet>
+          <AssociationSet Name="SD_OTRAS_OBLIGACIONES_R01" Association="Model.SD_OTRAS_OBLIGACIONES_R01">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_OTRAS_OBLIGACIONES" EntitySet="SD_OTRAS_OBLIGACIONES" />
+          </AssociationSet>
+          <FunctionImport Name="P_SD_ACT_KARDEX_DEBE">
+            <Parameter Name="P_ID_SOCIO" Mode="In" Type="Decimal" />
+            <Parameter Name="P_FECHA" Mode="In" Type="DateTime" />
+            <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="SD_LISTAS">
           <Key>
@@ -2714,6 +2857,9 @@
           <NavigationProperty Name="SD_SOCIO_MOVILES" Relationship="Model.SD_SOCIO_MOVILES_R01" FromRole="SD_SOCIOS" ToRole="SD_SOCIO_MOVILES" />
           <NavigationProperty Name="SD_VENTA_HOJAS_CONTROL" Relationship="Model.SD_VENTA_HOJAS_CONTROL_R02" FromRole="SD_SOCIOS" ToRole="SD_VENTA_HOJAS_CONTROL" />
           <NavigationProperty Name="SD_DESCUENTOS_SOCIO" Relationship="Model.SD_DESCUENTOS_SOCIO_R02" FromRole="SD_SOCIOS" ToRole="SD_DESCUENTOS_SOCIO" />
+          <NavigationProperty Name="SD_AMORTIZACIONES" Relationship="Model.SD_AMORTIZACIONES_R01" FromRole="SD_SOCIOS" ToRole="SD_AMORTIZACIONES" />
+          <NavigationProperty Name="SD_KARDEX_SOCIO_DEBE" Relationship="Model.SD_KARDEX_SOCIO_DEBE_R01" FromRole="SD_SOCIOS" ToRole="SD_KARDEX_SOCIO_DEBE" />
+          <NavigationProperty Name="SD_OTRAS_OBLIGACIONES" Relationship="Model.SD_OTRAS_OBLIGACIONES_R01" FromRole="SD_SOCIOS" ToRole="SD_OTRAS_OBLIGACIONES" />
         </EntityType>
         <Association Name="SD_CHOFERES_R01">
           <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
@@ -2848,6 +2994,7 @@
           <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SD_DESCUENTOS" Relationship="Model.SD_DESCUENTOS_R01" FromRole="SD_CIERRES" ToRole="SD_DESCUENTOS" />
+          <NavigationProperty Name="SD_OTRAS_OBLIGACIONES" Relationship="Model.SD_OTRAS_OBLIGACIONES_R02" FromRole="SD_CIERRES" ToRole="SD_OTRAS_OBLIGACIONES" />
         </EntityType>
         <EntityType Name="SD_DESCUENTOS">
           <Key>
@@ -3026,6 +3173,103 @@
             </Principal>
             <Dependent Role="SD_TRANSFERENCIAS">
               <PropertyRef Name="ID_CAJA_DESTINO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SD_AMORTIZACIONES">
+          <Key>
+            <PropertyRef Name="ID_AMORTIZACION" />
+          </Key>
+          <Property Type="Int32" Name="ID_AMORTIZACION" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO" Nullable="false" />
+          <Property Type="Int32" Name="NRO_RECIBO" Nullable="false" />
+          <Property Type="String" Name="CONCEPTO" Nullable="false" MaxLength="140" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA" Nullable="false" Precision="0" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="IMPORTE" Nullable="false" Precision="15" Scale="5" />
+          <Property Type="String" Name="LOGIN" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_AMORTIZACIONES_R01" FromRole="SD_AMORTIZACIONES" ToRole="SD_SOCIOS" />
+        </EntityType>
+        <EntityType Name="SD_KARDEX_SOCIO_DEBE">
+          <Key>
+            <PropertyRef Name="ID_KARDEX" />
+          </Key>
+          <Property Type="Int32" Name="ID_KARDEX" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO" Nullable="false" />
+          <Property Type="Int32" Name="ID_OPERACION" Nullable="false" />
+          <Property Type="String" Name="OPERACION" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA" Nullable="false" Precision="0" />
+          <Property Type="String" Name="DETALLE" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="DEBE" Nullable="false" Precision="15" Scale="5" />
+          <Property Type="Decimal" Name="AMORTIZACION" Nullable="false" Precision="15" Scale="5" />
+          <Property Type="Decimal" Name="SALDO_DEBE" Nullable="false" Precision="15" Scale="5" />
+          <Property Type="String" Name="LOGIN" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_KARDEX_SOCIO_DEBE_R01" FromRole="SD_KARDEX_SOCIO_DEBE" ToRole="SD_SOCIOS" />
+        </EntityType>
+        <EntityType Name="SD_OTRAS_OBLIGACIONES">
+          <Key>
+            <PropertyRef Name="ID_OBLIGACION" />
+          </Key>
+          <Property Type="Int32" Name="ID_OBLIGACION" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO" Nullable="false" />
+          <Property Type="Int32" Name="ID_CIERRE" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA" Nullable="false" Precision="0" />
+          <Property Type="String" Name="CONCEPTO" Nullable="false" MaxLength="140" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="IMPORTE" Nullable="false" Precision="15" Scale="5" />
+          <Property Type="String" Name="LOGIN" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <NavigationProperty Name="SD_CIERRES" Relationship="Model.SD_OTRAS_OBLIGACIONES_R02" FromRole="SD_OTRAS_OBLIGACIONES" ToRole="SD_CIERRES" />
+          <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_OTRAS_OBLIGACIONES_R01" FromRole="SD_OTRAS_OBLIGACIONES" ToRole="SD_SOCIOS" />
+        </EntityType>
+        <Association Name="SD_AMORTIZACIONES_R01">
+          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
+          <End Type="Model.SD_AMORTIZACIONES" Role="SD_AMORTIZACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_AMORTIZACIONES">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_OTRAS_OBLIGACIONES_R02">
+          <End Type="Model.SD_CIERRES" Role="SD_CIERRES" Multiplicity="1" />
+          <End Type="Model.SD_OTRAS_OBLIGACIONES" Role="SD_OTRAS_OBLIGACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CIERRES">
+              <PropertyRef Name="ID_CIERRE" />
+            </Principal>
+            <Dependent Role="SD_OTRAS_OBLIGACIONES">
+              <PropertyRef Name="ID_CIERRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_KARDEX_SOCIO_DEBE_R01">
+          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
+          <End Type="Model.SD_KARDEX_SOCIO_DEBE" Role="SD_KARDEX_SOCIO_DEBE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_KARDEX_SOCIO_DEBE">
+              <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_OTRAS_OBLIGACIONES_R01">
+          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
+          <End Type="Model.SD_OTRAS_OBLIGACIONES" Role="SD_OTRAS_OBLIGACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_OTRAS_OBLIGACIONES">
+              <PropertyRef Name="ID_SOCIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3659,6 +3903,55 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SD_AMORTIZACIONES">
+            <EntityTypeMapping TypeName="Model.SD_AMORTIZACIONES">
+              <MappingFragment StoreEntitySet="SD_AMORTIZACIONES">
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="IMPORTE" ColumnName="IMPORTE" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="CONCEPTO" ColumnName="CONCEPTO" />
+                <ScalarProperty Name="NRO_RECIBO" ColumnName="NRO_RECIBO" />
+                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
+                <ScalarProperty Name="ID_AMORTIZACION" ColumnName="ID_AMORTIZACION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_KARDEX_SOCIO_DEBE">
+            <EntityTypeMapping TypeName="Model.SD_KARDEX_SOCIO_DEBE">
+              <MappingFragment StoreEntitySet="SD_KARDEX_SOCIO_DEBE">
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="SALDO_DEBE" ColumnName="SALDO_DEBE" />
+                <ScalarProperty Name="AMORTIZACION" ColumnName="AMORTIZACION" />
+                <ScalarProperty Name="DEBE" ColumnName="DEBE" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="OPERACION" ColumnName="OPERACION" />
+                <ScalarProperty Name="ID_OPERACION" ColumnName="ID_OPERACION" />
+                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
+                <ScalarProperty Name="ID_KARDEX" ColumnName="ID_KARDEX" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_OTRAS_OBLIGACIONES">
+            <EntityTypeMapping TypeName="Model.SD_OTRAS_OBLIGACIONES">
+              <MappingFragment StoreEntitySet="SD_OTRAS_OBLIGACIONES">
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="IMPORTE" ColumnName="IMPORTE" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="CONCEPTO" ColumnName="CONCEPTO" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="ID_CIERRE" ColumnName="ID_CIERRE" />
+                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
+                <ScalarProperty Name="ID_OBLIGACION" ColumnName="ID_OBLIGACION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="P_SD_ACT_KARDEX_DEBE" FunctionName="Model.Store.P_SD_ACT_KARDEX_DEBE" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -3679,7 +3972,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Modelo" ZoomLevel="94">
+      <Diagram Name="Modelo" ZoomLevel="10">
         <EntityTypeShape EntityType="Model.SD_LISTAS" Width="1.5" PointX="0.75" PointY="1" Height="2.5571907552083326" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.SD_LISTAS_ITEMS" Width="1.5" PointX="3" PointY="1" Height="2.7494921874999996" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.SD_MENU_OPCIONES" Width="1.5" PointX="0.5" PointY="11.125" Height="2.9417936197916639" IsExpanded="true" />
@@ -3795,6 +4088,13 @@
         <EntityTypeShape EntityType="Model.SD_TRANSFERENCIAS" Width="1.5" PointX="7.75" PointY="25.25" />
         <AssociationConnector Association="Model.SD_TRANSFERENCIAS_R01" />
         <AssociationConnector Association="Model.SD_TRANSFERENCIAS_R02" />
+        <EntityTypeShape EntityType="Model.SD_AMORTIZACIONES" Width="1.5" PointX="31.625" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.SD_KARDEX_SOCIO_DEBE" Width="1.5" PointX="34.625" PointY="2.25" />
+        <EntityTypeShape EntityType="Model.SD_OTRAS_OBLIGACIONES" Width="1.5" PointX="37.625" PointY="3.75" />
+        <AssociationConnector Association="Model.SD_AMORTIZACIONES_R01" />
+        <AssociationConnector Association="Model.SD_OTRAS_OBLIGACIONES_R02" />
+        <AssociationConnector Association="Model.SD_KARDEX_SOCIO_DEBE_R01" />
+        <AssociationConnector Association="Model.SD_OTRAS_OBLIGACIONES_R01" />
         </Diagram>
     </Diagrams>
   </Designer>

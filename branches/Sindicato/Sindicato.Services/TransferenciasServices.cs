@@ -95,6 +95,8 @@ namespace Sindicato.Services
         public RespuestaSP EliminarIngreso(int ID_INGRESO)
         {
             RespuestaSP result = new RespuestaSP();
+            int  ID_CAJA = 0;
+            DateTime? fecha =  null;
             ExecuteManager(uow =>
             {
                 var manager = new SD_INGRESOSManager(uow);
@@ -102,15 +104,18 @@ namespace Sindicato.Services
                 var ant = manager.BuscarTodos(x => x.ID_INGRESO == ID_INGRESO).FirstOrDefault();
                 if (ant != null)
                 {
+                    fecha = ant.FECHA;
+                    ID_CAJA = ant.ID_CAJA;
                     manager.Delete(ant);
                     var kardex = context.SD_KARDEX_EFECTIVO.Where(x => x.OPERACION == "INGRESOS" && x.ID_OPERACION == ant.ID_INGRESO && x.ID_CAJA == ant.ID_CAJA);
                     foreach (var item in kardex)
                     {
                         context.SD_KARDEX_EFECTIVO.DeleteObject(item);
                     }
-                    ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+
                     manager.Save();
-                    context.P_SD_ACT_KARDEX_EFECTIVO(ant.ID_CAJA, ant.FECHA, 0, p_RES);
+                    ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+                    context.P_SD_ACT_KARDEX_EFECTIVO(ant.ID_CAJA, fecha, 0, p_RES);
                     result.success = true;
                     result.msg = "Se elimino Correctamente";
                 }
@@ -120,6 +125,12 @@ namespace Sindicato.Services
                     result.msg = "Ocurrio algun Problema";
                 }
             });
+            //ExecuteManager(uow =>
+            //    {
+            //        var context = (SindicatoContext)uow.Context;
+            //        ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+            //        context.P_SD_ACT_KARDEX_EFECTIVO(ID_CAJA, fecha, 0, p_RES);
+            //    });
             return result;
         }
 

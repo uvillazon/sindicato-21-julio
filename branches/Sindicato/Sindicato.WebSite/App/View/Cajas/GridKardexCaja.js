@@ -11,6 +11,7 @@
     formulario: null,
     id_caja: '',
     imagenes: true,
+    opcion: 'GridKardexCaja',
     initComponent: function () {
         var me = this;
         if (me.opcion == "GridKardexCaja") {
