@@ -31,9 +31,11 @@
 
         me.cbx_diasDisponibles.on('select', function (cbx, rec) {
             var reco = Ext.create('App.Model.Ventas.DetallesVenta', {
-                FECHA_USO: rec[0].get('FECHA_TEXT'),
+                FECHA_USO: rec[0].get('FECHA'),
                 MONTO : 25
             });
+            me.gridHojas.getStore().add(reco);
+
         });
 
     },
