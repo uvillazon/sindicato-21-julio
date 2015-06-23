@@ -263,6 +263,7 @@
     <Content Include="App\Model\Familiares\Familiares.js" />
     <Content Include="App\Model\Socios\Socios.js" />
     <Content Include="App\Model\Utils\Tablas.js" />
+    <Content Include="App\Model\Ventas\DetallesVentaEdit.js" />
     <Content Include="App\Model\Ventas\DetallesVenta.js" />
     <Content Include="App\Model\Ventas\Ventas.js" />
     <Content Include="App\Store\Socios\KardexDebe.js" />
