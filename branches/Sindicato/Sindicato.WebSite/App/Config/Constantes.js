@@ -52,13 +52,11 @@ Ext.define("App.Config.Constantes", {
             else if (estado == 'CERRADA') return 'SMCerrada';
             return '';
         }
-        else if (tipo == 'OT') {
-            if (estado == 'NUEVA') return 'OTNueva';
-            else if (estado == 'EJECUTADA') return 'OTEjecutada';
-            else if (estado == 'APROBADA') return 'OTAprobada';
-            else if (estado == 'CERRADA') return 'OTCerrada';
-            else if (estado == 'EN_EJEC') return 'OTEn_Ejec';
-            else if (estado == 'ASIGNADA') return 'OTAsignada';
+        else if (tipo == 'VENTAS') {
+            if (estado == 'NUEVO') return 'OTNueva';
+            else if (estado == 'ANULADO') return 'OTAsignada';
+            //else if (estado == 'APROBADO') return 'OTAprobada';
+            else if (estado == 'CERRADO') return 'OTCerrada';
             //else if (estado == 'CON_OIT') return 'AmarilloFuerte';
         }
         else {

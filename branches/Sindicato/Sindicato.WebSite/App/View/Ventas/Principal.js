@@ -1,138 +1,179 @@
 ﻿Ext.define("App.View.Ventas.Principal", {
     extend: "App.Config.Abstract.PanelPrincipal",
-    controlador: 'Ventas',
-    accionGrabar: 'GrabarVentas',
-    view: '',
     initComponent: function () {
         var me = this;
-        //        alert(me.view);
         me.CargarComponentes();
-        //me.CargarEventos();
         this.callParent(arguments);
     },
     CargarComponentes: function () {
         var me = this;
+
         me.toolbar = Funciones.CrearMenuBar();
-        Funciones.CrearMenu('btn_CrearVenta', 'Crear Venta', Constantes.ICONO_CREAR, me.EventosVenta, me.toolbar, this);
-        Funciones.CrearMenu('btn_Imprimir', 'Imprimir', Constantes.ICONO_IMPRIMIR, me.ImprimirReporteGrid, me.toolbar, this);
-        Funciones.CrearMenu('btn_Detalle', 'Detalle', Constantes.ICONO_VER, me.EventosVenta, me.toolbar, this,null, true);
+        //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
+        Funciones.CrearMenu('btn_aprobar', 'Aprobar Descuento', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_debitar', 'Debitar Descuento', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
+        //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
 
 
-        me.grid = Ext.create('App.View.Ventas.GridVentas', {
-            region: 'center',
-            height: 350,
-            imagenes: false,
-            opcion: 'GridVentas',
-            toolbar: me.toolbar
+
+        me.grid = Ext.create('App.View.Descuentos.GridDescuentos', {
+            region: 'west',
+            width: '50%',
+            fbarmenu: me.toolbar,
+            fbarmenuArray: ["btn_debitar", "btn_eliminar", "btn_editar", "btn_aprobar"]
+
         });
-        me.items = [me.grid
-        ];
-        me.grid.on('itemclick', me.onItemClick, this);
-        me.grid.getSelectionModel().on('selectionchange', me.onSelectChange, this);
+        me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Descuento', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
+        //me.btn_editar = Funciones.CrearMenu('btn_editar', 'Editar Descuento', Constantes.ICONO_EDITAR, me.EventosPrincipal, null, this, null, true);
+        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Anular Descuento', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
+        me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_editar, me.btn_eliminar]);
+        //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
+
+        me.gridDetalles = Ext.create('App.View.Descuentos.GridDetalles', {
+            width: '100%',
+            height: 400,
+            cargarStore: false
+
+        });
+        me.form = Ext.create("App.View.Descuentos.FormDescuento", {
+            //region: 'center',
+            //width: '50%',
+            columns: 2,
+            modoConsulta: true
+        });
+        me.form.BloquearFormulario();
+
+        me.panel = Ext.create("Ext.panel.Panel", {
+            region: 'center',
+            width: '50%',
+            items: [me.form, me.gridDetalles]
+        });
+        //        me.grid.bar.add(me.toolbar);
+        me.items = [me.grid, me.panel];
+        me.grid.getSelectionModel().on('selectionchange', me.CargarDatos, this);
 
     },
-    onItemClick: function (view, record, item, index, e) {
-        var me = this;
-        me.record = record;
-        me.id = record.get('ID_VENTA');
-    },
-    onSelectChange: function (selModel, selections) {
+    CargarDatos: function (selModel, selections) {
         var me = this;
         var disabled = selections.length === 0;
-        Funciones.DisabledButton('btn_Detalle', me.toolbar, disabled);
-    },
-    EventosVenta: function (btn) {
-        var me = this;
-        if (btn.getItemId() == "btn_CrearVenta") {
-            if (me.winCrearVenta == null) {
-                me.winCrearVenta = Ext.create("App.Config.Abstract.Window");
-                me.panelVentas = Ext.create("App.View.Ventas.FormCrearVenta", {
-                    columns: 4,
-                    title: 'Formulario de Registro de Ventas ',
-                    botones: false
-                });
-                me.panelVentas.CargarFecha();
-                me.winCrearVenta.add(me.panelVentas);
-                me.winCrearVenta.show();
-            } else {
-                me.panelVentas.getForm().reset();
-                me.panelVentas.CargarStoreFecha();
-                me.panelVentas.gridVenta.getStore().removeAll();
-                me.panelVentas.gridVentaCredito.getStore().removeAll();
-                me.panelVentas.gridVentaConsumo.getStore().removeAll();
-                me.panelVentas.CargarFecha(me.grid.getStore());
-                me.winCrearVenta.show();
-            }
-        }
-        else if (btn.getItemId() == "btn_Detalle") {
-            if (me.winEditarVenta == null) {
-                me.winEditarVenta = Ext.create("App.Config.Abstract.Window");
-                me.panelVentasEditar = Ext.create("App.View.Ventas.FormCrearVenta", {
-                    columns: 4,
-                    title: 'Formulario de Registro de Ventas ',
-                    botones: false,
-                    editar: true
-                });
-                me.panelVentasEditar.CargarEditarVenta(me.record);
-                me.winEditarVenta.add(me.panelVentasEditar);
-                me.winEditarVenta.show();
-            } else {
-                me.panelVentasEditar.getForm().reset();
-                me.panelVentasEditar.CargarEditarVenta(me.record);
-                me.panelVentasEditar.gridVenta.getStore().removeAll();
-                me.panelVentasEditar.gridVentaCredito.getStore().removeAll();
-                me.panelVentasEditar.gridVentaConsumo.getStore().removeAll();
-                me.winEditarVenta.show();
-            }
+        me.record = disabled ? null : selections[0];
+        if (!disabled) {
+            me.form.getForm().loadRecord(selections[0])
+            me.gridDetalles.getStore().setExtraParams({ ID_DESCUENTO: selections[0].get('ID_DESCUENTO') });
+            me.gridDetalles.getStore().load();
+            //me.form.CargarDatos(selections[0]);
+
         }
         else {
-            Ext.Msg.alert("Aviso", "No Existe el botton");
+            me.form.getForm().reset();
+            me.gridDetalles.getStore().setExtraParams({ ID_DESCUENTO: 0 });
+            me.gridDetalles.getStore().load();
+
         }
-    }
-    //    CargarDatos: function (grid, td, cellIndex, record, tr, owIndex, e, eOpts) {
-    //        var me = this;
-    //        me.formulario.CargarDatos(record);
-    //        me.panelImagen.setTitle("Visor de Imagenes - "+record.get('COD_ALTERNATIVO'));
-    //        me.ViewImagen.store.setExtraParams({ TABLA: me.Tabla, ID_TABLA: record.get(me.idTabla) });
-    //        me.ViewImagen.store.load();
+    },
 
-    //    },
-    //    EventosBoton: function (btn) {
-    //        var me = this;
+    EventosPrincipal: function (btn) {
+        var me = this;
+        switch (btn.getItemId()) {
+            case "btn_crear":
+                me.FormCrearDeposito();
+                break;
+            case "btn_editar":
+                if (me.record.get('ESTADO') == "NUEVO") {
+                    me.FormCrearDeposito(me.record);
+                }
+                else {
+                    Ext.Msg.alert("Error", "Descuento en estado Inapropiado.");
+                }
+                //Funciones.AjaxRequestGrid("Socios", "EliminarRetiroSocio", me.grid, "Esta seguro de Eliminar el Retiro?", { ID_RETIRO: me.record.get('ID_RETIRO') }, me.grid, null);
+                break;
+            case "btn_eliminar":
+                if (me.record.get('ESTADO') == "NUEVO") {
+                    Funciones.AjaxRequestGrid("Descuentos", "AnularAprobarDebitoDecuento", me.grid, "Esta seguro de Anular  el Descuento?", { ID_DESCUENTO: me.record.get('ID_DESCUENTO'), ACCION: 'ANULADO' }, me.grid, null);
+                }
+                else {
+                    Ext.Msg.alert("Error", "Descuento en estado Inapropiado.");
+                }
+                break;
+            case "btn_aprobar":
+                if (me.record.get('ESTADO') == "NUEVO") {
+                    Funciones.AjaxRequestGrid("Descuentos", "AnularAprobarDebitoDecuento", me.grid, "Esta seguro de Aprobar  el Descuento?", { ID_DESCUENTO: me.record.get('ID_DESCUENTO'), ACCION: 'APROBADO', OBSERVACION: 'APROBADO EL DESCUENTO POR SISTEMA' }, me.grid, null);
+                }
+                else {
+                    Ext.Msg.alert("Error", "Descuento en estado Inapropiado.");
+                }
+                break;
+            case "btn_debitar":
+                if (me.record.get('ESTADO') == "APROBADO") {
+                    me.FormDebitarDeposito(me.record);
+                    //Funciones.AjaxRequestGrid("Descuentos", "AnularAprobarDebitoDecuento", me.grid, "Esta seguro de Aprobar  el Descuento?", { ID_DESCUENTO: me.record.get('ID_DESCUENTO'), ACCION: 'APROBADO', OBSERVACION: 'APROBADO EL DESCUENTO POR SISTEMA' }, me.grid, null);
+                }
+                else {
+                    Ext.Msg.alert("Error", "Descuento en estado Inapropiado.");
+                }
+                break;
+                //case "btn_Kardex":
+                //    me.VentanaKardex();
+                //    break;
+            default:
+                Ext.Msg.alert("Aviso", "No Existe el botton");
+                break;
+        }
+    },
+    FormCrearDeposito: function (record) {
+        var me = this;
+        var win = Ext.create("App.Config.Abstract.Window", { botones: true, gridLoads: [me.grid] });
+        var form = Ext.create("App.View.Descuentos.FormDescuento", {
+            title: 'Datos Descuento',
+            columns: 2,
+            botones: false
+        });
+        if (record != null) {
+            form.bloquearEdicion();
+            form.getForm().loadRecord(record);
+            form.gridDetalles.getStore().setExtraParams({ ID_DESCUENTO: record.get('ID_DESCUENTO') });
+            form.gridDetalles.getStore().load();
+        }
+        //form.txt_socio.setVisible(false);
+        //form.getForm().loadRecord(me.socio);
+        win.add(form);
+        win.show();
+        win.btn_guardar.on('click', function () {
+            //console.dir(params);
+            Funciones.AjaxRequestWin("Descuentos", "GuardarDescuento", win, form, me.grid, "Esta Seguro de Guardar", null, win);
+        });
 
-    //        if (btn.getItemId() == '') {
+    },
+    FormDebitarDeposito: function (record) {
+        var me = this;
+        var win = Ext.create("App.Config.Abstract.Window", { botones: true, gridLoads: [me.grid] });
+        var form = Ext.create("App.View.Descuentos.FormDebito", {
+            title: 'Datos del Debito',
+            columns: 2,
+            botones: false
+        });
+        form.getForm().loadRecord(record);
+        //form.txt_socio.setVisible(false);
+        //form.getForm().loadRecord(me.socio);
+        win.add(form);
+        win.show();
+        win.btn_guardar.on('click', function () {
+            //console.dir(params);
+            Funciones.AjaxRequestWin("Descuentos", "AnularAprobarDebitoDecuento", win, form, me.grid, "Esta Seguro de Generar el Debito", null, win);
+        });
 
-    //        }
-    //        else {
-    //            alert("No se Selecciono ningun botton");
-    //        }
-    //    },
-    //    EventoConfiguracion: function (btn) {
-    //        me = this;
-    //        if (btn.getItemId() == 'btn_configuracionUC') {
-    //            if (me.winConfig == null) {
-    //                me.winConfig = Ext.create("App.Config.Abstract.Window");
-    //                me.formConfig = Ext.create("App.View.Postes.Forms", { opcion: 'FormConfiguracionCodSol', title: 'Formulario de Configuracion Codigo Solucion y Materiales' });
-    //                me.winConfig.add(me.formConfig);
-    //                me.winConfig.show();
-    //            }
-    //            else {
-    //                me.formConfig.getForm().reset();
-    //                me.winConfig.show();
-    //            }
-    //        }
-    //        else if (btn.getItemId() == 'btn_configuracionCodMat') {
-    //            if (me.winConfigMat == null) {
-    //                me.winConfigMat = Ext.create("App.Config.Abstract.Window");
-    //                me.formConfigMat = Ext.create("App.View.Postes.Forms", { opcion: 'FormConfiguracionCodMan', title: 'Formulario de Configuracion Codigo Materiales y Cod. Soluciones' });
-    //                me.winConfigMat.add(me.formConfigMat);
-    //                me.winConfigMat.show();
-    //            }
-    //            else {
-    //                me.formConfigMat.getForm().reset();
-    //                me.winConfigMat.show();
-    //            }
-    //        }
-    //        else { alert("Selecione uina opcion") }
-    //    }
+    },
+    //VentanaKardex: function () {
+    //    var me = this;
+    //    var win = Ext.create("App.Config.Abstract.Window", { botones: false });
+    //    var grid = Ext.create("App.View.Socios.GridKardex", {
+    //        region: 'center',
+    //        width: 760,
+    //        height: 450,
+    //        id_socio: me.record.get('ID_SOCIO')
+    //    });
+    //    win.add(grid);
+    //    win.show();
+    //}
+
 });

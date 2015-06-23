@@ -264,9 +264,7 @@
     <Content Include="App\Model\Socios\Socios.js" />
     <Content Include="App\Model\Utils\Tablas.js" />
     <Content Include="App\Model\Ventas\DetallesVenta.js" />
-    <Content Include="App\Model\Ventas\Precios.js" />
     <Content Include="App\Model\Ventas\Ventas.js" />
-    <Content Include="App\Model\Ventas\VentasCredito.js" />
     <Content Include="App\Store\Socios\KardexDebe.js" />
     <Content Include="App\Store\Autos\AutosSocios.js" />
     <Content Include="App\Store\Cajas\Cajas.js" />
@@ -309,9 +307,7 @@
     <Content Include="App\Store\Tanques\Tanques.js" />
     <Content Include="App\Store\Utils\Tablas.js" />
     <Content Include="App\Store\Ventas\DetallesVenta.js" />
-    <Content Include="App\Store\Ventas\Precios.js" />
     <Content Include="App\Store\Ventas\Ventas.js" />
-    <Content Include="App\Store\Ventas\VentasCredito.js" />
     <Content Include="App\View\Cajas\FormCaja.js" />
     <Content Include="App\View\Cajas\FormMovimiento.js" />
     <Content Include="App\View\Cajas\Forms.js" />
@@ -351,6 +347,7 @@
     <Content Include="App\View\Amortizaciones\FormAmortizacion.js" />
     <Content Include="App\View\Amortizaciones\GridAmortizaciones.js" />
     <Content Include="App\View\Amortizaciones\Principal.js" />
+    <Content Include="App\View\Hojas\GridDetalles.js" />
     <Content Include="App\View\Obligaciones\FormObligacion.js" />
     <Content Include="App\View\Obligaciones\GridObligaciones.js" />
     <Content Include="App\View\Obligaciones\Principal.js" />
@@ -439,6 +436,7 @@
     <Content Include="App\View\Utils\Principal.js" />
     <Content Include="App\View\Ventas\FormCrearVenta.js" />
     <Content Include="App\View\Ventas\Forms.js" />
+    <Content Include="App\View\Ventas\GridDetalles.js" />
     <Content Include="App\View\Ventas\Grids.js" />
     <Content Include="App\View\Ventas\GridVentas.js" />
     <Content Include="App\View\Ventas\Principal.js" />

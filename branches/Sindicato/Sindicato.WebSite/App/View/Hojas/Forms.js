@@ -1,132 +1,74 @@
-﻿Ext.define("App.View.Compras.Forms", {
+﻿Ext.define("App.View.Hojas.Forms", {
     extend: "App.Config.Abstract.Form",
     title: "",
     botones: false,
     columns: 2,
     initComponent: function () {
         var me = this;
-        if (me.opcion == "formDetalle") {
-            me.title = "Formulario Detalle de Compras";
-            me.CargarFormDetalle();
+        if (me.opcion == "formVentaConsulta") {
+            me.title = "Datos Venta";
+            me.CargarFormVentanaConsulta();
 
-        }
-        else if (me.opcion == 'formResumen') {
-            me.title = "Resumen";
-            me.CargarFormResumen();
         }
         this.callParent(arguments);
     },
-    CargarFormDetalle : function(){
+    CargarFormVentanaConsulta: function () {
         var me = this;
-        me.txt_detalle = Ext.create("App.Config.Componente.TextFieldBase", {
-            fieldLabel: "Detalle",
-            name: "DETALLE",
+        me.hid_id = Ext.widget('hiddenfield', {
+            name: 'ID_VENTA',
+        });
+        me.txt_socio = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Socio",
+            name: "SOCIO",
             width: 480,
-            colspan : 2,
-            afterLabelTextTpl: Constantes.REQUERIDO,
-            allowBlank: false
+            colspan: 2
         });
-         me.num_importe = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "Importe",
-            name: "IMPORTE",
-            afterLabelTextTpl: Constantes.REQUERIDO,
-            allowBlank: false
+        me.txt_nro_movil = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Nro Movil",
+            name: "NRO_MOVIL",
+            //width: 480,
+            //colspan: 2
+        });
+        me.date_fecha = Ext.create("App.Config.Componente.DateFieldBase", {
+            fieldLabel: "Fecha",
+            name: "FECHA",
+        });
+        me.txt_total = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Importe Total BS",
+            name: "TOTAL"
+
+        });
+        me.txt_descuento = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Descuento BS",
+            name: "DESCUENTO"
+
+        });
+        me.txt_cantidad_hojas = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Cantidad Hojas",
+            name: "TOTAL_HOJAS"
+
+        });
+        me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
+            fieldLabel: "Observacion",
+            name: "OBSERVACION",
+            width: 480,
+            colspan: 2,
+            maxLength: 500,
+        });
+        me.txt_estado = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Estado",
+            name: "ESTADO",
+            //width: 480,
+            //colspan: 2
         });
         me.items = [
-            me.txt_detalle,
-            me.num_importe
+            me.hid_id,
+            me.date_fecha, me.txt_nro_movil,
+            me.txt_socio,
+            me.txt_total, me.txt_descuento,
+            me.txt_cantidad_hojas , me.txt_estado,
+            me.txt_observacion
         ];
+
     },
-    CargarFormResumen: function () {
-        var me = this;
-        var label1 = Ext.create("Ext.form.Label", {
-            text: 'TOTAL CONSUMO',
-            cls : 'resaltarAzul',
-            colspan : 3
-
-        });
-        var label2 = Ext.create("Ext.form.Label", {
-            text: 'DIESEL',
-            cls : 'resaltarAzulRight',
-        });
-        var label3 = Ext.create("Ext.form.Label", {
-            text: 'GASOLINA',
-            cls : 'resaltarAzul',
-        });
-        me.txt_cantidad = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "CANTIDAD",
-            name: "CANTIDAD_DIESEL",
-        });
-        me.txt_cant_diesel = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "",
-            name: "CANTIDAD_GASOLINA",
-        });
-        me.txt_importe = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "IMPORTE",
-            name: "IMPORTE_DIESEL"
-        });
-        me.txt_imp_diesel = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "",
-            name: "IMPORTE_GASOLINA"
-        });
-        
-        var label01 = Ext.create("Ext.form.Label", {
-            text: 'CONSUMO LITROS',
-            cls : 'resaltarAzul',
-            colspan : 3
-
-        });
-        var label02 = Ext.create("Ext.form.Label", {
-            text: 'DIESEL',
-            cls : 'resaltarAzulRight',
-        });
-        var label03 = Ext.create("Ext.form.Label", {
-            text: 'GASOLINA',
-            cls : 'resaltarAzul',
-        });
-        
-        me.txt_asignacion = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "ASIGNACION",
-            name: "CANTIDAD_DIESEL",
-        });
-        me.txt_asignacion_gas = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "",
-            name: "CANTIDAD_GASOLINA",
-        });
-        me.txt_adicional = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "ADICIONAL",
-            name: "IMPORTE_DIESEL"
-        });
-        me.txt_adicional_diesel = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "",
-            name: "IMPORTE_GASOLINA"
-        });
-         me.txt_total = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "TOTAL",
-            name: "TOTAL_DIESEL"
-        });
-        me.txt_total_diesel = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "",
-            name: "TOTAL_GASOLINA"
-        });
-
-        me.items = [
-        label1,
-        label2,
-        label3,
-        me.txt_cantidad,
-        me.txt_cant_diesel,
-        me.txt_importe,
-        me.txt_imp_diesel,
-        label01,
-        label02,
-        label03,
-        me.txt_asignacion,
-        me.txt_asignacion_gas,
-        me.txt_adicional,
-        me.txt_adicional_diesel,
-        me.txt_total,
-        me.txt_total_diesel
-        ];
-    }
 });

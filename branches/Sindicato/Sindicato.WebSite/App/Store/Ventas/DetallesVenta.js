@@ -1,7 +1,7 @@
 ﻿Ext.define('App.Store.Ventas.DetallesVenta', {
     extend: 'App.Config.Abstract.Store',
     model: 'App.Model.Ventas.DetallesVenta',
-    url: 'Ventas/ObtenerPosTurnos',
-    sortProperty: 'ID_POS',
-    sortDirection : 'ASC'
+    url: 'VentaHojas/ObtenerDetallesPaginadas',
+    sortProperty: 'ID_DETALLE',
+    sortDirection : 'DESC'
 });

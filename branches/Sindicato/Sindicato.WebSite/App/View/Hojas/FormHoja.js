@@ -13,37 +13,28 @@
         var me = this;
         me.cbx_parada.on('select', function (cbx, rec) {
             me.txt_id_parada.setValue(rec[0].get('ID_PARADA'));
-            me.txt_caja.setValue("Parada : "+rec[0].get('NOMBRE')+" Caja :"+rec[0].get('CAJA'));
+            me.txt_caja.setValue("Parada : " + rec[0].get('NOMBRE') + " Caja :" + rec[0].get('CAJA'));
             me.txt_id_caja.setValue(rec[0].get('ID_CAJA'));
         });
-        //        me.num_cantidad.on('change',function(num,newvalue,oldvalue){
-        //            if(newvalue != null){
-        //                    var sum = newvalue * me.num_precio.getValue() ;
-        //                    me.num_total.setValue(sum);
-        ////                    date_ini
 
-        //                    me.date_fin.setValue(Ext.Date.add(me.date_ini.getValue(), Ext.Date.DAY, newvalue));
-        //            }
-        //        });
-        //        me.date_ini.on('change',function(dat,newvalue){
-        //            if(newvalue != null && me.num_cantidad.getValue()  != null){
-        //                    me.date_fin.setValue(Ext.Date.add(newvalue, Ext.Date.DAY, me.num_cantidad.getValue()));
-        //            }
-        //        });
         me.cbx_socio.on('select', function (cbx, rec) {
-            //me.gridHojas.getStore().setExtraParams({ID_MOVIL : rec[0].get('ID_MOVIL')});
-            //me.gridHojas.getStore().load();
             me.txt_socio.setValue(rec[0].get('NOMBRE_SOCIO'));
             me.txt_nor_movil.setValue(rec[0].get('NRO_MOVIL'));
+            me.txt_id_socio.setValue(rec[0].get('ID_SOCIO_MOVIL'));
             var fecha = me.date_fecha.getValue();
-            me.cbx_diasDisponibles.getStore().load({ params: { FECHA_VENTA: fecha, ID_SOCIO: rec[0].get('ID_SOCIO'), NRO_MOVIL: rec[0].get('NRO_MOVIL') } });
-            //me.txt_apellido.setValue(rec[0].get('APELLIDO_PATERNO') + " "+rec[0].get('APELLIDO_MATERNO'));
+            me.cbx_diasDisponibles.getStore().load({ params: { FECHA_VENTA: fecha, ID_SOCIO_MOVIL: rec[0].get('ID_SOCIO_MOVIL'), NRO_MOVIL: rec[0].get('NRO_MOVIL') } });
         });
         me.date_fecha.on('select', function (dat, val) {
             console.dir(val);
             alert("2ntro");
         });
 
+        me.cbx_diasDisponibles.on('select', function (cbx, rec) {
+            var reco = Ext.create('App.Model.Ventas.DetallesVenta', {
+                FECHA_USO: rec[0].get('FECHA_TEXT'),
+                MONTO : 25
+            });
+        });
 
     },
     CargarStoreDiasDisponibles: function () {
@@ -85,6 +76,10 @@
             name: 'ID_CAJA',
             value: Constantes.Usuario.ID_CAJA
         });
+        me.txt_id_socio = Ext.widget('hiddenfield', {
+            name: 'ID_SOCIO_MOVIL',
+            //value: Constantes.Usuario.ID_CAJA
+        });
         me.txt_id_parada = Ext.widget('hiddenfield', {
             name: "ID_PARADA",
             hidden: true,
@@ -119,10 +114,10 @@
 
         me.txt_caja = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Parada/Caja",
-            labelWidth : 70,
+            labelWidth: 70,
             name: "CAJA",
             colspan: 2,
-            width : 480,
+            width: 480,
             readOnly: true,
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
@@ -184,7 +179,7 @@
             name: "DESCUENTO",
             allowDecimals: true,
             maxValue: 999999999,
-            value : 0,
+            value: 0,
             //readOnly: true
         });
         me.num_totalcondescuento = Ext.create("App.Config.Componente.NumberFieldBase", {
@@ -209,11 +204,11 @@
             height: 250
         });
         me.items = [
-            me.txt_id_caja,
+            me.txt_id_caja, me.txt_id_socio,
             me.txt_id_parada,
             me.date_fecha,
             me.cbx_parada, me.txt_caja,
-            me.cbx_socio,me.txt_nor_movil,
+            me.cbx_socio, me.txt_nor_movil,
             me.txt_socio,
             me.num_precio,
             me.cbx_diasDisponibles,

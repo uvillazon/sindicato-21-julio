@@ -1,14 +1,11 @@
 ﻿Ext.define('App.Model.Ventas.DetallesVenta', {
     extend: 'Ext.data.Model',
     fields: [
-            { type: "date", name: "FECHA", dateFormat: "d/m/Y", convert: Funciones.Fecha },
-            { type: "int", name: "ID_POS" },
-            { type: "int", name: "ID_POS_TURNO" },
-            { type: "float", name: "ENT_LITTER" },
-            { type: "float", name: "SAL_LITTER" },
-            { type: "float", name: "TOTAL" },
-            { type: "string", name: "PRODUCTO" },
-            { type: "string", name: "CODIGO" }
+            { type: "date", name: "FECHA_USO", dateFormat: "d/m/Y", convert: Funciones.Fecha },
+            { type: "int", name: "ID_DETALLE" },
+            { type: "int", name: "ID_VENTA" },
+            { type: "float", name: "MONTO" },
+            { type: "string", name: "OBSERVACION" }
         ]
 });
 
