@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PartialSD_VENTA_HOJAS_CONTROL.cs" />
     <Compile Include="PartialSD_SOCIO_MOVILES.cs" />
     <Compile Include="Modelo.Designer.cs">
       <AutoGen>True</AutoGen>

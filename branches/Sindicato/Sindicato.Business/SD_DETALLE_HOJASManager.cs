@@ -16,7 +16,34 @@ namespace Sindicato.Business
 
         public SD_DETALLE_HOJASManager(IUnitOfWork uow) : base(uow) { }
 
-        //test
-        
+        public string GuardarDetalleVenta(SD_DETALLE_HOJAS ant, string login)
+        {
+            try
+            {
+                string result = "";
+                if (ant.ID_DETALLE == 0)
+                {
+                    ant.ID_DETALLE = ObtenerSecuencia();
+                    ant.LOGIN = login;
+                    ant.FECHA_REG = DateTime.Now;
+                    Add(ant);
+                    Save();
+                    result = ant.ID_DETALLE.ToString();
+                }
+                else
+                {
+
+                    result = "No puede Editar";
+                }
+                return result;
+
+            }
+            catch (Exception e)
+            {
+                return e.ToString();
+                //throw;
+            }
+        }
+
     }
 }

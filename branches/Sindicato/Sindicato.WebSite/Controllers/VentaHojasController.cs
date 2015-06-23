@@ -23,49 +23,70 @@ namespace Sindicato.WebSite.Controllers
 
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult ObtenerFechaDisponibles(DateTime FECHA_VENTA, int ID_SOCIO, int NRO_MOVIL)
+        public ActionResult ObtenerFechaDisponibles(DateTime FECHA_VENTA, int ID_SOCIO_MOVIL)
         {
-            
-            var result = _serven.ObtenerFechasDisponibles(FECHA_VENTA,ID_SOCIO,NRO_MOVIL);
-            return Json(result,JsonRequestBehavior.AllowGet);
+
+            var result = _serven.ObtenerFechasDisponibles(FECHA_VENTA, ID_SOCIO_MOVIL);
+            return Json(result, JsonRequestBehavior.AllowGet);
 
         }
-        //ObtenerVentasPaginadas
-        //ObtenerVentasHojasPaginados
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult ObtenerVentasPaginadas(PagingInfo paginacion, FiltrosModel<HojasModel> filtros, HojasModel entidad)
         {
             filtros.Entidad = entidad;
-            var jsondata = _serven.ObtenerVentasHojasPaginados(paginacion, filtros);
+            var jsondata = _serven.ObtenerVentasPaginados(paginacion, filtros);
             var formattData = jsondata.Select(l => new
             {
                 TOTAL = l.TOTAL,
                 DESCUENTO = l.DESCUENTO,
                 ESTADO = l.ESTADO,
                 FECHA_VENTA = l.FECHA_VENTA,
-                ID_SOCIO = l.ID_SOCIO,
+                ID_SOCIO = l.ID_SOCIO_MOVIL,
                 ID_VENTA = l.ID_VENTA,
                 LOGIN = l.LOGIN,
-                NRO_MOVIL = l.NRO_MOVIL,
+                NRO_MOVIL = l.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
+                SOCIO  = string.Format("{0} {1} {2}",l.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE , l.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO , l.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_MATERNO),
                 OBSERVACION = l.OBSERVACION,
-                TOTAL_HOJAS = l.TOTAL_HOJAS,
-                SOCIO = string.Format("{0} {1} {2}",l.SD_SOCIOS.NOMBRE , l.SD_SOCIOS.APELLIDO_PATERNO,l.SD_SOCIOS.APELLIDO_MATERNO)
+                TOTAL_HOJAS = l.TOTAL_HOJAS
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formattData, Total = paginacion.total }) + ");";
             return JavaScript(callback1);
 
         }
-        //[HttpPost]
-        //public ActionResult GrabarHoja(SD_HOJAS_CONTROL hoja, int CANTIDAD,int ID_CAJA)//por favor no cambiar la variable l 
-        //{
-        //    RespuestaSP respuestaSP = new RespuestaSP();
-        //    hoja.FECHA_USO = hoja.FECHA_COMPRA;
-        //    int id_usr = Convert.ToInt32(User.Identity.Name.Split('-')[3]);
-        //    //int id_parada = Convert.ToInt32(User.Identity.Name.Split('-')[4]);
-        //    //hoja.ID_PARADA = id_parada == 0 ? 0 : id_parada;
-        //    respuestaSP = _serven.GuardarHojas(hoja,id_usr,CANTIDAD,ID_CAJA);
-        //    return Json(respuestaSP);
-        //}
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerDetallesPaginadas(PagingInfo paginacion, FiltrosModel<HojasModel> filtros, HojasModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var jsondata = _serven.ObtenerDetallesPaginado(paginacion, filtros);
+            var formattData = jsondata.Select(l => new
+            {
+                ID_DETALLE = l.ID_DETALLE ,
+                FECHA_USO = l.FECHA_USO ,
+                MONTO = l.MONTO,
+                OBSERVACION = l.OBSERVACION
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formattData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+
+        }
+        [HttpPost]
+        public JsonResult GuardarVenta(SD_VENTA_HOJAS venta , string detalles)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serven.GuardarVentaHoja(venta,detalles, login);
+            return Json(respuestaSP);
+        }
+        [HttpPost, ValidateInput(false)]
+        public JsonResult AnularVenta(int ID_VENTA)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serven.AnularVentaHoja(ID_VENTA, login);
+            return Json(respuestaSP);
+        }
+      
     }
 }

@@ -1,4 +1,4 @@
-﻿Ext.define("App.View.Egresos.Principal", {
+﻿Ext.define("App.View.Obligaciones.Principal", {
     extend: "App.Config.Abstract.PanelPrincipal",
     initComponent: function () {
         var me = this;
@@ -10,25 +10,26 @@
 
         me.toolbar = Funciones.CrearMenuBar();
         //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
-        Funciones.CrearMenu('btn_Kardex', 'Kardex Caja', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_Kardex', 'Kardex Debe', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
         //Funciones.CrearMenu('btn_KardexDestino', 'Kardex Caja Destino', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
         //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
 
 
 
-        me.grid = Ext.create('App.View.Egresos.GridEgresos', {
+        me.grid = Ext.create('App.View.Obligaciones.GridObligaciones', {
             region: 'west',
             width: '50%',
             fbarmenu: me.toolbar,
-            fbarmenuArray: ["btn_Kardex", "btn_eliminar"]
+            fbarmenuArray: ["btn_Kardex", "btn_eliminar", "btn_editar"]
 
         });
-        me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Egreso', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
-        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Eliminar Egreso', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
-        me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar]);
+        me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Obligaciones', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
+        me.btn_editar = Funciones.CrearMenu('btn_editar', 'Editar Obligaciones', Constantes.ICONO_EDITAR, me.EventosPrincipal, null, this);
+        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Eliminar Obligaciones', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
+        me.grid.AgregarBtnToolbar([me.btn_crear,me.btn_editar, me.btn_eliminar]);
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
 
-        me.form = Ext.create("App.View.Egresos.FormEgreso", {
+        me.form = Ext.create("App.View.Obligaciones.FormObligacion", {
             region: 'center',
             width: '50%',
             columns: 2,
@@ -57,47 +58,59 @@
         var me = this;
         switch (btn.getItemId()) {
             case "btn_crear":
-                me.FormCrearEgreso();
+                me.FormCrearObligacion();
+                break;
+            case "btn_editar":
+                if (me.record.get('ESTADO') === "NUEVO") {
+                    me.FormCrearObligacion(me.record);
+                }
+                else {
+                    Ext.Msg.alert("Error", "Estado no corresponde para la Edicion");
+                }
                 break;
             case "btn_eliminar":
-                Funciones.AjaxRequestGrid("Transferencias", "EliminarEgreso", me.grid, "Esta seguro de Eliminar el Egreso?", { ID_EGRESO: me.record.get('ID_EGRESO') }, me.grid, null);
+                Funciones.AjaxRequestGrid("Obligaciones", "EliminarObligacion", me.grid, "Esta seguro de Eliminar Otras Obligaciones?", { ID_OBLIGACION: me.record.get('ID_OBLIGACION') }, me.grid, null);
                 break;
             case "btn_Kardex":
-                me.VentanaKardex(me.record.get('ID_CAJA'));
+                me.VentanaKardexDebe(me.record.get('ID_SOCIO'));
                 break;
             default:
                 Ext.Msg.alert("Aviso", "No Existe el botton");
                 break;
         }
     },
-    FormCrearEgreso: function () {
+    FormCrearObligacion: function (record) {
         var me = this;
         var win = Ext.create("App.Config.Abstract.Window", { botones: true });
-        var form = Ext.create("App.View.Egresos.FormEgreso", {
-            title: 'Datos Egresos',
+        var form = Ext.create("App.View.Obligaciones.FormObligacion", {
+            //title: 'Datos Egresos',
             columns: 2,
             botones: false
         });
+        if (record != null) {
+            form.cargarModoEdicion();
+            form.getForm().loadRecord(record);
+        }
         win.add(form);
         win.show();
         win.btn_guardar.on('click', function () {
             //console.dir(params);
-            Funciones.AjaxRequestWin("Transferencias", "GuardarEgreso", win, form, me.grid, "Esta Seguro de Guardar", null, win);
+            Funciones.AjaxRequestWin("Obligaciones", "GuardarObligacion", win, form, me.grid, "Esta Seguro de Guardar", null, win);
         });
 
     },
-    VentanaKardex: function (id_caja) {
+    VentanaKardexDebe: function (id_socio) {
         var me = this;
         var win = Ext.create("App.Config.Abstract.Window", { botones: false });
-        var grid = Ext.create("App.View.Cajas.GridKardexCaja", {
+        var grid = Ext.create("App.View.Socios.GridKardexDebe", {
             region: 'center',
             width: 760,
             height: 450,
-            id_caja: id_caja
+            id_socio: id_socio
         });
         win.add(grid);
         win.show();
 
-    }
+    },
 
 });

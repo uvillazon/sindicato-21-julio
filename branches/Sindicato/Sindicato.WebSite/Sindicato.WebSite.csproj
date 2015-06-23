@@ -351,9 +351,9 @@
     <Content Include="App\View\Amortizaciones\FormAmortizacion.js" />
     <Content Include="App\View\Amortizaciones\GridAmortizaciones.js" />
     <Content Include="App\View\Amortizaciones\Principal.js" />
-    <Content Include="App\View\Copia de Egresos\FormEgreso.js" />
-    <Content Include="App\View\Copia de Egresos\GridEgresos.js" />
-    <Content Include="App\View\Copia de Egresos\Principal.js" />
+    <Content Include="App\View\Obligaciones\FormObligacion.js" />
+    <Content Include="App\View\Obligaciones\GridObligaciones.js" />
+    <Content Include="App\View\Obligaciones\Principal.js" />
     <Content Include="App\View\Socios\GridKardexDebe.js" />
     <Content Include="App\View\Transferencias\FormTransferencia.js" />
     <Content Include="App\View\Transferencias\GridTransferencias.js" />

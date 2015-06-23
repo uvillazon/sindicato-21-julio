@@ -78,7 +78,7 @@ namespace Sindicato.WebSite.Controllers
                 ID_SOCIO = x.ID_SOCIO,
                 SOCIO = string.Format("{0} {1} {2}", x.SD_SOCIOS.NOMBRE, x.SD_SOCIOS.APELLIDO_PATERNO, x.SD_SOCIOS.APELLIDO_MATERNO),
                 FECHA = x.FECHA,
-                PERIDO = x.SD_CIERRES.CODIGO,
+                PERIODO = x.SD_CIERRES.CODIGO,
                 ID_CIERRE = x.ID_CIERRE,
                 FECHA_REG = x.FECHA_REG,
                 IMPORTE = x.IMPORTE,
