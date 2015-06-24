@@ -2,7 +2,7 @@
     extend: "App.Config.Abstract.Form",
     columns: 1,
     record: '',
-    title: 'Datos Cierre Dias Laborales',
+    title: 'Datos Periodo',
     Eventos: true,
     initComponent: function () {
         var me = this;
@@ -17,7 +17,7 @@
 
         });
         me.txt_codigo = Ext.create("App.Config.Componente.TextFieldBase", {
-            fieldLabel: "Codigo",
+            fieldLabel: "Periodo",
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
             name: "CODIGO",

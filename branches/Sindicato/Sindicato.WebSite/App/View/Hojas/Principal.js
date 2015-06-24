@@ -111,8 +111,12 @@
         win.add(form);
         win.show();
         win.btn_guardar.on('click', function () {
-
-            Funciones.AjaxRequestWin("VentaHojas", "GrabarHoja", win, form, me.grid, "Esta Seguro de Guardar", null, win);
+            if (form.isValid()) {
+                Funciones.AjaxRequestWin("VentaHojas", "GuardarVenta", win, form, me.grid, "Esta Seguro de Guardar", { detalles: form.GridDetalleJson() }, win);
+            }
+            else {
+                Ext.Msg.alert("Error", "Falta Compeltar Formulario. Al menos una hoja debe de venderse");
+            }
         });
     },
     //FormCrearDeposito: function (record) {

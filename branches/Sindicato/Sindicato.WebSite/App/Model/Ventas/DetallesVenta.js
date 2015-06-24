@@ -5,7 +5,8 @@
             { type: "int", name: "ID_DETALLE" },
             { type: "int", name: "ID_VENTA" },
             { type: "float", name: "MONTO" },
-            { type: "string", name: "OBSERVACION" }
+            { type: "string", name: "OBSERVACION" },
+            { type: "string", name: "FECHA_TEXT" }
         ]
 });
 

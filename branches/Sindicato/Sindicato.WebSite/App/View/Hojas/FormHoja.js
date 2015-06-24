@@ -30,13 +30,68 @@
         });
 
         me.cbx_diasDisponibles.on('select', function (cbx, rec) {
-            var reco = Ext.create('App.Model.Ventas.DetallesVenta', {
-                FECHA_USO: rec[0].get('FECHA'),
-                MONTO : 25
-            });
-            me.gridHojas.getStore().add(reco);
+            if (!me.gridHojas.getStore().existeRecord('FECHA_TEXT', rec[0].get('FECHA_TEXT'))) {
+                var precio = me.num_precio.getValue();
+                var reco = Ext.create('App.Model.Ventas.DetallesVenta', {
+                    FECHA_USO: rec[0].get('FECHA'),
+                    MONTO: precio,
+                    OBSERVARCION: 'VENTA DE HOJA',
+                    FECHA_TEXT: rec[0].get('FECHA_TEXT')
+
+                });
+                me.gridHojas.getStore().add(reco);
+                me.CalcularTotales();
+
+            }
+            else {
+                Ext.Msg.alert("Error", "Ya existe el registro. Elija otra fecha.", function () {
+
+                    cbx.reset();
+                });
+            }
 
         });
+
+    },
+    CalcularTotales: function () {
+        var me = this;
+
+        var total = 0;
+        me.gridHojas.getStore().each(function (record) {
+            total = total + record.get('MONTO');
+        });
+        me.num_total.setValue(total);
+        me.num_totalcondescuento.setValue(total);
+
+    },
+    isValid : function(){
+        var me = this;
+        if (me.form.getForm().isValid()) {
+            if (me.gridHojas.getStore().count() > 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
+    },
+    GridDetalleJson: function () {
+        var me = this;
+        var modified = me.gridHojas.getStore(); //step 1
+        var recordsToSend = [];
+        if (!Ext.isEmpty(modified)) {
+            Ext.each(modified, function (record) { //step 2
+                recordsToSend.push(Ext.apply(record.data));
+            });
+            recordsToSend = Ext.JSON.encode(recordsToSend);
+            return recordsToSend;
+        }
+        else {
+            return false;
+        }
 
     },
     CargarStoreDiasDisponibles: function () {
@@ -182,7 +237,7 @@
             allowDecimals: true,
             maxValue: 999999999,
             value: 0,
-            //readOnly: true
+            readOnly: true
         });
         me.num_totalcondescuento = Ext.create("App.Config.Componente.NumberFieldBase", {
             fieldLabel: "Total - Descuento",
