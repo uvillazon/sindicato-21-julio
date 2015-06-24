@@ -55,6 +55,7 @@
     <Compile Include="CajasServices.cs" />
     <Compile Include="AutosServices.cs" />
     <Compile Include="CierresServices.cs" />
+    <Compile Include="Model\PeriodoSocioModel.cs" />
     <Compile Include="ObligacionesServices.cs" />
     <Compile Include="Interfaces\IObligacionesServices.cs" />
     <Compile Include="TransferenciasServices.cs" />

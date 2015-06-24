@@ -17,6 +17,8 @@ namespace Sindicato.Services.Interfaces
         RespuestaSP GuardarCierre(SD_CIERRES cierre, string login);
 
         SD_CIERRES ObtenerUltimoRegistroCierre();
+
+        List<PeriodoSocioModel> ObtenerCierrePeriodoSocio(int ID_CIERRE);
         
     }
 }
