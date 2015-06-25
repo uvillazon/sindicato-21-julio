@@ -22,6 +22,7 @@
             me.txt_nor_movil.setValue(rec[0].get('NRO_MOVIL'));
             me.txt_id_socio.setValue(rec[0].get('ID_SOCIO_MOVIL'));
             var fecha = me.date_fecha.getValue();
+            me.gridHojas.getStore().removeAll();
             me.cbx_diasDisponibles.getStore().load({ params: { FECHA_VENTA: fecha, ID_SOCIO_MOVIL: rec[0].get('ID_SOCIO_MOVIL'), NRO_MOVIL: rec[0].get('NRO_MOVIL') } });
         });
         me.date_fecha.on('select', function (dat, val) {
@@ -35,7 +36,7 @@
                 var reco = Ext.create('App.Model.Ventas.DetallesVenta', {
                     FECHA_USO: rec[0].get('FECHA'),
                     MONTO: precio,
-                    OBSERVARCION: 'VENTA DE HOJA',
+                    OBSERVACION: 'VENTA DE HOJA',
                     FECHA_TEXT: rec[0].get('FECHA_TEXT')
 
                 });
@@ -57,16 +58,19 @@
         var me = this;
 
         var total = 0;
+        var cantidad = 0;
         me.gridHojas.getStore().each(function (record) {
             total = total + record.get('MONTO');
+            cantidad++;
         });
         me.num_total.setValue(total);
         me.num_totalcondescuento.setValue(total);
+        me.num_cantidad.setValue(cantidad);
 
     },
     isValid : function(){
         var me = this;
-        if (me.form.getForm().isValid()) {
+        if (me.getForm().isValid()) {
             if (me.gridHojas.getStore().count() > 0) {
                 return true;
             }
@@ -80,12 +84,14 @@
     },
     GridDetalleJson: function () {
         var me = this;
-        var modified = me.gridHojas.getStore(); //step 1
+        var modified = me.gridHojas.getStore().getModifiedRecords() //step 1
         var recordsToSend = [];
         if (!Ext.isEmpty(modified)) {
             Ext.each(modified, function (record) { //step 2
+                //console.dir(record);
                 recordsToSend.push(Ext.apply(record.data));
             });
+            console.dir(recordsToSend);
             recordsToSend = Ext.JSON.encode(recordsToSend);
             return recordsToSend;
         }
@@ -211,7 +217,7 @@
 
         me.num_cantidad = Ext.create("App.Config.Componente.NumberFieldBase", {
             fieldLabel: "Cantidad",
-            name: "CANTIDAD",
+            name: "TOTAL_HOJAS",
             //allowDecimals: true,
             maxValue: 999999999,
             //            colspan : 2,

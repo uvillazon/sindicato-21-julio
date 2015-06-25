@@ -24,14 +24,15 @@ namespace Sindicato.Services
             //_manListas = manListas;
         }
 
-        public IEnumerable<SD_CAJAS> ObtenerCajasPaginado(PagingInfo paginacion)
+        public IEnumerable<SD_CAJAS> ObtenerCajasPaginado(PagingInfo paginacion , FiltrosModel<TransferenciasModel> filtros)
         {
             IQueryable<SD_CAJAS> result = null;
             ExecuteManager(uow =>
             {
                 var manager = new SD_CAJASManager(uow);
                 result = manager.BuscarTodos();
-
+                filtros.FiltrarDatos();
+                result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
                 paginacion.total = result.Count();
                 result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
 

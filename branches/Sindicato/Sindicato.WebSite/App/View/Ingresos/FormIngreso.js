@@ -5,6 +5,7 @@
     title: 'Datos del Ingreso a cuenta',
     Eventos: true,
     modoConsulta: false,
+    paramsStore : {},
     initComponent: function () {
         var me = this;
         if (!me.modoConsulta) {
@@ -98,6 +99,7 @@
             allowBlank: false
         });
         me.store_caja = Ext.create('App.Store.Cajas.Cajas');
+        me.store_caja.setExtraParams(me.paramsStore);
         me.cbx_caja = Ext.create("App.Config.Componente.ComboAutoBase", {
             fieldLabel: "Caja",
             name: "ID_CAJA",
@@ -172,18 +174,17 @@
         });
         me.num_importe.on('change', function (num, newvalue, oldvalue) {
             var saldo = me.num_saldo.getValue();
-            
-            var nuevoSaldo = saldo - newvalue;
-            if (nuevoSaldo < 0) {
-                Ext.Msg.alert("Error", "No El Saldo no es Suficiente para Transferir Saldo Actual : " + saldoOrigen + " Importe Total : " + newvalue, function () {
-                    me.num_nuevoSaldo.reset(saldo);
-                    num.reset();
-                });
-            }
-            else {
+            var nuevoSaldo = saldo + newvalue;
+            //if (nuevoSaldo < 0) {
+            //    Ext.Msg.alert("Error", "No El Saldo no es Suficiente para Transferir Saldo Actual : " + saldo + " Importe Total : " + newvalue, function () {
+            //        me.num_nuevoSaldo.reset(saldo);
+            //        num.reset();
+            //    });
+            //}
+            //else {
                 //me.num_nuevoSaldoDestino.setValue(saldoDestino + newvalue);
-                me.num_nuevoSaldo.setValue(saldo - newvalue);
-            }
+                me.num_nuevoSaldo.setValue(saldo + newvalue);
+            //}
         });
     },
 });

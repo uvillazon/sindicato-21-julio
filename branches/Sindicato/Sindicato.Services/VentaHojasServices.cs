@@ -47,7 +47,7 @@ namespace Sindicato.Services
             {
 
                 var manager = new SD_DETALLE_HOJASManager(uow);
-                var vendidas = manager.BuscarTodos(x => x.SD_VENTA_HOJAS.FECHA_VENTA.Month == FECHA_VENTA.Month && x.SD_VENTA_HOJAS.FECHA_VENTA.Year == FECHA_VENTA.Year && x.SD_VENTA_HOJAS.ID_SOCIO_MOVIL == ID_SOCIO_MOVIL);
+                var vendidas = manager.BuscarTodos(x => x.SD_VENTA_HOJAS.FECHA_VENTA.Month == FECHA_VENTA.Month && x.SD_VENTA_HOJAS.FECHA_VENTA.Year == FECHA_VENTA.Year && x.SD_VENTA_HOJAS.ID_SOCIO_MOVIL == ID_SOCIO_MOVIL && x.SD_VENTA_HOJAS.ESTADO != "ANULADO");
                 int day = 31;
                 for (int i = 1; i <= day; i++)
                 {

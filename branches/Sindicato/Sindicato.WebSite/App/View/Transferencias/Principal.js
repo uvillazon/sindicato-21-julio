@@ -1,5 +1,7 @@
 ﻿Ext.define("App.View.Transferencias.Principal", {
     extend: "App.Config.Abstract.PanelPrincipal",
+    paramsStore: {},
+    paramsStoreForm : {},
     initComponent: function () {
         var me = this;
         me.CargarComponentes();
@@ -7,7 +9,10 @@
     },
     CargarComponentes: function () {
         var me = this;
-
+        if (Constantes.Usuario.ID_CAJA != 0) {
+            me.paramsStore = {  ID_CAJA_ORIGEN: Constantes.Usuario.ID_CAJA, ID_CAJA_DESTINO: Constantes.Usuario.ID_CAJA  , Operador : " or "};
+            me.paramsStoreForm = { ID_CAJA: Constantes.Usuario.ID_CAJA };
+        }
         me.toolbar = Funciones.CrearMenuBar();
         //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
         Funciones.CrearMenu('btn_KardexOrigen', 'Kardex Caja Origen', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
@@ -20,6 +25,7 @@
             region: 'west',
             width: '50%',
             fbarmenu: me.toolbar,
+            paramsStore: me.paramsStore,
             fbarmenuArray: ["btn_KardexOrigen", "btn_KardexDestino", "btn_eliminar"]
 
         });
@@ -79,7 +85,8 @@
         var form = Ext.create("App.View.Transferencias.FormTransferencia", {
             title: 'Datos Transferencia entre Cuentas',
             columns: 2,
-            botones: false
+            botones: false,
+            paramsStore: me.paramsStoreForm
         });
         win.add(form);
         win.show();

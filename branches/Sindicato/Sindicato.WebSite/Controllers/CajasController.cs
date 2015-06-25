@@ -25,9 +25,10 @@ namespace Sindicato.WebSite.Controllers
         {
             _serCaj = serCaj;
         }
-        public ActionResult ObtenerCajasPaginado(PagingInfo paginacion)
+        public ActionResult ObtenerCajasPaginado(PagingInfo paginacion,FiltrosModel<TransferenciasModel> filtros , TransferenciasModel Entidad)
         {
-            var cajas = _serCaj.ObtenerCajasPaginado(paginacion);
+            filtros.Entidad = Entidad;
+            var cajas = _serCaj.ObtenerCajasPaginado(paginacion,filtros);
             var formatData = cajas.Select(x => new
             {
                 ID_CAJA = x.ID_CAJA,

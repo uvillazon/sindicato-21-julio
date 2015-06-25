@@ -11,7 +11,7 @@ namespace Sindicato.Services.Interfaces
 {
     public interface ICajasServices
     {
-        IEnumerable<SD_CAJAS> ObtenerCajasPaginado(PagingInfo paginacion);
+        IEnumerable<SD_CAJAS> ObtenerCajasPaginado(PagingInfo paginacion , FiltrosModel<TransferenciasModel> filtros);
         RespuestaSP SP_GrabarCaja(SD_CAJAS caja, string login);
         RespuestaSP SP_EliminarCaja(int ID_CAJA, int ID_USR);
 

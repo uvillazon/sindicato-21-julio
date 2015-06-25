@@ -5,6 +5,7 @@
     title: 'Datos del Egreso a cuenta',
     Eventos: true,
     modoConsulta: false,
+    paramsStore: {},
     initComponent: function () {
         var me = this;
         if (!me.modoConsulta) {
@@ -98,6 +99,7 @@
             allowBlank: false
         });
         me.store_caja = Ext.create('App.Store.Cajas.Cajas');
+        me.store_caja.setExtraParams(me.paramsStore);
         me.cbx_caja = Ext.create("App.Config.Componente.ComboAutoBase", {
             fieldLabel: "Caja",
             name: "ID_CAJA",

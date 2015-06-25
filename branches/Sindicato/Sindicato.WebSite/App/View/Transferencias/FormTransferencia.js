@@ -5,6 +5,7 @@
     title: 'Datos del Ingreso',
     Eventos: true,
     modoConsulta: false,
+    paramsStore: {},
     initComponent: function () {
         var me = this;
         if (!me.modoConsulta) {
@@ -100,6 +101,7 @@
             allowBlank: false
         });
         me.store_cajaOrigen = Ext.create('App.Store.Cajas.Cajas');
+        me.store_cajaOrigen.setExtraParams(me.paramsStore);
         me.cbx_caja_origen = Ext.create("App.Config.Componente.ComboAutoBase", {
             fieldLabel: "Caja Origen",
             name: "ID_CAJA_ORIGEN",
