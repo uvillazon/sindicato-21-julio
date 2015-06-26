@@ -12,9 +12,12 @@
           <EntitySet Name="SD_CAJAS" EntityType="Model.Store.SD_CAJAS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_CHOFERES" EntityType="Model.Store.SD_CHOFERES" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_CIERRES" EntityType="Model.Store.SD_CIERRES" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_CIERRES_PARADA" EntityType="Model.Store.SD_CIERRES_PARADA" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_DESCUENTOS" EntityType="Model.Store.SD_DESCUENTOS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_DESCUENTOS_SOCIO" EntityType="Model.Store.SD_DESCUENTOS_SOCIO" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_DETALLE_CIERRE_PARADA" EntityType="Model.Store.SD_DETALLE_CIERRE_PARADA" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_DETALLE_HOJAS" EntityType="Model.Store.SD_DETALLE_HOJAS" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_DETALLE_PERIODO_SOCIO" EntityType="Model.Store.SD_DETALLE_PERIODO_SOCIO" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_DOCUMENTACIONES" EntityType="Model.Store.SD_DOCUMENTACIONES" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_EGRESOS" EntityType="Model.Store.SD_EGRESOS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_FAMILIARES" EntityType="Model.Store.SD_FAMILIARES" store:Type="Tables" Schema="SINDICATO" />
@@ -76,6 +79,10 @@
             <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
             <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
           </AssociationSet>
+          <AssociationSet Name="SD_CIERRES_PARADA_R01" Association="Model.Store.SD_CIERRES_PARADA_R01">
+            <End Role="SD_PARADAS" EntitySet="SD_PARADAS" />
+            <End Role="SD_CIERRES_PARADA" EntitySet="SD_CIERRES_PARADA" />
+          </AssociationSet>
           <AssociationSet Name="SD_DESCUENTOS_R01" Association="Model.Store.SD_DESCUENTOS_R01">
             <End Role="SD_CIERRES" EntitySet="SD_CIERRES" />
             <End Role="SD_DESCUENTOS" EntitySet="SD_DESCUENTOS" />
@@ -92,9 +99,21 @@
             <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
             <End Role="SD_DESCUENTOS_SOCIO" EntitySet="SD_DESCUENTOS_SOCIO" />
           </AssociationSet>
+          <AssociationSet Name="SD_DETALLE_CIERRE_PARADA_R01" Association="Model.Store.SD_DETALLE_CIERRE_PARADA_R01">
+            <End Role="SD_CIERRES_PARADA" EntitySet="SD_CIERRES_PARADA" />
+            <End Role="SD_DETALLE_CIERRE_PARADA" EntitySet="SD_DETALLE_CIERRE_PARADA" />
+          </AssociationSet>
           <AssociationSet Name="SD_DETALLE_HOJAS_R01" Association="Model.Store.SD_DETALLE_HOJAS_R01">
             <End Role="SD_VENTA_HOJAS" EntitySet="SD_VENTA_HOJAS" />
             <End Role="SD_DETALLE_HOJAS" EntitySet="SD_DETALLE_HOJAS" />
+          </AssociationSet>
+          <AssociationSet Name="SD_DETALLE_PERIODO_SOCIO_R01" Association="Model.Store.SD_DETALLE_PERIODO_SOCIO_R01">
+            <End Role="SD_CIERRES" EntitySet="SD_CIERRES" />
+            <End Role="SD_DETALLE_PERIODO_SOCIO" EntitySet="SD_DETALLE_PERIODO_SOCIO" />
+          </AssociationSet>
+          <AssociationSet Name="SD_DETALLE_PERIODO_SOCIO_R02" Association="Model.Store.SD_DETALLE_PERIODO_SOCIO_R02">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_DETALLE_PERIODO_SOCIO" EntitySet="SD_DETALLE_PERIODO_SOCIO" />
           </AssociationSet>
           <AssociationSet Name="SD_DOCUMENTACIONES_R02" Association="Model.Store.SD_DOCUMENTACIONES_R02">
             <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
@@ -336,6 +355,20 @@
           <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
           <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
         </EntityType>
+        <EntityType Name="SD_CIERRES_PARADA">
+          <Key>
+            <PropertyRef Name="ID_CIERRE" />
+          </Key>
+          <Property Name="ID_CIERRE" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_PARADA" Type="number" Nullable="false" Precision="7" />
+          <Property Name="FECHA_INI" Type="date" Nullable="false" />
+          <Property Name="FECHA_FIN" Type="date" Nullable="false" />
+          <Property Name="OBSERVACION" Type="varchar2" MaxLength="500" />
+          <Property Name="FECHA_REG" Type="date" />
+          <Property Name="IMPORTE_TOTAL" Type="number" Nullable="false" Precision="15" Scale="5" />
+          <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
+          <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
+        </EntityType>
         <EntityType Name="SD_DESCUENTOS">
           <Key>
             <PropertyRef Name="ID_DESCUENTO" />
@@ -368,6 +401,16 @@
           <Property Name="IMPORTE" Type="number" Nullable="false" Precision="15" Scale="5" />
           <Property Name="LOGIN" Type="varchar2" Nullable="false" MaxLength="50" />
         </EntityType>
+        <EntityType Name="SD_DETALLE_CIERRE_PARADA">
+          <Key>
+            <PropertyRef Name="ID_DETALLE" />
+          </Key>
+          <Property Name="ID_DETALLE" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_CIERRE" Type="number" Nullable="false" Precision="7" />
+          <Property Name="DETALLE" Type="varchar2" MaxLength="500" />
+          <Property Name="INGRESO" Type="number" Nullable="false" Precision="15" Scale="5" />
+          <Property Name="EGRESO" Type="number" Nullable="false" Precision="15" Scale="5" />
+        </EntityType>
         <EntityType Name="SD_DETALLE_HOJAS">
           <Key>
             <PropertyRef Name="ID_DETALLE" />
@@ -379,6 +422,21 @@
           <Property Name="MONTO" Type="number" Precision="15" Scale="5" />
           <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
           <Property Name="FECHA_REG" Type="date" />
+        </EntityType>
+        <EntityType Name="SD_DETALLE_PERIODO_SOCIO">
+          <Key>
+            <PropertyRef Name="ID_DETALLE" />
+          </Key>
+          <Property Name="ID_DETALLE" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_CIERRE" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_SOCIO" Type="number" Nullable="false" Precision="7" />
+          <Property Name="INGRESOS_HOJAS" Type="number" Precision="15" Scale="5" />
+          <Property Name="OTROS_INGRESOS" Type="number" Precision="15" Scale="5" />
+          <Property Name="OBLIGACIONES_INSTITUCION" Type="number" Precision="15" Scale="5" />
+          <Property Name="OTRAS_OBLIGACIONES" Type="number" Precision="15" Scale="5" />
+          <Property Name="DESCUENTOS" Type="number" Precision="15" Scale="5" />
+          <Property Name="AHORRO" Type="number" Precision="15" Scale="5" />
+          <Property Name="DEUDA" Type="number" Precision="15" Scale="5" />
         </EntityType>
         <EntityType Name="SD_DOCUMENTACIONES">
           <Key>
@@ -921,6 +979,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="SD_CIERRES_PARADA_R01">
+          <End Role="SD_PARADAS" Type="Model.Store.SD_PARADAS" Multiplicity="1" />
+          <End Role="SD_CIERRES_PARADA" Type="Model.Store.SD_CIERRES_PARADA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_PARADAS">
+              <PropertyRef Name="ID_PARADA" />
+            </Principal>
+            <Dependent Role="SD_CIERRES_PARADA">
+              <PropertyRef Name="ID_PARADA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="SD_DESCUENTOS_R01">
           <End Role="SD_CIERRES" Type="Model.Store.SD_CIERRES" Multiplicity="1" />
           <End Role="SD_DESCUENTOS" Type="Model.Store.SD_DESCUENTOS" Multiplicity="*" />
@@ -969,6 +1039,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="SD_DETALLE_CIERRE_PARADA_R01">
+          <End Role="SD_CIERRES_PARADA" Type="Model.Store.SD_CIERRES_PARADA" Multiplicity="1" />
+          <End Role="SD_DETALLE_CIERRE_PARADA" Type="Model.Store.SD_DETALLE_CIERRE_PARADA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CIERRES_PARADA">
+              <PropertyRef Name="ID_CIERRE" />
+            </Principal>
+            <Dependent Role="SD_DETALLE_CIERRE_PARADA">
+              <PropertyRef Name="ID_CIERRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="SD_DETALLE_HOJAS_R01">
           <End Role="SD_VENTA_HOJAS" Type="Model.Store.SD_VENTA_HOJAS" Multiplicity="1" />
           <End Role="SD_DETALLE_HOJAS" Type="Model.Store.SD_DETALLE_HOJAS" Multiplicity="*" />
@@ -978,6 +1060,30 @@
             </Principal>
             <Dependent Role="SD_DETALLE_HOJAS">
               <PropertyRef Name="ID_VENTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_DETALLE_PERIODO_SOCIO_R01">
+          <End Role="SD_CIERRES" Type="Model.Store.SD_CIERRES" Multiplicity="1" />
+          <End Role="SD_DETALLE_PERIODO_SOCIO" Type="Model.Store.SD_DETALLE_PERIODO_SOCIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CIERRES">
+              <PropertyRef Name="ID_CIERRE" />
+            </Principal>
+            <Dependent Role="SD_DETALLE_PERIODO_SOCIO">
+              <PropertyRef Name="ID_CIERRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_DETALLE_PERIODO_SOCIO_R02">
+          <End Role="SD_SOCIOS" Type="Model.Store.SD_SOCIOS" Multiplicity="1" />
+          <End Role="SD_DETALLE_PERIODO_SOCIO" Type="Model.Store.SD_DETALLE_PERIODO_SOCIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_DETALLE_PERIODO_SOCIO">
+              <PropertyRef Name="ID_SOCIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2019,6 +2125,25 @@
             <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
             <End Role="SD_VENTA_HOJAS" EntitySet="SD_VENTA_HOJAS" />
           </AssociationSet>
+          <EntitySet Name="SD_CIERRES_PARADA" EntityType="Model.SD_CIERRES_PARADA" />
+          <EntitySet Name="SD_DETALLE_CIERRE_PARADA" EntityType="Model.SD_DETALLE_CIERRE_PARADA" />
+          <EntitySet Name="SD_DETALLE_PERIODO_SOCIO" EntityType="Model.SD_DETALLE_PERIODO_SOCIO" />
+          <AssociationSet Name="SD_DETALLE_PERIODO_SOCIO_R01" Association="Model.SD_DETALLE_PERIODO_SOCIO_R01">
+            <End Role="SD_CIERRES" EntitySet="SD_CIERRES" />
+            <End Role="SD_DETALLE_PERIODO_SOCIO" EntitySet="SD_DETALLE_PERIODO_SOCIO" />
+          </AssociationSet>
+          <AssociationSet Name="SD_CIERRES_PARADA_R01" Association="Model.SD_CIERRES_PARADA_R01">
+            <End Role="SD_PARADAS" EntitySet="SD_PARADAS" />
+            <End Role="SD_CIERRES_PARADA" EntitySet="SD_CIERRES_PARADA" />
+          </AssociationSet>
+          <AssociationSet Name="SD_DETALLE_CIERRE_PARADA_R01" Association="Model.SD_DETALLE_CIERRE_PARADA_R01">
+            <End Role="SD_CIERRES_PARADA" EntitySet="SD_CIERRES_PARADA" />
+            <End Role="SD_DETALLE_CIERRE_PARADA" EntitySet="SD_DETALLE_CIERRE_PARADA" />
+          </AssociationSet>
+          <AssociationSet Name="SD_DETALLE_PERIODO_SOCIO_R02" Association="Model.SD_DETALLE_PERIODO_SOCIO_R02">
+            <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
+            <End Role="SD_DETALLE_PERIODO_SOCIO" EntitySet="SD_DETALLE_PERIODO_SOCIO" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="SD_LISTAS">
           <Key>
@@ -2319,6 +2444,7 @@
           <NavigationProperty Name="SD_PERFILES" Relationship="Model.SD_PERFILES_R01" FromRole="SD_PARADAS" ToRole="SD_PERFILES" />
           <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_PARADAS_R01" FromRole="SD_PARADAS" ToRole="SD_CAJAS" />
           <NavigationProperty Name="SD_VENTA_HOJAS" Relationship="Model.SD_VENTA_HOJAS_R01" FromRole="SD_PARADAS" ToRole="SD_VENTA_HOJAS" />
+          <NavigationProperty Name="SD_CIERRES_PARADA" Relationship="Model.SD_CIERRES_PARADA_R01" FromRole="SD_PARADAS" ToRole="SD_CIERRES_PARADA" />
         </EntityType>
         <EntityType Name="SD_PERFILES">
           <Key>
@@ -2786,6 +2912,7 @@
           <NavigationProperty Name="SD_KARDEX_SOCIO_DEBE" Relationship="Model.SD_KARDEX_SOCIO_DEBE_R01" FromRole="SD_SOCIOS" ToRole="SD_KARDEX_SOCIO_DEBE" />
           <NavigationProperty Name="SD_OTRAS_OBLIGACIONES" Relationship="Model.SD_OTRAS_OBLIGACIONES_R01" FromRole="SD_SOCIOS" ToRole="SD_OTRAS_OBLIGACIONES" />
           <NavigationProperty Name="SD_AMORTIZACIONES" Relationship="Model.SD_AMORTIZACIONES_R01" FromRole="SD_SOCIOS" ToRole="SD_AMORTIZACIONES" />
+          <NavigationProperty Name="SD_DETALLE_PERIODO_SOCIO" Relationship="Model.SD_DETALLE_PERIODO_SOCIO_R02" FromRole="SD_SOCIOS" ToRole="SD_DETALLE_PERIODO_SOCIO" />
         </EntityType>
         <Association Name="SD_CHOFERES_R01">
           <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
@@ -2909,6 +3036,7 @@
           <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SD_DESCUENTOS" Relationship="Model.SD_DESCUENTOS_R01" FromRole="SD_CIERRES" ToRole="SD_DESCUENTOS" />
           <NavigationProperty Name="SD_OTRAS_OBLIGACIONES" Relationship="Model.SD_OTRAS_OBLIGACIONES_R02" FromRole="SD_CIERRES" ToRole="SD_OTRAS_OBLIGACIONES" />
+          <NavigationProperty Name="SD_DETALLE_PERIODO_SOCIO" Relationship="Model.SD_DETALLE_PERIODO_SOCIO_R01" FromRole="SD_CIERRES" ToRole="SD_DETALLE_PERIODO_SOCIO" />
         </EntityType>
         <EntityType Name="SD_DESCUENTOS">
           <Key>
@@ -3266,6 +3394,98 @@
             </Principal>
             <Dependent Role="SD_VENTA_HOJAS">
               <PropertyRef Name="ID_SOCIO_MOVIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SD_CIERRES_PARADA">
+          <Key>
+            <PropertyRef Name="ID_CIERRE" />
+          </Key>
+          <Property Type="Int32" Name="ID_CIERRE" Nullable="false" />
+          <Property Type="Int32" Name="ID_PARADA" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_INI" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_FIN" Nullable="false" Precision="0" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <Property Type="Decimal" Name="IMPORTE_TOTAL" Nullable="false" Precision="15" Scale="5" />
+          <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SD_PARADAS" Relationship="Model.SD_CIERRES_PARADA_R01" FromRole="SD_CIERRES_PARADA" ToRole="SD_PARADAS" />
+          <NavigationProperty Name="SD_DETALLE_CIERRE_PARADA" Relationship="Model.SD_DETALLE_CIERRE_PARADA_R01" FromRole="SD_CIERRES_PARADA" ToRole="SD_DETALLE_CIERRE_PARADA" />
+        </EntityType>
+        <EntityType Name="SD_DETALLE_CIERRE_PARADA">
+          <Key>
+            <PropertyRef Name="ID_DETALLE" />
+          </Key>
+          <Property Type="Int32" Name="ID_DETALLE" Nullable="false" />
+          <Property Type="Int32" Name="ID_CIERRE" Nullable="false" />
+          <Property Type="String" Name="DETALLE" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="INGRESO" Nullable="false" Precision="15" Scale="5" />
+          <Property Type="Decimal" Name="EGRESO" Nullable="false" Precision="15" Scale="5" />
+          <NavigationProperty Name="SD_CIERRES_PARADA" Relationship="Model.SD_DETALLE_CIERRE_PARADA_R01" FromRole="SD_DETALLE_CIERRE_PARADA" ToRole="SD_CIERRES_PARADA" />
+        </EntityType>
+        <EntityType Name="SD_DETALLE_PERIODO_SOCIO">
+          <Key>
+            <PropertyRef Name="ID_DETALLE" />
+          </Key>
+          <Property Type="Int32" Name="ID_DETALLE" Nullable="false" />
+          <Property Type="Int32" Name="ID_CIERRE" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO" Nullable="false" />
+          <Property Type="Decimal" Name="INGRESOS_HOJAS" Precision="15" Scale="5" />
+          <Property Type="Decimal" Name="OTROS_INGRESOS" Precision="15" Scale="5" />
+          <Property Type="Decimal" Name="OBLIGACIONES_INSTITUCION" Precision="15" Scale="5" />
+          <Property Type="Decimal" Name="OTRAS_OBLIGACIONES" Precision="15" Scale="5" />
+          <Property Type="Decimal" Name="DESCUENTOS" Precision="15" Scale="5" />
+          <Property Type="Decimal" Name="AHORRO" Precision="15" Scale="5" />
+          <Property Type="Decimal" Name="DEUDA" Precision="15" Scale="5" />
+          <NavigationProperty Name="SD_CIERRES" Relationship="Model.SD_DETALLE_PERIODO_SOCIO_R01" FromRole="SD_DETALLE_PERIODO_SOCIO" ToRole="SD_CIERRES" />
+          <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_DETALLE_PERIODO_SOCIO_R02" FromRole="SD_DETALLE_PERIODO_SOCIO" ToRole="SD_SOCIOS" />
+        </EntityType>
+        <Association Name="SD_DETALLE_PERIODO_SOCIO_R01">
+          <End Type="Model.SD_CIERRES" Role="SD_CIERRES" Multiplicity="1" />
+          <End Type="Model.SD_DETALLE_PERIODO_SOCIO" Role="SD_DETALLE_PERIODO_SOCIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CIERRES">
+              <PropertyRef Name="ID_CIERRE" />
+            </Principal>
+            <Dependent Role="SD_DETALLE_PERIODO_SOCIO">
+              <PropertyRef Name="ID_CIERRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_CIERRES_PARADA_R01">
+          <End Type="Model.SD_PARADAS" Role="SD_PARADAS" Multiplicity="1" />
+          <End Type="Model.SD_CIERRES_PARADA" Role="SD_CIERRES_PARADA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_PARADAS">
+              <PropertyRef Name="ID_PARADA" />
+            </Principal>
+            <Dependent Role="SD_CIERRES_PARADA">
+              <PropertyRef Name="ID_PARADA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_DETALLE_CIERRE_PARADA_R01">
+          <End Type="Model.SD_CIERRES_PARADA" Role="SD_CIERRES_PARADA" Multiplicity="1" />
+          <End Type="Model.SD_DETALLE_CIERRE_PARADA" Role="SD_DETALLE_CIERRE_PARADA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CIERRES_PARADA">
+              <PropertyRef Name="ID_CIERRE" />
+            </Principal>
+            <Dependent Role="SD_DETALLE_CIERRE_PARADA">
+              <PropertyRef Name="ID_CIERRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_DETALLE_PERIODO_SOCIO_R02">
+          <End Type="Model.SD_SOCIOS" Role="SD_SOCIOS" Multiplicity="1" />
+          <End Type="Model.SD_DETALLE_PERIODO_SOCIO" Role="SD_DETALLE_PERIODO_SOCIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIOS">
+              <PropertyRef Name="ID_SOCIO" />
+            </Principal>
+            <Dependent Role="SD_DETALLE_PERIODO_SOCIO">
+              <PropertyRef Name="ID_SOCIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3946,6 +4166,48 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SD_CIERRES_PARADA">
+            <EntityTypeMapping TypeName="Model.SD_CIERRES_PARADA">
+              <MappingFragment StoreEntitySet="SD_CIERRES_PARADA">
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="IMPORTE_TOTAL" ColumnName="IMPORTE_TOTAL" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="FECHA_FIN" ColumnName="FECHA_FIN" />
+                <ScalarProperty Name="FECHA_INI" ColumnName="FECHA_INI" />
+                <ScalarProperty Name="ID_PARADA" ColumnName="ID_PARADA" />
+                <ScalarProperty Name="ID_CIERRE" ColumnName="ID_CIERRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_DETALLE_CIERRE_PARADA">
+            <EntityTypeMapping TypeName="Model.SD_DETALLE_CIERRE_PARADA">
+              <MappingFragment StoreEntitySet="SD_DETALLE_CIERRE_PARADA">
+                <ScalarProperty Name="EGRESO" ColumnName="EGRESO" />
+                <ScalarProperty Name="INGRESO" ColumnName="INGRESO" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
+                <ScalarProperty Name="ID_CIERRE" ColumnName="ID_CIERRE" />
+                <ScalarProperty Name="ID_DETALLE" ColumnName="ID_DETALLE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_DETALLE_PERIODO_SOCIO">
+            <EntityTypeMapping TypeName="Model.SD_DETALLE_PERIODO_SOCIO">
+              <MappingFragment StoreEntitySet="SD_DETALLE_PERIODO_SOCIO">
+                <ScalarProperty Name="DEUDA" ColumnName="DEUDA" />
+                <ScalarProperty Name="AHORRO" ColumnName="AHORRO" />
+                <ScalarProperty Name="DESCUENTOS" ColumnName="DESCUENTOS" />
+                <ScalarProperty Name="OTRAS_OBLIGACIONES" ColumnName="OTRAS_OBLIGACIONES" />
+                <ScalarProperty Name="OBLIGACIONES_INSTITUCION" ColumnName="OBLIGACIONES_INSTITUCION" />
+                <ScalarProperty Name="OTROS_INGRESOS" ColumnName="OTROS_INGRESOS" />
+                <ScalarProperty Name="INGRESOS_HOJAS" ColumnName="INGRESOS_HOJAS" />
+                <ScalarProperty Name="ID_SOCIO" ColumnName="ID_SOCIO" />
+                <ScalarProperty Name="ID_CIERRE" ColumnName="ID_CIERRE" />
+                <ScalarProperty Name="ID_DETALLE" ColumnName="ID_DETALLE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -4089,6 +4351,13 @@
         <AssociationConnector Association="Model.SD_DETALLE_HOJAS_R01" />
         <AssociationConnector Association="Model.SD_VENTA_HOJAS_R01" />
         <AssociationConnector Association="Model.SD_VENTA_HOJAS_R02" />
+        <EntityTypeShape EntityType="Model.SD_CIERRES_PARADA" Width="1.5" PointX="31.375" PointY="9.875" />
+        <EntityTypeShape EntityType="Model.SD_DETALLE_CIERRE_PARADA" Width="1.5" PointX="33.875" PointY="11.375" />
+        <EntityTypeShape EntityType="Model.SD_DETALLE_PERIODO_SOCIO" Width="1.5" PointX="36.875" PointY="12.875" />
+        <AssociationConnector Association="Model.SD_DETALLE_PERIODO_SOCIO_R01" />
+        <AssociationConnector Association="Model.SD_CIERRES_PARADA_R01" />
+        <AssociationConnector Association="Model.SD_DETALLE_CIERRE_PARADA_R01" />
+        <AssociationConnector Association="Model.SD_DETALLE_PERIODO_SOCIO_R02" />
         </Diagram>
     </Diagrams>
   </Designer>

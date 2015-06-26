@@ -226,6 +226,7 @@
     <Content Include="App\extensible\locale\extensible-lang-sv_SE.js" />
     <Content Include="App\extensible\locale\extensible-lang-zh_CN.js" />
     <Content Include="App\extensible\locale\extensible-lang-zh_TW.js" />
+    <Content Include="App\Model\CierresParada\Cierres.js" />
     <Content Include="App\Model\Socios\KardexDebe.js" />
     <Content Include="App\Model\Cajas\Cajas.js" />
     <Content Include="App\Model\Cajas\Kardex.js" />
@@ -266,6 +267,7 @@
     <Content Include="App\Model\Ventas\DetallesVentaEdit.js" />
     <Content Include="App\Model\Ventas\DetallesVenta.js" />
     <Content Include="App\Model\Ventas\Ventas.js" />
+    <Content Include="App\Store\CierresParada\Cierres.js" />
     <Content Include="App\Store\Socios\KardexDebe.js" />
     <Content Include="App\Store\Autos\AutosSocios.js" />
     <Content Include="App\Store\Cajas\Cajas.js" />
@@ -348,6 +350,9 @@
     <Content Include="App\View\Amortizaciones\FormAmortizacion.js" />
     <Content Include="App\View\Amortizaciones\GridAmortizaciones.js" />
     <Content Include="App\View\Amortizaciones\Principal.js" />
+    <Content Include="App\View\CierresParada\FormCierre.js" />
+    <Content Include="App\View\CierresParada\GridCierres.js" />
+    <Content Include="App\View\CierresParada\Principal.js" />
     <Content Include="App\View\Hojas\GridDetalles.js" />
     <Content Include="App\View\Obligaciones\FormObligacion.js" />
     <Content Include="App\View\Obligaciones\GridObligaciones.js" />
@@ -446,6 +451,7 @@
     <Content Include="Content\extjs42.css" />
     <Content Include="Content\Iconos48\Actions-view-pim-contacts-icon.png" />
     <Content Include="Content\Iconos48\application-settings-icon.png" />
+    <Content Include="Content\Iconos48\Cash-register-icon.png" />
     <Content Include="Content\Iconos48\coin-add-icon.png" />
     <Content Include="Content\Iconos48\coin-delete-icon.png" />
     <Content Include="Content\Iconos48\column-chart-icon.png" />

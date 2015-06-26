@@ -1,6 +1,7 @@
 ﻿Ext.define("App.View.Egresos.Principal", {
     extend: "App.Config.Abstract.PanelPrincipal",
     paramsStore: {},
+    noLimpiar: [],
     initComponent: function () {
         var me = this;
         me.CargarComponentes();
@@ -10,6 +11,7 @@
         var me = this;
         if (Constantes.Usuario.ID_CAJA != 0) {
             me.paramsStore = { ID_CAJA: Constantes.Usuario.ID_CAJA };
+            me.noLimpiar = ["ID_CAJA"];
         }
         me.toolbar = Funciones.CrearMenuBar();
         //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);

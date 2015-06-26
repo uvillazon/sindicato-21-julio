@@ -13,20 +13,26 @@
     CargarComponentes: function () {
         var me = this;
         me.id_caja = 0;
+        if (Constantes.Usuario.ID_CAJA != 0) {
+            me.paramsStore = { ID_CAJA: Constantes.Usuario.ID_CAJA };
+            me.noLimpiar = ['ID_CAJA'];
+        }
 
         me.toolbar = Funciones.CrearMenuBar();
         Funciones.CrearMenu('btn_CrearCaja', 'Crear Caja', Constantes.ICONO_CREAR, me.EventosCaja, me.toolbar, this);
-        Funciones.CrearMenu('btn_Imprimir', 'Imprimir', 'printer', me.ImprimirReporteGrid, me.toolbar, this);
+        //Funciones.CrearMenu('btn_Imprimir', 'Imprimir', 'printer', me.ImprimirReporteGrid, me.toolbar, this);
         Funciones.CrearMenu('btn_Kardex', 'Kardex', 'folder_database', me.EventosCaja, me.toolbar, this, null, true);
-        Funciones.CrearMenu('btn_Detalle', 'Detalle', 'report', me.EventosCaja, me.toolbar, this, null, true);
-        Funciones.CrearMenu('btn_Transferencia', 'Transferencia de Fondos', 'arrow_refresh_small', me.EventosCaja, me.toolbar, this);
+        //Funciones.CrearMenu('btn_Detalle', 'Detalle', 'report', me.EventosCaja, me.toolbar, this, null, true);
+        //Funciones.CrearMenu('btn_Transferencia', 'Transferencia de Fondos', 'arrow_refresh_small', me.EventosCaja, me.toolbar, this);
 
         me.grid = Ext.create('App.View.Cajas.GridCajas', {
-            region: 'center',
-            height: 350,
-            imagenes: false,
-            opcion: 'GridCajas',
-            toolbar: me.toolbar
+            region: 'west',
+            width: '100%',
+            opcion : 'GridCajas',
+            fbarmenu: me.toolbar,
+            paramsStore: me.paramsStore,
+            noLimpiar: me.noLimpiar,
+            fbarmenuArray: ["btn_Kardex"]
         });
 
         me.items = [me.grid];

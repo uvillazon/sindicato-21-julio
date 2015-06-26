@@ -22,8 +22,8 @@
             //fbarmenuArray: ["btn_Kardex", "btn_eliminar"]
 
         });
-        me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Retiro', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
-        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Eliminar Retiro', Constantes.ICONO_BAJA, me.EventosPrincipal,null, this, null, true);
+        me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Periodo', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
+        //me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Eliminar Periodo', Constantes.ICONO_BAJA, me.EventosPrincipal,null, this, null, true);
         me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar]);
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
 

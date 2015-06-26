@@ -10,8 +10,6 @@
         me.store = Ext.create("App.Store.Ventas.Ventas");
         me.viewConfig = {
             getRowClass: function (record, rowIndex, rowParams, store) {
-                //if(record.get('ESTADO')== "")
-                console.dir(record);
                 return Constantes.CargarCssEstados(record.get("ESTADO"), 'VENTAS');
             }
         };

@@ -1,7 +1,9 @@
 ﻿Ext.define("App.View.Transferencias.Principal", {
     extend: "App.Config.Abstract.PanelPrincipal",
     paramsStore: {},
-    paramsStoreForm : {},
+    paramsStoreForm: {},
+    noLimpiar: [],
+    noLimpiarForm: [],
     initComponent: function () {
         var me = this;
         me.CargarComponentes();
@@ -10,8 +12,9 @@
     CargarComponentes: function () {
         var me = this;
         if (Constantes.Usuario.ID_CAJA != 0) {
-            me.paramsStore = {  ID_CAJA_ORIGEN: Constantes.Usuario.ID_CAJA, ID_CAJA_DESTINO: Constantes.Usuario.ID_CAJA  , Operador : " or "};
+            me.paramsStore = { ID_CAJA_ORIGEN: Constantes.Usuario.ID_CAJA, ID_CAJA_DESTINO: Constantes.Usuario.ID_CAJA, Operador: " or " };
             me.paramsStoreForm = { ID_CAJA: Constantes.Usuario.ID_CAJA };
+            me.noLimpiar = ['ID_CAJA_ORIGEN', 'ID_CAJA_DESTINO', 'Operador'];
         }
         me.toolbar = Funciones.CrearMenuBar();
         //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
@@ -26,11 +29,12 @@
             width: '50%',
             fbarmenu: me.toolbar,
             paramsStore: me.paramsStore,
+            noLimpiar: me.noLimpiar,
             fbarmenuArray: ["btn_KardexOrigen", "btn_KardexDestino", "btn_eliminar"]
 
         });
         me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Transferencia', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
-        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Eliminar Transferencia', Constantes.ICONO_BAJA, me.EventosPrincipal,null, this, null, true);
+        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Eliminar Transferencia', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
         me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar]);
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
 
@@ -38,7 +42,7 @@
             region: 'center',
             width: '50%',
             columns: 2,
-            modoConsulta : true,
+            modoConsulta: true,
         });
 
         me.form.BloquearFormulario();
@@ -55,10 +59,10 @@
         }
         else {
             me.form.getForm().reset();
-          
+
         }
     },
-   
+
     EventosPrincipal: function (btn) {
         var me = this;
         switch (btn.getItemId()) {

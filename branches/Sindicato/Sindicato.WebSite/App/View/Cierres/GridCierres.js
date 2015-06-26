@@ -1,9 +1,9 @@
 ﻿Ext.define("App.View.Cierres.GridCierres", {
     extend: "App.Config.Abstract.Grid",
     criterios: true,
-    textBusqueda: 'Cierres Sistema',
+    textBusqueda: 'Periodos',
     tamBusqueda: 50,
-    title: 'Cierres Sistema',
+    title: 'Periodos',
     equipo: '',
     initComponent: function () {
         var me = this;

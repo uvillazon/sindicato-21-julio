@@ -23,6 +23,7 @@
             me.txt_id_socio.setValue(rec[0].get('ID_SOCIO_MOVIL'));
             var fecha = me.date_fecha.getValue();
             me.gridHojas.getStore().removeAll();
+            me.CalcularTotales();
             me.cbx_diasDisponibles.getStore().load({ params: { FECHA_VENTA: fecha, ID_SOCIO_MOVIL: rec[0].get('ID_SOCIO_MOVIL'), NRO_MOVIL: rec[0].get('NRO_MOVIL') } });
         });
         me.date_fecha.on('select', function (dat, val) {
@@ -68,7 +69,7 @@
         me.num_cantidad.setValue(cantidad);
 
     },
-    isValid : function(){
+    isValid: function () {
         var me = this;
         if (me.getForm().isValid()) {
             if (me.gridHojas.getStore().count() > 0) {
@@ -172,6 +173,7 @@
             name: "ID_PARADA",
             displayField: 'NOMBRE',
             store: me.store_parada,
+            readOnly: Constantes.Usuario.ID_PARADA != 0 ? true : false,
             textoTpl: function () { return "{NOMBRE} - {DESCRIPCION}  , Resp : {RESPONSABLE}" }
         });
 

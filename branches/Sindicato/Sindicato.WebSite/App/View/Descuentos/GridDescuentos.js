@@ -14,8 +14,6 @@
         var me = this;
         me.viewConfig = {
             getRowClass: function (record, rowIndex, rowParams, store) {
-                //if(record.get('ESTADO')== "")
-                console.dir(record);
                 return Constantes.CargarCssEstados(record.get("ESTADO"), 'DESCUENTO');
             }
         };
