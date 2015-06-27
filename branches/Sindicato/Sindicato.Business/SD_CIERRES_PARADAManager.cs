@@ -25,6 +25,8 @@ namespace Sindicato.Business
                 {
 
                     ing.ID_CIERRE = ObtenerSecuencia();
+                    ing.LOGIN = login;
+                    ing.FECHA_REG = DateTime.Now;
                     Add(ing);
                     Save();
                     result = ing.ID_CIERRE.ToString();

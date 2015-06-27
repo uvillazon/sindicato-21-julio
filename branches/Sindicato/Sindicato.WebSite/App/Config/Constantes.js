@@ -55,7 +55,7 @@ Ext.define("App.Config.Constantes", {
         else if (tipo == 'VENTAS') {
             if (estado == 'NUEVO') return 'OTNueva';
             else if (estado == 'ANULADO') return 'OTAsignada';
-            //else if (estado == 'APROBADO') return 'OTAprobada';
+            else if (estado == 'APROBADO') return 'SMCon_Ot';
             else if (estado == 'CERRADO') return 'OTCerrada';
             //else if (estado == 'CON_OIT') return 'AmarilloFuerte';
         }

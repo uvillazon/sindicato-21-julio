@@ -111,7 +111,7 @@ namespace Sindicato.Services
                         managerDetalle.GuardarDetalleCierreParada(det, login);
                     }
                     //vamos a poner en APROBADO todas las ventas de hoja
-                    var ventas = managerVenta.BuscarTodos(x => x.FECHA_VENTA >= cierre.FECHA_INI && x.FECHA_VENTA <= cierre.FECHA_FIN && x.ID_PARADA == cierre.ID_PARADA);
+                    var ventas = managerVenta.BuscarTodos(x => x.FECHA_VENTA >= cierre.FECHA_INI && x.FECHA_VENTA <= cierre.FECHA_FIN && x.ID_PARADA == cierre.ID_PARADA && x.ESTADO == "NUEVO");
                     foreach (var item in ventas)
                     {
                         item.ESTADO = "APROBADO";
@@ -149,7 +149,7 @@ namespace Sindicato.Services
                 var managerParada = new SD_PARADASManager(uow);
                 var managerVentas = new SD_VENTA_HOJASManager(uow);
                 var parada = managerParada.BuscarTodos(x => x.ID_PARADA == ID_PARADA).FirstOrDefault();
-                var ventas = parada.SD_VENTA_HOJAS.Where(x => x.FECHA_VENTA >= FECHA_DESDE && x.FECHA_VENTA <= FECHA_HASTA);
+                var ventas = parada.SD_VENTA_HOJAS.Where(x => x.FECHA_VENTA >= FECHA_DESDE && x.FECHA_VENTA <= FECHA_HASTA && x.ESTADO == "NUEVO");
                 var ingresos = parada.SD_CAJAS.SD_INGRESOS.Where(x => x.FECHA >= FECHA_DESDE && x.FECHA <= FECHA_HASTA);
                 var egresos = parada.SD_CAJAS.SD_EGRESOS.Where(x => x.FECHA >= FECHA_DESDE && x.FECHA <= FECHA_HASTA);
 
