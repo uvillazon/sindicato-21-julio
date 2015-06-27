@@ -87,6 +87,7 @@
     <Compile Include="Controllers\CajasController.cs" />
     <Compile Include="Controllers\AutosController.cs" />
     <Compile Include="Controllers\CierresController.cs" />
+    <Compile Include="Controllers\CierresParadaController.cs" />
     <Compile Include="Controllers\ObligacionesController.cs" />
     <Compile Include="Controllers\TransferenciasController.cs" />
     <Compile Include="Controllers\DescuentosController.cs" />
@@ -451,6 +452,7 @@
     <Content Include="Content\extjs42.css" />
     <Content Include="Content\Iconos48\Actions-view-pim-contacts-icon.png" />
     <Content Include="Content\Iconos48\application-settings-icon.png" />
+    <Content Include="Content\Iconos48\Calendar-icon.png" />
     <Content Include="Content\Iconos48\Cash-register-icon.png" />
     <Content Include="Content\Iconos48\coin-add-icon.png" />
     <Content Include="Content\Iconos48\coin-delete-icon.png" />

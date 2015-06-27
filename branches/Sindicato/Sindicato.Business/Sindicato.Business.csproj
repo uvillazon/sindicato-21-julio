@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SD_CIERRES_PARADAManager.cs" />
+    <Compile Include="SD_DETALLE_CIERRE_PARADAManager.cs" />
+    <Compile Include="SD_DETALLE_PERIODO_SOCIOManager.cs" />
     <Compile Include="SD_OTRAS_OBLIGACIONESManager.cs" />
     <Compile Include="SD_AMORTIZACIONESManager.cs" />
     <Compile Include="SD_KARDEX_SOCIO_DEBEManager.cs" />
