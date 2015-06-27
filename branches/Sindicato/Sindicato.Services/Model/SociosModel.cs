@@ -22,5 +22,6 @@ namespace Sindicato.Services.Model
         public string OBSERVACION { get; set; }
         public string ESTADO { get; set; }
         public int? ID_OBLIGACION { get; set; }
+        public int? ID_CIERRE { get; set; }
     }
 }

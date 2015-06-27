@@ -39,6 +39,26 @@ namespace Sindicato.Business
                 //throw;
             }
         }
+        public string EliminarDetallePeriodoSocio(int ID_CIERRE)
+        {
+            try
+            {
+                var detalles = BuscarTodos(x => x.ID_CIERRE == ID_CIERRE);
+                foreach (var item in detalles)
+                {
+                    Delete(item);
+                }
+                Save();
+
+                return ID_CIERRE.ToString();
+
+            }
+            catch (Exception e)
+            {
+                return e.ToString();
+                //throw;
+            }
+        }
 
     }
 }

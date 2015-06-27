@@ -90,5 +90,6 @@ namespace Sindicato.WebSite.Controllers
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = detalles, Total = detalles.Count() }) + ");";
             return JavaScript(callback1);
         }
+        
      }
 }

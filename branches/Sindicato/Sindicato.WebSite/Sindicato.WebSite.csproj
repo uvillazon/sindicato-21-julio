@@ -229,6 +229,7 @@
     <Content Include="App\extensible\locale\extensible-lang-zh_TW.js" />
     <Content Include="App\Model\CierresParada\CierresParada.js" />
     <Content Include="App\Model\CierresParada\Detalles.js" />
+    <Content Include="App\Model\Cierres\Detalles.js" />
     <Content Include="App\Model\Socios\KardexDebe.js" />
     <Content Include="App\Model\Cajas\Cajas.js" />
     <Content Include="App\Model\Cajas\Kardex.js" />
@@ -271,6 +272,7 @@
     <Content Include="App\Model\Ventas\Ventas.js" />
     <Content Include="App\Store\CierresParada\CierresParada.js" />
     <Content Include="App\Store\CierresParada\Detalles.js" />
+    <Content Include="App\Store\Cierres\Detalles.js" />
     <Content Include="App\Store\Socios\KardexDebe.js" />
     <Content Include="App\Store\Autos\AutosSocios.js" />
     <Content Include="App\Store\Cajas\Cajas.js" />
@@ -337,6 +339,7 @@
     <Content Include="App\View\Choferes\ImageField.js" />
     <Content Include="App\View\Choferes\Principal.js" />
     <Content Include="App\View\CierresParada\GridDetalles.js" />
+    <Content Include="App\View\Cierres\GridCierreSocios.js" />
     <Content Include="App\View\Clientes\FormCrearVenta.js" />
     <Content Include="App\View\Clientes\FormMovimiento.js" />
     <Content Include="App\View\Clientes\Forms.js" />
