@@ -67,6 +67,10 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "SD_CIERRES_PARADA_R01", "SD_PARADAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_PARADAS), "SD_CIERRES_PARADA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_CIERRES_PARADA), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_CIERRE_PARADA_R01", "SD_CIERRES_PARADA", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CIERRES_PARADA), "SD_DETALLE_CIERRE_PARADA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_CIERRE_PARADA), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_PERIODO_SOCIO_R02", "SD_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIOS), "SD_DETALLE_PERIODO_SOCIO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_PERIODO_SOCIO), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_OBLIGACIONES_HOJA_R02", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_OBLIGACIONES_HOJA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_OBLIGACIONES_HOJA), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_OBLIGACIONES_HOJA_R01", "SD_LINEAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_LINEAS), "SD_OBLIGACIONES_HOJA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_OBLIGACIONES_HOJA), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_SOC_MOV_OBLIG_R01", "SD_OBLIGACIONES_HOJA", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_OBLIGACIONES_HOJA), "SD_SOC_MOV_OBLIG", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_SOC_MOV_OBLIG), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_SOC_MOV_OBLIG_R02", "SD_SOCIO_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIO_MOVILES), "SD_SOC_MOV_OBLIG", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_SOC_MOV_OBLIG), true)]
 
 #endregion
 
@@ -837,6 +841,38 @@ namespace Sindicato.Model
             }
         }
         private ObjectSet<SD_DETALLE_PERIODO_SOCIO> _SD_DETALLE_PERIODO_SOCIO;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<SD_OBLIGACIONES_HOJA> SD_OBLIGACIONES_HOJA
+        {
+            get
+            {
+                if ((_SD_OBLIGACIONES_HOJA == null))
+                {
+                    _SD_OBLIGACIONES_HOJA = base.CreateObjectSet<SD_OBLIGACIONES_HOJA>("SD_OBLIGACIONES_HOJA");
+                }
+                return _SD_OBLIGACIONES_HOJA;
+            }
+        }
+        private ObjectSet<SD_OBLIGACIONES_HOJA> _SD_OBLIGACIONES_HOJA;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<SD_SOC_MOV_OBLIG> SD_SOC_MOV_OBLIG
+        {
+            get
+            {
+                if ((_SD_SOC_MOV_OBLIG == null))
+                {
+                    _SD_SOC_MOV_OBLIG = base.CreateObjectSet<SD_SOC_MOV_OBLIG>("SD_SOC_MOV_OBLIG");
+                }
+                return _SD_SOC_MOV_OBLIG;
+            }
+        }
+        private ObjectSet<SD_SOC_MOV_OBLIG> _SD_SOC_MOV_OBLIG;
 
         #endregion
 
@@ -1200,6 +1236,22 @@ namespace Sindicato.Model
         public void AddToSD_DETALLE_PERIODO_SOCIO(SD_DETALLE_PERIODO_SOCIO sD_DETALLE_PERIODO_SOCIO)
         {
             base.AddObject("SD_DETALLE_PERIODO_SOCIO", sD_DETALLE_PERIODO_SOCIO);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet SD_OBLIGACIONES_HOJA. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToSD_OBLIGACIONES_HOJA(SD_OBLIGACIONES_HOJA sD_OBLIGACIONES_HOJA)
+        {
+            base.AddObject("SD_OBLIGACIONES_HOJA", sD_OBLIGACIONES_HOJA);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet SD_SOC_MOV_OBLIG. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToSD_SOC_MOV_OBLIG(SD_SOC_MOV_OBLIG sD_SOC_MOV_OBLIG)
+        {
+            base.AddObject("SD_SOC_MOV_OBLIG", sD_SOC_MOV_OBLIG);
         }
 
         #endregion
@@ -4444,6 +4496,28 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_AMORTIZACIONES>("Model.SD_AMORTIZACIONES_R02", "SD_AMORTIZACIONES", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_OBLIGACIONES_HOJA_R02", "SD_OBLIGACIONES_HOJA")]
+        public EntityCollection<SD_OBLIGACIONES_HOJA> SD_OBLIGACIONES_HOJA
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_OBLIGACIONES_HOJA>("Model.SD_OBLIGACIONES_HOJA_R02", "SD_OBLIGACIONES_HOJA");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_OBLIGACIONES_HOJA>("Model.SD_OBLIGACIONES_HOJA_R02", "SD_OBLIGACIONES_HOJA", value);
                 }
             }
         }
@@ -12005,6 +12079,28 @@ namespace Sindicato.Model
                 }
             }
         }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_OBLIGACIONES_HOJA_R01", "SD_OBLIGACIONES_HOJA")]
+        public EntityCollection<SD_OBLIGACIONES_HOJA> SD_OBLIGACIONES_HOJA
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_OBLIGACIONES_HOJA>("Model.SD_OBLIGACIONES_HOJA_R01", "SD_OBLIGACIONES_HOJA");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_OBLIGACIONES_HOJA>("Model.SD_OBLIGACIONES_HOJA_R01", "SD_OBLIGACIONES_HOJA", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -13148,6 +13244,317 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_SOCIO_MOVILES>("Model.SD_SOCIO_MOVILES_R02", "SD_SOCIO_MOVILES", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Model", Name="SD_OBLIGACIONES_HOJA")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SD_OBLIGACIONES_HOJA : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto SD_OBLIGACIONES_HOJA.
+        /// </summary>
+        /// <param name="iD_OBLIGACION">Valor inicial de la propiedad ID_OBLIGACION.</param>
+        /// <param name="iD_LINEA">Valor inicial de la propiedad ID_LINEA.</param>
+        /// <param name="iD_CAJA">Valor inicial de la propiedad ID_CAJA.</param>
+        /// <param name="oBLIGACION">Valor inicial de la propiedad OBLIGACION.</param>
+        /// <param name="iMPORTE_DEFECTO">Valor inicial de la propiedad IMPORTE_DEFECTO.</param>
+        public static SD_OBLIGACIONES_HOJA CreateSD_OBLIGACIONES_HOJA(global::System.Int32 iD_OBLIGACION, global::System.Int32 iD_LINEA, global::System.Int32 iD_CAJA, global::System.String oBLIGACION, global::System.Decimal iMPORTE_DEFECTO)
+        {
+            SD_OBLIGACIONES_HOJA sD_OBLIGACIONES_HOJA = new SD_OBLIGACIONES_HOJA();
+            sD_OBLIGACIONES_HOJA.ID_OBLIGACION = iD_OBLIGACION;
+            sD_OBLIGACIONES_HOJA.ID_LINEA = iD_LINEA;
+            sD_OBLIGACIONES_HOJA.ID_CAJA = iD_CAJA;
+            sD_OBLIGACIONES_HOJA.OBLIGACION = oBLIGACION;
+            sD_OBLIGACIONES_HOJA.IMPORTE_DEFECTO = iMPORTE_DEFECTO;
+            return sD_OBLIGACIONES_HOJA;
+        }
+
+        #endregion
+
+        #region Propiedades primitivas
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_OBLIGACION
+        {
+            get
+            {
+                return _ID_OBLIGACION;
+            }
+            set
+            {
+                if (_ID_OBLIGACION != value)
+                {
+                    OnID_OBLIGACIONChanging(value);
+                    ReportPropertyChanging("ID_OBLIGACION");
+                    _ID_OBLIGACION = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID_OBLIGACION");
+                    OnID_OBLIGACIONChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID_OBLIGACION;
+        partial void OnID_OBLIGACIONChanging(global::System.Int32 value);
+        partial void OnID_OBLIGACIONChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_LINEA
+        {
+            get
+            {
+                return _ID_LINEA;
+            }
+            set
+            {
+                OnID_LINEAChanging(value);
+                ReportPropertyChanging("ID_LINEA");
+                _ID_LINEA = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ID_LINEA");
+                OnID_LINEAChanged();
+            }
+        }
+        private global::System.Int32 _ID_LINEA;
+        partial void OnID_LINEAChanging(global::System.Int32 value);
+        partial void OnID_LINEAChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_CAJA
+        {
+            get
+            {
+                return _ID_CAJA;
+            }
+            set
+            {
+                OnID_CAJAChanging(value);
+                ReportPropertyChanging("ID_CAJA");
+                _ID_CAJA = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ID_CAJA");
+                OnID_CAJAChanged();
+            }
+        }
+        private global::System.Int32 _ID_CAJA;
+        partial void OnID_CAJAChanging(global::System.Int32 value);
+        partial void OnID_CAJAChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String OBLIGACION
+        {
+            get
+            {
+                return _OBLIGACION;
+            }
+            set
+            {
+                OnOBLIGACIONChanging(value);
+                ReportPropertyChanging("OBLIGACION");
+                _OBLIGACION = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("OBLIGACION");
+                OnOBLIGACIONChanged();
+            }
+        }
+        private global::System.String _OBLIGACION;
+        partial void OnOBLIGACIONChanging(global::System.String value);
+        partial void OnOBLIGACIONChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal IMPORTE_DEFECTO
+        {
+            get
+            {
+                return _IMPORTE_DEFECTO;
+            }
+            set
+            {
+                OnIMPORTE_DEFECTOChanging(value);
+                ReportPropertyChanging("IMPORTE_DEFECTO");
+                _IMPORTE_DEFECTO = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IMPORTE_DEFECTO");
+                OnIMPORTE_DEFECTOChanged();
+            }
+        }
+        private global::System.Decimal _IMPORTE_DEFECTO;
+        partial void OnIMPORTE_DEFECTOChanging(global::System.Decimal value);
+        partial void OnIMPORTE_DEFECTOChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> FECHA_REG
+        {
+            get
+            {
+                return _FECHA_REG;
+            }
+            set
+            {
+                OnFECHA_REGChanging(value);
+                ReportPropertyChanging("FECHA_REG");
+                _FECHA_REG = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FECHA_REG");
+                OnFECHA_REGChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _FECHA_REG;
+        partial void OnFECHA_REGChanging(Nullable<global::System.DateTime> value);
+        partial void OnFECHA_REGChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String LOGIN
+        {
+            get
+            {
+                return _LOGIN;
+            }
+            set
+            {
+                OnLOGINChanging(value);
+                ReportPropertyChanging("LOGIN");
+                _LOGIN = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("LOGIN");
+                OnLOGINChanged();
+            }
+        }
+        private global::System.String _LOGIN;
+        partial void OnLOGINChanging(global::System.String value);
+        partial void OnLOGINChanged();
+
+        #endregion
+
+    
+        #region Propiedades de navegación
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_OBLIGACIONES_HOJA_R02", "SD_CAJAS")]
+        public SD_CAJAS SD_CAJAS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS>("Model.SD_OBLIGACIONES_HOJA_R02", "SD_CAJAS").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS>("Model.SD_OBLIGACIONES_HOJA_R02", "SD_CAJAS").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SD_CAJAS> SD_CAJASReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS>("Model.SD_OBLIGACIONES_HOJA_R02", "SD_CAJAS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_CAJAS>("Model.SD_OBLIGACIONES_HOJA_R02", "SD_CAJAS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_OBLIGACIONES_HOJA_R01", "SD_LINEAS")]
+        public SD_LINEAS SD_LINEAS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_LINEAS>("Model.SD_OBLIGACIONES_HOJA_R01", "SD_LINEAS").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_LINEAS>("Model.SD_OBLIGACIONES_HOJA_R01", "SD_LINEAS").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SD_LINEAS> SD_LINEASReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_LINEAS>("Model.SD_OBLIGACIONES_HOJA_R01", "SD_LINEAS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_LINEAS>("Model.SD_OBLIGACIONES_HOJA_R01", "SD_LINEAS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_SOC_MOV_OBLIG_R01", "SD_SOC_MOV_OBLIG")]
+        public EntityCollection<SD_SOC_MOV_OBLIG> SD_SOC_MOV_OBLIG
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_SOC_MOV_OBLIG>("Model.SD_SOC_MOV_OBLIG_R01", "SD_SOC_MOV_OBLIG");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_SOC_MOV_OBLIG>("Model.SD_SOC_MOV_OBLIG_R01", "SD_SOC_MOV_OBLIG", value);
                 }
             }
         }
@@ -15326,6 +15733,269 @@ namespace Sindicato.Model
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Model", Name="SD_SOC_MOV_OBLIG")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SD_SOC_MOV_OBLIG : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto SD_SOC_MOV_OBLIG.
+        /// </summary>
+        /// <param name="iD_SOC_MOV_OBLIG">Valor inicial de la propiedad ID_SOC_MOV_OBLIG.</param>
+        /// <param name="iD_OBLIGACION">Valor inicial de la propiedad ID_OBLIGACION.</param>
+        /// <param name="iD_SOCIO_MOVIL">Valor inicial de la propiedad ID_SOCIO_MOVIL.</param>
+        /// <param name="iMPORTE">Valor inicial de la propiedad IMPORTE.</param>
+        public static SD_SOC_MOV_OBLIG CreateSD_SOC_MOV_OBLIG(global::System.Int32 iD_SOC_MOV_OBLIG, global::System.Int32 iD_OBLIGACION, global::System.Int32 iD_SOCIO_MOVIL, global::System.Decimal iMPORTE)
+        {
+            SD_SOC_MOV_OBLIG sD_SOC_MOV_OBLIG = new SD_SOC_MOV_OBLIG();
+            sD_SOC_MOV_OBLIG.ID_SOC_MOV_OBLIG = iD_SOC_MOV_OBLIG;
+            sD_SOC_MOV_OBLIG.ID_OBLIGACION = iD_OBLIGACION;
+            sD_SOC_MOV_OBLIG.ID_SOCIO_MOVIL = iD_SOCIO_MOVIL;
+            sD_SOC_MOV_OBLIG.IMPORTE = iMPORTE;
+            return sD_SOC_MOV_OBLIG;
+        }
+
+        #endregion
+
+        #region Propiedades primitivas
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_SOC_MOV_OBLIG
+        {
+            get
+            {
+                return _ID_SOC_MOV_OBLIG;
+            }
+            set
+            {
+                if (_ID_SOC_MOV_OBLIG != value)
+                {
+                    OnID_SOC_MOV_OBLIGChanging(value);
+                    ReportPropertyChanging("ID_SOC_MOV_OBLIG");
+                    _ID_SOC_MOV_OBLIG = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID_SOC_MOV_OBLIG");
+                    OnID_SOC_MOV_OBLIGChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID_SOC_MOV_OBLIG;
+        partial void OnID_SOC_MOV_OBLIGChanging(global::System.Int32 value);
+        partial void OnID_SOC_MOV_OBLIGChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_OBLIGACION
+        {
+            get
+            {
+                return _ID_OBLIGACION;
+            }
+            set
+            {
+                OnID_OBLIGACIONChanging(value);
+                ReportPropertyChanging("ID_OBLIGACION");
+                _ID_OBLIGACION = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ID_OBLIGACION");
+                OnID_OBLIGACIONChanged();
+            }
+        }
+        private global::System.Int32 _ID_OBLIGACION;
+        partial void OnID_OBLIGACIONChanging(global::System.Int32 value);
+        partial void OnID_OBLIGACIONChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_SOCIO_MOVIL
+        {
+            get
+            {
+                return _ID_SOCIO_MOVIL;
+            }
+            set
+            {
+                OnID_SOCIO_MOVILChanging(value);
+                ReportPropertyChanging("ID_SOCIO_MOVIL");
+                _ID_SOCIO_MOVIL = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ID_SOCIO_MOVIL");
+                OnID_SOCIO_MOVILChanged();
+            }
+        }
+        private global::System.Int32 _ID_SOCIO_MOVIL;
+        partial void OnID_SOCIO_MOVILChanging(global::System.Int32 value);
+        partial void OnID_SOCIO_MOVILChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal IMPORTE
+        {
+            get
+            {
+                return _IMPORTE;
+            }
+            set
+            {
+                OnIMPORTEChanging(value);
+                ReportPropertyChanging("IMPORTE");
+                _IMPORTE = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IMPORTE");
+                OnIMPORTEChanged();
+            }
+        }
+        private global::System.Decimal _IMPORTE;
+        partial void OnIMPORTEChanging(global::System.Decimal value);
+        partial void OnIMPORTEChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> FECHA_REG
+        {
+            get
+            {
+                return _FECHA_REG;
+            }
+            set
+            {
+                OnFECHA_REGChanging(value);
+                ReportPropertyChanging("FECHA_REG");
+                _FECHA_REG = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FECHA_REG");
+                OnFECHA_REGChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _FECHA_REG;
+        partial void OnFECHA_REGChanging(Nullable<global::System.DateTime> value);
+        partial void OnFECHA_REGChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String LOGIN
+        {
+            get
+            {
+                return _LOGIN;
+            }
+            set
+            {
+                OnLOGINChanging(value);
+                ReportPropertyChanging("LOGIN");
+                _LOGIN = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("LOGIN");
+                OnLOGINChanged();
+            }
+        }
+        private global::System.String _LOGIN;
+        partial void OnLOGINChanging(global::System.String value);
+        partial void OnLOGINChanged();
+
+        #endregion
+
+    
+        #region Propiedades de navegación
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_SOC_MOV_OBLIG_R01", "SD_OBLIGACIONES_HOJA")]
+        public SD_OBLIGACIONES_HOJA SD_OBLIGACIONES_HOJA
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_OBLIGACIONES_HOJA>("Model.SD_SOC_MOV_OBLIG_R01", "SD_OBLIGACIONES_HOJA").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_OBLIGACIONES_HOJA>("Model.SD_SOC_MOV_OBLIG_R01", "SD_OBLIGACIONES_HOJA").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SD_OBLIGACIONES_HOJA> SD_OBLIGACIONES_HOJAReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_OBLIGACIONES_HOJA>("Model.SD_SOC_MOV_OBLIG_R01", "SD_OBLIGACIONES_HOJA");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_OBLIGACIONES_HOJA>("Model.SD_SOC_MOV_OBLIG_R01", "SD_OBLIGACIONES_HOJA", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_SOC_MOV_OBLIG_R02", "SD_SOCIO_MOVILES")]
+        public SD_SOCIO_MOVILES SD_SOCIO_MOVILES
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_SOCIO_MOVILES>("Model.SD_SOC_MOV_OBLIG_R02", "SD_SOCIO_MOVILES").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_SOCIO_MOVILES>("Model.SD_SOC_MOV_OBLIG_R02", "SD_SOCIO_MOVILES").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SD_SOCIO_MOVILES> SD_SOCIO_MOVILESReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_SOCIO_MOVILES>("Model.SD_SOC_MOV_OBLIG_R02", "SD_SOCIO_MOVILES");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_SOCIO_MOVILES>("Model.SD_SOC_MOV_OBLIG_R02", "SD_SOCIO_MOVILES", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="Model", Name="SD_SOCIO_DESEMPENOS")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -16428,6 +17098,28 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_VENTA_HOJAS>("Model.SD_VENTA_HOJAS_R02", "SD_VENTA_HOJAS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_SOC_MOV_OBLIG_R02", "SD_SOC_MOV_OBLIG")]
+        public EntityCollection<SD_SOC_MOV_OBLIG> SD_SOC_MOV_OBLIG
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_SOC_MOV_OBLIG>("Model.SD_SOC_MOV_OBLIG_R02", "SD_SOC_MOV_OBLIG");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_SOC_MOV_OBLIG>("Model.SD_SOC_MOV_OBLIG_R02", "SD_SOC_MOV_OBLIG", value);
                 }
             }
         }
