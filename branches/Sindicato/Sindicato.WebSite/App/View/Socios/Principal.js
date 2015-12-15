@@ -14,7 +14,8 @@
         me.toolbar = Funciones.CrearMenuBar();
         //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
         Funciones.CrearMenu('btn_ImprimirReporte', 'Imprimir Reporte', 'printer', me.EventosPrincipal, me.toolbar, this, null, true);
-        Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
+        //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_ConfigHoja', 'Configuracion Hoja', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
         Funciones.CrearMenu('btn_Kardex', 'Kardex Socio', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
         //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
 
@@ -25,7 +26,7 @@
             width: '50%',
             opcion: 'GridSocios',
             fbarmenu: me.toolbar,
-            fbarmenuArray: ["btn_ConfigObligacion", "btn_ImprimirReporte", "btn_Editar", "btn_EditarMovil", "btn_Imagen", "btn_Kardex"]
+            fbarmenuArray: ["btn_ConfigObligacion", "btn_ImprimirReporte", "btn_Editar", "btn_EditarMovil", "btn_Imagen", "btn_Kardex", "btn_ConfigHoja"]
 
         });
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
@@ -139,6 +140,15 @@
                 win.add(form);
                 win.show();
 
+                break;
+            case "btn_ConfigHoja":
+                var win = Ext.create("App.Config.Abstract.Window", { botones: false, title: 'Configuracion de Obligaciones' });
+                var form = Ext.create("App.View.Socios.FormObligacionSocioHoja", { opcion: 'FormReporte' });
+                form.loadRecord(me.grid.record);
+                form.gridObligaciones.getStore().setExtraParams({ ID_SOCIO: me.grid.record.get('ID_SOCIO') });
+                form.gridObligaciones.getStore().load();
+                win.add(form);
+                win.show();
                 break;
             case "btn_Crear":
                 me.CrearSocio(null);

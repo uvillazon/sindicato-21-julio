@@ -230,6 +230,8 @@
     <Content Include="App\Model\CierresParada\CierresParada.js" />
     <Content Include="App\Model\CierresParada\Detalles.js" />
     <Content Include="App\Model\Cierres\Detalles.js" />
+    <Content Include="App\Model\Socios\ObligacionesHoja.js" />
+    <Content Include="App\Model\Socios\DetalleConfigHojas.js" />
     <Content Include="App\Model\Socios\KardexDebe.js" />
     <Content Include="App\Model\Cajas\Cajas.js" />
     <Content Include="App\Model\Cajas\Kardex.js" />
@@ -273,6 +275,8 @@
     <Content Include="App\Store\CierresParada\CierresParada.js" />
     <Content Include="App\Store\CierresParada\Detalles.js" />
     <Content Include="App\Store\Cierres\Detalles.js" />
+    <Content Include="App\Store\Socios\ObligacionesHoja.js" />
+    <Content Include="App\Store\Socios\DetalleConfigHojas.js" />
     <Content Include="App\Store\Socios\KardexDebe.js" />
     <Content Include="App\Store\Autos\AutosSocios.js" />
     <Content Include="App\Store\Cajas\Cajas.js" />
@@ -364,6 +368,7 @@
     <Content Include="App\View\Obligaciones\FormObligacion.js" />
     <Content Include="App\View\Obligaciones\GridObligaciones.js" />
     <Content Include="App\View\Obligaciones\Principal.js" />
+    <Content Include="App\View\Socios\FormObligacionSocioHoja.js" />
     <Content Include="App\View\Socios\GridKardexDebe.js" />
     <Content Include="App\View\Transferencias\FormTransferencia.js" />
     <Content Include="App\View\Transferencias\GridTransferencias.js" />

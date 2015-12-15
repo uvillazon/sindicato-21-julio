@@ -381,5 +381,63 @@ namespace Sindicato.WebSite.Controllers
             return Json(respuestaSP);
         }
         #endregion
+
+        #region obligaciones socio movil por hoja
+
+        [HttpPost]
+        public JsonResult GuardarSocMovHoja(SD_SOC_MOV_OBLIG socio)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serSoc.GuardarSocioMovilObligacion(socio,login);
+            return Json(respuestaSP);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerDetalleConfigHojas(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var retiros = _serSoc.ObtenerConfigHojasPaginados(paginacion, filtros);
+            var formatData = retiros.Select(x => new
+            {
+                ID_OBLIGACION = x.ID_OBLIGACION,
+                ID_SOCIO_MOVIL = x.ID_SOCIO_MOVIL,
+                ID_SOC_MOV_OBLIG = x.ID_SOC_MOV_OBLIG,
+                OBLIGACION = x.SD_OBLIGACIONES_HOJA.OBLIGACION,
+                CAJA = x.SD_OBLIGACIONES_HOJA.SD_CAJAS.NOMBRE,
+                FECHA_REG = x.FECHA_REG,
+                IMPORTE = x.IMPORTE,
+                LOGIN = x.LOGIN,
+               
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerObligacionesHojasPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var retiros = _serSoc.ObtenerObligacionesHojasPaginados(paginacion, filtros);
+            var formatData = retiros.Select(x => new
+            {
+                ID_OBLIGACION = x.ID_OBLIGACION,
+                ID_CAJA = x.ID_CAJA,
+                ID_LINEA = x.ID_LINEA,
+                OBLIGACION = x.OBLIGACION,
+                CAJA = x.SD_CAJAS.NOMBRE,
+                FECHA_REG = x.FECHA_REG,
+                IMPORTE_DEFECTO = x.IMPORTE_DEFECTO,
+                LOGIN = x.LOGIN,
+
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
+        //ObtenerObligacionesHojasPaginados
+
+        #endregion
     }
 }

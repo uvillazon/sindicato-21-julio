@@ -557,5 +557,67 @@ namespace Sindicato.Services
             return result;
         }
         #endregion
+
+        #region detalles hojas obligaciones
+        public RespuestaSP GuardarSocioMovilObligacion(SD_SOC_MOV_OBLIG socio, string LOGIN)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_SOC_MOV_OBLIGManager(uow);
+                var res = manager.GuardarObligacionPorSocio(socio, LOGIN);
+                int idsocio;
+                bool esNumero = int.TryParse(res.ToString(), out idsocio);
+                if (esNumero)
+                {
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                    result.id = idsocio;
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = res.ToString();
+                }
+
+            });
+
+            return result;
+        }
+        #endregion
+
+
+        public IEnumerable<SD_SOC_MOV_OBLIG> ObtenerConfigHojasPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)
+        {
+            IQueryable<SD_SOC_MOV_OBLIG> result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_SOC_MOV_OBLIGManager(uow);
+
+                result = manager.BuscarTodos();
+                filtros.FiltrarDatos();
+                result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+                paginacion.total = result.Count();
+                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
+            });
+            return result;
+        }
+
+
+        public IEnumerable<SD_OBLIGACIONES_HOJA> ObtenerObligacionesHojasPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)
+        {
+            IQueryable<SD_OBLIGACIONES_HOJA> result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_OBLIGACIONES_HOJAManager(uow);
+
+                result = manager.BuscarTodos();
+                filtros.FiltrarDatos();
+                result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+                paginacion.total = result.Count();
+                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
+            });
+            return result;
+        }
     }
 }

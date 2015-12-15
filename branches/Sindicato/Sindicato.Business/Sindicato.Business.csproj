@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SD_SOC_MOV_OBLIGManager.cs" />
-    <Compile Include="Copia de SD_AMORTIZACIONESManager.cs" />
+    <Compile Include="SD_OBLIGACIONES_HOJAManager.cs" />
     <Compile Include="SD_CIERRES_PARADAManager.cs" />
     <Compile Include="SD_DETALLE_CIERRE_PARADAManager.cs" />
     <Compile Include="SD_DETALLE_PERIODO_SOCIOManager.cs" />

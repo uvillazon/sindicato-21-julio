@@ -37,6 +37,10 @@ namespace Sindicato.Services.Interfaces
         RespuestaSP GuardarIngresoSocio(SD_INGRESOS_SOCIO ingreso, string login);
         RespuestaSP EliminarIngresoSocio(int ID_INGRESO);
 
+        RespuestaSP GuardarSocioMovilObligacion(SD_SOC_MOV_OBLIG socio, string LOGIN);
+        IEnumerable<SD_SOC_MOV_OBLIG> ObtenerConfigHojasPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
+        IEnumerable<SD_OBLIGACIONES_HOJA> ObtenerObligacionesHojasPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
+
         #region Retiros
         IEnumerable<SD_RETIRO_SOCIO> ObtenerRetirosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
         SD_RETIRO_SOCIO ObtenerRetiroPorCriterio(Expression<Func<SD_RETIRO_SOCIO, bool>> criterio);

@@ -48,6 +48,9 @@
         else if (me.opcion == "FormDesempenos") {
             me.CargarFormDesempenos();
         }
+        else if (me.opcion == "FormAgregarDetalleHoja") {
+            me.CargarFormAgregarDetalleHoja();
+        }
         this.callParent(arguments);
     },
     CargarFormImagen: function () {
@@ -739,6 +742,46 @@
            me.dat_fecha_desde,
            me.dat_fecha_hasta,
            me.txt_observacion,
+        ];
+    },
+    CargarFormAgregarDetalleHoja: function () {
+        var me = this;
+        me.txt_id = Ext.create("App.Config.Componente.TextFieldBase", {
+            name: "ID_SOCIO_MOVIL",
+            hidden: true,
+        });
+        me.txt_id_obligacion = Ext.create("App.Config.Componente.TextFieldBase", {
+            name: "ID_OBLIGACION",
+            hidden: true,
+        });
+        me.store_detalle = Ext.create('App.Store.Socios.ObligacionesHoja');
+        me.cbx_detalle = Ext.create("App.Config.Componente.ComboAutoBase", {
+            fieldLabel: "Detalle",
+            name: "OBLIGACION",
+            displayField: 'OBLIGACION',
+            store: me.store_detalle,
+            colspan: 2,
+            width: 480,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            textoTpl: function () { return "Caja :{CAJA} - Detalle {OBLIGACION} -  importe {IMPORTE_DEFECTO}" }
+        });
+        me.num_importe = Ext.create("App.Config.Componente.NumberFieldBase", {
+            fieldLabel: "Importe",
+            name: "IMPORTE",
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false
+        });
+        me.cbx_detalle.on('select', function (cbx, rec) {
+            me.txt_id_obligacion.setValue(rec[0].get('ID_OBLIGACION'));
+            me.num_importe.setValue(rec[0].get('IMPORTE_DEFECTO'));
+        });
+      
+        me.items = [
+           me.txt_id,
+           me.txt_id_obligacion,
+           me.cbx_detalle,
+           me.num_importe,
         ];
     }
 

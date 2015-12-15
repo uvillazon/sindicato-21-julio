@@ -44,6 +44,11 @@
             me.pieTitulo = "Detalles";
             me.CargarGridKardexObligaciones();
         }
+        else if (me.opcion == "GridConfigHojas") {
+            me.title = "Detalle de Importe por Hoja";
+            me.pieTitulo = "Detalles";
+            me.CargarGridConfigHojas();
+        }
         else {
             alert("Defina el tipo primero");
         }
@@ -159,6 +164,21 @@
             { header: "Responsable", width: 60, sortable: true, dataIndex: "LOGIN" },
 
         ];
+    },
+    CargarGridConfigHojas: function () {
+        var me = this;
+        me.store = Ext.create("App.Store.Socios.DetalleConfigHojas");
+        //me.store.setExtraParams({ Estados: 'RECH_INSP' });
+        //me.store.load();
+        me.columns = [
+           { xtype: "rownumberer", width: 30, sortable: false },
+            { header: "Caja", width: 150, sortable: false,dataIndex : "CAJA" },
+            { header: "Obligacion", width: 150, sortable: true, dataIndex: "OBLIGACION" },
+            { header: "Importe", width: 100, sortable: true, dataIndex: "IMPORTE" },
+            { header: "Responsable", width: 60, sortable: true, dataIndex: "LOGIN" },
+
+        ];
+
     },
     renderImagenAuto: function (val, metaData, record) {
         if (record.data.ID_IMG == 0) {
