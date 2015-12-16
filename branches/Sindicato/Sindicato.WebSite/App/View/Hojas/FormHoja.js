@@ -21,6 +21,15 @@
             me.txt_socio.setValue(rec[0].get('NOMBRE_SOCIO'));
             me.txt_nor_movil.setValue(rec[0].get('NRO_MOVIL'));
             me.txt_id_socio.setValue(rec[0].get('ID_SOCIO_MOVIL'));
+            if (rec[0].get('PRECIO_HOJA') == 0) {
+                Ext.Msg.alert("Aviso", "No tiene Configurado su Costo de Hoja Por favor Configurar.", function () {
+                    me.num_precio.reset();
+                });
+            }
+            else {
+                me.num_precio.setValue(rec[0].get('PRECIO_HOJA'));
+            }
+            
             var fecha = me.date_fecha.getValue();
             me.gridHojas.getStore().removeAll();
             me.CalcularTotales();
@@ -230,13 +239,15 @@
         me.num_precio = Ext.create("App.Config.Componente.NumberFieldBase", {
             fieldLabel: "Precio",
             name: "MONTO",
-            value: 25,
+            //value: 25,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
             readOnly: true
         });
         me.num_total = Ext.create("App.Config.Componente.NumberFieldBase", {
             fieldLabel: "Total",
             name: "TOTAL",
-            value: 25,
+            //value: 25,
             readOnly: true
         });
         me.num_descuento = Ext.create("App.Config.Componente.NumberFieldBase", {
