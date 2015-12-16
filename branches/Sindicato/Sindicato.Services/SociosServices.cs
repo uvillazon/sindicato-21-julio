@@ -471,7 +471,7 @@ namespace Sindicato.Services
 
 
 
-        #region Retiros Obtener , Listar Crear Eliminar 
+        #region Retiros Obtener , Listar Crear Eliminar
         public IEnumerable<SD_RETIRO_SOCIO> ObtenerRetirosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)
         {
             IQueryable<SD_RETIRO_SOCIO> result = null;
@@ -565,7 +565,16 @@ namespace Sindicato.Services
             ExecuteManager(uow =>
             {
                 var manager = new SD_SOC_MOV_OBLIGManager(uow);
-                var res = manager.GuardarObligacionPorSocio(socio, LOGIN);
+                string res = "";
+                if (socio.ID_SOC_MOV_OBLIG != 0)
+                {
+                    res = manager.EditarObligacionPorSocio(socio, LOGIN);
+                }
+                else
+                {
+                    res = manager.GuardarObligacionPorSocio(socio, LOGIN);
+                }
+                //var
                 int idsocio;
                 bool esNumero = int.TryParse(res.ToString(), out idsocio);
                 if (esNumero)

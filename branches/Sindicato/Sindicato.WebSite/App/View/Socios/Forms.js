@@ -39,6 +39,9 @@
         else if (me.opcion == "FormCambioObligacion") {
             me.CargarFormCambioObligacion();
         }
+        else if (me.opcion == "FormCambioObligacionHoja") {
+            me.CargarFormCambioObligacionHoja();
+        }
         else if (me.opcion == "FormAntecedente") {
             me.CargarFormAntecedente();
         }
@@ -483,6 +486,36 @@
             me.txt_motivo
         ];
     },
+    CargarFormCambioObligacionHoja: function () {
+        var me = this;
+        me.txt_id = Ext.widget('hiddenfield', {
+            name: 'ID_SOC_MOV_OBLIG',
+        });
+        me.txt_id_oblig = Ext.widget('hiddenfield', {
+            name: 'ID_OBLIGACION',
+        });
+        me.txt_id_socio = Ext.widget('hiddenfield', {
+            name: 'ID_SOCIO_MOVIL',
+        });
+        me.txt_obligacion = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Obligacion",
+            name: "OBLIGACION",
+            //width: 480,
+            readOnly: true
+        });
+        me.num_importe = Ext.create("App.Config.Componente.NumberFieldBase", {
+            fieldLabel: "Nuevo Importe",
+            name: "IMPORTE",
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false
+        });
+
+        me.items = [
+            me.txt_id,me.txt_id_oblig,me.txt_id_socio,
+            me.txt_obligacion,
+            me.num_importe
+        ];
+    },
     CargarFormCrearMovil: function () {
         var me = this;
         me.txt_id_socio = Ext.create("App.Config.Componente.TextFieldBase", {
@@ -776,7 +809,7 @@
             me.txt_id_obligacion.setValue(rec[0].get('ID_OBLIGACION'));
             me.num_importe.setValue(rec[0].get('IMPORTE_DEFECTO'));
         });
-      
+
         me.items = [
            me.txt_id,
            me.txt_id_obligacion,

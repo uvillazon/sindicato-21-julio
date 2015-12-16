@@ -28,7 +28,7 @@ namespace Sindicato.Business
                 }
                 else
                 {
-                    obl.ID_OBLIGACION = ObtenerSecuencia();
+                    obl.ID_SOC_MOV_OBLIG = ObtenerSecuencia();
                     obl.LOGIN = login;
                     obl.FECHA_REG = DateTime.Now;
                     result = obl.ID_OBLIGACION.ToString();
@@ -59,7 +59,7 @@ namespace Sindicato.Business
                 else
                 {
                     obli.IMPORTE = obl.IMPORTE;
-                    result = obli.ID_OBLIGACION.ToString();
+                    result = obli.ID_SOC_MOV_OBLIG.ToString();
                     Save();
                 }
 

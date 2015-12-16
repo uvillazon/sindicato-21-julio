@@ -14,19 +14,19 @@
         me.btn_cambiar.on('click', function () {
             //abrir fomrulario
             var win = Ext.create("App.Config.Abstract.Window", { botones: true, title: 'Configuracion de Obligaciones' });
-            var form = Ext.create("App.View.Socios.Forms", { opcion: 'FormCambioObligacion', columns: 1 });
+            var form = Ext.create("App.View.Socios.Forms", { opcion: 'FormCambioObligacionHoja', columns: 1 });
             win.add(form);
-            //alert(me.record.get('OBLIGACION'));
             form.loadRecord(me.record);
             win.show();
             win.btn_guardar.on('click', function () {
-                Funciones.AjaxRequestWin("Socios", "GuardarObligacion", win, form, me.gridObligaciones, "Esta Seguro de Guardar Los Cambios", null, win);
+                Funciones.AjaxRequestWin("Socios", "GuardarSocMovHoja", win, form, me.gridObligaciones, "Esta Seguro de Guardar Los Cambios", null, win);
             });
         });
         me.btn_agregar.on('click', function () {
             var win = Ext.create("App.Config.Abstract.Window", { botones: true, title: 'Configuracion de Obligaciones' });
             var form = Ext.create("App.View.Socios.Forms", { opcion: 'FormAgregarDetalleHoja', columns: 1 });
             win.add(form);
+            form.txt_id.setValue(me.id_socio.getValue());
             //alert(me.record.get('OBLIGACION'));
             //form.loadRecord(me.record);
             win.show();
@@ -38,14 +38,14 @@
             var disabled = selections.length === 0;
             me.record = disabled ? null : selections[0];
             Funciones.DisabledButton("btn_CambiarObligacion", me, disabled);
-            if (!disabled) {
-                me.gridKardex.getStore().setExtraParams({ ID_OBLIGACION: me.record.get('ID_OBLIGACION') });
-                me.gridKardex.getStore().load();
-            } else {
-                me.gridKardex.getStore().setExtraParams({ ID_OBLIGACION: 0 });
-                me.gridKardex.getStore().load();
-
-            }
+        });
+        me.gridObligaciones.getStore().on('load', function (str, rec) {
+            var total = 0;
+            str.each(function (rec) {
+                console.dir(rec);
+                total = total + rec.get('IMPORTE');
+            });
+            me.txt_total.setValue(total);
         });
     },
 
@@ -71,6 +71,13 @@
             //colspan: 2,
             readOnly: true
         });
+        me.txt_total = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Costo de Hoja",
+            name: "COSTO_HOJA",
+            //width: 550,
+            colspan: 2,
+            readOnly: true
+        });
         me.txt_socio = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Socio",
             name: "NOMBRE_SOCIO",
@@ -86,6 +93,7 @@
            me.id_socio,
            me.txt_nro_movil, me.txt_tipo_movil,
            me.txt_socio,
+           me.txt_total,
            me.gridObligaciones,
            me.btn_cambiar, me.btn_agregar
         ];

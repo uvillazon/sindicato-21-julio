@@ -145,7 +145,7 @@
                 var win = Ext.create("App.Config.Abstract.Window", { botones: false, title: 'Configuracion de Obligaciones' });
                 var form = Ext.create("App.View.Socios.FormObligacionSocioHoja", { opcion: 'FormReporte' });
                 form.loadRecord(me.grid.record);
-                form.gridObligaciones.getStore().setExtraParams({ ID_SOCIO: me.grid.record.get('ID_SOCIO') });
+                form.gridObligaciones.getStore().setExtraParams({ ID_SOCIO_MOVIL: me.grid.record.get('ID_SOCIO_MOVIL') });
                 form.gridObligaciones.getStore().load();
                 win.add(form);
                 win.show();
