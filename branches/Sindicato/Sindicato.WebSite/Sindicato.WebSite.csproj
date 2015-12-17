@@ -47,6 +47,7 @@
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -88,6 +89,7 @@
     <Compile Include="Controllers\AutosController.cs" />
     <Compile Include="Controllers\CierresController.cs" />
     <Compile Include="Controllers\CierresParadaController.cs" />
+    <Compile Include="Controllers\ReportesPDFController.cs" />
     <Compile Include="Controllers\ObligacionesController.cs" />
     <Compile Include="Controllers\TransferenciasController.cs" />
     <Compile Include="Controllers\DescuentosController.cs" />
@@ -3765,6 +3767,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reportes\ReporteSocioMovil.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteSocioMovilHoja.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

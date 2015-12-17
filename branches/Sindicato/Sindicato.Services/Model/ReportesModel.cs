@@ -21,4 +21,15 @@ namespace Sindicato.WebSite.Models
        
 
     }
+
+    public class SocioMovilHojas
+    {
+        public int NRO_MOVIL { get; set; }
+        public string SOCIO { get; set; }
+        public string TIPO_LINEA { get; set; }
+        public decimal SEGURO { get; set; }
+        public decimal INSTITUCION { get; set; }
+        public decimal CANASTON { get; set; }
+        public decimal AHORRO { get; set; }
+    }
 }

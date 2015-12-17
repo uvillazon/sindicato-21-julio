@@ -8,8 +8,11 @@
  *
  **/
 Ext.define("App.Config.Funciones", {
-    alternateClassName: "Funciones",
+    alternateClassName: ["Funciones", "fn"],
     singleton: true,
+    winReporte: null,
+    nameReport: '',
+    paramsReport: '',
     Fecha: function (value, record) {
         try {
             if (value == null) {
@@ -788,5 +791,55 @@ Ext.define("App.Config.Funciones", {
             return edad + 1
 
         return edad;
-    }
+    },
+    ImprimirReport: function (nameReport, params) {
+        if (Funciones.winReporte == null) {
+            Funciones.winReporte = Ext.create("App.Config.Abstract.Window");
+            fn.store_view = Ext.create('Ext.data.Store', {
+                fields: ['src', 'caption', 'tipo'],
+                data: [
+                    { src: 'http://www.entel.bo/inicio3.0/images/iconos/pdf-icon.png', caption: 'PDF', tipo: 'pdf' }
+                    //{ src: Constantes.HOST + '/Content/images/PDF.png', caption: 'PDF', tipo: 'pdf' },
+                    //{ src: Constantes.HOST + '/Content/images/EXCEL.png', caption: 'Excel', tipo: 'excel' },
+                    //{ src: 'http://www.sencha.com/img/20110215-feat-html5.png', caption: 'Overhauled Theme' },
+
+                ]
+
+            });
+
+            Funciones.viewReport = Ext.create('Ext.view.View', {
+                store: fn.store_view,
+                /* width : 100,
+                 height: 100,*/
+                tpl: [
+                    '<tpl for=".">',
+                    '<div class="thumb-wrap">',
+                    '<img src="{src}" height="50" width="50" alt={caption}/>',
+                    '<br/><span>{caption}</span>',
+                    '</div>',
+                    '</tpl>'
+                ],
+                itemSelector: 'div.thumb-wrap',
+                emptyText: 'No images available',
+                //renderTo: Ext.getBody()
+            });
+            fn.viewReport.on('itemclick', fn.EnviarImprimirReport, fn);//(this, record, item, index, e, eOpts)
+            fn.winReporte.add(fn.viewReport);
+            //Funciones.winReporte.btn_guardar.on('click',fn.EnviarImprimirReport,fn)
+
+        }
+        fn.nameReport = nameReport;
+        fn.paramsReport = params;
+        fn.winReporte.show();
+        //Funciones.winReporte.show();
+        //    Funciones.winReporte.btn_guardar.on('click', function () {
+        //        alert(nameReport + "?" + params)
+        //        window.open(Constantes.HOST + '' + nameReport + '?' + params);
+        //    });
+
+
+    },
+    EnviarImprimirReport: function (view, record, item) {
+        window.open(Constantes.HOST + 'ReportesPDF/' + fn.nameReport + '?' + fn.paramsReport + '&tipo=' + record.get('tipo'));
+    },
 });

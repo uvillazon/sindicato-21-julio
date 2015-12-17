@@ -7603,3 +7603,49 @@ AS
           AND a.owner = 'SINDICATO'
           AND a.column_name = u.column_name;
 
+
+
+
+		  CREATE OR REPLACE PROCEDURE SINDICATO.P_ACT_OBLIG_SOC_MOV_HOJ(
+p_usr VARCHAR2,
+p_res OUT VARCHAR2
+)
+IS
+v_cnt NUMBER:=0;
+v_res VARCHAR2(100):='0';
+v_errC SD_AUX_LOG_ERRORES.cod_error%type;
+v_errD SD_AUX_LOG_ERRORES.desc_error%type;
+v_id_log SINDICATO.sd_aux_log_errores.id_log%type;
+v_id NUMBER;
+v_fecha DATE;
+BEGIN
+IF p_usr  IS NULL 
+THEN
+v_res := 'Faltan parametros.';
+END IF;
+IF v_res =  '0' THEN
+
+      FOR x IN (SELECT * FROM  SD_SOCIO_MOVILES    ) LOOP
+      
+            FOR y IN (SELECT * FROM SD_OBLIGACIONES_HOJA   ) LOOP
+              INSERT INTO  SD_SOC_MOV_OBLIG (ID_SOC_MOV_OBLIG, ID_OBLIGACION ,ID_SOCIO_MOVIL ,IMPORTE, FECHA_REG ,LOGIN ) VALUES
+              (Q_SD_SOC_MOV_OBLIG.nextval,y.ID_OBLIGACION , x.ID_SOCIO_MOVIL , y.IMPORTE_DEFECTO , sysdate , p_usr);
+            END LOOP;
+    --  P_SD_CREAR_OBLIGACIONES(x.ID_SOCIO,sysdate,'Creacion Sistema','ADMIN',v_res);
+      
+      END LOOP;
+
+    COMMIT;
+
+END IF; 
+
+p_res := v_res;
+EXCEPTION
+WHEN OTHERS THEN
+ROLLBACK;
+v_errC:=substr(sqlcode,1,20);
+v_errD:=substr(sqlerrm,1,200);
+p_grabar_error_bd(v_errC,v_errD,'P_ACT_OBLIGACIONES_SOCIO','P_ACT_OBLIGACIONES_SOCIO','-','-',v_id_log);
+p_res :='ERROR. Avise a TI. LOG generado #' || v_id_log;
+END;
+/

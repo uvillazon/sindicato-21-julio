@@ -12,10 +12,11 @@
         var me = this;
 
         me.toolbar = Funciones.CrearMenuBar();
+        Funciones.CrearMenu('btn_ReporteSocioMovilHoja', 'Reporte Socios Hoja', 'printer', me.EventosPrincipal, me.toolbar, this, null, false);
         //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
-        Funciones.CrearMenu('btn_ImprimirReporte', 'Imprimir Reporte', 'printer', me.EventosPrincipal, me.toolbar, this, null, true);
+        //Funciones.CrearMenu('btn_ImprimirReporte', 'Imprimir Reporte', 'printer', me.EventosPrincipal, me.toolbar, this, null, true);
         //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
-        Funciones.CrearMenu('btn_ConfigHoja', 'Configuracion Hoja', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_ConfigHoja', 'Config Hoja', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
         Funciones.CrearMenu('btn_Kardex', 'Kardex Socio', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
         //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
 
@@ -130,6 +131,9 @@
                 win.btn_guardar.on('click', function () {
                     window.open(Constantes.HOST + 'Reportes/ReporteSocioMovil?fecha=' + form.dat_fecha.getSubmitValue());
                 });
+                break;
+            case "btn_ReporteSocioMovilHoja":
+                Funciones.ImprimirReport("ReporteSocioMovilHoja", null);
                 break;
             case "btn_ConfigObligacion":
                 var win = Ext.create("App.Config.Abstract.Window", { botones: false, title: 'Configuracion de Obligaciones' });
