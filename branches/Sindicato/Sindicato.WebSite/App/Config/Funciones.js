@@ -794,13 +794,13 @@ Ext.define("App.Config.Funciones", {
     },
     ImprimirReport: function (nameReport, params) {
         if (Funciones.winReporte == null) {
-            Funciones.winReporte = Ext.create("App.Config.Abstract.Window");
+            Funciones.winReporte = Ext.create("App.Config.Abstract.Window", {width : 100});
             fn.store_view = Ext.create('Ext.data.Store', {
                 fields: ['src', 'caption', 'tipo'],
                 data: [
-                    { src: 'http://www.entel.bo/inicio3.0/images/iconos/pdf-icon.png', caption: 'PDF', tipo: 'pdf' }
-                    //{ src: Constantes.HOST + '/Content/images/PDF.png', caption: 'PDF', tipo: 'pdf' },
-                    //{ src: Constantes.HOST + '/Content/images/EXCEL.png', caption: 'Excel', tipo: 'excel' },
+                    { src: Constantes.HOST + 'Content/images/pdf-icon.png', caption: 'PDF', tipo: 'pdf' },
+                    { src: Constantes.HOST + 'Content/images/xls.png', caption: 'Excel', tipo: 'excel' },
+                    { src: Constantes.HOST + 'Content/images/Word.png', caption: 'Doc', tipo: 'doc' },
                     //{ src: 'http://www.sencha.com/img/20110215-feat-html5.png', caption: 'Overhauled Theme' },
 
                 ]

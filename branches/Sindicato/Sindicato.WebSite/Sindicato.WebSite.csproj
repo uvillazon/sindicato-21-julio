@@ -59,7 +59,7 @@
     </Reference>
     <Reference Include="Oracle.DataAccess, Version=4.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" />
     <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -1528,6 +1528,8 @@
     <Content Include="Content\Iconos\zoom_in.png" />
     <Content Include="Content\Iconos\zoom_out.png" />
     <Content Include="Content\Icons.css" />
+    <Content Include="Content\images\Word.png" />
+    <Content Include="Content\images\xls.png" />
     <Content Include="Content\images\add.gif" />
     <Content Include="Content\images\add.png" />
     <Content Include="Content\images\bg.jpg" />
@@ -1547,6 +1549,7 @@
     <Content Include="Content\images\login_hover.png" />
     <Content Include="Content\images\no-imagen.jpg" />
     <Content Include="Content\images\no_photo.jpg" />
+    <Content Include="Content\images\pdf-icon.png" />
     <Content Include="Content\images\pencil.png" />
     <Content Include="Content\images\poste.ico" />
     <Content Include="Content\images\poste.png" />

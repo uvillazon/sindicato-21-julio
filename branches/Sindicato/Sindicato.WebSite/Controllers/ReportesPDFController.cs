@@ -22,7 +22,7 @@ namespace Elfec.SisMan.Presentacion.Controllers
             localReport.ReportPath = Server.MapPath("~/Reportes/ReporteSocioMovilHoja.rdlc");
             ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ReporteSocioMovilHoja());
             localReport.DataSources.Add(reportDataSource);
-            string reportType = tipo == "excel" ? "EXCELOPENXML" : tipo == "pdf" ? "pdf" : "doc";
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
             string mimeType;
             string encoding;
             string fileNameExtension;
