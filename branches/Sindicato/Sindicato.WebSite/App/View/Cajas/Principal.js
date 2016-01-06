@@ -28,7 +28,7 @@
         me.grid = Ext.create('App.View.Cajas.GridCajas', {
             region: 'west',
             width: '100%',
-            opcion : 'GridCajas',
+            opcion: 'GridCajas',
             fbarmenu: me.toolbar,
             paramsStore: me.paramsStore,
             noLimpiar: me.noLimpiar,
@@ -55,7 +55,7 @@
     EventosCaja: function (btn) {
 
         var me = this;
-//        Funciones.checkTimeout();
+        //        Funciones.checkTimeout();
         switch (btn.getItemId()) {
             case "btn_CrearCaja":
                 me.MostrarForm(true);
@@ -76,23 +76,23 @@
     }, MostrarForm: function (isNew, block) {
         var me = this;
 
-        if (me.winCrearCaja == null) {
-            me.winCrearCaja = Ext.create("App.Config.Abstract.Window", { botones: true, textGuardar: 'Guardar' });
-            me.formCrearCaja = Ext.create("App.View.Cajas.FormCaja", {
-                title: 'Registro de Cajas ',
-                botones: false,
-                dockButtons: true
-            });
-            me.winCrearCaja.add(me.formCrearCaja);
-            me.winCrearCaja.btn_guardar.on('click', me.GuardarCajas, this);
-            me.formCrearCaja.down('#docked_modificar').on('click', me.Modificar, this);
-            me.formCrearCaja.down('#docked_eliminar').on('click', me.EliminarRegistro, this);
-            me.formCrearCaja.down('#docked_comprobante').setVisible(false);
+        //if (me.winCrearCaja == null) {
+        me.winCrearCaja = Ext.create("App.Config.Abstract.Window", { botones: true, textGuardar: 'Guardar' });
+        me.formCrearCaja = Ext.create("App.View.Cajas.FormCaja", {
+            title: 'Registro de Cajas ',
+            botones: false,
+            dockButtons: true
+        });
+        me.winCrearCaja.add(me.formCrearCaja);
+        me.winCrearCaja.btn_guardar.on('click', me.GuardarCajas, this);
+        me.formCrearCaja.down('#docked_modificar').on('click', me.Modificar, this);
+        me.formCrearCaja.down('#docked_eliminar').on('click', me.EliminarRegistro, this);
+        me.formCrearCaja.down('#docked_comprobante').setVisible(false);
 
-        } else {
-            me.formCrearCaja.getForm().reset();
-            me.formCrearCaja.CargarStore();
-        }
+        //} else {
+        //    me.formCrearCaja.getForm().reset();
+        //    me.formCrearCaja.CargarStore();
+        //}
 
         if (!isNew && me.recordSelected) {
             me.formCrearCaja.mostrarSaldos(false);
@@ -210,7 +210,7 @@
         var win = Ext.create("App.Config.Abstract.Window", { botones: false });
         me.toolbarTransferencia = Funciones.CrearMenuBar();
         Funciones.CrearMenu('btn_CrearTransf', 'Crear Transferencia', Constantes.ICONO_CREAR, me.EventosTransferencia, me.toolbarTransferencia, this);
-//        Funciones.CrearMenu('btn_Imprimir', 'Imprimir', 'printer', me.ImprimirReporteTransferencia, me.toolbarTransferencia, this, null, true);
+        //        Funciones.CrearMenu('btn_Imprimir', 'Imprimir', 'printer', me.ImprimirReporteTransferencia, me.toolbarTransferencia, this, null, true);
         Funciones.CrearMenu('btn_Detalle_transferencia', 'Detalle', 'report', me.EventosTransferencia, me.toolbarTransferencia, this, null, true);
         me.gridTransferencia = Ext.create("App.View.Cajas.Grids", { opcion: 'GridTransferencia', toolbar: me.toolbarTransferencia, width: 700, height: 400 });
         me.gridTransferencia.getSelectionModel().on('selectionchange', function (selModel, selections) {
@@ -218,7 +218,7 @@
             var disabled = selections.length === 0;
             me.recordTransferencia = disabled == true ? null : selections[0];
             Funciones.DisabledButton('btn_Detalle_transferencia', me.toolbarTransferencia, disabled);
-//            Funciones.DisabledButton('btn_Imprimir', me.toolbarTransferencia, disabled);
+            //            Funciones.DisabledButton('btn_Imprimir', me.toolbarTransferencia, disabled);
 
         });
         win.add(me.gridTransferencia);

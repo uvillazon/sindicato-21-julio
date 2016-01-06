@@ -465,6 +465,7 @@
     <Content Include="Content\Iconos48\Actions-view-pim-contacts-icon.png" />
     <Content Include="Content\Iconos48\application-settings-icon.png" />
     <Content Include="Content\Iconos48\Calendar-icon.png" />
+    <Content Include="Content\Iconos48\car-icon.png" />
     <Content Include="Content\Iconos48\Cash-register-icon.png" />
     <Content Include="Content\Iconos48\coin-add-icon.png" />
     <Content Include="Content\Iconos48\coin-delete-icon.png" />
