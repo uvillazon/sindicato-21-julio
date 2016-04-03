@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Sindicato.Model;
 
-namespace Sindicato.WebSite.Models
+namespace Sindicato.Services.Model
 {
     public class SocioMovilModel
     {

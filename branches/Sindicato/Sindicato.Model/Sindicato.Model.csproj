@@ -60,13 +60,13 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="DDL\01032014.txt" />
     <Content Include="DDL\01032014v1.txt" />
     <Content Include="DDL\07032014.txt" />
     <Content Include="DDL\07032014v1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SD_DETALLES_VENTA_HOJASManager.cs" />
     <Compile Include="SD_SOC_MOV_OBLIGManager.cs" />
     <Compile Include="SD_OBLIGACIONES_HOJAManager.cs" />
     <Compile Include="SD_CIERRES_PARADAManager.cs" />

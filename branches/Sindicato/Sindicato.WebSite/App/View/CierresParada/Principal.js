@@ -23,7 +23,8 @@
 
         });
         me.btn_crear = Funciones.CrearMenu('btn_crear', 'Generar Cierre Parada', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
-        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Anular Cierre', Constantes.ICONO_BAJA, me.EventosPrincipal,null, this, null, true);
+        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Anular Cierre', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
+        me.btn_traspaso = Funciones.CrearMenu('btn_traspaso', 'Trasferencia de Fondos', Constantes.ICONO_EDITAR, me.EventosPrincipal, null, this, null, true);
         me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar]);
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
 
@@ -65,6 +66,9 @@
             case "btn_crear":
                 me.FormCrearCierre();
                 break;
+            case "btn_traspaso":
+                me.FormTrasferir;
+                break;
             //case "btn_eliminar":
             //    Funciones.AjaxRequestGrid("Socios", "EliminarRetiroSocio", me.grid, "Esta seguro de Eliminar el Retiro?", { ID_RETIRO: me.record.get('ID_RETIRO') }, me.grid, null);
             //    break;
@@ -75,6 +79,9 @@
                 Ext.Msg.alert("Aviso", "No Existe el botton");
                 break;
         }
+    },
+    FormTrasferir : function(){
+
     },
     FormCrearCierre: function () {
         var me = this;

@@ -18,6 +18,7 @@
           <EntitySet Name="SD_DETALLE_CIERRE_PARADA" EntityType="Model.Store.SD_DETALLE_CIERRE_PARADA" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_DETALLE_HOJAS" EntityType="Model.Store.SD_DETALLE_HOJAS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_DETALLE_PERIODO_SOCIO" EntityType="Model.Store.SD_DETALLE_PERIODO_SOCIO" store:Type="Tables" Schema="SINDICATO" />
+          <EntitySet Name="SD_DETALLES_VENTA_HOJAS" EntityType="Model.Store.SD_DETALLES_VENTA_HOJAS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_DOCUMENTACIONES" EntityType="Model.Store.SD_DOCUMENTACIONES" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_EGRESOS" EntityType="Model.Store.SD_EGRESOS" store:Type="Tables" Schema="SINDICATO" />
           <EntitySet Name="SD_FAMILIARES" EntityType="Model.Store.SD_FAMILIARES" store:Type="Tables" Schema="SINDICATO" />
@@ -116,6 +117,14 @@
           <AssociationSet Name="SD_DETALLE_PERIODO_SOCIO_R02" Association="Model.Store.SD_DETALLE_PERIODO_SOCIO_R02">
             <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
             <End Role="SD_DETALLE_PERIODO_SOCIO" EntitySet="SD_DETALLE_PERIODO_SOCIO" />
+          </AssociationSet>
+          <AssociationSet Name="SD_DETALLES_VENTA_HOJAS_R01" Association="Model.Store.SD_DETALLES_VENTA_HOJAS_R01">
+            <End Role="SD_DETALLE_HOJAS" EntitySet="SD_DETALLE_HOJAS" />
+            <End Role="SD_DETALLES_VENTA_HOJAS" EntitySet="SD_DETALLES_VENTA_HOJAS" />
+          </AssociationSet>
+          <AssociationSet Name="SD_DETALLES_VENTA_HOJAS_R02" Association="Model.Store.SD_DETALLES_VENTA_HOJAS_R02">
+            <End Role="SD_SOC_MOV_OBLIG" EntitySet="SD_SOC_MOV_OBLIG" />
+            <End Role="SD_DETALLES_VENTA_HOJAS" EntitySet="SD_DETALLES_VENTA_HOJAS" />
           </AssociationSet>
           <AssociationSet Name="SD_DOCUMENTACIONES_R02" Association="Model.Store.SD_DOCUMENTACIONES_R02">
             <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
@@ -455,6 +464,15 @@
           <Property Name="DESCUENTOS" Type="number" Precision="15" Scale="5" />
           <Property Name="AHORRO" Type="number" Precision="15" Scale="5" />
           <Property Name="DEUDA" Type="number" Precision="15" Scale="5" />
+        </EntityType>
+        <EntityType Name="SD_DETALLES_VENTA_HOJAS">
+          <Key>
+            <PropertyRef Name="ID_DETALLE" />
+          </Key>
+          <Property Name="ID_DETALLE" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_DETALLE_VENTA" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_SOC_MOV_OBLIG" Type="number" Nullable="false" Precision="7" />
+          <Property Name="IMPORTE" Type="number" Nullable="false" Precision="15" Scale="5" />
         </EntityType>
         <EntityType Name="SD_DOCUMENTACIONES">
           <Key>
@@ -953,8 +971,8 @@
           <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
           <Property Name="FECHA_REG" Type="date" />
         </EntityType>
-        <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'SINDICATO.V_TABLAS_COLUMNAS' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'SINDICATO.V_TABLAS_COLUMNAS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="V_TABLAS_COLUMNAS">
           <Key>
@@ -1125,6 +1143,30 @@
             </Principal>
             <Dependent Role="SD_DETALLE_PERIODO_SOCIO">
               <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_DETALLES_VENTA_HOJAS_R01">
+          <End Role="SD_DETALLE_HOJAS" Type="Model.Store.SD_DETALLE_HOJAS" Multiplicity="1" />
+          <End Role="SD_DETALLES_VENTA_HOJAS" Type="Model.Store.SD_DETALLES_VENTA_HOJAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_DETALLE_HOJAS">
+              <PropertyRef Name="ID_DETALLE" />
+            </Principal>
+            <Dependent Role="SD_DETALLES_VENTA_HOJAS">
+              <PropertyRef Name="ID_DETALLE_VENTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_DETALLES_VENTA_HOJAS_R02">
+          <End Role="SD_SOC_MOV_OBLIG" Type="Model.Store.SD_SOC_MOV_OBLIG" Multiplicity="1" />
+          <End Role="SD_DETALLES_VENTA_HOJAS" Type="Model.Store.SD_DETALLES_VENTA_HOJAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOC_MOV_OBLIG">
+              <PropertyRef Name="ID_SOC_MOV_OBLIG" />
+            </Principal>
+            <Dependent Role="SD_DETALLES_VENTA_HOJAS">
+              <PropertyRef Name="ID_SOC_MOV_OBLIG" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2239,6 +2281,15 @@
           <AssociationSet Name="SD_SOC_MOV_OBLIG_R02" Association="Model.SD_SOC_MOV_OBLIG_R02">
             <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
             <End Role="SD_SOC_MOV_OBLIG" EntitySet="SD_SOC_MOV_OBLIG" />
+          </AssociationSet>
+          <EntitySet Name="SD_DETALLES_VENTA_HOJAS" EntityType="Model.SD_DETALLES_VENTA_HOJAS" />
+          <AssociationSet Name="SD_DETALLES_VENTA_HOJAS_R01" Association="Model.SD_DETALLES_VENTA_HOJAS_R01">
+            <End Role="SD_DETALLE_HOJAS" EntitySet="SD_DETALLE_HOJAS" />
+            <End Role="SD_DETALLES_VENTA_HOJAS" EntitySet="SD_DETALLES_VENTA_HOJAS" />
+          </AssociationSet>
+          <AssociationSet Name="SD_DETALLES_VENTA_HOJAS_R02" Association="Model.SD_DETALLES_VENTA_HOJAS_R02">
+            <End Role="SD_SOC_MOV_OBLIG" EntitySet="SD_SOC_MOV_OBLIG" />
+            <End Role="SD_DETALLES_VENTA_HOJAS" EntitySet="SD_DETALLES_VENTA_HOJAS" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="SD_LISTAS">
@@ -3440,6 +3491,7 @@
           <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <NavigationProperty Name="SD_VENTA_HOJAS" Relationship="Model.SD_DETALLE_HOJAS_R01" FromRole="SD_DETALLE_HOJAS" ToRole="SD_VENTA_HOJAS" />
+          <NavigationProperty Name="SD_DETALLES_VENTA_HOJAS" Relationship="Model.SD_DETALLES_VENTA_HOJAS_R01" FromRole="SD_DETALLE_HOJAS" ToRole="SD_DETALLES_VENTA_HOJAS" />
         </EntityType>
         <EntityType Name="SD_VENTA_HOJAS">
           <Key>
@@ -3615,6 +3667,7 @@
           <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SD_OBLIGACIONES_HOJA" Relationship="Model.SD_SOC_MOV_OBLIG_R01" FromRole="SD_SOC_MOV_OBLIG" ToRole="SD_OBLIGACIONES_HOJA" />
           <NavigationProperty Name="SD_SOCIO_MOVILES" Relationship="Model.SD_SOC_MOV_OBLIG_R02" FromRole="SD_SOC_MOV_OBLIG" ToRole="SD_SOCIO_MOVILES" />
+          <NavigationProperty Name="SD_DETALLES_VENTA_HOJAS" Relationship="Model.SD_DETALLES_VENTA_HOJAS_R02" FromRole="SD_SOC_MOV_OBLIG" ToRole="SD_DETALLES_VENTA_HOJAS" />
         </EntityType>
         <Association Name="SD_OBLIGACIONES_HOJA_R02">
           <End Type="Model.SD_CAJAS" Role="SD_CAJAS" Multiplicity="1" />
@@ -3661,6 +3714,41 @@
             </Principal>
             <Dependent Role="SD_SOC_MOV_OBLIG">
               <PropertyRef Name="ID_SOCIO_MOVIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SD_DETALLES_VENTA_HOJAS">
+          <Key>
+            <PropertyRef Name="ID_DETALLE" />
+          </Key>
+          <Property Type="Int32" Name="ID_DETALLE" Nullable="false" />
+          <Property Type="Int32" Name="ID_DETALLE_VENTA" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOC_MOV_OBLIG" Nullable="false" />
+          <Property Type="Decimal" Name="IMPORTE" Nullable="false" Precision="15" Scale="5" />
+          <NavigationProperty Name="SD_DETALLE_HOJAS" Relationship="Model.SD_DETALLES_VENTA_HOJAS_R01" FromRole="SD_DETALLES_VENTA_HOJAS" ToRole="SD_DETALLE_HOJAS" />
+          <NavigationProperty Name="SD_SOC_MOV_OBLIG" Relationship="Model.SD_DETALLES_VENTA_HOJAS_R02" FromRole="SD_DETALLES_VENTA_HOJAS" ToRole="SD_SOC_MOV_OBLIG" />
+        </EntityType>
+        <Association Name="SD_DETALLES_VENTA_HOJAS_R01">
+          <End Type="Model.SD_DETALLE_HOJAS" Role="SD_DETALLE_HOJAS" Multiplicity="1" />
+          <End Type="Model.SD_DETALLES_VENTA_HOJAS" Role="SD_DETALLES_VENTA_HOJAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_DETALLE_HOJAS">
+              <PropertyRef Name="ID_DETALLE" />
+            </Principal>
+            <Dependent Role="SD_DETALLES_VENTA_HOJAS">
+              <PropertyRef Name="ID_DETALLE_VENTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_DETALLES_VENTA_HOJAS_R02">
+          <End Type="Model.SD_SOC_MOV_OBLIG" Role="SD_SOC_MOV_OBLIG" Multiplicity="1" />
+          <End Type="Model.SD_DETALLES_VENTA_HOJAS" Role="SD_DETALLES_VENTA_HOJAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOC_MOV_OBLIG">
+              <PropertyRef Name="ID_SOC_MOV_OBLIG" />
+            </Principal>
+            <Dependent Role="SD_DETALLES_VENTA_HOJAS">
+              <PropertyRef Name="ID_SOC_MOV_OBLIG" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4407,6 +4495,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SD_DETALLES_VENTA_HOJAS">
+            <EntityTypeMapping TypeName="Model.SD_DETALLES_VENTA_HOJAS">
+              <MappingFragment StoreEntitySet="SD_DETALLES_VENTA_HOJAS">
+                <ScalarProperty Name="IMPORTE" ColumnName="IMPORTE" />
+                <ScalarProperty Name="ID_SOC_MOV_OBLIG" ColumnName="ID_SOC_MOV_OBLIG" />
+                <ScalarProperty Name="ID_DETALLE_VENTA" ColumnName="ID_DETALLE_VENTA" />
+                <ScalarProperty Name="ID_DETALLE" ColumnName="ID_DETALLE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -4563,6 +4661,9 @@
         <AssociationConnector Association="Model.SD_OBLIGACIONES_HOJA_R01" />
         <AssociationConnector Association="Model.SD_SOC_MOV_OBLIG_R01" />
         <AssociationConnector Association="Model.SD_SOC_MOV_OBLIG_R02" />
+        <EntityTypeShape EntityType="Model.SD_DETALLES_VENTA_HOJAS" Width="1.5" PointX="4.9116694093270556" PointY="8.89024378773302" />
+        <AssociationConnector Association="Model.SD_DETALLES_VENTA_HOJAS_R01" />
+        <AssociationConnector Association="Model.SD_DETALLES_VENTA_HOJAS_R02" />
         </Diagram>
     </Diagrams>
   </Designer>

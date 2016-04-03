@@ -118,6 +118,8 @@ namespace Sindicato.Services
             {
                 var manager = new SD_VENTA_HOJASManager(uow);
                 var managerDetalle = new SD_DETALLE_HOJASManager(uow);
+                var managerDetalleHoja = new SD_DETALLES_VENTA_HOJASManager(uow);
+
                 var resp = manager.GuardarVenta(venta, login);
                 int id_venta;
                 bool esNumero = int.TryParse(resp, out id_venta);
@@ -135,6 +137,7 @@ namespace Sindicato.Services
 
                         };
                         managerDetalle.GuardarDetalleVenta(det, login);
+                        managerDetalleHoja.GuardarDetalle(det,venta.ID_SOCIO_MOVIL,login);
                     }
 
                     result.msg = "Proceso Ejecutado Correctamente.";

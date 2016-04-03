@@ -5,7 +5,7 @@ using System.Web;
 using Sindicato.Model;
 using Sindicato.Services;
 using Sindicato.Services.Interfaces;
-using Sindicato.WebSite.Models;
+using Sindicato.Services.Model;
 namespace Sindicato.WebSite.Reportes
 {
     public class ReporteSource
