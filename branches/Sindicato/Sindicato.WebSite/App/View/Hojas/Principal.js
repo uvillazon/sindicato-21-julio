@@ -67,14 +67,14 @@
         me.record = disabled ? null : selections[0];
         if (!disabled) {
             me.form.getForm().loadRecord(selections[0])
-            me.gridDetalles.getStore().setExtraParams({ ID_VENTA: selections[0].get('ID_VENTA') });
+            me.gridDetalles.getStore().setExtraParams({ ID_HOJA: selections[0].get('NUMERO') });
             me.gridDetalles.getStore().load();
             //me.form.CargarDatos(selections[0]);
 
         }
         else {
             me.form.getForm().reset();
-            me.gridDetalles.getStore().setExtraParams({ ID_VENTA: 0 });
+            me.gridDetalles.getStore().setExtraParams({ ID_HOJA: 0 });
             me.gridDetalles.getStore().load();
 
         }
@@ -108,7 +108,10 @@
         win.show();
         win.btn_guardar.on('click', function () {
             if (form.isValid()) {
-                Funciones.AjaxRequestWin("VentaHojas", "GuardarVenta", win, form, me.grid, "Esta Seguro de Guardar", { detalles: form.GridDetalleJson() }, win);
+                Funciones.AjaxRequestWinSc("VentaHojas", "GuardarVenta", win, form, me.grid, "Esta Seguro de Guardar", null, win, function (result) {
+                    //console.dir(result);
+                    form.ImprimirHojas(result.id);
+                });
             }
             else {
                 Ext.Msg.alert("Error", "Falta Compeltar Formulario. Al menos una hoja debe de venderse");

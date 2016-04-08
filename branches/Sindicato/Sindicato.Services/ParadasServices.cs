@@ -89,42 +89,42 @@ namespace Sindicato.Services
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
-                var manager = new SD_CIERRES_PARADAManager(uow);
-                var managerDetalle = new SD_DETALLE_CIERRE_PARADAManager(uow);
-                var managerVenta = new SD_VENTA_HOJASManager(uow);
-                var resp = manager.GuardarCierreParada(cierre, login);
-                int id_venta;
-                bool esNumero = int.TryParse(resp, out id_venta);
-                if (esNumero)
-                {
-                    dynamic detalle_ventas = JsonConvert.DeserializeObject(detalles);
-                    foreach (var item in detalle_ventas)
-                    {
-                        SD_DETALLE_CIERRE_PARADA det = new SD_DETALLE_CIERRE_PARADA()
-                        {
-                            ID_CIERRE = id_venta,
-                            DETALLE = item.DETALLE,
-                            INGRESO = item.INGRESO,
-                            EGRESO = item.EGRESO
+                //var manager = new SD_CIERRES_PARADAManager(uow);
+                //var managerDetalle = new SD_DETALLE_CIERRE_PARADAManager(uow);
+                //var managerVenta = new SD_VENTA_HOJASManager(uow);
+                //var resp = manager.GuardarCierreParada(cierre, login);
+                //int id_venta;
+                //bool esNumero = int.TryParse(resp, out id_venta);
+                //if (esNumero)
+                //{
+                //    dynamic detalle_ventas = JsonConvert.DeserializeObject(detalles);
+                //    foreach (var item in detalle_ventas)
+                //    {
+                //        SD_DETALLE_CIERRE_PARADA det = new SD_DETALLE_CIERRE_PARADA()
+                //        {
+                //            ID_CIERRE = id_venta,
+                //            DETALLE = item.DETALLE,
+                //            INGRESO = item.INGRESO,
+                //            EGRESO = item.EGRESO
 
-                        };
-                        managerDetalle.GuardarDetalleCierreParada(det, login);
-                    }
-                    //vamos a poner en APROBADO todas las ventas de hoja
-                    var ventas = managerVenta.BuscarTodos(x => x.FECHA_VENTA >= cierre.FECHA_INI && x.FECHA_VENTA <= cierre.FECHA_FIN && x.ID_PARADA == cierre.ID_PARADA && x.ESTADO == "NUEVO");
-                    foreach (var item in ventas)
-                    {
-                        item.ESTADO = "APROBADO";
-                    }
+                //        };
+                //        managerDetalle.GuardarDetalleCierreParada(det, login);
+                //    }
+                //    //vamos a poner en APROBADO todas las ventas de hoja
+                //    var ventas = managerVenta.BuscarTodos(x => x.FECHA_VENTA >= cierre.FECHA_INI && x.FECHA_VENTA <= cierre.FECHA_FIN && x.ID_PARADA == cierre.ID_PARADA && x.ESTADO == "NUEVO");
+                //    foreach (var item in ventas)
+                //    {
+                //        item.ESTADO = "APROBADO";
+                //    }
 
-                    result.msg = "Proceso Ejecutado Correctamente.";
-                    result.success = true;
-                }
-                else
-                {
-                    result.msg = resp.ToString();
-                    result.success = false;
-                }
+                //    result.msg = "Proceso Ejecutado Correctamente.";
+                //    result.success = true;
+                //}
+                //else
+                //{
+                //    result.msg = resp.ToString();
+                //    result.success = false;
+                //}
 
             });
             return result;
@@ -144,49 +144,49 @@ namespace Sindicato.Services
         public List<DetalleCierreParadaModel> ObtenerDetalleCierreParada(int ID_PARADA, DateTime FECHA_DESDE, DateTime FECHA_HASTA)
         {
             List<DetalleCierreParadaModel> result = new List<DetalleCierreParadaModel>();
-            ExecuteManager(uow =>
-            {
-                var managerParada = new SD_PARADASManager(uow);
-                var managerVentas = new SD_VENTA_HOJASManager(uow);
-                var parada = managerParada.BuscarTodos(x => x.ID_PARADA == ID_PARADA).FirstOrDefault();
-                var ventas = parada.SD_VENTA_HOJAS.Where(x => x.FECHA_VENTA >= FECHA_DESDE && x.FECHA_VENTA <= FECHA_HASTA && x.ESTADO == "NUEVO");
-                var ingresos = parada.SD_CAJAS.SD_INGRESOS.Where(x => x.FECHA >= FECHA_DESDE && x.FECHA <= FECHA_HASTA);
-                var egresos = parada.SD_CAJAS.SD_EGRESOS.Where(x => x.FECHA >= FECHA_DESDE && x.FECHA <= FECHA_HASTA);
+            //ExecuteManager(uow =>
+            //{
+            //    var managerParada = new SD_PARADASManager(uow);
+            //    var managerVentas = new SD_VENTA_HOJASManager(uow);
+            //    var parada = managerParada.BuscarTodos(x => x.ID_PARADA == ID_PARADA).FirstOrDefault();
+            //    var ventas = parada.SD_VENTA_HOJAS.Where(x => x.FECHA_VENTA >= FECHA_DESDE && x.FECHA_VENTA <= FECHA_HASTA && x.ESTADO == "NUEVO");
+            //    var ingresos = parada.SD_CAJAS.SD_INGRESOS.Where(x => x.FECHA >= FECHA_DESDE && x.FECHA <= FECHA_HASTA);
+            //    var egresos = parada.SD_CAJAS.SD_EGRESOS.Where(x => x.FECHA >= FECHA_DESDE && x.FECHA <= FECHA_HASTA);
 
-                //var ingresos para
-                if (ventas.Count() > 0) {
-                    DetalleCierreParadaModel det = new DetalleCierreParadaModel()
-                    {
-                        CIERRE =String.Format("{0:dd/MM/yyyy} - {1:dd/MM/yyy}",FECHA_DESDE,FECHA_HASTA),
-                        DETALLE = "VENTA  DE HOJAS",
-                        EGRESO = 0,
-                        INGRESO = (decimal)ventas.Sum(x=>x.TOTAL)
-                    };
-                    result.Add(det);
-                }
-                if (ingresos.Count() > 0) {
-                    DetalleCierreParadaModel det = new DetalleCierreParadaModel()
-                    {
-                        CIERRE = String.Format("{0:dd/MM/yyyy} - {1:dd/MM/yyy}", FECHA_DESDE, FECHA_HASTA),
-                        DETALLE = "Otros Ingresos",
-                        EGRESO = 0,
-                        INGRESO = (decimal)ingresos.Sum(x => x.IMPORTE)
-                    };
-                    result.Add(det);
-                }
-                if (egresos.Count() > 0)
-                {
-                    DetalleCierreParadaModel det = new DetalleCierreParadaModel()
-                    {
-                        CIERRE = String.Format("{0:dd/MM/yyyy} - {1:dd/MM/yyy}", FECHA_DESDE, FECHA_HASTA),
-                        DETALLE = "Otros Egresos",
-                        EGRESO = (decimal)egresos.Sum(x => x.IMPORTE),
-                        INGRESO = 0
-                    };
-                    result.Add(det);
-                }
+            //    //var ingresos para
+            //    if (ventas.Count() > 0) {
+            //        DetalleCierreParadaModel det = new DetalleCierreParadaModel()
+            //        {
+            //            CIERRE =String.Format("{0:dd/MM/yyyy} - {1:dd/MM/yyy}",FECHA_DESDE,FECHA_HASTA),
+            //            DETALLE = "VENTA  DE HOJAS",
+            //            EGRESO = 0,
+            //            INGRESO = (decimal)ventas.Sum(x=>x.TOTAL)
+            //        };
+            //        result.Add(det);
+            //    }
+            //    if (ingresos.Count() > 0) {
+            //        DetalleCierreParadaModel det = new DetalleCierreParadaModel()
+            //        {
+            //            CIERRE = String.Format("{0:dd/MM/yyyy} - {1:dd/MM/yyy}", FECHA_DESDE, FECHA_HASTA),
+            //            DETALLE = "Otros Ingresos",
+            //            EGRESO = 0,
+            //            INGRESO = (decimal)ingresos.Sum(x => x.IMPORTE)
+            //        };
+            //        result.Add(det);
+            //    }
+            //    if (egresos.Count() > 0)
+            //    {
+            //        DetalleCierreParadaModel det = new DetalleCierreParadaModel()
+            //        {
+            //            CIERRE = String.Format("{0:dd/MM/yyyy} - {1:dd/MM/yyy}", FECHA_DESDE, FECHA_HASTA),
+            //            DETALLE = "Otros Egresos",
+            //            EGRESO = (decimal)egresos.Sum(x => x.IMPORTE),
+            //            INGRESO = 0
+            //        };
+            //        result.Add(det);
+            //    }
 
-            });
+            //});
             return result;
         }
     }

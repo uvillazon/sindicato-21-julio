@@ -1,12 +1,8 @@
 ﻿Ext.define('App.Model.Ventas.DetallesVenta', {
     extend: 'Ext.data.Model',
     fields: [
-            { type: "date", name: "FECHA_USO", dateFormat: "d/m/Y", convert: Funciones.Fecha },
-            { type: "int", name: "ID_DETALLE" },
-            { type: "int", name: "ID_VENTA" },
             { type: "float", name: "MONTO" },
-            { type: "string", name: "OBSERVACION" },
-            { type: "string", name: "FECHA_TEXT" }
+            { type: "string", name: "OBLIGACION" }
         ]
 });
 

@@ -11,11 +11,13 @@ namespace Sindicato.Services.Interfaces
 {
     public interface IVentaHojasServices
     {
-        IEnumerable<SD_VENTA_HOJAS> ObtenerVentasPaginados(PagingInfo paginacion, FiltrosModel<HojasModel> filtros);
-        IEnumerable<SD_DETALLE_HOJAS> ObtenerDetallesPaginado(PagingInfo paginacion, FiltrosModel<HojasModel> filtros);
-        IEnumerable<HojasModel> ObtenerFechasDisponibles(DateTime FECHA_VENTA, int ID_SOCIO_MOVIL);
-        RespuestaSP GuardarVentaHoja(SD_VENTA_HOJAS venta, string detalles, string login);
-        RespuestaSP AnularVentaHoja(int ID_VENTA, string login);
+        IEnumerable<SD_HOJAS_CONTROL> ObtenerVentasPaginados(PagingInfo paginacion, FiltrosModel<HojasModel> filtros);
+        IEnumerable<SD_DETALLES_HOJAS_CONTROL> ObtenerDetallesPaginado(PagingInfo paginacion, FiltrosModel<HojasModel> filtros);
+        RespuestaSP GuardarVentaHoja(SD_HOJAS_CONTROL venta, int CANTIDAD , string login);
+        RespuestaSP AnularVentaHoja(int ID_HOJA, string login);
+
+        SD_HOJAS_CONTROL ObtenerHoja(Expression<Func<SD_HOJAS_CONTROL, bool>> criterio);
+        IEnumerable<SD_HOJAS_CONTROL> ObtenerHojasPorVentas(int ID_VENTA);
 
 
         //SD_USUARIOS

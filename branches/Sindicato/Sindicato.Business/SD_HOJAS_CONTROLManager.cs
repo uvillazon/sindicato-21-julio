@@ -11,11 +11,11 @@ using System.Data.Objects;
 
 namespace Sindicato.Business
 {
-    public class SD_VENTA_HOJASManager : Repository<SD_VENTA_HOJAS>
+    public class SD_HOJAS_CONTROLManager : Repository<SD_HOJAS_CONTROL>
     {
 
 
-        public SD_VENTA_HOJASManager(IUnitOfWork uow) : base(uow) { }
+        public SD_HOJAS_CONTROLManager(IUnitOfWork uow) : base(uow) { }
 
         //test
         

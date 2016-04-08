@@ -2,5 +2,5 @@
     extend: 'App.Config.Abstract.Store',
     model: 'App.Model.Ventas.Ventas',
     url: 'VentaHojas/ObtenerVentasPaginadas',
-    sortProperty: 'FECHA_VENTA',
+    sortProperty: 'ID_HOJA',
 });

@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SD_DETALLES_VENTA_HOJASManager.cs" />
+    <Compile Include="SD_VENTA_HOJASManager.cs" />
+    <Compile Include="SD_DETALLES_HOJAS_CONTROLManager.cs" />
+    <Compile Include="SD_HOJAS_CONTROLManager.cs" />
     <Compile Include="SD_SOC_MOV_OBLIGManager.cs" />
     <Compile Include="SD_OBLIGACIONES_HOJAManager.cs" />
     <Compile Include="SD_CIERRES_PARADAManager.cs" />
@@ -62,8 +64,6 @@
     <Compile Include="SD_SOCIO_MOVIL_AUTOSManager.cs" />
     <Compile Include="SD_MOVILESManager.cs" />
     <Compile Include="SD_PARADASManager.cs" />
-    <Compile Include="SD_VENTA_HOJASManager.cs" />
-    <Compile Include="SD_DETALLE_HOJASManager.cs" />
     <Compile Include="SD_KARDEX_OBLIGACIONManager.cs" />
     <Compile Include="SD_OBLIGACIONES_SOCIOManager.cs" />
     <Compile Include="SD_KARDEX_FMManager.cs" />

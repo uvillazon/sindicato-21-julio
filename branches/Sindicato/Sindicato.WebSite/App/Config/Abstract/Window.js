@@ -1,8 +1,6 @@
 Ext.define("App.Config.Abstract.Window", {
     extend: "Ext.Window",
-    layout: 'auto',
-    //width: 550,
-    //height: 390,
+    layout: 'fit',
     maxWidth: Constantes.MAXANCHO,
     maxHeight: Constantes.MAXALTO - 20,
     //minWidth: 300,

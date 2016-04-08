@@ -82,9 +82,9 @@ Ext.define("App.Config.Constantes", {
         }
     },
     CargarTamano: function () {
-        this.ALTO = document.documentElement.clientHeight - 100;
-        this.MAXALTO = document.documentElement.clientHeight - 40;
-        this.MAXANCHO = document.documentElement.clientWidth - 50;
+        this.ALTO = document.documentElement.clientHeight - 110;
+        this.MAXALTO = document.documentElement.clientHeight - 30;
+        this.MAXANCHO = document.documentElement.clientWidth - 30;
         this.BTNANCHO = (document.documentElement.clientWidth - 100) / 6;
         this.BTNALTO = (document.documentElement.clientHeight - 100) / 6;
     },

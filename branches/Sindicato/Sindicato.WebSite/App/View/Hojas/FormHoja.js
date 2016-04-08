@@ -4,7 +4,6 @@
     title: 'Datos de Venta de Hojas de Control',
     initComponent: function () {
         var me = this;
-        me.CargarStoreDiasDisponibles();
         me.CargarComponentes();
         me.cargarEventos();
         this.callParent(arguments);
@@ -30,118 +29,27 @@
                 me.num_precio.setValue(rec[0].get('PRECIO_HOJA'));
             }
             
-            var fecha = me.date_fecha.getValue();
-            me.gridHojas.getStore().removeAll();
-            me.CalcularTotales();
-            me.cbx_diasDisponibles.getStore().load({ params: { FECHA_VENTA: fecha, ID_SOCIO_MOVIL: rec[0].get('ID_SOCIO_MOVIL'), NRO_MOVIL: rec[0].get('NRO_MOVIL') } });
-        });
-        me.date_fecha.on('select', function (dat, val) {
-            console.dir(val);
-            alert("2ntro");
+            //var fecha = me.date_fecha.getValue();
+            //me.gridHojas.getStore().removeAll();
+            //me.CalcularTotales();
+            //me.cbx_diasDisponibles.getStore().load({ params: { FECHA_VENTA: fecha, ID_SOCIO_MOVIL: rec[0].get('ID_SOCIO_MOVIL'), NRO_MOVIL: rec[0].get('NRO_MOVIL') } });
         });
 
-        me.cbx_diasDisponibles.on('select', function (cbx, rec) {
-            if (!me.gridHojas.getStore().existeRecord('FECHA_TEXT', rec[0].get('FECHA_TEXT'))) {
-                var precio = me.num_precio.getValue();
-                var reco = Ext.create('App.Model.Ventas.DetallesVenta', {
-                    FECHA_USO: rec[0].get('FECHA'),
-                    MONTO: precio,
-                    OBSERVACION: 'VENTA DE HOJA',
-                    FECHA_TEXT: rec[0].get('FECHA_TEXT')
-
-                });
-                me.gridHojas.getStore().add(reco);
-                me.CalcularTotales();
-
-            }
-            else {
-                Ext.Msg.alert("Error", "Ya existe el registro. Elija otra fecha.", function () {
-
-                    cbx.reset();
-                });
-            }
-
-        });
+       
 
     },
-    CalcularTotales: function () {
-        var me = this;
-
-        var total = 0;
-        var cantidad = 0;
-        me.gridHojas.getStore().each(function (record) {
-            total = total + record.get('MONTO');
-            cantidad++;
-        });
-        me.num_total.setValue(total);
-        me.num_totalcondescuento.setValue(total);
-        me.num_cantidad.setValue(cantidad);
-
-    },
+   
     isValid: function () {
         var me = this;
         if (me.getForm().isValid()) {
-            if (me.gridHojas.getStore().count() > 0) {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return true;
         }
         else {
             return false;
         }
     },
-    GridDetalleJson: function () {
-        var me = this;
-        var modified = me.gridHojas.getStore().getModifiedRecords() //step 1
-        var recordsToSend = [];
-        if (!Ext.isEmpty(modified)) {
-            Ext.each(modified, function (record) { //step 2
-                //console.dir(record);
-                recordsToSend.push(Ext.apply(record.data));
-            });
-            console.dir(recordsToSend);
-            recordsToSend = Ext.JSON.encode(recordsToSend);
-            return recordsToSend;
-        }
-        else {
-            return false;
-        }
-
-    },
-    CargarStoreDiasDisponibles: function () {
-        var me = this;
-        Ext.define('fechasDisponibles', {
-            extend: 'Ext.data.Model',
-            fields: [
-                { type: "date", name: "FECHA", dateFormat: "d/m/Y", convert: Funciones.Fecha },
-                { type: "string", name: "FECHA_TEXT" }
-            ]
-        });
-
-        var store_diasDisponibles = Ext.create('Ext.data.Store', {
-            model: 'fechasDisponibles',
-            proxy: {
-                type: 'ajax',
-                url: Constantes.HOST + "VentaHojas/ObtenerFechaDisponibles",
-                reader: {
-                    type: "json",
-                    root: "Rows",
-                    successProperty: "success",
-                    totalProperty: "Total"
-                },
-                simpleSortMode: true
-            },
-            autoLoad: false
-        });
-        me.cbx_diasDisponibles = Ext.create("App.Config.Componente.ComboBase", {
-            fieldLabel: "Fechas Disponibles",
-            name: "FECHAS_DISPONIBLES",
-            displayField: 'FECHA_TEXT',
-            store: store_diasDisponibles,
-        });
-    },
+   
+   
     CargarComponentes: function () {
         var me = this;
 
@@ -159,12 +67,13 @@
             value: Constantes.Usuario.ID_PARADA
         });
         me.date_fecha = Ext.create("App.Config.Componente.DateFieldBase", {
-            fieldLabel: "Fecha Venta",
-            name: "FECHA_VENTA",
+            fieldLabel: "Fecha COMPRA",
+            name: "FECHA_COMPRA",
             //            readOnly : true,
             //colspan: 2,
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
+            readOnly : true
         });
 
         //me.txt_parada = Ext.create("App.Config.Componente.TextFieldBase", {
@@ -228,13 +137,15 @@
 
         me.num_cantidad = Ext.create("App.Config.Componente.NumberFieldBase", {
             fieldLabel: "Cantidad",
-            name: "TOTAL_HOJAS",
+            name: "CANTIDAD",
             //allowDecimals: true,
             maxValue: 999999999,
+            minValue: 1,
+            value : 1,
             //            colspan : 2,
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
-            readOnly: true
+            //readOnly: true
         });
         me.num_precio = Ext.create("App.Config.Componente.NumberFieldBase", {
             fieldLabel: "Precio",
@@ -242,26 +153,6 @@
             //value: 25,
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
-            readOnly: true
-        });
-        me.num_total = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "Total",
-            name: "TOTAL",
-            //value: 25,
-            readOnly: true
-        });
-        me.num_descuento = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "Descuento",
-            name: "DESCUENTO",
-            allowDecimals: true,
-            maxValue: 999999999,
-            value: 0,
-            readOnly: true
-        });
-        me.num_totalcondescuento = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "Total - Descuento",
-            name: "TOTAL_VENTA",
-
             readOnly: true
         });
         me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
@@ -273,12 +164,6 @@
             //afterLabelTextTpl: Constantes.REQUERIDO,
             //allowBlank: false
         });
-        me.gridHojas = Ext.create("App.View.Hojas.Grids", {
-            opcion: "GridHojasMovil",
-            colspan: 2,
-            width: 480,
-            height: 250
-        });
         me.items = [
             me.txt_id_caja, me.txt_id_socio,
             me.txt_id_parada,
@@ -287,18 +172,29 @@
             me.cbx_socio, me.txt_nor_movil,
             me.txt_socio,
             me.num_precio,
-            me.cbx_diasDisponibles,
-            me.gridHojas,
-            me.num_total, me.num_cantidad,
-            me.num_descuento, me.num_totalcondescuento,
-            me.txt_observacion
+            me.num_cantidad
 
         ];
 
 
 
     },
-    CrearHojas: function (record) {
-        var me = this;
+    ImprimirHojas: function (id) {
+
+        var ruta = fn.ObtenerUrlReportPDF("ReporteHojas", "ID_VENTA="+id);
+        console.log(ruta);
+        var win = Ext.widget('window', {
+            title: 'Informe PDF',
+            iconCls: 'pdf-document',
+            width: 800,
+            height: 600,
+            modal: true,
+            closeAction: 'hide',
+            items: [{
+                xtype: 'component',
+                html: '<iframe height="590", width="790" src="' + ruta + '"></iframe>',
+            }]
+        });
+        win.show();
     }
 });

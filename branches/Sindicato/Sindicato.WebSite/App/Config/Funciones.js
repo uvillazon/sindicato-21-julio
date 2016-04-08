@@ -212,7 +212,7 @@ Ext.define("App.Config.Funciones", {
         return grupo;
     },
     //Ajax Request Con Confirmacion para los Windows
-    AjaxRequestWin: function (controlador, accion, mask, form, grid, msg, param, win) {
+    AjaxRequestWin: function (controlador, accion, mask, form, grid, msg, param, win,fn) {
 
         var formSend = form.getForm();
         //var time = (timeout == null) ? 
@@ -248,6 +248,10 @@ Ext.define("App.Config.Funciones", {
                                 }
 
                             }
+                            if (fn != null) {
+
+                                fn(action.result);
+                            }
                         },
                         failure: function (form, action) {
                             mask.el.unmask();
@@ -263,6 +267,60 @@ Ext.define("App.Config.Funciones", {
             Ext.MessageBox.alert('Error', "Falta Parametros. Revisar Formulario.");
         }
     },
+    AjaxRequestWinSc: function (controlador, accion, mask, form, grid, msg, param, win, fn) {
+
+        var formSend = form.getForm();
+        //var time = (timeout == null) ? 
+        var mensaje = (msg == null) ? 'Esta Seguro de Guardar Los cambios?' : msg;
+        if (formSend.isValid()) {
+
+            Ext.MessageBox.confirm('Confirmacion?', mensaje, function (btn) {
+                if (btn == 'yes') {
+                    mask.el.mask('Procesando...', 'x-mask-loading');
+                    formSend.submit({
+                        submitEmptyText: false,
+                        url: Constantes.HOST + '' + controlador + '/' + accion + '',
+                        params: param,
+                        timeout: 1200,
+                        success: function (form, action) {
+                            mask.el.unmask();
+                            if (grid != null) {
+                                try {
+                                    grid.getStore().load();
+                                }
+                                catch (err) {
+                                    grid.load();
+                                }
+                            }
+                            if (win != null) {
+                                try {
+                                    win.destruirWin ? win.close() : win.hide();
+                                }
+                                catch (err) {
+                                    win.hide();
+                                }
+
+                            }
+                            if (fn != null) {
+
+                                fn(action.result);
+                            }
+                        },
+                        failure: function (form, action) {
+                            mask.el.unmask();
+                            Ext.MessageBox.alert('Error', action.result.msg);
+                        }
+                    });
+
+                }
+            });
+
+        }
+        else {
+            Ext.MessageBox.alert('Error', "Falta Parametros. Revisar Formulario.");
+        }
+    },
+
     //ajax para cerrar varias ventanas en un solo evento
     AjaxRequestWinArray: function (controlador, accion, mask, form, grid, msg, param, winArray) {
 
@@ -842,4 +900,8 @@ Ext.define("App.Config.Funciones", {
     EnviarImprimirReport: function (view, record, item) {
         window.open(Constantes.HOST + 'ReportesPDF/' + fn.nameReport + '?' + fn.paramsReport + '&tipo=' + record.get('tipo'));
     },
+    ObtenerUrlReportPDF: function (nameReport, params) {
+        var result = Constantes.HOST + 'ReportesPDF/' + nameReport + '?' + params + '&tipo=pdf';
+        return result;
+    }
 });

@@ -67,5 +67,38 @@ namespace Sindicato.WebSite.Reportes
             importe = lista.Count() == 0 ? 0 : lista.Where(x => x.SD_OBLIGACIONES_HOJA.OBLIGACION == tipo).Count() == 0 ? 0 : lista.First(x => x.SD_OBLIGACIONES_HOJA.OBLIGACION == tipo).IMPORTE;
             return importe;
         }
+
+        public List<ReporteHoja> ReporteHoja(int ID_HOJA)
+        {
+
+            List<ReporteHoja> results = new List<ReporteHoja>();
+            var servicio = new VentaHojasServices();
+            var res = servicio.ObtenerHoja(x => x.ID_HOJA == ID_HOJA);
+            ReporteHoja result = new ReporteHoja();
+            
+            result.ID_HOJA = res.ID_HOJA;
+            result.FECHA_COMPRA = res.FECHA_COMPRA;
+            result.MOVIL = res.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL;
+            result.NUMERO = res.NRO_HOJA;
+            result.PLACA = "XXX-XXXX";
+            result.SOCIO = string.Format("{0} {1} {2}", res.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE, res.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO, res.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_MATERNO);
+            results.Add(result);
+            return results;
+        }
+
+        public IEnumerable<ReporteHoja> ReporteHojasVenta(int ID_VENTA)
+        {
+
+            IEnumerable<ReporteHoja> result = null;
+            var servicio = new VentaHojasServices();
+            var res = servicio.ObtenerHojasPorVentas(ID_VENTA);
+            result = res.Select(x => new ReporteHoja()
+            {
+               ID_HOJA = x.ID_HOJA
+            });
+
+            return result;
+        }
+            //ObtenerHojasPorVentas
     }
 }

@@ -39,7 +39,7 @@ namespace Sindicato.WebSite.Infraestructura
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public bool TestConnection(string username, string password)
+        public string TestConnection(string username, string password)
         {
             this.username = username;
             this.password = password;
@@ -59,11 +59,11 @@ namespace Sindicato.WebSite.Infraestructura
                     var CadenaConexion1 = string.Format("Data Source={0}; User Id={1}; Password={2}; Pooling=true; Min Pool Size=1; Max Pool Size=2; Connection Timeout=30", DataSource, Username, Password);
                     oracle.ConnectionString = CadenaConexion1;
                     oracle.Open();
-                    return true;
+                    return "true";
                 }
-                catch
+                catch (Exception e)
                 {
-                    return false;
+                    return e.ToString();
                 }
                 finally 
                 {

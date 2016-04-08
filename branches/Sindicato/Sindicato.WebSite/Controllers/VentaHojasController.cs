@@ -22,14 +22,7 @@ namespace Sindicato.WebSite.Controllers
         }
 
 
-        [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult ObtenerFechaDisponibles(DateTime FECHA_VENTA, int ID_SOCIO_MOVIL)
-        {
-
-            var result = _serven.ObtenerFechasDisponibles(FECHA_VENTA, ID_SOCIO_MOVIL);
-            return Json(result, JsonRequestBehavior.AllowGet);
-
-        }
+  
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult ObtenerVentasPaginadas(PagingInfo paginacion, FiltrosModel<HojasModel> filtros, HojasModel entidad)
         {
@@ -37,17 +30,19 @@ namespace Sindicato.WebSite.Controllers
             var jsondata = _serven.ObtenerVentasPaginados(paginacion, filtros);
             var formattData = jsondata.Select(l => new
             {
-                TOTAL = l.TOTAL,
-                DESCUENTO = l.DESCUENTO,
-                ESTADO = l.ESTADO,
-                FECHA_VENTA = l.FECHA_VENTA,
-                ID_SOCIO = l.ID_SOCIO_MOVIL,
-                ID_VENTA = l.ID_VENTA,
-                LOGIN = l.LOGIN,
+                NUMERO = l.ID_HOJA,
+                ID_HOJA = l.ID_HOJA,
+                NRO_HOJA = l.NRO_HOJA,
                 NRO_MOVIL = l.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
-                SOCIO  = string.Format("{0} {1} {2}",l.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE , l.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO , l.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_MATERNO),
-                OBSERVACION = l.OBSERVACION,
-                TOTAL_HOJAS = l.TOTAL_HOJAS
+                SOCIO = string.Format("{0} {1} {2}", l.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE, l.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO, l.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_MATERNO),
+                ESTADO = l.ESTADO,
+                FECHA_COMPRA = l.FECHA_COMPRA,
+                FECHA_USO = l.FECHA_USO,
+                FECHA_REG = l.FECHA_REG,
+                ID_SOCIO = l.ID_SOCIO_MOVIL,
+                LOGIN = l.LOGIN,
+                MONTO = l.MONTO,
+                OBSERVACION = l.OBSERVACION
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formattData, Total = paginacion.total }) + ");";
@@ -61,10 +56,9 @@ namespace Sindicato.WebSite.Controllers
             var jsondata = _serven.ObtenerDetallesPaginado(paginacion, filtros);
             var formattData = jsondata.Select(l => new
             {
-                ID_DETALLE = l.ID_DETALLE ,
-                FECHA_USO = l.FECHA_USO ,
-                MONTO = l.MONTO,
-                OBSERVACION = l.OBSERVACION
+                ID_DETALLE = l.ID_DETALLE,
+                OBLIGACION = l.OBLIGACION,
+                MONTO = l.IMPORTE
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formattData, Total = paginacion.total }) + ");";
@@ -72,11 +66,11 @@ namespace Sindicato.WebSite.Controllers
 
         }
         [HttpPost]
-        public JsonResult GuardarVenta(SD_VENTA_HOJAS venta , string detalles)
+        public JsonResult GuardarVenta(SD_HOJAS_CONTROL venta, int CANTIDAD)
         {
             string login = User.Identity.Name.Split('-')[0];
             RespuestaSP respuestaSP = new RespuestaSP();
-            respuestaSP = _serven.GuardarVentaHoja(venta,detalles, login);
+            respuestaSP = _serven.GuardarVentaHoja(venta, CANTIDAD, login);
             return Json(respuestaSP);
         }
         [HttpPost, ValidateInput(false)]
@@ -87,6 +81,6 @@ namespace Sindicato.WebSite.Controllers
             respuestaSP = _serven.AnularVentaHoja(ID_VENTA, login);
             return Json(respuestaSP);
         }
-      
+
     }
 }

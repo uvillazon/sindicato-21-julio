@@ -32,4 +32,15 @@ namespace Sindicato.Services.Model
         public decimal CANASTON { get; set; }
         public decimal AHORRO { get; set; }
     }
+
+    public class ReporteHoja {
+        public int ID_HOJA { get; set; }
+        public int NUMERO { get; set; }
+        public DateTime FECHA_COMPRA { get; set; }
+        public string SOCIO { get; set; }
+        public string OBSERVACION { get; set; }
+        public int MOVIL { get; set; }
+        public string PLACA { get; set; }
+    }
+
 }

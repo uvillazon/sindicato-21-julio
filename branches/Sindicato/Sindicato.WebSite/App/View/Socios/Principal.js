@@ -133,7 +133,7 @@
                 });
                 break;
             case "btn_ReporteSocioMovilHoja":
-                Funciones.ImprimirReport("ReporteSocioMovilHoja", null);
+                Funciones.ImprimirReport("ReporteHoja", null);
                 break;
             case "btn_ConfigObligacion":
                 var win = Ext.create("App.Config.Abstract.Window", { botones: false, title: 'Configuracion de Obligaciones' });

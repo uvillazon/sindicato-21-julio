@@ -18,12 +18,12 @@ namespace Sindicato.Services
 {
     public class VentaHojasServices : BaseService, IVentaHojasServices
     {
-        public IEnumerable<SD_VENTA_HOJAS> ObtenerVentasPaginados(PagingInfo paginacion, FiltrosModel<HojasModel> filtros)
+        public IEnumerable<SD_HOJAS_CONTROL> ObtenerVentasPaginados(PagingInfo paginacion, FiltrosModel<HojasModel> filtros)
         {
-            IQueryable<SD_VENTA_HOJAS> result = null;
+            IQueryable<SD_HOJAS_CONTROL> result = null;
             ExecuteManager(uow =>
             {
-                var manager = new SD_VENTA_HOJASManager(uow);
+                var manager = new SD_HOJAS_CONTROLManager(uow);
                 //obtener un query de la tabla choferes
                 result = manager.BuscarTodos();
                 filtros.FiltrarDatos();
@@ -40,40 +40,15 @@ namespace Sindicato.Services
             });
             return result;
         }
-        public IEnumerable<HojasModel> ObtenerFechasDisponibles(DateTime FECHA_VENTA, int ID_SOCIO_MOVIL)
+       
+
+
+        public IEnumerable<SD_DETALLES_HOJAS_CONTROL> ObtenerDetallesPaginado(PagingInfo paginacion, FiltrosModel<HojasModel> filtros)
         {
-            List<HojasModel> result = new List<HojasModel>();
+            IQueryable<SD_DETALLES_HOJAS_CONTROL> result = null;
             ExecuteManager(uow =>
             {
-
-                var manager = new SD_DETALLE_HOJASManager(uow);
-                var vendidas = manager.BuscarTodos(x => x.SD_VENTA_HOJAS.FECHA_VENTA.Month == FECHA_VENTA.Month && x.SD_VENTA_HOJAS.FECHA_VENTA.Year == FECHA_VENTA.Year && x.SD_VENTA_HOJAS.ID_SOCIO_MOVIL == ID_SOCIO_MOVIL && x.SD_VENTA_HOJAS.ESTADO != "ANULADO");
-                int day = 31;
-                for (int i = 1; i <= day; i++)
-                {
-                    HojasModel list = new HojasModel();
-                    DateTime date = new DateTime(FECHA_VENTA.Year, FECHA_VENTA.Month, i);
-                    var valid = vendidas.Where(x => x.FECHA_USO.Day == date.Day && x.FECHA_USO.Month == date.Month && x.FECHA_USO.Year == date.Year);
-                    if (valid.Count() == 0)
-                    {
-                        list.FECHA = date;
-                        list.FECHA_TEXT = String.Format("{0:d/MM/yyyy}", date);
-                        result.Add(list);
-                    }
-                }
-
-            });
-            return result;
-
-        }
-
-
-        public IEnumerable<SD_DETALLE_HOJAS> ObtenerDetallesPaginado(PagingInfo paginacion, FiltrosModel<HojasModel> filtros)
-        {
-            IQueryable<SD_DETALLE_HOJAS> result = null;
-            ExecuteManager(uow =>
-            {
-                var manager = new SD_DETALLE_HOJASManager(uow);
+                var manager = new SD_DETALLES_HOJAS_CONTROLManager(uow);
                 //obtener un query de la tabla choferes
                 result = manager.BuscarTodos();
                 filtros.FiltrarDatos();
@@ -89,65 +64,81 @@ namespace Sindicato.Services
         public RespuestaSP AnularVentaHoja(int ID_VENTA, string login)
         {
             RespuestaSP result = new RespuestaSP();
+            //ExecuteManager(uow =>
+            //{
+            //    var manager = new SD_VENTA_HOJASManager(uow);
+            //    var resp = manager.AnularVenta(ID_VENTA);
+            //    decimal tot;
+            //    bool esNumero = decimal.TryParse(resp, out tot);
+            //    if (esNumero)
+            //    {
+            //        result.msg = "Proceso Ejecutado Correctamente.";
+            //        result.success = true;
+            //    }
+            //    else
+            //    {
+            //        result.msg = resp.ToString();
+            //        result.success = false;
+            //    }
+
+            //});
+            return result;
+        }
+
+
+        public RespuestaSP GuardarVentaHoja(SD_HOJAS_CONTROL venta,int CANTIDAD, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
-                var manager = new SD_VENTA_HOJASManager(uow);
-                var resp = manager.AnularVenta(ID_VENTA);
-                decimal tot;
-                bool esNumero = decimal.TryParse(resp, out tot);
+                var context = (SindicatoContext)uow.Context;
+                ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
+
+                context.P_SD_GUARDAR_HOJA(venta.ID_SOCIO_MOVIL,venta.ID_PARADA,venta.ID_CHOFER,venta.FECHA_COMPRA,CANTIDAD,login, p_res);
+                int id;
+                bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
                 if (esNumero)
                 {
-                    result.msg = "Proceso Ejecutado Correctamente.";
                     result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                    result.id = id;
                 }
                 else
                 {
-                    result.msg = resp.ToString();
                     result.success = false;
+                    result.msg = p_res.Value.ToString();
                 }
 
+            });
+
+            return result;
+        }
+
+
+
+
+
+        public SD_HOJAS_CONTROL ObtenerHoja(Expression<Func<SD_HOJAS_CONTROL, bool>> criterio)
+        {
+            SD_HOJAS_CONTROL result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_HOJAS_CONTROLManager(uow);
+                result = manager.BuscarTodos(criterio).FirstOrDefault();
             });
             return result;
         }
 
 
-        public RespuestaSP GuardarVentaHoja(SD_VENTA_HOJAS venta, string detalles, string login)
+        public IEnumerable<SD_HOJAS_CONTROL> ObtenerHojasPorVentas(int ID_VENTA)
         {
-            RespuestaSP result = new RespuestaSP();
+            IQueryable<SD_HOJAS_CONTROL> result = null;
             ExecuteManager(uow =>
             {
                 var manager = new SD_VENTA_HOJASManager(uow);
-                var managerDetalle = new SD_DETALLE_HOJASManager(uow);
-                var managerDetalleHoja = new SD_DETALLES_VENTA_HOJASManager(uow);
-
-                var resp = manager.GuardarVenta(venta, login);
-                int id_venta;
-                bool esNumero = int.TryParse(resp, out id_venta);
-                if (esNumero)
-                {
-                    dynamic detalle_ventas = JsonConvert.DeserializeObject(detalles);
-                    foreach (var item in detalle_ventas)
-                    {
-                        SD_DETALLE_HOJAS det = new SD_DETALLE_HOJAS()
-                        {
-                            ID_VENTA = id_venta,
-                            MONTO = item.MONTO,
-                            OBSERVACION = item.OBSERVACION,
-                            FECHA_USO = item.FECHA_USO
-
-                        };
-                        managerDetalle.GuardarDetalleVenta(det, login);
-                        managerDetalleHoja.GuardarDetalle(det,venta.ID_SOCIO_MOVIL,login);
-                    }
-
-                    result.msg = "Proceso Ejecutado Correctamente.";
-                    result.success = true;
-                }
-                else
-                {
-                    result.msg = resp.ToString();
-                    result.success = false;
-                }
+                //obtener un query de la tabla choferes
+                var res = manager.BuscarTodos(x=>x.ID_VENTA == ID_VENTA);
+                result = res.Select(x => x.SD_HOJAS_CONTROL);
 
             });
             return result;
