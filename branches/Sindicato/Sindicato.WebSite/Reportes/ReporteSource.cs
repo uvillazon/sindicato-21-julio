@@ -75,7 +75,7 @@ namespace Sindicato.WebSite.Reportes
             var servicio = new VentaHojasServices();
             var res = servicio.ObtenerHoja(x => x.ID_HOJA == ID_HOJA);
             ReporteHoja result = new ReporteHoja();
-            
+
             result.ID_HOJA = res.ID_HOJA;
             result.FECHA_COMPRA = res.FECHA_COMPRA;
             result.MOVIL = res.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL;
@@ -94,11 +94,32 @@ namespace Sindicato.WebSite.Reportes
             var res = servicio.ObtenerHojasPorVentas(ID_VENTA);
             result = res.Select(x => new ReporteHoja()
             {
-               ID_HOJA = x.ID_HOJA
+                ID_HOJA = x.ID_HOJA
             });
 
             return result;
         }
-            //ObtenerHojasPorVentas
+
+        public IEnumerable<ReporteHoja> ReporteImpresionHojasVenta(int ID_IMPRESION)
+        {
+
+            IEnumerable<ReporteHoja> result = null;
+            var servicio = new VentaHojasServices();
+            var res = servicio.obtenerImpresion(x => x.ID_IMPRESION == ID_IMPRESION);
+            var hojas = servicio.ObtenerHojasPorCriterio(x => x.ID_HOJA >= res.NRO_INICIO && x.ID_HOJA <= res.NRO_FIN);
+            result = hojas.Select(x => new ReporteHoja()
+            {
+                ID_HOJA = x.ID_HOJA
+            });
+
+            return result;
+        }
+        public List<ReporteTotal> ReporteTotals(DateTime FECHA_INI , DateTime FECHA_FIN) {
+
+            List<ReporteTotal> result = new List<ReporteTotal>();
+            return result;
+        
+        }
+        //ObtenerHojasPorVentas
     }
 }

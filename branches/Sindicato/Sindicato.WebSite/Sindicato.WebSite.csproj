@@ -88,6 +88,7 @@
     <Compile Include="Controllers\AutosController.cs" />
     <Compile Include="Controllers\CierresController.cs" />
     <Compile Include="Controllers\CierresParadaController.cs" />
+    <Compile Include="Controllers\IngresosController.cs" />
     <Compile Include="Controllers\ReportesPDFController.cs" />
     <Compile Include="Controllers\ObligacionesController.cs" />
     <Compile Include="Controllers\TransferenciasController.cs" />
@@ -231,6 +232,8 @@
     <Content Include="App\Model\CierresParada\CierresParada.js" />
     <Content Include="App\Model\CierresParada\Detalles.js" />
     <Content Include="App\Model\Cierres\Detalles.js" />
+    <Content Include="App\Model\IngresosPorSocios\TiposIngresos.js" />
+    <Content Include="App\Model\IngresosPorSocios\Ingresos.js" />
     <Content Include="App\Model\Socios\ObligacionesHoja.js" />
     <Content Include="App\Model\Socios\DetalleConfigHojas.js" />
     <Content Include="App\Model\Socios\KardexDebe.js" />
@@ -276,6 +279,8 @@
     <Content Include="App\Store\CierresParada\CierresParada.js" />
     <Content Include="App\Store\CierresParada\Detalles.js" />
     <Content Include="App\Store\Cierres\Detalles.js" />
+    <Content Include="App\Store\IngresosPorSocios\TiposIngresos.js" />
+    <Content Include="App\Store\IngresosPorSocios\Ingresos.js" />
     <Content Include="App\Store\Socios\ObligacionesHoja.js" />
     <Content Include="App\Store\Socios\DetalleConfigHojas.js" />
     <Content Include="App\Store\Socios\KardexDebe.js" />
@@ -365,6 +370,11 @@
     <Content Include="App\View\CierresParada\FormCierre.js" />
     <Content Include="App\View\CierresParada\GridCierres.js" />
     <Content Include="App\View\CierresParada\Principal.js" />
+    <Content Include="App\View\IngresosPorSocios\FormIngreso.js" />
+    <Content Include="App\View\IngresosPorSocios\Forms.js" />
+    <Content Include="App\View\IngresosPorSocios\GridIngresos.js" />
+    <Content Include="App\View\IngresosPorSocios\Grids.js" />
+    <Content Include="App\View\IngresosPorSocios\Principal.js" />
     <Content Include="App\View\Hojas\GridDetalles.js" />
     <Content Include="App\View\Obligaciones\FormObligacion.js" />
     <Content Include="App\View\Obligaciones\GridObligaciones.js" />
@@ -3771,9 +3781,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reportes\Hoja.rdlc" />
+    <EmbeddedResource Include="Reportes\Report1.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteHojas.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteSocioMovil.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteSocioMovilHoja.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteTotal.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

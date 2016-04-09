@@ -47,7 +47,7 @@ namespace Sindicato.Services
             {
                 var context = (SindicatoContext)uow.Context;
                 ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
-                context.P_SD_GUARDAR_CAJAS(caja.ID_CAJA, caja.CODIGO, caja.NOMBRE, caja.NRO_CUENTA,  caja.DESCRIPCION, caja.SALDO, login, p_res);
+                context.P_SD_GUARDAR_CAJAS(caja.ID_CAJA, caja.CODIGO, caja.NOMBRE, caja.NRO_CUENTA,  caja.DESCRIPCION, caja.SALDO,caja.MONEDA, login, p_res);
 
 
                 try

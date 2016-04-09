@@ -9,6 +9,9 @@ namespace Sindicato.Model
     public partial class SD_SOCIO_MOVILES
     {
         public int NRO_MOVIL { get; set; }
+        public string ObtenerNombreSocio() {
+            return string.Format("{0} {1} {2}", SD_SOCIOS.NOMBRE, SD_SOCIOS.APELLIDO_PATERNO, SD_SOCIOS.APELLIDO_MATERNO);
+        }
         public static Expression<Func<SD_SOCIO_MOVILES, bool>> Contiene(string contiene)
         {
             List<int> id = new List<int>();

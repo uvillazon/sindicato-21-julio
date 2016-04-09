@@ -41,6 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SD_TIPOS_INGRESOS_SOCIOManager.cs" />
+    <Compile Include="SD_ANULACIONESManager.cs" />
+    <Compile Include="SD_INGRESOS_POR_SOCIOSManager.cs" />
+    <Compile Include="SD_PERMISOSManager.cs" />
+    <Compile Include="SD_IMPRESIONESManager.cs" />
     <Compile Include="SD_VENTA_HOJASManager.cs" />
     <Compile Include="SD_DETALLES_HOJAS_CONTROLManager.cs" />
     <Compile Include="SD_HOJAS_CONTROLManager.cs" />

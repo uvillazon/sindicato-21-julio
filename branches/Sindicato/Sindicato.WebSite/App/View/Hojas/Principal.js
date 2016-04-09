@@ -35,7 +35,8 @@
         me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Venta', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
         //me.btn_editar = Funciones.CrearMenu('btn_editar', 'Editar Descuento', Constantes.ICONO_EDITAR, me.EventosPrincipal, null, this, null, true);
         me.btn_eliminar = Funciones.CrearMenu('btn_anular', 'Anular Venta', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
-        me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar]);
+        me.btn_impresion = Funciones.CrearMenu('btn_impresion', 'Re-Impresion', 'printer', me.EventosPrincipal, null, this);
+        me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar , me.btn_impresion]);
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
 
         me.gridDetalles = Ext.create('App.View.Hojas.GridDetalles', {
@@ -88,18 +89,52 @@
                 break;
             case "btn_anular":
                 if (me.record.get('ESTADO') == "NUEVO") {
-                    Funciones.AjaxRequestGrid("VentaHojas", "AnularVenta", me.grid, "Esta seguro de Anular la Venta?", { ID_VENTA: me.record.get('ID_VENTA') }, me.grid, null);
+                    Funciones.AjaxRequestGrid("VentaHojas", "AnularVenta", me.grid, "Esta seguro de Anular la Venta?", { ID_HOJA: me.record.get('ID_HOJA') }, me.grid, null);
                 }
                 else {
                     Ext.Msg.alert("Error", "Venta en estado Inapropiado.");
                 }
                 break;
-           
+            case "btn_impresion":
+                me.CrearReimpresion();
+                break;
             default:
                 Ext.Msg.alert("Aviso", "No Existe el botton");
                 break;
         }
     },
+    CrearReimpresion: function () {
+        var me = this;
+        win = Ext.create("App.Config.Abstract.Window", { botones: true, textGuardar: 'Impresion' });
+        form = Ext.create("App.View.Hojas.Forms", { botones: false, opcion: 'formReimpresion' });
+        win.add(form);
+        win.show();
+        win.btn_guardar.on('click', function () {
+            Funciones.AjaxRequestWinSc("VentaHojas", "Reimprimir", win, form, me.grid, "Esta seguro de Imprimir en ese intervalo de nuevo", null, win, function (result) {
+                //console.dir(result);
+                me.ImprimirHojas(result.id);
+            });
+        });
+    },
+    ImprimirHojas: function (id) {
+
+        var ruta = fn.ObtenerUrlReportPDF("ReporteReImpresion", "ID_IMPRESION=" + id);
+        console.log(ruta);
+        var win = Ext.widget('window', {
+            title: 'Informe PDF',
+            iconCls: 'pdf-document',
+            width: 800,
+            height: 600,
+            modal: true,
+            closeAction: 'hide',
+            items: [{
+                xtype: 'component',
+                html: '<iframe height="590", width="790" src="' + ruta + '"></iframe>',
+            }]
+        });
+        win.show();
+    },
+    //
     CrearHojasControl: function () {
         var me = this;
         win = Ext.create("App.Config.Abstract.Window", { botones: true, textGuardar: 'Guardar Venta' });

@@ -10,7 +10,43 @@
             me.CargarFormVentanaConsulta();
 
         }
+        else if (me.opcion == "formReimpresion") {
+            me.title = "ReImpresion de Hojas";
+            me.CargarFormReimpresion();
+        }
         this.callParent(arguments);
+    },
+    CargarFormReimpresion: function () {
+        var me = this;
+
+        me.num_nro_inicio = Ext.create("App.Config.Componente.NumberFieldBase", {
+            fieldLabel: "Nro Hoja Inicio",
+            name: "NRO_INICIO",
+            //value: 25,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false
+        });
+        me.num_nro_fin = Ext.create("App.Config.Componente.NumberFieldBase", {
+            fieldLabel: "Nro Hoja Final",
+            name: "NRO_FIN",
+            //value: 25,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false
+        });
+        me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
+            fieldLabel: "Observaciones",
+            name: "OBSERVACION",
+            width: 480,
+            maxLength: 500,
+            colspan: 2,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false
+        });
+
+        me.items = [
+            me.num_nro_inicio, me.num_nro_fin,
+            me.txt_observacion
+        ];
     },
     CargarFormVentanaConsulta: function () {
         var me = this;

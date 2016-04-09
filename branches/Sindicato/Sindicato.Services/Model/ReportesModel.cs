@@ -43,4 +43,14 @@ namespace Sindicato.Services.Model
         public string PLACA { get; set; }
     }
 
+    public class ReporteTotal {
+        public string DETALLE { get; set; }
+        public string SUBDETALLE { get; set; }
+        public string NRO_RECIBO { get; set; }
+        public int CANTIDAD { get; set; }
+        public decimal COSTO_UNITARIO { get; set; }
+        public decimal BOLIVIANOS { get; set; }
+        public decimal DOLARES { get; set; }
+    }
+
 }

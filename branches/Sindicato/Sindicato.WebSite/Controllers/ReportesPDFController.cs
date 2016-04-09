@@ -55,7 +55,7 @@ namespace Elfec.SisMan.Presentacion.Controllers
         //    return File(renderedBytes, mimeType);
         //}
 
-        public ActionResult ReporteHojas(string tipo,int ID_VENTA)
+        public ActionResult ReporteHojas(string tipo, int ID_VENTA)
         {
             ReporteSource rep = new ReporteSource();
             LocalReport localReport = new LocalReport();
@@ -75,7 +75,33 @@ namespace Elfec.SisMan.Presentacion.Controllers
             Byte[] renderedBytes;
             //Render the report
             renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            Response.AddHeader("content-disposition", "attachment; filename=ReporteHojas." + fileNameExtension);
             return File(renderedBytes, mimeType);
+            //return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
+        public ActionResult ReporteReImpresion(string tipo, int ID_IMPRESION)
+        {
+            ReporteSource rep = new ReporteSource();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteHojas.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSetVenta", rep.ReporteImpresionHojasVenta(ID_IMPRESION));
+            localReport.DataSources.Add(reportDataSource);
+            localReport.SubreportProcessing += new SubreportProcessingEventHandler(ReporteHoja_SubreportProcessing);
+
+
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            //Render the report
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            Response.AddHeader("content-disposition", "attachment; filename=ReporteHojas." + fileNameExtension);
+            return File(renderedBytes, mimeType);
+            //return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
         }
         protected void ReporteHoja_SubreportProcessing(object sender, SubreportProcessingEventArgs e)
         {

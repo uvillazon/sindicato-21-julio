@@ -73,12 +73,21 @@ namespace Sindicato.WebSite.Controllers
             respuestaSP = _serven.GuardarVentaHoja(venta, CANTIDAD, login);
             return Json(respuestaSP);
         }
-        [HttpPost, ValidateInput(false)]
-        public JsonResult AnularVenta(int ID_VENTA)
+        [HttpPost]
+        public JsonResult Reimprimir(SD_IMPRESIONES venta)
         {
             string login = User.Identity.Name.Split('-')[0];
             RespuestaSP respuestaSP = new RespuestaSP();
-            respuestaSP = _serven.AnularVentaHoja(ID_VENTA, login);
+            respuestaSP = _serven.Reimprimir(venta, login);
+            return Json(respuestaSP);
+        }
+        
+        [HttpPost, ValidateInput(false)]
+        public JsonResult AnularVenta(int ID_HOJA)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serven.AnularVentaHoja(ID_HOJA, login);
             return Json(respuestaSP);
         }
 

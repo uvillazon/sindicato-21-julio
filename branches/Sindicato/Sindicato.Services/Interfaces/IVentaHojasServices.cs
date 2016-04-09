@@ -15,9 +15,12 @@ namespace Sindicato.Services.Interfaces
         IEnumerable<SD_DETALLES_HOJAS_CONTROL> ObtenerDetallesPaginado(PagingInfo paginacion, FiltrosModel<HojasModel> filtros);
         RespuestaSP GuardarVentaHoja(SD_HOJAS_CONTROL venta, int CANTIDAD , string login);
         RespuestaSP AnularVentaHoja(int ID_HOJA, string login);
+        RespuestaSP Reimprimir(SD_IMPRESIONES imp, string login);
 
         SD_HOJAS_CONTROL ObtenerHoja(Expression<Func<SD_HOJAS_CONTROL, bool>> criterio);
         IEnumerable<SD_HOJAS_CONTROL> ObtenerHojasPorVentas(int ID_VENTA);
+        IEnumerable<SD_HOJAS_CONTROL> ObtenerHojasPorCriterio(Expression<Func<SD_HOJAS_CONTROL, bool>> criterio);
+        SD_IMPRESIONES obtenerImpresion(Expression<Func<SD_IMPRESIONES, bool>> criterio);
 
 
         //SD_USUARIOS

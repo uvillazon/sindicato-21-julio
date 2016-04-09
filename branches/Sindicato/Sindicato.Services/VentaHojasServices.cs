@@ -40,7 +40,7 @@ namespace Sindicato.Services
             });
             return result;
         }
-       
+
 
 
         public IEnumerable<SD_DETALLES_HOJAS_CONTROL> ObtenerDetallesPaginado(PagingInfo paginacion, FiltrosModel<HojasModel> filtros)
@@ -61,32 +61,7 @@ namespace Sindicato.Services
         }
 
 
-        public RespuestaSP AnularVentaHoja(int ID_VENTA, string login)
-        {
-            RespuestaSP result = new RespuestaSP();
-            //ExecuteManager(uow =>
-            //{
-            //    var manager = new SD_VENTA_HOJASManager(uow);
-            //    var resp = manager.AnularVenta(ID_VENTA);
-            //    decimal tot;
-            //    bool esNumero = decimal.TryParse(resp, out tot);
-            //    if (esNumero)
-            //    {
-            //        result.msg = "Proceso Ejecutado Correctamente.";
-            //        result.success = true;
-            //    }
-            //    else
-            //    {
-            //        result.msg = resp.ToString();
-            //        result.success = false;
-            //    }
-
-            //});
-            return result;
-        }
-
-
-        public RespuestaSP GuardarVentaHoja(SD_HOJAS_CONTROL venta,int CANTIDAD, string login)
+        public RespuestaSP AnularVentaHoja(int ID_HOJA, string login)
         {
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
@@ -94,7 +69,35 @@ namespace Sindicato.Services
                 var context = (SindicatoContext)uow.Context;
                 ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
 
-                context.P_SD_GUARDAR_HOJA(venta.ID_SOCIO_MOVIL,venta.ID_PARADA,venta.ID_CHOFER,venta.FECHA_COMPRA,CANTIDAD,login, p_res);
+                context.P_SD_ANULAR_HOJA(ID_HOJA, "Anulacion de Venta de Hoja", login, p_res);
+                int id;
+                bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
+                if (esNumero)
+                {
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                    result.id = id;
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = p_res.Value.ToString();
+                }
+
+            });
+            return result;
+        }
+
+
+        public RespuestaSP GuardarVentaHoja(SD_HOJAS_CONTROL venta, int CANTIDAD, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var context = (SindicatoContext)uow.Context;
+                ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
+
+                context.P_SD_GUARDAR_HOJA(venta.ID_SOCIO_MOVIL, venta.ID_PARADA, venta.ID_CHOFER, venta.FECHA_COMPRA, CANTIDAD, login, p_res);
                 int id;
                 bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
                 if (esNumero)
@@ -137,8 +140,62 @@ namespace Sindicato.Services
             {
                 var manager = new SD_VENTA_HOJASManager(uow);
                 //obtener un query de la tabla choferes
-                var res = manager.BuscarTodos(x=>x.ID_VENTA == ID_VENTA);
+                var res = manager.BuscarTodos(x => x.ID_VENTA == ID_VENTA);
                 result = res.Select(x => x.SD_HOJAS_CONTROL);
+
+            });
+            return result;
+        }
+
+
+        public RespuestaSP Reimprimir(SD_IMPRESIONES imp, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var context = (SindicatoContext)uow.Context;
+                ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
+
+                context.P_SD_GRABAR_IMPRESION(imp.NRO_INICIO, imp.NRO_FIN, imp.OBSERVACION, login, p_res);
+                int id;
+                bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
+                if (esNumero)
+                {
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                    result.id = id;
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = p_res.Value.ToString();
+                }
+
+            });
+            return result;
+        }
+
+
+        public SD_IMPRESIONES obtenerImpresion(Expression<Func<SD_IMPRESIONES, bool>> criterio)
+        {
+            SD_IMPRESIONES result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_IMPRESIONESManager(uow);
+                result = manager.BuscarTodos(criterio).FirstOrDefault();
+            });
+            return result;
+        }
+
+
+        public IEnumerable<SD_HOJAS_CONTROL> ObtenerHojasPorCriterio(Expression<Func<SD_HOJAS_CONTROL, bool>> criterio)
+        {
+            IQueryable<SD_HOJAS_CONTROL> result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_HOJAS_CONTROLManager(uow);
+                //obtener un query de la tabla choferes
+                result = manager.BuscarTodos(criterio);
 
             });
             return result;

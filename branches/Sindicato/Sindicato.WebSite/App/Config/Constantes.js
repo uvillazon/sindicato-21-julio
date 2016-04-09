@@ -15,7 +15,7 @@ Ext.define("App.Config.Constantes", {
 //    HOST : 'http://200.58.79.49/Sistema/',
     //HOST                : 'http://elfpre02/SisMan/',
     REQUERIDO: '<span style="color:red;font-weight:bold" data-qtip="Requerido">*</span>',
-    PIEPAGINA: '<font color="black"><h2  style="font-size:12px;height:14px">Copyright &copy;   2014  -  Version 1.1</h2></font>',
+    PIEPAGINA: '<font color="black"><h2  style="font-size:12px;height:14px">Copyright &copy;   2016  -  Version 1.1</h2></font>',
     ALTO: 660,
     MAXANCHO: 1024,
     MAXALTO: 660,
