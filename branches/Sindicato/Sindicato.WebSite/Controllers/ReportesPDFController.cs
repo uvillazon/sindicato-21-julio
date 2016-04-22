@@ -111,5 +111,31 @@ namespace Elfec.SisMan.Presentacion.Controllers
             //int[] OrderNumbers = GetOrderNumbers();
             e.DataSources.Add(reportDataSource);
         }
+
+        public ActionResult ReporteIngresosTotales(string tipo  ,DateTime FECHA_INI, DateTime FECHA_FIN) {
+            ReporteSource rep = new ReporteSource();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteTotal.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ReporteTotals(FECHA_INI,FECHA_FIN));
+            localReport.DataSources.Add(reportDataSource);
+            localReport.SubreportProcessing += new SubreportProcessingEventHandler(ReporteHoja_SubreportProcessing);
+
+
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            //Render the report
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            Response.AddHeader("content-disposition", "attachment; filename=ReporteHojas." + fileNameExtension);
+            return File(renderedBytes, mimeType);
+
+            //var fe = FECHA_FIN;
+            //return null;
+        }
     }
 }

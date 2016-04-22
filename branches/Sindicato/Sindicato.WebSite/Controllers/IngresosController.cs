@@ -84,7 +84,8 @@ namespace Sindicato.WebSite.Controllers
                 LOGIN_USR = x.LOGIN_USR,
                 NOMBRE = x.NOMBRE,
                 OBSERVACION = x.OBSERVACION,
-                MONEDA = x.MONEDA
+                MONEDA = x.MONEDA,
+                CATEGORIA = x.CATEGORIA
 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
@@ -93,7 +94,7 @@ namespace Sindicato.WebSite.Controllers
         }
        
         [HttpPost, ValidateInput(false)]
-        public JsonResult GuardarEgreso(SD_TIPOS_INGRESOS_SOCIO ant)
+        public JsonResult GuardarTipoIngreso(SD_TIPOS_INGRESOS_SOCIO ant)
         {
             string login = User.Identity.Name.Split('-')[0];
             RespuestaSP respuestaSP = new RespuestaSP();

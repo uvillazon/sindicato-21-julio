@@ -370,6 +370,12 @@
     <Content Include="App\View\CierresParada\FormCierre.js" />
     <Content Include="App\View\CierresParada\GridCierres.js" />
     <Content Include="App\View\CierresParada\Principal.js" />
+    <Content Include="App\View\Reportes\Reportes.js" />
+    <Content Include="App\View\TiposIngresos\FormIngreso.js" />
+    <Content Include="App\View\TiposIngresos\Forms.js" />
+    <Content Include="App\View\TiposIngresos\GridIngresos.js" />
+    <Content Include="App\View\TiposIngresos\Grids.js" />
+    <Content Include="App\View\TiposIngresos\Principal.js" />
     <Content Include="App\View\IngresosPorSocios\FormIngreso.js" />
     <Content Include="App\View\IngresosPorSocios\Forms.js" />
     <Content Include="App\View\IngresosPorSocios\GridIngresos.js" />

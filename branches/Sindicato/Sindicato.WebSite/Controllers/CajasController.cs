@@ -37,6 +37,7 @@ namespace Sindicato.WebSite.Controllers
                 DESCRIPCION = x.DESCRIPCION,
                 NRO_CUENTA = x.NRO_CUENTA,
                 SALDO = x.SALDO,
+                MONEDA = x.MONEDA
                 //COMPRAS = x.SG_COMPRAS.Count(),
             });
             //formatData.ToList().Add(new

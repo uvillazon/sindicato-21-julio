@@ -55,6 +55,7 @@
     <Compile Include="CajasServices.cs" />
     <Compile Include="AutosServices.cs" />
     <Compile Include="CierresServices.cs" />
+    <Compile Include="ReportesServices.cs" />
     <Compile Include="IngresosServices.cs" />
     <Compile Include="Interfaces\IIngresosServices.cs" />
     <Compile Include="Model\IngresosModel.cs" />

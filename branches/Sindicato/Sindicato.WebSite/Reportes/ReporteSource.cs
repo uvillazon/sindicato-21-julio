@@ -117,6 +117,8 @@ namespace Sindicato.WebSite.Reportes
         public List<ReporteTotal> ReporteTotals(DateTime FECHA_INI , DateTime FECHA_FIN) {
 
             List<ReporteTotal> result = new List<ReporteTotal>();
+            var servicio = new ReportesServices();
+            result = servicio.ObtenerReporteTotal(FECHA_INI, FECHA_FIN).ToList();
             return result;
         
         }
