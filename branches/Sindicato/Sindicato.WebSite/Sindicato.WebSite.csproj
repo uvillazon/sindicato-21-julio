@@ -378,10 +378,10 @@
     <Content Include="App\View\CierresParada\FormCierre.js" />
     <Content Include="App\View\CierresParada\GridCierres.js" />
     <Content Include="App\View\CierresParada\Principal.js" />
-    <Content Include="App\View\Regulaciones\FormHoja.js" />
+    <Content Include="App\View\Regulaciones\FormRegulacion.js" />
     <Content Include="App\View\Regulaciones\Forms.js" />
     <Content Include="App\View\Regulaciones\GridDetalles.js" />
-    <Content Include="App\View\Regulaciones\GridHojas.js" />
+    <Content Include="App\View\Regulaciones\GridRegulaciones.js" />
     <Content Include="App\View\Regulaciones\Grids.js" />
     <Content Include="App\View\Regulaciones\Principal.js" />
     <Content Include="App\View\Permisos\FormPermiso.js" />
