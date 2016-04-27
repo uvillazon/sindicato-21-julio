@@ -80,7 +80,7 @@ namespace Sindicato.WebSite.Reportes
             result.FECHA_COMPRA = res.FECHA_COMPRA;
             result.MOVIL = res.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL;
             result.NUMERO = res.NRO_HOJA;
-            result.PLACA = "XXX-XXXX";
+            result.PLACA = servicio.obtenerPlada(res.ID_SOCIO_MOVIL);
             result.SOCIO = string.Format("{0} {1} {2}", res.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE, res.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO, res.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_MATERNO);
             results.Add(result);
             return results;

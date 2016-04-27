@@ -55,6 +55,10 @@
     <Compile Include="CajasServices.cs" />
     <Compile Include="AutosServices.cs" />
     <Compile Include="CierresServices.cs" />
+    <Compile Include="RegulacionesServices.cs" />
+    <Compile Include="Interfaces\IRegulacionesServices.cs" />
+    <Compile Include="PermisosServices.cs" />
+    <Compile Include="Interfaces\IPermisosServices.cs" />
     <Compile Include="ReportesServices.cs" />
     <Compile Include="IngresosServices.cs" />
     <Compile Include="Interfaces\IIngresosServices.cs" />

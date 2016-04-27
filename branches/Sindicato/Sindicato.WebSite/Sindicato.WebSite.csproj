@@ -88,6 +88,8 @@
     <Compile Include="Controllers\AutosController.cs" />
     <Compile Include="Controllers\CierresController.cs" />
     <Compile Include="Controllers\CierresParadaController.cs" />
+    <Compile Include="Controllers\RegulacionesController.cs" />
+    <Compile Include="Controllers\PermisosController.cs" />
     <Compile Include="Controllers\IngresosController.cs" />
     <Compile Include="Controllers\ReportesPDFController.cs" />
     <Compile Include="Controllers\ObligacionesController.cs" />
@@ -232,6 +234,9 @@
     <Content Include="App\Model\CierresParada\CierresParada.js" />
     <Content Include="App\Model\CierresParada\Detalles.js" />
     <Content Include="App\Model\Cierres\Detalles.js" />
+    <Content Include="App\Model\Regulaciones\Detalles.js" />
+    <Content Include="App\Model\Regulaciones\Regulaciones.js" />
+    <Content Include="App\Model\Permisos\Permisos.js" />
     <Content Include="App\Model\IngresosPorSocios\TiposIngresos.js" />
     <Content Include="App\Model\IngresosPorSocios\Ingresos.js" />
     <Content Include="App\Model\Socios\ObligacionesHoja.js" />
@@ -279,6 +284,9 @@
     <Content Include="App\Store\CierresParada\CierresParada.js" />
     <Content Include="App\Store\CierresParada\Detalles.js" />
     <Content Include="App\Store\Cierres\Detalles.js" />
+    <Content Include="App\Store\Regulaciones\Regulaciones.js" />
+    <Content Include="App\Store\Regulaciones\Detalles.js" />
+    <Content Include="App\Store\Permisos\Permisos.js" />
     <Content Include="App\Store\IngresosPorSocios\TiposIngresos.js" />
     <Content Include="App\Store\IngresosPorSocios\Ingresos.js" />
     <Content Include="App\Store\Socios\ObligacionesHoja.js" />
@@ -370,6 +378,17 @@
     <Content Include="App\View\CierresParada\FormCierre.js" />
     <Content Include="App\View\CierresParada\GridCierres.js" />
     <Content Include="App\View\CierresParada\Principal.js" />
+    <Content Include="App\View\Regulaciones\FormHoja.js" />
+    <Content Include="App\View\Regulaciones\Forms.js" />
+    <Content Include="App\View\Regulaciones\GridDetalles.js" />
+    <Content Include="App\View\Regulaciones\GridHojas.js" />
+    <Content Include="App\View\Regulaciones\Grids.js" />
+    <Content Include="App\View\Regulaciones\Principal.js" />
+    <Content Include="App\View\Permisos\FormPermiso.js" />
+    <Content Include="App\View\Permisos\Forms.js" />
+    <Content Include="App\View\Permisos\GridPermisos.js" />
+    <Content Include="App\View\Permisos\Grids.js" />
+    <Content Include="App\View\Permisos\Principal.js" />
     <Content Include="App\View\Reportes\Reportes.js" />
     <Content Include="App\View\TiposIngresos\FormIngreso.js" />
     <Content Include="App\View\TiposIngresos\Forms.js" />

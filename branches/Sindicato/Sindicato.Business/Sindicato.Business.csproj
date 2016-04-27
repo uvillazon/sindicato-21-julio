@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SD_REGULARIZACIONESManager.cs" />
+    <Compile Include="SD_DETALLES_REGULARIZACIONESManager.cs" />
     <Compile Include="SD_TIPOS_INGRESOS_SOCIOManager.cs" />
     <Compile Include="SD_ANULACIONESManager.cs" />
     <Compile Include="SD_INGRESOS_POR_SOCIOSManager.cs" />

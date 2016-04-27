@@ -59,6 +59,11 @@ Ext.define("App.Config.Constantes", {
             else if (estado == 'CERRADO') return 'OTCerrada';
             //else if (estado == 'CON_OIT') return 'AmarilloFuerte';
         }
+        else if (tipo == 'PERMISOS') {
+            if (estado == 'ANULADO') return 'OTAsignada';
+          
+            //else if (estado == 'CON_OIT') return 'AmarilloFuerte';
+        }
         else {
             return '';
         }

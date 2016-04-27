@@ -182,19 +182,6 @@
     ImprimirHojas: function (id) {
 
         var ruta = fn.ObtenerUrlReportPDF("ReporteHojas", "ID_VENTA="+id);
-        console.log(ruta);
-        var win = Ext.widget('window', {
-            title: 'Informe PDF',
-            iconCls: 'pdf-document',
-            width: 800,
-            height: 600,
-            modal: true,
-            closeAction: 'hide',
-            items: [{
-                xtype: 'component',
-                html: '<iframe height="590", width="790" src="' + ruta + '"></iframe>',
-            }]
-        });
-        win.show();
+        window.open(ruta);
     }
 });

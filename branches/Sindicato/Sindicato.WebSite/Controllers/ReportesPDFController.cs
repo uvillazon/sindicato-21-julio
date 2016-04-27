@@ -75,9 +75,9 @@ namespace Elfec.SisMan.Presentacion.Controllers
             Byte[] renderedBytes;
             //Render the report
             renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
-            Response.AddHeader("content-disposition", "attachment; filename=ReporteHojas." + fileNameExtension);
-            return File(renderedBytes, mimeType);
-            //return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+            //Response.AddHeader("content-disposition", "attachment; filename=ReporteHojas." + fileNameExtension);
+            //return File(renderedBytes, mimeType);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
         }
         public ActionResult ReporteReImpresion(string tipo, int ID_IMPRESION)
         {
@@ -99,8 +99,8 @@ namespace Elfec.SisMan.Presentacion.Controllers
             Byte[] renderedBytes;
             //Render the report
             renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
-            Response.AddHeader("content-disposition", "attachment; filename=ReporteHojas." + fileNameExtension);
-            return File(renderedBytes, mimeType);
+            //Response.AddHeader("content-disposition", "attachment; filename=ReporteHojas." + fileNameExtension);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
             //return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
         }
         protected void ReporteHoja_SubreportProcessing(object sender, SubreportProcessingEventArgs e)
@@ -131,8 +131,8 @@ namespace Elfec.SisMan.Presentacion.Controllers
             Byte[] renderedBytes;
             //Render the report
             renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
-            Response.AddHeader("content-disposition", "attachment; filename=ReporteHojas." + fileNameExtension);
-            return File(renderedBytes, mimeType);
+            //Response.AddHeader("content-disposition", "attachment; filename=ReporteHojas." + fileNameExtension);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
 
             //var fe = FECHA_FIN;
             //return null;

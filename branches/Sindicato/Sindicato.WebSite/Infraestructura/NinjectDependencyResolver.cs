@@ -74,6 +74,8 @@ namespace Sindicato.WebSite.Infraestructura
             Bind<ITrasferenciasServices>().To<TransferenciasServices>();
             Bind<IObligacionesServices>().To<ObligacionesServices>();
             Bind<IIngresosServices>().To<IngresosServices>();
+            Bind<IPermisosServices>().To<PermisosServices>();
+            Bind<IRegulacionesServices>().To<RegulacionesServices>();
             
             //ITrasferenciasServices
             //Bind<IVentasDiariasServices>().To<VentasDiariasServices>();

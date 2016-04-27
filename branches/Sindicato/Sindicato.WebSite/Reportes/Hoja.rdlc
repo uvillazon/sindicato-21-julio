@@ -11,7 +11,7 @@
               <TextRun>
                 <Value>="Nro : "&amp; First(Fields!ID_HOJA.Value, "DataSetHoja") &amp; " G-VII"</Value>
                 <Style>
-                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>14pt</FontSize>
                   <FontWeight>ExtraBold</FontWeight>
                 </Style>
               </TextRun>
@@ -20,10 +20,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.42898cm</Top>
-        <Left>4.91808cm</Left>
-        <Height>0.46771cm</Height>
-        <Width>3.71708cm</Width>
+        <Top>0.60565cm</Top>
+        <Left>5.60599cm</Left>
+        <Height>0.75875cm</Height>
+        <Width>5.54271cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -53,8 +53,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.89669cm</Top>
-        <Left>4.91808cm</Left>
+        <Top>1.3644cm</Top>
+        <Left>7.43162cm</Left>
         <Height>0.46771cm</Height>
         <Width>2.26187cm</Width>
         <ZIndex>1</ZIndex>
@@ -86,10 +86,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.14989cm</Top>
-        <Left>0.93281cm</Left>
+        <Top>2.07932cm</Top>
+        <Left>2.54677cm</Left>
         <Height>0.46771cm</Height>
-        <Width>5.7676cm</Width>
+        <Width>7.70235cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -119,10 +119,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.65287cm</Top>
-        <Left>5.81766cm</Left>
+        <Top>2.5823cm</Top>
+        <Left>7.90787cm</Left>
         <Height>0.50299cm</Height>
-        <Width>2.1825cm</Width>
+        <Width>2.34125cm</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
@@ -152,10 +152,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.6176cm</Top>
-        <Left>2.81136cm</Left>
+        <Top>2.54703cm</Top>
+        <Left>4.95449cm</Left>
         <Height>0.50299cm</Height>
-        <Width>2.20896cm</Width>
+        <Width>1.67979cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -185,8 +185,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.65287cm</Top>
-        <Left>0.93281cm</Left>
+        <Top>2.5823cm</Top>
+        <Left>2.54677cm</Left>
         <Height>0.46771cm</Height>
         <Width>0.96541cm</Width>
         <ZIndex>5</ZIndex>
@@ -219,10 +219,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>12.0825cm</Top>
-        <Left>0.93281cm</Left>
-        <Height>0.82917cm</Height>
-        <Width>8.12568cm</Width>
+        <Top>11.75177cm</Top>
+        <Left>3.68448cm</Left>
+        <Height>0.76302cm</Height>
+        <Width>6.56464cm</Width>
         <ZIndex>6</ZIndex>
         <Style>
           <Border>
@@ -253,8 +253,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.89669cm</Top>
-        <Left>7.17995cm</Left>
+        <Top>1.3644cm</Top>
+        <Left>9.69349cm</Left>
         <Height>0.46771cm</Height>
         <Width>1.45521cm</Width>
         <ZIndex>7</ZIndex>
@@ -269,15 +269,15 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>5.36458in</Height>
+    <Height>13.60312cm</Height>
     <Style />
   </Body>
-  <Width>3.76425in</Width>
+  <Width>11.55021cm</Width>
   <Page>
     <PageHeight>14cm</PageHeight>
     <PageWidth>12cm</PageWidth>
-    <LeftMargin>1cm</LeftMargin>
-    <RightMargin>1cm</RightMargin>
+    <LeftMargin>0cm</LeftMargin>
+    <RightMargin>0cm</RightMargin>
     <TopMargin>0cm</TopMargin>
     <BottomMargin>0cm</BottomMargin>
     <ColumnSpacing>0.13cm</ColumnSpacing>

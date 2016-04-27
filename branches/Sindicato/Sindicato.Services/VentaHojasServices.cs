@@ -200,5 +200,26 @@ namespace Sindicato.Services
             });
             return result;
         }
+
+        public string obtenerPlada(int ID_SOCIO_MOVIL)
+        {
+            string result = "";
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_SOCIO_MOVILESManager(uow);
+                //obtener un query de la tabla choferes
+                var socio = manager.BuscarTodos(x => x.ID_SOCIO_MOVIL == ID_SOCIO_MOVIL).FirstOrDefault();
+                if (socio != null)
+                {
+                    var autos = socio.SD_SOCIO_MOVIL_AUTOS.Count() > 0 ? socio.SD_SOCIO_MOVIL_AUTOS.Where(y => y.ESTADO == "ACTIVO").FirstOrDefault() : null;
+                    if (autos != null)
+                    {
+                        result = autos.SD_AUTOS.PLACA;
+                    }
+                }
+
+            });
+            return result;
+        }
     }
 }
