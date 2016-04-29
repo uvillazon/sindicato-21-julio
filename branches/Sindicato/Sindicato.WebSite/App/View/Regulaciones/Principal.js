@@ -80,7 +80,7 @@
                 break;
             case "btn_anular":
                 if (me.record.get('ESTADO') == "NUEVO") {
-                    Funciones.AjaxRequestGrid("VentaHojas", "AnularVenta", me.grid, "Esta seguro de Anular la Venta?", { ID_HOJA: me.record.get('ID_HOJA') }, me.grid, null);
+                    Funciones.AjaxRequestGrid("Regulaciones", "AnularRegulacion", me.grid, "Esta seguro de Anular la Regulacion?", { ID_REGULACION: me.record.get('ID_REGULACION') }, me.grid, null);
                 }
                 else {
                     Ext.Msg.alert("Error", "Venta en estado Inapropiado.");
@@ -100,7 +100,7 @@
         win.show();
         win.btn_guardar.on('click', function () {
             if (form.isValid()) {
-                Funciones.AjaxRequestWinSc("VentaHojas", "GuardarVenta", win, form, me.grid, "Esta Seguro de Guardar", null, win, function (result) {
+                Funciones.AjaxRequestWinSc("Regulaciones", "GuardarRegulacion", win, form, me.grid, "Esta Seguro de Guardar", null, win, function (result) {
                     //console.dir(result);
                     form.ImprimirHojas(result.id);
                 });

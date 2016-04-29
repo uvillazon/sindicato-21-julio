@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SD_KARDEX_HOJASManager.cs" />
     <Compile Include="SD_REGULARIZACIONESManager.cs" />
     <Compile Include="SD_DETALLES_REGULARIZACIONESManager.cs" />
     <Compile Include="SD_TIPOS_INGRESOS_SOCIOManager.cs" />

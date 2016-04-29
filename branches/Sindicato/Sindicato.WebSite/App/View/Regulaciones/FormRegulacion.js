@@ -61,10 +61,23 @@
             hidden: true,
             value: Constantes.Usuario.ID_PARADA
         });
+
+        me.date_fecha_compra = Ext.create("App.Config.Componente.DateFieldBase", {
+            fieldLabel: "Fecha COMPRA",
+            name: "FECHA_COMPRA",
+            //            readOnly : true,
+            //colspan: 2,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            readOnly: true
+        });
+
         me.date_fecha = Ext.create("App.Config.Componente.DateFieldBase", {
             fieldLabel: "Mes (MM-YYYY)",
             name: "MES",
             format: 'm-Y',
+            submitFormat: 'd/m/Y',
+            colspan : 2,
             //            readOnly : true,
             //colspan: 2,
             afterLabelTextTpl: Constantes.REQUERIDO,
@@ -163,8 +176,9 @@
         me.items = [
             me.txt_id_caja, me.txt_id_socio,
             me.txt_id_parada,
+            me.date_fecha_compra, me.cbx_parada,
             me.date_fecha,
-            me.cbx_parada, me.txt_caja,
+             me.txt_caja,
             me.cbx_socio, me.txt_nor_movil,
             me.txt_socio,
             me.num_precio,

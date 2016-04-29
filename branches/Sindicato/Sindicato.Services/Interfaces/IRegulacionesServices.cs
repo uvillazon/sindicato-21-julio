@@ -15,7 +15,7 @@ namespace Sindicato.Services.Interfaces
         IEnumerable<SD_REGULARIZACIONES> ObtenerRegulacionesPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
         IEnumerable<SD_DETALLES_REGULARIZACIONES> ObtenerDetalleRegulacionesPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
 
-        RespuestaSP GuardarRegulaciones(SD_REGULARIZACIONES regulacion , string detalles, string login);
+        RespuestaSP GuardarRegulaciones(SD_REGULARIZACIONES regulacion , string login);
         RespuestaSP AnularRegulacion(SD_REGULARIZACIONES regulacion, string login);
      }
 }

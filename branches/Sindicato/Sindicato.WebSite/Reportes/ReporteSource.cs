@@ -122,6 +122,15 @@ namespace Sindicato.WebSite.Reportes
             return result;
         
         }
+        public List<ReporteKardexHoja> ReporteKardexSocioHoja(DateTime FECHA, int ID_SOCIO_MOVIL , string login)
+        {
+
+            List<ReporteKardexHoja> result = new List<ReporteKardexHoja>();
+            var servicio = new ReportesServices();
+            result = servicio.ObtenerReporteKardexHoja(FECHA, ID_SOCIO_MOVIL,login).ToList();
+            return result;
+
+        }
         //ObtenerHojasPorVentas
     }
 }

@@ -42,14 +42,58 @@ namespace Sindicato.Services
 
        
 
-        public RespuestaSP GuardarRegulaciones(SD_REGULARIZACIONES regulacion, string detalles, string login)
+        public RespuestaSP GuardarRegulaciones(SD_REGULARIZACIONES regulacion,string login)
         {
-            throw new NotImplementedException();
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var context = (SindicatoContext)uow.Context;
+                ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
+
+                context.P_SD_GUARDAR_REGULACION(regulacion.ID_SOCIO_MOVIL,regulacion.ID_PARADA,regulacion.FECHA_COMPRA,regulacion.MES.ToString("MM-yyyy"),regulacion.CANTIDAD, login, p_res);
+                int id;
+                bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
+                if (esNumero)
+                {
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                    result.id = id;
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = p_res.Value.ToString();
+                }
+
+            });
+            return result;
         }
 
         public RespuestaSP AnularRegulacion(SD_REGULARIZACIONES regulacion, string login)
         {
-            throw new NotImplementedException();
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var context = (SindicatoContext)uow.Context;
+                ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
+
+                context.P_SD_ANULAR_REGULACION(regulacion.ID_REGULACION,regulacion.OBSERVACION , login, p_res);
+                int id;
+                bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
+                if (esNumero)
+                {
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                    result.id = id;
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = p_res.Value.ToString();
+                }
+
+            });
+            return result;
         }
 
 

@@ -53,4 +53,14 @@ namespace Sindicato.Services.Model
         public decimal DOLARES { get; set; }
     }
 
+    public class ReporteKardexHoja {
+        public string MES { get; set; }
+        public string NRO_MOVIL { get; set; }
+        public string SOCIO { get; set; }
+        public decimal? CANT_HOJAS { get; set; }
+        public decimal? CANT_REG { get; set; }
+        public decimal? CANT_HOJAS_OBLIG { get; set; }
+        public decimal? DEBE { get; set; }
+    }
+
 }

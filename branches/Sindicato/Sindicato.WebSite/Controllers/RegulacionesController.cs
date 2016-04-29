@@ -69,12 +69,12 @@ namespace Sindicato.WebSite.Controllers
         {
             string login = User.Identity.Name.Split('-')[0];
             RespuestaSP respuestaSP = new RespuestaSP();
-            respuestaSP = _serReg.GuardarRegulaciones(regulacion,detalles, login);
+            respuestaSP = _serReg.GuardarRegulaciones(regulacion, login);
             return Json(respuestaSP);
         }
 
         [HttpPost]
-        public JsonResult AnularPermiso(SD_REGULARIZACIONES regulacion)
+        public JsonResult AnularRegulacion(SD_REGULARIZACIONES regulacion)
         {
             string login = User.Identity.Name.Split('-')[0];
             RespuestaSP respuestaSP = new RespuestaSP();

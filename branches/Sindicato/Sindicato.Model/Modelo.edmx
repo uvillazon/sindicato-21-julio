@@ -33,6 +33,7 @@
           <EntitySet Name="SD_INGRESOS_SOCIO" EntityType="Model.Store.SD_INGRESOS_SOCIO" store:Type="Tables" Schema="SINDICATO_132" />
           <EntitySet Name="SD_KARDEX_EFECTIVO" EntityType="Model.Store.SD_KARDEX_EFECTIVO" store:Type="Tables" Schema="SINDICATO_132" />
           <EntitySet Name="SD_KARDEX_FM" EntityType="Model.Store.SD_KARDEX_FM" store:Type="Tables" Schema="SINDICATO_132" />
+          <EntitySet Name="SD_KARDEX_HOJAS" EntityType="Model.Store.SD_KARDEX_HOJAS" store:Type="Tables" Schema="SINDICATO_132" />
           <EntitySet Name="SD_KARDEX_OBLIGACION" EntityType="Model.Store.SD_KARDEX_OBLIGACION" store:Type="Tables" Schema="SINDICATO_132" />
           <EntitySet Name="SD_KARDEX_SOCIO" EntityType="Model.Store.SD_KARDEX_SOCIO" store:Type="Tables" Schema="SINDICATO_132" />
           <EntitySet Name="SD_KARDEX_SOCIO_DEBE" EntityType="Model.Store.SD_KARDEX_SOCIO_DEBE" store:Type="Tables" Schema="SINDICATO_132" />
@@ -204,6 +205,10 @@
           <AssociationSet Name="SD_KARDEX_FM_R01" Association="Model.Store.SD_KARDEX_FM_R01">
             <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
             <End Role="SD_KARDEX_FM" EntitySet="SD_KARDEX_FM" />
+          </AssociationSet>
+          <AssociationSet Name="SD_KARDEX_HOJAS_R01" Association="Model.Store.SD_KARDEX_HOJAS_R01">
+            <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
+            <End Role="SD_KARDEX_HOJAS" EntitySet="SD_KARDEX_HOJAS" />
           </AssociationSet>
           <AssociationSet Name="SD_KARDEX_OBLIGACION_R01" Association="Model.Store.SD_KARDEX_OBLIGACION_R01">
             <End Role="SD_OBLIGACIONES_SOCIO" EntitySet="SD_OBLIGACIONES_SOCIO" />
@@ -735,6 +740,20 @@
           <Property Name="NRO_CMP" Type="number" Nullable="false" Precision="15" />
           <Property Name="OBSERVACION" Type="varchar2" MaxLength="1000" />
         </EntityType>
+        <EntityType Name="SD_KARDEX_HOJAS">
+          <Key>
+            <PropertyRef Name="ID_KARDEX" />
+          </Key>
+          <Property Name="ID_KARDEX" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_SOCIO_MOVIL" Type="number" Nullable="false" Precision="7" />
+          <Property Name="MES" Type="date" Nullable="false" />
+          <Property Name="CANT_HOJAS" Type="number" Precision="15" Scale="5" />
+          <Property Name="CANT_REGULACIONES" Type="number" Precision="15" Scale="5" />
+          <Property Name="CANT_HOJAS_OBLIG" Type="number" Precision="15" Scale="5" />
+          <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
+          <Property Name="FECHA_REG" Type="date" />
+          <Property Name="DEBE" Type="number" Precision="15" />
+        </EntityType>
         <EntityType Name="SD_KARDEX_OBLIGACION">
           <Key>
             <PropertyRef Name="ID_KARDEX" />
@@ -969,6 +988,7 @@
           <Property Name="ESTADO" Type="varchar2" MaxLength="50" />
           <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
           <Property Name="FECHA_REG" Type="date" />
+          <Property Name="FECHA_COMPRA" Type="date" />
         </EntityType>
         <EntityType Name="SD_RETIRO_SOCIO">
           <Key>
@@ -1536,6 +1556,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="SD_KARDEX_HOJAS_R01">
+          <End Role="SD_SOCIO_MOVILES" Type="Model.Store.SD_SOCIO_MOVILES" Multiplicity="1" />
+          <End Role="SD_KARDEX_HOJAS" Type="Model.Store.SD_KARDEX_HOJAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIO_MOVILES">
+              <PropertyRef Name="ID_SOCIO_MOVIL" />
+            </Principal>
+            <Dependent Role="SD_KARDEX_HOJAS">
+              <PropertyRef Name="ID_SOCIO_MOVIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="SD_KARDEX_OBLIGACION_R01">
           <End Role="SD_OBLIGACIONES_SOCIO" Type="Model.Store.SD_OBLIGACIONES_SOCIO" Multiplicity="1" />
           <End Role="SD_KARDEX_OBLIGACION" Type="Model.Store.SD_KARDEX_OBLIGACION" Multiplicity="*" />
@@ -1942,6 +1974,12 @@
           <Parameter Name="P_ID_USR" Type="number" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
+        <Function Name="P_SD_ACT_KARDEX_HOJA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_132">
+          <Parameter Name="P_ID_SOCIO_MOVIL" Type="number" Mode="In" />
+          <Parameter Name="P_FECHA" Type="date" Mode="In" />
+          <Parameter Name="P_USR" Type="varchar2" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
         <Function Name="P_SD_ACT_KARDEX_SOCIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_132">
           <Parameter Name="P_ID_SOCIO" Type="number" Mode="In" />
           <Parameter Name="P_FECHA" Type="date" Mode="In" />
@@ -2050,6 +2088,12 @@
           <Parameter Name="P_LOGIN_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
+        <Function Name="P_SD_ANULAR_REGULACION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_132">
+          <Parameter Name="P_ID_REGULACION" Type="number" Mode="In" />
+          <Parameter Name="P_OBSERVACION" Type="varchar2" Mode="In" />
+          <Parameter Name="P_USR" Type="varchar2" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
         <Function Name="P_SD_CAMBIO_GARANTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_132">
           <Parameter Name="P_ID_CHOFER" Type="number" Mode="In" />
           <Parameter Name="P_FECHA_INI" Type="date" Mode="In" />
@@ -2131,6 +2175,15 @@
           <Parameter Name="P_ID_PARADA" Type="number" Mode="In" />
           <Parameter Name="P_ID_CHOFER" Type="number" Mode="In" />
           <Parameter Name="P_FECHA_COMPRA" Type="date" Mode="In" />
+          <Parameter Name="P_CANTIDAD" Type="number" Mode="In" />
+          <Parameter Name="P_USR" Type="varchar2" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
+        <Function Name="P_SD_GUARDAR_REGULACION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_132">
+          <Parameter Name="P_ID_SOCIO_MOVIL" Type="number" Mode="In" />
+          <Parameter Name="P_ID_PARADA" Type="number" Mode="In" />
+          <Parameter Name="P_FECHA_COMPRA" Type="date" Mode="In" />
+          <Parameter Name="P_MES" Type="varchar2" Mode="In" />
           <Parameter Name="P_CANTIDAD" Type="number" Mode="In" />
           <Parameter Name="P_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
@@ -2727,11 +2780,26 @@
             <Parameter Name="P_RES" Mode="Out" Type="String" />
           </FunctionImport>
           <EntitySet Name="SD_DETALLES_REGULARIZACIONES" EntityType="Model.SD_DETALLES_REGULARIZACIONES" />
-          <EntitySet Name="SD_REGULARIZACIONES" EntityType="Model.SD_REGULARIZACIONES" />
           <AssociationSet Name="SD_DETALLES_REGULARIZACION_R02" Association="Model.SD_DETALLES_REGULARIZACION_R02">
             <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
             <End Role="SD_DETALLES_REGULARIZACIONES" EntitySet="SD_DETALLES_REGULARIZACIONES" />
           </AssociationSet>
+          <FunctionImport Name="P_SD_ANULAR_REGULACION">
+            <Parameter Name="P_ID_REGULACION" Mode="In" Type="Decimal" />
+            <Parameter Name="P_OBSERVACION" Mode="In" Type="String" />
+            <Parameter Name="P_USR" Mode="In" Type="String" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="P_SD_GUARDAR_REGULACION">
+            <Parameter Name="P_ID_SOCIO_MOVIL" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ID_PARADA" Mode="In" Type="Decimal" />
+            <Parameter Name="P_FECHA_COMPRA" Mode="In" Type="DateTime" />
+            <Parameter Name="P_MES" Mode="In" Type="String" />
+            <Parameter Name="P_CANTIDAD" Mode="In" Type="Decimal" />
+            <Parameter Name="P_USR" Mode="In" Type="String" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="SD_REGULARIZACIONES" EntityType="Model.SD_REGULARIZACIONES" />
           <AssociationSet Name="SD_DETALLES_REGULARIZACION_R01" Association="Model.SD_DETALLES_REGULARIZACION_R01">
             <End Role="SD_REGULARIZACIONES" EntitySet="SD_REGULARIZACIONES" />
             <End Role="SD_DETALLES_REGULARIZACIONES" EntitySet="SD_DETALLES_REGULARIZACIONES" />
@@ -2744,6 +2812,17 @@
             <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
             <End Role="SD_REGULARIZACIONES" EntitySet="SD_REGULARIZACIONES" />
           </AssociationSet>
+          <EntitySet Name="SD_KARDEX_HOJAS" EntityType="Model.SD_KARDEX_HOJAS" />
+          <AssociationSet Name="SD_KARDEX_HOJAS_R01" Association="Model.SD_KARDEX_HOJAS_R01">
+            <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
+            <End Role="SD_KARDEX_HOJAS" EntitySet="SD_KARDEX_HOJAS" />
+          </AssociationSet>
+          <FunctionImport Name="P_SD_ACT_KARDEX_HOJA">
+            <Parameter Name="P_ID_SOCIO_MOVIL" Mode="In" Type="Decimal" />
+            <Parameter Name="P_FECHA" Mode="In" Type="DateTime" />
+            <Parameter Name="P_USR" Mode="In" Type="String" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="SD_LISTAS">
           <Key>
@@ -2923,6 +3002,7 @@
           <NavigationProperty Name="SD_INGRESOS_POR_SOCIOS" Relationship="Model.SD_INGRESOS_POR_SOCIOS_R01" FromRole="SD_SOCIO_MOVILES" ToRole="SD_INGRESOS_POR_SOCIOS" />
           <NavigationProperty Name="SD_PERMISOS" Relationship="Model.SD_PERMISOS_R01" FromRole="SD_SOCIO_MOVILES" ToRole="SD_PERMISOS" />
           <NavigationProperty Name="SD_REGULARIZACIONES" Relationship="Model.SD_REGULARIZACIONES_R02" FromRole="SD_SOCIO_MOVILES" ToRole="SD_REGULARIZACIONES" />
+          <NavigationProperty Name="SD_KARDEX_HOJAS" Relationship="Model.SD_KARDEX_HOJAS_R01" FromRole="SD_SOCIO_MOVILES" ToRole="SD_KARDEX_HOJAS" />
         </EntityType>
         <Association Name="SD_MOVILES_R01">
           <End Type="Model.SD_LINEAS" Role="SD_LINEAS" Multiplicity="1" />
@@ -4392,6 +4472,18 @@
           <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_DETALLES_REGULARIZACION_R02" FromRole="SD_DETALLES_REGULARIZACIONES" ToRole="SD_CAJAS" />
           <NavigationProperty Name="SD_REGULARIZACIONES" Relationship="Model.SD_DETALLES_REGULARIZACION_R01" FromRole="SD_DETALLES_REGULARIZACIONES" ToRole="SD_REGULARIZACIONES" />
         </EntityType>
+        <Association Name="SD_DETALLES_REGULARIZACION_R02">
+          <End Type="Model.SD_CAJAS" Role="SD_CAJAS" Multiplicity="1" />
+          <End Type="Model.SD_DETALLES_REGULARIZACIONES" Role="SD_DETALLES_REGULARIZACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CAJAS">
+              <PropertyRef Name="ID_CAJA" />
+            </Principal>
+            <Dependent Role="SD_DETALLES_REGULARIZACIONES">
+              <PropertyRef Name="ID_CAJA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="SD_REGULARIZACIONES">
           <Key>
             <PropertyRef Name="ID_REGULACION" />
@@ -4406,22 +4498,11 @@
           <Property Type="String" Name="ESTADO" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_COMPRA" Precision="0" />
           <NavigationProperty Name="SD_DETALLES_REGULARIZACIONES" Relationship="Model.SD_DETALLES_REGULARIZACION_R01" FromRole="SD_REGULARIZACIONES" ToRole="SD_DETALLES_REGULARIZACIONES" />
           <NavigationProperty Name="SD_PARADAS" Relationship="Model.SD_REGULARIZACIONES_R01" FromRole="SD_REGULARIZACIONES" ToRole="SD_PARADAS" />
           <NavigationProperty Name="SD_SOCIO_MOVILES" Relationship="Model.SD_REGULARIZACIONES_R02" FromRole="SD_REGULARIZACIONES" ToRole="SD_SOCIO_MOVILES" />
         </EntityType>
-        <Association Name="SD_DETALLES_REGULARIZACION_R02">
-          <End Type="Model.SD_CAJAS" Role="SD_CAJAS" Multiplicity="1" />
-          <End Type="Model.SD_DETALLES_REGULARIZACIONES" Role="SD_DETALLES_REGULARIZACIONES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_CAJAS">
-              <PropertyRef Name="ID_CAJA" />
-            </Principal>
-            <Dependent Role="SD_DETALLES_REGULARIZACIONES">
-              <PropertyRef Name="ID_CAJA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="SD_DETALLES_REGULARIZACION_R01">
           <End Type="Model.SD_REGULARIZACIONES" Role="SD_REGULARIZACIONES" Multiplicity="1" />
           <End Type="Model.SD_DETALLES_REGULARIZACIONES" Role="SD_DETALLES_REGULARIZACIONES" Multiplicity="*" />
@@ -4454,6 +4535,33 @@
               <PropertyRef Name="ID_SOCIO_MOVIL" />
             </Principal>
             <Dependent Role="SD_REGULARIZACIONES">
+              <PropertyRef Name="ID_SOCIO_MOVIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SD_KARDEX_HOJAS">
+          <Key>
+            <PropertyRef Name="ID_KARDEX" />
+          </Key>
+          <Property Type="Int32" Name="ID_KARDEX" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO_MOVIL" Nullable="false" />
+          <Property Type="DateTime" Name="MES" Nullable="false" Precision="0" />
+          <Property Type="Decimal" Name="CANT_HOJAS" Precision="15" Scale="5" />
+          <Property Type="Decimal" Name="CANT_REGULACIONES" Precision="15" Scale="5" />
+          <Property Type="Decimal" Name="CANT_HOJAS_OBLIG" Precision="15" Scale="5" />
+          <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <Property Type="Int64" Name="DEBE" />
+          <NavigationProperty Name="SD_SOCIO_MOVILES" Relationship="Model.SD_KARDEX_HOJAS_R01" FromRole="SD_KARDEX_HOJAS" ToRole="SD_SOCIO_MOVILES" />
+        </EntityType>
+        <Association Name="SD_KARDEX_HOJAS_R01">
+          <End Type="Model.SD_SOCIO_MOVILES" Role="SD_SOCIO_MOVILES" Multiplicity="1" />
+          <End Type="Model.SD_KARDEX_HOJAS" Role="SD_KARDEX_HOJAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIO_MOVILES">
+              <PropertyRef Name="ID_SOCIO_MOVIL" />
+            </Principal>
+            <Dependent Role="SD_KARDEX_HOJAS">
               <PropertyRef Name="ID_SOCIO_MOVIL" />
             </Dependent>
           </ReferentialConstraint>
@@ -5308,9 +5416,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="P_SD_ANULAR_REGULACION" FunctionName="Model.Store.P_SD_ANULAR_REGULACION" />
+          <FunctionImportMapping FunctionImportName="P_SD_GUARDAR_REGULACION" FunctionName="Model.Store.P_SD_GUARDAR_REGULACION" />
           <EntitySetMapping Name="SD_REGULARIZACIONES">
             <EntityTypeMapping TypeName="Model.SD_REGULARIZACIONES">
               <MappingFragment StoreEntitySet="SD_REGULARIZACIONES">
+                <ScalarProperty Name="FECHA_COMPRA" ColumnName="FECHA_COMPRA" />
                 <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
                 <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
                 <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
@@ -5324,6 +5435,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SD_KARDEX_HOJAS">
+            <EntityTypeMapping TypeName="Model.SD_KARDEX_HOJAS">
+              <MappingFragment StoreEntitySet="SD_KARDEX_HOJAS">
+                <ScalarProperty Name="DEBE" ColumnName="DEBE" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="CANT_HOJAS_OBLIG" ColumnName="CANT_HOJAS_OBLIG" />
+                <ScalarProperty Name="CANT_REGULACIONES" ColumnName="CANT_REGULACIONES" />
+                <ScalarProperty Name="CANT_HOJAS" ColumnName="CANT_HOJAS" />
+                <ScalarProperty Name="MES" ColumnName="MES" />
+                <ScalarProperty Name="ID_SOCIO_MOVIL" ColumnName="ID_SOCIO_MOVIL" />
+                <ScalarProperty Name="ID_KARDEX" ColumnName="ID_KARDEX" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="P_SD_ACT_KARDEX_HOJA" FunctionName="Model.Store.P_SD_ACT_KARDEX_HOJA" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -5344,7 +5471,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Modelo" ZoomLevel="18">
+      <Diagram Name="Modelo" ZoomLevel="108">
         <EntityTypeShape EntityType="Model.SD_LISTAS" Width="1.5" PointX="0.75" PointY="1" Height="2.5571907552083326" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.SD_LISTAS_ITEMS" Width="1.5" PointX="3" PointY="1" Height="2.7494921874999996" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.SD_MENU_OPCIONES" Width="1.5" PointX="0.5" PointY="11.125" Height="2.9417936197916639" IsExpanded="true" />
@@ -5496,11 +5623,13 @@
         <EntityTypeShape EntityType="Model.SD_PERMISOS" Width="1.5" PointX="9.125" PointY="35.25" />
         <AssociationConnector Association="Model.SD_PERMISOS_R01" />
         <EntityTypeShape EntityType="Model.SD_DETALLES_REGULARIZACIONES" Width="1.5" PointX="9.75" PointY="42.5" />
-        <EntityTypeShape EntityType="Model.SD_REGULARIZACIONES" Width="1.5" PointX="12.75" PointY="44" />
         <AssociationConnector Association="Model.SD_DETALLES_REGULARIZACION_R02" />
+        <EntityTypeShape EntityType="Model.SD_REGULARIZACIONES" Width="1.5" PointX="16.625" PointY="34.125" />
         <AssociationConnector Association="Model.SD_DETALLES_REGULARIZACION_R01" />
         <AssociationConnector Association="Model.SD_REGULARIZACIONES_R01" />
         <AssociationConnector Association="Model.SD_REGULARIZACIONES_R02" />
+        <EntityTypeShape EntityType="Model.SD_KARDEX_HOJAS" Width="1.5" PointX="3.8128912261747248" PointY="28.797100393472753" />
+        <AssociationConnector Association="Model.SD_KARDEX_HOJAS_R01" />
         </Diagram>
     </Diagrams>
   </Designer>

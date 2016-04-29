@@ -137,5 +137,32 @@ namespace Elfec.SisMan.Presentacion.Controllers
             //var fe = FECHA_FIN;
             //return null;
         }
+
+        public ActionResult ReporteKardexHojaSocio(string tipo, DateTime FECHA, int ID_SOCIO_MOVIL)
+        {
+            ReporteSource rep = new ReporteSource();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteKardexHojaSocio.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ReporteKardexSocioHoja(FECHA, ID_SOCIO_MOVIL,"admin"));
+            localReport.DataSources.Add(reportDataSource);
+            localReport.SubreportProcessing += new SubreportProcessingEventHandler(ReporteHoja_SubreportProcessing);
+
+
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            //Render the report
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            //Response.AddHeader("content-disposition", "attachment; filename=ReporteHojas." + fileNameExtension);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+
+            //var fe = FECHA_FIN;
+            //return null;
+        }
     }
 }

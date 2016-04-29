@@ -23,5 +23,6 @@ namespace Sindicato.Services.Model
         public string ESTADO { get; set; }
         public int? ID_OBLIGACION { get; set; }
         public int? ID_CIERRE { get; set; }
+        public int? ID_REGULACION { get; set; }
     }
 }
