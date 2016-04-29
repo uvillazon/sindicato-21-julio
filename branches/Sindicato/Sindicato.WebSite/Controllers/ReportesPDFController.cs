@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Sindicato.WebSite.Reportes;
+using Sindicato.Services;
 
 namespace Elfec.SisMan.Presentacion.Controllers
 {
@@ -146,8 +147,6 @@ namespace Elfec.SisMan.Presentacion.Controllers
             ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ReporteKardexSocioHoja(FECHA, ID_SOCIO_MOVIL,"admin"));
             localReport.DataSources.Add(reportDataSource);
             localReport.SubreportProcessing += new SubreportProcessingEventHandler(ReporteHoja_SubreportProcessing);
-
-
             string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
             string mimeType;
             string encoding;
@@ -156,13 +155,68 @@ namespace Elfec.SisMan.Presentacion.Controllers
             Warning[] warnings = new Warning[1];
             string[] streams = new string[1];
             Byte[] renderedBytes;
-            //Render the report
             renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
-            //Response.AddHeader("content-disposition", "attachment; filename=ReporteHojas." + fileNameExtension);
             return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
+        public ActionResult ReporteRegulacion(string tipo, int ID_REGULACION)
+        {
 
-            //var fe = FECHA_FIN;
-            //return null;
+            ReportesServices rep = new ReportesServices();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteRegulacion.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteRegulacion(ID_REGULACION));
+            localReport.DataSources.Add(reportDataSource);
+            localReport.SubreportProcessing += new SubreportProcessingEventHandler(ReporteHoja_SubreportProcessing);
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
+        public ActionResult ReporteIngreso(string tipo, int ID_INGRESO)
+        {
+
+            ReportesServices rep = new ReportesServices();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteIngreso.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteIngreso(ID_INGRESO));
+            localReport.DataSources.Add(reportDataSource);
+            localReport.SubreportProcessing += new SubreportProcessingEventHandler(ReporteHoja_SubreportProcessing);
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
+        public ActionResult ReporteRegulacion(string tipo, int ID_EGRESO)
+        {
+
+            ReportesServices rep = new ReportesServices();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteEgresp.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteEgreso(ID_EGRESO));
+            localReport.DataSources.Add(reportDataSource);
+            localReport.SubreportProcessing += new SubreportProcessingEventHandler(ReporteHoja_SubreportProcessing);
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
         }
     }
 }

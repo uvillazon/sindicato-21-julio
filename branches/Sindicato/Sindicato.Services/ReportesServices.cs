@@ -45,6 +45,99 @@ namespace Sindicato.Services
 
         }
 
+        public IEnumerable<ReporteRegulaciones> ObtenerReporteRegulacion(int ID_REGULACION)
+        {
+            List<ReporteRegulaciones> result = new List<ReporteRegulaciones>();
+            NumLetra n = new NumLetra();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_DETALLES_REGULARIZACIONESManager(uow);
+                var kardex = manager.BuscarTodos(x => x.ID_REGULACION == ID_REGULACION);
+                foreach (var item in kardex)
+                {
+                    var kar = new ReporteRegulaciones()
+                    {
+                        ID_REGULACION = item.SD_REGULARIZACIONES.ID_REGULACION,
+                        MES = item.SD_REGULARIZACIONES.MES.ToString("MM-yyyy"),
+                        MOVIL = item.SD_REGULARIZACIONES.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL.ToString(),
+                        SOCIO = string.Format("{0} {1} {2}", item.SD_REGULARIZACIONES.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE, item.SD_REGULARIZACIONES.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO, item.SD_REGULARIZACIONES.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_MATERNO),
+                        CANTIDAD = item.SD_REGULARIZACIONES.CANTIDAD,
+                        FECHA_COMPRA = item.SD_REGULARIZACIONES.FECHA_COMPRA,
+                        IMPORTE_OBLIGACION = item.IMPORTE,
+                        OBLIGACION = item.OBLIGACION,
+                        TOTAL = item.SD_REGULARIZACIONES.MONTO,
+                        TOTAL_LITERAL = n.Convertir(item.SD_REGULARIZACIONES.MONTO.ToString(),true)
+                    };
+                    result.Add(kar);
+                }
+
+            });
+
+            return result;
+
+        }
+
+        public IEnumerable<ReporteRegulaciones> ObtenerReporteIngreso(int ID_INGRESO)
+        {
+            List<ReporteRegulaciones> result = new List<ReporteRegulaciones>();
+            NumLetra n = new NumLetra();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_INGRESOS_POR_SOCIOSManager(uow);
+                var kardex = manager.BuscarTodos(x => x.ID_INGRESO == ID_INGRESO);
+                foreach (var item in kardex)
+                {
+                    var kar = new ReporteRegulaciones()
+                    {
+                        ID_REGULACION = item.ID_INGRESO,
+                        MOVIL = item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL.ToString(),
+                        SOCIO = string.Format("{0} {1} {2}", item.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE, item.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO, item.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_MATERNO),
+                        CANTIDAD = 1,
+                        FECHA_COMPRA = item.FECHA,
+                        IMPORTE_OBLIGACION = item.IMPORTE,
+                        OBLIGACION = item.SD_TIPOS_INGRESOS_SOCIO.NOMBRE,
+                        TOTAL = item.IMPORTE,
+                        TOTAL_LITERAL = n.Convertir(item.IMPORTE.ToString(), true,item.MONEDA)
+                    };
+                    result.Add(kar);
+                }
+
+            });
+
+            return result;
+
+        }
+
+        public IEnumerable<ReporteRegulaciones> ObtenerReporteEgreso(int ID_EGRESO)
+        {
+            List<ReporteRegulaciones> result = new List<ReporteRegulaciones>();
+            NumLetra n = new NumLetra();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_EGRESOSManager(uow);
+                var kardex = manager.BuscarTodos(x => x.ID_EGRESO == ID_EGRESO);
+                foreach (var item in kardex)
+                {
+                    var kar = new ReporteRegulaciones()
+                    {
+                        ID_REGULACION = item.ID_EGRESO,
+                        CANTIDAD = 1,
+                        FECHA_COMPRA = item.FECHA,
+                        IMPORTE_OBLIGACION = item.IMPORTE,
+                        OBLIGACION = item.CONCEPTO,
+                        TOTAL = item.IMPORTE,
+                        TOTAL_LITERAL = n.Convertir(item.IMPORTE.ToString(), true,item.SD_CAJAS.MONEDA)
+                    };
+                    result.Add(kar);
+                }
+
+            });
+
+            return result;
+
+        }
+
+
         public IEnumerable<ReporteTotal> ObtenerReporteTotal(DateTime FECHA_INI, DateTime FECHA_FIN)
         {
             List<ReporteTotal> result = new List<ReporteTotal>();

@@ -131,6 +131,15 @@ namespace Sindicato.WebSite.Reportes
             return result;
 
         }
+        public List<ReporteRegulaciones> ReporteRegulacion(int ID_REGULACION)
+        {
+
+            List<ReporteRegulaciones> result = new List<ReporteRegulaciones>();
+            //var servicio = new ReportesServices();
+            //result = servicio.ObtenerReporteKardexHoja(FECHA, ID_SOCIO_MOVIL, login).ToList();
+            return result;
+
+        }
         //ObtenerHojasPorVentas
     }
 }

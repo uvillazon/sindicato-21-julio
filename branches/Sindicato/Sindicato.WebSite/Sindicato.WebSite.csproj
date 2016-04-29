@@ -3805,10 +3805,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reportes\ReporteEgreso.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteIngreso.rdlc" />
     <EmbeddedResource Include="Reportes\Hoja.rdlc" />
     <EmbeddedResource Include="Reportes\Report1.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteHojas.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteKardexHojaSocio.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteRegulacion.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteSocioMovil.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteSocioMovilHoja.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteTotal.rdlc" />

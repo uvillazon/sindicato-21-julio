@@ -63,4 +63,32 @@ namespace Sindicato.Services.Model
         public decimal? DEBE { get; set; }
     }
 
+    public class ReporteRegulaciones {
+        public int ID_REGULACION { get; set; }
+        public string MOVIL { get; set; }
+        public string SOCIO { get; set; }
+        public DateTime? FECHA_COMPRA { get; set; }
+        public string MES { get; set; }
+        public decimal? CANTIDAD { get; set; }
+        public decimal? TOTAL { get; set; }
+        public string OBLIGACION { get; set; }
+        public decimal? IMPORTE_OBLIGACION { get; set; }
+        public string TOTAL_LITERAL { get; set; }
+        
+    }
+    public class ReporteIngresos
+    {
+        public int ID_INGRESO { get; set; }
+        public string MOVIL { get; set; }
+        public string SOCIO { get; set; }
+        public DateTime? FECHA_COMPRA { get; set; }
+        public string MES { get; set; }
+        public decimal? CANTIDAD { get; set; }
+        public decimal? TOTAL { get; set; }
+        public string OBLIGACION { get; set; }
+        public decimal? IMPORTE_OBLIGACION { get; set; }
+        public string TOTAL_LITERAL { get; set; }
+
+    }
+
 }

@@ -8377,3 +8377,63 @@ EXCEPTION
     p_res := -1; --error
 END;
 /
+
+
+
+CREATE OR REPLACE PROCEDURE SINDICATO_132.P_SD_ELIMINAR_SOCIO_XXX(
+  p_id_socio NUMBER , --Criterio de LIKE para buscar en los nombres de SECUENCIAS
+  p_res OUT NUMBER  -- Mensaje de OK ("1") o Descripcion del error
+  
+)
+ /*
+ Finalidad:Actualizar todas las secuencias de un Esquema con algun criterio LIKE si correxponde
+ Retorna: p_res(parametro de salida)->Mensaje de OK (1) o Nro de LOG de error generado.
+ Fecha Creacion: 17/01/2013
+ Autor: Ubaldo Villazon
+ */
+IS
+ v_id NUMBER := 0 ;
+ v_count number;
+ v_errc   SINDICATO_132.sd_aux_log_errores.cod_error%type;
+ v_errd   SINDICATO_132.sd_aux_log_errores.desc_error%type;
+ v_id_log SINDICATO_132.sd_aux_log_errores.id_log%type;
+ v_sql VARCHAR(1000):='';
+BEGIN
+
+SELECT count(*) INTO v_count FROM SD_SOCIO_MOVILES  WHERE ID_SOCIO = p_id_socio;
+
+IF v_count > 0 THEN
+
+    FOR x IN (SELECT * FROM  SD_SOCIO_MOVILES  WHERE ID_SOCIO = p_id_socio) LOOP
+            SELECT  ID_AUTO INTO v_id FROM  SD_SOCIO_MOVIL_AUTOS WHERE ID_SOCIO_MOVIL  =  x.ID_SOCIO_MOVIL;
+            DELETE FROM SD_SOCIO_MOVIL_AUTOS WHERE ID_SOCIO_MOVIL = x.ID_SOCIO_MOVIL;
+            DELETE FROM SD_AUTOS WHERE ID_AUTO  = v_id;
+            
+            DELETE FROM SD_DETALLES_HOJAS_CONTROL WHERE ID_HOJA IN (
+            SELECT ID_HOJA FROM SD_HOJAS_CONTROL WHERE ID_SOCIO_MOVIL =  x.ID_SOCIO_MOVIL            );
+            
+            DELETE FROM SD_HOJAS_CONTROL  WHERE ID_SOCIO_MOVIL= x.ID_SOCIO_MOVIL;
+            
+            DELETE FROM SD_INGRESOS_POR_SOCIOS WHERE ID_SOCIO_MOVIL = x.ID_SOCIO_MOVIL;
+            
+ 
+            
+          --  DELETE FROM SD_MOVILES WHERE ID_MOVIL = x.ID
+        
+    END LOOP;
+
+END IF;
+
+DELETE FROM  SD_SOCIO_MOVILES  WHERE ID_SOCIO = p_id_socio;
+DELETE FROM SD_SOCIOS WHERE ID_SOCIO = p_id_socio;
+
+commit;
+p_res :=  '1';
+EXCEPTION
+  WHEN OTHERS THEN
+    v_errC:=substr(sqlcode,1,20);
+    v_errD:=substr(sqlerrm,1,200);
+    p_grabar_error_bd(v_errC,v_errD,'Procedimiento temporal','P_SD_ELIMINAR_SOCIO','-',0,v_id_log);
+    p_res := v_id_log;
+END;
+/
