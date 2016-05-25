@@ -8,6 +8,12 @@ namespace Sindicato.Model
 {
     public partial class SD_SOCIOS
     {
+
+        public string ObtenerNombreSocio()
+        {
+            return string.Format("{0} {1} {2}", NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO);
+        }
+
         public static Expression<Func<SD_SOCIOS, bool>> Contiene(string contiene)
         {
             List<int> id = new List<int>();

@@ -39,6 +39,8 @@ namespace Sindicato.WebSite.Controllers
                 TIPO_MOVIL = x.TIPO_MOVIL,
                 NRO_SOCIO = x.SD_SOCIOS.NRO_SOCIO,
                 NOMBRE = x.SD_SOCIOS.NOMBRE,
+                FECHA_ALTA = x.FECHA_ALTA,
+                FECHA_BAJA = x.FECHA_BAJA,
                 APELLIDO_MATERNO = x.SD_SOCIOS.APELLIDO_MATERNO,
                 APELLIDO_PATERNO = x.SD_SOCIOS.APELLIDO_PATERNO,
                 //NOMBRE_SOCIO = string.Format("{0} {1} {2}",x.SD_SOCIOS.NOMBRE,x.SD_SOCIOS.APELLIDO_PATERNO,x.SD_SOCIOS.APELLIDO_MATERNO),
@@ -53,7 +55,6 @@ namespace Sindicato.WebSite.Controllers
                 OBSERVACION = x.SD_SOCIOS.OBSERVACION,
                 ESTADO_CIVIL = x.SD_SOCIOS.ESTADO_CIVIL,
                 NOMBRE_SOCIO = string.Format("{0} {1} {2}", x.SD_SOCIOS.NOMBRE, x.SD_SOCIOS.APELLIDO_PATERNO, x.SD_SOCIOS.APELLIDO_MATERNO),
-                FECHA_BAJA = x.SD_SOCIOS.FECHA_BAJA,
                 TELEFONO = x.SD_SOCIOS.TELEFONO,
                 CELULAR = x.SD_SOCIOS.CELULAR,
                 ESTADO = x.ESTADO,
@@ -440,5 +441,14 @@ namespace Sindicato.WebSite.Controllers
         //ObtenerObligacionesHojasPaginados
 
         #endregion
+
+        [HttpPost, ValidateInput(false)]
+        public JsonResult EliminarSocio(int ID_SOCIO)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serSoc.EliminarSocio(ID_SOCIO, login);
+            return Json(respuestaSP);
+        }
     }
 }

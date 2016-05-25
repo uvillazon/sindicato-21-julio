@@ -851,8 +851,10 @@ Ext.define("App.Config.Funciones", {
         return edad;
     },
     ImprimirReport: function (nameReport, params) {
+        console.dir(nameReport);
         if (Funciones.winReporte == null) {
-            Funciones.winReporte = Ext.create("App.Config.Abstract.Window", {width : 100});
+
+            Funciones.winReporte = Ext.create("App.Config.Abstract.Window", {width : 100 , destruirWin : false});
             fn.store_view = Ext.create('Ext.data.Store', {
                 fields: ['src', 'caption', 'tipo'],
                 data: [

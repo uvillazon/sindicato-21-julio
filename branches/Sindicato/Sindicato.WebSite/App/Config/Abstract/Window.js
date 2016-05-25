@@ -24,6 +24,7 @@ Ext.define("App.Config.Abstract.Window", {
     textGuardar: 'Guardar',
     textCerrar: 'Cerrar',
     destruirWin: true,
+    showBtn3 : false,
     initComponent: function () {
         var me = this;
         if (!me.botones) {
@@ -75,9 +76,20 @@ Ext.define("App.Config.Abstract.Window", {
                 //margin: 10,
 
             });
-            if (this.btn3 != null) {
-                this.btn3.removeCls("botones");
+            if (this.showBtn3) {
+                this.btn3 = Ext.create('Ext.Button', {
+                    text: "Reporte Hojas",
+                    minHeight: 27,
+                    minWidth: 80,
+                    itemId: 'btn_generar',
+                    textAlign: 'center',
+                    iconCls: 'disk',
+
+                });
             }
+            //if (this.btn3 != null) {
+            //    this.btn3.removeCls("botones");
+            //}
             this.buttons = [this.btn_guardar, this.btn3, this.btn_cerrar];
         }
         //       var me = this;

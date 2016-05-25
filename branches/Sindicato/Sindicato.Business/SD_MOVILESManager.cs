@@ -17,23 +17,47 @@ namespace Sindicato.Business
         public SD_MOVILESManager(IUnitOfWork uow) : base(uow) { }
 
         //test
-        public string GuardarMovil(SD_MOVILES movil, int ID_USR) {
+        public string GuardarMovil(SD_MOVILES movil, string LOGIN_USR)
+        {
             try
             {
                 string result = "";
-                var verificar = BuscarTodos(x => x.NRO_MOVIL == movil.NRO_MOVIL);
-                if (verificar.Count() > 0)
+                if (movil.ID_MOVIL == 0)
                 {
-                    result = string.Format("Existe el numero de movil {0} ya asociado a otro Socio", movil.NRO_MOVIL);
+                    var verificar = BuscarTodos(x => x.NRO_MOVIL == movil.NRO_MOVIL);
+                    if (verificar.Count() > 0)
+                    {
+                        result = string.Format("Existe el numero de movil {0}", movil.NRO_MOVIL);
+                    }
+                    else
+                    {
+                        movil.ID_MOVIL = ObtenerSecuencia();
+                        movil.ESTADO = "ACTIVO";
+                        movil.FECHA_REG = DateTime.Now;
+                        movil.LOGIN_USR = LOGIN_USR;
+                        movil.ID_LINEA = 1;
+                        Add(movil);
+                        Save();
+                        result = movil.ID_MOVIL.ToString();
+                    }
                 }
                 else {
-                    movil.ID_MOVIL = ObtenerSecuencia();
-                    movil.ESTADO = "ACTIVO";
-                    movil.FECHA_REG = DateTime.Now;
-                    movil.ID_USR = ID_USR;
-                    Add(movil);
-                    Save();
-                    result = movil.ID_MOVIL.ToString();
+                    var verificar = BuscarTodos(x => x.NRO_MOVIL == movil.NRO_MOVIL && x.ID_MOVIL != movil.ID_MOVIL).FirstOrDefault();
+                    if (verificar != null)
+                    {
+                        result = string.Format("Existe el numero de movil {0}", movil.NRO_MOVIL);
+                    }
+                    else
+                    {
+                        var movilobj = BuscarTodos(x=>x.ID_MOVIL == movil.ID_MOVIL).FirstOrDefault();
+                        movilobj.NRO_MOVIL = movil.NRO_MOVIL;
+                        movilobj.OBSERVACION = movil.OBSERVACION;
+                        movilobj.DESCRIPCION = movil.DESCRIPCION;
+                        movilobj.FECHA_ALTA = movil.FECHA_ALTA;
+                        Save();
+                        result = movil.ID_MOVIL.ToString();
+                    }
+
                 }
                 return result;
 
@@ -43,6 +67,7 @@ namespace Sindicato.Business
                 return e.ToString();
                 //throw;
             }
-        } 
+        }
+
     }
 }

@@ -30,14 +30,13 @@ namespace Sindicato.Services
                 result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
                 if (!string.IsNullOrEmpty(filtros.Contiene))
                 {
-                    var contiene = filtros.Contiene.Trim().ToUpper();
-                    result = result.Where(x => x.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE.ToUpper() == contiene);
+                    result = result.Where(SD_HOJAS_CONTROL.Contiene(filtros.Contiene));
 
                 }
                 paginacion.total = result.Count();
                 result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
 
-            });
+            });  
             return result;
         }
 

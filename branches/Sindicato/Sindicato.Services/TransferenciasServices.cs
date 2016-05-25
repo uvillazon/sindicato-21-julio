@@ -134,6 +134,48 @@ namespace Sindicato.Services
             return result;
         }
 
+        public RespuestaSP EliminarIngresoPorSocio(int ID_INGRESO)
+        {
+            RespuestaSP result = new RespuestaSP();
+            int ID_CAJA = 0;
+            DateTime? fecha = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_INGRESOS_POR_SOCIOSManager(uow);
+                var context = (SindicatoContext)manager.Context;
+                var ant = manager.BuscarTodos(x => x.ID_INGRESO == ID_INGRESO).FirstOrDefault();
+                if (ant != null)
+                {
+                    fecha = ant.FECHA;
+                    ID_CAJA = ant.ID_CAJA;
+                    manager.Delete(ant);
+                    var kardex = context.SD_KARDEX_EFECTIVO.Where(x => x.OPERACION == "INGRESOS POR SOCIOS" && x.ID_OPERACION == ant.ID_INGRESO && x.ID_CAJA == ant.ID_CAJA);
+                    foreach (var item in kardex)
+                    {
+                        context.SD_KARDEX_EFECTIVO.DeleteObject(item);
+                    }
+
+                    manager.Save();
+                    ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+                    context.P_SD_ACT_KARDEX_EFECTIVO(ant.ID_CAJA, fecha, 0, p_RES);
+                    result.success = true;
+                    result.msg = "Se elimino Correctamente";
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = "Ocurrio algun Problema";
+                }
+            });
+            //ExecuteManager(uow =>
+            //    {
+            //        var context = (SindicatoContext)uow.Context;
+            //        ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+            //        context.P_SD_ACT_KARDEX_EFECTIVO(ID_CAJA, fecha, 0, p_RES);
+            //    });
+            return result;
+        }
+
         public RespuestaSP GuardarEgreso(SD_EGRESOS egreso, string login)
         {
             RespuestaSP result = new RespuestaSP();

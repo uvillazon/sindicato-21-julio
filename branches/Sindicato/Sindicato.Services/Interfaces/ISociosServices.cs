@@ -41,6 +41,8 @@ namespace Sindicato.Services.Interfaces
         IEnumerable<SD_SOC_MOV_OBLIG> ObtenerConfigHojasPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
         IEnumerable<SD_OBLIGACIONES_HOJA> ObtenerObligacionesHojasPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
 
+        RespuestaSP EliminarSocio(int ID_SOCIO, string LOGIN);
+
         #region Retiros
         IEnumerable<SD_RETIRO_SOCIO> ObtenerRetirosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
         SD_RETIRO_SOCIO ObtenerRetiroPorCriterio(Expression<Func<SD_RETIRO_SOCIO, bool>> criterio);

@@ -22,6 +22,19 @@ namespace Sindicato.Services.Model
 
     }
 
+    public class SociosMovilesReporte {
+        public int NRO_MOVIL { get; set; }
+        public string SOCIO { get; set; }
+        public string TIPO_LINEA { get; set; }
+        public string DESCRIPCION { get; set; }
+        public string OBSERVACION { get; set; }
+        public DateTime? FECHA_ALTA { get; set; }
+        public DateTime? FECHA_BAJA { get; set; }
+        public DateTime? FECHA_REG { get; set; }
+        public string INTERVALO_FECHA { get; set; }
+        public string ESTADO { get; set; }
+    }
+
     public class SocioMovilHojas
     {
         public int NRO_MOVIL { get; set; }
@@ -51,6 +64,9 @@ namespace Sindicato.Services.Model
         public decimal COSTO_UNITARIO { get; set; }
         public decimal BOLIVIANOS { get; set; }
         public decimal DOLARES { get; set; }
+        public DateTime FECHA_INI { get; set; }
+        public DateTime FECHA_FIN { get; set; }
+        public decimal TOTAL_AHORRO { get; set; }
     }
 
     public class ReporteKardexHoja {
@@ -89,6 +105,15 @@ namespace Sindicato.Services.Model
         public decimal? IMPORTE_OBLIGACION { get; set; }
         public string TOTAL_LITERAL { get; set; }
 
+    }
+    public class RepoteDetalleHojas {
+        public string SOCIO { get; set; }
+        public int MOVIL { get; set; }
+        public string NRO_HOJA { get; set; }
+        public DateTime FECHA_COMPRA { get; set; }
+        public decimal? IMPORTE { get; set; }
+        public decimal? IMPORTE_DETALLE { get; set; }
+        public string ESTADO { get; set; }
     }
 
 }

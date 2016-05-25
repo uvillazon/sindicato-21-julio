@@ -12,12 +12,13 @@
         var me = this;
 
         me.toolbar = Funciones.CrearMenuBar();
-        Funciones.CrearMenu('btn_ReporteSocioMovilHoja', 'Reporte Socios Hoja', 'printer', me.EventosPrincipal, me.toolbar, this, null, false);
+        Funciones.CrearMenu('btn_EliminarSocio', 'Eliminar', 'cross', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_ReporteSocioMovilHoja', 'Reporte Hoja', 'printer', me.EventosPrincipal, me.toolbar, this, null, true);
         //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
         //Funciones.CrearMenu('btn_ImprimirReporte', 'Imprimir Reporte', 'printer', me.EventosPrincipal, me.toolbar, this, null, true);
         //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
-        Funciones.CrearMenu('btn_ConfigHoja', 'Config Hoja', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
-        Funciones.CrearMenu('btn_Kardex', 'Kardex Socio', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_ConfigHoja', 'Config', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_Kardex', 'Kardex Soc.', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
         //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
 
 
@@ -27,7 +28,7 @@
             width: '50%',
             opcion: 'GridSocios',
             fbarmenu: me.toolbar,
-            fbarmenuArray: ["btn_ConfigObligacion", "btn_ImprimirReporte", "btn_Editar", "btn_EditarMovil", "btn_Imagen", "btn_Kardex", "btn_ConfigHoja"]
+            fbarmenuArray: ["btn_ConfigObligacion", "btn_ReporteSocioMovilHoja", "btn_Editar", "btn_EditarMovil", "btn_Imagen", "btn_Kardex", "btn_ConfigHoja", "btn_EliminarSocio"]
 
         });
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
@@ -110,6 +111,7 @@
     //        });
     EventosPrincipal: function (btn) {
         var me = this;
+        console.dir(btn);
         switch (btn.getItemId()) {
             case "btn_Detalle":
                 var win = Ext.create("App.Config.Abstract.Window", { gridLoads: [me.grid] });
@@ -133,7 +135,7 @@
                 });
                 break;
             case "btn_ReporteSocioMovilHoja":
-                Funciones.ImprimirReport("ReporteSocioMovilHoja", null);
+                Funciones.ImprimirReport("ReporteKardexHojaSocio", "FECHA=01-01-2009&ID_SOCIO_MOVIL="+me.socio.get('ID_SOCIO_MOVIL'));
                 break;
             case "btn_ConfigObligacion":
                 var win = Ext.create("App.Config.Abstract.Window", { botones: false, title: 'Configuracion de Obligaciones' });
@@ -171,6 +173,9 @@
                 break;
             case "btn_Kardex":
                 me.VentanaKardex();
+                break;
+            case "btn_EliminarSocio":
+                Funciones.AjaxRequestGrid("Socios", "EliminarSocio", me.grid, "Se eliminara todos los registros asociados al socio Esta seguro que desea continuar?", { ID_SOCIO: me.grid.record.get('ID_SOCIO') }, me.grid, null);
                 break;
             default:
                 Ext.Msg.alert("Aviso", "No Existe el botton");

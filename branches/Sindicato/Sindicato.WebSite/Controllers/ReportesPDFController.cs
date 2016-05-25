@@ -186,7 +186,6 @@ namespace Elfec.SisMan.Presentacion.Controllers
             localReport.ReportPath = Server.MapPath("~/Reportes/ReporteIngreso.rdlc");
             ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteIngreso(ID_INGRESO));
             localReport.DataSources.Add(reportDataSource);
-            localReport.SubreportProcessing += new SubreportProcessingEventHandler(ReporteHoja_SubreportProcessing);
             string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
             string mimeType;
             string encoding;
@@ -198,7 +197,7 @@ namespace Elfec.SisMan.Presentacion.Controllers
             renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
             return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
         }
-        public ActionResult ReporteRegulacion(string tipo, int ID_EGRESO)
+        public ActionResult ReporteEgreso(string tipo, int ID_EGRESO)
         {
 
             ReportesServices rep = new ReportesServices();
@@ -206,7 +205,46 @@ namespace Elfec.SisMan.Presentacion.Controllers
             localReport.ReportPath = Server.MapPath("~/Reportes/ReporteEgresp.rdlc");
             ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteEgreso(ID_EGRESO));
             localReport.DataSources.Add(reportDataSource);
-            localReport.SubreportProcessing += new SubreportProcessingEventHandler(ReporteHoja_SubreportProcessing);
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
+
+        public ActionResult ReporteDetalleHoja(string tipo, DateTime FECHA_INI, DateTime FECHA_FIN)
+        {
+
+            ReportesServices rep = new ReportesServices();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteDetalleHoja.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteDetalleHoja(FECHA_INI,FECHA_FIN));
+            localReport.DataSources.Add(reportDataSource);
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
+
+        public ActionResult ReporteSociosMovilesActivos(string tipo, DateTime FECHA_INI, DateTime FECHA_FIN)
+        {
+
+            ReportesServices rep = new ReportesServices();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteSociosMovilesActivos.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteSociosMovilesPorFecha(FECHA_INI, FECHA_FIN));
+            localReport.DataSources.Add(reportDataSource);
             string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
             string mimeType;
             string encoding;

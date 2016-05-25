@@ -11,6 +11,9 @@ namespace Sindicato.Services.Model
         public int? ID_TIPO_INGRESO { get; set; }
         public int? ID_TIPO_TIPO { get; set; }
         public int? ID_SOCIO_MOVIL { get; set; }
+        public int? ID_TIPO { get; set; }
+        public int? ID_SOCIO { get; set; }
+        public int? ID_PRESTAMO { get; set; }
         //public int? ID_DESCUENTO { get; set; }
         //public int? ID_SOCIO { get; set; }
     }

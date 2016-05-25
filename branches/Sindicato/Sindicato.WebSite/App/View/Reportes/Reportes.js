@@ -6,13 +6,15 @@
     initComponent: function () {
         var me = this;
         if (me.opcion == "ReportesIngresos") {
-            me.textGuardar = "Generar Reporte Ingresos Totales";
+            me.textGuardar = "Reporte Totales";
+            me.showBtn3 = true;
             me.CargarReporteIngresosTotales();
 
+
         }
-        else if (me.opcion == "ReporteEstadoResultado") {
-            me.textGuardar = "Generar Estado Resultado";
-            me.CargarReporteEstadoResultado();
+        else if (me.opcion == "ReportesSocios") {
+            me.textGuardar = "Reporte Socios";
+            me.CargarReporteSocios();
         }
         else if (me.opcion == "ReporteUtilidadVentaBruta") {
             me.textGuardar = "Utilidad de Venta Bruta";
@@ -35,6 +37,9 @@
         //        }
         this.callParent(arguments);
         me.btn_guardar.on('click', me.GuardarReporte, this);
+        if (me.btn3 != null) {
+            me.btn3.on('click', me.GuardarReporteDetalleHojas, this);
+        }
     },
     CargarReporteAutoridad: function () {
         var me = this;
@@ -159,7 +164,7 @@
         me.formReporte.add([me.cbx_mes, me.cbx_anio]);
         me.items = me.formReporte;
     },
-    CargarReporteIngresosTotales : function(){
+    CargarReporteIngresosTotales: function () {
         var me = this;
         me.formReporte = Ext.create("App.Config.Abstract.Form", { botones: false, title: "Generar Reporte Ingresos Totales", columns: 1 });
 
@@ -173,10 +178,37 @@
             name: "FECHA_FIN",
             format: 'm-d-Y'
         });
-
         me.formReporte.add([me.date_fecha_inicial, me.date_fecha_final]);
         me.items = me.formReporte;
 
+    },
+    CargarReporteSocios: function () {
+        var me = this;
+        me.formReporte = Ext.create("App.Config.Abstract.Form", { botones: false, title: "Generar Reporte Socios Moviles", columns: 1 });
+
+        me.date_fecha_inicial = Ext.create("App.Config.Componente.DateFieldBase", {
+            fieldLabel: "Fecha Desde",
+            name: "FECHA_INI",
+            format: 'm-d-Y'
+        });
+        me.date_fecha_final = Ext.create("App.Config.Componente.DateFieldBase", {
+            fieldLabel: "Fecha Hasta",
+            name: "FECHA_FIN",
+            format: 'm-d-Y'
+        });
+        me.formReporte.add([me.date_fecha_inicial, me.date_fecha_final]);
+        me.items = me.formReporte;
+
+    },
+    GuardarReporteDetalleHojas: function () {
+        var me = this;
+        if (me.formReporte.isValid()) {
+            window.open(Constantes.HOST + 'ReportesPDF/ReporteDetalleHoja?tipo=pdf&FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue());
+            me.hide();
+        }
+        else {
+            Ext.Msg.alert("Error", "Falta Completar informcion...");
+        }
     },
     GuardarReporte: function () {
         var me = this;
@@ -228,6 +260,15 @@
         else if (me.opcion == "ReportesIngresos") {
             if (me.formReporte.isValid()) {
                 window.open(Constantes.HOST + 'ReportesPDF/ReporteIngresosTotales?tipo=pdf&FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue());
+                me.hide();
+            }
+            else {
+                Ext.Msg.alert("Error", "Falta Completar informcion...");
+            }
+        }
+        else if (me.opcion == "ReportesSocios") {
+            if (me.formReporte.isValid()) {
+                window.open(Constantes.HOST + 'ReportesPDF/ReporteSociosMovilesActivos?tipo=pdf&FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue());
                 me.hide();
             }
             else {

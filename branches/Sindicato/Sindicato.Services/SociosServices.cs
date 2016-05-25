@@ -152,7 +152,7 @@ namespace Sindicato.Services
             {
                 var mnMovil = new SD_MOVILESManager(uow);
                 var mnSocioMovil = new SD_SOCIO_MOVILESManager(uow);
-                var movil = mnMovil.GuardarMovil(new SD_MOVILES() { ID_LINEA = 1, DESCRIPCION = socio.DESCRIPCION, ESTADO = "ACTIVO", FECHA_ALTA = socio.FECHA_ALTA, OBSERVACION = socio.OBSERVACION, NRO_MOVIL = socio.NRO_MOVIL }, ID_USR);
+                var movil = mnMovil.GuardarMovil(new SD_MOVILES() { ID_LINEA = 1, DESCRIPCION = socio.DESCRIPCION, ESTADO = "ACTIVO", FECHA_ALTA = socio.FECHA_ALTA, OBSERVACION = socio.OBSERVACION, NRO_MOVIL = socio.NRO_MOVIL }, ID_USR.ToString());
                 int idMovil;
                 bool esNumero = int.TryParse(movil, out idMovil);
                 if (esNumero)
@@ -626,6 +626,34 @@ namespace Sindicato.Services
                 paginacion.total = result.Count();
                 result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
             });
+            return result;
+        }
+
+
+        public RespuestaSP EliminarSocio(int ID_SOCIO, string LOGIN)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var context = (SindicatoContext)uow.Context;
+                ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
+                context.P_SD_ELIMINAR_SOCIO(ID_SOCIO, p_res);
+                int idsocio;
+                bool esNumero = int.TryParse(p_res.Value.ToString(), out idsocio);
+                if (esNumero)
+                {
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                    result.id = idsocio;
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = p_res.Value.ToString();
+                }
+
+            });
+
             return result;
         }
     }

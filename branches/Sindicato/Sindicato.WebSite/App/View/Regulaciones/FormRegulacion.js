@@ -191,7 +191,7 @@
     },
     ImprimirHojas: function (id) {
 
-        var ruta = fn.ObtenerUrlReportPDF("ReporteHojas", "ID_VENTA=" + id);
+        var ruta = fn.ObtenerUrlReportPDF("ReporteRegulacion", "ID_REGULACION=" + id);
         window.open(ruta);
     }
 });

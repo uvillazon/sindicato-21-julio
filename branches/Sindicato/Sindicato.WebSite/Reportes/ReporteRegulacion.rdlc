@@ -159,7 +159,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -323,7 +322,7 @@
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
         <Top>2.75787cm</Top>
-        <Left>1.18745cm</Left>
+        <Left>0.35842cm</Left>
         <Height>1.8cm</Height>
         <Width>9.27271cm</Width>
         <Style>
@@ -352,7 +351,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox10</rd:DefaultName>
         <Top>4.98037cm</Top>
-        <Left>1.18745cm</Left>
+        <Left>0.35842cm</Left>
         <Height>0.6cm</Height>
         <Width>0.96542cm</Width>
         <ZIndex>1</ZIndex>
@@ -386,7 +385,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox11</rd:DefaultName>
         <Top>4.98037cm</Top>
-        <Left>2.22342cm</Left>
+        <Left>1.39439cm</Left>
         <Height>0.6cm</Height>
         <Width>8.23674cm</Width>
         <ZIndex>2</ZIndex>
@@ -419,7 +418,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>0.51125cm</Top>
-        <Left>1.18745cm</Left>
+        <Left>0.35842cm</Left>
         <Height>0.6cm</Height>
         <Width>2.1825cm</Width>
         <ZIndex>3</ZIndex>
@@ -452,7 +451,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>1.11125cm</Top>
-        <Left>1.18745cm</Left>
+        <Left>0.35842cm</Left>
         <Height>0.6cm</Height>
         <Width>1.25646cm</Width>
         <ZIndex>4</ZIndex>
@@ -485,7 +484,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>0.51125cm</Top>
-        <Left>5.84539cm</Left>
+        <Left>5.01636cm</Left>
         <Height>0.6cm</Height>
         <Width>2.36771cm</Width>
         <ZIndex>5</ZIndex>
@@ -518,7 +517,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>1.11125cm</Top>
-        <Left>4.15206cm</Left>
+        <Left>3.32303cm</Left>
         <Height>0.6cm</Height>
         <Width>1.15063cm</Width>
         <ZIndex>6</ZIndex>
@@ -551,9 +550,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>1.71125cm</Top>
-        <Left>1.18744cm</Left>
+        <Left>0.35841cm</Left>
         <Height>0.6cm</Height>
-        <Width>1.54751cm</Width>
+        <Width>1.7239cm</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
@@ -584,7 +583,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>1.71125cm</Top>
-        <Left>4.15205cm</Left>
+        <Left>3.32302cm</Left>
         <Height>0.6cm</Height>
         <Width>2.8175cm</Width>
         <ZIndex>8</ZIndex>
@@ -617,7 +616,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>0.51125cm</Top>
-        <Left>3.37185cm</Left>
+        <Left>2.54282cm</Left>
         <Height>0.6cm</Height>
         <Width>2.36771cm</Width>
         <ZIndex>9</ZIndex>
@@ -638,10 +637,10 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!ID_REGULACION.Value, "DataSet1")</Value>
+                <Value>=First(Fields!MOVIL.Value, "DataSet1")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
-                  <FontSize>8pt</FontSize>
+                  <FontSize>13pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -650,7 +649,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>1.11125cm</Top>
-        <Left>2.44391cm</Left>
+        <Left>1.61488cm</Left>
         <Height>0.6cm</Height>
         <Width>1.70815cm</Width>
         <ZIndex>10</ZIndex>
@@ -682,9 +681,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>1.71125cm</Top>
-        <Left>2.73495cm</Left>
+        <Left>2.08231cm</Left>
         <Height>0.6cm</Height>
-        <Width>1.24071cm</Width>
+        <Width>1.06432cm</Width>
         <ZIndex>11</ZIndex>
         <Style>
           <Border>
@@ -706,7 +705,7 @@
                 <Value>=First(Fields!MES.Value, "DataSet1")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
-                  <FontSize>8pt</FontSize>
+                  <FontSize>12pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -715,7 +714,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>1.71125cm</Top>
-        <Left>7.00484cm</Left>
+        <Left>6.17581cm</Left>
         <Height>0.6cm</Height>
         <Width>3.82292cm</Width>
         <ZIndex>12</ZIndex>
@@ -736,7 +735,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!ID_REGULACION.Value, "DataSet1")</Value>
+                <Value>=First(Fields!SOCIO.Value, "DataSet1")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>8pt</FontSize>
@@ -748,7 +747,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>1.11125cm</Top>
-        <Left>5.44379cm</Left>
+        <Left>4.61476cm</Left>
         <Height>0.6cm</Height>
         <Width>5.38396cm</Width>
         <ZIndex>13</ZIndex>
@@ -769,10 +768,11 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!SOCIO.Value, "DataSet1")</Value>
+                <Value>=First(Fields!FECHA_COMPRA.Value, "DataSet1")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>8pt</FontSize>
+                  <Format>d</Format>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -781,7 +781,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>0.51125cm</Top>
-        <Left>8.24838cm</Left>
+        <Left>7.41935cm</Left>
         <Height>0.6cm</Height>
         <Width>2.57938cm</Width>
         <ZIndex>14</ZIndex>
@@ -859,7 +859,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox13</rd:DefaultName>
           <Top>1.09389cm</Top>
-          <Left>5.28849cm</Left>
+          <Left>2.90724cm</Left>
           <Height>0.46771cm</Height>
           <Width>4.96062cm</Width>
           <ZIndex>1</ZIndex>

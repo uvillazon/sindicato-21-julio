@@ -41,6 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SD_PAGO_DE_PRESTAMOSManager.cs" />
+    <Compile Include="SD_TIPOS_PRESTAMOSManager.cs" />
+    <Compile Include="SD_PRESTAMOS_POR_SOCIOSManager.cs" />
+    <Compile Include="SD_PLAN_DE_PAGOManager.cs" />
     <Compile Include="SD_KARDEX_HOJASManager.cs" />
     <Compile Include="SD_REGULARIZACIONESManager.cs" />
     <Compile Include="SD_DETALLES_REGULARIZACIONESManager.cs" />

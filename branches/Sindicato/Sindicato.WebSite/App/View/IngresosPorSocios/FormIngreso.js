@@ -186,6 +186,7 @@
         me.cbx_tipos.on('select', function (cbx, record) {
             me.txt_caja.setValue(record[0].get('CAJA'));
             me.txt_moneda.setValue(record[0].get('MONEDA'));
+            me.txt_importe.setValue(record[0].get('IMPORTE'));
 
 
         });
@@ -219,4 +220,9 @@
         //    //}
         //});
     },
+    ImprimirRecibo: function (id) {
+
+        var ruta = fn.ObtenerUrlReportPDF("ReporteIngreso", "ID_INGRESO=" + id);
+        window.open(ruta);
+    }
 });

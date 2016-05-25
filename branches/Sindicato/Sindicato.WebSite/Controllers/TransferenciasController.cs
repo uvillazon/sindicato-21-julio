@@ -62,6 +62,15 @@ namespace Sindicato.WebSite.Controllers
             respuestaSP = _serTra.EliminarIngreso(ID_INGRESO);
             return Json(respuestaSP);
         }
+        [HttpPost]
+        public JsonResult EliminarIngresoPorSocio(int ID_INGRESO)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serTra.EliminarIngresoPorSocio(ID_INGRESO);
+            return Json(respuestaSP);
+        }
+        //
         #endregion
 
         #region Egresos

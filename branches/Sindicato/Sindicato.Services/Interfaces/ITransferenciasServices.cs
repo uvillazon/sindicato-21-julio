@@ -23,5 +23,7 @@ namespace Sindicato.Services.Interfaces
 
         RespuestaSP GuardarTransferencia(SD_TRANSFERENCIAS transf, string login);
         RespuestaSP EliminarTransferencia(int ID_TRANSFERENCIA);
+
+        RespuestaSP EliminarIngresoPorSocio(int ID_INGRESO);
     }
 }

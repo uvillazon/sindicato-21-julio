@@ -69,7 +69,7 @@
                 me.FormCrearIngreso();
                 break;
             case "btn_eliminar":
-                Funciones.AjaxRequestGrid("Transferencias", "EliminarIngreso", me.grid, "Esta seguro de Eliminar la Ingreso?", { ID_INGRESO: me.record.get('ID_INGRESO') }, me.grid, null);
+                Funciones.AjaxRequestGrid("Transferencias", "EliminarIngresoPorSocio", me.grid, "Esta seguro de Eliminar la Ingreso?", { ID_INGRESO: me.record.get('ID_INGRESO') }, me.grid, null);
                 break;
             case "btn_Kardex":
                 me.VentanaKardex(me.record.get('ID_CAJA'));
@@ -92,7 +92,11 @@
         win.show();
         win.btn_guardar.on('click', function () {
             //console.dir(params);
-            Funciones.AjaxRequestWin("Ingresos", "GuardarIngreso", win, form, me.grid, "Esta Seguro de Guardar", null, win);
+            //Funciones.AjaxRequestWin("Ingresos", "GuardarIngreso", win, form, me.grid, "Esta Seguro de Guardar", null, win);
+            Funciones.AjaxRequestWinSc("Ingresos", "GuardarIngreso", win, form, me.grid, "Esta Seguro de Guardar", null, win, function (result) {
+                //console.dir(result);
+                form.ImprimirRecibo(result.id);
+            });
         });
 
     },

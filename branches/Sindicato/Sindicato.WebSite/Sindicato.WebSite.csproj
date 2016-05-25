@@ -88,6 +88,8 @@
     <Compile Include="Controllers\AutosController.cs" />
     <Compile Include="Controllers\CierresController.cs" />
     <Compile Include="Controllers\CierresParadaController.cs" />
+    <Compile Include="Controllers\PrestamosController.cs" />
+    <Compile Include="Controllers\MovilesController.cs" />
     <Compile Include="Controllers\RegulacionesController.cs" />
     <Compile Include="Controllers\PermisosController.cs" />
     <Compile Include="Controllers\IngresosController.cs" />
@@ -234,6 +236,8 @@
     <Content Include="App\Model\CierresParada\CierresParada.js" />
     <Content Include="App\Model\CierresParada\Detalles.js" />
     <Content Include="App\Model\Cierres\Detalles.js" />
+    <Content Include="App\Model\Prestamos\Prestamos.js" />
+    <Content Include="App\Model\Prestamos\TiposPrestamos.js" />
     <Content Include="App\Model\Regulaciones\Detalles.js" />
     <Content Include="App\Model\Regulaciones\Regulaciones.js" />
     <Content Include="App\Model\Permisos\Permisos.js" />
@@ -284,6 +288,8 @@
     <Content Include="App\Store\CierresParada\CierresParada.js" />
     <Content Include="App\Store\CierresParada\Detalles.js" />
     <Content Include="App\Store\Cierres\Detalles.js" />
+    <Content Include="App\Store\Prestamos\Prestamos.js" />
+    <Content Include="App\Store\Prestamos\TiposPrestamos.js" />
     <Content Include="App\Store\Regulaciones\Regulaciones.js" />
     <Content Include="App\Store\Regulaciones\Detalles.js" />
     <Content Include="App\Store\Permisos\Permisos.js" />
@@ -378,6 +384,12 @@
     <Content Include="App\View\CierresParada\FormCierre.js" />
     <Content Include="App\View\CierresParada\GridCierres.js" />
     <Content Include="App\View\CierresParada\Principal.js" />
+    <Content Include="App\View\Reportes\ReportesSocios.js" />
+    <Content Include="App\View\TiposPrestamos\FormTipoPrestamo.js" />
+    <Content Include="App\View\TiposPrestamos\Forms.js" />
+    <Content Include="App\View\TiposPrestamos\GridTiposPrestamos.js" />
+    <Content Include="App\View\TiposPrestamos\Grids.js" />
+    <Content Include="App\View\TiposPrestamos\Principal.js" />
     <Content Include="App\View\Regulaciones\FormRegulacion.js" />
     <Content Include="App\View\Regulaciones\Forms.js" />
     <Content Include="App\View\Regulaciones\GridDetalles.js" />
@@ -3805,6 +3817,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reportes\ReporteDetalleHoja.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteEgreso.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteIngreso.rdlc" />
     <EmbeddedResource Include="Reportes\Hoja.rdlc" />
@@ -3814,6 +3827,7 @@
     <EmbeddedResource Include="Reportes\ReporteRegulacion.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteSocioMovil.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteSocioMovilHoja.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteSociosMovilesActivos.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteTotal.rdlc" />
   </ItemGroup>
   <PropertyGroup>

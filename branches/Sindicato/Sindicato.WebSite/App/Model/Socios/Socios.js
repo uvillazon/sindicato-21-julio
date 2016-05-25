@@ -22,6 +22,7 @@
         { type: "date", name: "FECHA_NAC", dateFormat: "d/m/Y", convert: Funciones.Fecha },
         { type: "date", name: "FECHA_INGRESO", dateFormat: "d/m/Y", convert: Funciones.Fecha },
         { type: "date", name: "FECHA_BAJA", dateFormat: "d/m/Y", convert: Funciones.Fecha },
+        { type: "date", name: "FECHA_ALTA", dateFormat: "d/m/Y", convert: Funciones.Fecha },
         { type: "string", name: "DOMICILIO" },
         { type: "string", name: "OBSERVACION" },
         { type: "string", name: "ESTADO_CIVIL" },
