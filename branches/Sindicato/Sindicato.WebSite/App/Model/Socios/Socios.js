@@ -36,6 +36,8 @@
         { type: "float", name: "SALDO" , defaultValue : 0 },
         { type: "float", name: "DEUDA", defaultValue: 0 },
         { type: "float", name: "PRECIO_HOJA", defaultValue: 0 },
+         { type: "float", name: "DEBE_HOJA", defaultValue: 0 },
+        
 
         
 

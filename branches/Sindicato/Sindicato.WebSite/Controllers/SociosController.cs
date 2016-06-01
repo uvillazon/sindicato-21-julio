@@ -61,7 +61,8 @@ namespace Sindicato.WebSite.Controllers
                 ID_IMG = _serImg.ConImagen(x.ID_SOCIO, "SD_SOCIOS"),
                 SALDO = x.SD_SOCIOS.SALDO,
                 DEUDA = x.SD_SOCIOS.DEUDA,
-                PRECIO_HOJA = x.SD_SOC_MOV_OBLIG.Count() > 0 ? x.SD_SOC_MOV_OBLIG.Sum(y => y.IMPORTE) : 0
+                PRECIO_HOJA = x.SD_SOC_MOV_OBLIG.Count() > 0 ? x.SD_SOC_MOV_OBLIG.Sum(y => y.IMPORTE) : 0,
+                DEBE_HOJA = x.obtenerDebe()
                 //ID_IMG = 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();

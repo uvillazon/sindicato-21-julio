@@ -12,6 +12,12 @@ namespace Sindicato.Model
         public string ObtenerNombreSocio() {
             return string.Format("{0} {1} {2}", SD_SOCIOS.NOMBRE, SD_SOCIOS.APELLIDO_PATERNO, SD_SOCIOS.APELLIDO_MATERNO);
         }
+
+        public decimal obtenerDebe() {
+            DateTime now = DateTime.Now.AddDays(1-DateTime.Now.Day).Date;
+            var query = SD_KARDEX_HOJAS.Where(x => x.MES < now).Sum(y => y.DEBE);
+            return (decimal)query;
+        } 
         public static Expression<Func<SD_SOCIO_MOVILES, bool>> Contiene(string contiene)
         {
             List<int> id = new List<int>();
