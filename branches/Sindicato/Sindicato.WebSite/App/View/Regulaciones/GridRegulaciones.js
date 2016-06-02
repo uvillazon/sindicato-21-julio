@@ -17,6 +17,7 @@
         me.columns = [
             { xtype: "rownumberer", width: 30, sortable: false },
             { header: "Numero", width: 70, sortable: true, dataIndex: "ID_REGULACION" },
+            { header: 'Fecha<br>Compra', dataIndex: 'FECHA_COMPRA', width: 80, renderer: Ext.util.Format.dateRenderer('d/m/Y') },
             { header: "Movil", width: 70, sortable: true, dataIndex: "NRO_MOVIL" },
             { header: "Socio", width: 150, sortable: true, dataIndex: "SOCIO" },
             { header: 'Mes', dataIndex: 'MES', width: 80, renderer: Ext.util.Format.dateRenderer('m-Y') },
@@ -26,7 +27,7 @@
             { header: "Estado", width: 70, sortable: true, dataIndex: "ESTADO" },
             { header: "Responsable", width: 70, sortable: true, dataIndex: "LOGIN" },
             { header: 'Fecha<br>Registro', dataIndex: 'FECHA_REG', width: 80, renderer: Ext.util.Format.dateRenderer('d/m/Y') },
-            
+
         ];
         this.callParent(arguments);
     }

@@ -387,6 +387,10 @@
     <Content Include="App\View\CierresParada\FormCierre.js" />
     <Content Include="App\View\CierresParada\GridCierres.js" />
     <Content Include="App\View\CierresParada\Principal.js" />
+    <Content Include="App\View\Ahorros\FormCierre.js" />
+    <Content Include="App\View\Ahorros\GridCierres.js" />
+    <Content Include="App\View\Ahorros\GridDetalles.js" />
+    <Content Include="App\View\Ahorros\Principal.js" />
     <Content Include="App\View\KardexHojas\FormAuto.js" />
     <Content Include="App\View\KardexHojas\Forms.js" />
     <Content Include="App\View\KardexHojas\GridKardexHojas.js" />

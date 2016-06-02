@@ -18,4 +18,13 @@ namespace Sindicato.Services.Model
         public decimal AHORRO { get; set; }
         public decimal DEUDA { get; set; }
     }
+
+    public class CierreAhorroSocioModel {
+        public int ID_SOCIO { get; set; }
+        public string SOCIO { get; set; }
+        public string MES { get; set; }
+        public decimal  CANT_HOJAS { get; set; }
+        public decimal CANT_REGULACIONES { get; set; }
+        public decimal TOTAL_AHORRO { get; set; }
+    }
 }

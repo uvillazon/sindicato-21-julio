@@ -37,7 +37,8 @@ namespace Sindicato.WebSite.Controllers
                 MONTO = x.MONTO,
                 FECHA_REG = x.FECHA_REG,
                 LOGIN_USR = x.LOGIN,
-                OBSERVACION = x.OBSERVACION
+                OBSERVACION = x.OBSERVACION,
+                FECHA_COMPRA = x.FECHA_COMPRA
 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
