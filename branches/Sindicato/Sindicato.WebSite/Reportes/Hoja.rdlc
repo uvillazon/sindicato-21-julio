@@ -20,7 +20,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.64094cm</Top>
+        <Top>0.29698cm</Top>
         <Left>4.95449cm</Left>
         <Height>0.75875cm</Height>
         <Width>5.54271cm</Width>
@@ -53,9 +53,9 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>1.39969cm</Top>
-        <Left>6.78012cm</Left>
-        <Height>0.46771cm</Height>
+        <Top>1.16156cm</Top>
+        <Left>6.33033cm</Left>
+        <Height>0.77666cm</Height>
         <Width>2.26187cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
@@ -244,6 +244,7 @@
                 <Value>="# " &amp; First(Fields!NUMERO.Value, "DataSetHoja")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
+                  <FontSize>12pt</FontSize>
                   <FontWeight>ExtraBold</FontWeight>
                   <Format>dd/MM/yyyy</Format>
                 </Style>
@@ -253,9 +254,9 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>1.39969cm</Top>
-        <Left>9.04199cm</Left>
-        <Height>0.46771cm</Height>
+        <Top>1.16156cm</Top>
+        <Left>8.5922cm</Left>
+        <Height>0.77666cm</Height>
         <Width>1.45521cm</Width>
         <ZIndex>7</ZIndex>
         <Style>

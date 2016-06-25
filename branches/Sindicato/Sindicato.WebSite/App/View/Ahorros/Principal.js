@@ -21,9 +21,9 @@
 
         });
         me.btn_crear = Funciones.CrearMenu('btn_crear', 'Generar de Ahorros', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
-        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Anular Cierre', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
+        //me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Anular Cierre', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
         //me.btn_traspaso = Funciones.CrearMenu('btn_traspaso', 'Trasferencia de Fondos', Constantes.ICONO_EDITAR, me.EventosPrincipal, null, this, null, true);
-        me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar]);
+        me.grid.AgregarBtnToolbar([me.btn_crear]);
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
 
         me.form = Ext.create("App.View.Ahorros.FormCierre", {
@@ -83,20 +83,35 @@
     },
     FormCrearCierre: function () {
         var me = this;
-        var win = Ext.create("App.Config.Abstract.Window", { botones: true });
+        var win = Ext.create("App.Config.Abstract.Window", { botones: true , showBtn3 : true});
         var form = Ext.create("App.View.Ahorros.FormCierre", {
             //title: 'Datos Cierre Sistema',
             columns: 2,
             botones: false
         });
-        //form.ObtenerUltimoRegistro();
+        form.ObtenerUltimoRegistro();
         //form.getForm().loadRecord(me.socio);
         win.add(form);
         win.show();
+        win.btn3.on('click', function () {
+            if (form.isValid()) {
+                var fechaIni = form.date_fecha_ini.getValue();
+                var myDate = new Date(fechaIni);
+                f_fechaIni = (myDate.getMonth() + 1) + "-" + myDate.getDate() + "-" + myDate.getFullYear();
+                var fechaFin = form.date_fecha_fin.getValue();
+                var myDate = new Date(fechaFin);
+                f_fechaFin = (myDate.getMonth()+ 1) + "-" + myDate.getDate() + "-" + myDate.getFullYear();
+                window.open(Constantes.HOST + 'ReportesPDF/ReporteDetalleCierreAhorro?tipo=pdf&FECHA_INI=' + f_fechaIni + '&FECHA_FIN=' + f_fechaFin);
+                //me.hide();/
+            }
+            else {
+                Ext.Msg.alert("Error", "Falta Completar Algun Datos. Revisar Formulario.");
+            }
+        });
         win.btn_guardar.on('click', function () {
             //console.dir(params);
             if (form.isValid()) {
-                Funciones.AjaxRequestWin("CierresParada", "GuardarCierre", win, form, me.grid, "Esta Seguro de Guardar", { detalles: form.convertirJson() }, win);
+                Funciones.AjaxRequestWin("Cierres", "GuardarCierre", win, form, me.grid, "Esta Seguro de Guardar", { detalles: form.convertirJson() }, win);
             }
             else {
                 Ext.Msg.alert("Error", "Falta Completar Algun Datos. Revisar Formulario.");

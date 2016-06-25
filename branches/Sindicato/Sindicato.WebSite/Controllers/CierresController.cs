@@ -15,8 +15,9 @@ namespace Sindicato.WebSite.Controllers
     {
         //
         // GET: /Otros/
-        private ICierresServices _serCierre;
-        public CierresController(ICierresServices serCierre)
+        private ICierresAhorroServices _serCierre;
+
+        public CierresController(ICierresAhorroServices serCierre)
         {
             this._serCierre = serCierre;
         }
@@ -28,40 +29,54 @@ namespace Sindicato.WebSite.Controllers
             var formatData = socios.Select(x => new
             {
                 ID_CIERRE = x.ID_CIERRE,
-                CODIGO = x.CODIGO,
                 ESTADO = x.ESTADO,
                 FECHA_FIN = x.FECHA_FIN,
                 OBSERVACION = x.OBSERVACION,
                 FECHA_INI = x.FECHA_INI,
                 FECHA_REG = x.FECHA_REG,
-                LOGIN = x.LOGIN
+                LOGIN = x.LOGIN,
+                CODIGO = x.CODIGO
 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
             return JavaScript(callback1);
         }
-        [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult ObtenerDetalleSocioPeriodoPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
+
+        public ActionResult ObtenerDetallesPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
         {
             filtros.Entidad = entidad;
-            var socios = _serCierre.ObtenerDetalleSocioPeriodoPaginados(paginacion, filtros);
+            var socios = _serCierre.ObtenerDetallesPaginados(paginacion, filtros);
             var formatData = socios.Select(x => new
             {
                 ID_CIERRE = x.ID_CIERRE,
-                ID_SOCIO = x.ID_SOCIO,
-                SOCIO = string.Format("{0} {1} {2}", x.SD_SOCIOS.NOMBRE, x.SD_SOCIOS.APELLIDO_PATERNO, x.SD_SOCIOS.APELLIDO_MATERNO),
-                PERIODO = x.SD_CIERRES.CODIGO,
-                AHORRO = x.AHORRO,
-                DESCUENTOS = x.DESCUENTOS,
-                DEUDA = x.DEUDA,
-                INGRESOS_HOJAS = x.INGRESOS_HOJAS,
-                OBLIGACIONES_INSTITUCION = x.OBLIGACIONES_INSTITUCION,
-                OTRAS_OBLIGACIONES = x.OTRAS_OBLIGACIONES,
-                OTROS_INGRESOS = x.OTROS_INGRESOS
+                ESTADO = x.ESTADO,
+                AHORRO_HOJA = x.AHORRO_HOJA,
+                AHORRO_REGULACIONES = x.AHORRO_REGULACIONES,
+                CANT_HOJAS = x.CANT_HOJAS,
+                CANT_REGULACIONES = x.CANT_REGULACIONES,
+                FECHA_REG = x.FECHA_REG,
+                ID_DETALLE = x.ID_DETALLE,
+                ID_SOCIO_MOVIL = x.ID_SOCIO_MOVIL ,
+                LOGIN = x.LOGIN,
+                NRO_MOVIL = x.NRO_MOVIL ,
+                OBSERVACION = x.OBSERVACION,
+                SOCIO = x.SOCIO,
+                TOTAL_AHORRO = x.TOTAL_AHORRO
+
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
+        //ObtenerDetallesPaginados
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerDetalleCierreGenerado(PagingInfo paginacion, DateTime FECHA_DESDE, DateTime FECHA_HASTA)
+        {
+            var detalles = _serCierre.ObtenerCierreAhorroSocioMovil(FECHA_DESDE, FECHA_HASTA);
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = detalles, Total = detalles.Count() }) + ");";
             return JavaScript(callback1);
         }
 
@@ -80,19 +95,11 @@ namespace Sindicato.WebSite.Controllers
 
         }
         [HttpPost]
-        public JsonResult GuardarCierre(SD_CIERRES cierre)
+        public JsonResult GuardarCierre(SD_CIERRES cierre, string detalles)
         {
             string login = User.Identity.Name.Split('-')[0];
             RespuestaSP respuestaSP = new RespuestaSP();
-            respuestaSP = _serCierre.GuardarCierre(cierre, login);
-            return Json(respuestaSP);
-        }
-        [HttpPost]
-        public JsonResult GenerarDetalleCierre(int ID_CIERRE)
-        {
-            string login = User.Identity.Name.Split('-')[0];
-            RespuestaSP respuestaSP = new RespuestaSP();
-            respuestaSP = _serCierre.GenerarDetalleCierre(ID_CIERRE, login);
+            respuestaSP = _serCierre.GuardarCierre(cierre, detalles, login);
             return Json(respuestaSP);
         }
         

@@ -52,7 +52,7 @@ namespace Sindicato.Services
                 if (!string.IsNullOrEmpty(filtros.Contiene))
                 {
                     var contiene = filtros.Contiene.Trim().ToUpper();
-                    result = result.Where(x => x.SD_SOCIOS.APELLIDO_PATERNO.Contains(contiene) || x.SD_SOCIOS.NOMBRE.Contains(contiene) || x.SD_CAJAS.NOMBRE.Contains(contiene));
+                    result = result.Where(x => x.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO.Contains(contiene) || x.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE.Contains(contiene) || x.SD_CAJAS.NOMBRE.Contains(contiene));
 
                 }
                 paginacion.total = result.Count();

@@ -8,11 +8,11 @@
     equipo: 'Kardex',
     win: null,
     formulario: null,
-    id_socio: '',
+    id_socio_movil: '',
     imagenes: true,
     initComponent: function () {
         var me = this;
-        me.CargarGridKardex(me.id_socio);
+        me.CargarGridKardex(me.id_socio_movil);
         this.callParent(arguments);
     },
     CargarGridKardex: function (id_socio) {
@@ -20,7 +20,7 @@
 //        alert(me.id_caja);
         var fecha_actual = new Date();
         me.store = Ext.create("App.Store.Socios.Kardex");
-        me.store.setExtraParams({ ID_SOCIO: id_socio });
+        me.store.setExtraParams({ ID_SOCIO_MOVIl: id_socio });
         me.store.load();
         //me.CargarComponentes();
 

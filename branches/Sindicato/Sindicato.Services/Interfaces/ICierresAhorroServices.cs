@@ -12,8 +12,14 @@ namespace Sindicato.Services.Interfaces
     public interface ICierresAhorroServices
     {
 
-        
-        List<CierreAhorroSocioModel> ObtenerCierreAhorroSocio(DateTime fecha);
+        IEnumerable<SD_CIERRES> ObtenerCierresPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
+        IEnumerable<SD_DETALLE_CIERRES_AHORRO> ObtenerDetallesPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
+        IEnumerable<CierreAhorroSocioModel> ObtenerCierreAhorroSocio(DateTime FECHA_INI, DateTime FECHA_FIN);
+        IEnumerable<CierreAhorroSocioMovilModel> ObtenerCierreAhorroSocioMovil(DateTime FECHA_INI, DateTime FECHA_FIN);
+
+        SD_CIERRES ObtenerUltimoRegistroCierre();
+
+        RespuestaSP GuardarCierre(SD_CIERRES cierre, string detalles ,string login);
         
     }
 }

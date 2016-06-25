@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SD_RETIRO_SOCIO_MOVILManager.cs" />
+    <Compile Include="SD_DETALLE_CIERRES_AHORROManager.cs" />
+    <Compile Include="SD_KARDEX_SOCIO_MOVILManager.cs" />
     <Compile Include="SD_PAGO_DE_PRESTAMOSManager.cs" />
     <Compile Include="SD_TIPOS_PRESTAMOSManager.cs" />
     <Compile Include="SD_PRESTAMOS_POR_SOCIOSManager.cs" />

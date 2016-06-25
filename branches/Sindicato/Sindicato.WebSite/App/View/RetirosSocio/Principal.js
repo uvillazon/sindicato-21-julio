@@ -16,8 +16,8 @@
 
 
         me.grid = Ext.create('App.View.RetirosSocio.GridRetiros', {
-            region: 'west',
-            width: '50%',
+            region: 'center',
+            width: '100%',
             fbarmenu: me.toolbar,
             fbarmenuArray: ["btn_Kardex", "btn_eliminar"]
 
@@ -27,17 +27,17 @@
         me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar]);
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
 
-        me.form = Ext.create("App.View.RetirosSocio.FormRetiro", {
-            region: 'center',
-            width: '50%',
-            columns: 2,
-            Eventos : false
-        });
-        me.form.ocultarSaldos(false);
-        me.form.BloquearFormulario();
+        //me.form = Ext.create("App.View.RetirosSocio.FormRetiro", {
+        //    region: 'center',
+        //    width: '50%',
+        //    columns: 2,
+        //    Eventos : false
+        //});
+        //me.form.ocultarSaldos(false);
+        //me.form.BloquearFormulario();
       
         //        me.grid.bar.add(me.toolbar);
-        me.items = [me.grid, me.form];
+        me.items = [me.grid];
         me.grid.getSelectionModel().on('selectionchange', me.CargarDatos, this);
 
     },
@@ -45,15 +45,15 @@
         var me = this;
         var disabled = selections.length === 0;
         me.record = disabled ? null : selections[0];
-        if (!disabled) {
-            me.form.getForm().loadRecord(selections[0])
-            //me.form.CargarDatos(selections[0]);
+        //if (!disabled) {
+        //    //me.form.getForm().loadRecord(selections[0])
+        //    //me.form.CargarDatos(selections[0]);
 
-        }
-        else {
-            me.form.getForm().reset();
+        //}
+        //else {
+        //    me.form.getForm().reset();
           
-        }
+        //}
     },
    
     EventosPrincipal: function (btn) {
@@ -81,13 +81,18 @@
             columns: 2,
             botones: false
         });
-        form.txt_socio.setVisible(false);
+        //form.txt_socio.setVisible(false);
         //form.getForm().loadRecord(me.socio);
         win.add(form);
         win.show();
         win.btn_guardar.on('click', function () {
             //console.dir(params);
-            Funciones.AjaxRequestWin("Socios", "GuardarRetiroSocio", win, form, me.grid, "Esta Seguro de Guardar", null, win);
+            //Funciones.AjaxRequestWin("Socios", "GuardarRetiroSocio", win, form, me.grid, "Esta Seguro de Guardar", null, win);
+            Funciones.AjaxRequestWinSc("Socios", "GuardarRetiroSocio", win, form, me.grid, "Esta Seguro de Guardar", null, win, function (result) {
+                //console.dir(result);
+                form.ImprimirRecibo(result.id);
+            });
+
         });
 
     },
@@ -98,7 +103,7 @@
             region: 'center',
             width: 760,
             height: 450,
-            id_socio: me.record.get('ID_SOCIO')
+            id_socio_movil: me.record.get('ID_SOCIO_MOVIL')
         });
         win.add(grid);
         win.show();

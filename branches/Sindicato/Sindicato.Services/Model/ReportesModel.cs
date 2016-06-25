@@ -106,6 +106,21 @@ namespace Sindicato.Services.Model
         public string TOTAL_LITERAL { get; set; }
 
     }
+
+    public class ReporteRetiroModel
+    {
+        public int ID_RETIRO { get; set; }
+        public string MOVIL { get; set; }
+        public string SOCIO { get; set; }
+        public string CAJA { get; set; }
+        public DateTime? FECHA { get; set; }
+        public string OBSERVACION { get; set; }
+        public string LOGIN { get; set; }
+        public decimal? TOTAL_RETIRO { get; set; }
+        public string TOTAL_LITERAL { get; set; }
+
+    }
+
     public class RepoteDetalleHojas {
         public string SOCIO { get; set; }
         public int MOVIL { get; set; }

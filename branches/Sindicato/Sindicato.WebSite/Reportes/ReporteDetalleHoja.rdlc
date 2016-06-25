@@ -6,7 +6,7 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>1.45396cm</Width>
+              <Width>0.92479cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>5.75625cm</Width>
@@ -40,7 +40,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Movil</Value>
+                              <Value>Nro</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -678,7 +678,7 @@
         <Top>0.34078cm</Top>
         <Left>0.92287cm</Left>
         <Height>1.37667cm</Height>
-        <Width>19.35067cm</Width>
+        <Width>18.82149cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -716,7 +716,6 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox12</rd:DefaultName>
-          <Top>0.03528cm</Top>
           <Left>0.23165cm</Left>
           <Height>0.6cm</Height>
           <Width>10.86084cm</Width>

@@ -16,8 +16,10 @@
         me.CargarComponentes();
         me.columns = [
                 { xtype: "rownumberer", width: 30, sortable: false },
-                { header: "Nro <br>Recibo", width: 80, sortable: false, dataIndex: "NRO_RECIBO" },
-                { header: "Socio", width: 150, sortable: false, dataIndex: "NOMBRE_SOCIO" },
+                { header: "Nro <br>Recibo", width: 80, sortable: false, dataIndex: "ID_RETIRO" },
+                { header: "Nro Movil", width: 80, sortable: false, dataIndex: "NRO_MOVIL" },
+                { header: "Socio", width: 150, sortable: false, dataIndex: "SOCIO" },
+                { header: "Caja Egreso", width: 100, sortable: false, dataIndex: "CAJA" },
                 { header: "Fecha", width: 80, sortable: true, dataIndex: "FECHA", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
                 { header: "Detalle", width: 250, sortable: false, dataIndex: "OBSERVACION" },
                 { header: "Importe<br>Retiro BOB", width: 100, sortable: false, dataIndex: "RETIRO" },

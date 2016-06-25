@@ -38,13 +38,16 @@ namespace Sindicato.WebSite.Controllers
                 IMPORTE_PRESTAMO = x.IMPORTE_PRESTAMO,
                 LOGIN_USR = x.LOGIN_USR,
                 MONEDA = x.MONEDA,
-                TIPO_INGRESO = x.SD_TIPOS_PRESTAMOS.NOMBRE,
+                TIPO_PRESTAMO = x.SD_TIPOS_PRESTAMOS.NOMBRE,
                 OBSERVACION = x.OBSERVACION,
-                SOCIO = x.SD_SOCIOS.ObtenerNombreSocio(),
+                NRO_MOVIL = x.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
+                SOCIO = x.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
                 SEMENAS = x.SEMENAS,
                 INTERES = x.INTERES,
                 SALDO = x.SALDO,
-                ESTADO = x.ESTADO
+                ESTADO = x.ESTADO,
+                TIPO_INTERES = x.SD_TIPOS_PRESTAMOS.TIPO_INTERES,
+                TOTAL_CANCELADO = x.SD_PAGO_DE_PRESTAMOS.Sum(y => y.IMPORTE)
 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
@@ -101,7 +104,7 @@ namespace Sindicato.WebSite.Controllers
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
             return JavaScript(callback1);
         }
-       
+
         [HttpPost, ValidateInput(false)]
         public JsonResult GuardarTipoPrestamos(SD_TIPOS_PRESTAMOS ant)
         {
@@ -140,14 +143,14 @@ namespace Sindicato.WebSite.Controllers
                 NRO_SEMENA = x.NRO_SEMENA,
                 SALDO_PLAN = x.SALDO_PLAN,
                 SALDO_PRESTAMO = x.SALDO_PRESTAMO,
-               
+
 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
             return JavaScript(callback1);
         }
-        
+
         #endregion
 
         #region Pagos de Prestamos
@@ -170,7 +173,7 @@ namespace Sindicato.WebSite.Controllers
                 MONEDA = x.MONEDA,
                 OBSERVACION = x.OBSERVACION,
                 LOGIN_USR = x.LOGIN_USR,
-                SOCIO = x.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIOS.ObtenerNombreSocio()
+                SOCIO = x.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.ObtenerNombreSocio()
 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();

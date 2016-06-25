@@ -23,8 +23,34 @@ namespace Sindicato.Services.Model
         public int ID_SOCIO { get; set; }
         public string SOCIO { get; set; }
         public string MES { get; set; }
-        public decimal  CANT_HOJAS { get; set; }
-        public decimal CANT_REGULACIONES { get; set; }
-        public decimal TOTAL_AHORRO { get; set; }
+        public string MSG { get; set; }
+        public decimal?  CANT_HOJAS { get; set; }
+        public decimal? CANT_REGULACIONES { get; set; }
+        public decimal? TOTAL_AHORRO { get; set; }
+        public decimal? AHORRO_HOJA { get; set; }
+        public decimal? AHORRO_PAGADO { get; set; }
+        public decimal? AHORRO { get; set; }
+        public decimal? AHORRO_REGULACIONES { get; set; }
+        public DateTime FECHA_INI { get; set; }
+        public DateTime FECHA_FIN { get; set; }
+
+    }
+    public class CierreAhorroSocioMovilModel
+    {
+        public int ID_SOCIO_MOVIL { get; set; }
+        public string SOCIO { get; set; }
+        public int NRO_MOVIL { get; set; }
+        public string MES { get; set; }
+        public string MSG { get; set; }
+        public decimal? CANT_HOJAS { get; set; }
+        public decimal? CANT_REGULACIONES { get; set; }
+        public decimal? TOTAL_AHORRO { get; set; }
+        public decimal? AHORRO_HOJA { get; set; }
+        public decimal? AHORRO_PAGADO { get; set; }
+        public decimal? AHORRO { get; set; }
+        public decimal? AHORRO_REGULACIONES { get; set; }
+        public DateTime FECHA_INI { get; set; }
+        public DateTime FECHA_FIN { get; set; }
+
     }
 }

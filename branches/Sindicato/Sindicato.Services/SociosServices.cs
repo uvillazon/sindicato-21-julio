@@ -364,13 +364,29 @@ namespace Sindicato.Services
             return result;
         }
 
-        #region Kardex Socio Ingresos , Egresos
+        #region Kardex Socio Movil Ingresos , Egresos
         public IEnumerable<SD_KARDEX_SOCIO> ObtenerKardexSociosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)
         {
             IQueryable<SD_KARDEX_SOCIO> result = null;
             ExecuteManager(uow =>
             {
                 var manager = new SD_KARDEX_SOCIOManager(uow);
+
+                result = manager.BuscarTodos();
+                filtros.FiltrarDatos();
+                result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+                paginacion.total = result.Count();
+                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
+
+            });
+            return result;
+        }
+        public IEnumerable<SD_KARDEX_SOCIO_MOVIL> ObtenerKardexSociosMovilPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)
+        {
+            IQueryable<SD_KARDEX_SOCIO_MOVIL> result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_KARDEX_SOCIO_MOVILManager(uow);
 
                 result = manager.BuscarTodos();
                 filtros.FiltrarDatos();
@@ -472,12 +488,12 @@ namespace Sindicato.Services
 
 
         #region Retiros Obtener , Listar Crear Eliminar
-        public IEnumerable<SD_RETIRO_SOCIO> ObtenerRetirosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)
+        public IEnumerable<SD_RETIRO_SOCIO_MOVIL> ObtenerRetirosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)
         {
-            IQueryable<SD_RETIRO_SOCIO> result = null;
+            IQueryable<SD_RETIRO_SOCIO_MOVIL> result = null;
             ExecuteManager(uow =>
             {
-                var manager = new SD_RETIRO_SOCIOManager(uow);
+                var manager = new SD_RETIRO_SOCIO_MOVILManager(uow);
 
                 result = manager.BuscarTodos();
                 filtros.FiltrarDatos();
@@ -489,23 +505,23 @@ namespace Sindicato.Services
             return result;
         }
 
-        public SD_RETIRO_SOCIO ObtenerRetiroPorCriterio(Expression<Func<SD_RETIRO_SOCIO, bool>> criterio)
+        public SD_RETIRO_SOCIO_MOVIL ObtenerRetiroPorCriterio(Expression<Func<SD_RETIRO_SOCIO_MOVIL, bool>> criterio)
         {
-            SD_RETIRO_SOCIO result = null;
+            SD_RETIRO_SOCIO_MOVIL result = null;
             ExecuteManager(uow =>
             {
-                var manager = new SD_RETIRO_SOCIOManager(uow);
+                var manager = new SD_RETIRO_SOCIO_MOVILManager(uow);
                 result = manager.BuscarTodos(criterio).FirstOrDefault();
             });
             return result;
         }
 
-        public RespuestaSP GuardarRetiroSocio(SD_RETIRO_SOCIO ingreso, string login)
+        public RespuestaSP GuardarRetiroSocio(SD_RETIRO_SOCIO_MOVIL ingreso, string login)
         {
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
-                var manager = new SD_RETIRO_SOCIOManager(uow);
+                var manager = new SD_RETIRO_SOCIO_MOVILManager(uow);
                 var ing = manager.GuardarRetiro(ingreso, login);
                 int id;
                 bool esNumero = int.TryParse(ing, out id);
@@ -531,20 +547,30 @@ namespace Sindicato.Services
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
-                var manager = new SD_RETIRO_SOCIOManager(uow);
+                var manager = new SD_RETIRO_SOCIO_MOVILManager(uow);
                 var context = (SindicatoContext)manager.Context;
                 var ant = manager.BuscarTodos(x => x.ID_RETIRO == ID_RETIRO).FirstOrDefault();
                 if (ant != null)
                 {
                     manager.Delete(ant);
-                    var kardex = context.SD_KARDEX_SOCIO.Where(x => x.OPERACION == "RETIROS" && x.ID_OPERACION == ant.ID_RETIRO && x.ID_SOCIO == ant.ID_SOCIO);
+                    var kardex = context.SD_KARDEX_SOCIO_MOVIL.Where(x => x.OPERACION == "RETIRO DE AHORRO" && x.ID_OPERACION == ant.ID_RETIRO && x.ID_SOCIO_MOVIL == ant.ID_SOCIO_MOVIL);
                     foreach (var item in kardex)
                     {
-                        context.SD_KARDEX_SOCIO.DeleteObject(item);
+                        context.SD_KARDEX_SOCIO_MOVIL.DeleteObject(item);
                     }
                     ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
                     manager.Save();
-                    context.P_SD_ACT_KARDEX_SOCIO(ant.ID_SOCIO, ant.FECHA, ant.LOGIN, p_RES);
+                    context.P_SD_ACT_KARDEX_SOCIO_MOVIL(ant.ID_SOCIO_MOVIL, ant.FECHA, ant.LOGIN, p_RES);
+
+                    var kardexEfe = context.SD_KARDEX_EFECTIVO.Where(x => x.OPERACION == "RETIRO DE AHORRO" && x.ID_OPERACION == ant.ID_RETIRO && x.ID_CAJA == ant.ID_CAJA);
+                    foreach (var item in kardexEfe)
+                    {
+                        context.SD_KARDEX_EFECTIVO.DeleteObject(item);
+                    }
+                    manager.Save();
+                    context.P_SD_ACT_KARDEX_EFECTIVO(ant.ID_CAJA, ant.FECHA, 1, p_RES);
+
+
                     result.success = true;
                     result.msg = "Se elimino Correctamente";
                 }

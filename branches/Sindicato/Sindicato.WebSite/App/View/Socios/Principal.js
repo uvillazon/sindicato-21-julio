@@ -244,7 +244,7 @@
             region: 'center',
             width: 760,
             height: 450,
-            id_socio: me.socio.get('ID_SOCIO')
+            id_socio_movil: me.socio.get('ID_SOCIO_MOVIL')
         });
         win.add(grid);
         win.show();

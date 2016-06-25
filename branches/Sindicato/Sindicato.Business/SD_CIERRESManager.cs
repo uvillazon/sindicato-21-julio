@@ -27,6 +27,7 @@ namespace Sindicato.Business
                     ant.LOGIN = login; ;
                     ant.FECHA_REG = DateTime.Now;
                     ant.ESTADO = "ACTIVO";
+                    ant.CODIGO = ant.ID_CIERRE.ToString();
                     Add(ant);
                     Save();
                     result = ant.ID_CIERRE.ToString();

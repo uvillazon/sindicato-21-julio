@@ -26,6 +26,7 @@ namespace Sindicato.WebSite.Controllers
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult ObtenerSociosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
         {
+            entidad.ESTADO = "ACTIVO";
             filtros.Entidad = entidad;
             var socios = _serSoc.ObtenerSociosPaginados(paginacion, filtros);
             var formatData = socios.Select(x => new
@@ -59,7 +60,7 @@ namespace Sindicato.WebSite.Controllers
                 CELULAR = x.SD_SOCIOS.CELULAR,
                 ESTADO = x.ESTADO,
                 ID_IMG = _serImg.ConImagen(x.ID_SOCIO, "SD_SOCIOS"),
-                SALDO = x.SD_SOCIOS.SALDO,
+                SALDO = x.SALDO,
                 DEUDA = x.SD_SOCIOS.DEUDA,
                 PRECIO_HOJA = x.SD_SOC_MOV_OBLIG.Count() > 0 ? x.SD_SOC_MOV_OBLIG.Sum(y => y.IMPORTE) : 0,
                 DEBE_HOJA = x.obtenerDebe()
@@ -305,11 +306,11 @@ namespace Sindicato.WebSite.Controllers
         public ActionResult ObtenerKardexPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
         {
             filtros.Entidad = entidad;
-            var ingresos = _serSoc.ObtenerKardexSociosPaginados(paginacion, filtros);
+            var ingresos = _serSoc.ObtenerKardexSociosMovilPaginados(paginacion, filtros);
             var formatData = ingresos.Select(x => new
             {
                 DETALLE = x.DETALLE,
-                ID_SOCIO = x.ID_SOCIO,
+                ID_SOCIO_MOVIL = x.ID_SOCIO_MOVIL,
                 FECHA = x.FECHA,
                 FECHA_REG = x.FECHA_REG,
                 INGRESO = x.INGRESO,
@@ -336,15 +337,15 @@ namespace Sindicato.WebSite.Controllers
             var formatData = retiros.Select(x => new
             {
                 ID_RETIRO = x.ID_RETIRO,
-                ID_SOCIO = x.ID_SOCIO,
+                ID_SOCIO_MOVIL = x.ID_SOCIO_MOVIL,
                 FECHA = x.FECHA,
+                CAJA = x.SD_CAJAS.NOMBRE,
+                SOCIO = x.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
                 FECHA_REG = x.FECHA_REG,
                 RETIRO = x.RETIRO,
                 LOGIN = x.LOGIN,
-                NOMBRE_SOCIO = string.Format("{0} {1} {2}", x.SD_SOCIOS.NOMBRE, x.SD_SOCIOS.APELLIDO_PATERNO, x.SD_SOCIOS.APELLIDO_MATERNO),
-                NRO_RECIBO = x.NRO_RECIBO,
-                OBSERVACION = x.OBSERVACION
-
+                OBSERVACION = x.OBSERVACION,
+                NRO_MOVIL = x.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
@@ -357,10 +358,9 @@ namespace Sindicato.WebSite.Controllers
             var data = new
             {
                 ID_RETIRO = x.ID_RETIRO,
-                ID_SOCIO = x.ID_SOCIO,
+                ID_SOCIO_MOVIL = x.ID_SOCIO_MOVIL,
                 RETIRO = x.RETIRO,
                 LOGIN = x.LOGIN,
-                NRO_RECIBO = x.NRO_RECIBO,
                 OBSERVACION = x.OBSERVACION,
                 FECHA = String.Format("{0:dd/MM/yyyy}", x.FECHA),
                 FECHA_REG = String.Format("{0:dd/MM/yyyy}", x.FECHA_REG),
@@ -368,7 +368,7 @@ namespace Sindicato.WebSite.Controllers
             return Json(new { data = data, success = true });
         }
         [HttpPost, ValidateInput(false)]
-        public JsonResult GuardarRetiroSocio(SD_RETIRO_SOCIO ant)
+        public JsonResult GuardarRetiroSocio(SD_RETIRO_SOCIO_MOVIL ant)
         {
             string login = User.Identity.Name.Split('-')[0];
             RespuestaSP respuestaSP = new RespuestaSP();

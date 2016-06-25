@@ -17,14 +17,13 @@
     },
     CargarEventos: function () {
         var me = this;
-        me.date_fecha.on('select', function (dat, value) {
-            me.gridDetalle.getStore().setExtraParams({ FECHA_DESDE: me.date_fecha_ini.getValue(), FECHA_HASTA: value, ID_PARADA: Constantes.Usuario.ID_PARADA });
+        me.date_fecha_fin.on('select', function (dat, value) {
+            me.gridDetalle.getStore().setExtraParams({ FECHA_DESDE: me.date_fecha_ini.getValue(), FECHA_HASTA: value });
             me.gridDetalle.getStore().load();
         });
         me.gridDetalle.getStore().on('load', function (str,records) {
-            var ingresos = str.sum('INGRESO');
-            var egresos = str.sum('EGRESO');
-            me.txt_total.setValue(ingresos - egresos);
+            var ingresos = str.sum('TOTAL_AHORRO');
+            me.txt_total.setValue(ingresos );
         });
     },
     CargarComponentesForm: function () {
@@ -34,14 +33,20 @@
             name: "ID_CIERRE"
 
         });
-        me.date_fecha = Ext.create("App.Config.Componente.DateFieldBase", {
-            fieldLabel: "Mes (MM-YYYY)",
-            name: "MES",
-            format: 'm-Y',
-            submitFormat: 'd/m/Y',
-            colspan: 2,
+        me.date_fecha_ini = Ext.create("App.Config.Componente.DateFieldBase", {
+            fieldLabel: "Fecha Ini",
+            maximo: 'Sin Maximo',
+            name: "FECHA_INI",
             afterLabelTextTpl: Constantes.REQUERIDO,
-            allowBlank: false,
+            allowBlank: false
+        });
+        me.date_fecha_fin = Ext.create("App.Config.Componente.DateFieldBase", {
+            fieldLabel: "Fecha Fin",
+            opcion: 'sin fecha',
+            //maximo: 'Sin Maximo',
+            name: "FECHA_FIN",
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false
         });
         me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
             fieldLabel: "Observaciones",
@@ -66,10 +71,10 @@
             readOnly: true,
 
         });
-        me.gridDetalle = Ext.create("App.View.Ahorros.GridDetalles", { colspan: 2, width: 480, cargarStore: false, height: 400,storeGenerar: true });
+        me.gridDetalle = Ext.create("App.View.Ahorros.GridDetalles", { colspan: 2, width: 550, cargarStore: false, height: 400,storeGenerar: true });
         me.items = [
             me.txt_id,
-            me.date_fecha,
+            me.date_fecha_ini,me.date_fecha_fin,
             me.txt_observacion,
             me.txt_estado, me.txt_total,
             me.gridDetalle
@@ -82,14 +87,20 @@
             name: "ID_CIERRE"
 
         });
-        me.date_fecha = Ext.create("App.Config.Componente.DateFieldBase", {
-            fieldLabel: "Mes (MM-YYYY)",
-            name: "MES",
-            format: 'm-Y',
-            submitFormat: 'd/m/Y',
-            colspan: 2,
+        me.date_fecha_ini = Ext.create("App.Config.Componente.DateFieldBase", {
+            fieldLabel: "Fecha Ini",
+            maximo: 'Sin Maximo',
+            name: "FECHA_INI",
             afterLabelTextTpl: Constantes.REQUERIDO,
-            allowBlank: false,
+            allowBlank: false
+        });
+        me.date_fecha_fin = Ext.create("App.Config.Componente.DateFieldBase", {
+            fieldLabel: "Fecha Fin",
+            opcion: 'sin fecha',
+            //maximo: 'Sin Maximo',
+            name: "FECHA_FIN",
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false
         });
         me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
             fieldLabel: "Observaciones",
@@ -114,10 +125,10 @@
             readOnly: true,
 
         });
-        me.gridDetalle = Ext.create("App.View.Ahorros.GridDetalles", {colspan : 2 , width : 480 , cargarStore : false , height : 400});
+        me.gridDetalle = Ext.create("App.View.Ahorros.GridDetalles", {colspan : 2 , width : 550 , cargarStore : false , height : 500});
         me.items = [
             me.txt_id,
-            me.date_fecha,
+            me.date_fecha_ini, me.date_fecha_fin,
             me.txt_observacion,
             me.txt_estado, me.txt_total,
             me.gridDetalle
@@ -126,17 +137,17 @@
 
 
     },
-    //ObtenerUltimoRegistro: function () {
-    //    var me = this;
-    //    Ext.Ajax.request({
-    //        url: Constantes.HOST + 'CierresParada/ObtenerUltimoRegistro',
-    //        success: function (response) {
-    //            var str = Ext.JSON.decode(response.responseText);
-    //            me.date_fecha_ini.setValue(str.value);
-    //            me.date_fecha_ini.setReadOnly(str.disabled);
-    //        }
-    //    });
-    //},
+    ObtenerUltimoRegistro: function () {
+        var me = this;
+        Ext.Ajax.request({
+            url: Constantes.HOST + 'Cierres/ObtenerUltimoRegistro',
+            success: function (response) {
+                var str = Ext.JSON.decode(response.responseText);
+                me.date_fecha_ini.setValue(str.value);
+                me.date_fecha_ini.setReadOnly(str.disabled);
+            }
+        });
+    },
     isValid: function () {
         var me = this;
         if (me.getForm().isValid()) {

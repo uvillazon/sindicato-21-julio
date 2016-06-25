@@ -32,6 +32,8 @@ namespace Sindicato.Services.Interfaces
         RespuestaSP GuardarSocioMovilAuto(SD_SOCIO_MOVIL_AUTOS soc,int DIAS, string login);
 
         IEnumerable<SD_KARDEX_SOCIO> ObtenerKardexSociosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
+        IEnumerable<SD_KARDEX_SOCIO_MOVIL> ObtenerKardexSociosMovilPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
+
         IEnumerable<SD_INGRESOS_SOCIO> ObtenerIngresosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
         SD_INGRESOS_SOCIO ObtenerIngresosPorCriterio(Expression<Func<SD_INGRESOS_SOCIO, bool>> criterio);
         RespuestaSP GuardarIngresoSocio(SD_INGRESOS_SOCIO ingreso, string login);
@@ -44,9 +46,9 @@ namespace Sindicato.Services.Interfaces
         RespuestaSP EliminarSocio(int ID_SOCIO, string LOGIN);
 
         #region Retiros
-        IEnumerable<SD_RETIRO_SOCIO> ObtenerRetirosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
-        SD_RETIRO_SOCIO ObtenerRetiroPorCriterio(Expression<Func<SD_RETIRO_SOCIO, bool>> criterio);
-        RespuestaSP GuardarRetiroSocio(SD_RETIRO_SOCIO ingreso, string login);
+        IEnumerable<SD_RETIRO_SOCIO_MOVIL> ObtenerRetirosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
+        SD_RETIRO_SOCIO_MOVIL ObtenerRetiroPorCriterio(Expression<Func<SD_RETIRO_SOCIO_MOVIL, bool>> criterio);
+        RespuestaSP GuardarRetiroSocio(SD_RETIRO_SOCIO_MOVIL ingreso, string login);
         RespuestaSP EliminarRetiroSocio(int ID_RETIRO);
         #endregion
     }

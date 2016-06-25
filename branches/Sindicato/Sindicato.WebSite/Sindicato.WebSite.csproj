@@ -391,6 +391,9 @@
     <Content Include="App\View\Ahorros\GridCierres.js" />
     <Content Include="App\View\Ahorros\GridDetalles.js" />
     <Content Include="App\View\Ahorros\Principal.js" />
+    <Content Include="App\View\Prestamos\FormRetiro.js" />
+    <Content Include="App\View\Prestamos\GridPrestamos.js" />
+    <Content Include="App\View\Prestamos\Principal.js" />
     <Content Include="App\View\KardexHojas\FormAuto.js" />
     <Content Include="App\View\KardexHojas\Forms.js" />
     <Content Include="App\View\KardexHojas\GridKardexHojas.js" />
@@ -3829,6 +3832,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reportes\Copia de ReporteCierreAhorro.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteRetiro.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteCierreAhorro.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteDetalleHoja.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteEgreso.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteIngreso.rdlc" />

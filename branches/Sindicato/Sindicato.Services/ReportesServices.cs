@@ -181,6 +181,8 @@ namespace Sindicato.Services
                 var managerIngresos = new SD_INGRESOSManager(uow);
                 var managerIngresosSocios = new SD_INGRESOS_POR_SOCIOSManager(uow);
                 var managerRegulaciones = new SD_DETALLES_REGULARIZACIONESManager(uow);
+                var managerObligaciones = new SD_OBLIGACIONES_HOJAManager(uow);
+
                 DateTime Fecha_fin = FECHA_FIN.AddDays(1);
                 var hojas = managerHojas.BuscarTodos(x => x.FECHA_COMPRA >= FECHA_INI && x.FECHA_COMPRA < Fecha_fin && x.ESTADO != "ANULADO").OrderBy(x => x.ID_HOJA);
                 var detallesHojas = managerDetallesHojas.BuscarTodos(x => x.SD_HOJAS_CONTROL.FECHA_COMPRA < Fecha_fin && x.SD_HOJAS_CONTROL.FECHA_COMPRA >= FECHA_INI && x.SD_HOJAS_CONTROL.ESTADO != "ANULADO");
@@ -195,13 +197,14 @@ namespace Sindicato.Services
                 //var deetalles = hojas.
                 foreach (var item in groupDetalles)
                 {
+                    var obli = managerObligaciones.BuscarTodos(x => x.OBLIGACION == item.OBLIGACION).FirstOrDefault();
                     var detalleRep = new ReporteTotal()
                     {
                         DETALLE = detalle,
                         SUBDETALLE = item.OBLIGACION,
                         CANTIDAD = item.CANTIDAD,
                         BOLIVIANOS = (decimal)item.IMPORTE,
-                        COSTO_UNITARIO = (decimal)item.COSTO
+                        COSTO_UNITARIO = obli == null ? (decimal)item.COSTO : obli.IMPORTE_DEFECTO
                     };
                     result.Add(detalleRep);
                 }
@@ -301,6 +304,37 @@ namespace Sindicato.Services
             }
             });
             return result;
+        }
+
+        public IEnumerable<ReporteRetiroModel> ObtenerReporteRetiro(int ID_RETIRO)
+        {
+            List<ReporteRetiroModel> result = new List<ReporteRetiroModel>();
+            NumLetra n = new NumLetra();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_RETIRO_SOCIO_MOVILManager(uow);
+                var kardex = manager.BuscarTodos(x => x.ID_RETIRO == ID_RETIRO);
+                foreach (var item in kardex)
+                {
+                    var kar = new ReporteRetiroModel()
+                    {
+                        ID_RETIRO = item.ID_RETIRO,
+                        CAJA = item.SD_CAJAS.NOMBRE,
+                        FECHA = item.FECHA,
+                        LOGIN = item.LOGIN,
+                        MOVIL = item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL.ToString(),
+                        OBSERVACION = item.OBSERVACION,
+                        SOCIO = item.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
+                        TOTAL_RETIRO = item.RETIRO,
+                        TOTAL_LITERAL = n.Convertir(item.RETIRO.ToString(), true, item.SD_CAJAS.MONEDA)
+                    };
+                    result.Add(kar);
+                }
+
+            });
+
+            return result;
+
         }
     }
 }

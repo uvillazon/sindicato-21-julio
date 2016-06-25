@@ -54,10 +54,12 @@
     <Compile Include="ChoferesServices.cs" />
     <Compile Include="CajasServices.cs" />
     <Compile Include="AutosServices.cs" />
+    <Compile Include="CierresAhorroServices.cs" />
     <Compile Include="CierresServices.cs" />
+    <Compile Include="Interfaces\ICierresAhorroServices.cs" />
     <Compile Include="KardexHojasServices.cs" />
     <Compile Include="Interfaces\IKardexHojasServices.cs" />
-    <Compile Include="Interfaces\PrestamosServices.cs" />
+    <Compile Include="Interfaces\IPrestamosServices.cs" />
     <Compile Include="PrestamosServices.cs" />
     <Compile Include="MovilesServices.cs" />
     <Compile Include="Interfaces\IMovilesServices.cs" />

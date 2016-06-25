@@ -24,7 +24,8 @@ Ext.define("App.Config.Abstract.Window", {
     textGuardar: 'Guardar',
     textCerrar: 'Cerrar',
     destruirWin: true,
-    showBtn3 : false,
+    showBtn3: false,
+    textBtn3 : 'Reporte',
     initComponent: function () {
         var me = this;
         if (!me.botones) {
@@ -78,7 +79,7 @@ Ext.define("App.Config.Abstract.Window", {
             });
             if (this.showBtn3) {
                 this.btn3 = Ext.create('Ext.Button', {
-                    text: "Reporte Hojas",
+                    text: me.textBtn3,
                     minHeight: 27,
                     minWidth: 80,
                     itemId: 'btn_generar',

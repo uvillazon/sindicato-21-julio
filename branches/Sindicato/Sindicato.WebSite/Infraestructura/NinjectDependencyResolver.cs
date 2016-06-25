@@ -79,6 +79,7 @@ namespace Sindicato.WebSite.Infraestructura
             Bind<IMovilesServices>().To<MovilesServices>();
             Bind<IPrestamosServices>().To<PrestamosServices>();
             Bind<IKardexHojasServices>().To<KardexHojasServices>();
+            Bind<ICierresAhorroServices>().To<CierresAhorroServices>();
             
             //ITrasferenciasServices
             //Bind<IVentasDiariasServices>().To<VentasDiariasServices>();
