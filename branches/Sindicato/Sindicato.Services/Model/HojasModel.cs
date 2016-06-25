@@ -14,6 +14,6 @@ namespace Sindicato.Services.Model
         public DateTime? FECHA_VENTA { get; set; }
         public DateTime? FECHA { get; set; }
         public string FECHA_TEXT { get; set; }
-        //public  { get; set; }
+        //public  { get; set; }//
     }
 }
