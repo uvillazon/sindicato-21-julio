@@ -15,7 +15,7 @@
 
 
 
-        me.grid = Ext.create('App.View.RetirosSocio.GridRetiros', {
+        me.grid = Ext.create('App.View.Prestamos.GridPrestamos', {
             region: 'center',
             width: '100%',
             fbarmenu: me.toolbar,

@@ -6269,7 +6269,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Modelo" ZoomLevel="39">
+      <Diagram Name="Modelo" ZoomLevel="127">
         <EntityTypeShape EntityType="Model.SD_LISTAS" Width="1.5" PointX="0.75" PointY="1" Height="2.5571907552083326" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.SD_LISTAS_ITEMS" Width="1.5" PointX="3" PointY="1" Height="2.7494921874999996" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.SD_MENU_OPCIONES" Width="1.5" PointX="0.5" PointY="11.125" Height="2.9417936197916639" IsExpanded="true" />
