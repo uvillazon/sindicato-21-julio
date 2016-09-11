@@ -642,7 +642,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -802,7 +801,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>SINDICATO SAN MIGUEL LINEA 132</Value>
+                  <Value>SINDICATO SAN MIGUEL LINEA 131</Value>
                   <Style>
                     <FontFamily>Calibri</FontFamily>
                     <FontWeight>Heavy</FontWeight>
