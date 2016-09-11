@@ -1978,7 +1978,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Silvestre Caceres</Value>
+                <Value />
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>12pt</FontSize>
@@ -2014,7 +2014,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Jhamila Martinez</Value>
+                <Value />
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>12pt</FontSize>
@@ -2085,7 +2085,21 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Secretaria</Value>
+                <Value>Secretario</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>8pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value />
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>8pt</FontSize>
