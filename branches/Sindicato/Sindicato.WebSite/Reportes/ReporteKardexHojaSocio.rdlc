@@ -717,6 +717,11 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
+        <SortExpressions>
+          <SortExpression>
+            <Value>=Fields!MES.Value</Value>
+          </SortExpression>
+        </SortExpressions>
         <Top>0.3937cm</Top>
         <Left>1.08162cm</Left>
         <Height>1.8cm</Height>
