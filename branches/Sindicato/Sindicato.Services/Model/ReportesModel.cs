@@ -70,7 +70,7 @@ namespace Sindicato.Services.Model
     }
 
     public class ReporteKardexHoja {
-        public string MES { get; set; }
+        public DateTime MES { get; set; }
         public string NRO_MOVIL { get; set; }
         public string SOCIO { get; set; }
         public decimal? CANT_HOJAS { get; set; }

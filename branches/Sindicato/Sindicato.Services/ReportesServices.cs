@@ -35,7 +35,7 @@ namespace Sindicato.Services
                 {
                     var kar = new ReporteKardexHoja()
                     {
-                        MES = item.MES.ToString("MM-yyyy"),
+                        MES = item.MES,
                         NRO_MOVIL = item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL.ToString(),
                         SOCIO = string.Format("{0} {1} {2}", item.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE, item.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO, item.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_MATERNO),
                         CANT_HOJAS = item.CANT_HOJAS,

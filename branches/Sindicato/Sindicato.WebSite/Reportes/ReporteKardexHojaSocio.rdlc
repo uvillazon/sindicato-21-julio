@@ -301,6 +301,7 @@
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>8pt</FontSize>
+                                <Format>MM-yyyy</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -811,7 +812,7 @@
       <Fields>
         <Field Name="MES">
           <DataField>MES</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+          <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
         <Field Name="NRO_MOVIL">
           <DataField>NRO_MOVIL</DataField>
