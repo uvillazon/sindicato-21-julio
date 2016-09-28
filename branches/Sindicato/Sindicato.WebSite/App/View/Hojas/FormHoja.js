@@ -187,6 +187,13 @@
     ImprimirHojas: function (id) {
 
         var ruta = fn.ObtenerUrlReportPDF("ReporteHojas", "ID_VENTA=" + id);
-        window.open(ruta);
+        //window.open(ruta);
+        //var ruta = fn.ObtenerUrlReportPDF("ReporteRegulacion", "ID_REGULACION=" + id);
+        //var ruta = fn.ObtenerUrlReportPDF("ReporteRegulacion", "ID_REGULACION=2");
+        var panel = Ext.create("App.View.Reports.ReportsPDF", {
+            ruta: ruta,
+            pageScale: 1.50,
+        });
+        panel.show();
     }
 });

@@ -32,8 +32,11 @@ namespace Sindicato.Business
                     else
                     {
                         ing.FECHA_REG = DateTime.Now;
+                        
                         ing.LOGIN = login;
                         ing.ID_EGRESO = ObtenerSecuencia();
+                        ing.NRO_RECIBO = ing.ID_EGRESO;
+                        ing.ID_TIPO = ing.ID_TIPO;
                         Add(ing);
 
                         ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));

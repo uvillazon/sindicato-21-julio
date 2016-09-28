@@ -116,6 +116,41 @@ namespace Sindicato.WebSite.Controllers
         }
         #endregion
 
+        #region tipos de Egresos
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerTiposEgresosPaginados(PagingInfo paginacion, FiltrosModel<TransferenciasModel> filtros, TransferenciasModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var retiros = _serTra.ObtenerITiposEgresosPaginados(paginacion, filtros);
+            var formatData = retiros.Select(x => new
+            {
+                ID_TIPO = x.ID_TIPO,
+                ID_CAJA = x.ID_CAJA,
+                CAJA = x.SD_CAJAS.NOMBRE,
+                SALDO = x.SD_CAJAS.SALDO,
+                MONEDA = x.MONEDA,
+                FECHA_REG = x.FECHA_REG,
+                IMPORTE = x.IMPORTE,
+                LOGIN_USR = x.LOGIN_USR,
+                NOMBRE = x.NOMBRE,
+                OBSERVACION = x.OBSERVACION
+
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
+
+        [HttpPost, ValidateInput(false)]
+        public JsonResult GuardarTipoEgreso(SD_TIPOS_EGRESOS ant)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serTra.GuardarTipoEgreso(ant, login);
+            return Json(respuestaSP);
+        }
+        #endregion
+
 
         #region Transferencias
         [AcceptVerbs(HttpVerbs.Get)]
