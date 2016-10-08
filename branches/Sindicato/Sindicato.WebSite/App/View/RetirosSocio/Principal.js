@@ -9,7 +9,7 @@
         var me = this;
 
         me.toolbar = Funciones.CrearMenuBar();
-        //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
+        Funciones.CrearMenu('btn_VerDetalle', 'Ver Recibo', 'report', me.EventosPrincipal, me.toolbar, this, null, true);
         Funciones.CrearMenu('btn_Kardex', 'Kardex Socio', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
         //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
 
@@ -19,24 +19,12 @@
             region: 'center',
             width: '100%',
             fbarmenu: me.toolbar,
-            fbarmenuArray: ["btn_Kardex", "btn_eliminar"]
+            fbarmenuArray: ["btn_Kardex", "btn_eliminar", "btn_VerDetalle"]
 
         });
         me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Retiro', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
         me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Eliminar Retiro', Constantes.ICONO_BAJA, me.EventosPrincipal,null, this, null, true);
         me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar]);
-        //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
-
-        //me.form = Ext.create("App.View.RetirosSocio.FormRetiro", {
-        //    region: 'center',
-        //    width: '50%',
-        //    columns: 2,
-        //    Eventos : false
-        //});
-        //me.form.ocultarSaldos(false);
-        //me.form.BloquearFormulario();
-      
-        //        me.grid.bar.add(me.toolbar);
         me.items = [me.grid];
         me.grid.getSelectionModel().on('selectionchange', me.CargarDatos, this);
 
@@ -45,15 +33,7 @@
         var me = this;
         var disabled = selections.length === 0;
         me.record = disabled ? null : selections[0];
-        //if (!disabled) {
-        //    //me.form.getForm().loadRecord(selections[0])
-        //    //me.form.CargarDatos(selections[0]);
-
-        //}
-        //else {
-        //    me.form.getForm().reset();
-          
-        //}
+      
     },
    
     EventosPrincipal: function (btn) {
@@ -67,6 +47,9 @@
                 break;
             case "btn_Kardex":
                 me.VentanaKardex();
+                break;
+            case "btn_VerDetalle":
+                me.VentanaRecibo(me.grid.record.get('ID_RETIRO'));
                 break;
             default:
                 Ext.Msg.alert("Aviso", "No Existe el botton");
@@ -90,11 +73,15 @@
             //Funciones.AjaxRequestWin("Socios", "GuardarRetiroSocio", win, form, me.grid, "Esta Seguro de Guardar", null, win);
             Funciones.AjaxRequestWinSc("Socios", "GuardarRetiroSocio", win, form, me.grid, "Esta Seguro de Guardar", null, win, function (result) {
                 //console.dir(result);
-                form.ImprimirRecibo(result.id);
+                //form.ImprimirRecibo(result.id);
+                me.VentanaRecibo(result.id);
             });
 
         });
 
+    },
+    VentanaRecibo: function (id) {
+        fn.VerImpresion("ReporteRetiro", "ID_RETIRO=" + id);
     },
     VentanaKardex: function () {
         var me = this;

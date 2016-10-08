@@ -52,7 +52,9 @@ namespace Sindicato.Services
                 if (!string.IsNullOrEmpty(filtros.Contiene))
                 {
                     var contiene = filtros.Contiene.Trim().ToUpper();
-                    result = result.Where(x => x.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO.Contains(contiene) || x.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE.Contains(contiene) || x.SD_CAJAS.NOMBRE.Contains(contiene));
+                    result = result.Where(SD_PRESTAMOS_POR_SOCIOS.Contiene(filtros.Contiene));
+
+                    //result = result.Where(x => x.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO.Contains(contiene) || x.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE.Contains(contiene) || x.SD_CAJAS.NOMBRE.Contains(contiene));
 
                 }
                 paginacion.total = result.Count();
@@ -189,17 +191,57 @@ namespace Sindicato.Services
 
         public RespuestaSP GuardarPrestamo(SD_PRESTAMOS_POR_SOCIOS prestamo, string login)
         {
-            throw new NotImplementedException();
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
+                result = manager.GuardarPrestamo(prestamo , login);
+              
+
+            });
+            return result;
         }
+       
+        
 
         public RespuestaSP EliminarPrestamo(int ID_PRESTAMO)
         {
-            throw new NotImplementedException();
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
+                result = manager.EliminarPrestamo(ID_PRESTAMO);
+
+
+            });
+            return result;
+        }
+
+        //
+        public RespuestaSP GenerarPlanDePagos(int ID_PRESTAMO, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_PLAN_DE_PAGOManager(uow);
+                result = manager.GenerarPlanDePagos(ID_PRESTAMO,login);
+
+
+            });
+            return result;
         }
 
         public RespuestaSP GuardarPagoPrestamo(SD_PAGO_DE_PRESTAMOS pago, string login)
         {
-            throw new NotImplementedException();
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                result = manager.GuardarPagoPrestamo(pago, login);
+
+
+            });
+            return result;
         }
 
         public RespuestaSP EliminarPagoPrestamo(int ID_PAGO)

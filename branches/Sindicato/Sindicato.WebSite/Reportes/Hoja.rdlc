@@ -11,7 +11,7 @@
               <TextRun>
                 <Value>="Nro : "&amp; First(Fields!ID_HOJA.Value, "DataSetHoja") &amp; " G-VII"</Value>
                 <Style>
-                  <FontSize>14pt</FontSize>
+                  <FontSize>12pt</FontSize>
                   <FontWeight>ExtraBold</FontWeight>
                 </Style>
               </TextRun>
@@ -21,9 +21,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
         <Top>0.29698cm</Top>
-        <Left>4.95449cm</Left>
+        <Left>5.95991cm</Left>
         <Height>0.75875cm</Height>
-        <Width>5.54271cm</Width>
+        <Width>4.53729cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -44,6 +44,7 @@
                 <Value>=First(Fields!FECHA_COMPRA.Value, "DataSetHoja")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
+                  <FontSize>12pt</FontSize>
                   <FontWeight>ExtraBold</FontWeight>
                   <Format>dd/MM/yyyy</Format>
                 </Style>
@@ -54,9 +55,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
         <Top>1.16156cm</Top>
-        <Left>6.33033cm</Left>
+        <Left>4.95449cm</Left>
         <Height>0.77666cm</Height>
-        <Width>2.26187cm</Width>
+        <Width>3.63771cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -70,7 +71,6 @@
       </Textbox>
       <Textbox Name="Textbox3">
         <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
         <Paragraphs>
           <Paragraph>
             <TextRuns>
@@ -82,14 +82,16 @@
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.11461cm</Top>
-        <Left>1.89527cm</Left>
-        <Height>0.46771cm</Height>
-        <Width>7.70235cm</Width>
+        <Top>2.62613cm</Top>
+        <Left>2.68902cm</Left>
+        <Height>0.53827cm</Height>
+        <Width>7.30547cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -115,14 +117,16 @@
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.61759cm</Top>
-        <Left>7.25637cm</Left>
-        <Height>0.50299cm</Height>
-        <Width>2.34125cm</Width>
+        <Top>3.23495cm</Top>
+        <Left>6.67429cm</Left>
+        <Height>0.46772cm</Height>
+        <Width>3.3202cm</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
@@ -148,11 +152,13 @@
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.58232cm</Top>
+        <Top>3.19968cm</Top>
         <Left>4.30299cm</Left>
         <Height>0.50299cm</Height>
         <Width>1.67979cm</Width>
@@ -185,45 +191,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.61759cm</Top>
+        <Top>3.23495cm</Top>
         <Left>1.89527cm</Left>
-        <Height>0.46771cm</Height>
-        <Width>0.96541cm</Width>
+        <Height>0.46772cm</Height>
+        <Width>1.25645cm</Width>
         <ZIndex>5</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox7">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>APORTE SINDICAL 9.50 , PRODEPORTE 0.50 , AHORRO 5 CONTROL 3</Value>
-                <Style>
-                  <FontFamily>Calibri</FontFamily>
-                  <FontSize>8pt</FontSize>
-                  <FontWeight>ExtraBold</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>12.3956cm</Top>
-        <Left>2.4509cm</Left>
-        <Height>0.76302cm</Height>
-        <Width>6.56464cm</Width>
-        <ZIndex>6</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -257,8 +229,8 @@
         <Top>1.16156cm</Top>
         <Left>8.5922cm</Left>
         <Height>0.77666cm</Height>
-        <Width>1.45521cm</Width>
-        <ZIndex>7</ZIndex>
+        <Width>1.905cm</Width>
+        <ZIndex>6</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>

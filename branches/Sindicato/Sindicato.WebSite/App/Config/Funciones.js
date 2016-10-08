@@ -26,7 +26,7 @@ Ext.define("App.Config.Funciones", {
         } catch (e) {
             return value;
         }
-        
+
     },
     BloquearFormulario: function (form, array, btn) {
         var els = form.query('.field');
@@ -212,7 +212,7 @@ Ext.define("App.Config.Funciones", {
         return grupo;
     },
     //Ajax Request Con Confirmacion para los Windows
-    AjaxRequestWin: function (controlador, accion, mask, form, grid, msg, param, win,fn) {
+    AjaxRequestWin: function (controlador, accion, mask, form, grid, msg, param, win, fn) {
 
         var formSend = form.getForm();
         //var time = (timeout == null) ? 
@@ -526,7 +526,7 @@ Ext.define("App.Config.Funciones", {
             }
         });
     },
-    AjaxRequestGrid: function (controlador, accion, mask, msg, param, grid, win) {
+    AjaxRequestGrid: function (controlador, accion, mask, msg, param, grid, win, fn) {
         var mensaje = (msg == null) ? 'Esta Seguro de Guardar Los cambios?' : msg;
         Ext.MessageBox.confirm('Confirmacion?', mensaje, function (btn) {
             if (btn == 'yes') {
@@ -542,13 +542,19 @@ Ext.define("App.Config.Funciones", {
                                 grid.getStore().load();
                                 win.hide();
                             }
-                            else if (grid != null && win == null) {
+                            if (grid != null && win == null) {
                                 grid.getStore().load();
                             }
-                            else if (grid == null && win != null) {
+                            if (grid == null && win != null) {
                                 win.hide();
                             }
-                            Ext.MessageBox.alert('Exito', str.msg);
+                            if (fn != null) {
+
+                                fn(str);
+                            } else {
+                                Ext.MessageBox.alert('Exito', str.msg);
+
+                            }
                         }
                         else {
                             Ext.MessageBox.alert('Error', str.msg);
@@ -812,7 +818,7 @@ Ext.define("App.Config.Funciones", {
     obtenerEdad: function (fecha) {
         hoy = new Date();
         var array_fecha = Ext.util.Format.date(fecha, 'd/m/Y').split("/")
-        
+
         if (array_fecha.length != 3)
             return false
 
@@ -854,7 +860,7 @@ Ext.define("App.Config.Funciones", {
         console.dir(nameReport);
         if (Funciones.winReporte == null) {
 
-            Funciones.winReporte = Ext.create("App.Config.Abstract.Window", {width : 100 , destruirWin : false});
+            Funciones.winReporte = Ext.create("App.Config.Abstract.Window", { width: 100, destruirWin: false });
             fn.store_view = Ext.create('Ext.data.Store', {
                 fields: ['src', 'caption', 'tipo'],
                 data: [
@@ -905,5 +911,14 @@ Ext.define("App.Config.Funciones", {
     ObtenerUrlReportPDF: function (nameReport, params) {
         var result = Constantes.HOST + 'ReportesPDF/' + nameReport + '?' + params + '&tipo=pdf';
         return result;
+    },
+    VerImpresion: function (nameReport , params) {
+
+        var ruta = fn.ObtenerUrlReportPDF(nameReport, params);
+        var panel = Ext.create("App.View.Reports.ReportsPDF", {
+            ruta: ruta,
+            pageScale: 1.50,
+        });
+        panel.show();
     }
 });

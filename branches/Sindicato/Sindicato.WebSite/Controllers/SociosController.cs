@@ -26,7 +26,8 @@ namespace Sindicato.WebSite.Controllers
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult ObtenerSociosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
         {
-            entidad.ESTADO = "ACTIVO";
+            entidad.ESTADO = entidad.ESTADO == null ? "ACTIVO" : entidad.ESTADO== "TODOS"? null : entidad.ESTADO;
+            //entidad.ESTADO = "ACTIVO";
             filtros.Entidad = entidad;
             var socios = _serSoc.ObtenerSociosPaginados(paginacion, filtros);
             var formatData = socios.Select(x => new
@@ -163,6 +164,14 @@ namespace Sindicato.WebSite.Controllers
             int id_usr = Convert.ToInt32(User.Identity.Name.Split('-')[3]);
             RespuestaSP respuestaSP = new RespuestaSP();
             respuestaSP = _serSoc.GuardarSocioMovil(socio, id_usr);
+            return Json(respuestaSP);
+        }
+        [HttpPost]
+        public JsonResult BajaSocioMovil(SD_SOCIO_MOVILES socio)
+        {
+            int id_usr = Convert.ToInt32(User.Identity.Name.Split('-')[3]);
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serSoc.BajaSocioMovil(socio, id_usr);
             return Json(respuestaSP);
         }
         [HttpPost]

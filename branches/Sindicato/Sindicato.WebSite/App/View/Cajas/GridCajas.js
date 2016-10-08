@@ -28,8 +28,10 @@
                     { header: "Nombre", width: 150, sortable: true, dataIndex: "NOMBRE" },
                     { header: "Descripcion", width: 200, sortable: true, dataIndex: "DESCRIPCION" },
         //            { header: "Nro<br>Cuenta", width: 100, sortable: true, dataIndex: "NRO_CUENTA" },
-        //            { header: "Moneda", width: 70, sortable: true, dataIndex: "MONEDA" },
-                    { header: "Saldo (Bs.)", width: 100, sortable: true, dataIndex: "SALDO", renderer: Ext.util.Format.numberRenderer('0,000.00'), align: "right" },
+                    { header: "Moneda", width: 70, sortable: true, dataIndex: "MONEDA" },
+                  { header: "Saldo (Bs.)", width: 100, sortable: true, dataIndex: "SALDO_BS", renderer: Ext.util.Format.numberRenderer('0,000.00'), align: "right" },
+                  { header: "Saldo ($us.)", width: 100, sortable: true, dataIndex: "SALDO_SUS", renderer: Ext.util.Format.numberRenderer('0,000.00'), align: "right" },
+
         ];
 
 
@@ -37,13 +39,17 @@
     },
     CargarTotales: function (str, record) {
         var me = this;
-        var saldo = 0;
+        var saldo_bs = 0;
+        var saldo_sus = 0
         me.store.each(function (record) {
-            saldo = saldo + record.get('SALDO');
+            saldo_bs = saldo_bs + record.get('SALDO_BS');
+            saldo_sus = saldo_sus + record.get('SALDO_SUS');
         });
         var rec = Ext.create('App.Store.Cajas.Cajas', {
             NOMBRE: "Total",
-            SALDO: saldo
+            SALDO_BS: saldo_bs,
+            SALDO_SUS : saldo_sus
+
         });
         me.getStore().add(rec);
 

@@ -336,5 +336,86 @@ namespace Sindicato.Services
             return result;
 
         }
+
+        public IEnumerable<ReportePrestamo> ObtenerReportePrestamo(int ID_PRESTAMO)
+        {
+            List<ReportePrestamo> result = new List<ReportePrestamo>();
+            NumLetra n = new NumLetra();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_PLAN_DE_PAGOManager(uow);
+                var kardex = manager.BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO);
+                foreach (var item in kardex)
+                {
+                    var kar = new ReportePrestamo()
+                    {
+                     CAJA = item.SD_PRESTAMOS_POR_SOCIOS.SD_CAJAS.NOMBRE,
+                     CAPITAL_A_PAGAR = item.CAPITAL_A_PAGAR,
+                     FECHA_LIMITE_PAGO = item.SD_PRESTAMOS_POR_SOCIOS.FECHA_LIMITE_PAGO,
+                     FECHA_PAGO = item.FECHA_PAGO,
+                     FECHA_PRESTAMO = item.SD_PRESTAMOS_POR_SOCIOS.FECHA,
+                     IMPORTE_PRESTAMO = item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_PRESTAMO,
+                     ID_PLAN = item.ID_PLAN,
+                     ID_PRESTAMO = item.ID_PRESTAMO,
+                     IMPORTE_A_PAGAR = item.IMPORTE_A_PAGAR,
+                     IMPORTE_INTERES = (decimal)item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_INTERES,
+                     INTERES = item.SD_PRESTAMOS_POR_SOCIOS.INTERES,
+                     INTERES_A_PAGAR = item.INTERES_A_PAGAR,
+                     IMPORTE_TOTAL = item.INTERES_A_PAGAR + item.IMPORTE_A_PAGAR,
+                     LOGIN_USR = item.LOGIN_USR,
+                     MONEDA = item.SD_PRESTAMOS_POR_SOCIOS.MONEDA,
+                     NRO_SEMANA = item.NRO_SEMANA,
+                     OBSERVACION = item.SD_PRESTAMOS_POR_SOCIOS.OBSERVACION,
+                     SALDO_PLAN=item.SALDO_PLAN,
+                     SEMANAS = item.SD_PRESTAMOS_POR_SOCIOS.SEMANAS,
+                     SOCIO = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
+                     TIPO_INTERES = item.SD_PRESTAMOS_POR_SOCIOS.TIPO_INTERES,
+                     TIPO_PRESTAMO = item.SD_PRESTAMOS_POR_SOCIOS.SD_TIPOS_PRESTAMOS.NOMBRE,
+                     MOVIL = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
+                     IMPORTE_MORA = item.SD_PRESTAMOS_POR_SOCIOS.SD_TIPOS_PRESTAMOS.MULTA_POR_MORA
+
+                    };
+                    result.Add(kar);
+                }
+
+            });
+
+            return result;
+
+        }
+
+        public IEnumerable<ReportePrestamo> ObtenerPago(int ID_PAGO)
+        {
+            List<ReportePrestamo> result = new List<ReportePrestamo>();
+            NumLetra n = new NumLetra();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                var kardex = manager.BuscarTodos(x => x.ID_PAGO == ID_PAGO);
+                foreach (var item in kardex)
+                {
+                    var kar = new ReportePrestamo()
+                    {
+                        ID_PAGO = item.ID_PAGO,
+                        ID_PRESTAMO = item.ID_PRESTAMO,
+                        FECHA_PAGO = item.FECHA,
+                        FECHA_LIMITE_PAGO = item.SD_PRESTAMOS_POR_SOCIOS.FECHA_LIMITE_PAGO,
+                        OBSERVACION = item.SD_PRESTAMOS_POR_SOCIOS.SD_TIPOS_PRESTAMOS.NOMBRE,
+                        IMPORTE_TOTAL = item.IMPORTE,
+                        IMPORTE_PRESTAMO = (decimal)item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_INTERES + item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_PRESTAMO,
+                        TOTAL_CANCELADO = item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Count() > 0 ? item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Sum(x=>x.IMPORTE) : 0,
+                        IMPORTE_LITERAL = n.Convertir(item.IMPORTE.ToString(), true, item.SD_CAJAS.MONEDA),
+                        SOCIO = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
+                        MOVIL = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL
+                    };
+                    kar.DEBE = kar.IMPORTE_PRESTAMO - kar.TOTAL_CANCELADO;
+                    result.Add(kar);
+                }
+                        //FE
+            });
+
+            return result;
+
+        }
     }
 }

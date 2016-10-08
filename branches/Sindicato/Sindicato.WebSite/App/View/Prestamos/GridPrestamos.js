@@ -1,8 +1,8 @@
 ﻿Ext.define("App.View.Prestamos.GridPrestamos", {
     extend: "App.Config.Abstract.Grid",
     criterios: true,
-    textBusqueda: 'Retiros',
-    tamBusqueda: 50,
+    textBusqueda: 'Buscar Prestamo',
+    tamBusqueda: 70,
     title: 'Prestamos Registrados',
     equipo: '',
     initComponent: function () {
@@ -16,20 +16,27 @@
         me.CargarComponentes();
         me.columns = [
                 { xtype: "rownumberer", width: 30, sortable: false },
-                { header: "Nro <br>Prestamos", width: 80, sortable: false, dataIndex: "ID_PRESTAMO" },
-                { header: "Nro Movil", width: 80, sortable: false, dataIndex: "NRO_MOVIL" },
+                { header: "Nro <br>Prestamos", width: 60, sortable: false, dataIndex: "ID_PRESTAMO" },
+                { header: "Nro Movil", width: 60, sortable: false, dataIndex: "NRO_MOVIL" },
                 { header: "Socio", width: 150, sortable: false, dataIndex: "SOCIO" },
                 { header: "Caja", width: 100, sortable: false, dataIndex: "CAJA" },
                 { header: "Fecha", width: 80, sortable: true, dataIndex: "FECHA", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
+                { header: "Fecha<br>limite Pago", width: 80, sortable: true, dataIndex: "FECHA_LIMITE_PAGO", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
                 { header: "Tipo Prestamo", width: 150, sortable: false, dataIndex: "TIPO_PRESTAMO" },
-                { header: "Importe<br>Prestado", width: 100, sortable: false, dataIndex: "IMPORTE_PRESTAMO" },
-                { header: "Moneda", width: 100, sortable: false, dataIndex: "MONEDA" },
-                { header: "Semanas", width: 100, sortable: false, dataIndex: "SEMENAS" },
-                { header: "Interes", width: 100, sortable: false, dataIndex: "INTERES" },
-                { header: "Saldo", width: 100, sortable: false, dataIndex: "SALDO" },
-                { header: "Saldo", width: 100, sortable: false, dataIndex: "SALDO" },
-                { header: "Total <br>Cancelado", width: 100, sortable: false, dataIndex: "TOTAL_CANCELADO" },
-                { header: "Login", width: 80, sortable: false, dataIndex: "LOGIN" }
+                { header: "Cuota Semanal", width: 80, sortable: false, dataIndex: "COUTA" },
+                
+                { header: "Importe<br>Prestado", width: 70, sortable: false, dataIndex: "IMPORTE_PRESTAMO" },
+                { header: "Importe<br>Interes", width: 70, sortable: false, dataIndex: "IMPORTE_INTERES" },
+                { header: "Importe<br>Total", width: 70, sortable: false, dataIndex: "IMPORTE_TOTAL" },
+                { header: "Moneda", width: 70, sortable: false, dataIndex: "MONEDA" },
+                { header: "Semanas", width: 70, sortable: false, dataIndex: "SEMANAS" },
+                { header: "Tipo Interes", width: 100, sortable: false, dataIndex: "TIPO_INTERES" },
+                { header: "Interes", width: 70, sortable: false, dataIndex: "INTERES" },
+                //{ header: "Saldo", width: 70, sortable: false, dataIndex: "SALDO" },
+                { header: "Debe", width: 70, sortable: false, dataIndex: "DEBE" },
+                { header: "Total <br>Cancelado", width: 80, sortable: false, dataIndex: "TOTAL_CANCELADO" },
+                 { header: "Estado", width: 80, sortable: false, dataIndex: "ESTADO" },
+                { header: "Login", width: 80, sortable: false, dataIndex: "LOGIN_USR" }
         ];
 
 

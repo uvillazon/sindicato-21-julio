@@ -28,17 +28,19 @@
             width: '50%',
             opcion: 'GridSocios',
             fbarmenu: me.toolbar,
-            fbarmenuArray: ["btn_ConfigObligacion", "btn_ReporteSocioMovilHoja", "btn_Editar", "btn_EditarMovil", "btn_Imagen", "btn_Kardex", "btn_ConfigHoja", "btn_EliminarSocio"]
+            fbarmenuArray: ["btn_ConfigObligacion", "btn_ReporteSocioMovilHoja", "btn_Editar", "btn_EditarMovil", , "btn_BajaMovil", "btn_Imagen", "btn_Kardex", "btn_ConfigHoja", "btn_EliminarSocio"]
 
         });
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
-
-        me.btn_crear = Funciones.CrearMenu('btn_Crear', 'Crear Socio', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
-        me.btn_editar = Funciones.CrearMenu('btn_Editar', 'Modificar Socio', 'user_edit', me.EventosPrincipal, null, this, null, true);
-        me.btn_crearMovil = Funciones.CrearMenu('btn_CrearMovil', 'Crear Movil', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this, null, false);
-        me.btn_editarMovil = Funciones.CrearMenu('btn_EditarMovil', 'Modificar Movil', Constantes.ICONO_EDITAR, me.EventosPrincipal, null, this, null, true);
-        me.btn_crearImagen = Funciones.CrearMenu('btn_Imagen', 'Imagen', 'image_add', me.EventosPrincipal, null, this, null, true);
-        me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_editar, me.btn_crearMovil, me.btn_editarMovil, me.btn_crearImagen]);
+        me.toolbar = Funciones.CrearMenuBar();
+        me.btn_crear = Funciones.CrearMenu('btn_Crear', 'Crear Socio', Constantes.ICONO_CREAR, me.EventosPrincipal, me.toolbar, this);
+        me.btn_editar = Funciones.CrearMenu('btn_Editar', 'Modificar Socio', 'user_edit', me.EventosPrincipal, me.toolbar, this, null, true);
+        me.btn_crearMovil = Funciones.CrearMenu('btn_CrearMovil', 'Crear Socio-Movil', Constantes.ICONO_CREAR, me.EventosPrincipal, me.toolbar, this, null, false);
+        me.btn_editarMovil = Funciones.CrearMenu('btn_EditarMovil', 'Modificar Movil', Constantes.ICONO_EDITAR, me.EventosPrincipal, me.toolbar, this, null, true);
+        me.btn_crearMovil = Funciones.CrearMenu('btn_BajaMovil', 'Baja Movil', Constantes.ICONO_BAJA, me.EventosPrincipal, me.toolbar, this, null, true);
+        me.btn_crearImagen = Funciones.CrearMenu('btn_Imagen', 'Imagen', 'image_add', me.EventosPrincipal, me.toolbar, this, null, true);
+        //me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_editar, me.btn_crearMovil, me.btn_editarMovil, me.btn_crearImagen]);
+        me.grid.addDocked(me.toolbar, 1);
 
         me.form = Ext.create("App.View.Socios.FormSocio", {
             title: 'Datos Socio',
@@ -135,7 +137,7 @@
                 });
                 break;
             case "btn_ReporteSocioMovilHoja":
-                Funciones.ImprimirReport("ReporteKardexHojaSocio", "FECHA=01-01-2009&ID_SOCIO_MOVIL="+me.socio.get('ID_SOCIO_MOVIL'));
+                Funciones.ImprimirReport("ReporteKardexHojaSocio", "FECHA=01-01-2009&ID_SOCIO_MOVIL=" + me.socio.get('ID_SOCIO_MOVIL'));
                 break;
             case "btn_ConfigObligacion":
                 var win = Ext.create("App.Config.Abstract.Window", { botones: false, title: 'Configuracion de Obligaciones' });
@@ -167,6 +169,9 @@
                 break;
             case "btn_EditarMovil":
                 me.EditarLinea();
+                break;
+            case "btn_BajaMovil":
+                me.BajaMovilSocio();
                 break;
             case "btn_Imagen":
                 me.CrearImagen();
@@ -216,6 +221,20 @@
             Funciones.AjaxRequestWin("Socios", "GuardarSocioMovil", win, form, me.grid, "Esta Seguro de Guardar", null, win);
         });
     },
+    BajaMovilSocio: function () {
+
+        var me = this;
+        var win = Ext.create("App.Config.Abstract.Window", { botones: true });
+        var form = Ext.create("App.View.Socios.FormBajaSocioMovil", {
+            botones: false
+        });
+        form.loadRecord(me.grid.record);
+        win.add(form);
+        win.show();
+        win.btn_guardar.on('click', function () {
+            Funciones.AjaxRequestWin("Socios", "BajaSocioMovil", win, form, me.grid, "Esta Seguro de dar de BAJA", null, win);
+        });
+    },
     CrearSocioMovil: function () {
         var me = this;
         var win = Ext.create("App.Config.Abstract.Window", { botones: true });
@@ -228,7 +247,7 @@
         win.add(form);
         win.show();
         win.btn_guardar.on('click', function () {
-            Funciones.AjaxRequestWin("Socios", "GuardarNuevoSocioMovilPrimario", win, form, me.grid, "Esta Seguro de Guardar", null, win);
+            Funciones.AjaxRequestWin("Socios", "GuardarSocioMovil", win, form, me.grid, "Esta Seguro de Guardar", null, win);
         });
     },
     //CargarFormCrearMovil

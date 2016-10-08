@@ -17,6 +17,69 @@ namespace Sindicato.Business
 
         public SD_PAGO_DE_PRESTAMOSManager(IUnitOfWork uow) : base(uow) { }
 
+
+        public RespuestaSP GuardarPagoPrestamo(SD_PAGO_DE_PRESTAMOS pago, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            try
+            {
+                var context = (SindicatoContext)Context;
+                var pres = context.SD_PRESTAMOS_POR_SOCIOS.Where(x => x.ID_PRESTAMO == pago.ID_PRESTAMO).FirstOrDefault();
+                if (pres == null)
+                {
+                    result.success = false;
+                    result.msg = "No existe prestamo";
+                    return result;
+                }
+                var cancelado = pres.SD_PAGO_DE_PRESTAMOS.Sum(x=>x.IMPORTE);
+                if (cancelado + pago.IMPORTE > (pres.IMPORTE_INTERES + pres.IMPORTE_PRESTAMO)) {
+                    result.success = false;
+                    result.msg = "No puedo pagar mas del total prestado + el interes";
+                    return result;
+                }
+                pago.LOGIN_USR = login;
+                pago.MONEDA = pres.MONEDA;
+                pago.ID_CAJA = pres.ID_CAJA;
+                pago.ID_PAGO = ObtenerSecuencia();
+                pago.FECHA_REG = DateTime.Now;
+                pago.ESTADO = "NUEVO";
+                Add(pago);
+                pres.SALDO = pres.SALDO + pago.IMPORTE;
+               
+
+                ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+                context.P_EE_SECUENCIA("SD_KARDEX_EFECTIVO", 0, p_RES);
+                int idKardex = Convert.ToInt32(p_RES.Value);
+                SD_KARDEX_EFECTIVO kardex = new SD_KARDEX_EFECTIVO()
+                {
+                    ID_KARDEX = idKardex,
+                    DETALLE = "Pago de Prestamo Nro :"+ pres.ID_PRESTAMO,
+                    FECHA = (DateTime)pago.FECHA,
+                    FECHA_REG = DateTime.Now,
+                    ID_OPERACION = pago.ID_PAGO,
+                    ID_CAJA = pago.ID_CAJA,
+                    INGRESO = pago.IMPORTE,
+                    LOGIN = login,
+                    OPERACION = "PAGO PRESTAMO"
+                };
+                context.SD_KARDEX_EFECTIVO.AddObject(kardex);
+                Save();
+
+                context.P_SD_ACT_KARDEX_EFECTIVO(pago.ID_CAJA, pago.FECHA, 0, p_RES);
+                result.success = true;
+                result.msg = "proceso Ejectuado correctamente";
+                result.id = pago.ID_PAGO;
+            }
+            catch (Exception e)
+            {
+
+                result.success = false;
+                result.msg = e.Message.ToString();
+            }
+
+            return result;
+        }
+
         //test
         
     }

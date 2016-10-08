@@ -37,6 +37,8 @@ namespace Sindicato.WebSite.Controllers
                 DESCRIPCION = x.DESCRIPCION,
                 NRO_CUENTA = x.NRO_CUENTA,
                 SALDO = x.SALDO,
+                SALDO_BS = x.MONEDA == "BOLIVIANOS" ? x.SALDO : 0,
+                SALDO_SUS = x.MONEDA == "DOLARES" ? x.SALDO : 0,
                 MONEDA = x.MONEDA
                 //COMPRAS = x.SG_COMPRAS.Count(),
             });

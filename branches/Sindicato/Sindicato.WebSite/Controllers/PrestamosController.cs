@@ -42,11 +42,16 @@ namespace Sindicato.WebSite.Controllers
                 OBSERVACION = x.OBSERVACION,
                 NRO_MOVIL = x.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
                 SOCIO = x.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
-                SEMENAS = x.SEMENAS,
+                SEMANAS = x.SEMANAS,
                 INTERES = x.INTERES,
                 SALDO = x.SALDO,
+                COUTA = x.SD_PLAN_DE_PAGO.Count() > 0 ? x.SD_PLAN_DE_PAGO.FirstOrDefault().IMPORTE_A_PAGAR+ x.SD_PLAN_DE_PAGO.FirstOrDefault().INTERES_A_PAGAR : 0,
+                DEBE = (x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES) - x.SALDO,
                 ESTADO = x.ESTADO,
+                IMPORTE_INTERES = x.IMPORTE_INTERES,
+                IMPORTE_TOTAL = x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES,
                 TIPO_INTERES = x.SD_TIPOS_PRESTAMOS.TIPO_INTERES,
+                FECHA_LIMITE_PAGO = x.FECHA_LIMITE_PAGO,
                 TOTAL_CANCELADO = x.SD_PAGO_DE_PRESTAMOS.Sum(y => y.IMPORTE)
 
             });
@@ -62,6 +67,8 @@ namespace Sindicato.WebSite.Controllers
             respuestaSP = _serPre.GuardarPrestamo(pre, login);
             return Json(respuestaSP);
         }
+      
+        
 
         [HttpPost]
         public JsonResult EliminarPrestamo(int ID_PRESTAMO)
@@ -124,6 +131,16 @@ namespace Sindicato.WebSite.Controllers
         #endregion
 
         #region plan de pagos
+        [HttpPost]
+        public JsonResult GenerarPlanDePagos(int ID_PRESTAMO)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serPre.GenerarPlanDePagos(ID_PRESTAMO,login);
+            return Json(respuestaSP);
+        }
+
+        //
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult ObtenerPlanDePagosPaginados(PagingInfo paginacion, FiltrosModel<IngresosModel> filtros, IngresosModel entidad)
         {
@@ -139,8 +156,9 @@ namespace Sindicato.WebSite.Controllers
                 ID_PRESTAMO = x.ID_PRESTAMO,
                 IMPORTE_A_PAGAR = x.IMPORTE_A_PAGAR,
                 INTERES_A_PAGAR = x.INTERES_A_PAGAR,
+                IMPORTE_TOTAL = x.IMPORTE_A_PAGAR + x.INTERES_A_PAGAR,
                 LOGIN_USR = x.LOGIN_USR,
-                NRO_SEMENA = x.NRO_SEMENA,
+                NRO_SEMANA = x.NRO_SEMANA,
                 SALDO_PLAN = x.SALDO_PLAN,
                 SALDO_PRESTAMO = x.SALDO_PRESTAMO,
 
@@ -164,6 +182,7 @@ namespace Sindicato.WebSite.Controllers
             var formatData = retiros.Select(x => new
             {
                 ID_PAGO = x.ID_PAGO,
+                FECHA = x.FECHA,
                 ID_CAJA = x.ID_CAJA,
                 CAJA = x.SD_CAJAS.NOMBRE,
                 ESTADO = x.ESTADO,
@@ -181,10 +200,20 @@ namespace Sindicato.WebSite.Controllers
             return JavaScript(callback1);
         }
 
+        //[HttpPost]
+        //public JsonResult GuardarPagoPrestamos(SD_PAGO_DE_PRESTAMOS pre, decimal CUOTA)
+        //{
+        //    string login = User.Identity.Name.Split('-')[0];
+        //    pre.IMPORTE = CUOTA;
+        //    RespuestaSP respuestaSP = new RespuestaSP();
+        //    respuestaSP = _serPre.GuardarPagoPrestamo(pre, login);
+        //    return Json(respuestaSP);
+        //}
         [HttpPost, ValidateInput(false)]
-        public JsonResult GuardarPago(SD_PAGO_DE_PRESTAMOS ant)
+        public JsonResult GuardarPago(SD_PAGO_DE_PRESTAMOS ant, decimal COUTA)
         {
             string login = User.Identity.Name.Split('-')[0];
+            ant.IMPORTE = COUTA;
             RespuestaSP respuestaSP = new RespuestaSP();
             respuestaSP = _serPre.GuardarPagoPrestamo(ant, login);
             return Json(respuestaSP);

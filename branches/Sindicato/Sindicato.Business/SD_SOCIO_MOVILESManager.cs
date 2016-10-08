@@ -44,7 +44,28 @@ namespace Sindicato.Business
                 return e.ToString();
                 //throw;
             }
-        } 
-        
+        }
+
+        public RespuestaSP BajaSocioMovil(SD_SOCIO_MOVILES movil, int ID_USR)
+        {
+            RespuestaSP result = new RespuestaSP();
+            var context = (SindicatoContext)Context;
+            ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
+            context.P_SD_BAJA_SOCIO_MOVILES(movil.ID_SOCIO_MOVIL, movil.FECHA_BAJA, movil.OBSERVACION, ID_USR, p_res);
+            int id;
+            bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
+            if (esNumero && id > 0)
+            {
+                result.success = true;
+                result.msg = "Proceso Ejecutado Correctamente";
+                result.id = id;
+            }
+            else
+            {
+                result.success = false;
+                result.msg = p_res.Value.ToString();
+            }
+            return result;
+        }
     }
 }

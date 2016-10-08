@@ -21,12 +21,11 @@
     },
     CargarComponentesConsulta: function () {
         var me = this;
-        me.hid_id = Ext.widget('hiddenfield', {
-            name: 'ID_INGRESO',
-        });
+       
         me.txt_nro_recibo = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Nro. Recibo",
-            name: "NRO_RECIBO"
+            name: "ID_INGRESO",
+            readOnly : true
 
         });
         me.date_fecha = Ext.create("App.Config.Componente.DateFieldBase", {
@@ -62,7 +61,6 @@
 
         });
         me.items = [
-            me.hid_id,
             me.txt_nro_recibo, me.date_fecha,
             me.txt_concepto,
             me.txt_caja,
@@ -72,15 +70,11 @@
     },
     CargarComponentes: function () {
         var me = this;
-        me.hid_id = Ext.widget('hiddenfield', {
-            name: 'ID_INGRESO',
-        });
-
+        
         me.txt_nro_recibo = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Nro Recibo",
-            afterLabelTextTpl: Constantes.REQUERIDO,
-            allowBlank: false,
-            name: "NRO_RECIBO"
+            readOnly : true,
+            name: "ID_INGRESO"
 
         });
         me.date_fecha = Ext.create("App.Config.Componente.DateFieldBase", {
@@ -147,7 +141,6 @@
         });
 
         me.items = [
-            me.hid_id,
             me.txt_nro_recibo, me.date_fecha,
             me.txt_concepto,
             me.cbx_caja,

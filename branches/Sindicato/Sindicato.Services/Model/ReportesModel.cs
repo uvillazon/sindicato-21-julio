@@ -18,11 +18,12 @@ namespace Sindicato.Services.Model
         public decimal? MONTO_DEVOLUCION { get; set; }
         public string FIRMA { get; set; }
         public string OBSERVACION { get; set; }
-       
+
 
     }
 
-    public class SociosMovilesReporte {
+    public class SociosMovilesReporte
+    {
         public int NRO_MOVIL { get; set; }
         public string SOCIO { get; set; }
         public string TIPO_LINEA { get; set; }
@@ -46,7 +47,8 @@ namespace Sindicato.Services.Model
         public decimal AHORRO { get; set; }
     }
 
-    public class ReporteHoja {
+    public class ReporteHoja
+    {
         public int ID_HOJA { get; set; }
         public int NUMERO { get; set; }
         public DateTime FECHA_COMPRA { get; set; }
@@ -56,7 +58,8 @@ namespace Sindicato.Services.Model
         public string PLACA { get; set; }
     }
 
-    public class ReporteTotal {
+    public class ReporteTotal
+    {
         public string DETALLE { get; set; }
         public string SUBDETALLE { get; set; }
         public string NRO_RECIBO { get; set; }
@@ -69,7 +72,8 @@ namespace Sindicato.Services.Model
         public decimal TOTAL_AHORRO { get; set; }
     }
 
-    public class ReporteKardexHoja {
+    public class ReporteKardexHoja
+    {
         public DateTime MES { get; set; }
         public string NRO_MOVIL { get; set; }
         public string SOCIO { get; set; }
@@ -79,7 +83,8 @@ namespace Sindicato.Services.Model
         public decimal? DEBE { get; set; }
     }
 
-    public class ReporteRegulaciones {
+    public class ReporteRegulaciones
+    {
         public int ID_REGULACION { get; set; }
         public string MOVIL { get; set; }
         public string SOCIO { get; set; }
@@ -90,7 +95,7 @@ namespace Sindicato.Services.Model
         public string OBLIGACION { get; set; }
         public decimal? IMPORTE_OBLIGACION { get; set; }
         public string TOTAL_LITERAL { get; set; }
-        
+
     }
     public class ReporteIngresos
     {
@@ -121,7 +126,8 @@ namespace Sindicato.Services.Model
 
     }
 
-    public class RepoteDetalleHojas {
+    public class RepoteDetalleHojas
+    {
         public string SOCIO { get; set; }
         public int MOVIL { get; set; }
         public string NRO_HOJA { get; set; }
@@ -129,6 +135,39 @@ namespace Sindicato.Services.Model
         public decimal? IMPORTE { get; set; }
         public decimal? IMPORTE_DETALLE { get; set; }
         public string ESTADO { get; set; }
+    }
+
+    public class ReportePrestamo
+    {
+        public decimal ID_PAGO { get; set; }
+        public decimal TOTAL_CANCELADO { get; set; }
+        public decimal DEBE { get; set; }
+        public decimal ID_PRESTAMO { get; set; }
+        public string SOCIO { get; set; }
+        public string TIPO_PRESTAMO { get; set; }
+        public string CAJA { get; set; }
+        public decimal ID_PLAN { get; set; }
+        public DateTime FECHA_PRESTAMO { get; set; }
+        public decimal IMPORTE_PRESTAMO { get; set; }
+        public decimal IMPORTE_MORA { get; set; }
+        public string MONEDA { get; set; }
+        public string OBSERVACION { get; set; }
+        public string TIPO_INTERES { get; set; }
+        public decimal INTERES { get; set; }
+        public decimal SEMANAS { get; set; }
+        public DateTime? FECHA_LIMITE_PAGO { get; set; }
+        public decimal IMPORTE_INTERES { get; set; }
+        public decimal NRO_SEMANA { get; set; }
+        public decimal IMPORTE_A_PAGAR { get; set; }
+        public decimal IMPORTE_TOTAL { get; set; }
+        public decimal INTERES_A_PAGAR { get; set; }
+        public decimal CAPITAL_A_PAGAR { get; set; }
+        public decimal SALDO_PLAN { get; set; }
+        public string LOGIN_USR { get; set; }
+        public DateTime FECHA_PAGO { get; set; }
+        public int MOVIL { get; set; }
+        public string IMPORTE_LITERAL { get; set; }
+
     }
 
 }

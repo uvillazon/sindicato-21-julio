@@ -239,6 +239,8 @@
     <Content Include="App\Model\Cierres\Detalles.js" />
     <Content Include="App\Model\Egresos\TiposEgresos.js" />
     <Content Include="App\Model\KardexHojas\KardexHojas.js" />
+    <Content Include="App\Model\Prestamos\Pagos.js" />
+    <Content Include="App\Model\Prestamos\PlanPagos.js" />
     <Content Include="App\Model\Prestamos\Prestamos.js" />
     <Content Include="App\Model\Prestamos\TiposPrestamos.js" />
     <Content Include="App\Model\Regulaciones\Detalles.js" />
@@ -293,6 +295,8 @@
     <Content Include="App\Store\Cierres\Detalles.js" />
     <Content Include="App\Store\Egresos\TiposEgresos.js" />
     <Content Include="App\Store\KardexHojas\KardexHojas.js" />
+    <Content Include="App\Store\Prestamos\Pagos.js" />
+    <Content Include="App\Store\Prestamos\PlanPagos.js" />
     <Content Include="App\Store\Prestamos\Prestamos.js" />
     <Content Include="App\Store\Prestamos\TiposPrestamos.js" />
     <Content Include="App\Store\Regulaciones\Regulaciones.js" />
@@ -393,13 +397,17 @@
     <Content Include="App\View\Ahorros\GridCierres.js" />
     <Content Include="App\View\Ahorros\GridDetalles.js" />
     <Content Include="App\View\Ahorros\Principal.js" />
+    <Content Include="App\View\Prestamos\GridPagos.js" />
+    <Content Include="App\View\Prestamos\FormPagoPrestamo.js" />
+    <Content Include="App\View\Prestamos\GridPlanPagos.js" />
     <Content Include="App\View\Reports\ReportsPDF.js" />
+    <Content Include="App\View\Socios\FormBajaSocioMovil.js" />
     <Content Include="App\View\TiposEgresos\FormEgreso.js" />
     <Content Include="App\View\TiposEgresos\Forms.js" />
     <Content Include="App\View\TiposEgresos\GridEgresos.js" />
     <Content Include="App\View\TiposEgresos\Grids.js" />
     <Content Include="App\View\TiposEgresos\Principal.js" />
-    <Content Include="App\View\Prestamos\FormRetiro.js" />
+    <Content Include="App\View\Prestamos\FormPrestamo.js" />
     <Content Include="App\View\Prestamos\GridPrestamos.js" />
     <Content Include="App\View\Prestamos\Principal.js" />
     <Content Include="App\View\KardexHojas\FormAuto.js" />
@@ -4034,6 +4042,8 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reportes\Copia de ReporteCierreAhorro.rdlc" />
+    <EmbeddedResource Include="Reportes\ReportePagoPrestamo.rdlc" />
+    <EmbeddedResource Include="Reportes\ReportePrestamo.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteRetiro.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteCierreAhorro.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteDetalleHoja.rdlc" />
