@@ -7,7 +7,7 @@
         var me = this;
         if (me.opcion == "ReportesIngresos") {
             me.textGuardar = "Reporte Totales";
-            me.showBtn3 = true;
+            me.showBtn3 = false;
             me.CargarReporteIngresosTotales();
 
 
@@ -32,7 +32,17 @@
     
     CargarReporteIngresosTotales: function () {
         var me = this;
-        me.formReporte = Ext.create("App.Config.Abstract.Form", { botones: false, title: "Generar Reporte Ingresos Totales", columns: 1 });
+        me.formReporte = Ext.create("App.Config.Abstract.Form", { botones: false, title: "Generar Reporte", columns: 1 });
+        me.store_tipo_reporte = Ext.create('App.Store.Listas.StoreLista');
+        me.store_tipo_reporte.setExtraParam('ID_LISTA', Lista.Buscar('REPORTES'));
+
+        me.cbx_reporte = Ext.create("App.Config.Componente.ComboBase", {
+            fieldLabel: "Reporte",
+            name: "REPORTE",
+            width: 240,
+            store: me.store_tipo_reporte,
+            selectOnFocus: true
+        });
 
         me.date_fecha_inicial = Ext.create("App.Config.Componente.DateFieldBase", {
             fieldLabel: "Fecha Desde",
@@ -44,13 +54,16 @@
             name: "FECHA_FIN",
             format: 'm-d-Y'
         });
-        me.formReporte.add([me.date_fecha_inicial, me.date_fecha_final]);
+        me.formReporte.add([me.cbx_reporte ,me.date_fecha_inicial, me.date_fecha_final]);
         me.items = me.formReporte;
 
     },
     CargarReporteSocios: function () {
         var me = this;
         me.formReporte = Ext.create("App.Config.Abstract.Form", { botones: false, title: "Generar Reporte Socios Moviles", columns: 1 });
+
+
+        
 
         me.date_fecha_inicial = Ext.create("App.Config.Componente.DateFieldBase", {
             fieldLabel: "Fecha Desde",
@@ -78,52 +91,8 @@
     },
     GuardarReporte: function () {
         var me = this;
-        if (me.opcion == "ReporteAutoridad") {
-            if (me.formReporte.isValid()) {
-                window.open(Constantes.HOST + 'Reportes/ReporteDetalleCierreAhorro?ANIO=' + me.cbx_anio.getValue() + '&MES=' + me.cbx_mes.getValue() + '&ID_COMBUSTIBLE=' + me.cbx_combustible.getValue());
-                me.hide();
-            }
-            else {
-                Ext.Msg.alert("Error", "Falta Completar informcion...");
-            }
-        }
-        else if (me.opcion == "ReporteEstadoResultado") {
-            if (me.formReporte.isValid()) {
-                window.open(Constantes.HOST + 'ReportesPDF/ReporteEstadoResultado?ANIO=' + me.cbx_anio.getValue() + '&MES=' + me.cbx_mes.getValue());
-                me.hide();
-            }
-            else {
-                Ext.Msg.alert("Error", "Falta Completar informcion...");
-            }
-        }
-        else if (me.opcion == "ReporteUtilidadVentaBruta") {
-            if (me.formReporte.isValid()) {
-                window.open(Constantes.HOST + 'Reportes/ReporteUtilidadVentaBruta?ANIO=' + me.cbx_anio.getValue() + '&MES=' + me.cbx_mes.getValue());
-                me.hide();
-            }
-            else {
-                Ext.Msg.alert("Error", "Falta Completar informcion...");
-            }
-        }
-        else if (me.opcion == "ReporteUtilidadVentaEstimada") {
-            if (me.formReporte.isValid()) {
-                window.open(Constantes.HOST + 'Reportes/ReporteUtilidadVentaEstimada?ANIO=' + me.cbx_anio.getValue() + '&MES=' + me.cbx_mes.getValue());
-                me.hide();
-            }
-            else {
-                Ext.Msg.alert("Error", "Falta Completar informcion...");
-            }
-        }
-        else if (me.opcion == "ReporteUtilidadBrutaReal") {
-            if (me.formReporte.isValid()) {
-                window.open(Constantes.HOST + 'Reportes/ReporteUtilidadBrutaReal?ANIO=' + me.cbx_anio.getValue() + '&MES=' + me.cbx_mes.getValue());
-                me.hide();
-            }
-            else {
-                Ext.Msg.alert("Error", "Falta Completar informcion...");
-            }
-        }
-        else if (me.opcion == "ReportesIngresos") {
+        
+        if (me.opcion == "ReportesIngresos") {
             if (me.formReporte.isValid()) {
                 window.open(Constantes.HOST + 'ReportesPDF/ReporteIngresosTotales?tipo=pdf&FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue());
                 me.hide();
