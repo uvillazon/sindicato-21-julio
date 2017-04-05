@@ -56,6 +56,8 @@ namespace Sindicato.Services.Model
         public string OBSERVACION { get; set; }
         public int MOVIL { get; set; }
         public string PLACA { get; set; }
+        public string PRECIO { get; set; }
+        public string OBLIGACIONES { get; set; }
     }
 
     public class ReporteTotal
@@ -168,6 +170,41 @@ namespace Sindicato.Services.Model
         public int MOVIL { get; set; }
         public string IMPORTE_LITERAL { get; set; }
 
+    }
+
+    public class ReporteDetalleIngresos
+    {
+        public string DETALLE { get; set; }
+        public string SUBDETALLE { get; set; }
+        public string NRO_RECIBO { get; set; }
+        public int? NRO_MOVIL { get; set; }
+        public int CANTIDAD { get; set; }
+        public decimal COSTO_UNITARIO { get; set; }
+        public decimal BOLIVIANOS { get; set; }
+        public decimal DOLARES { get; set; }
+        public DateTime FECHA_INI { get; set; }
+        public DateTime FECHA_FIN { get; set; }
+        public DateTime FECHA { get; set; }
+        public string CAJA { get; set; }
+    }
+
+    public class ReporteHojasDetalle
+    {
+        public string INTERVALO { get; set; }
+         
+        public int? NRO_MOVIL { get; set; }
+        public int? CANT_HOJAS_VEND { get; set; }
+        public int? CANT_HOJAS_ANUL { get; set; }
+        public string PRECIO { get; set; }
+        public decimal? AHORRO { get; set; }
+        public decimal? TOTAL { get; set; }
+
+        public int? NRO_MOVIL1 { get; set; }
+        public int? CANT_HOJAS_VEND1 { get; set; }
+        public int? CANT_HOJAS_ANUL1 { get; set; }
+        public string PRECIO1 { get; set; }
+        public decimal? AHORRO1 { get; set; }
+        public decimal? TOTAL1 { get; set; }
     }
 
 }

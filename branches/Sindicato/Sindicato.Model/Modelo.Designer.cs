@@ -98,6 +98,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "SD_PRESTAMOS_POR_SOCIOS_R01", "SD_SOCIO_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIO_MOVILES), "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_PRESTAMOS_POR_SOCIOS_R02", "SD_TIPOS_PRESTAMOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_TIPOS_PRESTAMOS), "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_PLAN_DE_PAGO_R01", "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), "SD_PLAN_DE_PAGO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PLAN_DE_PAGO), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_PRESTAMOS_MORA_R01", "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), "SD_PRESTAMOS_MORA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PRESTAMOS_MORA), true)]
 
 #endregion
 
@@ -1172,6 +1173,38 @@ namespace Sindicato.Model
             }
         }
         private ObjectSet<SD_PLAN_DE_PAGO> _SD_PLAN_DE_PAGO;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<SD_PARAM_CANT_HOJAS_MES> SD_PARAM_CANT_HOJAS_MES
+        {
+            get
+            {
+                if ((_SD_PARAM_CANT_HOJAS_MES == null))
+                {
+                    _SD_PARAM_CANT_HOJAS_MES = base.CreateObjectSet<SD_PARAM_CANT_HOJAS_MES>("SD_PARAM_CANT_HOJAS_MES");
+                }
+                return _SD_PARAM_CANT_HOJAS_MES;
+            }
+        }
+        private ObjectSet<SD_PARAM_CANT_HOJAS_MES> _SD_PARAM_CANT_HOJAS_MES;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<SD_PRESTAMOS_MORA> SD_PRESTAMOS_MORA
+        {
+            get
+            {
+                if ((_SD_PRESTAMOS_MORA == null))
+                {
+                    _SD_PRESTAMOS_MORA = base.CreateObjectSet<SD_PRESTAMOS_MORA>("SD_PRESTAMOS_MORA");
+                }
+                return _SD_PRESTAMOS_MORA;
+            }
+        }
+        private ObjectSet<SD_PRESTAMOS_MORA> _SD_PRESTAMOS_MORA;
 
         #endregion
 
@@ -1687,6 +1720,22 @@ namespace Sindicato.Model
         public void AddToSD_PLAN_DE_PAGO(SD_PLAN_DE_PAGO sD_PLAN_DE_PAGO)
         {
             base.AddObject("SD_PLAN_DE_PAGO", sD_PLAN_DE_PAGO);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet SD_PARAM_CANT_HOJAS_MES. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToSD_PARAM_CANT_HOJAS_MES(SD_PARAM_CANT_HOJAS_MES sD_PARAM_CANT_HOJAS_MES)
+        {
+            base.AddObject("SD_PARAM_CANT_HOJAS_MES", sD_PARAM_CANT_HOJAS_MES);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet SD_PRESTAMOS_MORA. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToSD_PRESTAMOS_MORA(SD_PRESTAMOS_MORA sD_PRESTAMOS_MORA)
+        {
+            base.AddObject("SD_PRESTAMOS_MORA", sD_PRESTAMOS_MORA);
         }
 
         #endregion
@@ -4545,6 +4594,346 @@ namespace Sindicato.Model
             }
     
             return base.ExecuteFunction("P_SD_BAJA_SOCIO_MOVILES", p_ID_SOCIO_MOVILParameter, p_FECHA_BAJAParameter, p_OBSERVACIONParameter, p_ID_USRParameter, p_RES);
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        /// <param name="p_ID_PERFIL">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_ID_OPC">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_ID_USR">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_RES">No hay documentación de metadatos disponible.</param>
+        public int P_SD_ELIMINAR_PERFIL_OPCION(Nullable<global::System.Decimal> p_ID_PERFIL, Nullable<global::System.Decimal> p_ID_OPC, Nullable<global::System.Decimal> p_ID_USR, ObjectParameter p_RES)
+        {
+            ObjectParameter p_ID_PERFILParameter;
+            if (p_ID_PERFIL.HasValue)
+            {
+                p_ID_PERFILParameter = new ObjectParameter("P_ID_PERFIL", p_ID_PERFIL);
+            }
+            else
+            {
+                p_ID_PERFILParameter = new ObjectParameter("P_ID_PERFIL", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_ID_OPCParameter;
+            if (p_ID_OPC.HasValue)
+            {
+                p_ID_OPCParameter = new ObjectParameter("P_ID_OPC", p_ID_OPC);
+            }
+            else
+            {
+                p_ID_OPCParameter = new ObjectParameter("P_ID_OPC", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_ID_USRParameter;
+            if (p_ID_USR.HasValue)
+            {
+                p_ID_USRParameter = new ObjectParameter("P_ID_USR", p_ID_USR);
+            }
+            else
+            {
+                p_ID_USRParameter = new ObjectParameter("P_ID_USR", typeof(global::System.Decimal));
+            }
+    
+            return base.ExecuteFunction("P_SD_ELIMINAR_PERFIL_OPCION", p_ID_PERFILParameter, p_ID_OPCParameter, p_ID_USRParameter, p_RES);
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        /// <param name="p_ID_PERFIL">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_NOMBRE">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_DESCRIPCION">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_ID_USR">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_RES">No hay documentación de metadatos disponible.</param>
+        public int P_SD_GUARDAR_PERFIL(Nullable<global::System.Decimal> p_ID_PERFIL, global::System.String p_NOMBRE, global::System.String p_DESCRIPCION, Nullable<global::System.Decimal> p_ID_USR, ObjectParameter p_RES)
+        {
+            ObjectParameter p_ID_PERFILParameter;
+            if (p_ID_PERFIL.HasValue)
+            {
+                p_ID_PERFILParameter = new ObjectParameter("P_ID_PERFIL", p_ID_PERFIL);
+            }
+            else
+            {
+                p_ID_PERFILParameter = new ObjectParameter("P_ID_PERFIL", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_NOMBREParameter;
+            if (p_NOMBRE != null)
+            {
+                p_NOMBREParameter = new ObjectParameter("P_NOMBRE", p_NOMBRE);
+            }
+            else
+            {
+                p_NOMBREParameter = new ObjectParameter("P_NOMBRE", typeof(global::System.String));
+            }
+    
+            ObjectParameter p_DESCRIPCIONParameter;
+            if (p_DESCRIPCION != null)
+            {
+                p_DESCRIPCIONParameter = new ObjectParameter("P_DESCRIPCION", p_DESCRIPCION);
+            }
+            else
+            {
+                p_DESCRIPCIONParameter = new ObjectParameter("P_DESCRIPCION", typeof(global::System.String));
+            }
+    
+            ObjectParameter p_ID_USRParameter;
+            if (p_ID_USR.HasValue)
+            {
+                p_ID_USRParameter = new ObjectParameter("P_ID_USR", p_ID_USR);
+            }
+            else
+            {
+                p_ID_USRParameter = new ObjectParameter("P_ID_USR", typeof(global::System.Decimal));
+            }
+    
+            return base.ExecuteFunction("P_SD_GUARDAR_PERFIL", p_ID_PERFILParameter, p_NOMBREParameter, p_DESCRIPCIONParameter, p_ID_USRParameter, p_RES);
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        /// <param name="p_ID_PERFIL">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_ID_OPC">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_ID_USR">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_RES">No hay documentación de metadatos disponible.</param>
+        public int P_SG_GUARDAR_PERFIL_OPCION(Nullable<global::System.Decimal> p_ID_PERFIL, Nullable<global::System.Decimal> p_ID_OPC, Nullable<global::System.Decimal> p_ID_USR, ObjectParameter p_RES)
+        {
+            ObjectParameter p_ID_PERFILParameter;
+            if (p_ID_PERFIL.HasValue)
+            {
+                p_ID_PERFILParameter = new ObjectParameter("P_ID_PERFIL", p_ID_PERFIL);
+            }
+            else
+            {
+                p_ID_PERFILParameter = new ObjectParameter("P_ID_PERFIL", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_ID_OPCParameter;
+            if (p_ID_OPC.HasValue)
+            {
+                p_ID_OPCParameter = new ObjectParameter("P_ID_OPC", p_ID_OPC);
+            }
+            else
+            {
+                p_ID_OPCParameter = new ObjectParameter("P_ID_OPC", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_ID_USRParameter;
+            if (p_ID_USR.HasValue)
+            {
+                p_ID_USRParameter = new ObjectParameter("P_ID_USR", p_ID_USR);
+            }
+            else
+            {
+                p_ID_USRParameter = new ObjectParameter("P_ID_USR", typeof(global::System.Decimal));
+            }
+    
+            return base.ExecuteFunction("P_SG_GUARDAR_PERFIL_OPCION", p_ID_PERFILParameter, p_ID_OPCParameter, p_ID_USRParameter, p_RES);
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        /// <param name="p_ID_USUARIO">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_LOGIN">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_NOMBRE">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_EMAIL">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_ID_PERFIL">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_ESTADO">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_CONTRASENA">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_ID_USR">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_RES">No hay documentación de metadatos disponible.</param>
+        public int P_SG_GUARDAR_USUARIO(Nullable<global::System.Decimal> p_ID_USUARIO, global::System.String p_LOGIN, global::System.String p_NOMBRE, global::System.String p_EMAIL, Nullable<global::System.Decimal> p_ID_PERFIL, global::System.String p_ESTADO, global::System.String p_CONTRASENA, Nullable<global::System.Decimal> p_ID_USR, ObjectParameter p_RES)
+        {
+            ObjectParameter p_ID_USUARIOParameter;
+            if (p_ID_USUARIO.HasValue)
+            {
+                p_ID_USUARIOParameter = new ObjectParameter("P_ID_USUARIO", p_ID_USUARIO);
+            }
+            else
+            {
+                p_ID_USUARIOParameter = new ObjectParameter("P_ID_USUARIO", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_LOGINParameter;
+            if (p_LOGIN != null)
+            {
+                p_LOGINParameter = new ObjectParameter("P_LOGIN", p_LOGIN);
+            }
+            else
+            {
+                p_LOGINParameter = new ObjectParameter("P_LOGIN", typeof(global::System.String));
+            }
+    
+            ObjectParameter p_NOMBREParameter;
+            if (p_NOMBRE != null)
+            {
+                p_NOMBREParameter = new ObjectParameter("P_NOMBRE", p_NOMBRE);
+            }
+            else
+            {
+                p_NOMBREParameter = new ObjectParameter("P_NOMBRE", typeof(global::System.String));
+            }
+    
+            ObjectParameter p_EMAILParameter;
+            if (p_EMAIL != null)
+            {
+                p_EMAILParameter = new ObjectParameter("P_EMAIL", p_EMAIL);
+            }
+            else
+            {
+                p_EMAILParameter = new ObjectParameter("P_EMAIL", typeof(global::System.String));
+            }
+    
+            ObjectParameter p_ID_PERFILParameter;
+            if (p_ID_PERFIL.HasValue)
+            {
+                p_ID_PERFILParameter = new ObjectParameter("P_ID_PERFIL", p_ID_PERFIL);
+            }
+            else
+            {
+                p_ID_PERFILParameter = new ObjectParameter("P_ID_PERFIL", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_ESTADOParameter;
+            if (p_ESTADO != null)
+            {
+                p_ESTADOParameter = new ObjectParameter("P_ESTADO", p_ESTADO);
+            }
+            else
+            {
+                p_ESTADOParameter = new ObjectParameter("P_ESTADO", typeof(global::System.String));
+            }
+    
+            ObjectParameter p_CONTRASENAParameter;
+            if (p_CONTRASENA != null)
+            {
+                p_CONTRASENAParameter = new ObjectParameter("P_CONTRASENA", p_CONTRASENA);
+            }
+            else
+            {
+                p_CONTRASENAParameter = new ObjectParameter("P_CONTRASENA", typeof(global::System.String));
+            }
+    
+            ObjectParameter p_ID_USRParameter;
+            if (p_ID_USR.HasValue)
+            {
+                p_ID_USRParameter = new ObjectParameter("P_ID_USR", p_ID_USR);
+            }
+            else
+            {
+                p_ID_USRParameter = new ObjectParameter("P_ID_USR", typeof(global::System.Decimal));
+            }
+    
+            return base.ExecuteFunction("P_SG_GUARDAR_USUARIO", p_ID_USUARIOParameter, p_LOGINParameter, p_NOMBREParameter, p_EMAILParameter, p_ID_PERFILParameter, p_ESTADOParameter, p_CONTRASENAParameter, p_ID_USRParameter, p_RES);
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        /// <param name="p_ID_MORA">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_ID_PRESTAMO">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_IMPORTE_MORA">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_FECHA_LIMITE_PAGO_MORA">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_OBSERVACION">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_USR">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_RES">No hay documentación de metadatos disponible.</param>
+        public int P_SD_GUARDAR_MORA(Nullable<global::System.Decimal> p_ID_MORA, Nullable<global::System.Decimal> p_ID_PRESTAMO, Nullable<global::System.Decimal> p_IMPORTE_MORA, Nullable<global::System.DateTime> p_FECHA_LIMITE_PAGO_MORA, global::System.String p_OBSERVACION, global::System.String p_USR, ObjectParameter p_RES)
+        {
+            ObjectParameter p_ID_MORAParameter;
+            if (p_ID_MORA.HasValue)
+            {
+                p_ID_MORAParameter = new ObjectParameter("P_ID_MORA", p_ID_MORA);
+            }
+            else
+            {
+                p_ID_MORAParameter = new ObjectParameter("P_ID_MORA", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_ID_PRESTAMOParameter;
+            if (p_ID_PRESTAMO.HasValue)
+            {
+                p_ID_PRESTAMOParameter = new ObjectParameter("P_ID_PRESTAMO", p_ID_PRESTAMO);
+            }
+            else
+            {
+                p_ID_PRESTAMOParameter = new ObjectParameter("P_ID_PRESTAMO", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_IMPORTE_MORAParameter;
+            if (p_IMPORTE_MORA.HasValue)
+            {
+                p_IMPORTE_MORAParameter = new ObjectParameter("P_IMPORTE_MORA", p_IMPORTE_MORA);
+            }
+            else
+            {
+                p_IMPORTE_MORAParameter = new ObjectParameter("P_IMPORTE_MORA", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_FECHA_LIMITE_PAGO_MORAParameter;
+            if (p_FECHA_LIMITE_PAGO_MORA.HasValue)
+            {
+                p_FECHA_LIMITE_PAGO_MORAParameter = new ObjectParameter("P_FECHA_LIMITE_PAGO_MORA", p_FECHA_LIMITE_PAGO_MORA);
+            }
+            else
+            {
+                p_FECHA_LIMITE_PAGO_MORAParameter = new ObjectParameter("P_FECHA_LIMITE_PAGO_MORA", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter p_OBSERVACIONParameter;
+            if (p_OBSERVACION != null)
+            {
+                p_OBSERVACIONParameter = new ObjectParameter("P_OBSERVACION", p_OBSERVACION);
+            }
+            else
+            {
+                p_OBSERVACIONParameter = new ObjectParameter("P_OBSERVACION", typeof(global::System.String));
+            }
+    
+            ObjectParameter p_USRParameter;
+            if (p_USR != null)
+            {
+                p_USRParameter = new ObjectParameter("P_USR", p_USR);
+            }
+            else
+            {
+                p_USRParameter = new ObjectParameter("P_USR", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("P_SD_GUARDAR_MORA", p_ID_MORAParameter, p_ID_PRESTAMOParameter, p_IMPORTE_MORAParameter, p_FECHA_LIMITE_PAGO_MORAParameter, p_OBSERVACIONParameter, p_USRParameter, p_RES);
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        /// <param name="p_ID_MORA">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_ID_USR">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_RES">No hay documentación de metadatos disponible.</param>
+        public int P_SD_ELIMINAR_MORA(Nullable<global::System.Decimal> p_ID_MORA, Nullable<global::System.Decimal> p_ID_USR, ObjectParameter p_RES)
+        {
+            ObjectParameter p_ID_MORAParameter;
+            if (p_ID_MORA.HasValue)
+            {
+                p_ID_MORAParameter = new ObjectParameter("P_ID_MORA", p_ID_MORA);
+            }
+            else
+            {
+                p_ID_MORAParameter = new ObjectParameter("P_ID_MORA", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_ID_USRParameter;
+            if (p_ID_USR.HasValue)
+            {
+                p_ID_USRParameter = new ObjectParameter("P_ID_USR", p_ID_USR);
+            }
+            else
+            {
+                p_ID_USRParameter = new ObjectParameter("P_ID_USR", typeof(global::System.Decimal));
+            }
+    
+            return base.ExecuteFunction("P_SD_ELIMINAR_MORA", p_ID_MORAParameter, p_ID_USRParameter, p_RES);
         }
 
         #endregion
@@ -19507,6 +19896,189 @@ namespace Sindicato.Model
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Model", Name="SD_PARAM_CANT_HOJAS_MES")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SD_PARAM_CANT_HOJAS_MES : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto SD_PARAM_CANT_HOJAS_MES.
+        /// </summary>
+        /// <param name="iD_PARAMETRO">Valor inicial de la propiedad ID_PARAMETRO.</param>
+        /// <param name="fECHA">Valor inicial de la propiedad FECHA.</param>
+        /// <param name="cANTIDAD">Valor inicial de la propiedad CANTIDAD.</param>
+        /// <param name="iD_USUARIO">Valor inicial de la propiedad ID_USUARIO.</param>
+        public static SD_PARAM_CANT_HOJAS_MES CreateSD_PARAM_CANT_HOJAS_MES(global::System.Int32 iD_PARAMETRO, global::System.DateTime fECHA, global::System.Int16 cANTIDAD, global::System.Int16 iD_USUARIO)
+        {
+            SD_PARAM_CANT_HOJAS_MES sD_PARAM_CANT_HOJAS_MES = new SD_PARAM_CANT_HOJAS_MES();
+            sD_PARAM_CANT_HOJAS_MES.ID_PARAMETRO = iD_PARAMETRO;
+            sD_PARAM_CANT_HOJAS_MES.FECHA = fECHA;
+            sD_PARAM_CANT_HOJAS_MES.CANTIDAD = cANTIDAD;
+            sD_PARAM_CANT_HOJAS_MES.ID_USUARIO = iD_USUARIO;
+            return sD_PARAM_CANT_HOJAS_MES;
+        }
+
+        #endregion
+
+        #region Propiedades primitivas
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_PARAMETRO
+        {
+            get
+            {
+                return _ID_PARAMETRO;
+            }
+            set
+            {
+                if (_ID_PARAMETRO != value)
+                {
+                    OnID_PARAMETROChanging(value);
+                    ReportPropertyChanging("ID_PARAMETRO");
+                    _ID_PARAMETRO = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID_PARAMETRO");
+                    OnID_PARAMETROChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID_PARAMETRO;
+        partial void OnID_PARAMETROChanging(global::System.Int32 value);
+        partial void OnID_PARAMETROChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime FECHA
+        {
+            get
+            {
+                return _FECHA;
+            }
+            set
+            {
+                OnFECHAChanging(value);
+                ReportPropertyChanging("FECHA");
+                _FECHA = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FECHA");
+                OnFECHAChanged();
+            }
+        }
+        private global::System.DateTime _FECHA;
+        partial void OnFECHAChanging(global::System.DateTime value);
+        partial void OnFECHAChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int16 CANTIDAD
+        {
+            get
+            {
+                return _CANTIDAD;
+            }
+            set
+            {
+                OnCANTIDADChanging(value);
+                ReportPropertyChanging("CANTIDAD");
+                _CANTIDAD = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CANTIDAD");
+                OnCANTIDADChanged();
+            }
+        }
+        private global::System.Int16 _CANTIDAD;
+        partial void OnCANTIDADChanging(global::System.Int16 value);
+        partial void OnCANTIDADChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int16 ID_USUARIO
+        {
+            get
+            {
+                return _ID_USUARIO;
+            }
+            set
+            {
+                OnID_USUARIOChanging(value);
+                ReportPropertyChanging("ID_USUARIO");
+                _ID_USUARIO = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ID_USUARIO");
+                OnID_USUARIOChanged();
+            }
+        }
+        private global::System.Int16 _ID_USUARIO;
+        partial void OnID_USUARIOChanging(global::System.Int16 value);
+        partial void OnID_USUARIOChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String OBSERVACION
+        {
+            get
+            {
+                return _OBSERVACION;
+            }
+            set
+            {
+                OnOBSERVACIONChanging(value);
+                ReportPropertyChanging("OBSERVACION");
+                _OBSERVACION = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("OBSERVACION");
+                OnOBSERVACIONChanged();
+            }
+        }
+        private global::System.String _OBSERVACION;
+        partial void OnOBSERVACIONChanging(global::System.String value);
+        partial void OnOBSERVACIONChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> FECHA_REG
+        {
+            get
+            {
+                return _FECHA_REG;
+            }
+            set
+            {
+                OnFECHA_REGChanging(value);
+                ReportPropertyChanging("FECHA_REG");
+                _FECHA_REG = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FECHA_REG");
+                OnFECHA_REGChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _FECHA_REG;
+        partial void OnFECHA_REGChanging(Nullable<global::System.DateTime> value);
+        partial void OnFECHA_REGChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="Model", Name="SD_PARAMETROS_LINEA")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -21124,6 +21696,279 @@ namespace Sindicato.Model
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Model", Name="SD_PRESTAMOS_MORA")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SD_PRESTAMOS_MORA : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto SD_PRESTAMOS_MORA.
+        /// </summary>
+        /// <param name="iD_MORA">Valor inicial de la propiedad ID_MORA.</param>
+        /// <param name="iD_PRESTAMO">Valor inicial de la propiedad ID_PRESTAMO.</param>
+        /// <param name="fECHA">Valor inicial de la propiedad FECHA.</param>
+        /// <param name="iMPORTE_MORA">Valor inicial de la propiedad IMPORTE_MORA.</param>
+        public static SD_PRESTAMOS_MORA CreateSD_PRESTAMOS_MORA(global::System.Int32 iD_MORA, global::System.Int32 iD_PRESTAMO, global::System.DateTime fECHA, global::System.Decimal iMPORTE_MORA)
+        {
+            SD_PRESTAMOS_MORA sD_PRESTAMOS_MORA = new SD_PRESTAMOS_MORA();
+            sD_PRESTAMOS_MORA.ID_MORA = iD_MORA;
+            sD_PRESTAMOS_MORA.ID_PRESTAMO = iD_PRESTAMO;
+            sD_PRESTAMOS_MORA.FECHA = fECHA;
+            sD_PRESTAMOS_MORA.IMPORTE_MORA = iMPORTE_MORA;
+            return sD_PRESTAMOS_MORA;
+        }
+
+        #endregion
+
+        #region Propiedades primitivas
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_MORA
+        {
+            get
+            {
+                return _ID_MORA;
+            }
+            set
+            {
+                if (_ID_MORA != value)
+                {
+                    OnID_MORAChanging(value);
+                    ReportPropertyChanging("ID_MORA");
+                    _ID_MORA = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID_MORA");
+                    OnID_MORAChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID_MORA;
+        partial void OnID_MORAChanging(global::System.Int32 value);
+        partial void OnID_MORAChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_PRESTAMO
+        {
+            get
+            {
+                return _ID_PRESTAMO;
+            }
+            set
+            {
+                OnID_PRESTAMOChanging(value);
+                ReportPropertyChanging("ID_PRESTAMO");
+                _ID_PRESTAMO = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ID_PRESTAMO");
+                OnID_PRESTAMOChanged();
+            }
+        }
+        private global::System.Int32 _ID_PRESTAMO;
+        partial void OnID_PRESTAMOChanging(global::System.Int32 value);
+        partial void OnID_PRESTAMOChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime FECHA
+        {
+            get
+            {
+                return _FECHA;
+            }
+            set
+            {
+                OnFECHAChanging(value);
+                ReportPropertyChanging("FECHA");
+                _FECHA = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FECHA");
+                OnFECHAChanged();
+            }
+        }
+        private global::System.DateTime _FECHA;
+        partial void OnFECHAChanging(global::System.DateTime value);
+        partial void OnFECHAChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal IMPORTE_MORA
+        {
+            get
+            {
+                return _IMPORTE_MORA;
+            }
+            set
+            {
+                OnIMPORTE_MORAChanging(value);
+                ReportPropertyChanging("IMPORTE_MORA");
+                _IMPORTE_MORA = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IMPORTE_MORA");
+                OnIMPORTE_MORAChanged();
+            }
+        }
+        private global::System.Decimal _IMPORTE_MORA;
+        partial void OnIMPORTE_MORAChanging(global::System.Decimal value);
+        partial void OnIMPORTE_MORAChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String OBSERVACION
+        {
+            get
+            {
+                return _OBSERVACION;
+            }
+            set
+            {
+                OnOBSERVACIONChanging(value);
+                ReportPropertyChanging("OBSERVACION");
+                _OBSERVACION = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("OBSERVACION");
+                OnOBSERVACIONChanged();
+            }
+        }
+        private global::System.String _OBSERVACION;
+        partial void OnOBSERVACIONChanging(global::System.String value);
+        partial void OnOBSERVACIONChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> FECHA_LIMITE_PAGO_MORA
+        {
+            get
+            {
+                return _FECHA_LIMITE_PAGO_MORA;
+            }
+            set
+            {
+                OnFECHA_LIMITE_PAGO_MORAChanging(value);
+                ReportPropertyChanging("FECHA_LIMITE_PAGO_MORA");
+                _FECHA_LIMITE_PAGO_MORA = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FECHA_LIMITE_PAGO_MORA");
+                OnFECHA_LIMITE_PAGO_MORAChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _FECHA_LIMITE_PAGO_MORA;
+        partial void OnFECHA_LIMITE_PAGO_MORAChanging(Nullable<global::System.DateTime> value);
+        partial void OnFECHA_LIMITE_PAGO_MORAChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> FECHA_REG
+        {
+            get
+            {
+                return _FECHA_REG;
+            }
+            set
+            {
+                OnFECHA_REGChanging(value);
+                ReportPropertyChanging("FECHA_REG");
+                _FECHA_REG = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FECHA_REG");
+                OnFECHA_REGChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _FECHA_REG;
+        partial void OnFECHA_REGChanging(Nullable<global::System.DateTime> value);
+        partial void OnFECHA_REGChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String LOGIN_USR
+        {
+            get
+            {
+                return _LOGIN_USR;
+            }
+            set
+            {
+                OnLOGIN_USRChanging(value);
+                ReportPropertyChanging("LOGIN_USR");
+                _LOGIN_USR = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("LOGIN_USR");
+                OnLOGIN_USRChanged();
+            }
+        }
+        private global::System.String _LOGIN_USR;
+        partial void OnLOGIN_USRChanging(global::System.String value);
+        partial void OnLOGIN_USRChanged();
+
+        #endregion
+
+    
+        #region Propiedades de navegación
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_PRESTAMOS_MORA_R01", "SD_PRESTAMOS_POR_SOCIOS")]
+        public SD_PRESTAMOS_POR_SOCIOS SD_PRESTAMOS_POR_SOCIOS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_PRESTAMOS_POR_SOCIOS>("Model.SD_PRESTAMOS_MORA_R01", "SD_PRESTAMOS_POR_SOCIOS").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_PRESTAMOS_POR_SOCIOS>("Model.SD_PRESTAMOS_MORA_R01", "SD_PRESTAMOS_POR_SOCIOS").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SD_PRESTAMOS_POR_SOCIOS> SD_PRESTAMOS_POR_SOCIOSReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_PRESTAMOS_POR_SOCIOS>("Model.SD_PRESTAMOS_MORA_R01", "SD_PRESTAMOS_POR_SOCIOS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_PRESTAMOS_POR_SOCIOS>("Model.SD_PRESTAMOS_MORA_R01", "SD_PRESTAMOS_POR_SOCIOS", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="Model", Name="SD_PRESTAMOS_POR_SOCIOS")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -21732,6 +22577,28 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_PLAN_DE_PAGO>("Model.SD_PLAN_DE_PAGO_R01", "SD_PLAN_DE_PAGO", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_PRESTAMOS_MORA_R01", "SD_PRESTAMOS_MORA")]
+        public EntityCollection<SD_PRESTAMOS_MORA> SD_PRESTAMOS_MORA
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_PRESTAMOS_MORA>("Model.SD_PRESTAMOS_MORA_R01", "SD_PRESTAMOS_MORA");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_PRESTAMOS_MORA>("Model.SD_PRESTAMOS_MORA_R01", "SD_PRESTAMOS_MORA", value);
                 }
             }
         }

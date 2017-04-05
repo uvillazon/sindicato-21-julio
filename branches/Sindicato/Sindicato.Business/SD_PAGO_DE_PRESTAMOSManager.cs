@@ -31,10 +31,11 @@ namespace Sindicato.Business
                     result.msg = "No existe prestamo";
                     return result;
                 }
+                var moras = pres.SD_PRESTAMOS_MORA.Sum(x => x.IMPORTE_MORA);
                 var cancelado = pres.SD_PAGO_DE_PRESTAMOS.Sum(x=>x.IMPORTE);
-                if (cancelado + pago.IMPORTE > (pres.IMPORTE_INTERES + pres.IMPORTE_PRESTAMO)) {
+                if (cancelado + pago.IMPORTE > (pres.IMPORTE_INTERES + pres.IMPORTE_PRESTAMO + moras)) {
                     result.success = false;
-                    result.msg = "No puedo pagar mas del total prestado + el interes";
+                    result.msg = "No puedo pagar mas del total prestado + el interes + moras";
                     return result;
                 }
                 pago.LOGIN_USR = login;
@@ -53,7 +54,8 @@ namespace Sindicato.Business
                 SD_KARDEX_EFECTIVO kardex = new SD_KARDEX_EFECTIVO()
                 {
                     ID_KARDEX = idKardex,
-                    DETALLE = "Pago de Prestamo Nro :"+ pres.ID_PRESTAMO,
+                    DETALLE = string.Format("PAGO PRESTAMO {0} NRO : {1} - NRO MOVIL : {2}",pres.SD_TIPOS_PRESTAMOS.NOMBRE ,pres.ID_PRESTAMO, pres.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL),
+                    //DETALLE = "Pago de Prestamo Nro :"+ pres.ID_PRESTAMO,
                     FECHA = (DateTime)pago.FECHA,
                     FECHA_REG = DateTime.Now,
                     ID_OPERACION = pago.ID_PAGO,
@@ -80,6 +82,45 @@ namespace Sindicato.Business
             return result;
         }
 
+        public RespuestaSP EliminarPagoPrestamo(int ID_PAGO, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            int ID_CAJA = 0;
+            DateTime? fecha = null;
+            try
+            {
+                var context = (SindicatoContext)Context;
+                var pago = BuscarTodos(x => x.ID_PAGO == ID_PAGO).FirstOrDefault();
+                if (pago == null)
+                {
+                    result.success = false;
+                    result.msg = "No existe el pago de  prestamo";
+                    return result;
+                }
+                fecha = pago.FECHA;
+                ID_CAJA = pago.ID_CAJA;
+                Delete(pago);
+                var kardex = context.SD_KARDEX_EFECTIVO.Where(x => x.OPERACION == "PAGO PRESTAMO" && x.ID_OPERACION == pago.ID_PAGO && x.ID_CAJA == pago.ID_CAJA);
+                foreach (var item in kardex)
+                {
+                    context.SD_KARDEX_EFECTIVO.DeleteObject(item);
+                }
+
+                Save();
+                ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+                context.P_SD_ACT_KARDEX_EFECTIVO(pago.ID_CAJA, fecha, 0, p_RES);
+                result.success = true;
+                result.msg = "Se elimino Correctamente";
+            }
+            catch (Exception e)
+            {
+
+                result.success = false;
+                result.msg = e.Message.ToString();
+            }
+
+            return result;
+        }
         //test
         
     }

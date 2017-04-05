@@ -13,6 +13,11 @@
     CargarGrid: function () {
         var me = this;
         me.store = Ext.create("App.Store.Prestamos.Prestamos");
+        me.viewConfig = {
+            getRowClass: function (record, rowIndex, rowParams, store) {
+                return Constantes.CargarCssEstados(record.get("ESTADO_PRESTAMO"), 'PRESTAMOS');
+            }
+        };
         me.CargarComponentes();
         me.columns = [
                 { xtype: "rownumberer", width: 30, sortable: false },
@@ -27,15 +32,15 @@
                 
                 { header: "Importe<br>Prestado", width: 70, sortable: false, dataIndex: "IMPORTE_PRESTAMO" },
                 { header: "Importe<br>Interes", width: 70, sortable: false, dataIndex: "IMPORTE_INTERES" },
+                { header: "Importe<br>Moras", width: 70, sortable: false, dataIndex: "MORA" },
                 { header: "Importe<br>Total", width: 70, sortable: false, dataIndex: "IMPORTE_TOTAL" },
                 { header: "Moneda", width: 70, sortable: false, dataIndex: "MONEDA" },
                 { header: "Semanas", width: 70, sortable: false, dataIndex: "SEMANAS" },
                 { header: "Tipo Interes", width: 100, sortable: false, dataIndex: "TIPO_INTERES" },
-                { header: "Interes", width: 70, sortable: false, dataIndex: "INTERES" },
                 //{ header: "Saldo", width: 70, sortable: false, dataIndex: "SALDO" },
                 { header: "Debe", width: 70, sortable: false, dataIndex: "DEBE" },
                 { header: "Total <br>Cancelado", width: 80, sortable: false, dataIndex: "TOTAL_CANCELADO" },
-                 { header: "Estado", width: 80, sortable: false, dataIndex: "ESTADO" },
+                 { header: "Estado", width: 80, sortable: false, dataIndex: "ESTADO_PRESTAMO" },
                 { header: "Login", width: 80, sortable: false, dataIndex: "LOGIN_USR" }
         ];
 

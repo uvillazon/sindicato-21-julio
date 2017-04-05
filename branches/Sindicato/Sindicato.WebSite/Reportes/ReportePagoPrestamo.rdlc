@@ -321,8 +321,8 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>3.93995cm</Top>
-        <Left>0.97641cm</Left>
+        <Top>4.85746cm</Top>
+        <Left>0.7912cm</Left>
         <Height>1.8cm</Height>
         <Width>9.27271cm</Width>
         <Style>
@@ -350,8 +350,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox10</rd:DefaultName>
-        <Top>6.16245cm</Top>
-        <Left>0.97641cm</Left>
+        <Top>7.07996cm</Top>
+        <Left>0.7912cm</Left>
         <Height>0.6cm</Height>
         <Width>0.96542cm</Width>
         <ZIndex>1</ZIndex>
@@ -384,8 +384,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox11</rd:DefaultName>
-        <Top>6.16245cm</Top>
-        <Left>2.01238cm</Left>
+        <Top>7.07996cm</Top>
+        <Left>1.82717cm</Left>
         <Height>0.6cm</Height>
         <Width>8.23674cm</Width>
         <ZIndex>2</ZIndex>
@@ -418,7 +418,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>1.11125cm</Top>
-        <Left>1.18745cm</Left>
+        <Left>0.86995cm</Left>
         <Height>0.6cm</Height>
         <Width>2.1825cm</Width>
         <ZIndex>3</ZIndex>
@@ -486,7 +486,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>1.11125cm</Top>
-        <Left>3.37185cm</Left>
+        <Left>3.12301cm</Left>
         <Height>0.6cm</Height>
         <Width>2.36771cm</Width>
         <ZIndex>5</ZIndex>
@@ -511,7 +511,7 @@
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>8pt</FontSize>
-                  <Format>d</Format>
+                  <Format>dd/MM/yyyy</Format>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -683,7 +683,7 @@
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>8pt</FontSize>
-                  <Format>d</Format>
+                  <Format>dd/MM/yyyy</Format>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -726,8 +726,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>2.55819cm</Top>
-        <Left>0.91405cm</Left>
+        <Top>3.26403cm</Top>
+        <Left>0.86995cm</Left>
         <Height>0.6cm</Height>
         <Width>2.1825cm</Width>
         <ZIndex>12</ZIndex>
@@ -761,10 +761,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>2.55819cm</Top>
-        <Left>3.09845cm</Left>
+        <Top>3.26403cm</Top>
+        <Left>3.08773cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.36771cm</Width>
+        <Width>6.97618cm</Width>
         <ZIndex>13</ZIndex>
         <Style>
           <Border>
@@ -794,10 +794,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>3.22875cm</Top>
-        <Left>0.59655cm</Left>
+        <Top>4.04042cm</Top>
+        <Left>0.85768cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.03988cm</Width>
+        <Width>2.72238cm</Width>
         <ZIndex>14</ZIndex>
         <Style>
           <Border>
@@ -827,8 +827,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>3.22875cm</Top>
-        <Left>5.84539cm</Left>
+        <Top>4.04042cm</Top>
+        <Left>5.64791cm</Left>
         <Height>0.6cm</Height>
         <Width>1.5475cm</Width>
         <ZIndex>15</ZIndex>
@@ -862,8 +862,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>3.26403cm</Top>
-        <Left>3.81282cm</Left>
+        <Top>4.04042cm</Top>
+        <Left>3.65062cm</Left>
         <Height>0.6cm</Height>
         <Width>1.89146cm</Width>
         <ZIndex>16</ZIndex>
@@ -897,8 +897,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>3.22875cm</Top>
-        <Left>7.46345cm</Left>
+        <Top>4.04042cm</Top>
+        <Left>7.26596cm</Left>
         <Height>0.6cm</Height>
         <Width>2.99671cm</Width>
         <ZIndex>17</ZIndex>
@@ -912,8 +912,145 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
+      <Textbox Name="Textbox22">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Movil:</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox14</rd:DefaultName>
+        <Top>2.5582cm</Top>
+        <Left>0.85768cm</Left>
+        <Height>0.6cm</Height>
+        <Width>1.21581cm</Width>
+        <ZIndex>18</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox28">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Socio:</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox14</rd:DefaultName>
+        <Top>2.5582cm</Top>
+        <Left>4.11333cm</Left>
+        <Height>0.6cm</Height>
+        <Width>1.22998cm</Width>
+        <ZIndex>19</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox31">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!MOVIL.Value, "DataSet1")</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontWeight>Heavy</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox14</rd:DefaultName>
+        <Top>2.5582cm</Top>
+        <Left>2.14405cm</Left>
+        <Height>0.6cm</Height>
+        <Width>1.43601cm</Width>
+        <ZIndex>20</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox32">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!SOCIO.Value, "DataSet1")</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>8pt</FontSize>
+                  <Format>d</Format>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox14</rd:DefaultName>
+        <Top>2.5582cm</Top>
+        <Left>5.5197cm</Left>
+        <Height>0.6cm</Height>
+        <Width>5.22868cm</Width>
+        <ZIndex>21</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>2.875in</Height>
+    <Height>3.34375in</Height>
     <Style />
   </Body>
   <Width>4.54526in</Width>

@@ -80,5 +80,13 @@ namespace Sindicato.WebSite.Controllers
             respuestaSP = _serLista.SP_GrabarLista(l);
             return Json(respuestaSP);
         }
+
+        [HttpPost]
+        public ActionResult EliminarListaItems(int ID_TABLA)//por favor no cambiar la variable l 
+        {
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serLista.EliminarListaItems(ID_TABLA,"admin");
+            return Json(respuestaSP);
+        }
     }
 }

@@ -28,5 +28,10 @@ namespace Sindicato.Services.Interfaces
         RespuestaSP GuardarPagoPrestamo(SD_PAGO_DE_PRESTAMOS pago, string login);
         RespuestaSP EliminarPagoPrestamo(int ID_PAGO);
 
+        RespuestaSP GuardarMora(SD_PRESTAMOS_MORA mora, string login);
+        RespuestaSP EliminarMora(int ID_MORA);
+
+        IEnumerable<SD_PRESTAMOS_MORA> ObtenerMorasPaginados(PagingInfo paginacion, FiltrosModel<IngresosModel> filtros);
+
     }
 }

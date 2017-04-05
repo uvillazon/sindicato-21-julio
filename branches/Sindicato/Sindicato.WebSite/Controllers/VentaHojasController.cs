@@ -81,6 +81,15 @@ namespace Sindicato.WebSite.Controllers
             respuestaSP = _serven.Reimprimir(venta, login);
             return Json(respuestaSP);
         }
+
+        [HttpPost]
+        public JsonResult Verificar(int ID_SOCIO_MOVIL)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serven.VerificarVentaHoja(ID_SOCIO_MOVIL, login);
+            return Json(respuestaSP);
+        }
         
         [HttpPost, ValidateInput(false)]
         public JsonResult AnularVenta(int ID_HOJA)

@@ -11,8 +11,9 @@
         me.toolbar = Funciones.CrearMenuBar();
         Funciones.CrearMenu('btn_VerDetalle', 'Imprimir', 'report', me.EventosPrincipal, me.toolbar, this, null, true);
         Funciones.CrearMenu('btn_PlanPagos', 'Plan de Pagos', 'report', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_Moras', 'Moras', 'report', me.EventosPrincipal, me.toolbar, this, null, true);
         Funciones.CrearMenu('btn_ReportePlanPagos', 'Reporte Prestamo', 'report', me.EventosPrincipal, me.toolbar, this, null, true);
-        Funciones.CrearMenu('btn_Kardex', 'Kardex Prestamo', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_Kardex', 'Kardex Pagos', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
         Funciones.CrearMenu('btn_GeneracionPlanPagos', 'Generacion Plan de Pagos', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
 
 
@@ -21,7 +22,7 @@
             region: 'center',
             width: '100%',
             fbarmenu: me.toolbar,
-            fbarmenuArray: ["btn_Kardex", "btn_PlanPagos", "btn_eliminar", "btn_pagarPrestamo", "btn_GeneracionPlanPagos", "btn_ReportePlanPagos", "btn_VerDetalle"]
+            fbarmenuArray: ["btn_Kardex", "btn_Moras", "btn_PlanPagos", "btn_eliminar", "btn_pagarPrestamo", "btn_GeneracionPlanPagos", "btn_ReportePlanPagos", "btn_VerDetalle"]
 
         });
         me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Prestamo', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
@@ -80,6 +81,9 @@
             case "btn_VerDetalle":
                 me.ImprimirReportePrestamo(me.grid.record.get('ID_PRESTAMO'));
                 break;
+            case "btn_Moras":
+                me.VentanaMoras();
+                break;
             default:
                 Ext.Msg.alert("Aviso", "No Existe el botton");
                 break;
@@ -131,18 +135,18 @@
             //console.dir(params);
             //Funciones.AjaxRequestWin("Socios", "GuardarRetiroSocio", win, form, me.grid, "Esta Seguro de Guardar", null, win);
             Funciones.AjaxRequestWinSc("Prestamos", "GuardarPago", win, form, me.grid, "Esta Seguro de Guardar", null, win, function (result) {
-            //console.dir(result);
+                //console.dir(result);
                 //me.VentanaRecibo(result.id);
                 fn.VerImpresion("ReportePagoPrestamo", "ID_PAGO=" + result.id);
-        });
-           
+            });
+
 
         });
 
     },
     VentanaKardex: function () {
         var me = this;
-        var win = Ext.create("App.Config.Abstract.Window", { botones: false });
+        var win = Ext.create("App.Config.Abstract.Window", { botones: false, gridLoads: [me.grid] });
         var grid = Ext.create("App.View.Socios.GridKardex", {
             region: 'center',
             width: 760,
@@ -167,17 +171,34 @@
     },
     VentanaPagos: function () {
         var me = this;
-        var win = Ext.create("App.Config.Abstract.Window", { botones: false });
+        var win = Ext.create("App.Config.Abstract.Window", { botones: false, gridLoads: [me.grid] });
         var grid = Ext.create("App.View.Prestamos.GridPagos", {
             region: 'center',
             width: 760,
             height: 450,
+
         });
         grid.getStore().setExtraParams({ ID_PRESTAMO: me.grid.record.get('ID_PRESTAMO') });
         grid.getStore().load();
         win.add(grid);
         win.show();
+    },
+    VentanaMoras: function () {
+        var me = this;
+        var win = Ext.create("App.Config.Abstract.Window", { botones: false, gridLoads: [me.grid] });
+        var grid = Ext.create("App.View.Prestamos.GridMoras", {
+            region: 'center',
+            width: 760,
+            height: 450,
+
+        });
+        grid.setPrestamo(me.grid.record);
+        grid.getStore().setExtraParams({ ID_PRESTAMO: me.grid.record.get('ID_PRESTAMO') });
+        grid.getStore().load();
+        win.add(grid);
+        win.show();
     }
+
 
     //App.View.Prestamos.GridPagos
 

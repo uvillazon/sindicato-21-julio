@@ -100,6 +100,7 @@
     <Compile Include="Controllers\DescuentosController.cs" />
     <Compile Include="Controllers\OtrosController.cs" />
     <Compile Include="Controllers\ParadasController.cs" />
+    <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\VentaHojasController.cs" />
     <Compile Include="Controllers\ParametrosController.cs" />
     <Compile Include="Controllers\FamiliaresController.cs" />
@@ -239,6 +240,7 @@
     <Content Include="App\Model\Cierres\Detalles.js" />
     <Content Include="App\Model\Egresos\TiposEgresos.js" />
     <Content Include="App\Model\KardexHojas\KardexHojas.js" />
+    <Content Include="App\Model\Prestamos\Moras.js" />
     <Content Include="App\Model\Prestamos\Pagos.js" />
     <Content Include="App\Model\Prestamos\PlanPagos.js" />
     <Content Include="App\Model\Prestamos\Prestamos.js" />
@@ -286,6 +288,9 @@
     <Content Include="App\Model\Socios\Documentos.js" />
     <Content Include="App\Model\Familiares\Familiares.js" />
     <Content Include="App\Model\Socios\Socios.js" />
+    <Content Include="App\Model\Usuarios\MenuOpciones.js" />
+    <Content Include="App\Model\Usuarios\Perfiles.js" />
+    <Content Include="App\Model\Usuarios\Usuarios.js" />
     <Content Include="App\Model\Utils\Tablas.js" />
     <Content Include="App\Model\Ventas\DetallesVentaEdit.js" />
     <Content Include="App\Model\Ventas\DetallesVenta.js" />
@@ -295,6 +300,7 @@
     <Content Include="App\Store\Cierres\Detalles.js" />
     <Content Include="App\Store\Egresos\TiposEgresos.js" />
     <Content Include="App\Store\KardexHojas\KardexHojas.js" />
+    <Content Include="App\Store\Prestamos\Moras.js" />
     <Content Include="App\Store\Prestamos\Pagos.js" />
     <Content Include="App\Store\Prestamos\PlanPagos.js" />
     <Content Include="App\Store\Prestamos\Prestamos.js" />
@@ -346,6 +352,9 @@
     <Content Include="App\Store\Familiares\Familiares.js" />
     <Content Include="App\Store\Socios\Socios.js" />
     <Content Include="App\Store\Tanques\Tanques.js" />
+    <Content Include="App\Store\Usuarios\MenuOpciones.js" />
+    <Content Include="App\Store\Usuarios\Perfiles.js" />
+    <Content Include="App\Store\Usuarios\Usuarios.js" />
     <Content Include="App\Store\Utils\Tablas.js" />
     <Content Include="App\Store\Ventas\DetallesVenta.js" />
     <Content Include="App\Store\Ventas\Ventas.js" />
@@ -397,6 +406,9 @@
     <Content Include="App\View\Ahorros\GridCierres.js" />
     <Content Include="App\View\Ahorros\GridDetalles.js" />
     <Content Include="App\View\Ahorros\Principal.js" />
+    <Content Include="App\View\Prestamos\FormMora.js" />
+    <Content Include="App\View\Prestamos\GridMoras.js" />
+    <Content Include="App\View\Prestamos\FormRetiro.js" />
     <Content Include="App\View\Prestamos\GridPagos.js" />
     <Content Include="App\View\Prestamos\FormPagoPrestamo.js" />
     <Content Include="App\View\Prestamos\GridPlanPagos.js" />
@@ -530,6 +542,11 @@
     <Content Include="App\View\Tanques\Grids.js" />
     <Content Include="App\View\Tanques\GridTanques.js" />
     <Content Include="App\View\Tanques\Principal.js" />
+    <Content Include="App\View\Usuarios\Forms.js" />
+    <Content Include="App\View\Usuarios\FormUsuario.js" />
+    <Content Include="App\View\Usuarios\Grids.js" />
+    <Content Include="App\View\Usuarios\GridUsuarios.js" />
+    <Content Include="App\View\Usuarios\Principal.js" />
     <Content Include="App\View\Utils\Principal.js" />
     <Content Include="App\View\Ventas\FormCrearVenta.js" />
     <Content Include="App\View\Ventas\Forms.js" />
@@ -4042,6 +4059,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reportes\Copia de ReporteCierreAhorro.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteDiarioHojaRegularizadas.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteDiarioHoja.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteIngresosDetallePorCaja.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteEgresosDetalle.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteIngresosDetalle.rdlc" />
     <EmbeddedResource Include="Reportes\ReportePagoPrestamo.rdlc" />
     <EmbeddedResource Include="Reportes\ReportePrestamo.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteRetiro.rdlc" />

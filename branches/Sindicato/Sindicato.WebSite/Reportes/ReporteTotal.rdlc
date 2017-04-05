@@ -1821,7 +1821,7 @@
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>8pt</FontSize>
                   <FontWeight>Bold</FontWeight>
-                  <Format>d</Format>
+                  <Format>dd/MM/yyyy</Format>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1856,7 +1856,7 @@
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>8pt</FontSize>
                   <FontWeight>Bold</FontWeight>
-                  <Format>d</Format>
+                  <Format>dd/MM/yyyy</Format>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -2128,10 +2128,10 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>3.28125in</Height>
+    <Height>3.15625in</Height>
     <Style />
   </Body>
-  <Width>8.92025in</Width>
+  <Width>7.94108in</Width>
   <Page>
     <PageHeader>
       <Height>1.24354cm</Height>

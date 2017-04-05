@@ -13,5 +13,8 @@ namespace Sindicato.Services.Interfaces
     {
         IEnumerable<SD_MENU_OPCIONES> ObtenerMenuOpciones(Expression<Func<SD_MENU_OPCIONES, bool>> criterio);
         IEnumerable<V_TABLAS_COLUMNAS> ObtenerCamposTabla(Expression<Func<V_TABLAS_COLUMNAS, bool>> criterio);
+
+        RespuestaSP SP_GuardarPerfilOpcion(SD_PERFILES_OPCIONES per, string login);
+        RespuestaSP SP_EliminarPerfilOpcion(SD_PERFILES_OPCIONES per, string login);
     }
 }

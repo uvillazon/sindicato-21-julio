@@ -21,7 +21,8 @@ namespace Sindicato.Services
         {
             //_manListas = manListas;
         }
-        public ListasServices(string conexion) {
+        public ListasServices(string conexion)
+        {
             this.conexion = conexion;
         }
         public DataPaged<SD_LISTAS> ObtenerListas(PagingInfo paginacion, FiltrosModel<SD_LISTAS> filtros)
@@ -95,6 +96,32 @@ namespace Sindicato.Services
             return result;
         }
 
+        public RespuestaSP EliminarListaItems(int ID_TABLA, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var context = (SindicatoContext)uow.Context;
+                var manager = new SD_LISTAS_ITEMSManager(uow);
+
+                var lista = manager.BuscarTodos(x => x.ID_TABLA == ID_TABLA).FirstOrDefault();
+                if (lista == null)
+                {
+                    result.success = false;
+                    result.msg = "No existe la lista";
+                }
+                else
+                {
+                    manager.Delete(lista);
+                    manager.Save();
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                }
+            });
+
+            return result;
+        }
+
 
         public IEnumerable<SD_LISTAS_ITEMS> ObtenerListasItems(PagingInfo paginacion, FiltrosModel<ListasItemsModel> filtros)
         {
@@ -120,7 +147,7 @@ namespace Sindicato.Services
             {
                 var managerLista = new SD_LISTASManager(uow);
                 result = managerLista.BuscarTodos();
-                
+
 
             });
             return result;

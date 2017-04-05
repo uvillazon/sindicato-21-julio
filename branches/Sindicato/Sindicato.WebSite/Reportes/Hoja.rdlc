@@ -9,29 +9,27 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>="Nro : "&amp; First(Fields!ID_HOJA.Value, "DataSetHoja") &amp; " G-VII"</Value>
+                <Value>="Nro : "&amp; First(Fields!ID_HOJA.Value, "DataSetHoja") &amp; " # " &amp; Sum(Fields!NUMERO.Value, "DataSetHoja")</Value>
                 <Style>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                   <FontWeight>ExtraBold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
         <Top>0.29698cm</Top>
-        <Left>5.95991cm</Left>
-        <Height>0.75875cm</Height>
-        <Width>4.53729cm</Width>
+        <Left>5.29845cm</Left>
+        <Height>0.57354cm</Height>
+        <Width>5.19875cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
       <Textbox Name="Textbox2">
@@ -50,23 +48,21 @@
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>1.16156cm</Top>
-        <Left>4.95449cm</Left>
-        <Height>0.77666cm</Height>
-        <Width>3.63771cm</Width>
+        <Top>0.9058cm</Top>
+        <Left>5.95991cm</Left>
+        <Height>0.41947cm</Height>
+        <Width>4.53729cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
       <Textbox Name="Textbox3">
@@ -77,7 +73,7 @@
               <TextRun>
                 <Value>=First(Fields!SOCIO.Value, "DataSetHoja")</Value>
                 <Style>
-                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>12pt</FontSize>
                   <FontWeight>ExtraBold</FontWeight>
                 </Style>
               </TextRun>
@@ -88,89 +84,15 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.62613cm</Top>
-        <Left>2.68902cm</Left>
-        <Height>0.53827cm</Height>
-        <Width>7.30547cm</Width>
+        <Top>2.59384cm</Top>
+        <Left>1.89527cm</Left>
+        <Height>0.5cm</Height>
+        <Width>8.60193cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox4">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!PLACA.Value, "DataSetHoja")</Value>
-                <Style>
-                  <FontFamily>Calibri</FontFamily>
-                  <FontWeight>ExtraBold</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Right</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>3.23495cm</Top>
-        <Left>6.67429cm</Left>
-        <Height>0.46772cm</Height>
-        <Width>3.3202cm</Width>
-        <ZIndex>3</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox5">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>131</Value>
-                <Style>
-                  <FontFamily>Calibri</FontFamily>
-                  <FontWeight>ExtraBold</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Right</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>3.19968cm</Top>
-        <Left>4.30299cm</Left>
-        <Height>0.50299cm</Height>
-        <Width>1.67979cm</Width>
-        <ZIndex>4</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
       <Textbox Name="Textbox6">
@@ -183,6 +105,7 @@
                 <Value>=Sum(Fields!MOVIL.Value, "DataSetHoja")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
+                  <FontSize>16pt</FontSize>
                   <FontWeight>ExtraBold</FontWeight>
                 </Style>
               </TextRun>
@@ -191,32 +114,28 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>3.23495cm</Top>
+        <Top>3.09384cm</Top>
         <Left>1.89527cm</Left>
-        <Height>0.46772cm</Height>
-        <Width>1.25645cm</Width>
-        <ZIndex>5</ZIndex>
+        <Height>0.60883cm</Height>
+        <Width>1.34905cm</Width>
+        <ZIndex>3</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Textbox Name="Textbox8">
+      <Textbox Name="Textbox9">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
         <Paragraphs>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>="# " &amp; First(Fields!NUMERO.Value, "DataSetHoja")</Value>
+                <Value>=First(Fields!OBLIGACIONES.Value, "DataSetHoja")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                   <FontWeight>ExtraBold</FontWeight>
                   <Format>dd/MM/yyyy</Format>
                 </Style>
@@ -226,23 +145,81 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>1.16156cm</Top>
-        <Left>8.5922cm</Left>
-        <Height>0.77666cm</Height>
-        <Width>1.905cm</Width>
+        <Top>3.73795cm</Top>
+        <Left>1.89527cm</Left>
+        <Height>0.90895cm</Height>
+        <Width>8.60193cm</Width>
+        <ZIndex>4</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox7">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>="131"</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>16pt</FontSize>
+                  <FontWeight>ExtraBold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <Top>3.09384cm</Top>
+        <Left>4.39943cm</Left>
+        <Height>0.60883cm</Height>
+        <Width>1.34905cm</Width>
+        <ZIndex>5</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox8">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!PLACA.Value, "DataSetHoja")</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>12pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <Top>3.09384cm</Top>
+        <Left>6.91298cm</Left>
+        <Height>0.60883cm</Height>
+        <Width>3.58422cm</Width>
         <ZIndex>6</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>15pt</PaddingRight>
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>13.60312cm</Height>
+    <Height>13.20625cm</Height>
     <Style />
   </Body>
   <Width>11.55021cm</Width>
@@ -299,6 +276,14 @@
         </Field>
         <Field Name="PLACA">
           <DataField>PLACA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PRECIO">
+          <DataField>PRECIO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="OBLIGACIONES">
+          <DataField>OBLIGACIONES</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>

@@ -511,6 +511,10 @@ namespace Sindicato.Services
                 result = manager.BuscarTodos();
                 filtros.FiltrarDatos();
                 result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+                if (!string.IsNullOrEmpty(filtros.Contiene))
+                {
+                    result = result.Where(SD_RETIRO_SOCIO_MOVIL.Contiene(filtros.Contiene.ToUpper()));
+                }
                 paginacion.total = result.Count();
                 result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
 

@@ -22,6 +22,8 @@ namespace Sindicato.Services.Interfaces
         IEnumerable<SD_HOJAS_CONTROL> ObtenerHojasPorCriterio(Expression<Func<SD_HOJAS_CONTROL, bool>> criterio);
         SD_IMPRESIONES obtenerImpresion(Expression<Func<SD_IMPRESIONES, bool>> criterio);
 
+        RespuestaSP VerificarVentaHoja(int ID_SOCIO_MOVIL, string login);
+
 
         //SD_USUARIOS
     }

@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Sindicato.Services.Interfaces;
 using Sindicato.WebSite.Models;
 using System.Web.Script.Serialization;
+using Sindicato.Model;
+using Sindicato.Common;
 
 namespace Sindicato.WebSite.Controllers
 {
@@ -81,6 +83,24 @@ namespace Sindicato.WebSite.Controllers
             string callback1 = callback + "(" + javaScriptSerializer.Serialize(new { Total = query.Count() , Rows = query }) + ");";
             return JavaScript(callback1);
 
+        }
+
+        [HttpPost]
+        public JsonResult GuardarPerfilOpcion(SD_PERFILES_OPCIONES per)
+        {
+            int id_usr = Convert.ToInt32(User.Identity.Name.Split('-')[3]);
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serMen.SP_GuardarPerfilOpcion(per, id_usr.ToString());
+            return Json(respuestaSP);
+        }
+
+        [HttpPost]
+        public JsonResult EliminarPerfilOpcion(SD_PERFILES_OPCIONES per)
+        {
+            int id_usr = Convert.ToInt32(User.Identity.Name.Split('-')[3]);
+            RespuestaSP respuestaRSP = new RespuestaSP();
+            respuestaRSP = _serMen.SP_EliminarPerfilOpcion(per, id_usr.ToString());
+            return Json(respuestaRSP);
         }
 
 
