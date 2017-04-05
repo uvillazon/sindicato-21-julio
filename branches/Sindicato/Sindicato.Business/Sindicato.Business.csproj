@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SD_TIPOS_EGRESOSManager.cs" />
     <Compile Include="SD_RETIRO_SOCIO_MOVILManager.cs" />
     <Compile Include="SD_DETALLE_CIERRES_AHORROManager.cs" />
     <Compile Include="SD_KARDEX_SOCIO_MOVILManager.cs" />
@@ -106,6 +107,10 @@
     <ProjectReference Include="..\Sindicato.Common.Data\Sindicato.Common.Data.csproj">
       <Project>{96F5AB06-C785-4D0A-9F93-BDD907CCF61A}</Project>
       <Name>Sindicato.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sindicato.Common\Sindicato.Common.csproj">
+      <Project>{fe4a4415-fb83-4c99-85b0-405fc9278914}</Project>
+      <Name>Sindicato.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sindicato.Model\Sindicato.Model.csproj">
       <Project>{1CA5F33C-3E60-4AD8-8E64-80DE359B6F09}</Project>

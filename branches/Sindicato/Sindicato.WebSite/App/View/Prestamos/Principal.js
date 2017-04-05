@@ -9,9 +9,11 @@
         var me = this;
 
         me.toolbar = Funciones.CrearMenuBar();
-        //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
-        Funciones.CrearMenu('btn_Kardex', 'Kardex Socio', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
-        //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_VerDetalle', 'Imprimir', 'report', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_PlanPagos', 'Plan de Pagos', 'report', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_ReportePlanPagos', 'Reporte Prestamo', 'report', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_Kardex', 'Kardex Prestamo', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_GeneracionPlanPagos', 'Generacion Plan de Pagos', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
 
 
 
@@ -19,12 +21,13 @@
             region: 'center',
             width: '100%',
             fbarmenu: me.toolbar,
-            fbarmenuArray: ["btn_Kardex", "btn_eliminar"]
+            fbarmenuArray: ["btn_Kardex", "btn_PlanPagos", "btn_eliminar", "btn_pagarPrestamo", "btn_GeneracionPlanPagos", "btn_ReportePlanPagos", "btn_VerDetalle"]
 
         });
-        me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Retiro', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
-        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Eliminar Retiro', Constantes.ICONO_BAJA, me.EventosPrincipal,null, this, null, true);
-        me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar]);
+        me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Prestamo', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
+        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Eliminar Prestamo', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
+        me.btn_pagarPrestamo = Funciones.CrearMenu('btn_pagarPrestamo', 'Pago de Prestamo', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this, null, true);
+        me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar, me.btn_pagarPrestamo]);
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
 
         //me.form = Ext.create("App.View.RetirosSocio.FormRetiro", {
@@ -35,7 +38,7 @@
         //});
         //me.form.ocultarSaldos(false);
         //me.form.BloquearFormulario();
-      
+
         //        me.grid.bar.add(me.toolbar);
         me.items = [me.grid];
         me.grid.getSelectionModel().on('selectionchange', me.CargarDatos, this);
@@ -45,40 +48,58 @@
         var me = this;
         var disabled = selections.length === 0;
         me.record = disabled ? null : selections[0];
-        //if (!disabled) {
-        //    //me.form.getForm().loadRecord(selections[0])
-        //    //me.form.CargarDatos(selections[0]);
 
-        //}
-        //else {
-        //    me.form.getForm().reset();
-          
-        //}
     },
-   
+
     EventosPrincipal: function (btn) {
         var me = this;
         switch (btn.getItemId()) {
             case "btn_crear":
-                me.FormCrearRetiro();
+                me.FormCrearPrestamo();
                 break;
             case "btn_eliminar":
-                Funciones.AjaxRequestGrid("Socios", "EliminarRetiroSocio", me.grid, "Esta seguro de Eliminar el Retiro?", { ID_RETIRO: me.record.get('ID_RETIRO') }, me.grid, null);
+                Funciones.AjaxRequestGrid("Prestamos", "EliminarPrestamo", me.grid, "Esta seguro de Eliminar el Retiro?", { ID_PRESTAMO: me.record.get('ID_PRESTAMO') }, me.grid, null);
+                break;
+            case "btn_pagarPrestamo":
+                me.FormPagoPrestamo();
                 break;
             case "btn_Kardex":
-                me.VentanaKardex();
+                me.VentanaPagos();
+                break;
+            case "btn_GeneracionPlanPagos":
+                Funciones.AjaxRequestGrid("Prestamos", "GenerarPlanDePagos", me.grid, "Esta seguro de Generar el Plan de Pago?", { ID_PRESTAMO: me.record.get('ID_PRESTAMO') }, me.grid, null, function (result) {
+                    me.ImprimirReportePrestamo(result.id);
+                });
+                break;
+            case "btn_PlanPagos":
+                me.VentanaPlanPagos();
+                break;
+            case "btn_ReportePlanPagos":
+                me.ImprimirReportePrestamo(me.grid.record.get('ID_PRESTAMO'));
+                break;
+            case "btn_VerDetalle":
+                me.ImprimirReportePrestamo(me.grid.record.get('ID_PRESTAMO'));
                 break;
             default:
                 Ext.Msg.alert("Aviso", "No Existe el botton");
                 break;
         }
     },
-    FormCrearRetiro: function () {
+    ImprimirReportePrestamo: function (id) {
+        var ruta = fn.ObtenerUrlReportPDF("ReportePrestamo", "ID_PRESTAMO=" + id);
+        //var ruta = fn.ObtenerUrlReportPDF("ReporteRegulacion", "ID_REGULACION=2");
+        var panel = Ext.create("App.View.Reports.ReportsPDF", {
+            ruta: ruta,
+            pageScale: 1.50,
+        });
+        panel.show();
+    },
+    FormCrearPrestamo: function () {
         var me = this;
         var win = Ext.create("App.Config.Abstract.Window", { botones: true });
-        var form = Ext.create("App.View.RetirosSocio.FormRetiro", {
-            title: 'Datos Retiros Por Socios',
-            columns: 2,
+        var form = Ext.create("App.View.Prestamos.FormPrestamo", {
+            title: 'Datos de Prestamo Por Socio',
+            columns: 3,
             botones: false
         });
         //form.txt_socio.setVisible(false);
@@ -88,10 +109,33 @@
         win.btn_guardar.on('click', function () {
             //console.dir(params);
             //Funciones.AjaxRequestWin("Socios", "GuardarRetiroSocio", win, form, me.grid, "Esta Seguro de Guardar", null, win);
-            Funciones.AjaxRequestWinSc("Socios", "GuardarRetiroSocio", win, form, me.grid, "Esta Seguro de Guardar", null, win, function (result) {
-                //console.dir(result);
-                form.ImprimirRecibo(result.id);
-            });
+            Funciones.AjaxRequestWin("Prestamos", "GuardarPrestamos", win, form, me.grid, "Esta Seguro de Guardar", null, win);
+
+        });
+
+    },
+
+    FormPagoPrestamo: function () {
+        var me = this;
+        var win = Ext.create("App.Config.Abstract.Window", { botones: true });
+        var form = Ext.create("App.View.Prestamos.FormPagoPrestamo", {
+            columns: 2,
+            botones: false
+        });
+        //form.txt_socio.setVisible(false);
+        form.getForm().loadRecord(me.grid.record);
+        form.date_fecha.reset();
+        win.add(form);
+        win.show();
+        win.btn_guardar.on('click', function () {
+            //console.dir(params);
+            //Funciones.AjaxRequestWin("Socios", "GuardarRetiroSocio", win, form, me.grid, "Esta Seguro de Guardar", null, win);
+            Funciones.AjaxRequestWinSc("Prestamos", "GuardarPago", win, form, me.grid, "Esta Seguro de Guardar", null, win, function (result) {
+            //console.dir(result);
+                //me.VentanaRecibo(result.id);
+                fn.VerImpresion("ReportePagoPrestamo", "ID_PAGO=" + result.id);
+        });
+           
 
         });
 
@@ -107,6 +151,34 @@
         });
         win.add(grid);
         win.show();
+    },
+    VentanaPlanPagos: function () {
+        var me = this;
+        var win = Ext.create("App.Config.Abstract.Window", { botones: false });
+        var grid = Ext.create("App.View.Prestamos.GridPlanPagos", {
+            region: 'center',
+            width: 760,
+            height: 450,
+        });
+        grid.getStore().setExtraParams({ ID_PRESTAMO: me.grid.record.get('ID_PRESTAMO') });
+        grid.getStore().load();
+        win.add(grid);
+        win.show();
+    },
+    VentanaPagos: function () {
+        var me = this;
+        var win = Ext.create("App.Config.Abstract.Window", { botones: false });
+        var grid = Ext.create("App.View.Prestamos.GridPagos", {
+            region: 'center',
+            width: 760,
+            height: 450,
+        });
+        grid.getStore().setExtraParams({ ID_PRESTAMO: me.grid.record.get('ID_PRESTAMO') });
+        grid.getStore().load();
+        win.add(grid);
+        win.show();
     }
+
+    //App.View.Prestamos.GridPagos
 
 });

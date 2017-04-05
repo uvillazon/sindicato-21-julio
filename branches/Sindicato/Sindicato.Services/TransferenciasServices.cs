@@ -17,7 +17,7 @@ namespace Sindicato.Services
     public class TransferenciasServices : BaseService, ITrasferenciasServices
     {
 
-     
+
         public IEnumerable<SD_INGRESOS> ObtenerIngresosPaginados(PagingInfo paginacion, FiltrosModel<TransferenciasModel> filtros)
         {
             IQueryable<SD_INGRESOS> result = null;
@@ -31,7 +31,7 @@ namespace Sindicato.Services
                 if (!string.IsNullOrEmpty(filtros.Contiene))
                 {
                     var contiene = filtros.Contiene.Trim().ToUpper();
-                    result = result.Where(x=>x.CONCEPTO.Contains(contiene)||x.SD_CAJAS.NOMBRE.Contains(contiene));
+                    result = result.Where(x => x.CONCEPTO.Contains(contiene) || x.SD_CAJAS.NOMBRE.Contains(contiene));
 
                 }
                 paginacion.total = result.Count();
@@ -95,8 +95,8 @@ namespace Sindicato.Services
         public RespuestaSP EliminarIngreso(int ID_INGRESO)
         {
             RespuestaSP result = new RespuestaSP();
-            int  ID_CAJA = 0;
-            DateTime? fecha =  null;
+            int ID_CAJA = 0;
+            DateTime? fecha = null;
             ExecuteManager(uow =>
             {
                 var manager = new SD_INGRESOSManager(uow);
@@ -320,5 +320,56 @@ namespace Sindicato.Services
             });
             return result;
         }
+
+        #region Tipo de Egresos
+        public IEnumerable<SD_TIPOS_EGRESOS> ObtenerITiposEgresosPaginados(PagingInfo paginacion, FiltrosModel<TransferenciasModel> filtros)
+        {
+            IQueryable<SD_TIPOS_EGRESOS> result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_TIPOS_EGRESOSManager(uow);
+
+                result = manager.BuscarTodos();
+                filtros.FiltrarDatos();
+                result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+                if (!string.IsNullOrEmpty(filtros.Contiene))
+                {
+                    var contiene = filtros.Contiene.Trim().ToUpper();
+                    result = result.Where(x => x.NOMBRE.Contains(contiene));
+                }
+                paginacion.total = result.Count();
+
+                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
+
+            });
+            return result;
+        }
+
+        public RespuestaSP GuardarTipoEgreso(SD_TIPOS_EGRESOS tipo, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_TIPOS_EGRESOSManager(uow);
+                string p_res = manager.GuardarTipoEgreso(tipo, login);
+                int id;
+                bool esNumero = int.TryParse(p_res, out id);
+                if (esNumero)
+                {
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                    result.id = id;
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = p_res;
+                }
+
+            });
+            return result;
+        }
+
+        #endregion
     }
 }

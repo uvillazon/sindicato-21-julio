@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PartialSD_INGRESOS_POR_SOCIOS.cs" />
+    <Compile Include="PartialSD_PRESTAMOS_POR_SOCIOS.cs" />
     <Compile Include="PartialSD_KARDEX_HOJAS.cs" />
     <Compile Include="PartialSD_MOVILES.cs" />
     <Compile Include="PartialSD_HOJAS_CONTROL.cs" />

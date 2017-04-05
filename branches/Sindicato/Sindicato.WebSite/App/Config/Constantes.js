@@ -11,7 +11,7 @@ Ext.define("App.Config.Constantes", {
     alternateClassName: ["Constantes", "Lista"],
     singleton: true,
     /* Aqui Defino todas mis contanstantes */
-    HOST: 'http://localhost:4353/',
+    HOST: '../',
 //    HOST : 'http://200.58.79.49/Sistema/',
     //HOST                : 'http://elfpre02/SisMan/',
     REQUERIDO: '<span style="color:red;font-weight:bold" data-qtip="Requerido">*</span>',

@@ -14,6 +14,7 @@ namespace Sindicato.Services.Interfaces
         IEnumerable<SD_INGRESOS> ObtenerIngresosPaginados(PagingInfo paginacion, FiltrosModel<TransferenciasModel> filtros);
         IEnumerable<SD_EGRESOS> ObtenerEgresosPaginados(PagingInfo paginacion, FiltrosModel<TransferenciasModel> filtros);
         IEnumerable<SD_TRANSFERENCIAS> ObtenerTransferenciasPaginados(PagingInfo paginacion, FiltrosModel<TransferenciasModel> filtros);
+        IEnumerable<SD_TIPOS_EGRESOS> ObtenerITiposEgresosPaginados(PagingInfo paginacion, FiltrosModel<TransferenciasModel> filtros);
 
         RespuestaSP GuardarIngreso(SD_INGRESOS ingreso, string login);
         RespuestaSP EliminarIngreso(int ID_INGRESO);
@@ -25,5 +26,8 @@ namespace Sindicato.Services.Interfaces
         RespuestaSP EliminarTransferencia(int ID_TRANSFERENCIA);
 
         RespuestaSP EliminarIngresoPorSocio(int ID_INGRESO);
+
+
+        RespuestaSP GuardarTipoEgreso(SD_TIPOS_EGRESOS tipo, string login);
     }
 }

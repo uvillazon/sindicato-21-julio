@@ -49,7 +49,7 @@
         if (!disabled) {
             me.formulario.loadRecord(me.grid.record);
             me.formulario.BloquearFormulario();
-            me.gridSocio.getStore().setExtraParams({ ID_MOVIL: me.grid.record.get('ID_MOVIL') });
+            me.gridSocio.getStore().setExtraParams({ ESTADO :  "TODOS" ,ID_MOVIL: me.grid.record.get('ID_MOVIL') });
             me.gridSocio.getStore().load();
         }
         else {

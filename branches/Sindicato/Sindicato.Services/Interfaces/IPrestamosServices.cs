@@ -23,6 +23,8 @@ namespace Sindicato.Services.Interfaces
         RespuestaSP GuardarPrestamo(SD_PRESTAMOS_POR_SOCIOS prestamo, string login);
         RespuestaSP EliminarPrestamo(int ID_PRESTAMO);
 
+        RespuestaSP GenerarPlanDePagos(int ID_PRESTAMO, string login);
+
         RespuestaSP GuardarPagoPrestamo(SD_PAGO_DE_PRESTAMOS pago, string login);
         RespuestaSP EliminarPagoPrestamo(int ID_PAGO);
 

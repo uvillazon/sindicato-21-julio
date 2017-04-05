@@ -145,6 +145,19 @@ namespace Sindicato.Services
 
             return result;
         }
+
+        public RespuestaSP BajaSocioMovil(SD_SOCIO_MOVILES movil, int ID_USR)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var mnMovil = new SD_SOCIO_MOVILESManager(uow);
+                result = mnMovil.BajaSocioMovil(movil, ID_USR);
+            });
+
+            return result;
+        }
+
         public RespuestaSP GuardarNuevoSocioMovilPrimario(SD_SOCIO_MOVILES socio, int ID_USR)
         {
             RespuestaSP result = new RespuestaSP();

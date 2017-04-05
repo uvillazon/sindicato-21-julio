@@ -44,6 +44,7 @@
                 <Value>=First(Fields!FECHA_COMPRA.Value, "DataSetHoja")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
+                  <FontSize>14pt</FontSize>
                   <FontWeight>ExtraBold</FontWeight>
                   <Format>dd/MM/yyyy</Format>
                 </Style>
@@ -54,9 +55,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
         <Top>1.16156cm</Top>
-        <Left>6.33033cm</Left>
+        <Left>4.95449cm</Left>
         <Height>0.77666cm</Height>
-        <Width>2.26187cm</Width>
+        <Width>3.63771cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -78,6 +79,7 @@
                 <Value>=First(Fields!SOCIO.Value, "DataSetHoja")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
+                  <FontSize>12pt</FontSize>
                   <FontWeight>ExtraBold</FontWeight>
                 </Style>
               </TextRun>
@@ -86,10 +88,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.11461cm</Top>
-        <Left>1.89527cm</Left>
-        <Height>0.46771cm</Height>
-        <Width>7.70235cm</Width>
+        <Top>2.58205cm</Top>
+        <Left>2.23923cm</Left>
+        <Height>0.65292cm</Height>
+        <Width>7.35839cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -111,6 +113,7 @@
                 <Value>=First(Fields!PLACA.Value, "DataSetHoja")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
+                  <FontSize>11pt</FontSize>
                   <FontWeight>ExtraBold</FontWeight>
                 </Style>
               </TextRun>
@@ -119,9 +122,9 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.61759cm</Top>
+        <Top>3.27024cm</Top>
         <Left>7.25637cm</Left>
-        <Height>0.50299cm</Height>
+        <Height>0.84695cm</Height>
         <Width>2.34125cm</Width>
         <ZIndex>3</ZIndex>
         <Style>
@@ -152,7 +155,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.58232cm</Top>
+        <Top>3.23497cm</Top>
         <Left>4.30299cm</Left>
         <Height>0.50299cm</Height>
         <Width>1.67979cm</Width>
@@ -185,45 +188,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.61759cm</Top>
+        <Top>3.27024cm</Top>
         <Left>1.89527cm</Left>
         <Height>0.46771cm</Height>
         <Width>0.96541cm</Width>
         <ZIndex>5</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox7">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>APORTE SINDICAL 9.50 , PRODEPORTE 0.50 , AHORRO 5 CONTROL 3</Value>
-                <Style>
-                  <FontFamily>Calibri</FontFamily>
-                  <FontSize>8pt</FontSize>
-                  <FontWeight>ExtraBold</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>11.78706cm</Top>
-        <Left>3.03298cm</Left>
-        <Height>0.76302cm</Height>
-        <Width>6.56464cm</Width>
-        <ZIndex>6</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -243,8 +212,7 @@
               <TextRun>
                 <Value>="# " &amp; First(Fields!NUMERO.Value, "DataSetHoja")</Value>
                 <Style>
-                  <FontFamily>Calibri</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                   <FontWeight>ExtraBold</FontWeight>
                   <Format>dd/MM/yyyy</Format>
                 </Style>
@@ -257,8 +225,8 @@
         <Top>1.16156cm</Top>
         <Left>8.5922cm</Left>
         <Height>0.77666cm</Height>
-        <Width>1.45521cm</Width>
-        <ZIndex>7</ZIndex>
+        <Width>1.905cm</Width>
+        <ZIndex>6</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>

@@ -21,13 +21,16 @@
             fbarmenu: me.toolbar,
             paramsStore: paramsStore,
             noLimpiar: noLimpiar,
-            fbarmenuArray: ["btn_anular"]
+            fbarmenuArray: ["btn_anular","btn_VerDetalle"]
 
         });
         me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Regulacion', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
         //me.btn_editar = Funciones.CrearMenu('btn_editar', 'Editar Descuento', Constantes.ICONO_EDITAR, me.EventosPrincipal, null, this, null, true);
         me.btn_eliminar = Funciones.CrearMenu('btn_anular', 'Anular Regulacion', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
-        me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar]);
+        me.btn_reporte = Funciones.CrearMenu('btn_VerDetalle', 'Ver Recibo', 'report', me.EventosPrincipal, null, this, null, true);
+
+
+        me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar, me.btn_reporte]);
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
 
         me.gridDetalles = Ext.create('App.View.Regulaciones.GridDetalles', {
@@ -86,6 +89,9 @@
                     Ext.Msg.alert("Error", "Venta en estado Inapropiado.");
                 }
                 break;
+            case "btn_VerDetalle":
+                me.VentanaRecibo(me.grid.record.get('ID_REGULACION'));
+                break;
             default:
                 Ext.Msg.alert("Aviso", "No Existe el botton");
                 break;
@@ -102,13 +108,19 @@
             if (form.isValid()) {
                 Funciones.AjaxRequestWinSc("Regulaciones", "GuardarRegulacion", win, form, me.grid, "Esta Seguro de Guardar", null, win, function (result) {
                     //console.dir(result);
-                    form.ImprimirHojas(result.id);
+                    //form.ImprimirHojas(result.id);
+                    me.VentanaRecibo(result.id);
                 });
             }
             else {
                 Ext.Msg.alert("Error", "Falta Compeltar Formulario. Al menos una hoja debe de venderse");
             }
         });
+    },
+    VentanaRecibo: function (id) {
+
+        //("ReporteRegulacion", "ID_REGULACION=" + id);
+        fn.VerImpresion("ReporteRegulacion", "ID_REGULACION=" + id);
     },
 
 });

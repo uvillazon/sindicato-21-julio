@@ -524,17 +524,20 @@
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false
         });
-
-        me.num_nro_movil = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "Nro Movil",
-            name: "NRO_MOVIL",
+        me.store_movil = Ext.create("App.Store.Moviles.Moviles");
+        me.num_nro_movil = Ext.create("App.Config.Componente.ComboAutoBase", {
+            fieldLabel: "Movil",
+            name: "ID_MOVIL",
+            displayField: 'NRO_MOVIL',
+            valueField : 'ID_MOVIL',
+            store: me.store_movil,
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false
             //colspan: 2
 
         });
         me.store_socio = Ext.create('App.Store.Socios.SoloSocios');
-        me.store_socio.setExtraParams({ codigo: 'SIN MOVIL' });
+        //me.store_socio.setExtraParams({  });
         me.cbx_socio = Ext.create("App.Config.Componente.ComboAutoBase", {
             fieldLabel: "Socio",
             name: "ID_SOCIO_1",
@@ -547,7 +550,6 @@
             //textoTpl: function () { return "Nro Movil :{NRO_MOVIL} - {NOMBRE} {APELLIDO_PATERNO} {APELLIDO_MATERNO}" }
         });
         me.cbx_socio.on('select', function (cbx, rec) {
-            console.dir(rec[0]);
             me.txt_id_socio.setValue(rec[0].get('ID_SOCIO'));
         });
         me.txt_tipo_linea = Ext.create("App.Config.Componente.TextFieldBase", {
