@@ -100,6 +100,7 @@
     <Compile Include="Controllers\DescuentosController.cs" />
     <Compile Include="Controllers\OtrosController.cs" />
     <Compile Include="Controllers\ParadasController.cs" />
+    <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\VentaHojasController.cs" />
     <Compile Include="Controllers\ParametrosController.cs" />
     <Compile Include="Controllers\FamiliaresController.cs" />
@@ -4042,8 +4043,19 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reportes\Copia de ReporteCierreAhorro.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteDetalleHojaPorSocio.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteDeudoresHoja.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteDeudoresCouta.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteDeudores.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteDiarioHoja.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteDiarioHojaRegularizadas.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteIngresosDetalle.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteIngresosDetallePorCaja.rdlc" />
     <EmbeddedResource Include="Reportes\ReportePagoPrestamo.rdlc" />
     <EmbeddedResource Include="Reportes\ReportePrestamo.rdlc" />
+    <EmbeddedResource Include="Reportes\ReportePrestamosPagosDetalle.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteResumenHojas.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteResumenNumeracion.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteRetiro.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteCierreAhorro.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteDetalleHoja.rdlc" />
@@ -4058,6 +4070,7 @@
     <EmbeddedResource Include="Reportes\ReporteSocioMovilHoja.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteSociosMovilesActivos.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteTotal.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteTotalPrestamos.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -4081,7 +4094,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>7574</DevelopmentServerPort>
+          <DevelopmentServerPort>23532</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

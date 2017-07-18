@@ -29,7 +29,8 @@ namespace Sindicato.Services
                 if (!string.IsNullOrEmpty(filtros.Contiene))
                 {
                     string contiene = filtros.Contiene.Trim().ToUpper();
-                    result = result.Where(x => x.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE.ToUpper().Contains(contiene) || x.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO.ToUpper().Contains(contiene) || x.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_MATERNO.ToUpper().Contains(contiene));
+                    result = result.Where(SD_PERMISOS.Contiene(contiene));
+                    //result = result.Where(x => x.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE.ToUpper().Contains(contiene) || x.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO.ToUpper().Contains(contiene) || x.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_MATERNO.ToUpper().Contains(contiene));
                 }
                 paginacion.total = result.Count();
                 result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
@@ -58,7 +59,7 @@ namespace Sindicato.Services
                 var context = (SindicatoContext)uow.Context;
                 ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
 
-                context.P_SD_GRABAR_PERMISOS(permiso.ID_SOCIO_MOVIL,permiso.MOTIVO,permiso.OBSERVACION,permiso.CANT_HOJAS_OBLIG, permiso.FECHA_INI, permiso.FECHA_FIN, login, p_res);
+                context.P_SD_GRABAR_PERMISOS(permiso.ID_SOCIO_MOVIL, permiso.MOTIVO, permiso.OBSERVACION, permiso.CANT_HOJAS_OBLIG, permiso.FECHA_INI, permiso.FECHA_FIN, login, p_res);
                 int id;
                 bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
                 if (esNumero)
@@ -86,7 +87,7 @@ namespace Sindicato.Services
                 var context = (SindicatoContext)uow.Context;
                 ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
 
-                context.P_SD_ANULAR_PERMISOS(permiso.ID_PERMISO,permiso.OBSERVACION_BAJA,login,p_res);
+                context.P_SD_ANULAR_PERMISOS(permiso.ID_PERMISO, permiso.OBSERVACION_BAJA, login, p_res);
                 int id;
                 bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
                 if (esNumero)

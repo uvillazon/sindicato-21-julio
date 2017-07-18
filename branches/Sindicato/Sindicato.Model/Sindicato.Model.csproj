@@ -43,11 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PartialSD_AUTOS.cs" />
     <Compile Include="PartialSD_INGRESOS_POR_SOCIOS.cs" />
+    <Compile Include="PartialSD_PERMISOS.cs" />
     <Compile Include="PartialSD_PRESTAMOS_POR_SOCIOS.cs" />
     <Compile Include="PartialSD_KARDEX_HOJAS.cs" />
     <Compile Include="PartialSD_MOVILES.cs" />
     <Compile Include="PartialSD_HOJAS_CONTROL.cs" />
+    <Compile Include="PartialSD_REGULARIZACIONES.cs" />
+    <Compile Include="PartialSD_RETIRO_SOCIO_MOVIL.cs" />
     <Compile Include="PartialSD_SOCIO_MOVILES.cs" />
     <Compile Include="Modelo.Designer.cs">
       <AutoGen>True</AutoGen>

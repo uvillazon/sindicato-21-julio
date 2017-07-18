@@ -137,7 +137,8 @@
                 });
                 break;
             case "btn_ReporteSocioMovilHoja":
-                Funciones.ImprimirReport("ReporteKardexHojaSocio", "FECHA=01-01-2009&ID_SOCIO_MOVIL=" + me.socio.get('ID_SOCIO_MOVIL'));
+                //Funciones.ImprimirReport("ReporteKardexHojaSocio", "FECHA=01-01-2009&ID_SOCIO_MOVIL=" + me.socio.get('ID_SOCIO_MOVIL'));
+                fn.VerImpresion("ReporteKardexHojaSocio", "FECHA=10-01-2016&ID_SOCIO_MOVIL=" + me.socio.get('ID_SOCIO_MOVIL'));
                 break;
             case "btn_ConfigObligacion":
                 var win = Ext.create("App.Config.Abstract.Window", { botones: false, title: 'Configuracion de Obligaciones' });

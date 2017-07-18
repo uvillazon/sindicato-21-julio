@@ -11,7 +11,7 @@ Ext.define("App.Config.Constantes", {
     alternateClassName: ["Constantes", "Lista"],
     singleton: true,
     /* Aqui Defino todas mis contanstantes */
-    HOST: '../',
+    HOST: 'http://localhost:23532/',
 //    HOST : 'http://200.58.79.49/Sistema/',
     //HOST                : 'http://elfpre02/SisMan/',
     REQUERIDO: '<span style="color:red;font-weight:bold" data-qtip="Requerido">*</span>',
@@ -56,6 +56,13 @@ Ext.define("App.Config.Constantes", {
             if (estado == 'NUEVO') return 'OTNueva';
             else if (estado == 'ANULADO') return 'OTAsignada';
             else if (estado == 'APROBADO') return 'SMCon_Ot';
+            else if (estado == 'CERRADO') return 'OTCerrada';
+            //else if (estado == 'CON_OIT') return 'AmarilloFuerte';
+        }
+        else if (tipo == 'PRESTAMOS') {
+            if (estado == 'MORA') return 'OTAsignada';
+            else if (estado == 'CANCELADO') return 'SMCon_Ot';
+            else if (estado == 'CON_PAGOS') return 'SMNueva';
             else if (estado == 'CERRADO') return 'OTCerrada';
             //else if (estado == 'CON_OIT') return 'AmarilloFuerte';
         }

@@ -4,7 +4,7 @@
     busqueda: true,
     imprimir: true,
     excel: true,
-    cargarStore : false,
+    cargarStore: false,
     textBusqueda: 'Buscar Prestamo',
     tamBusqueda: 70,
     title: 'Pagos Registrados',
@@ -18,8 +18,9 @@
         var me = this;
         me.toolbar = Funciones.CrearMenuBar();
         Funciones.CrearMenu('btn_VerDetalle', 'Imprimir', 'report', me.ImprimirReporte, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_Eliminar', 'Eliminar', Constantes.ICONO_BAJA, me.Eliminar, me.toolbar, this, null, true);
         me.fbarmenu = me.toolbar,
-        me.fbarmenuArray = ["btn_VerDetalle"];
+        me.fbarmenuArray = ["btn_VerDetalle", "btn_Eliminar"];
         me.store = Ext.create("App.Store.Prestamos.Pagos");
         me.CargarComponentes();
         me.columns = [
@@ -38,5 +39,9 @@
     ImprimirReporte: function () {
         var me = this;
         fn.VerImpresion("ReportePagoPrestamo", "ID_PAGO=" + me.record.get('ID_PAGO'));
+    },
+    Eliminar: function () {
+        var me = this;
+        Funciones.AjaxRequestGrid("Prestamos", "EliminarPago", me, "Esta seguro de Eliminar el Pago?", { ID_PAGO: me.record.get('ID_PAGO') }, me, null, null);
     }
 });

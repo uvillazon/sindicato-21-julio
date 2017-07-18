@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SD_PERFILESManager.cs" />
+    <Compile Include="SD_PRESTAMOS_MORAManager.cs" />
     <Compile Include="SD_TIPOS_EGRESOSManager.cs" />
     <Compile Include="SD_RETIRO_SOCIO_MOVILManager.cs" />
     <Compile Include="SD_DETALLE_CIERRES_AHORROManager.cs" />

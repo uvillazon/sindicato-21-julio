@@ -31,7 +31,7 @@ namespace Sindicato.Services
                 if (!string.IsNullOrEmpty(filtros.Contiene))
                 {
                     string contiene = filtros.Contiene.Trim().ToUpper();
-                    result = result.Where(x=>x.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE.Contains(contiene));
+                    result = result.Where(SD_REGULARIZACIONES.Contiene(contiene));
                 }
                 paginacion.total = result.Count();
                 result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);

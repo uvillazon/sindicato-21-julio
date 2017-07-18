@@ -29,7 +29,7 @@
         });
         me.toolbarLista = Funciones.CrearMenuBar('left');
         Funciones.CrearMenu('id12', 'Crear', Constantes.ICONO_CREAR, me.CrearListaItem, me.toolbarLista, this);
-        Funciones.CrearMenu('id13', 'Eliminar', Constantes.ICONO_BAJA, me.CargarEventos, me.toolbarLista, this);
+        Funciones.CrearMenu('btn_eliminar', 'Eliminar', Constantes.ICONO_BAJA, me.CargarEventosBoton, me.toolbarLista, this);
         me.grid_listas.addDocked(me.toolbarLista, 1);
 //        me.grid_listaRel = Ext.create("App.View.Listas.Grids", {
 //            height: 250,
@@ -41,7 +41,7 @@
 //        me.grid_listaRel.addDocked(me.toolbarListaRel, 1);
 
         me.form_panel = Ext.create("App.Config.Abstract.FormPanel", {
-            items: [me.grid_listas, me.grid_listaRel]
+            items: [me.grid_listas]
         });
         me.items = [me.grid, me.form_panel];
         //me.grid.on('cellclick', me.CargarDatos, this);
@@ -51,6 +51,21 @@
         var me = this;
         me.grid.on('cellclick', me.CargarLista, this);
         me.grid_listas.on('cellclick', me.CargarListaItems, this);
+       
+
+    },
+    CargarEventosBoton: function (btn) {
+        var me = this;
+        //console.log(me.grid_listas.data);
+        switch (btn.getItemId()) {
+
+            case "btn_eliminar":
+                Funciones.AjaxRequestGrid("Listas", "EliminarListaItems", me, "Esta seguro de Eliminar la lista?", { ID_TABLA: me.recordItemLista.get('ID_TABLA') }, me.grid_listas, null);
+                break;
+            default:
+                Ext.Msg.alert("Aviso", "No Existe el botton");
+                break;
+        }
 
     },
     CargarLista: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
@@ -61,10 +76,11 @@
     },
     CargarListaItems: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         var me = this;
+        me.recordItemLista = record;
         //me.grid_listaRel.getStore().setExtraParam("condicion", me.grid_listas.data.get('LISTA'));
-        me.grid_listaRel.getStore().setExtraParam("ID_PADRE", record.get('ID_TABLA'));
-        me.grid_listaRel.getStore().load();
-        me.grid_listaRel.data = record; 
+        //me.grid_listaRel.getStore().setExtraParam("ID_PADRE", record.get('ID_TABLA'));
+        //me.grid_listaRel.getStore().load();
+        //me.grid_listaRel.data = record; 
     },
     CrearTipoLista: function () {
         var me = this;

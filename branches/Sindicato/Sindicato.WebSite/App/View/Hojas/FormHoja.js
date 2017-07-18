@@ -17,22 +17,48 @@
         //});
 
         me.cbx_socio.on('select', function (cbx, rec) {
-            if (rec[0].get('DEBE_HOJA') > 0) {
-                Ext.Msg.alert("Aviso", "Debe  " + rec[0].get('DEBE_HOJA') + " Hojas de Meses Pasados , Regularizar ");
-            }
-            else {
-                me.txt_socio.setValue(rec[0].get('NOMBRE_SOCIO'));
-                me.txt_nor_movil.setValue(rec[0].get('NRO_MOVIL'));
-                me.txt_id_socio.setValue(rec[0].get('ID_SOCIO_MOVIL'));
-                if (rec[0].get('PRECIO_HOJA') == 0) {
-                    Ext.Msg.alert("Aviso", "No tiene Configurado su Costo de Hoja Por favor Configurar.", function () {
-                        me.num_precio.reset();
-                    });
+            Funciones.AjaxRequest("VentaHojas", "Verificar", me, { ID_SOCIO_MOVIL: rec[0].get('ID_SOCIO_MOVIL') }, function (res) {
+                //console.log(res);
+                if (res.success) {
+                    me.txt_socio.setValue(rec[0].get('NOMBRE_SOCIO'));
+                    me.txt_nor_movil.setValue(rec[0].get('NRO_MOVIL'));
+                    me.txt_id_socio.setValue(rec[0].get('ID_SOCIO_MOVIL'));
+                    if (rec[0].get('PRECIO_HOJA') == 0) {
+                        Ext.Msg.alert("Aviso", "No tiene Configurado su Costo de Hoja Por favor Configurar.", function () {
+                            me.num_precio.reset();
+                        });
+                    }
+                    else {
+                        me.num_precio.setValue(rec[0].get('PRECIO_HOJA'));
+                        //    }
+                    }
                 }
                 else {
-                    me.num_precio.setValue(rec[0].get('PRECIO_HOJA'));
+                    Ext.Msg.alert("Aviso", res.msg, function () {
+                        me.txt_socio.reset();
+                        me.txt_nor_movil.reset();
+                        me.txt_id_socio.reset();
+                        me.num_precio.reset();
+                        cbx.focus();
+                    });
                 }
-            }
+            });
+            //if (rec[0].get('DEBE_HOJA') > 0) {
+            //    Ext.Msg.alert("Aviso", "Debe  " + rec[0].get('DEBE_HOJA') + " Hojas de Meses Pasados , Regularizar ");
+            //}
+            //else {
+            //    me.txt_socio.setValue(rec[0].get('NOMBRE_SOCIO'));
+            //    me.txt_nor_movil.setValue(rec[0].get('NRO_MOVIL'));
+            //    me.txt_id_socio.setValue(rec[0].get('ID_SOCIO_MOVIL'));
+            //    if (rec[0].get('PRECIO_HOJA') == 0) {
+            //        Ext.Msg.alert("Aviso", "No tiene Configurado su Costo de Hoja Por favor Configurar.", function () {
+            //            me.num_precio.reset();
+            //        });
+            //    }
+            //    else {
+            //        me.num_precio.setValue(rec[0].get('PRECIO_HOJA'));
+            //    }
+            //}
 
             //var fecha = me.date_fecha.getValue();
             //me.gridHojas.getStore().removeAll();
@@ -69,7 +95,7 @@
         me.txt_id_parada = Ext.widget('hiddenfield', {
             name: "ID_PARADA",
             hidden: true,
-            value : 1
+            value: 1
             //value: Constantes.Usuario.ID_PARADA
         });
         me.date_fecha = Ext.create("App.Config.Componente.DateFieldBase", {

@@ -56,6 +56,8 @@ namespace Sindicato.Services.Model
         public string OBSERVACION { get; set; }
         public int MOVIL { get; set; }
         public string PLACA { get; set; }
+        public string PRECIO { get; set; }
+        public string OBLIGACIONES { get; set; }
     }
 
     public class ReporteTotal
@@ -134,6 +136,7 @@ namespace Sindicato.Services.Model
         public DateTime FECHA_COMPRA { get; set; }
         public decimal? IMPORTE { get; set; }
         public decimal? IMPORTE_DETALLE { get; set; }
+        public decimal? AHORRO { get; set; }
         public string ESTADO { get; set; }
     }
 
@@ -156,7 +159,7 @@ namespace Sindicato.Services.Model
         public decimal INTERES { get; set; }
         public decimal SEMANAS { get; set; }
         public DateTime? FECHA_LIMITE_PAGO { get; set; }
-        public decimal IMPORTE_INTERES { get; set; }
+        public decimal? IMPORTE_INTERES { get; set; }
         public decimal NRO_SEMANA { get; set; }
         public decimal IMPORTE_A_PAGAR { get; set; }
         public decimal IMPORTE_TOTAL { get; set; }
@@ -167,7 +170,86 @@ namespace Sindicato.Services.Model
         public DateTime FECHA_PAGO { get; set; }
         public int MOVIL { get; set; }
         public string IMPORTE_LITERAL { get; set; }
+        public DateTime FECHA_INI { get; set; }
+        public DateTime FECHA_FIN { get; set; }
+        public int CANTIDAD { get; set; }
+        public int CANTIDAD_CANCELADAS { get; set; }
 
+    }
+
+    public class ReporteDetalleIngresos
+    {
+        public string DETALLE { get; set; }
+        public string SUBDETALLE { get; set; }
+        public string NRO_RECIBO { get; set; }
+        public int? NRO_MOVIL { get; set; }
+        public int CANTIDAD { get; set; }
+        public decimal COSTO_UNITARIO { get; set; }
+        public decimal BOLIVIANOS { get; set; }
+        public decimal DOLARES { get; set; }
+        public DateTime FECHA_INI { get; set; }
+        public DateTime FECHA_FIN { get; set; }
+        public DateTime FECHA { get; set; }
+        public string CAJA { get; set; }
+    }
+
+    public class ReporteHojasDetalle
+    {
+        public string INTERVALO { get; set; }
+         
+        public int? NRO_MOVIL { get; set; }
+        public int? CANT_HOJAS_VEND { get; set; }
+        public int? CANT_HOJAS_ANUL { get; set; }
+        public string PRECIO { get; set; }
+        public decimal? AHORRO { get; set; }
+        public decimal? TOTAL { get; set; }
+
+        public int? NRO_MOVIL1 { get; set; }
+        public int? CANT_HOJAS_VEND1 { get; set; }
+        public int? CANT_HOJAS_ANUL1 { get; set; }
+        public string PRECIO1 { get; set; }
+        public decimal? AHORRO1 { get; set; }
+        public decimal? TOTAL1 { get; set; }
+    }
+
+    public class ReporteDeudoresHojas
+    {
+        
+        public int? NRO_MOVIL { get; set; }
+        public string PRECIO { get; set; }
+        public decimal? AHORRO { get; set; }
+        public decimal? TOTAL { get; set; }
+        public string SOCIO { get; set; }
+        public decimal? HACIENDA { get; set; }
+        public decimal? DEBE { get; set; }
+    }
+
+
+    public class ReporteDetallePrestamos
+    {
+        public int ID_PRESTAMO { get; set; }
+        public DateTime FECHA { get; set; }
+        public int MOVIL { get; set; }
+        public int CANT_PAGOS { get; set; }
+        public decimal? IMPORTE_PRESTAMO { get; set; }
+        public decimal? IMPORTE_TOTAL { get; set; }
+        public decimal? CANDELADO { get; set; }
+        public DateTime? FECHA_LIMITE { get; set; }
+        public string CAJA { get; set; }
+        public DateTime FECHA_INI { get; set; }
+        public DateTime FECHA_FIN { get; set; }
+    }
+
+    public class ReporteDetalleNumeracionHoja {
+        public int INICIO { get; set; }
+        public int FIN { get; set; }
+        public string ANULADAS { get; set; }
+        public string NO_GENERADAS { get; set; }
+    }
+
+    public class ReportePagoPrestamo {
+        
+       
     }
 
 }

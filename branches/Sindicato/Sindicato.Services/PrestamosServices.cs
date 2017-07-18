@@ -195,14 +195,14 @@ namespace Sindicato.Services
             ExecuteManager(uow =>
             {
                 var manager = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
-                result = manager.GuardarPrestamo(prestamo , login);
-              
+                result = manager.GuardarPrestamo(prestamo, login);
+
 
             });
             return result;
         }
-       
-        
+
+
 
         public RespuestaSP EliminarPrestamo(int ID_PRESTAMO)
         {
@@ -224,7 +224,7 @@ namespace Sindicato.Services
             ExecuteManager(uow =>
             {
                 var manager = new SD_PLAN_DE_PAGOManager(uow);
-                result = manager.GenerarPlanDePagos(ID_PRESTAMO,login);
+                result = manager.GenerarPlanDePagos(ID_PRESTAMO, login);
 
 
             });
@@ -246,7 +246,69 @@ namespace Sindicato.Services
 
         public RespuestaSP EliminarPagoPrestamo(int ID_PAGO)
         {
-            throw new NotImplementedException();
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                result = manager.EliminarPagoPrestamo(ID_PAGO, "Anular");
+
+
+            });
+            return result;
+
+
+        }
+
+        public RespuestaSP GuardarMora(SD_PRESTAMOS_MORA mora, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_PRESTAMOS_MORAManager(uow);
+                result = manager.GuardarMora(mora, login);
+
+
+            });
+            return result;
+        }
+
+        public RespuestaSP EliminarMora(int ID_MORA)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_PRESTAMOS_MORAManager(uow);
+                result = manager.EliminarMora(ID_MORA, "Anular");
+
+
+            });
+            return result;
+
+
+        }
+
+        public IEnumerable<SD_PRESTAMOS_MORA> ObtenerMorasPaginados(PagingInfo paginacion, FiltrosModel<IngresosModel> filtros)
+        {
+            IQueryable<SD_PRESTAMOS_MORA> result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_PRESTAMOS_MORAManager(uow);
+
+                result = manager.BuscarTodos();
+                filtros.FiltrarDatos();
+                result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+                if (!string.IsNullOrEmpty(filtros.Contiene))
+                {
+                    var contiene = filtros.Contiene.Trim().ToUpper();
+                    result = result.Where(x => x.LOGIN_USR.Contains(contiene));
+
+                }
+                paginacion.total = result.Count();
+
+                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
+
+            });
+            return result;
         }
     }
 

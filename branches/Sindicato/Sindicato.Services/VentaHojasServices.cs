@@ -220,5 +220,31 @@ namespace Sindicato.Services
             });
             return result;
         }
+
+        public RespuestaSP VerificarVentaHoja(int ID_SOCIO_MOVIL, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_VENTA_HOJASManager(uow);
+                var resp = manager.VerificarVentaHoja(ID_SOCIO_MOVIL, login);
+                int id;
+                bool esNumero = int.TryParse(resp, out id);
+                if (esNumero)
+                {
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                    result.id = id;
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = resp;
+                }
+
+            });
+
+            return result;
+        }
     }
 }

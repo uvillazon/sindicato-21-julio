@@ -16,6 +16,8 @@
         me.toolbar = Funciones.CrearMenuBar();
         //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
         Funciones.CrearMenu('btn_Kardex', 'Kardex Caja', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
+        //Funciones.CrearMenu('btn_VerDetalle', 'Ver Recibo', 'report', me.EventosPrincipal, me.toolbar, this, null, true);
+
         //Funciones.CrearMenu('btn_KardexDestino', 'Kardex Caja Destino', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
         //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
 
@@ -71,6 +73,9 @@
             case "btn_Kardex":
                 me.VentanaKardex(me.record.get('ID_CAJA'));
                 break;
+            case "btn_VerDetalle":
+                me.VentanaRecibo(me.grid.record.get('ID_EGRESO'));
+                break;
             default:
                 Ext.Msg.alert("Aviso", "No Existe el botton");
                 break;
@@ -105,6 +110,10 @@
         win.add(grid);
         win.show();
 
+    },
+    VentanaRecibo: function (id) {
+        fn.VerImpresion("ReporteIngreso", "ID_INGRESO=" + id);
     }
+
 
 });

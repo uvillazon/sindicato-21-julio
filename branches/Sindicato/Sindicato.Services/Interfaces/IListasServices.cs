@@ -16,6 +16,7 @@ namespace Sindicato.Services.Interfaces
         DataPaged<SD_LISTAS_ITEMS> ObtenerListasItem(PagingInfo info ,FiltrosModel<SD_LISTAS> filtros);
         RespuestaSP SP_GrabarLista(SD_LISTAS lista);
         RespuestaSP SP_GrabarListaItem(SD_LISTAS_ITEMS listaItems, string login);
+        RespuestaSP EliminarListaItems(int ID_TABLA, string login);
 
     }
 }

@@ -59,7 +59,7 @@ namespace Sindicato.Business
                 SD_KARDEX_EFECTIVO kardex = new SD_KARDEX_EFECTIVO()
                 {
                     ID_KARDEX = idKardex,
-                    DETALLE = "PRESTAMO A SOCIO COOPERATIVA",
+                    DETALLE = string.Format("PRESTAMO {0} - SOCIO NRO MOVIL : {1}",prestamo.SD_TIPOS_PRESTAMOS.NOMBRE , prestamo.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL),
                     FECHA = (DateTime)prestamo.FECHA,
                     FECHA_REG = DateTime.Now,
                     ID_OPERACION = prestamo.ID_PRESTAMO,

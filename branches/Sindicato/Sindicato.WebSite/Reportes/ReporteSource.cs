@@ -80,12 +80,45 @@ namespace Sindicato.WebSite.Reportes
             result.FECHA_COMPRA = res.FECHA_COMPRA;
             result.MOVIL = res.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL;
             result.NUMERO = res.NRO_HOJA;
+            result.OBLIGACIONES = ObtenerObligacionesDetalle(res.SD_DETALLES_HOJAS_CONTROL);
             result.PLACA = servicio.obtenerPlada(res.ID_SOCIO_MOVIL);
             result.SOCIO = string.Format("{0} {1} {2}", res.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE, res.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO, res.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_MATERNO);
             results.Add(result);
             return results;
         }
 
+        //private string ObtenerObligacionesDetalle(System.Data.Objects.DataClasses.EntityCollection<SD_DETALLES_HOJAS_CONTROL> entityCollection)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public string ObtenerObligacionesDetalle(IEnumerable<SD_DETALLES_HOJAS_CONTROL> detalles)
+        {
+
+            string result = "";
+            foreach (var item in detalles)
+            {
+                if (item.OBLIGACION == "AHORRO")
+                {
+                    result = string.Format("{0} Ahorro {1} Bs./", result, item.IMPORTE);
+                }
+                else if (item.OBLIGACION == "PRODEPORTE")
+                {
+                    result = string.Format("{0} Deporte {1} Bs./", result, item.IMPORTE);
+
+                }
+                else if (item.OBLIGACION == "APORTE CONTROLES")
+                {
+                    result = string.Format("{0} Controles {1} Bs./", result, item.IMPORTE);
+
+                }
+                else if (item.OBLIGACION == "APORTE SINDICATO")
+                {
+                    result = string.Format("{0} Hacienda {1} Bs./", result, item.IMPORTE);
+                }
+            }
+            return result;
+        }
         public IEnumerable<ReporteHoja> ReporteHojasVenta(int ID_VENTA)
         {
 
@@ -106,7 +139,7 @@ namespace Sindicato.WebSite.Reportes
             IEnumerable<ReporteHoja> result = null;
             var servicio = new VentaHojasServices();
             var res = servicio.obtenerImpresion(x => x.ID_IMPRESION == ID_IMPRESION);
-            var hojas = servicio.ObtenerHojasPorCriterio(x => x.ID_HOJA >= res.NRO_INICIO && x.ID_HOJA <= res.NRO_FIN);
+            var hojas = servicio.ObtenerHojasPorCriterio(x => x.ID_HOJA >= res.NRO_INICIO && x.ID_HOJA <= res.NRO_FIN && x.ESTADO == "NUEVO");
             result = hojas.Select(x => new ReporteHoja()
             {
                 ID_HOJA = x.ID_HOJA
@@ -114,20 +147,21 @@ namespace Sindicato.WebSite.Reportes
 
             return result;
         }
-        public List<ReporteTotal> ReporteTotals(DateTime FECHA_INI , DateTime FECHA_FIN) {
+        public List<ReporteTotal> ReporteTotals(DateTime FECHA_INI, DateTime FECHA_FIN)
+        {
 
             List<ReporteTotal> result = new List<ReporteTotal>();
             var servicio = new ReportesServices();
             result = servicio.ObtenerReporteTotal(FECHA_INI, FECHA_FIN).ToList();
             return result;
-        
+
         }
-        public List<ReporteKardexHoja> ReporteKardexSocioHoja(DateTime FECHA, int ID_SOCIO_MOVIL , string login)
+        public List<ReporteKardexHoja> ReporteKardexSocioHoja(DateTime FECHA, int ID_SOCIO_MOVIL, string login)
         {
 
             List<ReporteKardexHoja> result = new List<ReporteKardexHoja>();
             var servicio = new ReportesServices();
-            result = servicio.ObtenerReporteKardexHoja(FECHA, ID_SOCIO_MOVIL,login).ToList();
+            result = servicio.ObtenerReporteKardexHoja(FECHA, ID_SOCIO_MOVIL, login).ToList();
             return result;
 
         }

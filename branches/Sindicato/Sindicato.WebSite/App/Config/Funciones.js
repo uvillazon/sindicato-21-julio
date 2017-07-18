@@ -564,6 +564,60 @@ Ext.define("App.Config.Funciones", {
             }
         });
     },
+    AjaxRequest: function (controlador, accion, mask, param, fn) {
+        mask.el.mask('Procesando...', 'x-mask-loading');
+        Ext.Ajax.request({
+            url: Constantes.HOST + '' + controlador + '/' + accion + '',
+            params: param,
+            success: function (response) {
+                mask.el.unmask();
+                var str = Ext.JSON.decode(response.responseText);
+                if (fn != null) {
+                    fn(str);
+                } else {
+                    if (str.success == true) {
+                        Ext.MessageBox.alert('Exito', str.msg);
+                    }
+                    else {
+                        Ext.MessageBox.alert('Error', str.msg);
+                    }
+                }
+            }
+        });
+    },
+    AjaxRequestSC: function (controlador, accion, mask, param, grid, win, fn) {
+        mask.el.mask('Procesando...', 'x-mask-loading');
+        Ext.Ajax.request({
+            url: Constantes.HOST + '' + controlador + '/' + accion + '',
+            params: param,
+            success: function (response) {
+                mask.el.unmask();
+                var str = Ext.JSON.decode(response.responseText);
+                if (str.success == true) {
+                    if (grid != null && win != null) {
+                        grid.getStore().load();
+                        win.hide();
+                    }
+                    if (grid != null && win == null) {
+                        grid.getStore().load();
+                    }
+                    if (grid == null && win != null) {
+                        win.hide();
+                    }
+                    if (fn != null) {
+
+                        fn(str);
+                    } else {
+                        Ext.MessageBox.alert('Exito', str.msg);
+
+                    }
+                }
+                else {
+                    Ext.MessageBox.alert('Error', str.msg);
+                }
+            }
+        });
+    },
     AjaxRequestGridArray: function (controlador, accion, mask, msg, param, ArrayGrid) {
         var mensaje = (msg == null) ? 'Esta Seguro de Guardar Los cambios?' : msg;
         Ext.MessageBox.confirm('Confirmacion?', mensaje, function (btn) {
@@ -912,9 +966,13 @@ Ext.define("App.Config.Funciones", {
         var result = Constantes.HOST + 'ReportesPDF/' + nameReport + '?' + params + '&tipo=pdf';
         return result;
     },
-    VerImpresion: function (nameReport , params) {
+    obtenerUrlReport: function (nameReport, params) {
+        var result = Constantes.HOST + 'ReportesPDF/' + nameReport + '?' + params ;
+        return result;
+    },
+    VerImpresion: function (nameReport, params) {
 
-        var ruta = fn.ObtenerUrlReportPDF(nameReport, params);
+        var ruta = fn.obtenerUrlReport(nameReport, params);
         var panel = Ext.create("App.View.Reports.ReportsPDF", {
             ruta: ruta,
             pageScale: 1.50,

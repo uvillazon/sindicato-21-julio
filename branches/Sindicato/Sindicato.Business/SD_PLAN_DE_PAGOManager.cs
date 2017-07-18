@@ -61,7 +61,7 @@ namespace Sindicato.Business
                     Add(plan);
 
                 }
-                pres.FECHA_LIMITE_PAGO = fecha.AddDays(3);
+                pres.FECHA_LIMITE_PAGO = fecha;
                 pres.ESTADO = "CON_PLAN_PAGOS";
                 Save();
                 result.success = true;

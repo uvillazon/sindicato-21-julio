@@ -10,6 +10,7 @@ using System.Linq.Dynamic;
 using LinqKit;
 using Sindicato.Business;
 using System.Linq.Expressions;
+using System.Data.Objects;
 
 namespace Sindicato.Services
 {
@@ -42,6 +43,53 @@ namespace Sindicato.Services
                 var manager = new V_TABLAS_COLUMNASManager(uow);
                 result = manager.BuscarTodos(criterio);
 
+            });
+            return result;
+        }
+
+
+        public RespuestaSP SP_GuardarPerfilOpcion(SD_PERFILES_OPCIONES per, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var context = (SindicatoContext)uow.Context;
+                ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
+                context.P_SG_GUARDAR_PERFIL_OPCION(per.ID_PERFIL, per.ID_OPC, 0, p_res);
+                if (p_res.Value.ToString() == "1")
+                {
+                    result.success = true;
+                    result.msg = "Proceso Ejectuado Correctamente";
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = p_res.Value.ToString();
+                }
+
+
+            });
+            return result;
+        }
+
+        public RespuestaSP SP_EliminarPerfilOpcion(SD_PERFILES_OPCIONES per, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var context = (SindicatoContext)uow.Context;
+                ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
+                context.P_SD_ELIMINAR_PERFIL_OPCION(per.ID_PERFIL, per.ID_OPC, 0, p_res);
+                if (p_res.Value.ToString() == "1")
+                {
+                    result.success = true;
+                    result.msg = "Proceso Ejectuado Correctamente";
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = p_res.Value.ToString();
+                }
             });
             return result;
         }

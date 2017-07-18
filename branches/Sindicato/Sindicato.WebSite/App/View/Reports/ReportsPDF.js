@@ -3,7 +3,7 @@
 Ext.define('App.View.Reports.ReportsPDF', {
     alias: "widget.sglm-reports",
     extend: "Ext.ux.panel.PDF",
-    width: 500,
+    width: 850,
     height: 650,
     /**
      * la escala en la que se muestra el reporte
@@ -59,7 +59,8 @@ Ext.define('App.View.Reports.ReportsPDF', {
     afterPrint: {},
     initComponent: function () {
         var me = this;
-        me.src = me.ruta === null ? me.generarUrl('pdf') : me.ruta;
+        //me.src = me.ruta === null ? me.generarUrl('pdf') : me.ruta;
+        me.src = me.generarUrl('pdf');
         me.tbar = me.getBotones();
         me.callParent(arguments);
 
@@ -107,15 +108,15 @@ Ext.define('App.View.Reports.ReportsPDF', {
             scope: this,
             handler: me.onDownload
         });
-        //me.btn_excel2003 = Ext.create("Ext.Button", {
-        //    text: 'XLS03',
-        //    maxWidth: 65,
-        //    hidden: me.onlyPrint,
-        //    iconCls: 'excel-icon',
-        //    scope: this,
-        //    download: 'xls',
-        //    handler: me.onDownload
-        //});
+        me.btn_excel2003 = Ext.create("Ext.Button", {
+            text: 'XLS03',
+            maxWidth: 65,
+            hidden: me.onlyPrint,
+            iconCls: 'page_excel',
+            scope: this,
+            download: 'excel',
+            handler: me.onDownload
+        });
         //me.btn_excel2007 = Ext.create("Ext.Button", {
         //    text: 'XLS07',
         //    maxWidth: 65,
@@ -144,13 +145,14 @@ Ext.define('App.View.Reports.ReportsPDF', {
         //    handler: me.onDownload
         //});
 
-        return [me.btn_print, me.btn_pdf];
+        return [me.btn_print, me.btn_pdf, me.btn_excel2003];
 
         //return [me.btn_print, me.btn_pdf, me.btn_excel2003, me.btn_excel2007, me.btn_word2007, me.btn_rtf];
     },
     onDownload: function (btn) {
         var me = this;
-        window.open(me.ruta);
+        //alert(me.ruta);
+        window.open(me.generarUrl(btn.download));
         window.close();
     },
     cargarWindows: function () {
@@ -169,6 +171,7 @@ Ext.define('App.View.Reports.ReportsPDF', {
     },
     generarUrl: function (tipo) {
         var me = this;
+        return me.ruta + '&tipo=' + tipo;
         //var url = me.appConfig.getEndpoint("reporte").url;
         //var environmentConfig = me.appConfig[me.appConfig.getEnvironment()];
         //var host = environmentConfig.defaults.urlPrefixReporte;
@@ -180,7 +183,7 @@ Ext.define('App.View.Reports.ReportsPDF', {
         //    argumentos = (argumentos === "") ? key + '=' + value : argumentos + '&' + key + '=' + value;
         //});
 
-        return '';
+        //return '';
     },
     onPrint: function () {
         var me = this;
