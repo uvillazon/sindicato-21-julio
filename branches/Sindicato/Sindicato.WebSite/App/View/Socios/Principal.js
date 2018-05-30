@@ -11,15 +11,15 @@
     CargarComponentes: function () {
         var me = this;
 
-        me.toolbar = Funciones.CrearMenuBar();
-        Funciones.CrearMenu('btn_EliminarSocio', 'Eliminar', 'cross', me.EventosPrincipal, me.toolbar, this, null, true);
-        Funciones.CrearMenu('btn_ReporteSocioMovilHoja', 'Reporte Hoja', 'printer', me.EventosPrincipal, me.toolbar, this, null, true);
-        //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
-        //Funciones.CrearMenu('btn_ImprimirReporte', 'Imprimir Reporte', 'printer', me.EventosPrincipal, me.toolbar, this, null, true);
-        //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
-        Funciones.CrearMenu('btn_ConfigHoja', 'Config', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
-        Funciones.CrearMenu('btn_Kardex', 'Kardex Soc.', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
-        //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
+        //me.toolbar = Funciones.CrearMenuBar();
+        //Funciones.CrearMenu('btn_EliminarSocio', 'Eliminar', 'cross', me.EventosPrincipal, me.toolbar, this, null, true);
+        //Funciones.CrearMenu('btn_ReporteSocioMovilHoja', 'Reporte Hoja', 'printer', me.EventosPrincipal, me.toolbar, this, null, true);
+        ////Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
+        ////Funciones.CrearMenu('btn_ImprimirReporte', 'Imprimir Reporte', 'printer', me.EventosPrincipal, me.toolbar, this, null, true);
+        ////Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
+        //Funciones.CrearMenu('btn_ConfigHoja', 'Config', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
+        //Funciones.CrearMenu('btn_Kardex', 'Kardex Soc.', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
+        ////Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
 
 
 
@@ -28,7 +28,7 @@
             width: '50%',
             opcion: 'GridSocios',
             fbarmenu: me.toolbar,
-            fbarmenuArray: ["btn_ConfigObligacion", "btn_ReporteSocioMovilHoja", "btn_Editar", "btn_EditarMovil", , "btn_BajaMovil", "btn_Imagen", "btn_Kardex", "btn_ConfigHoja", "btn_EliminarSocio"]
+            fbarmenuArray: ["btn_ConfigObligacion", "btn_ReporteSocioMovilHoja", "btn_Editar", "btn_EditarMovil", , "btn_BajaMovil", "btn_Imagen", "btn_Kardex", "btn_ConfigHoja", "btn_EliminarSocio", "btn_TransferenciasHojas"]
 
         });
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
@@ -38,6 +38,7 @@
         me.btn_crearMovil = Funciones.CrearMenu('btn_CrearMovil', 'Crear Socio-Movil', Constantes.ICONO_CREAR, me.EventosPrincipal, me.toolbar, this, null, false);
         me.btn_editarMovil = Funciones.CrearMenu('btn_EditarMovil', 'Modificar Movil', Constantes.ICONO_EDITAR, me.EventosPrincipal, me.toolbar, this, null, true);
         me.btn_crearMovil = Funciones.CrearMenu('btn_BajaMovil', 'Baja Movil', Constantes.ICONO_BAJA, me.EventosPrincipal, me.toolbar, this, null, true);
+        me.btn_transferenciasHojas = Funciones.CrearMenu('btn_TransferenciasHojas', 'Transferencias Hojas', 'arrow_refresh_small', me.EventosPrincipal, me.toolbar, this, null, true);
         me.btn_crearImagen = Funciones.CrearMenu('btn_Imagen', 'Imagen', 'image_add', me.EventosPrincipal, me.toolbar, this, null, true);
         //me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_editar, me.btn_crearMovil, me.btn_editarMovil, me.btn_crearImagen]);
         me.grid.addDocked(me.toolbar, 1);
@@ -96,6 +97,7 @@
             me.panelAntecedente.setDisabled(true);
             me.panelDocumentaciones.setDisabled(true);
             me.panelDesempeno.setDisabled(true);
+            
             //me..setActiveTab(me.form);
 
         }

@@ -44,13 +44,13 @@ namespace Sindicato.WebSite.Controllers
                 SOCIO = x.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
                 SEMANAS = x.SEMANAS,
                 INTERES = x.INTERES,
-                SALDO = x.SALDO,
-                MORA =  x.SD_PRESTAMOS_MORA.Sum(y=>y.IMPORTE_MORA),
-                COUTA = x.SD_PLAN_DE_PAGO.Count() > 0 ? x.SD_PLAN_DE_PAGO.FirstOrDefault().IMPORTE_A_PAGAR+ x.SD_PLAN_DE_PAGO.FirstOrDefault().INTERES_A_PAGAR : 0,
-                DEBE = (x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Sum(y=>y.IMPORTE_MORA)) - x.SALDO,
+                SALDO = (x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA)) - x.SD_PAGO_DE_PRESTAMOS.Sum(y => y.IMPORTE),
+                MORA = x.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA),
+                COUTA = x.SD_PLAN_DE_PAGO.Count() > 0 ? x.SD_PLAN_DE_PAGO.FirstOrDefault().IMPORTE_A_PAGAR + x.SD_PLAN_DE_PAGO.FirstOrDefault().INTERES_A_PAGAR : 0,
+                DEBE = (x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA)) - (x.SD_PAGO_DE_PRESTAMOS.Sum(y => y.IMPORTE)),
                 ESTADO = x.ESTADO,
                 IMPORTE_INTERES = x.IMPORTE_INTERES,
-                IMPORTE_TOTAL = x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Sum(y=>y.IMPORTE_MORA),
+                IMPORTE_TOTAL = x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA),
                 TIPO_INTERES = x.SD_TIPOS_PRESTAMOS.TIPO_INTERES,
                 FECHA_LIMITE_PAGO = x.FECHA_LIMITE_PAGO,
                 TOTAL_CANCELADO = x.SD_PAGO_DE_PRESTAMOS.Sum(y => y.IMPORTE)
@@ -68,8 +68,8 @@ namespace Sindicato.WebSite.Controllers
             respuestaSP = _serPre.GuardarPrestamo(pre, login);
             return Json(respuestaSP);
         }
-      
-        
+
+
 
         [HttpPost]
         public JsonResult EliminarPrestamo(int ID_PRESTAMO)
@@ -137,7 +137,7 @@ namespace Sindicato.WebSite.Controllers
         {
             string login = User.Identity.Name.Split('-')[0];
             RespuestaSP respuestaSP = new RespuestaSP();
-            respuestaSP = _serPre.GenerarPlanDePagos(ID_PRESTAMO,login);
+            respuestaSP = _serPre.GenerarPlanDePagos(ID_PRESTAMO, login);
             return Json(respuestaSP);
         }
 

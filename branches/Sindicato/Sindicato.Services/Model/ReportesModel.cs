@@ -72,6 +72,7 @@ namespace Sindicato.Services.Model
         public DateTime FECHA_INI { get; set; }
         public DateTime FECHA_FIN { get; set; }
         public decimal TOTAL_AHORRO { get; set; }
+        public int TOTAL_CANTIDAD { get; set; }
     }
 
     public class ReporteKardexHoja
@@ -196,13 +197,15 @@ namespace Sindicato.Services.Model
     public class ReporteHojasDetalle
     {
         public string INTERVALO { get; set; }
-         
+        public string SOCIO { get; set; } 
+
         public int? NRO_MOVIL { get; set; }
         public int? CANT_HOJAS_VEND { get; set; }
         public int? CANT_HOJAS_ANUL { get; set; }
         public string PRECIO { get; set; }
         public decimal? AHORRO { get; set; }
         public decimal? TOTAL { get; set; }
+        public decimal? SALDO { get; set; }
 
         public int? NRO_MOVIL1 { get; set; }
         public int? CANT_HOJAS_VEND1 { get; set; }
@@ -227,6 +230,7 @@ namespace Sindicato.Services.Model
 
     public class ReporteDetallePrestamos
     {
+        public string INTERVALO { get; set; }
         public int ID_PRESTAMO { get; set; }
         public DateTime FECHA { get; set; }
         public int MOVIL { get; set; }

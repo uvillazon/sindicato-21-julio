@@ -594,6 +594,7 @@
           <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
           <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
           <Property Name="NRO_MOVIL" Type="number" Precision="7" />
+          <Property Name="TOTAL_CANCELADO" Type="number" Precision="15" Scale="5" />
         </EntityType>
         <EntityType Name="SD_DETALLE_PERIODO_SOCIO">
           <Key>
@@ -2350,6 +2351,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="P_ACT_PAGOS_AHORROS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_132">
+          <Parameter Name="P_USR" Type="varchar2" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
         <Function Name="P_EE_SECUENCIA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_132">
           <Parameter Name="P_COD_TABLA" Type="varchar2" Mode="In" />
           <Parameter Name="P_ID_USR" Type="number" Mode="In" />
@@ -3256,11 +3261,6 @@
             <Parameter Name="P_RES" Mode="Out" Type="String" />
           </FunctionImport>
           <EntitySet Name="SD_KARDEX_SOCIO_MOVIL" EntityType="Model.SD_KARDEX_SOCIO_MOVIL" />
-          <EntitySet Name="SD_DETALLE_CIERRES_AHORRO" EntityType="Model.SD_DETALLE_CIERRES_AHORRO" />
-          <AssociationSet Name="SD_DETALLE_CIERRES_AHORRO_R01" Association="Model.SD_DETALLE_CIERRES_AHORRO_R01">
-            <End Role="SD_CIERRES" EntitySet="SD_CIERRES" />
-            <End Role="SD_DETALLE_CIERRES_AHORRO" EntitySet="SD_DETALLE_CIERRES_AHORRO" />
-          </AssociationSet>
           <EntitySet Name="SD_SOCIO_MOVILES" EntityType="Model.SD_SOCIO_MOVILES" />
           <AssociationSet Name="SD_HOJAS_CONTROL_R02" Association="Model.SD_HOJAS_CONTROL_R02">
             <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
@@ -3483,6 +3483,15 @@
             <End Role="SD_TIPOS_EGRESOS" EntitySet="SD_TIPOS_EGRESOS" />
             <End Role="SD_EGRESOS" EntitySet="SD_EGRESOS" />
           </AssociationSet>
+          <EntitySet Name="SD_DETALLE_CIERRES_AHORRO" EntityType="Model.SD_DETALLE_CIERRES_AHORRO" />
+          <AssociationSet Name="SD_DETALLE_CIERRES_AHORRO_R01" Association="Model.SD_DETALLE_CIERRES_AHORRO_R01">
+            <End Role="SD_CIERRES" EntitySet="SD_CIERRES" />
+            <End Role="SD_DETALLE_CIERRES_AHORRO" EntitySet="SD_DETALLE_CIERRES_AHORRO" />
+          </AssociationSet>
+          <FunctionImport Name="P_ACT_PAGOS_AHORROS">
+            <Parameter Name="P_USR" Mode="In" Type="String" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="SD_LISTAS">
           <Key>
@@ -4956,38 +4965,6 @@
           <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <NavigationProperty Name="SD_SOCIO_MOVILES" Relationship="Model.SD_KARDEX_SOCIO_MOVIL_R01" FromRole="SD_KARDEX_SOCIO_MOVIL" ToRole="SD_SOCIO_MOVILES" />
         </EntityType>
-        <EntityType Name="SD_DETALLE_CIERRES_AHORRO">
-          <Key>
-            <PropertyRef Name="ID_DETALLE" />
-          </Key>
-          <Property Type="Int32" Name="ID_DETALLE" Nullable="false" />
-          <Property Type="Int32" Name="ID_CIERRE" Nullable="false" />
-          <Property Type="Int32" Name="ID_SOCIO_MOVIL" Nullable="false" />
-          <Property Type="String" Name="SOCIO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="CANT_HOJAS" Nullable="false" />
-          <Property Type="Int32" Name="CANT_REGULACIONES" Nullable="false" />
-          <Property Type="Decimal" Name="AHORRO_HOJA" Precision="15" Scale="5" />
-          <Property Type="Decimal" Name="AHORRO_REGULACIONES" Precision="15" Scale="5" />
-          <Property Type="Decimal" Name="TOTAL_AHORRO" Precision="15" Scale="5" />
-          <Property Type="String" Name="OBSERVACION" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
-          <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="NRO_MOVIL" />
-          <NavigationProperty Name="SD_CIERRES" Relationship="Model.SD_DETALLE_CIERRES_AHORRO_R01" FromRole="SD_DETALLE_CIERRES_AHORRO" ToRole="SD_CIERRES" />
-        </EntityType>
-        <Association Name="SD_DETALLE_CIERRES_AHORRO_R01">
-          <End Type="Model.SD_CIERRES" Role="SD_CIERRES" Multiplicity="1" />
-          <End Type="Model.SD_DETALLE_CIERRES_AHORRO" Role="SD_DETALLE_CIERRES_AHORRO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_CIERRES">
-              <PropertyRef Name="ID_CIERRE" />
-            </Principal>
-            <Dependent Role="SD_DETALLE_CIERRES_AHORRO">
-              <PropertyRef Name="ID_CIERRE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="SD_SOCIO_MOVILES">
           <Key>
             <PropertyRef Name="ID_SOCIO_MOVIL" />
@@ -5584,6 +5561,39 @@
             </Principal>
             <Dependent Role="SD_EGRESOS">
               <PropertyRef Name="ID_TIPO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SD_DETALLE_CIERRES_AHORRO">
+          <Key>
+            <PropertyRef Name="ID_DETALLE" />
+          </Key>
+          <Property Type="Int32" Name="ID_DETALLE" Nullable="false" />
+          <Property Type="Int32" Name="ID_CIERRE" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO_MOVIL" Nullable="false" />
+          <Property Type="String" Name="SOCIO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="CANT_HOJAS" Nullable="false" />
+          <Property Type="Int32" Name="CANT_REGULACIONES" Nullable="false" />
+          <Property Type="Decimal" Name="AHORRO_HOJA" Precision="15" Scale="5" />
+          <Property Type="Decimal" Name="AHORRO_REGULACIONES" Precision="15" Scale="5" />
+          <Property Type="Decimal" Name="TOTAL_AHORRO" Precision="15" Scale="5" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="NRO_MOVIL" />
+          <Property Type="Decimal" Name="TOTAL_CANCELADO" Precision="15" Scale="5" />
+          <NavigationProperty Name="SD_CIERRES" Relationship="Model.SD_DETALLE_CIERRES_AHORRO_R01" FromRole="SD_DETALLE_CIERRES_AHORRO" ToRole="SD_CIERRES" />
+        </EntityType>
+        <Association Name="SD_DETALLE_CIERRES_AHORRO_R01">
+          <End Type="Model.SD_CIERRES" Role="SD_CIERRES" Multiplicity="1" />
+          <End Type="Model.SD_DETALLE_CIERRES_AHORRO" Role="SD_DETALLE_CIERRES_AHORRO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CIERRES">
+              <PropertyRef Name="ID_CIERRE" />
+            </Principal>
+            <Dependent Role="SD_DETALLE_CIERRES_AHORRO">
+              <PropertyRef Name="ID_CIERRE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6469,26 +6479,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SD_DETALLE_CIERRES_AHORRO">
-            <EntityTypeMapping TypeName="Model.SD_DETALLE_CIERRES_AHORRO">
-              <MappingFragment StoreEntitySet="SD_DETALLE_CIERRES_AHORRO">
-                <ScalarProperty Name="NRO_MOVIL" ColumnName="NRO_MOVIL" />
-                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
-                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
-                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
-                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
-                <ScalarProperty Name="TOTAL_AHORRO" ColumnName="TOTAL_AHORRO" />
-                <ScalarProperty Name="AHORRO_REGULACIONES" ColumnName="AHORRO_REGULACIONES" />
-                <ScalarProperty Name="AHORRO_HOJA" ColumnName="AHORRO_HOJA" />
-                <ScalarProperty Name="CANT_REGULACIONES" ColumnName="CANT_REGULACIONES" />
-                <ScalarProperty Name="CANT_HOJAS" ColumnName="CANT_HOJAS" />
-                <ScalarProperty Name="SOCIO" ColumnName="SOCIO" />
-                <ScalarProperty Name="ID_SOCIO_MOVIL" ColumnName="ID_SOCIO_MOVIL" />
-                <ScalarProperty Name="ID_CIERRE" ColumnName="ID_CIERRE" />
-                <ScalarProperty Name="ID_DETALLE" ColumnName="ID_DETALLE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SD_SOCIO_MOVILES">
             <EntityTypeMapping TypeName="Model.SD_SOCIO_MOVILES">
               <MappingFragment StoreEntitySet="SD_SOCIO_MOVILES">
@@ -6660,6 +6650,28 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SD_DETALLE_CIERRES_AHORRO">
+            <EntityTypeMapping TypeName="Model.SD_DETALLE_CIERRES_AHORRO">
+              <MappingFragment StoreEntitySet="SD_DETALLE_CIERRES_AHORRO">
+                <ScalarProperty Name="TOTAL_CANCELADO" ColumnName="TOTAL_CANCELADO" />
+                <ScalarProperty Name="NRO_MOVIL" ColumnName="NRO_MOVIL" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="TOTAL_AHORRO" ColumnName="TOTAL_AHORRO" />
+                <ScalarProperty Name="AHORRO_REGULACIONES" ColumnName="AHORRO_REGULACIONES" />
+                <ScalarProperty Name="AHORRO_HOJA" ColumnName="AHORRO_HOJA" />
+                <ScalarProperty Name="CANT_REGULACIONES" ColumnName="CANT_REGULACIONES" />
+                <ScalarProperty Name="CANT_HOJAS" ColumnName="CANT_HOJAS" />
+                <ScalarProperty Name="SOCIO" ColumnName="SOCIO" />
+                <ScalarProperty Name="ID_SOCIO_MOVIL" ColumnName="ID_SOCIO_MOVIL" />
+                <ScalarProperty Name="ID_CIERRE" ColumnName="ID_CIERRE" />
+                <ScalarProperty Name="ID_DETALLE" ColumnName="ID_DETALLE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="P_ACT_PAGOS_AHORROS" FunctionName="Model.Store.P_ACT_PAGOS_AHORROS" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -6810,8 +6822,6 @@
         <EntityTypeShape EntityType="Model.SD_TIPOS_PRESTAMOS" Width="1.5" PointX="2.8216280950334056" PointY="27.079506722781577" />
         <AssociationConnector Association="Model.SD_TIPOS_PRESTAMOS_R01" />
         <EntityTypeShape EntityType="Model.SD_KARDEX_SOCIO_MOVIL" Width="1.5" PointX="11.231262646257534" PointY="9.764951933997196" />
-        <EntityTypeShape EntityType="Model.SD_DETALLE_CIERRES_AHORRO" Width="1.5" PointX="10.346723024894821" PointY="28.899645207868723" />
-        <AssociationConnector Association="Model.SD_DETALLE_CIERRES_AHORRO_R01" />
         <EntityTypeShape EntityType="Model.SD_SOCIO_MOVILES" Width="1.5" PointX="3.1721887342502315" PointY="19.514326268580895" />
         <AssociationConnector Association="Model.SD_HOJAS_CONTROL_R02" />
         <AssociationConnector Association="Model.SD_INGRESOS_POR_SOCIOS_R01" />
@@ -6855,6 +6865,8 @@
         <EntityTypeShape EntityType="Model.SD_EGRESOS" Width="1.5" PointX="2.3210872627427275" PointY="6.5391780466489395" />
         <AssociationConnector Association="Model.SD_EGRESOS_R01" />
         <AssociationConnector Association="Model.SD_EGRESOS_R02" />
+        <EntityTypeShape EntityType="Model.SD_DETALLE_CIERRES_AHORRO" Width="1.5" PointX="3.4127243884898366" PointY="2.4523058694099569" />
+        <AssociationConnector Association="Model.SD_DETALLE_CIERRES_AHORRO_R01" />
         </Diagram>
     </Diagrams>
   </Designer>

@@ -254,18 +254,20 @@ namespace Sindicato.Services
                 var regulaciones = managerRegulHojas.BuscarTodos(x => x.FECHA_COMPRA < Fecha_fin && x.FECHA_COMPRA >= FECHA_INI && x.ESTADO != "ANULADO");
                 var Anuladasregulaciones = managerRegulHojas.BuscarTodos(x => x.FECHA_COMPRA < Fecha_fin && x.FECHA_COMPRA >= FECHA_INI && x.ESTADO == "ANULADO");
 
-                var detalleRegulaciones = string.Format("Regulaciones : Cantidad de Hojas Regularizadas : {0} / Cantidad De Anuladas : {1}", regulaciones.Sum(x => x.CANTIDAD), Anuladasregulaciones.Count());
+                var detalleRegulaciones = string.Format("Regulaciones : Cantidad de Hojas Regularizadas : {0} / Cantidad De Recibos Anulados : {1}", regulaciones.Sum(x => x.CANTIDAD), Anuladasregulaciones.Count());
                 foreach (var item in groupDetallesRegulacion)
                 {
                     if (item.IMPORTE > 0)
                     {
+                        var obli = managerObligaciones.BuscarTodos(x => x.OBLIGACION == item.OBLIGACION).FirstOrDefault();
+                      
                         var detalleRep = new ReporteTotal()
                         {
                             DETALLE = detalleRegulaciones,
                             SUBDETALLE = item.OBLIGACION,
-                            CANTIDAD = item.CANTIDAD,
+                            CANTIDAD = (int)regulaciones.Sum(x => x.CANTIDAD),
                             BOLIVIANOS = (decimal)item.IMPORTE,
-                            COSTO_UNITARIO = (decimal)item.COSTO
+                            COSTO_UNITARIO =  obli.IMPORTE_DEFECTO  //item.IMPORTE //(decimal)item.IMPORTE / (decimal)regulaciones.Where(x => x.MONTO > 0).Sum(x => x.CANTIDAD),// (decimal)item.COSTO
                         };
                         result.Add(detalleRep);
                     }
@@ -315,6 +317,7 @@ namespace Sindicato.Services
                     item.FECHA_INI = FECHA_INI;
                     item.FECHA_FIN = FECHA_FIN;
                     item.TOTAL_AHORRO = total;
+                    item.TOTAL_CANTIDAD = hojas.Count() + (int)regulaciones.Sum(x => x.CANTIDAD);
 
                 }
             });
@@ -336,18 +339,35 @@ namespace Sindicato.Services
 
                 int ini_hoja = hojas.Min(x => x.ID_HOJA);
                 int fin_hoja = hojas.Max(x => x.ID_HOJA);
+                int iniFin = 0;
+                for (int ini = ini_hoja; ini <= fin_hoja; ini++)
+                {
+
+                    if (hojas.Where(x => x.ID_HOJA == ini).FirstOrDefault() == null)
+                    {
+                        limbos = limbos == "" ? ini.ToString() : string.Format("{0},{1}", limbos, ini);
+                        iniFin++;
+
+                    }
+
+                }
+                limbos = limbos + " //// TOTAL : " + iniFin;
+                int anu = 0;
                 foreach (var item in hojas)
                 {
                     if (item.ESTADO == "ANULADO")
                     {
                         anuladas = anuladas == "" ? item.ID_HOJA.ToString() : string.Format("{0},{1}", anuladas, item.ID_HOJA.ToString());
+                        anu++;
                     }
-                    if (item.ID_HOJA != inicio)
-                    {
-                        limbos = limbos == "" ? inicio.ToString() : string.Format("{0},{1}", limbos, inicio.ToString());
-                    }
-                    inicio++;
+                    //if (item.ID_HOJA != inicio)
+                    //{
+                    //    limbos = limbos == "" ? inicio.ToString() : string.Format("{0},{1}", limbos, inicio.ToString());
+                    //}
+                    //inicio++;
                 }
+                anuladas = anuladas + " ///// TOTAL : " + anu;
+
                 result.Add(new ReporteDetalleNumeracionHoja()
                 {
                     INICIO = ini_hoja,
@@ -377,64 +397,93 @@ namespace Sindicato.Services
                 ReporteTotal rep1 = new ReporteTotal();
                 var hojas = managerHojas.BuscarTodos(x => x.FECHA_COMPRA >= FECHA_INI && x.FECHA_COMPRA < Fecha_fin && x.ESTADO != "ANULADO").OrderBy(x => x.ID_HOJA);
                 var detallesHojas = managerDetallesHojas.BuscarTodos(x => x.SD_HOJAS_CONTROL.FECHA_COMPRA < Fecha_fin && x.SD_HOJAS_CONTROL.FECHA_COMPRA >= FECHA_INI && x.SD_HOJAS_CONTROL.ESTADO != "ANULADO");
-                var groupDetalles = detallesHojas.Where(c => c.IMPORTE > 0).GroupBy(x => x.OBLIGACION).Select(y => new { OBLIGACION = y.Key, CANTIDAD = y.Count(), IMPORTE = y.Sum(z => z.IMPORTE), COSTO = y.Min(z => z.IMPORTE) });
+                //var groupDetalles = detallesHojas.Where(c => c.IMPORTE > 0).GroupBy(x => x.OBLIGACION).Select(y => new { OBLIGACION = y.Key, CANTIDAD = y.Count(), IMPORTE = y.Sum(z => z.IMPORTE), COSTO = y.Min(z => z.IMPORTE) });
+
+                var grupoDetalles = detallesHojas.GroupBy(x => new { OBLIGACION = x.OBLIGACION, PRECIO_UNITARIO = x.IMPORTE }).Select(y => new { OBLIGACION = y.Key.OBLIGACION, CANTIDAD = y.Count(), COSTO = y.Key.PRECIO_UNITARIO, IMPORTE = y.Sum(z => z.IMPORTE) });
+
                 decimal totalHojasInstitucion = 0;
                 decimal totalHojasAhorro = 0;
                 int cantidadAhorro = 0;
-                foreach (var item in groupDetalles)
+                foreach (var item in grupoDetalles)
                 {
                     ReporteTotal rep = new ReporteTotal();
-                    if (item.OBLIGACION == "AHORRO")
-                    {
-                        rep.NRO_RECIBO = item.OBLIGACION;
-                        rep.DETALLE = "AHORROS";
-                        rep.SUBDETALLE = "VENTA DE HOJAS";
-                        rep.CANTIDAD = item.CANTIDAD;
-                        rep.TOTAL_AHORRO = (decimal)item.IMPORTE;
-                        //cantidadAhorro = cantidadAhorro + item.CANTIDAD;
-                        //totalHojasAhorro = totalHojasAhorro + (decimal)item.IMPORTE;
-                    }
-                    else
-                    {
-                        rep.NRO_RECIBO = item.OBLIGACION;
-                        rep.DETALLE = "APORTE SINDICATO";
-                        rep.SUBDETALLE = "VENTA DE HOJAS";
-                        rep.CANTIDAD = item.CANTIDAD;
-                        rep.TOTAL_AHORRO = (decimal)item.IMPORTE;
-                        //totalHojasInstitucion = totalHojasInstitucion + (decimal)item.IMPORTE;
-                    }
+                    //if (item.OBLIGACION == "AHORRO")
+                    //{
+                    //rep.NRO_RECIBO = item.OBLIGACION == "AHORRO" ? "AHOROS" : "APORTE SINDICATO";
+                    //rep.DETALLE = item.OBLIGACION;//== "AHORRO" ? "AHOROS" : "APORTE SINDICATO";
+                    rep.NRO_RECIBO = item.OBLIGACION;
+                    //rep.NRO_RECIBO = "VENTAS DE HOJAS";
+                    rep.SUBDETALLE = "VENTA DE HOJAS";
+                    rep.DETALLE = item.OBLIGACION == "AHORRO" ? "AHOROS" : "APORTE SINDICATO";
+                    //rep.DETALLE = "VENTAS DE HOJAS";
+                    //rep.SUBDETALLE = item.OBLIGACION;
+                    rep.CANTIDAD = item.CANTIDAD;
+                    rep.COSTO_UNITARIO = (decimal)item.COSTO;
+                    rep.TOTAL_AHORRO = (decimal)item.IMPORTE;
+                    cantidadAhorro = cantidadAhorro + item.CANTIDAD;
+                    totalHojasAhorro = totalHojasAhorro + (decimal)item.IMPORTE;
+                    //}
+                    //else
+                    //{
+                    //    rep.NRO_RECIBO = item.OBLIGACION;
+                    //    rep.DETALLE = "APORTE SINDICATO";
+                    //    rep.SUBDETALLE = "VENTA DE HOJAS";
+                    //    rep.CANTIDAD = item.CANTIDAD;
+                    //    rep.TOTAL_AHORRO = (decimal)item.IMPORTE;
+                    //    totalHojasInstitucion = totalHojasInstitucion + (decimal)item.IMPORTE;
+                    //}
                     result.Add(rep);
                 }
 
                 var regulaciones = managerRegulHojas.BuscarTodos(x => x.FECHA_COMPRA < Fecha_fin && x.FECHA_COMPRA >= FECHA_INI && x.ESTADO != "ANULADO");
                 var detallesRegulaciones = managerRegulaciones.BuscarTodos(x => x.SD_REGULARIZACIONES.FECHA_COMPRA < Fecha_fin && x.SD_REGULARIZACIONES.FECHA_COMPRA >= FECHA_INI && x.SD_REGULARIZACIONES.ESTADO != "ANULADO");
-                var groupDetallesRegulacion = detallesRegulaciones.GroupBy(x => x.OBLIGACION).Select(y => new { OBLIGACION = y.Key, CANTIDAD = y.Count(), IMPORTE = y.Sum(z => z.IMPORTE), COSTO = y.Min(z => z.IMPORTE) });
-
+                //var groupDetallesRegulacion = detallesRegulaciones.GroupBy(x => x.OBLIGACION).Select(y => new { OBLIGACION = y.Key, CANTIDAD = y.Count(), IMPORTE = y.Sum(z => z.IMPORTE), COSTO = y.Min(z => z.IMPORTE) });
+                var groupDetallesRegulacion = detallesRegulaciones.GroupBy(x => new { OBLIGACION = x.OBLIGACION, COSTO = x.IMPORTE / x.SD_REGULARIZACIONES.CANTIDAD }).Select(y => new { OBLIGACION = y.Key.OBLIGACION, CANTIDAD = y.Sum(z => z.SD_REGULARIZACIONES.CANTIDAD), IMPORTE = y.Sum(z => z.IMPORTE), COSTO = y.Key.COSTO });
                 decimal totalRegulInstitucion = 0;
                 decimal totalRegulAhorro = 0;
 
                 foreach (var item in groupDetallesRegulacion)
                 {
                     ReporteTotal rep = new ReporteTotal();
-                    if (item.OBLIGACION == "AHORRO")
-                    {
-                        rep.NRO_RECIBO = item.OBLIGACION;
-                        rep.DETALLE = "AHORROS";
-                        rep.SUBDETALLE = "REGULARIZACION DE HOJAS";
-                        rep.CANTIDAD = (int)regulaciones.Sum(x => x.CANTIDAD);
-                        rep.TOTAL_AHORRO = (decimal)item.IMPORTE;
+                    //if (item.OBLIGACION == "AHORRO")
+                    //{
+                    //rep.NRO_RECIBO = item.OBLIGACION == "AHORRO" ? "AHOROS" : "APORTE SINDICATO";
 
-                        //totalRegulAhorro = totalRegulAhorro + (decimal)item.IMPORTE;
-                    }
-                    else
-                    {
-                        rep.NRO_RECIBO = item.OBLIGACION;
-                        rep.DETALLE = "APORTE SINDICATO";
-                        rep.SUBDETALLE = "REGULARIZACION DE HOJAS";
-                        rep.CANTIDAD =(int)regulaciones.Sum(x => x.CANTIDAD);
-                        rep.TOTAL_AHORRO = (decimal)item.IMPORTE;
-                        //totalRegulInstitucion = totalRegulInstitucion + (decimal)item.IMPORTE;
-                    }
+                    //rep.NRO_RECIBO = "REGULARIZACIONES";
+                    //rep.NRO_RECIBO = item.OBLIGACION == "AHORRO" ? "AHOROS" : "APORTE SINDICATO";
+                    rep.DETALLE = item.OBLIGACION == "AHORRO" ? "AHOROS" : "APORTE SINDICATO";
+
+                    rep.NRO_RECIBO = item.OBLIGACION;
+                    //rep.NRO_RECIBO = "VENTAS DE HOJAS";
+                    rep.SUBDETALLE = "REGULARIZACIONES";
+
+                    //rep.DETALLE = "REGULARIZACIONES";
+                    //rep.SUBDETALLE = item.OBLIGACION;
+                    rep.CANTIDAD = (int)item.CANTIDAD;
+                    rep.COSTO_UNITARIO = (decimal)item.COSTO;
+                    rep.TOTAL_AHORRO = (decimal)item.IMPORTE;
+                    //cantidadAhorro = cantidadAhorro + item.CANTIDAD;
+                    totalHojasAhorro = totalHojasAhorro + (decimal)item.IMPORTE;
+                    //ReporteTotal rep = new ReporteTotal();
+                    //if (item.OBLIGACION == "AHORRO")
+                    //{
+                    //    rep.NRO_RECIBO = item.OBLIGACION;
+                    //    rep.DETALLE = "AHORROS";
+                    //    rep.SUBDETALLE = "REGULARIZACION DE HOJAS";
+                    //    rep.CANTIDAD = item.CANTIDAD;
+                    //    rep.TOTAL_AHORRO = (decimal)item.IMPORTE;
+
+                    //    totalRegulAhorro = totalRegulAhorro + (decimal)item.IMPORTE;
+                    //}
+                    //else
+                    //{
+                    //    rep.NRO_RECIBO = item.OBLIGACION;
+                    //    rep.DETALLE = "APORTE SINDICATO";
+                    //    rep.SUBDETALLE = "REGULARIZACION DE HOJAS";
+                    //    rep.CANTIDAD = item.CANTIDAD;
+                    //    rep.TOTAL_AHORRO = (decimal)item.IMPORTE;
+                    //    totalRegulInstitucion = totalRegulInstitucion + (decimal)item.IMPORTE;
+                    //}
                     result.Add(rep);
                 }
                 //result.Add(new ReporteTotal()
@@ -707,6 +756,7 @@ namespace Sindicato.Services
                 DateTime Fecha_fin = FECHA_FIN.AddDays(1);
                 var managerIngresos = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
                 var ingresosSocios = managerIngresos.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin);
+                string Intervalo = string.Format("{0} - {1}", FECHA_INI.ToString("dd/MM/yyyy"), FECHA_FIN.ToString("dd/MM/yyyy"));
                 foreach (var item in ingresosSocios)
                 {
                     var detalleRep = new ReporteDetallePrestamos()
@@ -721,7 +771,8 @@ namespace Sindicato.Services
                         IMPORTE_PRESTAMO = item.IMPORTE_PRESTAMO,
                         IMPORTE_TOTAL = item.IMPORTE_PRESTAMO + item.IMPORTE_INTERES + item.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA),
                         CANDELADO = item.SD_PAGO_DE_PRESTAMOS.Sum(y => y.IMPORTE),
-                        CANT_PAGOS = item.SD_PAGO_DE_PRESTAMOS.Count()
+                        CANT_PAGOS = item.SD_PAGO_DE_PRESTAMOS.Count(),
+                        INTERVALO = Intervalo
                     };
                     result.Add(detalleRep);
                 }
@@ -1130,6 +1181,60 @@ namespace Sindicato.Services
                     i++;
                 }
             }
+            return result;
+        }
+
+        public IEnumerable<CierreAhorroSocioMovilModel> ReporteAhorrosCobros(DateTime FECHA_INI, DateTime FECHA_FIN)
+        {
+            List<CierreAhorroSocioMovilModel> result = new List<CierreAhorroSocioMovilModel>();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_DETALLE_CIERRES_AHORROManager(uow);
+                var managerSocio = new SD_SOCIO_MOVILESManager(uow);
+                manager.generarPagosAhorros("admin");
+
+                DateTime Fecha_fin = FECHA_FIN.AddDays(1);
+                string Intervalo = string.Format("{0} - {1}", FECHA_INI.ToString("dd/MM/yyyy"), FECHA_FIN.ToString("dd/MM/yyyy"));
+
+
+                var socios = manager.BuscarTodos(x => x.SD_CIERRES.FECHA_INI >= FECHA_INI && x.SD_CIERRES.FECHA_FIN < Fecha_fin).GroupBy(y => y.ID_SOCIO_MOVIL)
+                    .Select(z =>
+                        new
+                        {
+                            ID_SOCIO_MOVIL = z.Key,
+                            TOTAL_CANT_HOJAS = z.Sum(xy => xy.CANT_HOJAS),
+                            TOTAL_CANT_REGULACIONES = z.Sum(xy => xy.CANT_REGULACIONES),
+                            TOTAL_AHORRO_HOJAS = z.Sum(xy => xy.AHORRO_HOJA),
+                            TOTAL_AHORRO_REGULACIONES = z.Sum(xy => xy.AHORRO_REGULACIONES),
+                            TOTAL_AHORRO = z.Sum(xy => xy.TOTAL_AHORRO),
+                            TOTAL_CANCELADO = z.Sum(xy => xy.TOTAL_CANCELADO)
+                        });
+                foreach (var item in socios)
+                {
+                    var socio = managerSocio.BuscarTodos(x => x.ID_SOCIO_MOVIL == item.ID_SOCIO_MOVIL).FirstOrDefault();
+                    if (socios != null)
+                    {
+
+
+
+                        CierreAhorroSocioMovilModel reporte = new CierreAhorroSocioMovilModel();
+                        reporte.SOCIO = socio == null ? "S/N" : socio.ObtenerNombreSocio();
+                        reporte.NRO_MOVIL = socio == null ? 0 : socio.SD_MOVILES.NRO_MOVIL;
+                        reporte.CANT_HOJAS = item.TOTAL_CANT_HOJAS;
+                        reporte.CANT_REGULACIONES = item.TOTAL_CANT_REGULACIONES;
+                        reporte.AHORRO_HOJA = item.TOTAL_AHORRO_HOJAS;
+                        reporte.AHORRO_REGULACIONES = item.TOTAL_AHORRO_REGULACIONES;
+                        reporte.INTERVALO = Intervalo;
+                        reporte.TOTAL_AHORRO = item.TOTAL_AHORRO;
+                        reporte.TOTAL_CANCELADO = item.TOTAL_CANCELADO;
+                        result.Add(reporte);
+                    }
+
+                }
+
+
+            });
+
             return result;
         }
 

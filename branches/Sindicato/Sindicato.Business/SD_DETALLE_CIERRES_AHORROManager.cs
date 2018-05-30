@@ -18,6 +18,23 @@ namespace Sindicato.Business
         public SD_DETALLE_CIERRES_AHORROManager(IUnitOfWork uow) : base(uow) { }
 
         //test
-        
+
+        public string generarPagosAhorros(string login)
+        {
+            try
+            {
+                var context = (SindicatoContext)Context;
+
+                ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+                context.P_ACT_PAGOS_AHORROS(login, p_RES);
+
+                return p_RES.Value.ToString();
+
+            }
+            catch (Exception e)
+            {
+                return e.ToString();
+            }
+        }
     }
 }

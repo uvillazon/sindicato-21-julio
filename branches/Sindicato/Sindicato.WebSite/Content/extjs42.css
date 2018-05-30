@@ -582,6 +582,19 @@
     background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #9BC7F4), color-stop(1, #C1D2E6) );
     background: -moz-linear-gradient( center top, #C1D2E6 5%, #9BC7F4 100% );
 }
+
+.botonesBtnGray .x-btn-inner
+{
+    font-size: 18px !important;
+    font-weight: bold !important;
+    font-style: normal;
+    text-decoration: none;
+    text-align: center;
+    text-shadow: 1px 0px 0px #7cacde;
+    background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #9BC7F4), color-stop(1, #C1D2E6) );
+    background: -moz-linear-gradient( center top, #E0E0E0 5%, #EDEDED 100% );
+}
+
 .x-btn-icon .x-btn-button48 .x-btn-text
 {
     height: 48px;

@@ -6,50 +6,62 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>4.14042cm</Width>
+              <Width>1.37021cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.05562cm</Width>
+              <Width>6.51861cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>1.34848cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.92333cm</Width>
+              <Width>1.34938cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.68875cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.60042cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.83854cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.74625cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.65104cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>0.52062cm</Height>
+              <Height>0.85837cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox3">
+                    <Textbox Name="Textbox6">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>ORIGEN</Value>
+                              <Value>NRO MOVIL</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontSize>9pt</FontSize>
                                 <FontWeight>Heavy</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
+                          <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox3</rd:DefaultName>
+                      <rd:DefaultName>Textbox6</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
                         </Border>
                         <BackgroundColor>LightGrey</BackgroundColor>
-                        <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>1pt</PaddingLeft>
                         <PaddingRight>1pt</PaddingRight>
                         <PaddingTop>1pt</PaddingTop>
@@ -60,32 +72,29 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox5">
+                    <Textbox Name="Textbox10">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>CANTIDAD</Value>
+                              <Value>SOCIO</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontSize>9pt</FontSize>
                                 <FontWeight>Heavy</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
+                          <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox5</rd:DefaultName>
+                      <rd:DefaultName>Textbox10</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
                         </Border>
                         <BackgroundColor>LightGrey</BackgroundColor>
-                        <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>1pt</PaddingLeft>
                         <PaddingRight>1pt</PaddingRight>
                         <PaddingTop>1pt</PaddingTop>
@@ -96,32 +105,29 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox33">
+                    <Textbox Name="Textbox12">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>COSTO UNITARIO</Value>
+                              <Value>CANT. HOJAS</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontSize>9pt</FontSize>
                                 <FontWeight>Heavy</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
+                          <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox33</rd:DefaultName>
+                      <rd:DefaultName>Textbox12</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
                         </Border>
                         <BackgroundColor>LightGrey</BackgroundColor>
-                        <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>1pt</PaddingLeft>
                         <PaddingRight>1pt</PaddingRight>
                         <PaddingTop>1pt</PaddingTop>
@@ -132,32 +138,194 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox7">
+                    <Textbox Name="Textbox15">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>TOTAL (Bs)</Value>
+                              <Value>CANT REGUL.</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontSize>9pt</FontSize>
                                 <FontWeight>Heavy</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
+                          <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox7</rd:DefaultName>
+                      <rd:DefaultName>Textbox15</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
                         </Border>
                         <BackgroundColor>LightGrey</BackgroundColor>
-                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingLeft>1pt</PaddingLeft>
+                        <PaddingRight>1pt</PaddingRight>
+                        <PaddingTop>1pt</PaddingTop>
+                        <PaddingBottom>1pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox14">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>AHORRO HOJAS</Value>
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                                <FontWeight>Heavy</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox14</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <BackgroundColor>LightGrey</BackgroundColor>
+                        <PaddingLeft>1pt</PaddingLeft>
+                        <PaddingRight>1pt</PaddingRight>
+                        <PaddingTop>1pt</PaddingTop>
+                        <PaddingBottom>1pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox19">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>AHORRO REGUL.</Value>
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                                <FontWeight>Heavy</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox19</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <BackgroundColor>LightGrey</BackgroundColor>
+                        <PaddingLeft>1pt</PaddingLeft>
+                        <PaddingRight>1pt</PaddingRight>
+                        <PaddingTop>1pt</PaddingTop>
+                        <PaddingBottom>1pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox21">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>TOTAL AHORRO</Value>
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                                <FontWeight>Heavy</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox21</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <BackgroundColor>LightGrey</BackgroundColor>
+                        <PaddingLeft>1pt</PaddingLeft>
+                        <PaddingRight>1pt</PaddingRight>
+                        <PaddingTop>1pt</PaddingTop>
+                        <PaddingBottom>1pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox16">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>RETIRO</Value>
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                                <FontWeight>Heavy</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox16</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <BackgroundColor>LightGrey</BackgroundColor>
+                        <PaddingLeft>1pt</PaddingLeft>
+                        <PaddingRight>1pt</PaddingRight>
+                        <PaddingTop>1pt</PaddingTop>
+                        <PaddingBottom>1pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox18">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>SALDO</Value>
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                                <FontWeight>Heavy</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox18</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <BackgroundColor>LightGrey</BackgroundColor>
                         <PaddingLeft>1pt</PaddingLeft>
                         <PaddingRight>1pt</PaddingRight>
                         <PaddingTop>1pt</PaddingTop>
@@ -169,34 +337,33 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.52062cm</Height>
+              <Height>0.46771cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="SUBDETALLE">
+                    <Textbox Name="NRO_MOVIL">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!SUBDETALLE.Value</Value>
+                              <Value>=Fields!NRO_MOVIL.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
-                            <TextAlign>Left</TextAlign>
+                            <TextAlign>Center</TextAlign>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>SUBDETALLE</rd:DefaultName>
+                      <rd:DefaultName>NRO_MOVIL</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
                         </Border>
-                        <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>1pt</PaddingLeft>
                         <PaddingRight>1pt</PaddingRight>
                         <PaddingTop>1pt</PaddingTop>
@@ -207,30 +374,27 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="CANTIDAD">
+                    <Textbox Name="SOCIO">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!CANTIDAD.Value</Value>
+                              <Value>=Fields!SOCIO.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
+                          <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>CANTIDAD</rd:DefaultName>
+                      <rd:DefaultName>SOCIO</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
                         </Border>
-                        <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>1pt</PaddingLeft>
                         <PaddingRight>1pt</PaddingRight>
                         <PaddingTop>1pt</PaddingTop>
@@ -241,30 +405,130 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="COSTO_UNITARIO">
+                    <Textbox Name="CANT_HOJAS">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!COSTO_UNITARIO.Value</Value>
+                              <Value>=Fields!CANT_HOJAS.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
-                            <TextAlign>Center</TextAlign>
+                            <TextAlign>Right</TextAlign>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>COSTO_UNITARIO</rd:DefaultName>
+                      <rd:DefaultName>CANT_HOJAS</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
                         </Border>
-                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingLeft>1pt</PaddingLeft>
+                        <PaddingRight>1pt</PaddingRight>
+                        <PaddingTop>1pt</PaddingTop>
+                        <PaddingBottom>1pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="CANT_REGULACIONES">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!CANT_REGULACIONES.Value</Value>
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>CANT_REGULACIONES</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>1pt</PaddingLeft>
+                        <PaddingRight>1pt</PaddingRight>
+                        <PaddingTop>1pt</PaddingTop>
+                        <PaddingBottom>1pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="AHORRO_HOJA">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!AHORRO_HOJA.Value</Value>
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                                <Format>0.00;(0.00)</Format>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>AHORRO_HOJA</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>1pt</PaddingLeft>
+                        <PaddingRight>1pt</PaddingRight>
+                        <PaddingTop>1pt</PaddingTop>
+                        <PaddingBottom>1pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="AHORRO_REGULACIONES">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!AHORRO_REGULACIONES.Value</Value>
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                                <Format>0.00;(0.00)</Format>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>AHORRO_REGULACIONES</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
                         <PaddingLeft>1pt</PaddingLeft>
                         <PaddingRight>1pt</PaddingRight>
                         <PaddingTop>1pt</PaddingTop>
@@ -284,13 +548,15 @@
                             <TextRun>
                               <Value>=Fields!TOTAL_AHORRO.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontStyle>Italic</FontStyle>
+                                <FontSize>9pt</FontSize>
+                                <FontWeight>Heavy</FontWeight>
                                 <Format>0.00;(0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
-                            <TextAlign>Left</TextAlign>
+                            <TextAlign>Right</TextAlign>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
@@ -299,48 +565,6 @@
                         <Border>
                           <Style>Solid</Style>
                         </Border>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <PaddingLeft>1pt</PaddingLeft>
-                        <PaddingRight>1pt</PaddingRight>
-                        <PaddingTop>1pt</PaddingTop>
-                        <PaddingBottom>1pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-              </TablixCells>
-            </TablixRow>
-            <TablixRow>
-              <Height>0.6cm</Height>
-              <TablixCells>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox14">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>TOTAL</Value>
-                              <Style>
-                                <FontStyle>Italic</FontStyle>
-                                <FontSize>8pt</FontSize>
-                                <FontWeight>ExtraBold</FontWeight>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Left</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox13</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Style>Solid</Style>
-                        </Border>
-                        <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>1pt</PaddingLeft>
                         <PaddingRight>1pt</PaddingRight>
                         <PaddingTop>1pt</PaddingTop>
@@ -351,83 +575,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="CANTIDAD1">
+                    <Textbox Name="TOTAL_CANCELADO">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!CANTIDAD.Value)</Value>
-                              <Style>
-                                <FontSize>8pt</FontSize>
-                                <FontWeight>Heavy</FontWeight>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>CANTIDAD1</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Style>Solid</Style>
-                        </Border>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <PaddingLeft>1pt</PaddingLeft>
-                        <PaddingRight>1pt</PaddingRight>
-                        <PaddingTop>1pt</PaddingTop>
-                        <PaddingBottom>1pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox52">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value />
-                              <Style>
-                                <FontSize>8pt</FontSize>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox52</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Style>Solid</Style>
-                        </Border>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <PaddingLeft>1pt</PaddingLeft>
-                        <PaddingRight>1pt</PaddingRight>
-                        <PaddingTop>1pt</PaddingTop>
-                        <PaddingBottom>1pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="TOTAL_AHORRO3">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Sum(Fields!TOTAL_AHORRO.Value)</Value>
+                              <Value>=Fields!TOTAL_CANCELADO.Value</Value>
                               <Style>
                                 <FontStyle>Italic</FontStyle>
                                 <FontSize>9pt</FontSize>
@@ -441,12 +596,47 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>TOTAL_AHORRO3</rd:DefaultName>
+                      <rd:DefaultName>TOTAL_CANCELADO</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
                         </Border>
-                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingLeft>1pt</PaddingLeft>
+                        <PaddingRight>1pt</PaddingRight>
+                        <PaddingTop>1pt</PaddingTop>
+                        <PaddingBottom>1pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="AHORRO1">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!TOTAL_AHORRO.Value - Fields!TOTAL_CANCELADO.Value</Value>
+                              <Style>
+                                <FontStyle>Italic</FontStyle>
+                                <FontSize>9pt</FontSize>
+                                <FontWeight>Heavy</FontWeight>
+                                <Format>0.00;(0.00)</Format>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>AHORRO1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
                         <PaddingLeft>1pt</PaddingLeft>
                         <PaddingRight>1pt</PaddingRight>
                         <PaddingTop>1pt</PaddingTop>
@@ -462,27 +652,26 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox13">
+                    <Textbox Name="Textbox41">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value />
+                              <Value>TOTALES</Value>
                               <Style>
                                 <FontStyle>Italic</FontStyle>
-                                <FontSize>8pt</FontSize>
-                                <FontWeight>ExtraBold</FontWeight>
+                                <FontWeight>Heavy</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
-                            <TextAlign>Left</TextAlign>
+                            <TextAlign>Right</TextAlign>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox13</rd:DefaultName>
+                      <rd:DefaultName>Textbox41</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -494,31 +683,32 @@
                         <PaddingBottom>1pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <ColSpan>2</ColSpan>
                   </CellContents>
                 </TablixCell>
+                <TablixCell />
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox1">
+                    <Textbox Name="NRO_MOVIL2">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value />
+                              <Value>=Sum(Fields!CANT_HOJAS.Value)+Sum(Fields!CANT_REGULACIONES.Value)</Value>
                               <Style>
                                 <FontStyle>Italic</FontStyle>
-                                <FontSize>8pt</FontSize>
                                 <FontWeight>ExtraBold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
-                            <TextAlign>Center</TextAlign>
+                            <TextAlign>Right</TextAlign>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox1</rd:DefaultName>
+                      <rd:DefaultName>NRO_MOVIL2</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -530,31 +720,33 @@
                         <PaddingBottom>1pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <ColSpan>2</ColSpan>
                   </CellContents>
                 </TablixCell>
+                <TablixCell />
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox35">
+                    <Textbox Name="NRO_MOVIL1">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value />
+                              <Value>=Sum(Fields!AHORRO_HOJA.Value) + Sum(Fields!AHORRO_REGULACIONES.Value)</Value>
                               <Style>
                                 <FontStyle>Italic</FontStyle>
-                                <FontSize>8pt</FontSize>
                                 <FontWeight>ExtraBold</FontWeight>
+                                <Format>0.00;(0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
-                            <TextAlign>Center</TextAlign>
+                            <TextAlign>Right</TextAlign>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox35</rd:DefaultName>
+                      <rd:DefaultName>NRO_MOVIL1</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -566,8 +758,11 @@
                         <PaddingBottom>1pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <ColSpan>2</ColSpan>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
+                <TablixCell />
                 <TablixCell>
                   <CellContents>
                     <Textbox Name="TOTAL_AHORRO1">
@@ -580,8 +775,7 @@
                               <Value>=Sum(Fields!TOTAL_AHORRO.Value)</Value>
                               <Style>
                                 <FontStyle>Italic</FontStyle>
-                                <FontSize>9pt</FontSize>
-                                <FontWeight>Heavy</FontWeight>
+                                <FontWeight>ExtraBold</FontWeight>
                                 <Format>0.00;(0.00)</Format>
                               </Style>
                             </TextRun>
@@ -603,135 +797,23 @@
                         <PaddingBottom>1pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
-              </TablixCells>
-            </TablixRow>
-            <TablixRow>
-              <Height>0.6cm</Height>
-              <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox17">
+                    <Textbox Name="ID_SOCIO_MOVIL">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value />
+                              <Value>=Sum(Fields!TOTAL_CANCELADO.Value)</Value>
                               <Style>
                                 <FontStyle>Italic</FontStyle>
-                                <FontSize>8pt</FontSize>
                                 <FontWeight>ExtraBold</FontWeight>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Left</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox17</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Style>Solid</Style>
-                        </Border>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <PaddingLeft>1pt</PaddingLeft>
-                        <PaddingRight>1pt</PaddingRight>
-                        <PaddingTop>1pt</PaddingTop>
-                        <PaddingBottom>1pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox2">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value />
-                              <Style>
-                                <FontStyle>Italic</FontStyle>
-                                <FontSize>8pt</FontSize>
-                                <FontWeight>ExtraBold</FontWeight>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Left</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox2</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Style>Solid</Style>
-                        </Border>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <PaddingLeft>1pt</PaddingLeft>
-                        <PaddingRight>1pt</PaddingRight>
-                        <PaddingTop>1pt</PaddingTop>
-                        <PaddingBottom>1pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox36">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value />
-                              <Style>
-                                <FontStyle>Italic</FontStyle>
-                                <FontSize>8pt</FontSize>
-                                <FontWeight>ExtraBold</FontWeight>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Left</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox36</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Style>Solid</Style>
-                        </Border>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <PaddingLeft>1pt</PaddingLeft>
-                        <PaddingRight>1pt</PaddingRight>
-                        <PaddingTop>1pt</PaddingTop>
-                        <PaddingBottom>1pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="TOTAL_AHORRO2">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Sum(Fields!TOTAL_AHORRO.Value)</Value>
-                              <Style>
-                                <FontStyle>Italic</FontStyle>
-                                <FontSize>9pt</FontSize>
-                                <FontWeight>Heavy</FontWeight>
+                                <Format>0.00;(0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -740,7 +822,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>TOTAL_AHORRO2</rd:DefaultName>
+                      <rd:DefaultName>ID_SOCIO_MOVIL</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -752,6 +834,44 @@
                         <PaddingBottom>1pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="NRO_MOVIL3">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Sum(Fields!TOTAL_AHORRO.Value) - Sum(Fields!TOTAL_CANCELADO.Value)</Value>
+                              <Style>
+                                <FontStyle>Italic</FontStyle>
+                                <FontWeight>ExtraBold</FontWeight>
+                                <Format>0.00;(0.00)</Format>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>NRO_MOVIL3</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingLeft>1pt</PaddingLeft>
+                        <PaddingRight>1pt</PaddingRight>
+                        <PaddingTop>1pt</PaddingTop>
+                        <PaddingBottom>1pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -764,320 +884,22 @@
             <TablixMember />
             <TablixMember />
             <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
           </TablixMembers>
         </TablixColumnHierarchy>
         <TablixRowHierarchy>
           <TablixMembers>
             <TablixMember>
-              <TablixHeader>
-                <Size>3.37313cm</Size>
-                <CellContents>
-                  <Textbox Name="Textbox9">
-                    <CanGrow>true</CanGrow>
-                    <KeepTogether>true</KeepTogether>
-                    <Paragraphs>
-                      <Paragraph>
-                        <TextRuns>
-                          <TextRun>
-                            <Value>INGRESOS</Value>
-                            <Style>
-                              <FontSize>8pt</FontSize>
-                              <FontWeight>Heavy</FontWeight>
-                            </Style>
-                          </TextRun>
-                        </TextRuns>
-                        <Style>
-                          <TextAlign>Center</TextAlign>
-                        </Style>
-                      </Paragraph>
-                    </Paragraphs>
-                    <rd:DefaultName>Textbox9</rd:DefaultName>
-                    <Style>
-                      <Border>
-                        <Style>Solid</Style>
-                      </Border>
-                      <BackgroundColor>LightGrey</BackgroundColor>
-                      <VerticalAlign>Middle</VerticalAlign>
-                      <PaddingLeft>1pt</PaddingLeft>
-                      <PaddingRight>1pt</PaddingRight>
-                      <PaddingTop>1pt</PaddingTop>
-                      <PaddingBottom>1pt</PaddingBottom>
-                    </Style>
-                  </Textbox>
-                </CellContents>
-              </TablixHeader>
-              <TablixMembers>
-                <TablixMember>
-                  <TablixHeader>
-                    <Size>4.27271cm</Size>
-                    <CellContents>
-                      <Textbox Name="Textbox45">
-                        <CanGrow>true</CanGrow>
-                        <KeepTogether>true</KeepTogether>
-                        <Paragraphs>
-                          <Paragraph>
-                            <TextRuns>
-                              <TextRun>
-                                <Value>DETALLE</Value>
-                                <Style>
-                                  <FontSize>8pt</FontSize>
-                                  <FontWeight>Heavy</FontWeight>
-                                </Style>
-                              </TextRun>
-                            </TextRuns>
-                            <Style>
-                              <TextAlign>Center</TextAlign>
-                            </Style>
-                          </Paragraph>
-                        </Paragraphs>
-                        <rd:DefaultName>Textbox45</rd:DefaultName>
-                        <Style>
-                          <Border>
-                            <Style>Solid</Style>
-                          </Border>
-                          <BackgroundColor>LightGrey</BackgroundColor>
-                          <VerticalAlign>Middle</VerticalAlign>
-                          <PaddingLeft>1pt</PaddingLeft>
-                          <PaddingRight>1pt</PaddingRight>
-                          <PaddingTop>1pt</PaddingTop>
-                          <PaddingBottom>1pt</PaddingBottom>
-                        </Style>
-                      </Textbox>
-                    </CellContents>
-                  </TablixHeader>
-                  <TablixMembers>
-                    <TablixMember />
-                  </TablixMembers>
-                </TablixMember>
-              </TablixMembers>
               <KeepWithGroup>After</KeepWithGroup>
             </TablixMember>
             <TablixMember>
-              <Group Name="DETALLE">
-                <GroupExpressions>
-                  <GroupExpression>=Fields!DETALLE.Value</GroupExpression>
-                </GroupExpressions>
-              </Group>
-              <SortExpressions>
-                <SortExpression>
-                  <Value>=Fields!DETALLE.Value</Value>
-                </SortExpression>
-              </SortExpressions>
-              <TablixHeader>
-                <Size>3.37313cm</Size>
-                <CellContents>
-                  <Textbox Name="DETALLE1">
-                    <CanGrow>true</CanGrow>
-                    <KeepTogether>true</KeepTogether>
-                    <Paragraphs>
-                      <Paragraph>
-                        <TextRuns>
-                          <TextRun>
-                            <Value>=Fields!DETALLE.Value</Value>
-                            <Style>
-                              <FontSize>8pt</FontSize>
-                            </Style>
-                          </TextRun>
-                        </TextRuns>
-                        <Style>
-                          <TextAlign>Left</TextAlign>
-                        </Style>
-                      </Paragraph>
-                    </Paragraphs>
-                    <rd:DefaultName>DETALLE1</rd:DefaultName>
-                    <Style>
-                      <Border>
-                        <Style>Solid</Style>
-                      </Border>
-                      <VerticalAlign>Middle</VerticalAlign>
-                      <PaddingLeft>1pt</PaddingLeft>
-                      <PaddingRight>1pt</PaddingRight>
-                      <PaddingTop>1pt</PaddingTop>
-                      <PaddingBottom>1pt</PaddingBottom>
-                    </Style>
-                  </Textbox>
-                </CellContents>
-              </TablixHeader>
-              <TablixMembers>
-                <TablixMember>
-                  <Group Name="NRO_RECIBO">
-                    <GroupExpressions>
-                      <GroupExpression>=Fields!NRO_RECIBO.Value</GroupExpression>
-                    </GroupExpressions>
-                  </Group>
-                  <SortExpressions>
-                    <SortExpression>
-                      <Value>=Fields!NRO_RECIBO.Value</Value>
-                    </SortExpression>
-                  </SortExpressions>
-                  <TablixHeader>
-                    <Size>4.27271cm</Size>
-                    <CellContents>
-                      <Textbox Name="NRO_RECIBO">
-                        <CanGrow>true</CanGrow>
-                        <KeepTogether>true</KeepTogether>
-                        <Paragraphs>
-                          <Paragraph>
-                            <TextRuns>
-                              <TextRun>
-                                <Value>=Fields!NRO_RECIBO.Value</Value>
-                                <Style>
-                                  <FontSize>8pt</FontSize>
-                                </Style>
-                              </TextRun>
-                            </TextRuns>
-                            <Style>
-                              <TextAlign>Left</TextAlign>
-                            </Style>
-                          </Paragraph>
-                        </Paragraphs>
-                        <rd:DefaultName>NRO_RECIBO</rd:DefaultName>
-                        <Style>
-                          <Border>
-                            <Style>Solid</Style>
-                          </Border>
-                          <VerticalAlign>Middle</VerticalAlign>
-                          <PaddingLeft>1pt</PaddingLeft>
-                          <PaddingRight>1pt</PaddingRight>
-                          <PaddingTop>1pt</PaddingTop>
-                          <PaddingBottom>1pt</PaddingBottom>
-                        </Style>
-                      </Textbox>
-                    </CellContents>
-                  </TablixHeader>
-                  <TablixMembers>
-                    <TablixMember>
-                      <Group Name="Detalles" />
-                    </TablixMember>
-                    <TablixMember>
-                      <KeepWithGroup>Before</KeepWithGroup>
-                    </TablixMember>
-                  </TablixMembers>
-                </TablixMember>
-                <TablixMember>
-                  <TablixHeader>
-                    <Size>4.27271cm</Size>
-                    <CellContents>
-                      <Textbox Name="Textbox16">
-                        <CanGrow>true</CanGrow>
-                        <KeepTogether>true</KeepTogether>
-                        <Paragraphs>
-                          <Paragraph>
-                            <TextRuns>
-                              <TextRun>
-                                <Value>TOTAL</Value>
-                                <Style>
-                                  <FontStyle>Italic</FontStyle>
-                                  <FontSize>8pt</FontSize>
-                                  <FontWeight>ExtraBold</FontWeight>
-                                </Style>
-                              </TextRun>
-                            </TextRuns>
-                            <Style>
-                              <TextAlign>Left</TextAlign>
-                            </Style>
-                          </Paragraph>
-                        </Paragraphs>
-                        <rd:DefaultName>Textbox13</rd:DefaultName>
-                        <Style>
-                          <Border>
-                            <Style>Solid</Style>
-                          </Border>
-                          <VerticalAlign>Middle</VerticalAlign>
-                          <PaddingLeft>1pt</PaddingLeft>
-                          <PaddingRight>1pt</PaddingRight>
-                          <PaddingTop>1pt</PaddingTop>
-                          <PaddingBottom>1pt</PaddingBottom>
-                        </Style>
-                      </Textbox>
-                    </CellContents>
-                  </TablixHeader>
-                  <TablixMembers>
-                    <TablixMember />
-                  </TablixMembers>
-                  <KeepWithGroup>Before</KeepWithGroup>
-                </TablixMember>
-              </TablixMembers>
+              <Group Name="Detalles" />
             </TablixMember>
             <TablixMember>
-              <TablixHeader>
-                <Size>3.37313cm</Size>
-                <CellContents>
-                  <Textbox Name="Textbox15">
-                    <CanGrow>true</CanGrow>
-                    <KeepTogether>true</KeepTogether>
-                    <Paragraphs>
-                      <Paragraph>
-                        <TextRuns>
-                          <TextRun>
-                            <Value>TOTAL</Value>
-                            <Style>
-                              <FontStyle>Italic</FontStyle>
-                              <FontSize>8pt</FontSize>
-                              <FontWeight>ExtraBold</FontWeight>
-                            </Style>
-                          </TextRun>
-                        </TextRuns>
-                        <Style>
-                          <TextAlign>Left</TextAlign>
-                        </Style>
-                      </Paragraph>
-                    </Paragraphs>
-                    <rd:DefaultName>Textbox13</rd:DefaultName>
-                    <Style>
-                      <Border>
-                        <Style>Solid</Style>
-                      </Border>
-                      <VerticalAlign>Middle</VerticalAlign>
-                      <PaddingLeft>1pt</PaddingLeft>
-                      <PaddingRight>1pt</PaddingRight>
-                      <PaddingTop>1pt</PaddingTop>
-                      <PaddingBottom>1pt</PaddingBottom>
-                    </Style>
-                  </Textbox>
-                </CellContents>
-              </TablixHeader>
-              <TablixMembers>
-                <TablixMember>
-                  <TablixHeader>
-                    <Size>4.27271cm</Size>
-                    <CellContents>
-                      <Textbox Name="Textbox48">
-                        <CanGrow>true</CanGrow>
-                        <KeepTogether>true</KeepTogether>
-                        <Paragraphs>
-                          <Paragraph>
-                            <TextRuns>
-                              <TextRun>
-                                <Value />
-                                <Style>
-                                  <FontStyle>Italic</FontStyle>
-                                  <FontSize>8pt</FontSize>
-                                  <FontWeight>ExtraBold</FontWeight>
-                                </Style>
-                              </TextRun>
-                            </TextRuns>
-                            <Style>
-                              <TextAlign>Left</TextAlign>
-                            </Style>
-                          </Paragraph>
-                        </Paragraphs>
-                        <rd:DefaultName>Textbox48</rd:DefaultName>
-                        <Style>
-                          <Border>
-                            <Style>Solid</Style>
-                          </Border>
-                          <VerticalAlign>Middle</VerticalAlign>
-                          <PaddingLeft>1pt</PaddingLeft>
-                          <PaddingRight>1pt</PaddingRight>
-                          <PaddingTop>1pt</PaddingTop>
-                          <PaddingBottom>1pt</PaddingBottom>
-                        </Style>
-                      </Textbox>
-                    </CellContents>
-                  </TablixHeader>
-                </TablixMember>
-              </TablixMembers>
               <KeepWithGroup>Before</KeepWithGroup>
             </TablixMember>
           </TablixMembers>
@@ -1085,12 +907,13 @@
         <DataSetName>DataSet1</DataSetName>
         <SortExpressions>
           <SortExpression>
-            <Value>=Fields!SUBDETALLE.Value</Value>
+            <Value>=Fields!NRO_MOVIL.Value</Value>
           </SortExpression>
         </SortExpressions>
-        <Top>0.00771cm</Top>
-        <Height>2.84124cm</Height>
-        <Width>20.26521cm</Width>
+        <Top>0.31433cm</Top>
+        <Left>0.24302cm</Left>
+        <Height>1.92608cm</Height>
+        <Width>19.11167cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1098,17 +921,150 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>1.12163in</Height>
+    <Height>1.07291in</Height>
     <Style />
   </Body>
-  <Width>7.97843in</Width>
+  <Width>7.61996in</Width>
   <Page>
+    <PageHeader>
+      <Height>1.5875cm</Height>
+      <PrintOnFirstPage>true</PrintOnFirstPage>
+      <PrintOnLastPage>true</PrintOnLastPage>
+      <ReportItems>
+        <Textbox Name="Textbox7">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>REPORTE AHORROS Y RETIROS POR MOVIL LINEA 132</Value>
+                  <Style>
+                    <FontWeight>Heavy</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox7</rd:DefaultName>
+          <Height>0.6cm</Height>
+          <Width>19.11553cm</Width>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox3">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>FECHA:</Value>
+                  <Style>
+                    <FontFamily>Calibri</FontFamily>
+                    <FontSize>8pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox3</rd:DefaultName>
+          <Top>0.81167cm</Top>
+          <Left>6.39913cm</Left>
+          <Height>0.6cm</Height>
+          <Width>1.73271cm</Width>
+          <ZIndex>1</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox4">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=DateTime.Now</Value>
+                  <Style>
+                    <Format>dd/MM/yyyy H:mm:ss</Format>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Right</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox4</rd:DefaultName>
+          <Top>0.70583cm</Top>
+          <Left>14.39871cm</Left>
+          <Height>0.4cm</Height>
+          <Width>4.71682cm</Width>
+          <ZIndex>2</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox8">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=First(Fields!INTERVALO.Value, "DataSet1")</Value>
+                  <Style>
+                    <FontFamily>Calibri</FontFamily>
+                    <FontSize>8pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox3</rd:DefaultName>
+          <Top>0.81167cm</Top>
+          <Left>8.2024cm</Left>
+          <Height>0.6cm</Height>
+          <Width>5.91313cm</Width>
+          <ZIndex>3</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </Textbox>
+      </ReportItems>
+      <Style>
+        <Border>
+          <Style>None</Style>
+        </Border>
+      </Style>
+    </PageHeader>
     <PageHeight>27.94cm</PageHeight>
     <PageWidth>21.59cm</PageWidth>
-    <LeftMargin>0cm</LeftMargin>
-    <RightMargin>0cm</RightMargin>
-    <TopMargin>0cm</TopMargin>
-    <BottomMargin>0cm</BottomMargin>
+    <LeftMargin>1cm</LeftMargin>
+    <RightMargin>1cm</RightMargin>
+    <TopMargin>1cm</TopMargin>
+    <BottomMargin>1cm</BottomMargin>
     <ColumnSpacing>0.13cm</ColumnSpacing>
     <Style />
   </Page>
@@ -1119,43 +1075,70 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>10b48b0f-3758-48e6-bfb2-0c28c8064259</rd:DataSourceID>
+      <rd:DataSourceID>d6641f5f-2a97-4385-8846-2f9fc43543d1</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="SindicatoServices1">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>3a1b2b25-d2f2-40bb-8a13-b7e0a7e7077d</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="DataSet1">
       <Query>
-        <DataSourceName>SindicatoServices</DataSourceName>
+        <DataSourceName>SindicatoServices1</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
-        <Field Name="DETALLE">
-          <DataField>DETALLE</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="SUBDETALLE">
-          <DataField>SUBDETALLE</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="NRO_RECIBO">
-          <DataField>NRO_RECIBO</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CANTIDAD">
-          <DataField>CANTIDAD</DataField>
+        <Field Name="ID_SOCIO_MOVIL">
+          <DataField>ID_SOCIO_MOVIL</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="COSTO_UNITARIO">
-          <DataField>COSTO_UNITARIO</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="SOCIO">
+          <DataField>SOCIO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="BOLIVIANOS">
-          <DataField>BOLIVIANOS</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="NRO_MOVIL">
+          <DataField>NRO_MOVIL</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="DOLARES">
-          <DataField>DOLARES</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="MES">
+          <DataField>MES</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MSG">
+          <DataField>MSG</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CANT_HOJAS">
+          <DataField>CANT_HOJAS</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="CANT_REGULACIONES">
+          <DataField>CANT_REGULACIONES</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="TOTAL_AHORRO">
+          <DataField>TOTAL_AHORRO</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="AHORRO_HOJA">
+          <DataField>AHORRO_HOJA</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="AHORRO_PAGADO">
+          <DataField>AHORRO_PAGADO</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="AHORRO">
+          <DataField>AHORRO</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="AHORRO_REGULACIONES">
+          <DataField>AHORRO_REGULACIONES</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
         </Field>
         <Field Name="FECHA_INI">
           <DataField>FECHA_INI</DataField>
@@ -1165,30 +1148,24 @@
           <DataField>FECHA_FIN</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="TOTAL_AHORRO">
-          <DataField>TOTAL_AHORRO</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="INTERVALO">
+          <DataField>INTERVALO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TOTAL_CANCELADO">
+          <DataField>TOTAL_CANCELADO</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>Sindicato.Services</rd:DataSetName>
         <rd:TableName>ReportesServices</rd:TableName>
-        <rd:ObjectDataSourceSelectMethod>ReporteResumenHojas</rd:ObjectDataSourceSelectMethod>
-        <rd:ObjectDataSourceSelectMethodSignature>System.Collections.Generic.IEnumerable`1[Sindicato.Services.Model.ReporteTotal] ReporteResumenHojas(System.DateTime, System.DateTime)</rd:ObjectDataSourceSelectMethodSignature>
+        <rd:ObjectDataSourceSelectMethod>ReporteAhorrosCobros</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceSelectMethodSignature>System.Collections.Generic.IEnumerable`1[Sindicato.Services.Model.CierreAhorroSocioMovilModel] ReporteAhorrosCobros(System.DateTime, System.DateTime)</rd:ObjectDataSourceSelectMethodSignature>
         <rd:ObjectDataSourceType>Sindicato.Services.ReportesServices, Sindicato.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
-  <ReportParameters>
-    <ReportParameter Name="FECHA_INI">
-      <DataType>DateTime</DataType>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="FECHA_FIN">
-      <DataType>DateTime</DataType>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-  </ReportParameters>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportID>bf1aad36-aec6-4e74-99e6-1d20cb0bb82c</rd:ReportID>
+  <rd:ReportID>15a74adb-22b7-4de6-a0b1-9008d987e9e3</rd:ReportID>
 </Report>

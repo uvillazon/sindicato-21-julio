@@ -466,6 +466,10 @@ namespace Elfec.SisMan.Presentacion.Controllers
             localReport.ReportPath = Server.MapPath("~/Reportes/ReportePrestamosPagosDetalle.rdlc");
             ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReportePrestamosDetalle(FECHA_INI, FECHA_FIN));
             localReport.DataSources.Add(reportDataSource);
+            string Intervalo = string.Format("{0} - {1}", FECHA_INI.ToString("dd/MM/yyyy"), FECHA_FIN.ToString("dd/MM/yyyy"));
+
+            ReportParameter param = new ReportParameter("Intervalo",Intervalo);
+            localReport.SetParameters(param);
 
             ReportDataSource reportDataSource1 = new ReportDataSource("DataSet2", rep.ObtenerReportePrestamosPagosDetalle(FECHA_INI, FECHA_FIN));
             localReport.DataSources.Add(reportDataSource1);
@@ -563,6 +567,25 @@ namespace Elfec.SisMan.Presentacion.Controllers
             LocalReport localReport = new LocalReport();
             localReport.ReportPath = Server.MapPath("~/Reportes/ReporteDetalleHojaPorSocio.rdlc");
             ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteDetalleHojaPorSocio(FECHA_INI,FECHA_FIN,ID_SOCIO_MOVIL));
+            localReport.DataSources.Add(reportDataSource);
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
+
+        public ActionResult ReporteAhorrosCobros(string tipo, DateTime FECHA_INI, DateTime FECHA_FIN)
+        {
+            ReportesServices rep = new ReportesServices();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteAhorrosCobros.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ReporteAhorrosCobros(FECHA_INI, FECHA_FIN));
             localReport.DataSources.Add(reportDataSource);
             string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
             string mimeType;

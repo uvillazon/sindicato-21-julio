@@ -178,7 +178,7 @@ Ext.define("App.Config.Funciones", {
             iconCls: icono,
             itemId: id,
             disabled: disabled,
-            cls: 'botones',
+            //cls: 'botones',
             scope: scope,
             handler: handler,
             minHeight: 27,

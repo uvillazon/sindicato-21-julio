@@ -52,5 +52,8 @@ namespace Sindicato.Services.Model
         public DateTime FECHA_INI { get; set; }
         public DateTime FECHA_FIN { get; set; }
 
+        public string INTERVALO { get; set; }
+        public decimal? TOTAL_CANCELADO { get; set; }
+
     }
 }

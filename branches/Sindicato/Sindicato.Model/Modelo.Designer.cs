@@ -64,7 +64,6 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "SD_MOVILES_R01", "SD_LINEAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_LINEAS), "SD_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_MOVILES), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_PAGO_DE_PRESTAMOS_R02", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_PAGO_DE_PRESTAMOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PAGO_DE_PRESTAMOS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_TIPOS_PRESTAMOS_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_TIPOS_PRESTAMOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_TIPOS_PRESTAMOS), true)]
-[assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_CIERRES_AHORRO_R01", "SD_CIERRES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CIERRES), "SD_DETALLE_CIERRES_AHORRO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_CIERRES_AHORRO), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_HOJAS_CONTROL_R02", "SD_SOCIO_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIO_MOVILES), "SD_HOJAS_CONTROL", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_HOJAS_CONTROL), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_INGRESOS_POR_SOCIOS_R01", "SD_SOCIO_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIO_MOVILES), "SD_INGRESOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_INGRESOS_POR_SOCIOS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_KARDEX_HOJAS_R01", "SD_SOCIO_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIO_MOVILES), "SD_KARDEX_HOJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_KARDEX_HOJAS), true)]
@@ -99,6 +98,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "SD_PRESTAMOS_MORA_R01", "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), "SD_PRESTAMOS_MORA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PRESTAMOS_MORA), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_EGRESOS_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_EGRESOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_EGRESOS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_EGRESOS_R02", "SD_TIPOS_EGRESOS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sindicato.Model.SD_TIPOS_EGRESOS), "SD_EGRESOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_EGRESOS), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_CIERRES_AHORRO_R01", "SD_CIERRES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CIERRES), "SD_DETALLE_CIERRES_AHORRO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_CIERRES_AHORRO), true)]
 
 #endregion
 
@@ -1049,22 +1049,6 @@ namespace Sindicato.Model
         /// <summary>
         /// No hay documentación de metadatos disponible.
         /// </summary>
-        public ObjectSet<SD_DETALLE_CIERRES_AHORRO> SD_DETALLE_CIERRES_AHORRO
-        {
-            get
-            {
-                if ((_SD_DETALLE_CIERRES_AHORRO == null))
-                {
-                    _SD_DETALLE_CIERRES_AHORRO = base.CreateObjectSet<SD_DETALLE_CIERRES_AHORRO>("SD_DETALLE_CIERRES_AHORRO");
-                }
-                return _SD_DETALLE_CIERRES_AHORRO;
-            }
-        }
-        private ObjectSet<SD_DETALLE_CIERRES_AHORRO> _SD_DETALLE_CIERRES_AHORRO;
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
         public ObjectSet<SD_SOCIO_MOVILES> SD_SOCIO_MOVILES
         {
             get
@@ -1205,6 +1189,22 @@ namespace Sindicato.Model
             }
         }
         private ObjectSet<SD_EGRESOS> _SD_EGRESOS;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<SD_DETALLE_CIERRES_AHORRO> SD_DETALLE_CIERRES_AHORRO
+        {
+            get
+            {
+                if ((_SD_DETALLE_CIERRES_AHORRO == null))
+                {
+                    _SD_DETALLE_CIERRES_AHORRO = base.CreateObjectSet<SD_DETALLE_CIERRES_AHORRO>("SD_DETALLE_CIERRES_AHORRO");
+                }
+                return _SD_DETALLE_CIERRES_AHORRO;
+            }
+        }
+        private ObjectSet<SD_DETALLE_CIERRES_AHORRO> _SD_DETALLE_CIERRES_AHORRO;
 
         #endregion
 
@@ -1659,14 +1659,6 @@ namespace Sindicato.Model
         }
     
         /// <summary>
-        /// Método desusado para agregar un nuevo objeto al EntitySet SD_DETALLE_CIERRES_AHORRO. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
-        /// </summary>
-        public void AddToSD_DETALLE_CIERRES_AHORRO(SD_DETALLE_CIERRES_AHORRO sD_DETALLE_CIERRES_AHORRO)
-        {
-            base.AddObject("SD_DETALLE_CIERRES_AHORRO", sD_DETALLE_CIERRES_AHORRO);
-        }
-    
-        /// <summary>
         /// Método desusado para agregar un nuevo objeto al EntitySet SD_SOCIO_MOVILES. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
         /// </summary>
         public void AddToSD_SOCIO_MOVILES(SD_SOCIO_MOVILES sD_SOCIO_MOVILES)
@@ -1736,6 +1728,14 @@ namespace Sindicato.Model
         public void AddToSD_EGRESOS(SD_EGRESOS sD_EGRESOS)
         {
             base.AddObject("SD_EGRESOS", sD_EGRESOS);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet SD_DETALLE_CIERRES_AHORRO. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToSD_DETALLE_CIERRES_AHORRO(SD_DETALLE_CIERRES_AHORRO sD_DETALLE_CIERRES_AHORRO)
+        {
+            base.AddObject("SD_DETALLE_CIERRES_AHORRO", sD_DETALLE_CIERRES_AHORRO);
         }
 
         #endregion
@@ -4965,6 +4965,26 @@ namespace Sindicato.Model
             }
     
             return base.ExecuteFunction("P_SD_ACT_PLAN_PAGOS", p_ID_PRESTAMOParameter, p_ID_USRParameter, p_RES);
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        /// <param name="p_USR">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_RES">No hay documentación de metadatos disponible.</param>
+        public int P_ACT_PAGOS_AHORROS(global::System.String p_USR, ObjectParameter p_RES)
+        {
+            ObjectParameter p_USRParameter;
+            if (p_USR != null)
+            {
+                p_USRParameter = new ObjectParameter("P_USR", p_USR);
+            }
+            else
+            {
+                p_USRParameter = new ObjectParameter("P_USR", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("P_ACT_PAGOS_AHORROS", p_USRParameter, p_RES);
         }
 
         #endregion
@@ -9619,6 +9639,30 @@ namespace Sindicato.Model
         private Nullable<global::System.Int32> _NRO_MOVIL;
         partial void OnNRO_MOVILChanging(Nullable<global::System.Int32> value);
         partial void OnNRO_MOVILChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> TOTAL_CANCELADO
+        {
+            get
+            {
+                return _TOTAL_CANCELADO;
+            }
+            set
+            {
+                OnTOTAL_CANCELADOChanging(value);
+                ReportPropertyChanging("TOTAL_CANCELADO");
+                _TOTAL_CANCELADO = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TOTAL_CANCELADO");
+                OnTOTAL_CANCELADOChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _TOTAL_CANCELADO;
+        partial void OnTOTAL_CANCELADOChanging(Nullable<global::System.Decimal> value);
+        partial void OnTOTAL_CANCELADOChanged();
 
         #endregion
 

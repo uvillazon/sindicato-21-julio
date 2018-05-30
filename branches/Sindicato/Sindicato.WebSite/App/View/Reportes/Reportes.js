@@ -138,6 +138,9 @@
                 case "REPORTE COMPRA DE HOJAS POR SOCIO":
                     me.rutaReporte = "ReporteDetalleHojasPorSocio";
                     break;
+                case "  ":
+                    me.rutaReporte = "ReporteAhorrosCobros";
+                    break;
                 default:
                     me.rutaReporte = "";
             }
