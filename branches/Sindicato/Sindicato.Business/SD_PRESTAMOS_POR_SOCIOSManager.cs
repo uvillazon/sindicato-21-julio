@@ -92,7 +92,7 @@ namespace Sindicato.Business
             RespuestaSP result = new RespuestaSP();
             try
             {
-                var pres = BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO).FirstOrDefault();
+                var pres = BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO != "ANULADO").FirstOrDefault();
                 if (pres == null) {
                     result.success = false;
                     result.msg = "No existe prestamo";
@@ -108,11 +108,13 @@ namespace Sindicato.Business
                     var detalles = context.SD_PLAN_DE_PAGO.Where(x => x.ID_PRESTAMO == ID_PRESTAMO);
                     foreach (var item in detalles)
                     {
-                        Delete(item);
+                        item.ESTADO = "ANULADO";
+                        //Delete(item);
                         //Save();
                     }
                 }
-                Delete(pres);
+                pres.ESTADO = "ANULADO";
+                //Delete(pres);
                 var kardex = context.SD_KARDEX_EFECTIVO.Where(x => x.OPERACION == "PRESTAMOS" && x.ID_OPERACION == ID_PRESTAMO && x.ID_CAJA == pres.ID_CAJA);
                 foreach (var item in kardex)
                 {

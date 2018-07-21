@@ -39,7 +39,7 @@
 
         });
         me.txt_nombre = Ext.create("App.Config.Componente.TextFieldBase", {
-            fieldLabel: "Tipo Ingreso",
+            fieldLabel: "Tipo Egreso",
             name: "NOMBRE",
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,

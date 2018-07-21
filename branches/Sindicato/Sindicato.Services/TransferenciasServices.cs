@@ -143,12 +143,13 @@ namespace Sindicato.Services
             {
                 var manager = new SD_INGRESOS_POR_SOCIOSManager(uow);
                 var context = (SindicatoContext)manager.Context;
-                var ant = manager.BuscarTodos(x => x.ID_INGRESO == ID_INGRESO).FirstOrDefault();
+                var ant = manager.BuscarTodos(x => x.ID_INGRESO == ID_INGRESO &&  x.ESTADO =="NUEVO").FirstOrDefault();
                 if (ant != null)
                 {
                     fecha = ant.FECHA;
                     ID_CAJA = ant.ID_CAJA;
-                    manager.Delete(ant);
+                    ant.ESTADO = "ANULADO";
+                    //manager.Delete(ant);
                     var kardex = context.SD_KARDEX_EFECTIVO.Where(x => x.OPERACION == "INGRESOS POR SOCIOS" && x.ID_OPERACION == ant.ID_INGRESO && x.ID_CAJA == ant.ID_CAJA);
                     foreach (var item in kardex)
                     {
@@ -159,7 +160,7 @@ namespace Sindicato.Services
                     ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
                     context.P_SD_ACT_KARDEX_EFECTIVO(ant.ID_CAJA, fecha, 0, p_RES);
                     result.success = true;
-                    result.msg = "Se elimino Correctamente";
+                    result.msg = "Se Anulo Correctamente";
                 }
                 else
                 {
@@ -209,10 +210,11 @@ namespace Sindicato.Services
             {
                 var manager = new SD_EGRESOSManager(uow);
                 var context = (SindicatoContext)manager.Context;
-                var ant = manager.BuscarTodos(x => x.ID_EGRESO == ID_EGRESO).FirstOrDefault();
+                var ant = manager.BuscarTodos(x => x.ID_EGRESO == ID_EGRESO && x.ESTADO == "NUEVO").FirstOrDefault();
                 if (ant != null)
                 {
-                    manager.Delete(ant);
+                    ant.ESTADO = "ANULADO";
+                    //manager.Delete(ant);
                     var kardex = context.SD_KARDEX_EFECTIVO.Where(x => x.OPERACION == "EGRESOS" && x.ID_OPERACION == ant.ID_EGRESO && x.ID_CAJA == ant.ID_CAJA);
                     foreach (var item in kardex)
                     {
@@ -227,7 +229,7 @@ namespace Sindicato.Services
                 else
                 {
                     result.success = false;
-                    result.msg = "Ocurrio algun Problema";
+                    result.msg = "No existe el EGRESO o esta en estado diferente a NUEVO";
                 }
             });
             return result;

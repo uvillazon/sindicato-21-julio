@@ -26,7 +26,7 @@
 
         });
         me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Prestamo', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
-        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Eliminar Prestamo', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
+        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Anular Prestamo', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
         me.btn_pagarPrestamo = Funciones.CrearMenu('btn_pagarPrestamo', 'Pago de Prestamo', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this, null, true);
         me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar, me.btn_pagarPrestamo]);
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
@@ -59,7 +59,7 @@
                 me.FormCrearPrestamo();
                 break;
             case "btn_eliminar":
-                Funciones.AjaxRequestGrid("Prestamos", "EliminarPrestamo", me.grid, "Esta seguro de Eliminar el Retiro?", { ID_PRESTAMO: me.record.get('ID_PRESTAMO') }, me.grid, null);
+                Funciones.AjaxRequestGrid("Prestamos", "EliminarPrestamo", me.grid, "Esta seguro de ANULAR el prestamo?", { ID_PRESTAMO: me.record.get('ID_PRESTAMO') }, me.grid, null);
                 break;
             case "btn_pagarPrestamo":
                 me.FormPagoPrestamo();

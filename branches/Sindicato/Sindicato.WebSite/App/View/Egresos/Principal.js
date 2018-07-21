@@ -16,6 +16,7 @@
         me.toolbar = Funciones.CrearMenuBar();
         //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
         Funciones.CrearMenu('btn_Kardex', 'Kardex Caja', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
+         Funciones.CrearMenu('btn_VerDetalle', 'Ver Recibo', 'report', me.EventosPrincipal, me.toolbar, this, null, true);
         //Funciones.CrearMenu('btn_VerDetalle', 'Ver Recibo', 'report', me.EventosPrincipal, me.toolbar, this, null, true);
 
         //Funciones.CrearMenu('btn_KardexDestino', 'Kardex Caja Destino', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
@@ -28,11 +29,11 @@
             width: '50%',
             fbarmenu: me.toolbar,
             paramsStore: me.paramsStore,
-            fbarmenuArray: ["btn_Kardex", "btn_eliminar"]
+            fbarmenuArray: ["btn_Kardex", "btn_eliminar", "btn_VerDetalle"]
 
         });
         me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Egreso', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
-        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Eliminar Egreso', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
+        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Anular Egreso', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
         me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar]);
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
 
@@ -94,8 +95,11 @@
         win.show();
         win.btn_guardar.on('click', function () {
             //console.dir(params);
-            Funciones.AjaxRequestWin("Transferencias", "GuardarEgreso", win, form, me.grid, "Esta Seguro de Guardar", null, win);
+            Funciones.AjaxRequestWinSc("Transferencias", "GuardarEgreso", win, form, me.grid, "Esta Seguro de Guardar", null, win, function (result) {
+                me.VentanaRecibo(result.id);
+            });
         });
+      
 
     },
     VentanaKardex: function (id_caja) {
@@ -112,7 +116,7 @@
 
     },
     VentanaRecibo: function (id) {
-        fn.VerImpresion("ReporteIngreso", "ID_INGRESO=" + id);
+        fn.VerImpresion("ReporteEgreso", "ID_EGRESO=" + id);
     }
 
 

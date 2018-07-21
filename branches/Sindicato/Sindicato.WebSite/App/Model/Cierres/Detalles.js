@@ -11,7 +11,17 @@
             { type: "float", name: "CANT_REGULACIONES" },
             { type: "float", name: "TOTAL_AHORRO" },
             { type: "float", name: "AHORRO_HOJA" },
-            { type: "float", name: "AHORRO_REGULACIONES" }
+            { type: "float", name: "AHORRO_REGULACIONES" },
+            { type: "float", name: "TOTAL_CANCELADO" },
+            {
+                type: "float", name: "SALDO", mapping: function (raw) {
+                    return raw.TOTAL_AHORRO - raw.TOTAL_CANCELADO;
+                }
+            },
+            { type: "date", name: "CIERRE.FECHA_INI", dateFormat: "d/m/Y", mapping: 'CIERRE.FECHA_INI', convert: Funciones.Fecha },
+            { type: "date", name: "CIERRE.FECHA_FIN", dateFormat: "d/m/Y", mapping: 'CIERRE.FECHA_FIN', convert: Funciones.Fecha },
+            { type: "string", name: "CIERRE.OBSERVACION", mapping: 'CIERRE.OBSERVACION' },
+            { type: "string", name: "CIERRE.CODIGO", mapping: 'CIERRE.CODIGO' },
 
     ]
 });

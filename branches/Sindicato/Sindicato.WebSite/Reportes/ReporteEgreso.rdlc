@@ -163,14 +163,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="OBLIGACION">
+                    <Textbox Name="CONCEPTO">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!OBLIGACION.Value</Value>
+                              <Value>=Fields!CONCEPTO.Value</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
@@ -180,7 +180,7 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>OBLIGACION</rd:DefaultName>
+                      <rd:DefaultName>CONCEPTO</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -321,8 +321,8 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>2.75787cm</Top>
-        <Left>1.18745cm</Left>
+        <Top>3.4757cm</Top>
+        <Left>0.15148cm</Left>
         <Height>1.8cm</Height>
         <Width>9.27271cm</Width>
         <Style>
@@ -350,8 +350,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox10</rd:DefaultName>
-        <Top>4.98037cm</Top>
-        <Left>1.18745cm</Left>
+        <Top>5.6982cm</Top>
+        <Left>0.15148cm</Left>
         <Height>0.6cm</Height>
         <Width>0.96542cm</Width>
         <ZIndex>1</ZIndex>
@@ -384,8 +384,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox11</rd:DefaultName>
-        <Top>4.98037cm</Top>
-        <Left>2.22342cm</Left>
+        <Top>5.6982cm</Top>
+        <Left>1.18745cm</Left>
         <Height>0.6cm</Height>
         <Width>8.23674cm</Width>
         <ZIndex>2</ZIndex>
@@ -417,8 +417,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>1.11125cm</Top>
-        <Left>1.18745cm</Left>
+        <Top>1.14653cm</Top>
+        <Left>0.15148cm</Left>
         <Height>0.6cm</Height>
         <Width>2.1825cm</Width>
         <ZIndex>3</ZIndex>
@@ -450,10 +450,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>1.11125cm</Top>
-        <Left>5.84539cm</Left>
+        <Top>1.14653cm</Top>
+        <Left>4.80942cm</Left>
         <Height>0.6cm</Height>
-        <Width>1.12416cm</Width>
+        <Width>1.52104cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -483,8 +483,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>1.11125cm</Top>
-        <Left>3.37185cm</Left>
+        <Top>1.14653cm</Top>
+        <Left>2.33588cm</Left>
         <Height>0.6cm</Height>
         <Width>2.36771cm</Width>
         <ZIndex>5</ZIndex>
@@ -505,10 +505,11 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!SOCIO.Value, "DataSet1")</Value>
+                <Value>=First(Fields!FECHA_COMPRA.Value, "DataSet1")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>8pt</FontSize>
+                  <Format>d</Format>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -516,10 +517,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>1.11125cm</Top>
-        <Left>7.14594cm</Left>
+        <Top>1.14653cm</Top>
+        <Left>6.50684cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.68182cm</Width>
+        <Width>3.28495cm</Width>
         <ZIndex>6</ZIndex>
         <Style>
           <Border>
@@ -551,8 +552,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>0.10583cm</Top>
-        <Left>1.18745cm</Left>
+        <Top>0.14111cm</Top>
+        <Left>0.15148cm</Left>
         <Height>0.6cm</Height>
         <Width>9.06167cm</Width>
         <ZIndex>7</ZIndex>
@@ -566,8 +567,140 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
+      <Textbox Name="Textbox15">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Pagado A:</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox14</rd:DefaultName>
+        <Top>1.92292cm</Top>
+        <Left>0.15148cm</Left>
+        <Height>0.6cm</Height>
+        <Width>2.1825cm</Width>
+        <ZIndex>8</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox21">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!OBLIGACION.Value, "DataSet1")</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>8pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox14</rd:DefaultName>
+        <Top>1.92292cm</Top>
+        <Left>2.51037cm</Left>
+        <Height>0.6cm</Height>
+        <Width>7.28142cm</Width>
+        <ZIndex>9</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox17">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Caja :</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox14</rd:DefaultName>
+        <Top>2.69931cm</Top>
+        <Left>0.15148cm</Left>
+        <Height>0.6cm</Height>
+        <Width>2.1825cm</Width>
+        <ZIndex>10</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox22">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!CAJA.Value, "DataSet1")</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>8pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox14</rd:DefaultName>
+        <Top>2.69931cm</Top>
+        <Left>2.51037cm</Left>
+        <Height>0.6cm</Height>
+        <Width>7.28142cm</Width>
+        <ZIndex>11</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>2.54167in</Height>
+    <Height>2.98959in</Height>
     <Style />
   </Body>
   <Width>4.54526in</Width>
@@ -598,7 +731,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox12</rd:DefaultName>
           <Top>0.3175cm</Top>
-          <Left>1.18745cm</Left>
+          <Left>0.36253cm</Left>
           <Height>0.6cm</Height>
           <Width>9.06167cm</Width>
           <Style>
@@ -630,7 +763,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox13</rd:DefaultName>
           <Top>1.09389cm</Top>
-          <Left>5.28849cm</Left>
+          <Left>4.46357cm</Left>
           <Height>0.46771cm</Height>
           <Width>4.96062cm</Width>
           <ZIndex>1</ZIndex>
@@ -715,6 +848,14 @@
         </Field>
         <Field Name="TOTAL_LITERAL">
           <DataField>TOTAL_LITERAL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CONCEPTO">
+          <DataField>CONCEPTO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CAJA">
+          <DataField>CAJA</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>

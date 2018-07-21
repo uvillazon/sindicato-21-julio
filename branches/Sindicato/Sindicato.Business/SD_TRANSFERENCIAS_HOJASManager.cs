@@ -16,7 +16,7 @@ namespace Sindicato.Business
 
         public SD_TRANSFERENCIAS_HOJASManager(IUnitOfWork uow) : base(uow) { }
 
-        public string GuardarAmortizacion(SD_TRANSFERENCIAS_HOJAS data, string login)
+        public string GuardarTransferencia(SD_TRANSFERENCIAS_HOJAS data, string login)
         {
             try
             {

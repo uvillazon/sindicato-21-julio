@@ -98,6 +98,8 @@ namespace Sindicato.Services.Model
         public string OBLIGACION { get; set; }
         public decimal? IMPORTE_OBLIGACION { get; set; }
         public string TOTAL_LITERAL { get; set; }
+        public string CONCEPTO { get; set; }
+        public string CAJA { get; set; }
 
     }
     public class ReporteIngresos
@@ -249,6 +251,24 @@ namespace Sindicato.Services.Model
         public int FIN { get; set; }
         public string ANULADAS { get; set; }
         public string NO_GENERADAS { get; set; }
+    }
+
+    public class EstadoResultadoCompletoModel
+    {
+        public int NRO { get; set; }
+        public string MES { get; set; }
+        public string CAJA { get; set; }
+        public string MONEDA { get; set; }
+        public DateTime? FECHA_INI { get; set; }
+        public DateTime? FECHA_FIN { get; set; }
+        public string OPERACION { get; set; }
+        public string SUBOPERACION { get; set; }
+        public string DETALLE { get; set; }
+        public decimal? IMPORTE { get; set; }
+        public string PERIODO { get; set; }
+        //public decimal UTILIDA_BRUTA_NETA { get; set; }
+        //public decimal TOTAL { get; set; }
+
     }
 
     public class ReportePagoPrestamo {

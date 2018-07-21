@@ -69,14 +69,14 @@
             name: "FECHA",
         });
         me.txt_concepto = Ext.create("App.Config.Componente.TextFieldBase", {
-            fieldLabel: "Concepto",
+            fieldLabel: "Pagado A",
             name: "CONCEPTO",
             width: 480,
             colspan: 2
         });
 
         me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
-            fieldLabel: "Observacion",
+            fieldLabel: "Concepto",
             name: "OBSERVACION",
             width: 480,
             colspan: 2,
@@ -155,7 +155,7 @@
             allowBlank: false
         });
         me.txt_concepto = Ext.create("App.Config.Componente.TextFieldBase", {
-            fieldLabel: "Concepto",
+            fieldLabel: "Pagado A",
             name: "CONCEPTO",
             width: 480,
             colspan: 2,
@@ -180,7 +180,7 @@
         });
 
         me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
-            fieldLabel: "Observaciones",
+            fieldLabel: "Concepto",
             name: "OBSERVACION",
             width: 480,
             colspan: 2,

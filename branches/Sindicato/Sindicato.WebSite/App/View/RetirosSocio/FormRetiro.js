@@ -120,11 +120,17 @@
             colspan: 2,
             maxLength: 500,
         });
+        me.gridDetalle = Ext.create('App.View.Cierres.GridDetalleSocio', {
+            width: 480,
+            height: 250,
+            colspan : 2,
+        });
         me.items = [
              me.txt_id_socio_movil,
             me.txt_nro_recibo, me.date_fecha,
             me.cbx_socio,me.txt_nro_movil,
             me.txt_socio,
+            me.gridDetalle,
             me.num_saldo, me.txt_nuevo_saldo,
             me.cbx_caja,
             me.num_saldo_caja , me.txt_nuevo_saldo_caja,
@@ -142,6 +148,8 @@
             me.txt_nro_movil.setValue(rec[0].get('NRO_MOVIL'));
             me.txt_id_socio_movil.setValue(rec[0].get('ID_SOCIO_MOVIL'));
             me.num_saldo.setValue(rec[0].get('SALDO'));
+            me.gridDetalle.getStore().setExtraParams({ ID_SOCIO_MOVIL: rec[0].get('ID_SOCIO_MOVIL'), codigo: 'POR_CANCELAR' });
+            me.gridDetalle.getStore().load();
         });
         me.num_ingreso.on('change', function (num, newvalue, oldvalue) {
             me.actualizarNuevoSaldo(true);

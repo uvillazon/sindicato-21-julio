@@ -34,7 +34,7 @@
 
         });
         me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Ingreso', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
-        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Eliminar Ingreso', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
+        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Anular Ingreso', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
         me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar]);
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
 
@@ -71,7 +71,12 @@
                 me.FormCrearIngreso();
                 break;
             case "btn_eliminar":
-                Funciones.AjaxRequestGrid("Transferencias", "EliminarIngresoPorSocio", me.grid, "Esta seguro de Eliminar la Ingreso?", { ID_INGRESO: me.record.get('ID_INGRESO') }, me.grid, null);
+                if (me.record != null && me.record.get('ESTADO') == 'NUEVO') {
+                    Funciones.AjaxRequestGrid("Transferencias", "EliminarIngresoPorSocio", me.grid, "Esta seguro de Eliminar la Ingreso?", { ID_INGRESO: me.record.get('ID_INGRESO') }, me.grid, null);
+                }
+                else {
+                    Ext.Msg.alert("Aviso", "Solo se puede ANULAR los ingresos en estado NUEVO");
+                }
                 break;
             case "btn_Kardex":
                 me.VentanaKardex(me.record.get('ID_CAJA'));

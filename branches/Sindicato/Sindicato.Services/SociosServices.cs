@@ -699,5 +699,67 @@ namespace Sindicato.Services
 
             return result;
         }
+
+        #region Transferencias de Hojas entre Socios Antiguo y Nuevo
+        public IEnumerable<SD_TRANSFERENCIAS_HOJAS> ObtenerTransferenciasHojasPaginado(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)
+        {
+            IQueryable<SD_TRANSFERENCIAS_HOJAS> result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_TRANSFERENCIAS_HOJASManager(uow);
+
+                result = manager.BuscarTodos();
+                filtros.FiltrarDatos();
+                result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+                if (!string.IsNullOrEmpty(filtros.Contiene))
+                {
+                    var contiene = filtros.Contiene.Trim().ToUpper();
+                    result = result.Where(SD_TRANSFERENCIAS_HOJAS.Contiene(contiene));
+
+                }
+                paginacion.total = result.Count();
+                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
+
+            });
+            return result;
+        }
+
+        public RespuestaSP GuardarTransferenciaHojas(SD_TRANSFERENCIAS_HOJAS data, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var repo = new SD_TRANSFERENCIAS_HOJASManager(uow);
+                var respuesta = repo.GuardarTransferencia(data, login);
+
+                int id;
+                bool esNumero = int.TryParse(respuesta, out id);
+                result.success = esNumero;
+                result.msg = esNumero ? "Proceso Ejecutado Correctamente" : respuesta;
+                result.id = id;
+
+            });
+            return result;
+
+        }
+
+        public RespuestaSP AnularTransferenciaHoja(int ID_TRANSF)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var repo = new SD_TRANSFERENCIAS_HOJASManager(uow);
+                var respuesta = repo.AnularTransferenciaHojas(ID_TRANSF);
+                int id;
+                bool esNumero = int.TryParse(respuesta, out id);
+                result.success = esNumero;
+                result.msg = esNumero ? "Proceso Ejecutado Correctamente" : respuesta;
+                result.id = id;
+
+            });
+            return result;
+
+        }
+        #endregion
     }
 }

@@ -37,7 +37,7 @@
                         return "CON_PAGOS"
                     }
                     else {
-                        return "NUEVO";
+                        return raw.ESTADO;
                     }
                 }
             },

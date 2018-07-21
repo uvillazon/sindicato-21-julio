@@ -52,5 +52,11 @@ namespace Sindicato.Services.Interfaces
         RespuestaSP GuardarRetiroSocio(SD_RETIRO_SOCIO_MOVIL ingreso, string login);
         RespuestaSP EliminarRetiroSocio(int ID_RETIRO);
         #endregion
+
+        #region Transferecnias Hojas
+        IEnumerable<SD_TRANSFERENCIAS_HOJAS> ObtenerTransferenciasHojasPaginado(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
+        RespuestaSP GuardarTransferenciaHojas(SD_TRANSFERENCIAS_HOJAS data, string login);
+        RespuestaSP AnularTransferenciaHoja(int ID_TRANSF);
+        #endregion
     }
 }

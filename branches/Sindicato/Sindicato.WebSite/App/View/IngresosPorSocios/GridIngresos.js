@@ -13,6 +13,11 @@
     CargarGrid: function () {
         var me = this;
         me.store = Ext.create("App.Store.IngresosPorSocios.Ingresos");
+        me.viewConfig = {
+            getRowClass: function (record, rowIndex, rowParams, store) {
+                return Constantes.CargarCssEstados(record.get("ESTADO"), 'VENTAS');
+            }
+        };
         me.CargarComponentes();
         me.columns = [
                 { xtype: "rownumberer", width: 30, sortable: false },

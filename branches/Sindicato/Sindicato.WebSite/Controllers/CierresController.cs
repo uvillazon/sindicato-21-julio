@@ -57,12 +57,20 @@ namespace Sindicato.WebSite.Controllers
                 CANT_REGULACIONES = x.CANT_REGULACIONES,
                 FECHA_REG = x.FECHA_REG,
                 ID_DETALLE = x.ID_DETALLE,
-                ID_SOCIO_MOVIL = x.ID_SOCIO_MOVIL ,
+                ID_SOCIO_MOVIL = x.ID_SOCIO_MOVIL,
                 LOGIN = x.LOGIN,
-                NRO_MOVIL = x.NRO_MOVIL ,
+                NRO_MOVIL = x.NRO_MOVIL,
                 OBSERVACION = x.OBSERVACION,
                 SOCIO = x.SOCIO,
-                TOTAL_AHORRO = x.TOTAL_AHORRO
+                TOTAL_AHORRO = x.TOTAL_AHORRO,
+                TOTAL_CANCELADO = x.TOTAL_CANCELADO,
+                CIERRE = new {
+                    CODIGO = x.SD_CIERRES.CODIGO,
+                    ESTADO = x.SD_CIERRES.ESTADO,
+                    FECHA_FIN = x.SD_CIERRES.FECHA_FIN,
+                    FECHA_INI = x.SD_CIERRES.FECHA_INI,
+                    OBSERVACION = x.SD_CIERRES.OBSERVACION
+                }
 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();

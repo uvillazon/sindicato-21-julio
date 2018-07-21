@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SD_TRANSF_HOJA_DETManager.cs" />
+    <Compile Include="SD_TRANSFERENCIAS_HOJASManager.cs" />
     <Compile Include="SD_PERFILESManager.cs" />
     <Compile Include="SD_PRESTAMOS_MORAManager.cs" />
     <Compile Include="SD_TIPOS_EGRESOSManager.cs" />

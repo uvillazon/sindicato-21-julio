@@ -300,6 +300,19 @@ namespace Sindicato.Services
                 result = manager.BuscarTodos();
                 filtros.FiltrarDatos();
                 result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+
+                if (!string.IsNullOrEmpty(filtros.codigo))
+                {
+                    switch (filtros.codigo)
+                    {
+                        case "POR_CANCELAR":
+                            result = result.Where(x => (x.TOTAL_AHORRO - x.TOTAL_CANCELADO) > 0);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                
                 paginacion.total = result.Count();
 
                 result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);

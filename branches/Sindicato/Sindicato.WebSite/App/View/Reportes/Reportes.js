@@ -32,10 +32,34 @@
             if (cbx.getValue() == "REPORTE COMPRA DE HOJAS POR SOCIO") {
                 me.cbx_socio.setDisabled(false);
                 me.cbx_socio.reset();
+                me.cbx_caja.setDisabled(true);
+                me.cbx_caja.reset();
+                me.cbx_moneda.setDisabled(true);
+                me.cbx_moneda.reset();
+            }
+            else if (cbx.getValue() == "REPORTE ESTADO RESULTADO POR CAJA") {
+                me.cbx_socio.setDisabled(true);
+                me.cbx_socio.reset();
+                me.cbx_caja.setDisabled(false);
+                me.cbx_caja.reset();
+                me.cbx_moneda.setDisabled(true);
+                me.cbx_moneda.reset();
+            }
+            else if (cbx.getValue() == "REPORTE ESTADO RESULTADO POR MONEDA") {
+                me.cbx_socio.setDisabled(true);
+                me.cbx_socio.reset();
+                me.cbx_caja.setDisabled(true);
+                me.cbx_caja.reset();
+                me.cbx_moneda.setDisabled(false);
+                me.cbx_moneda.reset();
             }
             else {
                 me.cbx_socio.setDisabled(true);
                 me.cbx_socio.reset();
+                me.cbx_caja.setDisabled(true);
+                me.cbx_caja.reset();
+                me.cbx_moneda.setDisabled(true);
+                me.cbx_moneda.reset();
             }
 
         });
@@ -82,12 +106,36 @@
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
             width: 480,
-            colspan : 2,
+            colspan: 2,
             //colspan: 2,
             textoTpl: function () { return "Nro Movil :{NRO_MOVIL} - {NOMBRE} {APELLIDO_PATERNO} {APELLIDO_MATERNO}" }
         });
+        me.store_moneda = Ext.create('App.Store.Listas.StoreLista');
+        me.store_moneda.setExtraParam('ID_LISTA', Lista.Buscar('MONEDA'));
+        me.cbx_moneda = Ext.create("App.Config.Componente.ComboBase", {
+            fieldLabel: "Moneda",
+            name: "MONEDA",
+            displayField: 'VALOR',
+            store: me.store_moneda,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false
+        });
 
-        me.formReporte.add([me.cbx_reporte, me.date_fecha_inicial, me.date_fecha_final, me.cbx_socio]);
+        me.store_caja = Ext.create('App.Store.Cajas.Cajas');
+        me.cbx_caja = Ext.create("App.Config.Componente.ComboAutoBase", {
+            fieldLabel: "Caja",
+            name: "ID_CAJA",
+            displayField: 'NOMBRE',
+            valueField: 'ID_CAJA',
+            store: me.store_caja,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            //width: 480,
+            //colspan: 2,
+            textoTpl: function () { return "{NOMBRE} - {DESCRIPCION} - {MONEDA}" }
+        });
+
+        me.formReporte.add([me.cbx_reporte, me.date_fecha_inicial, me.date_fecha_final, me.cbx_socio, me.cbx_caja, me.cbx_moneda]);
         me.items = me.formReporte;
         me.cargarEventos();
 
@@ -138,8 +186,14 @@
                 case "REPORTE COMPRA DE HOJAS POR SOCIO":
                     me.rutaReporte = "ReporteDetalleHojasPorSocio";
                     break;
-                case "  ":
+                case "REPORTE AHORROS Y RETIROS POR SOCIO":
                     me.rutaReporte = "ReporteAhorrosCobros";
+                    break;
+                case "REPORTE ESTADO RESULTADO POR CAJA":
+                    me.rutaReporte = "ReporteEstadoResultadoPorCaja";
+                    break;
+                case "REPORTE ESTADO RESULTADO POR MONEDA":
+                    me.rutaReporte = "ReporteEstadoResultadoPorMoneda";
                     break;
                 default:
                     me.rutaReporte = "";
@@ -152,6 +206,14 @@
             if (me.formReporte.isValid()) {
                 if (me.rutaReporte == "ReporteDetalleHojasPorSocio") {
                     me.generarReporte(me.rutaReporte, 'FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue() + '&ID_SOCIO_MOVIL=' + me.cbx_socio.getValue());
+
+                }
+                else if (me.rutaReporte == "ReporteEstadoResultadoPorCaja") {
+                    me.generarReporte(me.rutaReporte, 'FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue() + '&ID_CAJA=' + me.cbx_caja.getValue());
+
+                }
+                else if (me.rutaReporte == "ReporteEstadoResultadoPorMoneda") {
+                    me.generarReporte(me.rutaReporte, 'FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue() + '&MONEDA=' + me.cbx_moneda.getValue());
 
                 }
                 else {

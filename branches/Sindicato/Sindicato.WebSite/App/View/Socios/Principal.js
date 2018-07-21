@@ -11,15 +11,15 @@
     CargarComponentes: function () {
         var me = this;
 
-        //me.toolbar = Funciones.CrearMenuBar();
-        //Funciones.CrearMenu('btn_EliminarSocio', 'Eliminar', 'cross', me.EventosPrincipal, me.toolbar, this, null, true);
-        //Funciones.CrearMenu('btn_ReporteSocioMovilHoja', 'Reporte Hoja', 'printer', me.EventosPrincipal, me.toolbar, this, null, true);
-        ////Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
-        ////Funciones.CrearMenu('btn_ImprimirReporte', 'Imprimir Reporte', 'printer', me.EventosPrincipal, me.toolbar, this, null, true);
-        ////Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
-        //Funciones.CrearMenu('btn_ConfigHoja', 'Config', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
-        //Funciones.CrearMenu('btn_Kardex', 'Kardex Soc.', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
-        ////Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
+        me.toolbar = Funciones.CrearMenuBar();
+        Funciones.CrearMenu('btn_EliminarSocio', 'Eliminar', 'cross', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_ReporteSocioMovilHoja', 'Reporte Hoja', 'printer', me.EventosPrincipal, me.toolbar, this, null, true);
+        //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
+        //Funciones.CrearMenu('btn_ImprimirReporte', 'Imprimir Reporte', 'printer', me.EventosPrincipal, me.toolbar, this, null, true);
+        //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_ConfigHoja', 'Config', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_Kardex', 'Kardex Soc.', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
+        //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
 
 
 

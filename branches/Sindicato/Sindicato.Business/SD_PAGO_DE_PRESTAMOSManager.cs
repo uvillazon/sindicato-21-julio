@@ -24,7 +24,7 @@ namespace Sindicato.Business
             try
             {
                 var context = (SindicatoContext)Context;
-                var pres = context.SD_PRESTAMOS_POR_SOCIOS.Where(x => x.ID_PRESTAMO == pago.ID_PRESTAMO).FirstOrDefault();
+                var pres = context.SD_PRESTAMOS_POR_SOCIOS.Where(x => x.ID_PRESTAMO == pago.ID_PRESTAMO && x.ESTADO != "ANULADO").FirstOrDefault();
                 if (pres == null)
                 {
                     result.success = false;

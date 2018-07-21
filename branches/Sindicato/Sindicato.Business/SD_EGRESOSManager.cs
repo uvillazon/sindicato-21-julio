@@ -37,6 +37,7 @@ namespace Sindicato.Business
                         ing.ID_EGRESO = ObtenerSecuencia();
                         ing.NRO_RECIBO = ing.ID_EGRESO;
                         ing.ID_TIPO = ing.ID_TIPO;
+                        ing.ESTADO = "NUEVO";
                         Add(ing);
 
                         ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));

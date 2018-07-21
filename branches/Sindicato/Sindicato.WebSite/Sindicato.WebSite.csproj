@@ -374,6 +374,7 @@
     <Content Include="App\View\Choferes\Principal.js" />
     <Content Include="App\View\CierresParada\GridDetalles.js" />
     <Content Include="App\View\Cierres\GridCierreSocios.js" />
+    <Content Include="App\View\Cierres\GridDetalleSocio.js" />
     <Content Include="App\View\Clientes\FormCrearVenta.js" />
     <Content Include="App\View\Clientes\FormMovimiento.js" />
     <Content Include="App\View\Clientes\Forms.js" />
@@ -398,6 +399,9 @@
     <Content Include="App\View\Ahorros\GridCierres.js" />
     <Content Include="App\View\Ahorros\GridDetalles.js" />
     <Content Include="App\View\Ahorros\Principal.js" />
+    <Content Include="App\View\Prestamos\FormMora.js" />
+    <Content Include="App\View\Prestamos\FormRetiro.js" />
+    <Content Include="App\View\Prestamos\GridMoras.js" />
     <Content Include="App\View\Prestamos\GridPagos.js" />
     <Content Include="App\View\Prestamos\FormPagoPrestamo.js" />
     <Content Include="App\View\Prestamos\GridPlanPagos.js" />
@@ -4043,6 +4047,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reportes\Copia de ReporteCierreAhorro.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteEstadoResultadoPorMoneda.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteAhorrosCobros.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteDetalleHojaPorSocio.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteDeudoresHoja.rdlc" />
@@ -4050,6 +4055,7 @@
     <EmbeddedResource Include="Reportes\ReporteDeudores.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteDiarioHoja.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteDiarioHojaRegularizadas.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteEstadoResultadoPorCaja.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteIngresosDetalle.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteIngresosDetallePorCaja.rdlc" />
     <EmbeddedResource Include="Reportes\ReportePagoPrestamo.rdlc" />
