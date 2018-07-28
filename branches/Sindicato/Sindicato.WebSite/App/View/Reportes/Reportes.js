@@ -10,6 +10,7 @@
             me.textGuardar = "Reporte Totales";
             me.columns = 2;
             me.CargarReportes();
+            me.CargarEventos();
 
 
         }
@@ -25,7 +26,20 @@
         me.btn_guardar.on('click', me.GuardarReporte, this);
 
     },
+    CargarEventos: function () {
+        var me = this;
+        me.cbx_reporte.on('select', function (cbx, record) {
+            if (cbx.getValue() == "REPORTE COMPRA DE HOJAS POR SOCIO") {
+                me.cbx_socio.setDisabled(false);
+                me.cbx_socio.reset();
+            }
+            else {
+                me.cbx_socio.setDisabled(true);
+                me.cbx_socio.reset();
+            }
 
+        });
+    },
     CargarReportes: function () {
         var me = this;
         me.formReporte = Ext.create("App.Config.Abstract.Form", { botones: false, title: "Generar Reporte", columns: 2 });
@@ -57,7 +71,24 @@
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
         });
-        me.formReporte.add([me.cbx_reporte, me.date_fecha_inicial, me.date_fecha_final]);
+
+        me.store_socio = Ext.create('App.Store.Socios.Socios');
+
+        me.cbx_socio = Ext.create("App.Config.Componente.ComboAutoBase", {
+            fieldLabel: "Nro Movil",
+            name: "ID_SOCIO_MOVIL",
+            displayField: 'NRO_MOVIL',
+            valueField: 'ID_SOCIO_MOVIL',
+            store: me.store_socio,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            width: 480,
+            colspan : 2,
+            //colspan: 2,
+            textoTpl: function () { return "Nro Movil :{NRO_MOVIL} - {NOMBRE} {APELLIDO_PATERNO} {APELLIDO_MATERNO}" }
+        });
+
+        me.formReporte.add([me.cbx_reporte, me.date_fecha_inicial, me.date_fecha_final, me.cbx_socio]);
         me.items = me.formReporte;
         me.cargarEventos();
 
@@ -90,6 +121,24 @@
                 case "REPORTE DETALLE REGULARIZADAS":
                     me.rutaReporte = "ReporteDiarioRegularizadas";
                     break;
+                case "REPORTES DETALLE DE PRESTAMOS Y PAGOS":
+                    me.rutaReporte = "ReportePrestamosPagosDetalle";
+                    break;
+                case "REPORTE TOTAL DE PRESTAMOS":
+                    me.rutaReporte = "ReportePrestamosTotales";
+                    break;
+                case "REPORTE DEUDORES COPERATIVA":
+                    me.rutaReporte = "ReporteDeudoresCoperativa";
+                    break;
+                case "REPORTE DEUDORES COPERATIVA CUOTA":
+                    me.rutaReporte = "ReporteDeudoresCoperativaCouta";
+                    break;
+                case "REPORTE DEUDORES POR HOJA":
+                    me.rutaReporte = "ReporteDeudoresHoja";
+                    break;
+                case "REPORTE COMPRA DE HOJAS POR SOCIO":
+                    me.rutaReporte = "ReporteDetalleHojasPorSocio";
+                    break;
                 default:
                     me.rutaReporte = "";
             }
@@ -99,8 +148,14 @@
         var me = this;
         if (me.rutaReporte != "") {
             if (me.formReporte.isValid()) {
-                me.generarReporte(me.rutaReporte, 'FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue());
-                //window.open(Constantes.HOST + 'ReportesPDF/ReporteIngresosTotales?tipo=pdf&FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue());
+                if (me.rutaReporte == "ReporteDetalleHojasPorSocio") {
+                    me.generarReporte(me.rutaReporte, 'FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue() + '&ID_SOCIO_MOVIL=' + me.cbx_socio.getValue());
+
+                }
+                else {
+                    me.generarReporte(me.rutaReporte, 'FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue());
+                }
+                    //window.open(Constantes.HOST + 'ReportesPDF/ReporteIngresosTotales?tipo=pdf&FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue());
                 //me.hide();
             }
             else {
