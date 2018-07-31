@@ -1,0 +1,88 @@
+select 
+query1.prestamo , query1.monto_prestamo ,
+count(1) as cantidad,
+sum(query1.monto_prestamo) as importe_prestamo,
+SUM(query1.interes)  as interes,
+sum(query1.monto_prestamo)+ SUM(query1.interes) as prestamo_total,
+sum(query1.total_cancelado) as total_cancelado,
+sum(query1.debe) as debe
+FROM
+
+(select * ,
+((query.monto_prestamo + query.interes) - query.total_cancelado ) debe
+FROM (
+select 
+IF(LENGTH(p.descripcion_prestamo)  > 0 , upper(p.descripcion_prestamo) ,'OTROS') prestamo,
+ p.`monto_prestamo` ,
+(select  ROUND(sum(interessem),1) from `plan_de_pagos131`  where id_prestamo = p.id_prestamo ) as total_interes,
+p.`monto_prestamo` * 0.07 as interes,
+(select coalesce(null,sum(monto_deposito),0) from deposito where id_prestamo = p.id_prestamo ) as total_cancelado,
+(select CONCAT(coalesce(null,s.`nombre_socio`,''),' ',s.`apellido1_socio`,' ',coalesce(null,s.`apellido2_socio`,'')) from socio s where s.id_socio = p.socio ) as socio
+from prestamo_socio131 p where fecha_prestamo >'2014-07-15' and fecha_prestamo <'2016-07-16'
+
+) query
+) query1
+group by query1.prestamo , query1.monto_prestamo
+
+
+
+
+
+
+select 
+
+* ,
+((query.monto_prestamo + query.interes) - query.total_cancelado ) debe
+FROM (
+select 
+IF(LENGTH(p.descripcion_prestamo)  > 0 , upper(p.descripcion_prestamo) ,'OTROS') prestamo,
+ p.`monto_prestamo` ,
+(select  ROUND(sum(interessem),1) from `plan_de_pagos131`  where id_prestamo = p.id_prestamo ) as total_interes,
+p.`monto_prestamo` * 0.07 as interes,
+(select coalesce(null,sum(monto_deposito),0) from deposito where id_prestamo = p.id_prestamo ) as total_cancelado,
+(select CONCAT(coalesce(null,s.`nombre_socio`,''),' ',s.`apellido1_socio`,' ',coalesce(null,s.`apellido2_socio`,'')) from socio s where s.id_socio = p.socio ) as socio
+from prestamo_socio131 p where fecha_prestamo >'2014-07-15' and fecha_prestamo <'2016-07-16'
+
+) query
+
+
+/*select CONCAT(coalesce(null,s.`nombre_socio`,''),' ',s.`apellido1_socio`,' ',coalesce(null,s.`apellido2_socio`,'')) from socio s
+select LENGTH(s.`descripcion_prestamo`) , coalesce('', s.`descripcion_prestamo`,'s ','aa') from prestamo_socio131 s where id_prestamo = 843
+
+select IF(LENGTH(s.`descripcion_prestamo`)  > 0 , s.`descripcion_prestamo` ,'02') from prestamo_socio131 s-- where id_prestamo = 843*/
+
+
+
+
+
+
+
+
+
+
+
+select * from prestamo_socio131 where socio = 472
+
+select * from socio where id_socio = 546
+
+select * from movil
+
+select * from `plan_de_pagos131` where id_prestamo = 480
+
+select * from deposito where id_prestamo = 480
+
+/**select * from `deposito` where id_prestamo in (*/
+select * ,
+(select  ROUND(sum(interessem),1) from `plan_de_pagos131`  where id_prestamo = p.id_prestamo ) as total_interes,
+p.`monto_prestamo` * 0.07 as interes,
+(select sum(monto_deposito) from deposito where id_prestamo = p.id_prestamo ) as total_cancelado
+from prestamo_socio131 p where fecha_prestamo >'2014-07-15' and fecha_prestamo <'2016-07-16'
+
+
+select sum(capitalsem) , sum(interessem) from `plan_de_pagos131` where id_prestamo = 410
+
+ SELECT DATE('2003-12-31 01:02:03');
+ 
+ select * from `prestamo_socio131` where id_prestamo = 480
+ 
+ 
