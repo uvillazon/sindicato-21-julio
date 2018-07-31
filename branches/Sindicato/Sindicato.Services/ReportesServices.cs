@@ -569,7 +569,7 @@ namespace Sindicato.Services
                     var kar = new ReporteRetiroModel()
                     {
                         ID_RETIRO = item.ID_RETIRO,
-                        CAJA = item.SD_CAJAS.NOMBRE,
+                        CAJA = string.Format("{0} : {1}",  item.SD_CAJAS.CODIGO , item.SD_CAJAS.NOMBRE),
                         FECHA = item.FECHA,
                         LOGIN = item.LOGIN,
                         MOVIL = item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL.ToString(),
@@ -1261,7 +1261,7 @@ namespace Sindicato.Services
                 var managerTransferencias = new SD_TRANSFERENCIASManager(uow);
                 int cnt = 0;
                 var cajas = managerCaja.BuscarTodos(x => x.ID_CAJA == ID_CAJA).FirstOrDefault();
-                var caja = cajas == null ? null : cajas.NOMBRE;
+                var caja = cajas == null ? null : string.Format( "{0} : {1}",cajas.CODIGO , cajas.NOMBRE);
                 var moneda = cajas.MONEDA;
                 var detalleshojas = managerDetalleHoja.BuscarTodos(x => x.ID_CAJA == ID_CAJA && x.SD_HOJAS_CONTROL.ESTADO != "ANULADO" && x.SD_HOJAS_CONTROL.FECHA_COMPRA >= FECHA_INI && x.SD_HOJAS_CONTROL.FECHA_COMPRA < Fecha_fin);
                 if (detalleshojas.Count() > 0)
@@ -1330,7 +1330,7 @@ namespace Sindicato.Services
                             {
                                 NRO = cnt,
                                 OPERACION = "INGRESOS",
-                                SUBOPERACION = "INGRESOS POR SOCIOS",
+                                SUBOPERACION = "DIVIDENDOS",
                                 DETALLE = item.Key,
                                 PERIODO = Intervalo,
                                 CAJA = caja,
@@ -1554,7 +1554,7 @@ namespace Sindicato.Services
                             {
                                 NRO = cnt,
                                 OPERACION = "INGRESOS",
-                                SUBOPERACION = "INGRESOS POR SOCIOS",
+                                SUBOPERACION = "DIVIDENDOS",
                                 DETALLE = string.Format("{0} : {1}", item.Key.CODIGO, item.Key.NOMBRE),
                                 PERIODO = Intervalo,
                                 MONEDA = moneda,

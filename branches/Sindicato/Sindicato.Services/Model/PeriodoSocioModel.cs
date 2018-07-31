@@ -56,4 +56,20 @@ namespace Sindicato.Services.Model
         public decimal? TOTAL_CANCELADO { get; set; }
 
     }
+
+    public class CierreCajaModel
+    {
+        public int ID_CAJA { get; set; }
+        public string CAJA { get; set; }
+        public string OPERACION { get; set; }
+        public string SUBOPERACION { get; set; }
+        public decimal? SALDO { get; set; }
+        public string MONEDA { get; set; }
+        public string MSG { get; set; }
+        public DateTime FECHA_INI { get; set; }
+        public DateTime FECHA_FIN { get; set; }
+
+        public string INTERVALO { get; set; }
+
+    }
 }
