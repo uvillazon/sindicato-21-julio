@@ -30,5 +30,8 @@ namespace Sindicato.Common
 
         [DataMember]
         public int id { get; set; }
+
+        [DataMember]
+        public object data { get; set; }
     }
 }

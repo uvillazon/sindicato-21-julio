@@ -185,6 +185,16 @@
             case "btn_EliminarSocio":
                 Funciones.AjaxRequestGrid("Socios", "EliminarSocio", me.grid, "Se eliminara todos los registros asociados al socio Esta seguro que desea continuar?", { ID_SOCIO: me.grid.record.get('ID_SOCIO') }, me.grid, null);
                 break;
+            case "btn_TransferenciasHojas":
+                var win = Ext.create("App.Config.Abstract.Window", { botones: true });
+                var form = Ext.create("App.View.Socios.TransferenciasHojasForm");
+                win.add(form);
+                win.show();
+                win.btn_guardar.on('click', function () {
+                    Funciones.AjaxRequestWin("Socios", "GuardarTransferenciaHojas", win, form, me.grid, "Esta Seguro de Guardar", null, win);
+
+                });
+                break;
             default:
                 Ext.Msg.alert("Aviso", "No Existe el botton");
                 break;

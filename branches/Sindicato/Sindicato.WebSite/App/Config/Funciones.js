@@ -978,5 +978,27 @@ Ext.define("App.Config.Funciones", {
             pageScale: 1.50,
         });
         panel.show();
-    }
+    },
+    getRequest: function (controlador, accion, method, params) {
+        var method = method === null ? 'POST' : method;
+        var deferred = Ext.create('Deft.promise.Deferred');
+        Ext.Ajax.request({
+            url: Constantes.HOST + '' + controlador + '/' + accion + '',
+            params: params,
+            method: method,
+            success: function (response, options) {
+                var res = Ext.JSON.decode(response.responseText);
+                if (res.success) {
+                    deferred.resolve(res);
+                }
+                else {
+                    deferred.reject(res.msg);
+                }
+            },
+            failure: function (response, options) {
+                deferred.reject(response);
+            }
+        });
+        return deferred.promise;
+    },
 });

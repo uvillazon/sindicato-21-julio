@@ -460,5 +460,69 @@ namespace Sindicato.WebSite.Controllers
             respuestaSP = _serSoc.EliminarSocio(ID_SOCIO, login);
             return Json(respuestaSP);
         }
+
+        #region Transferencias de Hojas entre socios
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerTransferenciasHojasPaginado(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var retiros = _serSoc.ObtenerTransferenciasHojasPaginado(paginacion, filtros);
+            var formatData = retiros.Select(x => new
+            {
+                ESTADO = x.ESTADO,
+                FECHA_REG = x.FECHA_REG,
+                ID_TRANSF = x.ID_TRANSF,
+                LOGIN_USR = x.LOGIN_USR,
+                OBSERVACION = x.OBSERVACION,
+               TO_NRO_MOVIL = x.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
+               FROM_NRO_MOVIL = x.SD_SOCIO_MOVILES1.SD_MOVILES.NRO_MOVIL,
+               TO_SOCIO = x.SD_SOCIO_MOVILES.SD_SOCIOS.ObtenerNombreSocio(),
+               FROM_SOCIO = x.SD_SOCIO_MOVILES1.SD_SOCIOS.ObtenerNombreSocio(),
+               CANTIDAD_HOJAS = x.SD_TRANSF_HOJA_DET.Count(),
+               IMPORTE_TOTAL = x.SD_TRANSF_HOJA_DET.Sum(y=>y.SD_HOJAS_CONTROL.MONTO)
+
+
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
+
+        [HttpPost]
+        public JsonResult ObtenerResumenDeHojas(int ID_SOCIO_MOVIL)
+        {
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serSoc.ObtenerResumenDeHojas(ID_SOCIO_MOVIL);
+            return Json(respuestaSP);
+        }
+
+        [HttpPost]
+        public JsonResult VerificarHojasDeSocio(int ID_SOCIO_MOVIL)
+        {
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serSoc.VerificarHojasDeSocio(ID_SOCIO_MOVIL);
+            return Json(respuestaSP);
+        }
+
+        [HttpPost]
+        public JsonResult VerificarHojasDeSocio(int ID_SOCIO_MOVIL)
+        {
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serSoc.VerificarHojasDeSocio(ID_SOCIO_MOVIL);
+            return Json(respuestaSP);
+        }
+
+        [HttpPost]
+        public JsonResult GuardarTransferenciaHojas(SD_TRANSFERENCIAS_HOJAS data)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serSoc.GuardarTransferenciaHojas(data,login);
+            return Json(respuestaSP);
+        }
+
+        
+        #endregion
     }
 }

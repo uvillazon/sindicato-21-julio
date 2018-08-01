@@ -1,5 +1,11 @@
 Ext.define("App.Config.Abstract.Form", {
     extend: "Ext.form.Panel",
+    requires:
+        [
+            "App.Config.Componente.TextFieldBase",
+            "App.Config.Componente.ComboAutoBase",
+            "App.Config.Componente.DateFieldBase"
+        ],
     layout: {
         type: 'table',
         columns: 2,

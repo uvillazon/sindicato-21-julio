@@ -415,6 +415,7 @@
     <Content Include="App\View\Prestamos\GridPlanPagos.js" />
     <Content Include="App\View\Reports\ReportsPDF.js" />
     <Content Include="App\View\Socios\FormBajaSocioMovil.js" />
+    <Content Include="App\View\Socios\TransferenciasHojasForm.js" />
     <Content Include="App\View\TiposEgresos\FormEgreso.js" />
     <Content Include="App\View\TiposEgresos\Forms.js" />
     <Content Include="App\View\TiposEgresos\GridEgresos.js" />

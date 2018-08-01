@@ -177,8 +177,8 @@
         <edmx:AssociationConnector Association="Model.SD_EGRESOS_R01" />
         <edmx:AssociationConnector Association="Model.SD_INGRESOS_R01" />
         <edmx:AssociationConnector Association="Model.SD_EGRESOS_R02" />
-        <edmx:EntityTypeShape EntityType="Model.SD_TRANSF_HOJA_DET" Width="1.5" PointX="4.5054985696941143" PointY="10.342304115343049" />
-        <edmx:EntityTypeShape EntityType="Model.SD_TRANSFERENCIAS_HOJAS" Width="1.5" PointX="2.5008290458940103" PointY="26.351432842366133" />
+        <edmx:EntityTypeShape EntityType="Model.SD_TRANSF_HOJA_DET" Width="1.5" PointX="8.125" PointY="10.75" />
+        <edmx:EntityTypeShape EntityType="Model.SD_TRANSFERENCIAS_HOJAS" Width="2.5" PointX="11.375" PointY="25.125" />
         <edmx:AssociationConnector Association="Model.SD_TRANSF_HOJA_DET_R02" />
         <edmx:AssociationConnector Association="Model.SD_TRANSFERENCIAS_HOJAS_R01" />
         <edmx:AssociationConnector Association="Model.SD_TRANSFERENCIAS_HOJAS_R02" />
