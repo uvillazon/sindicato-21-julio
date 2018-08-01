@@ -31,9 +31,11 @@ namespace Sindicato.Business
                     }
                     else
                     {
+
                         ing.FECHA_REG = DateTime.Now;
                         ing.LOGIN = login;
                         ing.ID_TRANSFERENCIA = ObtenerSecuencia();
+                        ing.NRO_RECIBO = ing.ID_TRANSFERENCIA;
                         Add(ing);
 
                         ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));

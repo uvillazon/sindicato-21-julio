@@ -18,10 +18,15 @@
         var me = this;
         me.toolbar = Funciones.CrearMenuBar();
         Funciones.CrearMenu('btn_VerDetalle', 'Imprimir', 'report', me.ImprimirReporte, me.toolbar, this, null, true);
-        Funciones.CrearMenu('btn_Eliminar', 'Eliminar', Constantes.ICONO_BAJA, me.Eliminar, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_Eliminar', 'Anular', Constantes.ICONO_BAJA, me.Eliminar, me.toolbar, this, null, true);
         me.fbarmenu = me.toolbar,
         me.fbarmenuArray = ["btn_VerDetalle", "btn_Eliminar"];
         me.store = Ext.create("App.Store.Prestamos.Pagos");
+        me.viewConfig = {
+            getRowClass: function (record, rowIndex, rowParams, store) {
+                return Constantes.CargarCssEstados(record.get("ESTADO"), 'VENTAS');
+            }
+        };
         me.CargarComponentes();
         me.columns = [
                 { xtype: "rownumberer", width: 30, sortable: false },
@@ -42,6 +47,11 @@
     },
     Eliminar: function () {
         var me = this;
-        Funciones.AjaxRequestGrid("Prestamos", "EliminarPago", me, "Esta seguro de Eliminar el Pago?", { ID_PAGO: me.record.get('ID_PAGO') }, me, null, null);
+        if (me.record.get('ESTADO') == "NUEVO") {
+            Funciones.AjaxRequestGrid("Prestamos", "EliminarPago", me, "Esta seguro de Anular el Pago?", { ID_PAGO: me.record.get('ID_PAGO') }, me, null, null);
+        }
+        else {
+            Ext.Msg.alert("Error", "Solo puede anular los pagos en estado NUEVO");
+        }
     }
 });

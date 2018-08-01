@@ -296,7 +296,8 @@ namespace Sindicato.Services
                 var ant = manager.BuscarTodos(x => x.ID_TRANSFERENCIA == ID_TRANSFERENCIA).FirstOrDefault();
                 if (ant != null)
                 {
-                    manager.Delete(ant);
+                    //manager.Delete(ant);
+                    ant.ESTADO = "ANULADO";
                     var kardexIngreso = context.SD_KARDEX_EFECTIVO.Where(x => x.OPERACION == "TRANSFERENCIAS" && x.ID_OPERACION == ant.ID_TRANSFERENCIA && x.ID_CAJA == ant.ID_CAJA_DESTINO);
                     var kardexEgreso = context.SD_KARDEX_EFECTIVO.Where(x => x.OPERACION == "TRANSFERENCIAS" && x.ID_OPERACION == ant.ID_TRANSFERENCIA && x.ID_CAJA == ant.ID_CAJA_ORIGEN);
                     foreach (var item in kardexIngreso)

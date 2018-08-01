@@ -21,12 +21,11 @@
     },
     CargarComponentesConsulta: function () {
         var me = this;
-        me.hid_id = Ext.widget('hiddenfield', {
-            name: 'ID_TRANSFERENCIA',
-        });
+        
         me.txt_nro_recibo = Ext.create("App.Config.Componente.TextFieldBase", {
-            fieldLabel: "Nro. Recibo",
-            name: "NRO_RECIBO"
+            fieldLabel: "Nro. Transf",
+            name: "ID_TRANSFERENCIA",
+            readOnly : true
 
         });
         me.date_fecha = Ext.create("App.Config.Componente.DateFieldBase", {
@@ -65,7 +64,6 @@
 
         });
         me.items = [
-            me.hid_id,
             me.txt_nro_recibo, me.date_fecha,
             me.txt_concepto,
             me.txt_caja_origen, me.txt_caja_destino,
@@ -75,22 +73,20 @@
     },
     CargarComponentes: function () {
         var me = this;
-        me.hid_id = Ext.widget('hiddenfield', {
-            name: 'ID_TRANSFERENCIA',
-        });
+        
 
         me.txt_nro_recibo = Ext.create("App.Config.Componente.TextFieldBase", {
-            fieldLabel: "Nro Recibo",
-            afterLabelTextTpl: Constantes.REQUERIDO,
-            allowBlank: false,
-            name: "NRO_RECIBO"
+            fieldLabel: "Nro Transf",
+            readOnly : true,
+            name: "ID_TRANSFERENCIA"
 
         });
         me.date_fecha = Ext.create("App.Config.Componente.DateFieldBase", {
             fieldLabel: "Fecha",
             name: "FECHA",
             afterLabelTextTpl: Constantes.REQUERIDO,
-            allowBlank: false
+            allowBlank: false,
+            readOnly: true
         });
         me.txt_concepto = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Concepto",
@@ -177,7 +173,6 @@
         });
 
         me.items = [
-            me.hid_id,
             me.txt_nro_recibo, me.date_fecha,
             me.txt_concepto,
             me.cbx_caja_origen,

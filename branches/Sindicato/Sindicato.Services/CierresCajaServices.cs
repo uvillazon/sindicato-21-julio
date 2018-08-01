@@ -305,7 +305,7 @@ namespace Sindicato.Services
                     };
                     result.Add(res);
                 }
-                var detallesRetiros = managerRetiros.BuscarTodos(x => x.ESTADO == "ACTIVO" && x.FECHA >= FECHA_INI && x.FECHA < fecha_fin).GroupBy(y => new { y.SD_CAJAS.CODIGO, y.ID_CAJA , y.SD_CAJAS.MONEDA });
+                var detallesRetiros = managerRetiros.BuscarTodos(x => x.ESTADO == "NUEVO" && x.FECHA >= FECHA_INI && x.FECHA < fecha_fin).GroupBy(y => new { y.SD_CAJAS.CODIGO, y.ID_CAJA , y.SD_CAJAS.MONEDA });
                 foreach (var item in detallesRetiros)
                 {
                     CierreCajaModel res = new CierreCajaModel()

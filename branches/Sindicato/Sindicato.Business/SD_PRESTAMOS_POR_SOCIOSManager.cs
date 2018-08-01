@@ -92,10 +92,10 @@ namespace Sindicato.Business
             RespuestaSP result = new RespuestaSP();
             try
             {
-                var pres = BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO != "ANULADO").FirstOrDefault();
+                var pres = BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO == "NUEVO").FirstOrDefault();
                 if (pres == null) {
                     result.success = false;
-                    result.msg = "No existe prestamo";
+                    result.msg = "No existe prestamo o esta en estado Diferente a NUEVO";
                     return result;
                 }
                 if (pres.SD_PAGO_DE_PRESTAMOS.Count() > 0) {

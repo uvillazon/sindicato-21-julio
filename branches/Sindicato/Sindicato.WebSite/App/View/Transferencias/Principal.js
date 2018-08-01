@@ -34,7 +34,7 @@
 
         });
         me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Transferencia', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
-        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Eliminar Transferencia', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
+        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Anular Transferencia', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
         me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar]);
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
 
@@ -70,7 +70,12 @@
                 me.FormCrearTransferencia();
                 break;
             case "btn_eliminar":
-                Funciones.AjaxRequestGrid("Transferencias", "EliminarTransferencia", me.grid, "Esta seguro de Eliminar la Transferencia?", { ID_TRANSFERENCIA: me.record.get('ID_TRANSFERENCIA') }, me.grid, null);
+                if (me.record.get('ESTADO') == "NUEVO") {
+                    Funciones.AjaxRequestGrid("Transferencias", "EliminarTransferencia", me.grid, "Esta seguro de Eliminar la Transferencia?", { ID_TRANSFERENCIA: me.record.get('ID_TRANSFERENCIA') }, me.grid, null);
+                }
+                else {
+                    Ext.Msg.alert("Error", "No puede Anular la transferencia. en estado diferente a NUEVO");
+                }
                 break;
             case "btn_KardexOrigen":
                 me.VentanaKardex(me.record.get('ID_CAJA_ORIGEN'));

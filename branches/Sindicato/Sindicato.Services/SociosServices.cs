@@ -569,7 +569,8 @@ namespace Sindicato.Services
                 var ant = manager.BuscarTodos(x => x.ID_RETIRO == ID_RETIRO).FirstOrDefault();
                 if (ant != null)
                 {
-                    manager.Delete(ant);
+                    ant.ESTADO = "ANULADO";
+                    //manager.Delete(ant);
                     var kardex = context.SD_KARDEX_SOCIO_MOVIL.Where(x => x.OPERACION == "RETIRO DE AHORRO" && x.ID_OPERACION == ant.ID_RETIRO && x.ID_SOCIO_MOVIL == ant.ID_SOCIO_MOVIL);
                     foreach (var item in kardex)
                     {

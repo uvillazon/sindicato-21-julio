@@ -30,6 +30,9 @@
         me.date_fecha = Ext.create("App.Config.Componente.DateFieldBase", {
             fieldLabel: "Fecha",
             name: "FECHA",
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            readOnly: true
         });
 
         me.store_tipo = Ext.create('App.Store.IngresosPorSocios.TiposIngresos');

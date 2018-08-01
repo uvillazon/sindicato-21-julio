@@ -92,15 +92,16 @@ namespace Sindicato.Business
             {
                 var context = (SindicatoContext)Context;
                 var pago = BuscarTodos(x => x.ID_PAGO == ID_PAGO).FirstOrDefault();
-                if (pago == null)
+                if (pago == null && pago.ESTADO != "NUEVO")
                 {
                     result.success = false;
-                    result.msg = "No existe el pago de  prestamo";
+                    result.msg = "No existe el pago de  prestamo o esta en estado diferente a NUEVO";
                     return result;
                 }
                 fecha = pago.FECHA;
                 ID_CAJA = pago.ID_CAJA;
-                Delete(pago);
+                pago.ESTADO = "ANULADO";
+                //Delete(pago);
                 var kardex = context.SD_KARDEX_EFECTIVO.Where(x => x.OPERACION == "PAGO PRESTAMO" && x.ID_OPERACION == pago.ID_PAGO && x.ID_CAJA == pago.ID_CAJA);
                 foreach (var item in kardex)
                 {
@@ -111,7 +112,7 @@ namespace Sindicato.Business
                 ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
                 context.P_SD_ACT_KARDEX_EFECTIVO(pago.ID_CAJA, fecha, 0, p_RES);
                 result.success = true;
-                result.msg = "Se elimino Correctamente";
+                result.msg = "Se Anulo Correctamente";
             }
             catch (Exception e)
             {
