@@ -238,6 +238,8 @@
     <Content Include="App\Model\CierresParada\CierresParada.js" />
     <Content Include="App\Model\CierresParada\Detalles.js" />
     <Content Include="App\Model\Cierres\Detalles.js" />
+    <Content Include="App\Model\CierreCaja\Cierres.js" />
+    <Content Include="App\Model\CierreCaja\Detalles.js" />
     <Content Include="App\Model\Egresos\TiposEgresos.js" />
     <Content Include="App\Model\KardexHojas\KardexHojas.js" />
     <Content Include="App\Model\Prestamos\Pagos.js" />
@@ -294,6 +296,8 @@
     <Content Include="App\Store\CierresParada\CierresParada.js" />
     <Content Include="App\Store\CierresParada\Detalles.js" />
     <Content Include="App\Store\Cierres\Detalles.js" />
+    <Content Include="App\Store\CierreCaja\Cierres.js" />
+    <Content Include="App\Store\CierreCaja\Detalles.js" />
     <Content Include="App\Store\Egresos\TiposEgresos.js" />
     <Content Include="App\Store\KardexHojas\KardexHojas.js" />
     <Content Include="App\Store\Prestamos\Pagos.js" />
@@ -399,6 +403,10 @@
     <Content Include="App\View\Ahorros\GridCierres.js" />
     <Content Include="App\View\Ahorros\GridDetalles.js" />
     <Content Include="App\View\Ahorros\Principal.js" />
+    <Content Include="App\View\CierreCaja\FormCierre.js" />
+    <Content Include="App\View\CierreCaja\GridCierres.js" />
+    <Content Include="App\View\CierreCaja\GridDetalles.js" />
+    <Content Include="App\View\CierreCaja\Principal.js" />
     <Content Include="App\View\Prestamos\FormMora.js" />
     <Content Include="App\View\Prestamos\FormRetiro.js" />
     <Content Include="App\View\Prestamos\GridMoras.js" />

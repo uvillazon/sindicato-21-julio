@@ -14,10 +14,11 @@ namespace Sindicato.Services.Interfaces
 
         IEnumerable<SD_CIERRES_CAJAS> ObtenerCierresPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
         IEnumerable<SD_DETALLE_CIERRES_CAJA> ObtenerDetallesPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
-        
+        IEnumerable<CierreCajaModel> ObtenerCierreCajaGenerado(DateTime FECHA_INI, DateTime FECHA_FIN);
+
         SD_CIERRES_CAJAS ObtenerUltimoRegistroCierre();
 
         RespuestaSP GuardarCierre(SD_CIERRES_CAJAS cierre, string detalles, string login);
-        
+
     }
 }

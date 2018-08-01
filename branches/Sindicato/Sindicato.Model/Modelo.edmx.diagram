@@ -184,7 +184,7 @@
         <edmx:AssociationConnector Association="Model.SD_TRANSFERENCIAS_HOJAS_R02" />
         <edmx:AssociationConnector Association="Model.SD_TRANSF_HOJA_DET_R01" />
         <edmx:EntityTypeShape EntityType="Model.SD_CIERRES_CAJAS" Width="1.5" PointX="6.088335310150093" PointY="16.132124133469596" />
-        <edmx:EntityTypeShape EntityType="Model.SD_DETALLE_CIERRES_CAJA" Width="1.5" PointX="3.9819862879728833" PointY="27.239560318756645" />
+        <edmx:EntityTypeShape EntityType="Model.SD_DETALLE_CIERRES_CAJA" Width="1.5" PointX="0.84491203392153236" PointY="17.65414854216117" />
         <edmx:AssociationConnector Association="Model.SD_DETALLE_CIERRES_CAJA_R02" />
         <edmx:AssociationConnector Association="Model.SD_DETALLE_CIERRES_CAJA_R01" />
         </edmx:Diagram>

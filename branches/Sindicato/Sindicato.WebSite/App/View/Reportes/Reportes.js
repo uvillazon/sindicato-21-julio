@@ -132,7 +132,7 @@
             allowBlank: false,
             //width: 480,
             //colspan: 2,
-            textoTpl: function () { return "{NOMBRE} - {DESCRIPCION} - {MONEDA}" }
+            textoTpl: function () { return "{CODIGO} : {NOMBRE} - {DESCRIPCION} - {MONEDA}" }
         });
 
         me.formReporte.add([me.cbx_reporte, me.date_fecha_inicial, me.date_fecha_final, me.cbx_socio, me.cbx_caja, me.cbx_moneda]);
