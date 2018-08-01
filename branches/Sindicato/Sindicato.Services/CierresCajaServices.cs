@@ -245,7 +245,7 @@ namespace Sindicato.Services
                         result.Add(res);
                     }
                 }
-                var detallesPagosPrestamos = managerPagosPrestamos.BuscarTodos(x=> x.FECHA >= FECHA_INI && x.FECHA < fecha_fin && x.ESTADO == "NUEVO").GroupBy(y => new { y.SD_CAJAS.CODIGO, y.ID_CAJA,y.SD_CAJAS.MONEDA });
+                var detallesPagosPrestamos = managerPagosPrestamos.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < fecha_fin && x.ESTADO == "NUEVO").GroupBy(y => new { y.SD_CAJAS.CODIGO, y.ID_CAJA, y.SD_CAJAS.MONEDA });
                 if (detallesPagosPrestamos.Count() > 0)
                 {
                     foreach (var item in detallesPagosPrestamos)
@@ -263,7 +263,7 @@ namespace Sindicato.Services
                         result.Add(res);
                     }
                 }
-                var detalleTransferencias = managerTransferencias.BuscarTodos(x =>  x.FECHA >= FECHA_INI && x.FECHA < fecha_fin && x.ESTADO == "NUEVO").GroupBy(y => new { y.SD_CAJAS1.CODIGO, y.ID_CAJA_DESTINO,y.SD_CAJAS1.MONEDA });
+                var detalleTransferencias = managerTransferencias.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < fecha_fin && x.ESTADO == "NUEVO").GroupBy(y => new { y.SD_CAJAS1.CODIGO, y.ID_CAJA_DESTINO, y.SD_CAJAS1.MONEDA });
                 foreach (var item in detalleTransferencias)
                 {
                     CierreCajaModel res = new CierreCajaModel()
@@ -277,7 +277,7 @@ namespace Sindicato.Services
                     };
                     result.Add(res);
                 }
-                var detalleEgresos = managerEgresos.BuscarTodos(x =>  x.ESTADO == "NUEVO" && x.FECHA >= FECHA_INI && x.FECHA < fecha_fin).GroupBy(y => new { y.SD_CAJAS.CODIGO,y.ID_CAJA ,y.SD_CAJAS.MONEDA });
+                var detalleEgresos = managerEgresos.BuscarTodos(x => x.ESTADO == "NUEVO" && x.FECHA >= FECHA_INI && x.FECHA < fecha_fin).GroupBy(y => new { y.SD_CAJAS.CODIGO, y.ID_CAJA, y.SD_CAJAS.MONEDA });
                 foreach (var item in detalleEgresos)
                 {
                     CierreCajaModel res = new CierreCajaModel()
@@ -291,7 +291,7 @@ namespace Sindicato.Services
                     };
                     result.Add(res);
                 }
-                var detallePrestamos = managerPrestamos.BuscarTodos(x =>x.ESTADO_CIERRE == "NUEVO" && x.FECHA >= FECHA_INI && x.FECHA < fecha_fin).GroupBy(y => new { y.SD_CAJAS.CODIGO, y.ID_CAJA , y.SD_CAJAS.MONEDA });
+                var detallePrestamos = managerPrestamos.BuscarTodos(x => x.ESTADO_CIERRE == "NUEVO" && x.FECHA >= FECHA_INI && x.FECHA < fecha_fin).GroupBy(y => new { y.SD_CAJAS.CODIGO, y.ID_CAJA, y.SD_CAJAS.MONEDA });
                 foreach (var item in detallePrestamos)
                 {
                     CierreCajaModel res = new CierreCajaModel()
@@ -305,7 +305,7 @@ namespace Sindicato.Services
                     };
                     result.Add(res);
                 }
-                var detallesRetiros = managerRetiros.BuscarTodos(x => x.ESTADO == "ACTIVO" && x.FECHA >= FECHA_INI && x.FECHA < fecha_fin).GroupBy(y => new { y.SD_CAJAS.CODIGO, y.ID_CAJA , y.SD_CAJAS.MONEDA });
+                var detallesRetiros = managerRetiros.BuscarTodos(x => x.ESTADO == "ACTIVO" && x.FECHA >= FECHA_INI && x.FECHA < fecha_fin).GroupBy(y => new { y.SD_CAJAS.CODIGO, y.ID_CAJA, y.SD_CAJAS.MONEDA });
                 foreach (var item in detallesRetiros)
                 {
                     CierreCajaModel res = new CierreCajaModel()
