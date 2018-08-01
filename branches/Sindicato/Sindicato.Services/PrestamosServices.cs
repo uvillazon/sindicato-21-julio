@@ -244,13 +244,13 @@ namespace Sindicato.Services
             return result;
         }
 
-        public RespuestaSP EliminarPagoPrestamo(int ID_PAGO)
+        public RespuestaSP EliminarPagoPrestamo(int ID_PAGO,string login)
         {
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
                 var manager = new SD_PAGO_DE_PRESTAMOSManager(uow);
-                result = manager.EliminarPagoPrestamo(ID_PAGO, "Anular");
+                result = manager.EliminarPagoPrestamo(ID_PAGO, login);
 
 
             });

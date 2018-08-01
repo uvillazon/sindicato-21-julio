@@ -569,7 +569,8 @@ namespace Sindicato.Services
                 var ant = manager.BuscarTodos(x => x.ID_RETIRO == ID_RETIRO).FirstOrDefault();
                 if (ant != null)
                 {
-                    manager.Delete(ant);
+                    ant.ESTADO = "ANULADO";
+                    //manager.Delete(ant);
                     var kardex = context.SD_KARDEX_SOCIO_MOVIL.Where(x => x.OPERACION == "RETIRO DE AHORRO" && x.ID_OPERACION == ant.ID_RETIRO && x.ID_SOCIO_MOVIL == ant.ID_SOCIO_MOVIL);
                     foreach (var item in kardex)
                     {
@@ -759,6 +760,70 @@ namespace Sindicato.Services
             });
             return result;
 
+        }
+
+        public RespuestaSP VerificarHojasDeSocio(int ID_SOCIO_MOVIL)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_HOJAS_CONTROLManager(uow);
+                var hojas = manager.BuscarTodos(x => x.ID_SOCIO_MOVIL == ID_SOCIO_MOVIL && x.ESTADO == "NUEVO");
+                result.success = hojas.Count() > 0 ? false : true;
+                result.msg = hojas.Count() > 0 ? "El movil seleccionado cuenta con hoja(s). Seleccione otro movil sin hojas activas" : "proceso ejecutado correctamente";
+            });
+            return result;
+
+        }
+        public RespuestaSP ObtenerResumenDeHojas(int ID_SOCIO_MOVIL)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_SOCIO_MOVILESManager(uow);
+                var managerHojas = new SD_DETALLES_HOJAS_CONTROLManager(uow);
+                var socio = manager.BuscarTodos(x => x.ID_SOCIO_MOVIL == ID_SOCIO_MOVIL).FirstOrDefault();
+                if (socio == null)
+                {
+                    result.success = false;
+                    result.msg = "No Existe el Movil";
+                }
+                else
+                {
+                    var hojas = managerHojas.BuscarTodos(x => x.SD_HOJAS_CONTROL.ESTADO == "NUEVO" && x.SD_HOJAS_CONTROL.ID_SOCIO_MOVIL == ID_SOCIO_MOVIL);
+                    if (hojas.Count() > 0)
+                    {
+                        decimal? total = 0;
+                        decimal? total_ahorro = 0;
+                        foreach (var item in hojas)
+                        {
+                            total = total + item.IMPORTE;
+                            if (item.OBLIGACION == "AHORRO")
+                            {
+                                total_ahorro = total_ahorro + item.IMPORTE;
+                            }
+                        }
+                        result.success = true;
+                        result.msg = "Proceso Ejectuado Correctamenet";
+                        result.data = new
+                        {
+                            NRO_MOVIL = socio.SD_MOVILES.NRO_MOVIL,
+                            SOCIO = socio.SD_SOCIOS.ObtenerNombreSocio(),
+                            CANTIDAD = hojas.GroupBy(x => x.ID_HOJA).Count(),
+                            IMPORTE_TOTAL = total,
+                            IMPORTE_AHORRRO = total_ahorro
+                        };
+                    }
+                    else
+                    {
+                        result.success = false;
+                        result.msg = string.Format("El movil : {0} no cuenta con Hojas Activas", socio.SD_MOVILES.NRO_MOVIL);
+                    }
+                }
+
+
+            });
+            return result;
         }
         #endregion
     }

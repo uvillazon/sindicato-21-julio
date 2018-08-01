@@ -24,8 +24,8 @@ namespace Sindicato.Business
                 if (data.ID_TRANSF == 0)
                 {
                     var context = (SindicatoContext)Context;
-                    var hojasATransferir = context.SD_HOJAS_CONTROL.Where(x => x.ID_SOCIO_MOVIL == data.FROM_SOCIO_MOVIL && x.ESTADO == "NUEVO");
-                    var hojasARecibir = context.SD_HOJAS_CONTROL.Where(x => x.ID_SOCIO_MOVIL == data.TO_SOCIO_MOVIL);
+                    var hojasATransferir = context.SD_HOJAS_CONTROL.Where(x => x.ID_SOCIO_MOVIL == data.TO_SOCIO_MOVIL && x.ESTADO == "NUEVO");
+                    var hojasARecibir = context.SD_HOJAS_CONTROL.Where(x => x.ID_SOCIO_MOVIL == data.FROM_SOCIO_MOVIL);
                     if (hojasATransferir.Count() > 0 && hojasARecibir.Count() == 0)
                     {
                         data.ESTADO = "NUEVO";
@@ -45,6 +45,7 @@ namespace Sindicato.Business
                                 ID_HOJA = item.ID_HOJA
                             };
                             context.SD_TRANSF_HOJA_DET.AddObject(det);
+                            item.ID_SOCIO_MOVIL = data.FROM_SOCIO_MOVIL;
 
                         }
                         Save();

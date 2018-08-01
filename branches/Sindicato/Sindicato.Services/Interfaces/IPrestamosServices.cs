@@ -26,7 +26,7 @@ namespace Sindicato.Services.Interfaces
         RespuestaSP GenerarPlanDePagos(int ID_PRESTAMO, string login);
 
         RespuestaSP GuardarPagoPrestamo(SD_PAGO_DE_PRESTAMOS pago, string login);
-        RespuestaSP EliminarPagoPrestamo(int ID_PAGO);
+        RespuestaSP EliminarPagoPrestamo(int ID_PAGO,string login);
 
         RespuestaSP GuardarMora(SD_PRESTAMOS_MORA mora, string login);
         RespuestaSP EliminarMora(int ID_MORA);

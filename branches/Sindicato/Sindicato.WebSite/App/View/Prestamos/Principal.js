@@ -59,7 +59,12 @@
                 me.FormCrearPrestamo();
                 break;
             case "btn_eliminar":
-                Funciones.AjaxRequestGrid("Prestamos", "EliminarPrestamo", me.grid, "Esta seguro de ANULAR el prestamo?", { ID_PRESTAMO: me.record.get('ID_PRESTAMO') }, me.grid, null);
+                if (me.record.get('ESTADO_CIERRE') == "NUEVO") {
+                    Funciones.AjaxRequestGrid("Prestamos", "EliminarPrestamo", me.grid, "Esta seguro de ANULAR el prestamo?", { ID_PRESTAMO: me.record.get('ID_PRESTAMO') }, me.grid, null);
+                }
+                else {
+                    Ext.Msg.alert("Error","Solo puede Anular los prestamos en estado NUEVO");
+                }
                 break;
             case "btn_pagarPrestamo":
                 me.FormPagoPrestamo();

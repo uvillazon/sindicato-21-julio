@@ -34,7 +34,7 @@ namespace Sindicato.Business
                         ing.FECHA_REG = DateTime.Now;
                         ing.LOGIN = login;
                         ing.ID_RETIRO = ObtenerSecuencia();
-                        ing.ESTADO = "ACTIVO";
+                        ing.ESTADO = "NUEVO";
                         Add(ing);
 
                         ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));

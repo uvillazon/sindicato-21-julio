@@ -44,16 +44,17 @@ namespace Sindicato.WebSite.Controllers
                 SOCIO = x.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
                 SEMANAS = x.SEMANAS,
                 INTERES = x.INTERES,
-                SALDO = (x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA)) - x.SD_PAGO_DE_PRESTAMOS.Sum(y => y.IMPORTE),
+                SALDO = (x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA)) - x.SD_PAGO_DE_PRESTAMOS.Where(z=>z.ESTADO != "ANULADO").Sum(y => y.IMPORTE),
                 MORA = x.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA),
                 COUTA = x.SD_PLAN_DE_PAGO.Count() > 0 ? x.SD_PLAN_DE_PAGO.FirstOrDefault().IMPORTE_A_PAGAR + x.SD_PLAN_DE_PAGO.FirstOrDefault().INTERES_A_PAGAR : 0,
-                DEBE = (x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA)) - (x.SD_PAGO_DE_PRESTAMOS.Sum(y => y.IMPORTE)),
+                DEBE = (x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA)) - (x.SD_PAGO_DE_PRESTAMOS.Where(z => z.ESTADO != "ANULADO").Sum(y => y.IMPORTE)),
                 ESTADO = x.ESTADO,
                 IMPORTE_INTERES = x.IMPORTE_INTERES,
                 IMPORTE_TOTAL = x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA),
                 TIPO_INTERES = x.SD_TIPOS_PRESTAMOS.TIPO_INTERES,
                 FECHA_LIMITE_PAGO = x.FECHA_LIMITE_PAGO,
-                TOTAL_CANCELADO = x.SD_PAGO_DE_PRESTAMOS.Sum(y => y.IMPORTE)
+                TOTAL_CANCELADO = x.SD_PAGO_DE_PRESTAMOS.Where(z=>z.ESTADO != "ANULADO").Sum(y => y.IMPORTE),
+                ESTADO_CIERRE = x.ESTADO_CIERRE
 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
@@ -224,7 +225,7 @@ namespace Sindicato.WebSite.Controllers
         {
             string login = User.Identity.Name.Split('-')[0];
             RespuestaSP respuestaSP = new RespuestaSP();
-            respuestaSP = _serPre.EliminarPagoPrestamo(ID_PAGO);
+            respuestaSP = _serPre.EliminarPagoPrestamo(ID_PAGO,login);
             return Json(respuestaSP);
         }
 

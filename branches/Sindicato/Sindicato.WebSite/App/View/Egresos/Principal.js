@@ -69,7 +69,12 @@
                 me.FormCrearEgreso();
                 break;
             case "btn_eliminar":
-                Funciones.AjaxRequestGrid("Transferencias", "EliminarEgreso", me.grid, "Esta seguro de Eliminar el Egreso?", { ID_EGRESO: me.record.get('ID_EGRESO') }, me.grid, null);
+                if (me.record.get('ESTADO') == "NUEVO") {
+                    Funciones.AjaxRequestGrid("Transferencias", "EliminarEgreso", me.grid, "Esta seguro de Eliminar el Egreso?", { ID_EGRESO: me.record.get('ID_EGRESO') }, me.grid, null);
+                }
+                else {
+                    Ext.Msg.alert("Error", "No puedo Anular el Egreso en estado diferente a NUEVO");
+                }
                 break;
             case "btn_Kardex":
                 me.VentanaKardex(me.record.get('ID_CAJA'));

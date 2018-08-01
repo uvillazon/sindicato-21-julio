@@ -23,7 +23,7 @@
 
         });
         me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Retiro', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
-        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Eliminar Retiro', Constantes.ICONO_BAJA, me.EventosPrincipal,null, this, null, true);
+        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Anular Retiro', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
         me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar]);
         me.items = [me.grid];
         me.grid.getSelectionModel().on('selectionchange', me.CargarDatos, this);
@@ -33,9 +33,9 @@
         var me = this;
         var disabled = selections.length === 0;
         me.record = disabled ? null : selections[0];
-      
+
     },
-   
+
     EventosPrincipal: function (btn) {
         var me = this;
         switch (btn.getItemId()) {
@@ -43,7 +43,12 @@
                 me.FormCrearRetiro();
                 break;
             case "btn_eliminar":
-                Funciones.AjaxRequestGrid("Socios", "EliminarRetiroSocio", me.grid, "Esta seguro de Eliminar el Retiro?", { ID_RETIRO: me.record.get('ID_RETIRO') }, me.grid, null);
+                if (me.record.get('ESTADO') == "NUEVO") {
+                    Funciones.AjaxRequestGrid("Socios", "EliminarRetiroSocio", me.grid, "Esta seguro de Eliminar el Retiro?", { ID_RETIRO: me.record.get('ID_RETIRO') }, me.grid, null);
+                }
+                else {
+                    Ext.Msg.alert("Error", "Solo puede anular en estado NUEVO");
+                }
                 break;
             case "btn_Kardex":
                 me.VentanaKardex();

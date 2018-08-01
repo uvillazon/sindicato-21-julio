@@ -1,5 +1,6 @@
 ﻿Ext.define("App.Config.Componente.DateFieldBase", {
     extend: "Ext.form.DateField",
+    alias: ['widget.DateFieldBase', 'widget.dateBase'],
     renderer: Ext.util.Format.dateRenderer('d/m/Y'),
     //format: 'm/d/Y h:m:s',
     margin: '0 0 0 10',

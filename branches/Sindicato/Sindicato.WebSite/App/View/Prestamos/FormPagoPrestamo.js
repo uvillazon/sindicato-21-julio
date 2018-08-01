@@ -59,7 +59,7 @@
             colspan: 1,
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
-            //readOnly: true
+            readOnly: true
         });
 
         me.txt_nor_movil = Ext.create("App.Config.Componente.TextFieldBase", {

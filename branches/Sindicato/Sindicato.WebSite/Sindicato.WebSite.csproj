@@ -177,6 +177,7 @@
     <Content Include="App\Controller\Main.js" />
     <Content Include="App\Controller\OrdenesTrabajo\EjecutadoContratista.js" />
     <Content Include="App\Controller\OrdenesTrabajo\TrabajoDiario.js" />
+    <Content Include="App\Controller\Socios\TransferenciasHojasFormController.js" />
     <Content Include="App\extensible\calendar\CalendarPanel.js" />
     <Content Include="App\extensible\calendar\data\CalendarMappings.js" />
     <Content Include="App\extensible\calendar\data\CalendarModel.js" />
@@ -264,6 +265,7 @@
     <Content Include="App\Model\Cierres\Cierres.js" />
     <Content Include="App\Model\Amortizaciones\Amortizaciones.js" />
     <Content Include="App\Model\Obligaciones\Obligaciones.js" />
+    <Content Include="App\Model\TransferenciasHojas\Transferencias.js" />
     <Content Include="App\Model\Transferencias\Transferencias.js" />
     <Content Include="App\Model\Descuentos\Detalles.js" />
     <Content Include="App\Model\Descuentos\Descuentos.js" />
@@ -298,6 +300,7 @@
     <Content Include="App\Store\Cierres\Detalles.js" />
     <Content Include="App\Store\CierreCaja\Cierres.js" />
     <Content Include="App\Store\CierreCaja\Detalles.js" />
+    <Content Include="App\Store\TransferenciasHojas\Transferencias.js" />
     <Content Include="App\Store\Egresos\TiposEgresos.js" />
     <Content Include="App\Store\KardexHojas\KardexHojas.js" />
     <Content Include="App\Store\Prestamos\Pagos.js" />
@@ -407,6 +410,8 @@
     <Content Include="App\View\CierreCaja\GridCierres.js" />
     <Content Include="App\View\CierreCaja\GridDetalles.js" />
     <Content Include="App\View\CierreCaja\Principal.js" />
+    <Content Include="App\View\TransferenciasHojas\GridTransferenciasHojas.js" />
+    <Content Include="App\View\TransferenciasHojas\Principal.js" />
     <Content Include="App\View\Prestamos\FormMora.js" />
     <Content Include="App\View\Prestamos\FormRetiro.js" />
     <Content Include="App\View\Prestamos\GridMoras.js" />
@@ -415,6 +420,7 @@
     <Content Include="App\View\Prestamos\GridPlanPagos.js" />
     <Content Include="App\View\Reports\ReportsPDF.js" />
     <Content Include="App\View\Socios\FormBajaSocioMovil.js" />
+    <Content Include="App\View\Socios\TransferenciasHojasForm.js" />
     <Content Include="App\View\TiposEgresos\FormEgreso.js" />
     <Content Include="App\View\TiposEgresos\Forms.js" />
     <Content Include="App\View\TiposEgresos\GridEgresos.js" />

@@ -21,6 +21,7 @@
         me.CargarComponentes();
         me.columns = [
                 { xtype: "rownumberer", width: 30, sortable: false },
+                { header: "Estado<br>Cierre", width: 60, sortable: false, dataIndex: "ESTADO_CIERRE" },
                 { header: "Nro <br>Prestamos", width: 60, sortable: false, dataIndex: "ID_PRESTAMO" },
                 { header: "Nro Movil", width: 60, sortable: false, dataIndex: "NRO_MOVIL" },
                 { header: "Socio", width: 150, sortable: false, dataIndex: "SOCIO" },
@@ -40,7 +41,7 @@
                 //{ header: "Saldo", width: 70, sortable: false, dataIndex: "SALDO" },
                 { header: "Debe", width: 70, sortable: false, dataIndex: "DEBE" },
                 { header: "Total <br>Cancelado", width: 80, sortable: false, dataIndex: "TOTAL_CANCELADO" },
-                 { header: "Estado", width: 80, sortable: false, dataIndex: "ESTADO_PRESTAMO" },
+                { header: "Estado", width: 80, sortable: false, dataIndex: "ESTADO_PRESTAMO" },
                 { header: "Login", width: 80, sortable: false, dataIndex: "LOGIN_USR" }
         ];
 

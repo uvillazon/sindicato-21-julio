@@ -57,6 +57,8 @@ namespace Sindicato.Services.Interfaces
         IEnumerable<SD_TRANSFERENCIAS_HOJAS> ObtenerTransferenciasHojasPaginado(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
         RespuestaSP GuardarTransferenciaHojas(SD_TRANSFERENCIAS_HOJAS data, string login);
         RespuestaSP AnularTransferenciaHoja(int ID_TRANSF);
+        RespuestaSP ObtenerResumenDeHojas(int ID_SOCIO_MOVIL);
+        RespuestaSP VerificarHojasDeSocio(int ID_SOCIO_MOVIL);
         #endregion
     }
 }
