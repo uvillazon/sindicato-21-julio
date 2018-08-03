@@ -271,6 +271,13 @@ namespace Sindicato.Services.Model
 
     }
 
+    public class ReporteMatrizHojas {
+        public int NRO_MOVIL { get; set; }
+        public string SOCIO { get; set; }
+        public string PERIODO { get; set; }
+        public decimal? TOTAL { get; set; }
+    }
+
     public class ReportePagoPrestamo {
         
        
