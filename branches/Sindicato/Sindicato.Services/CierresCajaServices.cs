@@ -138,7 +138,7 @@ namespace Sindicato.Services
                         item.ESTADO_CIERRE = "APROBADO";
                     }
 
-                    var detallesRetiros = managerRetiros.BuscarTodos(x => x.ESTADO == "ACTIVO" && x.FECHA >= cierre.FECHA_INI && x.FECHA < fecha_fin);
+                    var detallesRetiros = managerRetiros.BuscarTodos(x => x.ESTADO == "NUEVO" && x.FECHA >= cierre.FECHA_INI && x.FECHA < fecha_fin);
                     foreach (var item in detallesRetiros)
                     {
                         item.ESTADO = "APROBADO";
@@ -207,10 +207,11 @@ namespace Sindicato.Services
                         result.Add(res);
                     }
                 }
+                var grupo = result.GroupBy(x => x.CAJA).Select(y => new { total = y.Sum(z => z.SALDO), caja = y.Key });
                 var detalleregularizaciones = managerRegularizaciones.BuscarTodos(x => x.SD_REGULARIZACIONES.ESTADO != "ANULADO" && x.SD_REGULARIZACIONES.FECHA_COMPRA >= FECHA_INI && x.SD_REGULARIZACIONES.FECHA_COMPRA < fecha_fin).GroupBy(y => new { y.SD_CAJAS.CODIGO, y.ID_CAJA, y.SD_CAJAS.MONEDA });
                 if (detalleregularizaciones.Count() > 0)
                 {
-                    foreach (var item in detalleshojas)
+                    foreach (var item in detalleregularizaciones)
                     {
 
                         CierreCajaModel res = new CierreCajaModel()
@@ -225,7 +226,7 @@ namespace Sindicato.Services
                         result.Add(res);
                     }
                 }
-
+                var grupo1 = result.GroupBy(x => x.CAJA).Select(y => new { total = y.Sum(z => z.SALDO), caja = y.Key });
 
                 var detallesIngresosPorSocios = managerIngresosSoscios.BuscarTodos(x => x.ESTADO == "NUEVO" && x.FECHA >= FECHA_INI && x.FECHA < fecha_fin).GroupBy(y => new { y.SD_CAJAS.CODIGO, y.ID_CAJA, y.SD_CAJAS.MONEDA });
                 if (detallesIngresosPorSocios.Count() > 0)
@@ -245,6 +246,8 @@ namespace Sindicato.Services
                         result.Add(res);
                     }
                 }
+                var grupo2 = result.GroupBy(x => x.CAJA).Select(y => new { total = y.Sum(z => z.SALDO), caja = y.Key });
+
                 var detallesPagosPrestamos = managerPagosPrestamos.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < fecha_fin && x.ESTADO == "NUEVO").GroupBy(y => new { y.SD_CAJAS.CODIGO, y.ID_CAJA, y.SD_CAJAS.MONEDA });
                 if (detallesPagosPrestamos.Count() > 0)
                 {
@@ -277,6 +280,8 @@ namespace Sindicato.Services
                     };
                     result.Add(res);
                 }
+                var grupo5 = result.GroupBy(x => x.CAJA).Select(y => new { total = y.Sum(z => z.SALDO), caja = y.Key });
+
                 var detalleEgresos = managerEgresos.BuscarTodos(x => x.ESTADO == "NUEVO" && x.FECHA >= FECHA_INI && x.FECHA < fecha_fin).GroupBy(y => new { y.SD_CAJAS.CODIGO, y.ID_CAJA, y.SD_CAJAS.MONEDA });
                 foreach (var item in detalleEgresos)
                 {
@@ -336,6 +341,7 @@ namespace Sindicato.Services
                     };
                     result.Add(res);
                 }
+                var grupo3 = result.GroupBy(x => x.CAJA).Select(y => new { total = y.Sum(z => z.SALDO), caja = y.Key });
 
                 //falta transferencias egresos y retiros egresso
 
@@ -346,7 +352,7 @@ namespace Sindicato.Services
                 ID_CAJA = y.Key.ID_CAJA,
                 CAJA = y.Key.CAJA,
                 MONEDA = y.Key.MONEDA,
-                SALDO = y.Max(z => z.SALDO)
+                SALDO = y.Sum(z => z.SALDO)
             });
         }
 

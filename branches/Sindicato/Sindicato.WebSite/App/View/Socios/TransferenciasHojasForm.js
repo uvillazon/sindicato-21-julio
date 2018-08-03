@@ -94,7 +94,7 @@
                   allowBlank: false,
                   textoTpl: function () { return "Nro Movil :{NRO_MOVIL} - {NOMBRE} {APELLIDO_PATERNO} {APELLIDO_MATERNO}" }
               }, {
-                  xtype: 'TextArea',
+                  xtype: 'textareafield',
                   fieldLabel: "Observacion",
                   name: "OBSERVACION",
                   width: 480,

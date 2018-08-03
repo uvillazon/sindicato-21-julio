@@ -1,4 +1,4 @@
-﻿Ext.define("App.Controller.Sociosd.TransferenciasHojasFormController", {
+﻿Ext.define("App.Controller.Socios.TransferenciasHojasFormController", {
     extend: "Deft.mvc.ViewController",
     control: {
         view: {

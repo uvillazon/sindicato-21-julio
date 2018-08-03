@@ -43,6 +43,7 @@
             },
 
 
-            { type: "string", name: "ESTADO" }
+            { type: "string", name: "ESTADO" },
+            { type: "string", name: "ESTADO_CIERRE" }
     ]
 });

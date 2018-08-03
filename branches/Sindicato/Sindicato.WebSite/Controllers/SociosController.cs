@@ -349,6 +349,7 @@ namespace Sindicato.WebSite.Controllers
                 ID_SOCIO_MOVIL = x.ID_SOCIO_MOVIL,
                 FECHA = x.FECHA,
                 CAJA = x.SD_CAJAS.NOMBRE,
+                ESTADO = x.ESTADO,
                 SOCIO = x.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
                 FECHA_REG = x.FECHA_REG,
                 RETIRO = x.RETIRO,
@@ -505,13 +506,13 @@ namespace Sindicato.WebSite.Controllers
             return Json(respuestaSP);
         }
 
-        [HttpPost]
-        public JsonResult VerificarHojasDeSocio(int ID_SOCIO_MOVIL)
-        {
-            RespuestaSP respuestaSP = new RespuestaSP();
-            respuestaSP = _serSoc.VerificarHojasDeSocio(ID_SOCIO_MOVIL);
-            return Json(respuestaSP);
-        }
+        //[HttpPost]
+        //public JsonResult VerificarHojasDeSocio(int ID_SOCIO_MOVIL)
+        //{
+        //    RespuestaSP respuestaSP = new RespuestaSP();
+        //    respuestaSP = _serSoc.VerificarHojasDeSocio(ID_SOCIO_MOVIL);
+        //    return Json(respuestaSP);
+        //}
 
         [HttpPost]
         public JsonResult GuardarTransferenciaHojas(SD_TRANSFERENCIAS_HOJAS data)

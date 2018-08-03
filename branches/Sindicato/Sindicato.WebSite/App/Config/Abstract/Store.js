@@ -23,6 +23,7 @@ Ext.define("App.Config.Abstract.Store", {
         Ext.apply(me, options || {});
         me.proxy = {
             type: 'jsonp',
+            timeout : 30000000,
             url: Constantes.HOST + "" + me.url,
             reader: {
                 type: "json",

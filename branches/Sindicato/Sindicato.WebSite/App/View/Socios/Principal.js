@@ -38,7 +38,7 @@
         me.btn_crearMovil = Funciones.CrearMenu('btn_CrearMovil', 'Crear Socio-Movil', Constantes.ICONO_CREAR, me.EventosPrincipal, me.toolbar, this, null, false);
         me.btn_editarMovil = Funciones.CrearMenu('btn_EditarMovil', 'Modificar Movil', Constantes.ICONO_EDITAR, me.EventosPrincipal, me.toolbar, this, null, true);
         me.btn_crearMovil = Funciones.CrearMenu('btn_BajaMovil', 'Baja Movil', Constantes.ICONO_BAJA, me.EventosPrincipal, me.toolbar, this, null, true);
-        me.btn_transferenciasHojas = Funciones.CrearMenu('btn_TransferenciasHojas', 'Transferencias Hojas', 'arrow_refresh_small', me.EventosPrincipal, me.toolbar, this, null, true);
+        //me.btn_transferenciasHojas = Funciones.CrearMenu('btn_TransferenciasHojas', 'Transferencias Hojas', 'arrow_refresh_small', me.EventosPrincipal, me.toolbar, this, null, true);
         me.btn_crearImagen = Funciones.CrearMenu('btn_Imagen', 'Imagen', 'image_add', me.EventosPrincipal, me.toolbar, this, null, true);
         //me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_editar, me.btn_crearMovil, me.btn_editarMovil, me.btn_crearImagen]);
         me.grid.addDocked(me.toolbar, 1);

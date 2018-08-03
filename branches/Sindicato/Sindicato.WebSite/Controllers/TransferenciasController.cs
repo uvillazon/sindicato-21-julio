@@ -171,6 +171,7 @@ namespace Sindicato.WebSite.Controllers
                 FECHA = x.FECHA,
                 FECHA_REG = x.FECHA_REG,
                 IMPORTE = x.IMPORTE,
+                ESTADO = x.ESTADO,
                 LOGIN = x.LOGIN,
                 CONCEPTO = x.CONCEPTO,
                 NRO_RECIBO = x.NRO_RECIBO,

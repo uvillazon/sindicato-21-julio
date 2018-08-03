@@ -11,6 +11,7 @@
             { type: "string", name: "CAJA_ORIGEN" },
             { type: "string", name: "CAJA_DESTINO" },
             { type: "string", name: "CONCEPTO" },
-            { type: "string", name: "LOGIN" }
+            { type: "string", name: "LOGIN" },
+    { type: "string", name: "ESTADO" }
         ]
 });

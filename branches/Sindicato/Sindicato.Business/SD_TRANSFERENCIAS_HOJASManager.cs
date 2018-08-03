@@ -25,11 +25,12 @@ namespace Sindicato.Business
                 {
                     var context = (SindicatoContext)Context;
                     var hojasATransferir = context.SD_HOJAS_CONTROL.Where(x => x.ID_SOCIO_MOVIL == data.TO_SOCIO_MOVIL && x.ESTADO == "NUEVO");
-                    var hojasARecibir = context.SD_HOJAS_CONTROL.Where(x => x.ID_SOCIO_MOVIL == data.FROM_SOCIO_MOVIL);
+                    var hojasARecibir = context.SD_HOJAS_CONTROL.Where(x => x.ID_SOCIO_MOVIL == data.FROM_SOCIO_MOVIL && x.ESTADO == "NUEVO");
                     if (hojasATransferir.Count() > 0 && hojasARecibir.Count() == 0)
                     {
                         data.ESTADO = "NUEVO";
                         data.FECHA_REG = DateTime.Now;
+                        data.LOGIN_USR = login;
                         data.ID_TRANSF = ObtenerSecuencia();
                         Add(data);
                         foreach (var item in hojasATransferir)
