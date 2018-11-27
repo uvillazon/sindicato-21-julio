@@ -32,7 +32,7 @@ namespace Sindicato.Business
                     return result;
                 }
                 var moras = pres.SD_PRESTAMOS_MORA.Sum(x => x.IMPORTE_MORA);
-                var cancelado = pres.SD_PAGO_DE_PRESTAMOS.Sum(x=>x.IMPORTE);
+                var cancelado = pres.SD_PAGO_DE_PRESTAMOS.Where(x=>x.ESTADO!="ANULADO").Sum(x=>x.IMPORTE);
                 if (cancelado + pago.IMPORTE > (pres.IMPORTE_INTERES + pres.IMPORTE_PRESTAMO + moras)) {
                     result.success = false;
                     result.msg = "No puedo pagar mas del total prestado + el interes + moras";
@@ -101,6 +101,11 @@ namespace Sindicato.Business
                 fecha = pago.FECHA;
                 ID_CAJA = pago.ID_CAJA;
                 pago.ESTADO = "ANULADO";
+                var planpagos = context.SD_PLAN_DE_PAGO.Where(x => x.ID_PRESTAMO == pago.ID_PRESTAMO);
+                foreach (var item in planpagos)
+                {
+                    item.ESTADO = "NUEVO";
+                }
                 //Delete(pago);
                 var kardex = context.SD_KARDEX_EFECTIVO.Where(x => x.OPERACION == "PAGO PRESTAMO" && x.ID_OPERACION == pago.ID_PAGO && x.ID_CAJA == pago.ID_CAJA);
                 foreach (var item in kardex)
@@ -109,8 +114,36 @@ namespace Sindicato.Business
                 }
 
                 Save();
+                
+               
                 ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
                 context.P_SD_ACT_KARDEX_EFECTIVO(pago.ID_CAJA, fecha, 0, p_RES);
+                result.success = true;
+                result.msg = "Se Anulo Correctamente";
+            }
+            catch (Exception e)
+            {
+
+                result.success = false;
+                result.msg = e.Message.ToString();
+            }
+
+            return result;
+        }
+
+        public RespuestaSP ActualizaPlanPagoPrestamo(int ID_PAGO, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            int ID_CAJA = 0;
+            DateTime? fecha = null;
+            try
+            {
+                var context = (SindicatoContext)Context;
+                var pago = BuscarTodos(x => x.ID_PAGO == ID_PAGO).FirstOrDefault();
+                
+                ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+                context.P_SD_ACT_PLAN_PAGOS(pago.ID_PRESTAMO, 0, p_RES);
+                
                 result.success = true;
                 result.msg = "Se Anulo Correctamente";
             }

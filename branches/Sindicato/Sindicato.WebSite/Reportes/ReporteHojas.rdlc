@@ -6,7 +6,7 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>11.73542cm</Width>
+              <Width>12cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -28,6 +28,7 @@
                         </Border>
                       </Style>
                     </Subreport>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -49,7 +50,7 @@
         <DataSetName>DataSetVenta</DataSetName>
         <Top>0.02646cm</Top>
         <Height>14cm</Height>
-        <Width>11.73542cm</Width>
+        <Width>12cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -57,10 +58,10 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>5.52223in</Height>
+    <Height>14.02646cm</Height>
     <Style />
   </Body>
-  <Width>4.62024in</Width>
+  <Width>12cm</Width>
   <Page>
     <PageHeight>14cm</PageHeight>
     <PageWidth>12cm</PageWidth>

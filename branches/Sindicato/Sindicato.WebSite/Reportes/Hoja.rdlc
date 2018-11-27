@@ -20,7 +20,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.29698cm</Top>
+        <Top>0.90553cm</Top>
         <Left>4.95449cm</Left>
         <Height>0.75875cm</Height>
         <Width>5.54271cm</Width>
@@ -54,7 +54,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>1.16156cm</Top>
+        <Top>1.66428cm</Top>
         <Left>4.95449cm</Left>
         <Height>0.77666cm</Height>
         <Width>3.63771cm</Width>
@@ -222,7 +222,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>1.16156cm</Top>
+        <Top>1.66428cm</Top>
         <Left>8.5922cm</Left>
         <Height>0.77666cm</Height>
         <Width>1.905cm</Width>
@@ -255,7 +255,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>12.34166cm</Top>
+        <Top>12.39458cm</Top>
         <Left>0.8634cm</Left>
         <Height>1.26146cm</Height>
         <Width>9.6338cm</Width>
@@ -271,10 +271,14 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>13.60312cm</Height>
-    <Style />
+    <Height>13.98cm</Height>
+    <Style>
+      <Border>
+        <Style>None</Style>
+      </Border>
+    </Style>
   </Body>
-  <Width>11.55021cm</Width>
+  <Width>12cm</Width>
   <Page>
     <PageHeight>14cm</PageHeight>
     <PageWidth>12cm</PageWidth>

@@ -254,6 +254,13 @@ namespace Sindicato.Services
 
 
             });
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                result = manager.ActualizaPlanPagoPrestamo(ID_PAGO, login);
+               
+
+            });
             return result;
 
 

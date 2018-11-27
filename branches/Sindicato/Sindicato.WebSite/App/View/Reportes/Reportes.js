@@ -147,6 +147,18 @@
                 case "REPORTE DETALLE DE HOJAS":
                     me.rutaReporte = "ReporteDetalleHoja";
                     break;
+                case "REPORTE MATRIZ POR AHORRO":
+                    me.rutaReporte = "ReporteMatrizHojas";
+                    break;
+                case "REPORTE MATRIZ POR AHORRO CANCELADOS":
+                    me.rutaReporte = "ReporteMatrizHojasCancelado";
+                    break;
+                case "REPORTE MATRIZ POR AHORRO/DEBE":
+                    me.rutaReporte = "ReporteMatrizHojasDebe";
+                    break;
+                case "REPORTE MATRIZ POR AHORRO":
+                    me.rutaReporte = "ReporteMatrizHojas";
+                    break;
                 case "REPORTE INGRESOS TOTALES":
                     me.rutaReporte = "ReporteIngresosTotales";
                     break;
@@ -219,7 +231,7 @@
                 else {
                     me.generarReporte(me.rutaReporte, 'FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue());
                 }
-                    //window.open(Constantes.HOST + 'ReportesPDF/ReporteIngresosTotales?tipo=pdf&FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue());
+                //window.open(Constantes.HOST + 'ReportesPDF/ReporteIngresosTotales?tipo=pdf&FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue());
                 //me.hide();
             }
             else {

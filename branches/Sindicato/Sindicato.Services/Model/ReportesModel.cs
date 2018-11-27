@@ -276,6 +276,7 @@ namespace Sindicato.Services.Model
         public string SOCIO { get; set; }
         public string PERIODO { get; set; }
         public decimal? TOTAL { get; set; }
+        public DateTime? FECHA_INI { get; set; }
     }
 
     public class ReportePagoPrestamo {

@@ -637,6 +637,79 @@ namespace Elfec.SisMan.Presentacion.Controllers
             return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
         }
 
+        public ActionResult ReporteMatrizHojas(string tipo, DateTime FECHA_INI, DateTime FECHA_FIN, string Reporte = "AHORRO")
+        {
+            ReportesServices rep = new ReportesServices();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteMatrizHojas.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ReporteMatrizHojasAhorro(FECHA_INI, FECHA_FIN,Reporte));
+            localReport.DataSources.Add(reportDataSource);
+            string Intervalo = string.Format("{0} - {1}", FECHA_INI.ToString("dd/MM/yyyy"), FECHA_FIN.ToString("dd/MM/yyyy"));
+            ReportParameter param = new ReportParameter("Intervalo", Intervalo);
+            ReportParameter param1 = new ReportParameter("titulo", "AHORRO");
+            localReport.SetParameters(param);
+            localReport.SetParameters(param1);
+
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
+        public ActionResult ReporteMatrizHojasCancelado(string tipo, DateTime FECHA_INI, DateTime FECHA_FIN, string Reporte = "CANCELADO")
+        {
+            ReportesServices rep = new ReportesServices();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteMatrizHojas.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ReporteMatrizHojasAhorro(FECHA_INI, FECHA_FIN, Reporte));
+            localReport.DataSources.Add(reportDataSource);
+            string Intervalo = string.Format("{0} - {1}", FECHA_INI.ToString("dd/MM/yyyy"), FECHA_FIN.ToString("dd/MM/yyyy"));
+            ReportParameter param = new ReportParameter("Intervalo", Intervalo);
+            ReportParameter param1 = new ReportParameter("titulo", "AHORRO CANCELADO");
+            localReport.SetParameters(param);
+            localReport.SetParameters(param1);
+
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
+        public ActionResult ReporteMatrizHojasDebe(string tipo, DateTime FECHA_INI, DateTime FECHA_FIN, string Reporte = "DEBE")
+        {
+            ReportesServices rep = new ReportesServices();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteMatrizHojas.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ReporteMatrizHojasAhorro(FECHA_INI, FECHA_FIN, Reporte));
+            localReport.DataSources.Add(reportDataSource);
+            string Intervalo = string.Format("{0} - {1}", FECHA_INI.ToString("dd/MM/yyyy"), FECHA_FIN.ToString("dd/MM/yyyy"));
+            ReportParameter param = new ReportParameter("Intervalo", Intervalo);
+            ReportParameter param1 = new ReportParameter("titulo", "AHORRO/DEBE");
+            localReport.SetParameters(param);
+            localReport.SetParameters(param1);
+
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
+
         //
 
     }
