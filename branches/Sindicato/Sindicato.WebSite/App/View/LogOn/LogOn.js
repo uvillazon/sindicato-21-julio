@@ -8,12 +8,22 @@ Ext.onReady(function () {
         labelWidth: 80,
         url: 'login.asp',
         frame: true,
+        layout: {
+            type: 'table',
+            columns: 2
+        },
         title: 'Ingrese su usuario y contraseña',
         defaultType: 'textfield',
         monitorValid: true,
         // Specific attributes for the text fields for username / password. 
         // The "name" attribute defines the name of variables sent to the server.
-        items: [{
+        items: [
+            {
+                xtype: 'image',
+                rowspan: 3,
+                src:  '/Content/images/toyota.png'
+            },
+            {
             itemId: 'loginField',
             fieldLabel: 'Usuario',
             name: 'loginUsername',
@@ -46,8 +56,8 @@ Ext.onReady(function () {
     // The login object is passed to the items collection.       
     var win = new Ext.Window({
         layout: 'fit',
-        width: 300,
-        height: 150,
+        width: 550,
+        height: 250,
         closable: false,
         resizable: false,
         plain: true,

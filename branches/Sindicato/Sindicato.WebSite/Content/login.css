@@ -1,0 +1,163 @@
+body {
+    /*background: url(../Content/images/Immagine.png) no-repeat center center fixed;*/
+    background-color: #3169BE;
+    /*-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;*/
+    background-image: url("../Content/images/back_header.png");
+    background-position: center top;
+    background-repeat: repeat-x;
+}
+
+.HeaderPage {
+    max-width: 960px;
+    width: 100%;
+    background-color: AppWorkspace;
+    height: 100%;
+    width: 100%;
+}
+
+#logo {
+    background-image: url("../Content/images/toyota.png");
+    float: left;
+    width: 250px;
+    height: 172px;
+}
+
+.logo {
+    background-image: url("../Content/images/sismsanApp.png");
+    ackground-position: right 5px;
+    background-repeat: no-repeat;
+    /*float: left;*/
+    width: 260px;
+    height: 90px;
+}
+
+#header {
+    background-image: url("../Content/images/ensde.png");
+    background-position: right 5px;
+    background-repeat: no-repeat;
+    height: 112px;
+    overflow: hidden;
+    max-width: 960px;
+    /*position:fixed;*/
+    /*width: 100%;*/
+    /*height: 144px;*/
+    margin: 0 auto;
+    margin-top: 10px;
+    /*width: 960px;*/
+}
+
+#page {
+    color: #626262;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    font-weight: normal;
+    height: 100%;
+    width: 100%;
+}
+
+.RecuperarPassword {
+    background-image: url("../Content/images/candado_abiertof.png");
+    background-position: left 5px;
+    background-repeat: no-repeat;
+    /*height: 112px;*/
+    /*overflow: hidden;*/
+    /*max-width: 350px;*/
+    /*position:fixed;*/
+    /*width: 100%;*/
+    /*height: 144px;*/
+    margin: 0 auto;
+    /*margin-top : 10px;*/
+    padding-left: 60px;
+    /*background-color : aqua;*/
+    line-height: 20px;
+    /*width: 960px;*/
+}
+
+.content-wrapper {
+    margin: 0 auto;
+    max-width: 960px;
+}
+
+#body {
+    background-color: #efeeef;
+    clear: both;
+    padding-bottom: 35px;
+    /*height : 500px;*/
+}
+
+.main-content {
+    background: url("../Images/accent.png") no-repeat;
+    padding-left: 10px;
+    padding-top: 30px;
+}
+
+.featured + .main-content {
+    background: url("../Images/heroAccent.png") no-repeat;
+}
+
+header .content-wrapper {
+    padding-top: 20px;
+}
+
+footer {
+    clear: both;
+    color: white;
+    border-top: 1px solid white;
+    font-size: 14px;
+    position:absolute;
+    bottom:0;
+    width:100%;   /* Height of the footer */
+    /*background:#6cf;*/
+}
+
+.clear-fix:after {
+    content: ".";
+    clear: both;
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+h1, h2, h3,
+h4, h5, h6 {
+    color: #000;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.75em;
+}
+
+h3 {
+    font-size: 1.2em;
+}
+
+h4 {
+    font-size: 1.1em;
+}
+
+h5, h6 {
+    font-size: 1em;
+}
+
+    h5 a:link, h5 a:visited, h5 a:active {
+        padding: 0;
+        text-decoration: none;
+    }
+
+hgroup.title h1, hgroup.title h2 {
+    display: inline;
+}
+
+hgroup.title h2 {
+    font-weight: normal;
+    margin-left: 3px;
+}

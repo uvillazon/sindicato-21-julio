@@ -58,7 +58,7 @@
     </Reference>
     <Reference Include="Oracle.DataAccess, Version=4.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" />
     <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Web.Mvc, Version=3.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -455,6 +455,8 @@
     <Content Include="App\View\Ventas\Principal.js" />
     <Content Include="Content\base.css" />
     <Content Include="Content\Blext.css" />
+    <Content Include="Content\images\toyota.png" />
+    <Content Include="Content\login.css" />
     <Content Include="Content\extjs42.css" />
     <Content Include="Content\Iconos48\Actions-view-pim-contacts-icon.png" />
     <Content Include="Content\Iconos48\application-settings-icon.png" />

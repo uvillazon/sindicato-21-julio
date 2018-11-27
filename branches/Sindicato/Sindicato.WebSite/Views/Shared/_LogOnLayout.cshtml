@@ -2,8 +2,8 @@
 
 <html>
 <head>
-    <title>_LogOnLayout</title>
-
+    <title>Inicio de Sesion - 121 Sistema de GESTION AUTOTRANSPORTE</title>
+    <link href="@Url.Content("~/Content/login.css")" rel="stylesheet" type="text/css"/>
     <script src="@Url.Content("~/Scripts/extjs/shared/include-ext.js?theme=gray")" type="text/javascript"></script>
     @*<link href="@Url.Content("~/Scripts/Extjs/resources/css/ext-all.css")" rel="stylesheet" type="text/css" />*@
 @*    <script src="@Url.Content("~/Scripts/Extjs/ext-all.js")" type="text/javascript"></script>*@
@@ -11,6 +11,25 @@
 
 </head>
 <body>
+    <header role="banner" class="clearfix" id="header">
+
+        <!-- start: Branding -->
+        <div class="branding-elements clearfix" id="branding">
+            <div id="logo">
+            </div>
+
+        </div>
+        <!-- /end #branding -->
+
+
+    </header>
     @RenderBody()
+    <footer>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>&copy; @DateTime.Now.Year - Sistema de Gestion Autotransporte 121 - 11</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
