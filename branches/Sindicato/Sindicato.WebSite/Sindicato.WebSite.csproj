@@ -56,9 +56,9 @@
     <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="Oracle.DataAccess, Version=4.121.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" />
+    <Reference Include="Oracle.DataAccess, Version=4.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" />
     <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -88,19 +88,11 @@
     <Compile Include="Controllers\AutosController.cs" />
     <Compile Include="Controllers\CierresController.cs" />
     <Compile Include="Controllers\CierresParadaController.cs" />
-    <Compile Include="Controllers\KardexHojaController.cs" />
-    <Compile Include="Controllers\PrestamosController.cs" />
-    <Compile Include="Controllers\MovilesController.cs" />
-    <Compile Include="Controllers\RegulacionesController.cs" />
-    <Compile Include="Controllers\PermisosController.cs" />
-    <Compile Include="Controllers\IngresosController.cs" />
-    <Compile Include="Controllers\ReportesPDFController.cs" />
     <Compile Include="Controllers\ObligacionesController.cs" />
     <Compile Include="Controllers\TransferenciasController.cs" />
     <Compile Include="Controllers\DescuentosController.cs" />
     <Compile Include="Controllers\OtrosController.cs" />
     <Compile Include="Controllers\ParadasController.cs" />
-    <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\VentaHojasController.cs" />
     <Compile Include="Controllers\ParametrosController.cs" />
     <Compile Include="Controllers\FamiliaresController.cs" />
@@ -177,7 +169,6 @@
     <Content Include="App\Controller\Main.js" />
     <Content Include="App\Controller\OrdenesTrabajo\EjecutadoContratista.js" />
     <Content Include="App\Controller\OrdenesTrabajo\TrabajoDiario.js" />
-    <Content Include="App\Controller\Socios\TransferenciasHojasFormController.js" />
     <Content Include="App\extensible\calendar\CalendarPanel.js" />
     <Content Include="App\extensible\calendar\data\CalendarMappings.js" />
     <Content Include="App\extensible\calendar\data\CalendarModel.js" />
@@ -239,21 +230,6 @@
     <Content Include="App\Model\CierresParada\CierresParada.js" />
     <Content Include="App\Model\CierresParada\Detalles.js" />
     <Content Include="App\Model\Cierres\Detalles.js" />
-    <Content Include="App\Model\CierreCaja\Cierres.js" />
-    <Content Include="App\Model\CierreCaja\Detalles.js" />
-    <Content Include="App\Model\Egresos\TiposEgresos.js" />
-    <Content Include="App\Model\KardexHojas\KardexHojas.js" />
-    <Content Include="App\Model\Prestamos\Pagos.js" />
-    <Content Include="App\Model\Prestamos\PlanPagos.js" />
-    <Content Include="App\Model\Prestamos\Prestamos.js" />
-    <Content Include="App\Model\Prestamos\TiposPrestamos.js" />
-    <Content Include="App\Model\Regulaciones\Detalles.js" />
-    <Content Include="App\Model\Regulaciones\Regulaciones.js" />
-    <Content Include="App\Model\Permisos\Permisos.js" />
-    <Content Include="App\Model\IngresosPorSocios\TiposIngresos.js" />
-    <Content Include="App\Model\IngresosPorSocios\Ingresos.js" />
-    <Content Include="App\Model\Socios\ObligacionesHoja.js" />
-    <Content Include="App\Model\Socios\DetalleConfigHojas.js" />
     <Content Include="App\Model\Socios\KardexDebe.js" />
     <Content Include="App\Model\Cajas\Cajas.js" />
     <Content Include="App\Model\Cajas\Kardex.js" />
@@ -265,7 +241,6 @@
     <Content Include="App\Model\Cierres\Cierres.js" />
     <Content Include="App\Model\Amortizaciones\Amortizaciones.js" />
     <Content Include="App\Model\Obligaciones\Obligaciones.js" />
-    <Content Include="App\Model\TransferenciasHojas\Transferencias.js" />
     <Content Include="App\Model\Transferencias\Transferencias.js" />
     <Content Include="App\Model\Descuentos\Detalles.js" />
     <Content Include="App\Model\Descuentos\Descuentos.js" />
@@ -298,22 +273,6 @@
     <Content Include="App\Store\CierresParada\CierresParada.js" />
     <Content Include="App\Store\CierresParada\Detalles.js" />
     <Content Include="App\Store\Cierres\Detalles.js" />
-    <Content Include="App\Store\CierreCaja\Cierres.js" />
-    <Content Include="App\Store\CierreCaja\Detalles.js" />
-    <Content Include="App\Store\TransferenciasHojas\Transferencias.js" />
-    <Content Include="App\Store\Egresos\TiposEgresos.js" />
-    <Content Include="App\Store\KardexHojas\KardexHojas.js" />
-    <Content Include="App\Store\Prestamos\Pagos.js" />
-    <Content Include="App\Store\Prestamos\PlanPagos.js" />
-    <Content Include="App\Store\Prestamos\Prestamos.js" />
-    <Content Include="App\Store\Prestamos\TiposPrestamos.js" />
-    <Content Include="App\Store\Regulaciones\Regulaciones.js" />
-    <Content Include="App\Store\Regulaciones\Detalles.js" />
-    <Content Include="App\Store\Permisos\Permisos.js" />
-    <Content Include="App\Store\IngresosPorSocios\TiposIngresos.js" />
-    <Content Include="App\Store\IngresosPorSocios\Ingresos.js" />
-    <Content Include="App\Store\Socios\ObligacionesHoja.js" />
-    <Content Include="App\Store\Socios\DetalleConfigHojas.js" />
     <Content Include="App\Store\Socios\KardexDebe.js" />
     <Content Include="App\Store\Autos\AutosSocios.js" />
     <Content Include="App\Store\Cajas\Cajas.js" />
@@ -381,7 +340,6 @@
     <Content Include="App\View\Choferes\Principal.js" />
     <Content Include="App\View\CierresParada\GridDetalles.js" />
     <Content Include="App\View\Cierres\GridCierreSocios.js" />
-    <Content Include="App\View\Cierres\GridDetalleSocio.js" />
     <Content Include="App\View\Clientes\FormCrearVenta.js" />
     <Content Include="App\View\Clientes\FormMovimiento.js" />
     <Content Include="App\View\Clientes\Forms.js" />
@@ -402,71 +360,10 @@
     <Content Include="App\View\CierresParada\FormCierre.js" />
     <Content Include="App\View\CierresParada\GridCierres.js" />
     <Content Include="App\View\CierresParada\Principal.js" />
-    <Content Include="App\View\Ahorros\FormCierre.js" />
-    <Content Include="App\View\Ahorros\GridCierres.js" />
-    <Content Include="App\View\Ahorros\GridDetalles.js" />
-    <Content Include="App\View\Ahorros\Principal.js" />
-    <Content Include="App\View\CierreCaja\FormCierre.js" />
-    <Content Include="App\View\CierreCaja\GridCierres.js" />
-    <Content Include="App\View\CierreCaja\GridDetalles.js" />
-    <Content Include="App\View\CierreCaja\Principal.js" />
-    <Content Include="App\View\TransferenciasHojas\GridTransferenciasHojas.js" />
-    <Content Include="App\View\TransferenciasHojas\Principal.js" />
-    <Content Include="App\View\Prestamos\FormMora.js" />
-    <Content Include="App\View\Prestamos\FormRetiro.js" />
-    <Content Include="App\View\Prestamos\GridMoras.js" />
-    <Content Include="App\View\Prestamos\GridPagos.js" />
-    <Content Include="App\View\Prestamos\FormPagoPrestamo.js" />
-    <Content Include="App\View\Prestamos\GridPlanPagos.js" />
-    <Content Include="App\View\Reports\ReportsPDF.js" />
-    <Content Include="App\View\Socios\FormBajaSocioMovil.js" />
-    <Content Include="App\View\Socios\TransferenciasHojasForm.js" />
-    <Content Include="App\View\TiposEgresos\FormEgreso.js" />
-    <Content Include="App\View\TiposEgresos\Forms.js" />
-    <Content Include="App\View\TiposEgresos\GridEgresos.js" />
-    <Content Include="App\View\TiposEgresos\Grids.js" />
-    <Content Include="App\View\TiposEgresos\Principal.js" />
-    <Content Include="App\View\Prestamos\FormPrestamo.js" />
-    <Content Include="App\View\Prestamos\GridPrestamos.js" />
-    <Content Include="App\View\Prestamos\Principal.js" />
-    <Content Include="App\View\KardexHojas\FormAuto.js" />
-    <Content Include="App\View\KardexHojas\Forms.js" />
-    <Content Include="App\View\KardexHojas\GridKardexHojas.js" />
-    <Content Include="App\View\KardexHojas\Grids.js" />
-    <Content Include="App\View\KardexHojas\Principal.js" />
-    <Content Include="App\View\Reportes\ReportesSocios.js" />
-    <Content Include="App\View\TiposPrestamos\FormTipoPrestamo.js" />
-    <Content Include="App\View\TiposPrestamos\Forms.js" />
-    <Content Include="App\View\TiposPrestamos\GridTiposPrestamos.js" />
-    <Content Include="App\View\TiposPrestamos\Grids.js" />
-    <Content Include="App\View\TiposPrestamos\Principal.js" />
-    <Content Include="App\View\Regulaciones\FormRegulacion.js" />
-    <Content Include="App\View\Regulaciones\Forms.js" />
-    <Content Include="App\View\Regulaciones\GridDetalles.js" />
-    <Content Include="App\View\Regulaciones\GridRegulaciones.js" />
-    <Content Include="App\View\Regulaciones\Grids.js" />
-    <Content Include="App\View\Regulaciones\Principal.js" />
-    <Content Include="App\View\Permisos\FormPermiso.js" />
-    <Content Include="App\View\Permisos\Forms.js" />
-    <Content Include="App\View\Permisos\GridPermisos.js" />
-    <Content Include="App\View\Permisos\Grids.js" />
-    <Content Include="App\View\Permisos\Principal.js" />
-    <Content Include="App\View\Reportes\Reportes.js" />
-    <Content Include="App\View\TiposIngresos\FormIngreso.js" />
-    <Content Include="App\View\TiposIngresos\Forms.js" />
-    <Content Include="App\View\TiposIngresos\GridIngresos.js" />
-    <Content Include="App\View\TiposIngresos\Grids.js" />
-    <Content Include="App\View\TiposIngresos\Principal.js" />
-    <Content Include="App\View\IngresosPorSocios\FormIngreso.js" />
-    <Content Include="App\View\IngresosPorSocios\Forms.js" />
-    <Content Include="App\View\IngresosPorSocios\GridIngresos.js" />
-    <Content Include="App\View\IngresosPorSocios\Grids.js" />
-    <Content Include="App\View\IngresosPorSocios\Principal.js" />
     <Content Include="App\View\Hojas\GridDetalles.js" />
     <Content Include="App\View\Obligaciones\FormObligacion.js" />
     <Content Include="App\View\Obligaciones\GridObligaciones.js" />
     <Content Include="App\View\Obligaciones\Principal.js" />
-    <Content Include="App\View\Socios\FormObligacionSocioHoja.js" />
     <Content Include="App\View\Socios\GridKardexDebe.js" />
     <Content Include="App\View\Transferencias\FormTransferencia.js" />
     <Content Include="App\View\Transferencias\GridTransferencias.js" />
@@ -562,7 +459,6 @@
     <Content Include="Content\Iconos48\Actions-view-pim-contacts-icon.png" />
     <Content Include="Content\Iconos48\application-settings-icon.png" />
     <Content Include="Content\Iconos48\Calendar-icon.png" />
-    <Content Include="Content\Iconos48\car-icon.png" />
     <Content Include="Content\Iconos48\Cash-register-icon.png" />
     <Content Include="Content\Iconos48\coin-add-icon.png" />
     <Content Include="Content\Iconos48\coin-delete-icon.png" />
@@ -1625,8 +1521,6 @@
     <Content Include="Content\Iconos\zoom_in.png" />
     <Content Include="Content\Iconos\zoom_out.png" />
     <Content Include="Content\Icons.css" />
-    <Content Include="Content\images\Word.png" />
-    <Content Include="Content\images\xls.png" />
     <Content Include="Content\images\add.gif" />
     <Content Include="Content\images\add.png" />
     <Content Include="Content\images\bg.jpg" />
@@ -1646,7 +1540,6 @@
     <Content Include="Content\images\login_hover.png" />
     <Content Include="Content\images\no-imagen.jpg" />
     <Content Include="Content\images\no_photo.jpg" />
-    <Content Include="Content\images\pdf-icon.png" />
     <Content Include="Content\images\pencil.png" />
     <Content Include="Content\images\poste.ico" />
     <Content Include="Content\images\poste.png" />
@@ -1688,6 +1581,7 @@
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="Global.asax" />
+    <Content Include="InterfacesUsuario\bin.txt" />
     <Content Include="InterfacesUsuario\FormHoja.png" />
     <Content Include="InterfacesUsuario\GridChoferes.png" />
     <Content Include="InterfacesUsuario\GridHojas.png" />
@@ -3789,6 +3683,15 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -3800,94 +3703,6 @@
     <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
-    <Content Include="viewer\debugger.js" />
-    <Content Include="viewer\images\annotation-check.svg" />
-    <Content Include="viewer\images\annotation-comment.svg" />
-    <Content Include="viewer\images\annotation-help.svg" />
-    <Content Include="viewer\images\annotation-insert.svg" />
-    <Content Include="viewer\images\annotation-key.svg" />
-    <Content Include="viewer\images\annotation-newparagraph.svg" />
-    <Content Include="viewer\images\annotation-noicon.svg" />
-    <Content Include="viewer\images\annotation-note.svg" />
-    <Content Include="viewer\images\annotation-paragraph.svg" />
-    <Content Include="viewer\images\findbarButton-next%402x.png" />
-    <Content Include="viewer\images\findbarButton-next-rtl%402x.png" />
-    <Content Include="viewer\images\findbarButton-next-rtl.png" />
-    <Content Include="viewer\images\findbarButton-next.png" />
-    <Content Include="viewer\images\findbarButton-previous%402x.png" />
-    <Content Include="viewer\images\findbarButton-previous-rtl%402x.png" />
-    <Content Include="viewer\images\findbarButton-previous-rtl.png" />
-    <Content Include="viewer\images\findbarButton-previous.png" />
-    <Content Include="viewer\images\grab.cur" />
-    <Content Include="viewer\images\grabbing.cur" />
-    <Content Include="viewer\images\loading-icon.gif" />
-    <Content Include="viewer\images\loading-small%402x.png" />
-    <Content Include="viewer\images\loading-small.png" />
-    <Content Include="viewer\images\secondaryToolbarButton-documentProperties%402x.png" />
-    <Content Include="viewer\images\secondaryToolbarButton-documentProperties.png" />
-    <Content Include="viewer\images\secondaryToolbarButton-firstPage%402x.png" />
-    <Content Include="viewer\images\secondaryToolbarButton-firstPage.png" />
-    <Content Include="viewer\images\secondaryToolbarButton-handTool%402x.png" />
-    <Content Include="viewer\images\secondaryToolbarButton-handTool.png" />
-    <Content Include="viewer\images\secondaryToolbarButton-lastPage%402x.png" />
-    <Content Include="viewer\images\secondaryToolbarButton-lastPage.png" />
-    <Content Include="viewer\images\secondaryToolbarButton-rotateCcw%402x.png" />
-    <Content Include="viewer\images\secondaryToolbarButton-rotateCcw.png" />
-    <Content Include="viewer\images\secondaryToolbarButton-rotateCw%402x.png" />
-    <Content Include="viewer\images\secondaryToolbarButton-rotateCw.png" />
-    <Content Include="viewer\images\shadow.png" />
-    <Content Include="viewer\images\texture.png" />
-    <Content Include="viewer\images\toolbarButton-bookmark%402x.png" />
-    <Content Include="viewer\images\toolbarButton-bookmark.png" />
-    <Content Include="viewer\images\toolbarButton-download%402x.png" />
-    <Content Include="viewer\images\toolbarButton-download.png" />
-    <Content Include="viewer\images\toolbarButton-menuArrows%402x.png" />
-    <Content Include="viewer\images\toolbarButton-menuArrows.png" />
-    <Content Include="viewer\images\toolbarButton-openFile%402x.png" />
-    <Content Include="viewer\images\toolbarButton-openFile.png" />
-    <Content Include="viewer\images\toolbarButton-pageDown%402x.png" />
-    <Content Include="viewer\images\toolbarButton-pageDown-rtl%402x.png" />
-    <Content Include="viewer\images\toolbarButton-pageDown-rtl.png" />
-    <Content Include="viewer\images\toolbarButton-pageDown.png" />
-    <Content Include="viewer\images\toolbarButton-pageUp%402x.png" />
-    <Content Include="viewer\images\toolbarButton-pageUp-rtl%402x.png" />
-    <Content Include="viewer\images\toolbarButton-pageUp-rtl.png" />
-    <Content Include="viewer\images\toolbarButton-pageUp.png" />
-    <Content Include="viewer\images\toolbarButton-presentationMode%402x.png" />
-    <Content Include="viewer\images\toolbarButton-presentationMode.png" />
-    <Content Include="viewer\images\toolbarButton-print%402x.png" />
-    <Content Include="viewer\images\toolbarButton-print.png" />
-    <Content Include="viewer\images\toolbarButton-search%402x.png" />
-    <Content Include="viewer\images\toolbarButton-search.png" />
-    <Content Include="viewer\images\toolbarButton-secondaryToolbarToggle%402x.png" />
-    <Content Include="viewer\images\toolbarButton-secondaryToolbarToggle-rtl%402x.png" />
-    <Content Include="viewer\images\toolbarButton-secondaryToolbarToggle-rtl.png" />
-    <Content Include="viewer\images\toolbarButton-secondaryToolbarToggle.png" />
-    <Content Include="viewer\images\toolbarButton-sidebarToggle%402x.png" />
-    <Content Include="viewer\images\toolbarButton-sidebarToggle-rtl%402x.png" />
-    <Content Include="viewer\images\toolbarButton-sidebarToggle-rtl.png" />
-    <Content Include="viewer\images\toolbarButton-sidebarToggle.png" />
-    <Content Include="viewer\images\toolbarButton-viewAttachments%402x.png" />
-    <Content Include="viewer\images\toolbarButton-viewAttachments.png" />
-    <Content Include="viewer\images\toolbarButton-viewOutline%402x.png" />
-    <Content Include="viewer\images\toolbarButton-viewOutline-rtl%402x.png" />
-    <Content Include="viewer\images\toolbarButton-viewOutline-rtl.png" />
-    <Content Include="viewer\images\toolbarButton-viewOutline.png" />
-    <Content Include="viewer\images\toolbarButton-viewThumbnail%402x.png" />
-    <Content Include="viewer\images\toolbarButton-viewThumbnail.png" />
-    <Content Include="viewer\images\toolbarButton-zoomIn%402x.png" />
-    <Content Include="viewer\images\toolbarButton-zoomIn.png" />
-    <Content Include="viewer\images\toolbarButton-zoomOut%402x.png" />
-    <Content Include="viewer\images\toolbarButton-zoomOut.png" />
-    <Content Include="viewer\images\treeitem-collapsed%402x.png" />
-    <Content Include="viewer\images\treeitem-collapsed-rtl%402x.png" />
-    <Content Include="viewer\images\treeitem-collapsed-rtl.png" />
-    <Content Include="viewer\images\treeitem-collapsed.png" />
-    <Content Include="viewer\images\treeitem-expanded%402x.png" />
-    <Content Include="viewer\images\treeitem-expanded.png" />
-    <Content Include="viewer\viewer.css" />
-    <Content Include="viewer\viewer.html" />
-    <Content Include="viewer\viewer.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
@@ -3938,161 +3753,14 @@
     <None Include="InterfacesUsuario\Modulo de Hojas.mck" />
     <None Include="InterfacesUsuario\Modulo de Retiros.mck" />
     <None Include="InterfacesUsuario\Socios.mck" />
-    <None Include="Properties\PublishProfiles\sindicato.pubxml" />
     <None Include="Properties\PublishProfiles\sistema.pubxml" />
     <None Include="Scripts\Extjs\resources\ext-theme-classic-sandbox\Readme.md" />
     <None Include="Scripts\Extjs\resources\ext-theme-classic\Readme.md" />
     <None Include="Scripts\Extjs\resources\ext-theme-gray\Readme.md" />
     <None Include="Scripts\Extjs\version.properties" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="viewer\locale\ach\viewer.properties" />
-    <Content Include="viewer\locale\af\viewer.properties" />
-    <Content Include="viewer\locale\ak\viewer.properties" />
-    <Content Include="viewer\locale\an\viewer.properties" />
-    <Content Include="viewer\locale\ar\viewer.properties" />
-    <Content Include="viewer\locale\ast\viewer.properties" />
-    <Content Include="viewer\locale\as\viewer.properties" />
-    <Content Include="viewer\locale\az\viewer.properties" />
-    <Content Include="viewer\locale\be\viewer.properties" />
-    <Content Include="viewer\locale\bg\viewer.properties" />
-    <Content Include="viewer\locale\bn-BD\viewer.properties" />
-    <Content Include="viewer\locale\bn-IN\viewer.properties" />
-    <Content Include="viewer\locale\br\viewer.properties" />
-    <Content Include="viewer\locale\bs\viewer.properties" />
-    <Content Include="viewer\locale\ca\viewer.properties" />
-    <Content Include="viewer\locale\csb\viewer.properties" />
-    <Content Include="viewer\locale\cs\viewer.properties" />
-    <Content Include="viewer\locale\cy\viewer.properties" />
-    <Content Include="viewer\locale\da\viewer.properties" />
-    <Content Include="viewer\locale\de\viewer.properties" />
-    <Content Include="viewer\locale\el\viewer.properties" />
-    <Content Include="viewer\locale\en-GB\viewer.properties" />
-    <Content Include="viewer\locale\en-US\viewer.properties" />
-    <Content Include="viewer\locale\en-ZA\viewer.properties" />
-    <Content Include="viewer\locale\eo\viewer.properties" />
-    <Content Include="viewer\locale\es-AR\viewer.properties" />
-    <Content Include="viewer\locale\es-CL\viewer.properties" />
-    <Content Include="viewer\locale\es-ES\viewer.properties" />
-    <Content Include="viewer\locale\es-MX\viewer.properties" />
-    <Content Include="viewer\locale\et\viewer.properties" />
-    <Content Include="viewer\locale\eu\viewer.properties" />
-    <Content Include="viewer\locale\fa\viewer.properties" />
-    <Content Include="viewer\locale\ff\viewer.properties" />
-    <Content Include="viewer\locale\fi\viewer.properties" />
-    <Content Include="viewer\locale\fr\viewer.properties" />
-    <Content Include="viewer\locale\fy-NL\viewer.properties" />
-    <Content Include="viewer\locale\ga-IE\viewer.properties" />
-    <Content Include="viewer\locale\gd\viewer.properties" />
-    <Content Include="viewer\locale\gl\viewer.properties" />
-    <Content Include="viewer\locale\gu-IN\viewer.properties" />
-    <Content Include="viewer\locale\he\viewer.properties" />
-    <Content Include="viewer\locale\hi-IN\viewer.properties" />
-    <Content Include="viewer\locale\hr\viewer.properties" />
-    <Content Include="viewer\locale\hu\viewer.properties" />
-    <Content Include="viewer\locale\hy-AM\viewer.properties" />
-    <Content Include="viewer\locale\id\viewer.properties" />
-    <Content Include="viewer\locale\is\viewer.properties" />
-    <Content Include="viewer\locale\it\viewer.properties" />
-    <Content Include="viewer\locale\ja\viewer.properties" />
-    <Content Include="viewer\locale\ka\viewer.properties" />
-    <Content Include="viewer\locale\kk\viewer.properties" />
-    <Content Include="viewer\locale\km\viewer.properties" />
-    <Content Include="viewer\locale\kn\viewer.properties" />
-    <Content Include="viewer\locale\ko\viewer.properties" />
-    <Content Include="viewer\locale\ku\viewer.properties" />
-    <Content Include="viewer\locale\lg\viewer.properties" />
-    <Content Include="viewer\locale\lij\viewer.properties" />
-    <Content Include="viewer\locale\locale.properties" />
-    <Content Include="viewer\locale\lt\viewer.properties" />
-    <Content Include="viewer\locale\lv\viewer.properties" />
-    <Content Include="viewer\locale\mai\viewer.properties" />
-    <Content Include="viewer\locale\mk\viewer.properties" />
-    <Content Include="viewer\locale\ml\viewer.properties" />
-    <Content Include="viewer\locale\mn\viewer.properties" />
-    <Content Include="viewer\locale\mr\viewer.properties" />
-    <Content Include="viewer\locale\ms\viewer.properties" />
-    <Content Include="viewer\locale\my\viewer.properties" />
-    <Content Include="viewer\locale\nb-NO\viewer.properties" />
-    <Content Include="viewer\locale\nl\viewer.properties" />
-    <Content Include="viewer\locale\nn-NO\viewer.properties" />
-    <Content Include="viewer\locale\nso\viewer.properties" />
-    <Content Include="viewer\locale\oc\viewer.properties" />
-    <Content Include="viewer\locale\or\viewer.properties" />
-    <Content Include="viewer\locale\pa-IN\viewer.properties" />
-    <Content Include="viewer\locale\pl\viewer.properties" />
-    <Content Include="viewer\locale\pt-BR\viewer.properties" />
-    <Content Include="viewer\locale\pt-PT\viewer.properties" />
-    <Content Include="viewer\locale\rm\viewer.properties" />
-    <Content Include="viewer\locale\ro\viewer.properties" />
-    <Content Include="viewer\locale\ru\viewer.properties" />
-    <Content Include="viewer\locale\rw\viewer.properties" />
-    <Content Include="viewer\locale\sah\viewer.properties" />
-    <Content Include="viewer\locale\si\viewer.properties" />
-    <Content Include="viewer\locale\sk\viewer.properties" />
-    <Content Include="viewer\locale\sl\viewer.properties" />
-    <Content Include="viewer\locale\son\viewer.properties" />
-    <Content Include="viewer\locale\sq\viewer.properties" />
-    <Content Include="viewer\locale\sr\viewer.properties" />
-    <Content Include="viewer\locale\sv-SE\viewer.properties" />
-    <Content Include="viewer\locale\sw\viewer.properties" />
-    <Content Include="viewer\locale\ta-LK\viewer.properties" />
-    <Content Include="viewer\locale\ta\viewer.properties" />
-    <Content Include="viewer\locale\te\viewer.properties" />
-    <Content Include="viewer\locale\th\viewer.properties" />
-    <Content Include="viewer\locale\tl\viewer.properties" />
-    <Content Include="viewer\locale\tn\viewer.properties" />
-    <Content Include="viewer\locale\tr\viewer.properties" />
-    <Content Include="viewer\locale\uk\viewer.properties" />
-    <Content Include="viewer\locale\ur\viewer.properties" />
-    <Content Include="viewer\locale\vi\viewer.properties" />
-    <Content Include="viewer\locale\wo\viewer.properties" />
-    <Content Include="viewer\locale\xh\viewer.properties" />
-    <Content Include="viewer\locale\zh-CN\viewer.properties" />
-    <Content Include="viewer\locale\zh-TW\viewer.properties" />
-    <Content Include="viewer\locale\zu\viewer.properties" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reportes\Copia de ReporteCierreAhorro.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteEstadoResultadoPorMoneda.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteAhorrosCobros.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteDetalleHojaPorSocio.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteDeudoresHoja.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteDeudoresCouta.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteDeudores.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteDiarioHoja.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteDiarioHojaRegularizadas.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteEstadoResultadoPorCaja.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteIngresosDetalle.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteIngresosDetallePorCaja.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteMatrizHojas.rdlc" />
-    <EmbeddedResource Include="Reportes\ReportePagoPrestamo.rdlc" />
-    <EmbeddedResource Include="Reportes\ReportePrestamo.rdlc" />
-    <EmbeddedResource Include="Reportes\ReportePrestamosPagosDetalle.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteResumenHojas.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteResumenNumeracion.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteRetiro.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteCierreAhorro.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteDetalleHoja.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteEgreso.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteIngreso.rdlc" />
-    <EmbeddedResource Include="Reportes\Hoja.rdlc" />
-    <EmbeddedResource Include="Reportes\Report1.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteHojas.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteKardexHojaSocio.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteRegulacion.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteSocioMovil.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteSocioMovilHoja.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteSociosMovilesActivos.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteTotal.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteTotalPrestamos.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -4116,7 +3784,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>23532</DevelopmentServerPort>
+          <DevelopmentServerPort>4353</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
