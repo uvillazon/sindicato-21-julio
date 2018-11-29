@@ -21,8 +21,10 @@
           <EntitySet Name="SD_DETALLE_CIERRES_AHORRO" EntityType="Model.Store.SD_DETALLE_CIERRES_AHORRO" store:Type="Tables" Schema="SINDICATO_121" />
           <EntitySet Name="SD_DETALLE_CIERRES_CAJA" EntityType="Model.Store.SD_DETALLE_CIERRES_CAJA" store:Type="Tables" Schema="SINDICATO_121" />
           <EntitySet Name="SD_DETALLE_PERIODO_SOCIO" EntityType="Model.Store.SD_DETALLE_PERIODO_SOCIO" store:Type="Tables" Schema="SINDICATO_121" />
+          <EntitySet Name="SD_DETALLES_DEUDAS" EntityType="Model.Store.SD_DETALLES_DEUDAS" store:Type="Tables" Schema="SINDICATO_121" />
           <EntitySet Name="SD_DETALLES_HOJAS_CONTROL" EntityType="Model.Store.SD_DETALLES_HOJAS_CONTROL" store:Type="Tables" Schema="SINDICATO_121" />
           <EntitySet Name="SD_DETALLES_REGULARIZACIONES" EntityType="Model.Store.SD_DETALLES_REGULARIZACIONES" store:Type="Tables" Schema="SINDICATO_121" />
+          <EntitySet Name="SD_DEUDAS_SOCIOS" EntityType="Model.Store.SD_DEUDAS_SOCIOS" store:Type="Tables" Schema="SINDICATO_121" />
           <EntitySet Name="SD_DOCUMENTACIONES" EntityType="Model.Store.SD_DOCUMENTACIONES" store:Type="Tables" Schema="SINDICATO_121" />
           <EntitySet Name="SD_EGRESOS" EntityType="Model.Store.SD_EGRESOS" store:Type="Tables" Schema="SINDICATO_121" />
           <EntitySet Name="SD_FAMILIARES" EntityType="Model.Store.SD_FAMILIARES" store:Type="Tables" Schema="SINDICATO_121" />
@@ -161,6 +163,14 @@
             <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
             <End Role="SD_DETALLE_PERIODO_SOCIO" EntitySet="SD_DETALLE_PERIODO_SOCIO" />
           </AssociationSet>
+          <AssociationSet Name="SD_DETALLES_DEUDAS_R01" Association="Model.Store.SD_DETALLES_DEUDAS_R01">
+            <End Role="SD_DEUDAS_SOCIOS" EntitySet="SD_DEUDAS_SOCIOS" />
+            <End Role="SD_DETALLES_DEUDAS" EntitySet="SD_DETALLES_DEUDAS" />
+          </AssociationSet>
+          <AssociationSet Name="SD_DETALLES_DEUDAS_R02" Association="Model.Store.SD_DETALLES_DEUDAS_R02">
+            <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
+            <End Role="SD_DETALLES_DEUDAS" EntitySet="SD_DETALLES_DEUDAS" />
+          </AssociationSet>
           <AssociationSet Name="SD_DETALLES_HOJAS_CONTROL_R01" Association="Model.Store.SD_DETALLES_HOJAS_CONTROL_R01">
             <End Role="SD_HOJAS_CONTROL" EntitySet="SD_HOJAS_CONTROL" />
             <End Role="SD_DETALLES_HOJAS_CONTROL" EntitySet="SD_DETALLES_HOJAS_CONTROL" />
@@ -176,6 +186,10 @@
           <AssociationSet Name="SD_DETALLES_REGULARIZACION_R02" Association="Model.Store.SD_DETALLES_REGULARIZACION_R02">
             <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
             <End Role="SD_DETALLES_REGULARIZACIONES" EntitySet="SD_DETALLES_REGULARIZACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_DEUDAS_SOCIOS_R01" Association="Model.Store.SD_DEUDAS_SOCIOS_R01">
+            <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
+            <End Role="SD_DEUDAS_SOCIOS" EntitySet="SD_DEUDAS_SOCIOS" />
           </AssociationSet>
           <AssociationSet Name="SD_DOCUMENTACIONES_R02" Association="Model.Store.SD_DOCUMENTACIONES_R02">
             <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
@@ -665,6 +679,23 @@
           <Property Name="AHORRO" Type="number" Precision="15" Scale="5" />
           <Property Name="DEUDA" Type="number" Precision="15" Scale="5" />
         </EntityType>
+        <EntityType Name="SD_DETALLES_DEUDAS">
+          <Key>
+            <PropertyRef Name="ID_DETALLE" />
+          </Key>
+          <Property Name="ID_DETALLE" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_DEUDA" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_SOCIO_MOVIL" Type="number" Nullable="false" Precision="7" />
+          <Property Name="FECHA" Type="date" Nullable="false" />
+          <Property Name="FECHA_CANCELADO" Type="date" />
+          <Property Name="IMPORTE" Type="number" Nullable="false" Precision="15" Scale="5" />
+          <Property Name="IMPORTE_CANCELADO" Type="number" Precision="15" Scale="5" />
+          <Property Name="OBSERVACION" Type="varchar2" MaxLength="1250" />
+          <Property Name="ESTADO" Type="varchar2" MaxLength="50" />
+          <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
+          <Property Name="FECHA_REG" Type="date" />
+          <Property Name="ID_CAJA" Type="number" Precision="7" />
+        </EntityType>
         <EntityType Name="SD_DETALLES_HOJAS_CONTROL">
           <Key>
             <PropertyRef Name="ID_DETALLE" />
@@ -688,6 +719,20 @@
           <Property Name="IMPORTE" Type="number" Precision="15" Scale="5" />
           <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
           <Property Name="FECHA_REG" Type="date" />
+        </EntityType>
+        <EntityType Name="SD_DEUDAS_SOCIOS">
+          <Key>
+            <PropertyRef Name="ID_DEUDA" />
+          </Key>
+          <Property Name="ID_DEUDA" Type="number" Nullable="false" Precision="7" />
+          <Property Name="MOTIVO" Type="varchar2" Nullable="false" MaxLength="255" />
+          <Property Name="FECHA" Type="date" Nullable="false" />
+          <Property Name="IMPORTE" Type="number" Precision="15" Scale="5" />
+          <Property Name="OBSERVACION" Type="varchar2" MaxLength="1250" />
+          <Property Name="ESTADO" Type="varchar2" MaxLength="50" />
+          <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
+          <Property Name="FECHA_REG" Type="date" />
+          <Property Name="ID_CAJA" Type="number" Nullable="false" Precision="7" />
         </EntityType>
         <EntityType Name="SD_DOCUMENTACIONES">
           <Key>
@@ -1099,8 +1144,8 @@
           <Property Name="ID_USUARIO" Type="number" Nullable="false" Precision="5" />
           <Property Name="FECHA_REG" Type="date" />
         </EntityType>
-        <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'SINDICATO_121.SD_PARAM_CANT_HOJAS_MES' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'SINDICATO_121.SD_PARAM_CANT_HOJAS_MES' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="SD_PARAM_CANT_HOJAS_MES">
           <Key>
@@ -1462,8 +1507,8 @@
           <Property Name="FECHA_REG" Type="date" />
           <Property Name="ID" Type="number" Nullable="false" Precision="7" />
         </EntityType>
-        <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'SINDICATO_121.V_TABLAS_COLUMNAS' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'SINDICATO_121.V_TABLAS_COLUMNAS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="V_TABLAS_COLUMNAS">
           <Key>
@@ -1673,6 +1718,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="SD_DETALLES_DEUDAS_R01">
+          <End Role="SD_DEUDAS_SOCIOS" Type="Model.Store.SD_DEUDAS_SOCIOS" Multiplicity="1" />
+          <End Role="SD_DETALLES_DEUDAS" Type="Model.Store.SD_DETALLES_DEUDAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_DEUDAS_SOCIOS">
+              <PropertyRef Name="ID_DEUDA" />
+            </Principal>
+            <Dependent Role="SD_DETALLES_DEUDAS">
+              <PropertyRef Name="ID_DEUDA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_DETALLES_DEUDAS_R02">
+          <End Role="SD_SOCIO_MOVILES" Type="Model.Store.SD_SOCIO_MOVILES" Multiplicity="1" />
+          <End Role="SD_DETALLES_DEUDAS" Type="Model.Store.SD_DETALLES_DEUDAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIO_MOVILES">
+              <PropertyRef Name="ID_SOCIO_MOVIL" />
+            </Principal>
+            <Dependent Role="SD_DETALLES_DEUDAS">
+              <PropertyRef Name="ID_SOCIO_MOVIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="SD_DETALLES_HOJAS_CONTROL_R01">
           <End Role="SD_HOJAS_CONTROL" Type="Model.Store.SD_HOJAS_CONTROL" Multiplicity="1" />
           <End Role="SD_DETALLES_HOJAS_CONTROL" Type="Model.Store.SD_DETALLES_HOJAS_CONTROL" Multiplicity="*" />
@@ -1717,6 +1786,18 @@
               <PropertyRef Name="ID_CAJA" />
             </Principal>
             <Dependent Role="SD_DETALLES_REGULARIZACIONES">
+              <PropertyRef Name="ID_CAJA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_DEUDAS_SOCIOS_R01">
+          <End Role="SD_CAJAS" Type="Model.Store.SD_CAJAS" Multiplicity="1" />
+          <End Role="SD_DEUDAS_SOCIOS" Type="Model.Store.SD_DEUDAS_SOCIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CAJAS">
+              <PropertyRef Name="ID_CAJA" />
+            </Principal>
+            <Dependent Role="SD_DEUDAS_SOCIOS">
               <PropertyRef Name="ID_CAJA" />
             </Dependent>
           </ReferentialConstraint>
@@ -3670,6 +3751,20 @@
             <End Role="SD_CIERRES_CAJAS" EntitySet="SD_CIERRES_CAJAS" />
             <End Role="SD_DETALLE_CIERRES_CAJA" EntitySet="SD_DETALLE_CIERRES_CAJA" />
           </AssociationSet>
+          <EntitySet Name="SD_DETALLES_DEUDAS" EntityType="Model.SD_DETALLES_DEUDAS" />
+          <EntitySet Name="SD_DEUDAS_SOCIOS" EntityType="Model.SD_DEUDAS_SOCIOS" />
+          <AssociationSet Name="SD_DEUDAS_SOCIOS_R01" Association="Model.SD_DEUDAS_SOCIOS_R01">
+            <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
+            <End Role="SD_DEUDAS_SOCIOS" EntitySet="SD_DEUDAS_SOCIOS" />
+          </AssociationSet>
+          <AssociationSet Name="SD_DETALLES_DEUDAS_R01" Association="Model.SD_DETALLES_DEUDAS_R01">
+            <End Role="SD_DEUDAS_SOCIOS" EntitySet="SD_DEUDAS_SOCIOS" />
+            <End Role="SD_DETALLES_DEUDAS" EntitySet="SD_DETALLES_DEUDAS" />
+          </AssociationSet>
+          <AssociationSet Name="SD_DETALLES_DEUDAS_R02" Association="Model.SD_DETALLES_DEUDAS_R02">
+            <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
+            <End Role="SD_DETALLES_DEUDAS" EntitySet="SD_DETALLES_DEUDAS" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="SD_LISTAS">
           <Key>
@@ -4697,6 +4792,7 @@
           <NavigationProperty Name="SD_EGRESOS" Relationship="Model.SD_EGRESOS_R01" FromRole="SD_CAJAS" ToRole="SD_EGRESOS" />
           <NavigationProperty Name="SD_INGRESOS" Relationship="Model.SD_INGRESOS_R01" FromRole="SD_CAJAS" ToRole="SD_INGRESOS" />
           <NavigationProperty Name="SD_DETALLE_CIERRES_CAJA" Relationship="Model.SD_DETALLE_CIERRES_CAJA_R02" FromRole="SD_CAJAS" ToRole="SD_DETALLE_CIERRES_CAJA" />
+          <NavigationProperty Name="SD_DEUDAS_SOCIOS" Relationship="Model.SD_DEUDAS_SOCIOS_R01" FromRole="SD_CAJAS" ToRole="SD_DEUDAS_SOCIOS" />
         </EntityType>
         <EntityType Name="SD_INGRESOS_POR_SOCIOS">
           <Key>
@@ -5150,6 +5246,7 @@
           <NavigationProperty Name="SD_PRESTAMOS_POR_SOCIOS" Relationship="Model.SD_PRESTAMOS_POR_SOCIOS_R01" FromRole="SD_SOCIO_MOVILES" ToRole="SD_PRESTAMOS_POR_SOCIOS" />
           <NavigationProperty Name="SD_TRANSFERENCIAS_HOJAS" Relationship="Model.SD_TRANSFERENCIAS_HOJAS_R01" FromRole="SD_SOCIO_MOVILES" ToRole="SD_TRANSFERENCIAS_HOJAS" />
           <NavigationProperty Name="SD_TRANSFERENCIAS_HOJAS1" Relationship="Model.SD_TRANSFERENCIAS_HOJAS_R02" FromRole="SD_SOCIO_MOVILES" ToRole="SD_TRANSFERENCIAS_HOJAS" />
+          <NavigationProperty Name="SD_DETALLES_DEUDAS" Relationship="Model.SD_DETALLES_DEUDAS_R02" FromRole="SD_SOCIO_MOVILES" ToRole="SD_DETALLES_DEUDAS" />
           </EntityType>
         <Association Name="SD_HOJAS_CONTROL_R02">
           <End Type="Model.SD_SOCIO_MOVILES" Role="SD_SOCIO_MOVILES" Multiplicity="1" />
@@ -5906,6 +6003,77 @@
             </Principal>
             <Dependent Role="SD_DETALLE_CIERRES_CAJA">
               <PropertyRef Name="ID_CIERRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SD_DETALLES_DEUDAS">
+          <Key>
+            <PropertyRef Name="ID_DETALLE" />
+          </Key>
+          <Property Type="Int32" Name="ID_DETALLE" Nullable="false" />
+          <Property Type="Int32" Name="ID_DEUDA" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO_MOVIL" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_CANCELADO" />
+          <Property Type="Decimal" Name="IMPORTE" Nullable="false" Precision="15" Scale="5" />
+          <Property Type="Decimal" Name="IMPORTE_CANCELADO" Precision="15" Scale="5" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="1250" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ESTADO" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="Int32" Name="ID_CAJA" />
+          <NavigationProperty Name="SD_DEUDAS_SOCIOS" Relationship="Model.SD_DETALLES_DEUDAS_R01" FromRole="SD_DETALLES_DEUDAS" ToRole="SD_DEUDAS_SOCIOS" />
+          <NavigationProperty Name="SD_SOCIO_MOVILES" Relationship="Model.SD_DETALLES_DEUDAS_R02" FromRole="SD_DETALLES_DEUDAS" ToRole="SD_SOCIO_MOVILES" />
+        </EntityType>
+        <EntityType Name="SD_DEUDAS_SOCIOS">
+          <Key>
+            <PropertyRef Name="ID_DEUDA" />
+          </Key>
+          <Property Type="Int32" Name="ID_DEUDA" Nullable="false" />
+          <Property Type="String" Name="MOTIVO" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA" Nullable="false" />
+          <Property Type="Decimal" Name="IMPORTE" Precision="15" Scale="5" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="1250" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ESTADO" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="Int32" Name="ID_CAJA" Nullable="false" />
+          <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_DEUDAS_SOCIOS_R01" FromRole="SD_DEUDAS_SOCIOS" ToRole="SD_CAJAS" />
+          <NavigationProperty Name="SD_DETALLES_DEUDAS" Relationship="Model.SD_DETALLES_DEUDAS_R01" FromRole="SD_DEUDAS_SOCIOS" ToRole="SD_DETALLES_DEUDAS" />
+        </EntityType>
+        <Association Name="SD_DEUDAS_SOCIOS_R01">
+          <End Type="Model.SD_CAJAS" Role="SD_CAJAS" Multiplicity="1" />
+          <End Type="Model.SD_DEUDAS_SOCIOS" Role="SD_DEUDAS_SOCIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CAJAS">
+              <PropertyRef Name="ID_CAJA" />
+            </Principal>
+            <Dependent Role="SD_DEUDAS_SOCIOS">
+              <PropertyRef Name="ID_CAJA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_DETALLES_DEUDAS_R01">
+          <End Type="Model.SD_DEUDAS_SOCIOS" Role="SD_DEUDAS_SOCIOS" Multiplicity="1" />
+          <End Type="Model.SD_DETALLES_DEUDAS" Role="SD_DETALLES_DEUDAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_DEUDAS_SOCIOS">
+              <PropertyRef Name="ID_DEUDA" />
+            </Principal>
+            <Dependent Role="SD_DETALLES_DEUDAS">
+              <PropertyRef Name="ID_DEUDA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_DETALLES_DEUDAS_R02">
+          <End Type="Model.SD_SOCIO_MOVILES" Role="SD_SOCIO_MOVILES" Multiplicity="1" />
+          <End Type="Model.SD_DETALLES_DEUDAS" Role="SD_DETALLES_DEUDAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIO_MOVILES">
+              <PropertyRef Name="ID_SOCIO_MOVIL" />
+            </Principal>
+            <Dependent Role="SD_DETALLES_DEUDAS">
+              <PropertyRef Name="ID_SOCIO_MOVIL" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7035,6 +7203,39 @@
                 <ScalarProperty Name="ID_CAJA" ColumnName="ID_CAJA" />
                 <ScalarProperty Name="ID_CIERRE" ColumnName="ID_CIERRE" />
                 <ScalarProperty Name="ID_DETALLE" ColumnName="ID_DETALLE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_DETALLES_DEUDAS">
+            <EntityTypeMapping TypeName="Model.SD_DETALLES_DEUDAS">
+              <MappingFragment StoreEntitySet="SD_DETALLES_DEUDAS">
+                <ScalarProperty Name="ID_CAJA" ColumnName="ID_CAJA" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="IMPORTE_CANCELADO" ColumnName="IMPORTE_CANCELADO" />
+                <ScalarProperty Name="IMPORTE" ColumnName="IMPORTE" />
+                <ScalarProperty Name="FECHA_CANCELADO" ColumnName="FECHA_CANCELADO" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="ID_SOCIO_MOVIL" ColumnName="ID_SOCIO_MOVIL" />
+                <ScalarProperty Name="ID_DEUDA" ColumnName="ID_DEUDA" />
+                <ScalarProperty Name="ID_DETALLE" ColumnName="ID_DETALLE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_DEUDAS_SOCIOS">
+            <EntityTypeMapping TypeName="Model.SD_DEUDAS_SOCIOS">
+              <MappingFragment StoreEntitySet="SD_DEUDAS_SOCIOS">
+                <ScalarProperty Name="ID_CAJA" ColumnName="ID_CAJA" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="IMPORTE" ColumnName="IMPORTE" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="MOTIVO" ColumnName="MOTIVO" />
+                <ScalarProperty Name="ID_DEUDA" ColumnName="ID_DEUDA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
