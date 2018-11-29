@@ -5139,6 +5139,92 @@ namespace Sindicato.Model
     
             return base.ExecuteFunction("P_ACT_PAGOS_AHORROS", p_USRParameter, p_RES);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="p_ID_DEUDA">No Metadata Documentation available.</param>
+        /// <param name="p_ID_CAJA">No Metadata Documentation available.</param>
+        /// <param name="p_MOTIVO">No Metadata Documentation available.</param>
+        /// <param name="p_FECHA">No Metadata Documentation available.</param>
+        /// <param name="p_OBSERVACION">No Metadata Documentation available.</param>
+        /// <param name="p_IMPORTE">No Metadata Documentation available.</param>
+        /// <param name="p_USR">No Metadata Documentation available.</param>
+        /// <param name="p_RES">No Metadata Documentation available.</param>
+        public int P_SD_GUARDAR_DEUDAS_SOCIOS(Nullable<global::System.Decimal> p_ID_DEUDA, Nullable<global::System.Decimal> p_ID_CAJA, global::System.String p_MOTIVO, Nullable<global::System.DateTime> p_FECHA, global::System.String p_OBSERVACION, Nullable<global::System.Decimal> p_IMPORTE, global::System.String p_USR, ObjectParameter p_RES)
+        {
+            ObjectParameter p_ID_DEUDAParameter;
+            if (p_ID_DEUDA.HasValue)
+            {
+                p_ID_DEUDAParameter = new ObjectParameter("P_ID_DEUDA", p_ID_DEUDA);
+            }
+            else
+            {
+                p_ID_DEUDAParameter = new ObjectParameter("P_ID_DEUDA", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_ID_CAJAParameter;
+            if (p_ID_CAJA.HasValue)
+            {
+                p_ID_CAJAParameter = new ObjectParameter("P_ID_CAJA", p_ID_CAJA);
+            }
+            else
+            {
+                p_ID_CAJAParameter = new ObjectParameter("P_ID_CAJA", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_MOTIVOParameter;
+            if (p_MOTIVO != null)
+            {
+                p_MOTIVOParameter = new ObjectParameter("P_MOTIVO", p_MOTIVO);
+            }
+            else
+            {
+                p_MOTIVOParameter = new ObjectParameter("P_MOTIVO", typeof(global::System.String));
+            }
+    
+            ObjectParameter p_FECHAParameter;
+            if (p_FECHA.HasValue)
+            {
+                p_FECHAParameter = new ObjectParameter("P_FECHA", p_FECHA);
+            }
+            else
+            {
+                p_FECHAParameter = new ObjectParameter("P_FECHA", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter p_OBSERVACIONParameter;
+            if (p_OBSERVACION != null)
+            {
+                p_OBSERVACIONParameter = new ObjectParameter("P_OBSERVACION", p_OBSERVACION);
+            }
+            else
+            {
+                p_OBSERVACIONParameter = new ObjectParameter("P_OBSERVACION", typeof(global::System.String));
+            }
+    
+            ObjectParameter p_IMPORTEParameter;
+            if (p_IMPORTE.HasValue)
+            {
+                p_IMPORTEParameter = new ObjectParameter("P_IMPORTE", p_IMPORTE);
+            }
+            else
+            {
+                p_IMPORTEParameter = new ObjectParameter("P_IMPORTE", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_USRParameter;
+            if (p_USR != null)
+            {
+                p_USRParameter = new ObjectParameter("P_USR", p_USR);
+            }
+            else
+            {
+                p_USRParameter = new ObjectParameter("P_USR", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("P_SD_GUARDAR_DEUDAS_SOCIOS", p_ID_DEUDAParameter, p_ID_CAJAParameter, p_MOTIVOParameter, p_FECHAParameter, p_OBSERVACIONParameter, p_IMPORTEParameter, p_USRParameter, p_RES);
+        }
 
         #endregion
 
@@ -11088,24 +11174,24 @@ namespace Sindicato.Model
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String LOGIN
+        public global::System.String LOGIN_USR
         {
             get
             {
-                return _LOGIN;
+                return _LOGIN_USR;
             }
             set
             {
-                OnLOGINChanging(value);
-                ReportPropertyChanging("LOGIN");
-                _LOGIN = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("LOGIN");
-                OnLOGINChanged();
+                OnLOGIN_USRChanging(value);
+                ReportPropertyChanging("LOGIN_USR");
+                _LOGIN_USR = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("LOGIN_USR");
+                OnLOGIN_USRChanged();
             }
         }
-        private global::System.String _LOGIN;
-        partial void OnLOGINChanging(global::System.String value);
-        partial void OnLOGINChanged();
+        private global::System.String _LOGIN_USR;
+        partial void OnLOGIN_USRChanging(global::System.String value);
+        partial void OnLOGIN_USRChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -11997,24 +12083,24 @@ namespace Sindicato.Model
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String LOGIN
+        public global::System.String LOGIN_USR
         {
             get
             {
-                return _LOGIN;
+                return _LOGIN_USR;
             }
             set
             {
-                OnLOGINChanging(value);
-                ReportPropertyChanging("LOGIN");
-                _LOGIN = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("LOGIN");
-                OnLOGINChanged();
+                OnLOGIN_USRChanging(value);
+                ReportPropertyChanging("LOGIN_USR");
+                _LOGIN_USR = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("LOGIN_USR");
+                OnLOGIN_USRChanged();
             }
         }
-        private global::System.String _LOGIN;
-        partial void OnLOGINChanging(global::System.String value);
-        partial void OnLOGINChanged();
+        private global::System.String _LOGIN_USR;
+        partial void OnLOGIN_USRChanging(global::System.String value);
+        partial void OnLOGIN_USRChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

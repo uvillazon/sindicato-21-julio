@@ -692,7 +692,7 @@
           <Property Name="IMPORTE_CANCELADO" Type="number" Precision="15" Scale="5" />
           <Property Name="OBSERVACION" Type="varchar2" MaxLength="1250" />
           <Property Name="ESTADO" Type="varchar2" MaxLength="50" />
-          <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
+          <Property Name="LOGIN_USR" Type="varchar2" MaxLength="20" />
           <Property Name="FECHA_REG" Type="date" />
           <Property Name="ID_CAJA" Type="number" Precision="7" />
         </EntityType>
@@ -730,7 +730,7 @@
           <Property Name="IMPORTE" Type="number" Precision="15" Scale="5" />
           <Property Name="OBSERVACION" Type="varchar2" MaxLength="1250" />
           <Property Name="ESTADO" Type="varchar2" MaxLength="50" />
-          <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
+          <Property Name="LOGIN_USR" Type="varchar2" MaxLength="20" />
           <Property Name="FECHA_REG" Type="date" />
           <Property Name="ID_CAJA" Type="number" Nullable="false" Precision="7" />
         </EntityType>
@@ -2830,6 +2830,16 @@
           <Parameter Name="P_LOGIN" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
+        <Function Name="P_SD_GUARDAR_DEUDAS_SOCIOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+          <Parameter Name="P_ID_DEUDA" Type="number" Mode="In" />
+          <Parameter Name="P_ID_CAJA" Type="number" Mode="In" />
+          <Parameter Name="P_MOTIVO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_FECHA" Type="date" Mode="In" />
+          <Parameter Name="P_OBSERVACION" Type="varchar2" Mode="In" />
+          <Parameter Name="P_IMPORTE" Type="number" Mode="In" />
+          <Parameter Name="P_USR" Type="varchar2" Mode="In" />
+          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
+        </Function>
         <Function Name="P_SD_GUARDAR_FONDO_EMER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
           <Parameter Name="P_ID_CHOFE" Type="number" Mode="In" />
           <Parameter Name="P_ID_KARDEX" Type="number" Mode="In" />
@@ -3765,6 +3775,16 @@
             <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
             <End Role="SD_DETALLES_DEUDAS" EntitySet="SD_DETALLES_DEUDAS" />
           </AssociationSet>
+          <FunctionImport Name="P_SD_GUARDAR_DEUDAS_SOCIOS">
+            <Parameter Name="P_ID_DEUDA" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ID_CAJA" Mode="In" Type="Decimal" />
+            <Parameter Name="P_MOTIVO" Mode="In" Type="String" />
+            <Parameter Name="P_FECHA" Mode="In" Type="DateTime" />
+            <Parameter Name="P_OBSERVACION" Mode="In" Type="String" />
+            <Parameter Name="P_IMPORTE" Mode="In" Type="Decimal" />
+            <Parameter Name="P_USR" Mode="In" Type="String" />
+            <Parameter Name="P_RES" Mode="Out" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="SD_LISTAS">
           <Key>
@@ -6019,7 +6039,7 @@
           <Property Type="Decimal" Name="IMPORTE_CANCELADO" Precision="15" Scale="5" />
           <Property Type="String" Name="OBSERVACION" MaxLength="1250" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ESTADO" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LOGIN_USR" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="FECHA_REG" />
           <Property Type="Int32" Name="ID_CAJA" />
           <NavigationProperty Name="SD_DEUDAS_SOCIOS" Relationship="Model.SD_DETALLES_DEUDAS_R01" FromRole="SD_DETALLES_DEUDAS" ToRole="SD_DEUDAS_SOCIOS" />
@@ -6035,7 +6055,7 @@
           <Property Type="Decimal" Name="IMPORTE" Precision="15" Scale="5" />
           <Property Type="String" Name="OBSERVACION" MaxLength="1250" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ESTADO" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LOGIN_USR" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="FECHA_REG" />
           <Property Type="Int32" Name="ID_CAJA" Nullable="false" />
           <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_DEUDAS_SOCIOS_R01" FromRole="SD_DEUDAS_SOCIOS" ToRole="SD_CAJAS" />
@@ -7211,7 +7231,7 @@
               <MappingFragment StoreEntitySet="SD_DETALLES_DEUDAS">
                 <ScalarProperty Name="ID_CAJA" ColumnName="ID_CAJA" />
                 <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
-                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="LOGIN_USR" ColumnName="LOGIN_USR" />
                 <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
                 <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
                 <ScalarProperty Name="IMPORTE_CANCELADO" ColumnName="IMPORTE_CANCELADO" />
@@ -7229,7 +7249,7 @@
               <MappingFragment StoreEntitySet="SD_DEUDAS_SOCIOS">
                 <ScalarProperty Name="ID_CAJA" ColumnName="ID_CAJA" />
                 <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
-                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="LOGIN_USR" ColumnName="LOGIN_USR" />
                 <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
                 <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
                 <ScalarProperty Name="IMPORTE" ColumnName="IMPORTE" />
@@ -7239,6 +7259,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="P_SD_GUARDAR_DEUDAS_SOCIOS" FunctionName="Model.Store.P_SD_GUARDAR_DEUDAS_SOCIOS" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
