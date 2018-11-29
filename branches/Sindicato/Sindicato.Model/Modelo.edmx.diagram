@@ -187,9 +187,10 @@
         <edmx:EntityTypeShape EntityType="Model.SD_DETALLE_CIERRES_CAJA" Width="1.5" PointX="0.84491203392153236" PointY="17.65414854216117" />
         <edmx:AssociationConnector Association="Model.SD_DETALLE_CIERRES_CAJA_R02" />
         <edmx:AssociationConnector Association="Model.SD_DETALLE_CIERRES_CAJA_R01" />
-        <edmx:EntityTypeShape EntityType="Model.SD_DETALLES_DEUDAS" Width="1.5" PointX="7.989249534899951" PointY="24.214489158342822" />
         <edmx:EntityTypeShape EntityType="Model.SD_DEUDAS_SOCIOS" Width="1.5" PointX="6.5197849136403692" PointY="31.91174921389285" />
         <edmx:AssociationConnector Association="Model.SD_DEUDAS_SOCIOS_R01" />
+        <edmx:EntityTypeShape EntityType="Model.SD_DETALLES_DEUDAS" Width="1.5" PointX="2.2188795759430526" PointY="26.93064734103654" />
+        <edmx:AssociationConnector Association="Model.SD_DETALLES_DEUDAS_R03" />
         <edmx:AssociationConnector Association="Model.SD_DETALLES_DEUDAS_R01" />
         <edmx:AssociationConnector Association="Model.SD_DETALLES_DEUDAS_R02" />
         </edmx:Diagram>

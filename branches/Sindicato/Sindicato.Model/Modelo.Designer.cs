@@ -106,6 +106,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_CIERRES_CAJA_R02", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_DETALLE_CIERRES_CAJA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_CIERRES_CAJA), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_CIERRES_CAJA_R01", "SD_CIERRES_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CIERRES_CAJAS), "SD_DETALLE_CIERRES_CAJA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_CIERRES_CAJA), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DEUDAS_SOCIOS_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_DEUDAS_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DEUDAS_SOCIOS), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_DETALLES_DEUDAS_R03", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sindicato.Model.SD_CAJAS), "SD_DETALLES_DEUDAS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLES_DEUDAS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLES_DEUDAS_R01", "SD_DEUDAS_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_DEUDAS_SOCIOS), "SD_DETALLES_DEUDAS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLES_DEUDAS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLES_DEUDAS_R02", "SD_SOCIO_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIO_MOVILES), "SD_DETALLES_DEUDAS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLES_DEUDAS), true)]
 
@@ -1282,22 +1283,6 @@ namespace Sindicato.Model
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<SD_DETALLES_DEUDAS> SD_DETALLES_DEUDAS
-        {
-            get
-            {
-                if ((_SD_DETALLES_DEUDAS == null))
-                {
-                    _SD_DETALLES_DEUDAS = base.CreateObjectSet<SD_DETALLES_DEUDAS>("SD_DETALLES_DEUDAS");
-                }
-                return _SD_DETALLES_DEUDAS;
-            }
-        }
-        private ObjectSet<SD_DETALLES_DEUDAS> _SD_DETALLES_DEUDAS;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<SD_DEUDAS_SOCIOS> SD_DEUDAS_SOCIOS
         {
             get
@@ -1310,6 +1295,22 @@ namespace Sindicato.Model
             }
         }
         private ObjectSet<SD_DEUDAS_SOCIOS> _SD_DEUDAS_SOCIOS;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<SD_DETALLES_DEUDAS> SD_DETALLES_DEUDAS
+        {
+            get
+            {
+                if ((_SD_DETALLES_DEUDAS == null))
+                {
+                    _SD_DETALLES_DEUDAS = base.CreateObjectSet<SD_DETALLES_DEUDAS>("SD_DETALLES_DEUDAS");
+                }
+                return _SD_DETALLES_DEUDAS;
+            }
+        }
+        private ObjectSet<SD_DETALLES_DEUDAS> _SD_DETALLES_DEUDAS;
 
         #endregion
 
@@ -1876,19 +1877,19 @@ namespace Sindicato.Model
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the SD_DETALLES_DEUDAS EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToSD_DETALLES_DEUDAS(SD_DETALLES_DEUDAS sD_DETALLES_DEUDAS)
-        {
-            base.AddObject("SD_DETALLES_DEUDAS", sD_DETALLES_DEUDAS);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the SD_DEUDAS_SOCIOS EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToSD_DEUDAS_SOCIOS(SD_DEUDAS_SOCIOS sD_DEUDAS_SOCIOS)
         {
             base.AddObject("SD_DEUDAS_SOCIOS", sD_DEUDAS_SOCIOS);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the SD_DETALLES_DEUDAS EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSD_DETALLES_DEUDAS(SD_DETALLES_DEUDAS sD_DETALLES_DEUDAS)
+        {
+            base.AddObject("SD_DETALLES_DEUDAS", sD_DETALLES_DEUDAS);
         }
 
         #endregion
@@ -7146,6 +7147,28 @@ namespace Sindicato.Model
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_DETALLES_DEUDAS_R03", "SD_DETALLES_DEUDAS")]
+        public EntityCollection<SD_DETALLES_DEUDAS> SD_DETALLES_DEUDAS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_DETALLES_DEUDAS>("Model.SD_DETALLES_DEUDAS_R03", "SD_DETALLES_DEUDAS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_DETALLES_DEUDAS>("Model.SD_DETALLES_DEUDAS_R03", "SD_DETALLES_DEUDAS", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -11245,6 +11268,44 @@ namespace Sindicato.Model
 
     
         #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_DETALLES_DEUDAS_R03", "SD_CAJAS")]
+        public SD_CAJAS SD_CAJAS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS>("Model.SD_DETALLES_DEUDAS_R03", "SD_CAJAS").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS>("Model.SD_DETALLES_DEUDAS_R03", "SD_CAJAS").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SD_CAJAS> SD_CAJASReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS>("Model.SD_DETALLES_DEUDAS_R03", "SD_CAJAS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_CAJAS>("Model.SD_DETALLES_DEUDAS_R03", "SD_CAJAS", value);
+                }
+            }
+        }
     
         /// <summary>
         /// No Metadata Documentation available.
