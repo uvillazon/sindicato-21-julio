@@ -193,6 +193,8 @@
         <edmx:AssociationConnector Association="Model.SD_DETALLES_DEUDAS_R03" />
         <edmx:AssociationConnector Association="Model.SD_DETALLES_DEUDAS_R01" />
         <edmx:AssociationConnector Association="Model.SD_DETALLES_DEUDAS_R02" />
+        <edmx:EntityTypeShape EntityType="Model.SD_DETALLES_HOJAS_USO" Width="1.5" PointX="2.4679750252831609" PointY="9.03903332773551" />
+        <edmx:AssociationConnector Association="Model.SD_DETALLES_HOJAS_USO_R01" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
