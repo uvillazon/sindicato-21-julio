@@ -55,14 +55,14 @@ namespace Sindicato.WebSite.Controllers
             respuestaSP = _servicio.GuardarDeuda(ant, login);
             return Json(respuestaSP);
         }
-        //[HttpPost]
-        //public JsonResult EliminarIngreso(int ID_INGRESO)
-        //{
-        //    string login = User.Identity.Name.Split('-')[0];
-        //    RespuestaSP respuestaSP = new RespuestaSP();
-        //    respuestaSP = _serTra.EliminarIngreso(ID_INGRESO);
-        //    return Json(respuestaSP);
-        //}
+        [HttpPost]
+        public JsonResult EliminarDeuda(int ID_DEUDA)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _servicio.EliminarDeuda(ID_DEUDA);
+            return Json(respuestaSP);
+        }
         #endregion
 
         //#region Tipo de Ingresos

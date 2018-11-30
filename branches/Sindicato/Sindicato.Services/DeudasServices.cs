@@ -96,7 +96,7 @@ namespace Sindicato.Services
                 var managerDetalle = new SD_DETALLES_DEUDASManager(uow);
                 var ant = manager.BuscarTodos(x => x.ID_DEUDA == ID_DEUDA).FirstOrDefault();
                 var cnt = ant.SD_DETALLES_DEUDAS.Where(x => x.IMPORTE_CANCELADO > 0);
-                if (ant != null && cnt.Count() > 0)
+                if (ant != null && cnt.Count() == 0)
                 {
                     fecha = ant.FECHA;
                     ID_CAJA = ant.ID_CAJA;

@@ -10,15 +10,7 @@
     CargarComponentes: function () {
         var me = this;
         //var paramsStore = {};
-        me.toolbar = Funciones.CrearMenuBar();
-        //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
-        Funciones.CrearMenu('btn_Kardex', 'Kardex Caja', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
-        Funciones.CrearMenu('btn_VerDetalle', 'Ver Recibo', 'report', me.EventosPrincipal, me.toolbar, this, null, true);
-
-        //Funciones.CrearMenu('btn_KardexDestino', 'Kardex Caja Destino', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
-        //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
-
-
+     
 
         me.grid = Ext.create('App.View.DeudasSocios.GridDeudas', {
             region: 'west',
@@ -26,17 +18,16 @@
             fbarmenu: me.toolbar,
             paramsStore: me.paramsStore,
             noLimpiar : me.noLimpiar,
-            fbarmenuArray: ["btn_Kardex", "btn_eliminar", "btn_VerDetalle"]
+            fbarmenuArray: ["btn_eliminar", "btn_editar"]
 
         });
-        me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Deuda', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
-        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Eliminar Deuda', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
 
-        me.btn_crear_detalle = Funciones.CrearMenu('btn_crear_detalle', 'Crear Deuda Socio', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
-        me.btn_eliminar_detalle = Funciones.CrearMenu('btn_eliminar_detalle', 'Eliminar Deuda Socio', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
+        me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Tipo Deuda', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
+        me.btn_editar = Funciones.CrearMenu('btn_editar', 'Editar Tipo Deuda', Constantes.ICONO_EDITAR, me.EventosPrincipal, null, this, null, true);
+        me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Eliminar Tipo Deuda', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
+        me.btn_agregar_socios = Funciones.CrearMenu('btn_add_socios', 'Agregar Socios', 'cog', me.EventosPrincipal, null, this, null, true);
+        me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_editar, me.btn_eliminar, me.btn_agregar_socios]);
 
-        me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar , me.btn_crear_detalle , me.btn_eliminar_detalle]);
-        //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
 
 
         me.gridDetalles = Ext.create('App.View.DeudasSocios.GridDetalles', {
@@ -84,26 +75,27 @@
             case "btn_crear":
                 me.FormCrearIngreso();
                 break;
+            case "btn_editar":
+                me.FormCrearIngreso(me.record);
+                break;
             case "btn_eliminar":
-                if (me.record != null && me.record.get('ESTADO') == 'NUEVO') {
-                    Funciones.AjaxRequestGrid("Transferencias", "EliminarIngresoPorSocio", me.grid, "Esta seguro de Eliminar la Ingreso?", { ID_INGRESO: me.record.get('ID_INGRESO') }, me.grid, null);
-                }
-                else {
-                    Ext.Msg.alert("Aviso", "Solo se puede ANULAR los ingresos en estado NUEVO");
-                }
+                Funciones.AjaxRequestGrid("DeudasSocios", "EliminarDeuda", me.grid, "Esta seguro de Eliminar el tipo de Deuda?", { ID_DEUDA: me.record.get('ID_DEUDA') }, me.grid, null);
                 break;
             case "btn_Kardex":
                 me.VentanaKardex(me.record.get('ID_CAJA'));
                 break;
-            case "btn_VerDetalle":
-                me.VentanaRecibo(me.grid.record.get('ID_INGRESO'));
+            case "btn_add_socios":
+                me.FormCrearSociosDeudas(me.record);
                 break;
             default:
                 Ext.Msg.alert("Aviso", "No Existe el botton");
                 break;
         }
     },
-    FormCrearIngreso: function () {
+    FormCrearSociosDeudas : function(record){
+    
+    },
+    FormCrearIngreso: function (record) {
         var me = this;
         var win = Ext.create("App.Config.Abstract.Window", { botones: true });
         var form = Ext.create("App.View.DeudasSocios.FormDeuda", {
@@ -114,13 +106,11 @@
         });
         win.add(form);
         win.show();
+        if (record != null) {
+            form.loadRecord(record);
+        }
         win.btn_guardar.on('click', function () {
-            //console.dir(params);
-            //Funciones.AjaxRequestWin("Ingresos", "GuardarIngreso", win, form, me.grid, "Esta Seguro de Guardar", null, win);
-            Funciones.AjaxRequestWinSc("DeudasSocios", "GuardarDeuda", win, form, me.grid, "Esta Seguro de Guardar", null, win, function (result) {
-                //console.dir(result);
-                me.VentanaRecibo(result.id);
-            });
+            Funciones.AjaxRequestWinSc("DeudasSocios", "GuardarDeuda", win, form, me.grid, "Esta Seguro de Guardar", null, win);
         });
 
     },

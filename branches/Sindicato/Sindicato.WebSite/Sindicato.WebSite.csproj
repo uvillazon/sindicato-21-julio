@@ -54,7 +54,7 @@
     <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="Oracle.DataAccess, Version=4.121.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" />
+    <Reference Include="Oracle.DataAccess, Version=4.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -410,6 +410,7 @@
     <Content Include="App\View\CierresParada\FormCierre.js" />
     <Content Include="App\View\CierresParada\GridCierres.js" />
     <Content Include="App\View\CierresParada\Principal.js" />
+    <Content Include="App\View\DeudasSocios\FormSociosDeuda.js" />
     <Content Include="App\View\DeudasSocios\GridDetalles.js" />
     <Content Include="App\View\DeudasSocios\FormDeuda.js" />
     <Content Include="App\View\DeudasSocios\Forms.js" />
@@ -453,6 +454,8 @@
     <Content Include="App\View\Reportes\Reportes.js" />
     <Content Include="App\View\Reportes\ReportesSocios.js" />
     <Content Include="App\View\Reports\ReportsPDF.js" />
+    <Content Include="App\View\Socios\FormBajaSocioMovil.js" />
+    <Content Include="App\View\Socios\FormObligacionSocioHoja.js" />
     <Content Include="App\View\Socios\GridKardexDebe.js" />
     <Content Include="App\View\TiposEgresos\FormEgreso.js" />
     <Content Include="App\View\TiposEgresos\Forms.js" />
@@ -3945,7 +3948,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="InterfacesUsuario\Adm Choferes.mck" />
-    <Content Include="InterfacesUsuario\dll121.txtcondatos" />
+    <Content Include="InterfacesUsuario\dllcondatos.sql" />
     <None Include="InterfacesUsuario\Fondo Emergencia Chofer.mck" />
     <None Include="InterfacesUsuario\Modulo  Nivelaciones.mck" />
     <None Include="InterfacesUsuario\Modulo de Descuentos.mck" />
