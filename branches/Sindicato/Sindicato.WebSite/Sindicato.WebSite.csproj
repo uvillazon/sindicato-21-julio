@@ -410,6 +410,8 @@
     <Content Include="App\View\CierresParada\FormCierre.js" />
     <Content Include="App\View\CierresParada\GridCierres.js" />
     <Content Include="App\View\CierresParada\Principal.js" />
+    <Content Include="App\View\DetallesDeudasSocios\GridDetalles.js" />
+    <Content Include="App\View\DetallesDeudasSocios\Principal.js" />
     <Content Include="App\View\DeudasSocios\FormSociosDeuda.js" />
     <Content Include="App\View\DeudasSocios\GridDetalles.js" />
     <Content Include="App\View\DeudasSocios\FormDeuda.js" />

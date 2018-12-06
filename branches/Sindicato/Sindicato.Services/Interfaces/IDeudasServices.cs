@@ -18,7 +18,8 @@ namespace Sindicato.Services.Interfaces
         RespuestaSP EliminarDeuda(int ID_DEUDA);
 
         RespuestaSP GuardarDetalleDeuda(SD_DETALLES_DEUDAS detalle, string login);
-        RespuestaSP CancelarDetalleDeuda(SD_DETALLES_DEUDAS detalle, string login);
+        RespuestaSP PagoDetalleDeuda(SD_DETALLES_DEUDAS detalle, string login);
+        RespuestaSP AnularDetalleDeuda(int ID_DETALLE);
         RespuestaSP EliminarDetalleDeuda(int ID_DETALLE);
 
     }

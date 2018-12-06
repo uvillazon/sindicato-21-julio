@@ -107,7 +107,7 @@ namespace Sindicato.Services
                     manager.Delete(ant);
                     result.success = true;
                     result.msg = "Proceso Ejecutado Correctamente";
-                   
+
                 }
                 else
                 {
@@ -124,19 +124,40 @@ namespace Sindicato.Services
             ExecuteManager(uow =>
             {
                 var manager = new SD_DETALLES_DEUDASManager(uow);
+                var context = (SindicatoContext)uow.Context;
+                var managerDeuda = new SD_DEUDAS_SOCIOSManager(uow);
                 var cnt = manager.BuscarTodos(x => x.ID_DEUDA == detalle.ID_DEUDA && x.ID_SOCIO_MOVIL == detalle.ID_SOCIO_MOVIL);
                 if (cnt.Count() > 0)
                 {
                     result.success = false;
                     result.msg = "El Socio  ya cuenta con la dueda. Por favor seleccionar Otro Registro";
                 }
-                else {
-                    detalle.IMPORTE_CANCELADO = 0;
-                    detalle.FECHA_REG = DateTime.Now;
-                    detalle.LOGIN_USR = login;
-                    manager.Add(detalle);
-                    result.success = true;
-                    result.msg = "Proceso Ejecutado Correctamente";
+                else
+                {
+                    var deuda = managerDeuda.BuscarTodos(x => x.ID_DEUDA == detalle.ID_DEUDA).FirstOrDefault();
+                    if (deuda != null)
+                    {
+                        ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+                        context.P_EE_SECUENCIA("SD_DETALLES_DEUDAS", 0, p_RES);
+                        int idKardex = Convert.ToInt32(p_RES.Value);
+
+                        detalle.ID_DETALLE = idKardex;
+                        detalle.ID_CAJA = deuda.ID_CAJA;
+                        detalle.IMPORTE = (decimal)deuda.IMPORTE;
+                        detalle.MOTIVO = deuda.MOTIVO;
+                        detalle.ESTADO = "NUEVO";
+                        detalle.IMPORTE_CANCELADO = 0;
+                        detalle.FECHA_REG = DateTime.Now;
+                        detalle.LOGIN_USR = login;
+                        manager.Add(detalle);
+                        result.success = true;
+                        result.msg = "Proceso Ejecutado Correctamente";
+                    }
+                    else
+                    {
+                        result.success = false;
+                        result.msg = "No Existe la Deuda favor verificar.";
+                    }
                 }
             });
             return result;
@@ -144,13 +165,107 @@ namespace Sindicato.Services
 
         public RespuestaSP EliminarDetalleDeuda(int ID_DETALLE)
         {
-            throw new NotImplementedException();
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_DETALLES_DEUDASManager(uow);
+                var det = manager.BuscarTodos(x => x.IMPORTE_CANCELADO == 0 && x.ID_DETALLE == ID_DETALLE);
+                if (det.Count() > 0)
+                {
+                    manager.Delete(det.FirstOrDefault());
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = "La Deuda ya fue cancelado por el socio o anulado";
+                }
+            });
+            return result;
         }
 
-
-        public RespuestaSP CancelarDetalleDeuda(SD_DETALLES_DEUDAS detalle, string login)
+        public RespuestaSP PagoDetalleDeuda(SD_DETALLES_DEUDAS detalle, string login)
         {
-            throw new NotImplementedException();
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_DETALLES_DEUDASManager(uow);
+                var context = (SindicatoContext)manager.Context;
+                var det = manager.BuscarTodos(x => x.ID_DETALLE == detalle.ID_DETALLE && x.IMPORTE_CANCELADO == 0).FirstOrDefault();
+                if (det != null)
+                {
+                    det.IMPORTE_CANCELADO = det.IMPORTE;
+                    det.FECHA_CANCELADO = DateTime.Now;
+                    ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+                    context.P_EE_SECUENCIA("SD_KARDEX_EFECTIVO", 0, p_RES);
+                    int idKardex = Convert.ToInt32(p_RES.Value);
+                    SD_KARDEX_EFECTIVO kardex = new SD_KARDEX_EFECTIVO()
+                    {
+                        ID_KARDEX = idKardex,
+                        DETALLE = "CENCELACION DEUDA " + det.SD_DEUDAS_SOCIOS.MOTIVO + " Movil:" + det.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL + " Socio :"+det.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
+                        FECHA = (DateTime)det.FECHA_CANCELADO,
+                        FECHA_REG = DateTime.Now,
+                        ID_OPERACION = det.ID_DETALLE,
+                        ID_CAJA = (int)det.ID_CAJA,
+                        INGRESO = (decimal)det.IMPORTE_CANCELADO,
+                        LOGIN = login,
+                        OPERACION = "CUENTAS POR COBRAR"
+                    };
+                    context.SD_KARDEX_EFECTIVO.AddObject(kardex);
+                    manager.Save();
+                    context.P_SD_ACT_KARDEX_EFECTIVO(det.ID_CAJA, det.FECHA_CANCELADO, 0, p_RES);
+                    result.success = true;
+                    result.msg = "Proceso ejecutado correctamente";
+
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = "La dueda ya se encuentra cancelado o no existe el registro";
+                }
+
+            });
+
+            return result;
+        }
+
+        public RespuestaSP AnularDetalleDeuda(int ID_DETALLE)
+        {
+            RespuestaSP result = new RespuestaSP();
+            int ID_CAJA = 0;
+            DateTime? fecha = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_DETALLES_DEUDASManager(uow);
+                var context = (SindicatoContext)manager.Context;
+                var det = manager.BuscarTodos(x => x.ID_DETALLE == ID_DETALLE && x.IMPORTE_CANCELADO > 0).FirstOrDefault();
+                if (det != null)
+                {
+                    fecha = det.FECHA_CANCELADO;
+                    ID_CAJA = (int)det.ID_CAJA;
+                    det.FECHA_CANCELADO = null;
+                    det.IMPORTE_CANCELADO = 0;
+                    //manager.Delete(ant);
+                    var kardex = context.SD_KARDEX_EFECTIVO.Where(x => x.OPERACION == "CUENTAS POR COBRAR" && x.ID_OPERACION == det.ID_DETALLE && x.ID_CAJA == det.ID_CAJA);
+                    foreach (var item in kardex)
+                    {
+                        context.SD_KARDEX_EFECTIVO.DeleteObject(item);
+                    }
+
+                    manager.Save();
+                    ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+                    context.P_SD_ACT_KARDEX_EFECTIVO(det.ID_CAJA, fecha, 0, p_RES);
+                    result.success = true;
+                    result.msg = "Se Anulo Correctamente";
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = "Ocurrio algun Problema";
+                }
+            });
+            return result;
         }
     }
 }

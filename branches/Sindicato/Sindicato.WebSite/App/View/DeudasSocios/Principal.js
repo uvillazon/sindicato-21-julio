@@ -10,15 +10,15 @@
     CargarComponentes: function () {
         var me = this;
         //var paramsStore = {};
-     
+
 
         me.grid = Ext.create('App.View.DeudasSocios.GridDeudas', {
             region: 'west',
             width: '50%',
             fbarmenu: me.toolbar,
             paramsStore: me.paramsStore,
-            noLimpiar : me.noLimpiar,
-            fbarmenuArray: ["btn_eliminar", "btn_editar"]
+            noLimpiar: me.noLimpiar,
+            fbarmenuArray: ["btn_eliminar", "btn_editar", "btn_add_socios"]
 
         });
 
@@ -60,9 +60,13 @@
         var disabled = selections.length === 0;
         me.record = disabled ? null : selections[0];
         if (!disabled) {
-            me.form.getForm().loadRecord(selections[0])
+            me.form.getForm().loadRecord(selections[0]);
+            me.gridDetalles.getStore().setExtraParams({ ID_DEUDA: me.record.get('ID_DEUDA') });
+            me.gridDetalles.getStore().load();
         }
         else {
+            me.gridDetalles.getStore().setExtraParams({ ID_DEUDA: 0 });
+            me.gridDetalles.getStore().load();
             me.form.getForm().reset();
 
         }
@@ -92,8 +96,20 @@
                 break;
         }
     },
-    FormCrearSociosDeudas : function(record){
-    
+    FormCrearSociosDeudas: function (record) {
+        var me = this;
+        var win = Ext.create("App.Config.Abstract.Window", { botones: true });
+        var form = Ext.create("App.View.DeudasSocios.FormSociosDeuda", {
+            title: 'Agregar Socios a Deudas',
+            columns: 2,
+            botones: false
+        });
+        win.add(form);
+        win.show();
+        form.loadRecord(record);
+        form.gridDetalles.getStore().setExtraParams({ ID_DEUDA: me.grid.record.get('ID_DEUDA') });
+        form.gridDetalles.getStore().load();
+
     },
     FormCrearIngreso: function (record) {
         var me = this;
@@ -102,7 +118,7 @@
             title: 'Datos Deuda',
             columns: 2,
             botones: false,
-            paramsStore : me.paramsStore
+            paramsStore: me.paramsStore
         });
         win.add(form);
         win.show();

@@ -1,6 +1,6 @@
 ﻿Ext.define('App.Store.DeudasSocios.Detalles', {
     extend: 'App.Config.Abstract.Store',
     model: 'App.Model.DeudasSocios.Detalles',
-    url: 'Deudas/ObtenerDetallesDeudasPaginados',
+    url: 'DeudasSocios/ObtenerDetallesDeudasPaginados',
     sortProperty: 'ID_DETALLE'
 });

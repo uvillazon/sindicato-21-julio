@@ -67,6 +67,12 @@ Ext.define("App.Config.Constantes", {
             else if (estado == 'ANULADO') return 'OTAsignada';
             //else if (estado == 'CON_OIT') return 'AmarilloFuerte';
         }
+
+        else if (tipo == 'DEUDA') {
+            if (estado == 'CANCELADO') return 'OTNueva';
+            else if (estado == 'ANULADO') return 'OTAsignada';
+            else if (estado == 'APROBADO') return 'SMCon_Ot';
+        }
         else if (tipo == 'PERMISOS') {
             if (estado == 'ANULADO') return 'OTAsignada';
           
