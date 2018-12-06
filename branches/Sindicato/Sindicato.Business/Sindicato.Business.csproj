@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SD_DETALLES_HOJAS_USOManager.cs" />
     <Compile Include="SD_DETALLES_DEUDASManager.cs" />
     <Compile Include="SD_DEUDAS_SOCIOSManager.cs" />
     <Compile Include="SD_DETALLE_CIERRES_CAJAManager.cs" />

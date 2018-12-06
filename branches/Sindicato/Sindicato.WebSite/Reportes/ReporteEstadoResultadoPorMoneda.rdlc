@@ -860,7 +860,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>SINDICATO 132</Value>
+                  <Value>SINDICATO 121</Value>
                   <Style>
                     <FontSize>8pt</FontSize>
                   </Style>
@@ -890,7 +890,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>4239112</Value>
+                  <Value>__________</Value>
                   <Style>
                     <FontSize>8pt</FontSize>
                   </Style>
@@ -920,7 +920,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Calle : Austria s/n</Value>
+                  <Value>Calle : ____________</Value>
                   <Style>
                     <FontSize>8pt</FontSize>
                   </Style>

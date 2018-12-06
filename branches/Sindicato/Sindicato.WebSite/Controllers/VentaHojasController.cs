@@ -22,7 +22,7 @@ namespace Sindicato.WebSite.Controllers
         }
 
 
-  
+
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult ObtenerVentasPaginadas(PagingInfo paginacion, FiltrosModel<HojasModel> filtros, HojasModel entidad)
         {
@@ -90,7 +90,7 @@ namespace Sindicato.WebSite.Controllers
             respuestaSP = _serven.VerificarVentaHoja(ID_SOCIO_MOVIL, login);
             return Json(respuestaSP);
         }
-        
+
         [HttpPost, ValidateInput(false)]
         public JsonResult AnularVenta(int ID_HOJA)
         {
@@ -98,6 +98,20 @@ namespace Sindicato.WebSite.Controllers
             RespuestaSP respuestaSP = new RespuestaSP();
             respuestaSP = _serven.AnularVentaHoja(ID_HOJA, login);
             return Json(respuestaSP);
+        }
+
+
+        [HttpPost]
+        public JsonResult ObtenerFechaIniFinCant(DateTime FECHA)
+        {
+            var startDate = new DateTime(FECHA.Year, FECHA.Month, 1);
+            var endDate = startDate.AddMonths(1).AddDays(-1);
+            return Json(new
+            {
+                FECHA_INI = startDate.ToString("dd/MM/yyyy"),
+                FECHA_FIN = endDate.ToString("dd/MM/yyyy"),
+                CANTIDAD = endDate.Day
+            });
         }
 
     }

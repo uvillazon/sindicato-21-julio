@@ -36,7 +36,7 @@ namespace Sindicato.Services
                 paginacion.total = result.Count();
                 result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
 
-            });  
+            });
             return result;
         }
 
@@ -131,6 +131,16 @@ namespace Sindicato.Services
             return result;
         }
 
+        public SD_DETALLES_HOJAS_USO ObtenerHojaDetalleUso(Expression<Func<SD_DETALLES_HOJAS_USO, bool>> criterio)
+        {
+            SD_DETALLES_HOJAS_USO result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_DETALLES_HOJAS_USOManager(uow);
+                result = manager.BuscarTodos(criterio).FirstOrDefault();
+            });
+            return result;
+        }
 
         public IEnumerable<SD_HOJAS_CONTROL> ObtenerHojasPorVentas(int ID_VENTA)
         {
@@ -141,10 +151,47 @@ namespace Sindicato.Services
                 //obtener un query de la tabla choferes
                 var res = manager.BuscarTodos(x => x.ID_VENTA == ID_VENTA);
                 result = res.Select(x => x.SD_HOJAS_CONTROL);
+                //var res = result.Select(x=> x.SD_DETALLES_HOJAS_USO)
 
             });
             return result;
         }
+
+        public List<SD_DETALLES_HOJAS_USO> ObtenerHojasDetallesPorVentas(int ID_VENTA)
+        {
+            List<SD_DETALLES_HOJAS_USO> result = new List<SD_DETALLES_HOJAS_USO>();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_VENTA_HOJASManager(uow);
+                //obtener un query de la tabla choferes
+                var res = manager.BuscarTodos(x => x.ID_VENTA == ID_VENTA);
+                var hojas = res.Select(x => x.SD_HOJAS_CONTROL);
+                foreach (var item in hojas)
+                {
+                    foreach (var detalle in item.SD_DETALLES_HOJAS_USO)
+                    {
+                        result.Add(detalle);
+                    }
+                }
+
+
+            });
+            return result;
+        }
+        //public IEnumerable<SD_DETALLES_HOJAS_USO> ObtenerHojasDetallesPorVentas(int ID_VENTA)
+        //{
+        //    IQueryable<SD_DETALLES_HOJAS_USO> result = null;
+        //    ExecuteManager(uow =>
+        //    {
+        //      var manager = new SD_VENTA_HOJASManager(uow);
+        //        //obtener un query de la tabla choferes
+        //        var res = manager.BuscarTodos(x => x.ID_VENTA == ID_VENTA);
+        //        var result2 = res.Select(x => x.SD_HOJAS_CONTROL);
+        //        result = result2.Select(x=> x.SD_DETALLES_HOJAS_USO.)
+
+        //    });
+        //    return result;
+        //}
 
 
         public RespuestaSP Reimprimir(SD_IMPRESIONES imp, string login)

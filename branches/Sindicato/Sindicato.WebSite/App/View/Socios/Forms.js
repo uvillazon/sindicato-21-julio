@@ -552,14 +552,28 @@
         me.cbx_socio.on('select', function (cbx, rec) {
             me.txt_id_socio.setValue(rec[0].get('ID_SOCIO'));
         });
-        me.txt_tipo_linea = Ext.create("App.Config.Componente.TextFieldBase", {
+
+        me.store_tipo_linea = Ext.create('App.Store.Listas.StoreLista');
+        me.store_tipo_linea.setExtraParam('ID_LISTA', Lista.Buscar('TIPO_MOVIL'));
+        me.txt_tipo_linea = Ext.create("App.Config.Componente.ComboBase", {
             name: "TIPO_MOVIL",
             fieldLabel: "Tipo Movil",
             width: 240,
-            readOnly: true,
             value: 'PRIMARIO',
             colspan: 2,
+            store: me.store_tipo_linea,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
         });
+
+        //me.txt_tipo_linea = Ext.create("App.Config.Componente.TextFieldBase", {
+        //    name: "TIPO_MOVIL",
+        //    fieldLabel: "Tipo Movil",
+        //    width: 240,
+        //    readOnly: true,
+        //    value: 'PRIMARIO',
+        //    colspan: 2,
+        //});
         me.dat_fecha_ingreso = Ext.create("App.Config.Componente.DateFieldBase", {
             opcion: "sin fecha",
             fieldLabel: "Fecha Ingreso",

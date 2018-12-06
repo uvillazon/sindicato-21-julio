@@ -87,6 +87,27 @@ namespace Sindicato.WebSite.Reportes
             return results;
         }
 
+        public List<ReporteHoja> ReporteHojaDetalle(int ID_DETALLE)
+        {
+
+            List<ReporteHoja> results = new List<ReporteHoja>();
+            var servicio = new VentaHojasServices();
+            var res = servicio.ObtenerHojaDetalleUso(x => x.ID_DETALLE == ID_DETALLE);
+            ReporteHoja result = new ReporteHoja();
+
+            result.ID_DETALLE = res.ID_DETALLE;
+            result.ID_HOJA = res.ID_HOJA;
+            result.FECHA_COMPRA = res.SD_HOJAS_CONTROL.FECHA_COMPRA;
+            result.FECHA_USO = res.FECHA_USO;
+            result.MOVIL = res.SD_HOJAS_CONTROL.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL;
+            result.NUMERO = res.SD_HOJAS_CONTROL.NRO_HOJA;
+            result.OBLIGACIONES = ObtenerObligacionesDetalle(res.SD_HOJAS_CONTROL.SD_DETALLES_HOJAS_CONTROL);
+            result.PLACA = servicio.obtenerPlada(res.SD_HOJAS_CONTROL.ID_SOCIO_MOVIL);
+            result.SOCIO = string.Format("{0} {1} {2}", res.SD_HOJAS_CONTROL.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE, res.SD_HOJAS_CONTROL.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO, res.SD_HOJAS_CONTROL.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_MATERNO);
+            results.Add(result);
+            return results;
+        }
+
         //private string ObtenerObligacionesDetalle(System.Data.Objects.DataClasses.EntityCollection<SD_DETALLES_HOJAS_CONTROL> entityCollection)
         //{
         //    throw new NotImplementedException();
@@ -124,10 +145,10 @@ namespace Sindicato.WebSite.Reportes
 
             IEnumerable<ReporteHoja> result = null;
             var servicio = new VentaHojasServices();
-            var res = servicio.ObtenerHojasPorVentas(ID_VENTA);
+            var res = servicio.ObtenerHojasDetallesPorVentas(ID_VENTA);
             result = res.Select(x => new ReporteHoja()
             {
-                ID_HOJA = x.ID_HOJA
+                ID_HOJA =  (int)x.ID_DETALLE
             });
 
             return result;

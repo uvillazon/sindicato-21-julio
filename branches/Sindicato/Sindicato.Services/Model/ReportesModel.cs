@@ -49,9 +49,11 @@ namespace Sindicato.Services.Model
 
     public class ReporteHoja
     {
+        public long ID_DETALLE { get; set; }
         public int ID_HOJA { get; set; }
         public int NUMERO { get; set; }
         public DateTime FECHA_COMPRA { get; set; }
+        public DateTime FECHA_USO { get; set; }
         public string SOCIO { get; set; }
         public string OBSERVACION { get; set; }
         public int MOVIL { get; set; }

@@ -2,6 +2,23 @@
     extend: "App.Config.Abstract.Form",
     columns: 2,
     title: 'Datos de Venta de Hojas de Control',
+    listeners: {
+        boxready: function (form) {
+            var me = this;
+            me.cargarFechasInicioFinCant(new Date());
+        }
+    },
+    cargarFechasInicioFinCant: function (dt) {
+        var me = this;
+        Funciones.AjaxRequest("VentaHojas", "ObtenerFechaIniFinCant", form, { FECHA: dt }, function (res) {
+
+            console.log(res);
+            me.txt_fecha_ini_uso.setValue(res.FECHA_INI);
+            me.txt_fecha_fin_uso.setValue(res.FECHA_FIN);
+            me.txt_cantidad_hojas_uso.setValue(res.CANTIDAD);
+
+        });
+    },
     initComponent: function () {
         var me = this;
         me.CargarComponentes();
@@ -16,6 +33,9 @@
         //    me.txt_id_caja.setValue(rec[0].get('ID_CAJA'));
         //});
 
+        me.date_fecha.on('select', function (dat, value) {
+            me.cargarFechasInicioFinCant(value);
+        });
         me.cbx_socio.on('select', function (cbx, rec) {
             Funciones.AjaxRequest("VentaHojas", "Verificar", me, { ID_SOCIO_MOVIL: rec[0].get('ID_SOCIO_MOVIL') }, function (res) {
                 //console.log(res);
@@ -105,8 +125,40 @@
             colspan: 2,
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
-            readOnly: true
+            //readOnly: true
         });
+
+        me.txt_fecha_ini_uso = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Fecha Ini. Uso",
+            name: "FECHA_INI_USU",
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            //colspan: 2,
+            //width: ,
+            readOnly: true,
+        });
+
+        me.txt_fecha_fin_uso = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Fecha Fin Uso",
+            name: "FECHA_FIN_USU",
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            //colspan: 2,
+            //width: ,
+            readOnly: true,
+        });
+
+        me.txt_cantidad_hojas_uso = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Cant. Hojas Uso",
+            name: "CANT_HOJAS_USO",
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            colspan: 2,
+            //width: ,
+            readOnly: true,
+        });
+
+
 
         //me.txt_parada = Ext.create("App.Config.Componente.TextFieldBase", {
         //    fieldLabel: "Parada",
@@ -174,10 +226,11 @@
             maxValue: 999999999,
             minValue: 1,
             value: 1,
+            //hidden: true,
             //            colspan : 2,
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
-            //readOnly: true
+            readOnly: true
         });
         me.num_precio = Ext.create("App.Config.Componente.NumberFieldBase", {
             fieldLabel: "Precio",
@@ -200,6 +253,8 @@
             me.txt_id_caja, me.txt_id_socio,
             me.txt_id_parada,
             me.date_fecha,
+            me.txt_fecha_ini_uso, me.txt_fecha_fin_uso,
+            me.txt_cantidad_hojas_uso,
             //me.cbx_parada, me.txt_caja,
             me.cbx_socio, me.txt_nor_movil,
             me.txt_socio,

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <ReportItems>
+      <Subreport Name="HojaDetalleUso">
+        <ReportName>HojaDetalleUso</ReportName>
+        <Parameters>
+          <Parameter Name="ID_HOJA">
+            <Value>ID_HOJA</Value>
+          </Parameter>
+        </Parameters>
+        <Height>17.5cm</Height>
+        <Width>12.5cm</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Subreport>
+    </ReportItems>
+    <Height>17.5cm</Height>
+    <Style />
+  </Body>
+  <Width>12.5cm</Width>
+  <Page>
+    <PageHeight>17.5cm</PageHeight>
+    <PageWidth>12.5cm</PageWidth>
+    <LeftMargin>0cm</LeftMargin>
+    <RightMargin>0cm</RightMargin>
+    <TopMargin>0cm</TopMargin>
+    <BottomMargin>0cm</BottomMargin>
+    <ColumnSpacing>0.13cm</ColumnSpacing>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>16c0d783-bef6-4b9a-baa0-c3e1b7c685f2</rd:ReportID>
+</Report>

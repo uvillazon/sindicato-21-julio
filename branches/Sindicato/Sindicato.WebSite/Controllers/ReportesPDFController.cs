@@ -56,11 +56,35 @@ namespace Elfec.SisMan.Presentacion.Controllers
         //    return File(renderedBytes, mimeType);
         //}
 
+        //public ActionResult ReporteHojas(string tipo, int ID_VENTA)
+        //{
+        //    ReporteSource rep = new ReporteSource();
+        //    LocalReport localReport = new LocalReport();
+        //    localReport.ReportPath = Server.MapPath("~/Reportes/ReporteHojas.rdlc");
+        //    ReportDataSource reportDataSource = new ReportDataSource("DataSetVenta", rep.ReporteHojasVenta(ID_VENTA));
+        //    localReport.DataSources.Add(reportDataSource);
+        //    localReport.SubreportProcessing += new SubreportProcessingEventHandler(ReporteHoja_SubreportProcessing);
+
+
+        //    string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+        //    string mimeType;
+        //    string encoding;
+        //    string fileNameExtension;
+        //    string deviceInfo = string.Empty;
+        //    Warning[] warnings = new Warning[1];
+        //    string[] streams = new string[1];
+        //    Byte[] renderedBytes;
+        //    //Render the report
+        //    renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+        //    //Response.AddHeader("content-disposition", "attachment; filename=ReporteHojas." + fileNameExtension);
+        //    //return File(renderedBytes, mimeType);
+        //    return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        //}
         public ActionResult ReporteHojas(string tipo, int ID_VENTA)
         {
             ReporteSource rep = new ReporteSource();
             LocalReport localReport = new LocalReport();
-            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteHojas.rdlc");
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteHojasDetalle.rdlc");
             ReportDataSource reportDataSource = new ReportDataSource("DataSetVenta", rep.ReporteHojasVenta(ID_VENTA));
             localReport.DataSources.Add(reportDataSource);
             localReport.SubreportProcessing += new SubreportProcessingEventHandler(ReporteHoja_SubreportProcessing);
@@ -108,7 +132,7 @@ namespace Elfec.SisMan.Presentacion.Controllers
         {
             ReporteSource rep = new ReporteSource();
             int id_hoja = int.Parse(e.Parameters["ID_HOJA"].Values.First());
-            ReportDataSource reportDataSource = new ReportDataSource("DataSetHoja", rep.ReporteHoja(id_hoja));
+            ReportDataSource reportDataSource = new ReportDataSource("DataSetHoja", rep.ReporteHojaDetalle(id_hoja));
             //int[] OrderNumbers = GetOrderNumbers();
             e.DataSources.Add(reportDataSource);
         }
