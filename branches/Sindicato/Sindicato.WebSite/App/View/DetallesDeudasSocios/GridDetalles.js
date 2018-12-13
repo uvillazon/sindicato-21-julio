@@ -1,9 +1,9 @@
-﻿Ext.define("App.View.DeudasSocios.GridDetalles", {
+﻿Ext.define("App.View.DetallesDeudasSocios.GridDetalles", {
     extend: "App.Config.Abstract.Grid",
     criterios: true,
-    textBusqueda: 'Nro Socio',
-    tamBusqueda: 50,
-    title: 'Lista de Socios con Deuda',
+    textBusqueda: 'Buscar Deuda',
+    tamBusqueda: 70,
+    title: 'Deudas de Socios Registrados',
     equipo: '',
     initComponent: function () {
         var me = this;
@@ -13,9 +13,17 @@
     CargarGrid: function () {
         var me = this;
         me.store = Ext.create("App.Store.DeudasSocios.Detalles");
+        me.viewConfig = {
+            getRowClass: function (record, rowIndex, rowParams, store) {
+                return Constantes.CargarCssEstados(record.get("ESTADO_DEUDA"), 'DEUDA');
+            }
+        };
         me.CargarComponentes();
         me.columns = [
                 { xtype: "rownumberer", width: 30, sortable: false },
+                { header: "Deuda", width: 150, sortable: false, dataIndex: "MOTIVO" },
+                { header: "Observacion", width: 200, sortable: false, dataIndex: "OBSERVACION" },
+                { header: "Caja", width: 100, sortable: false, dataIndex: "CAJA" },
                 { header: "Movil", width: 50, sortable: false, dataIndex: "MOVIL" },
                 { header: "Socio", width: 150, sortable: false, dataIndex: "SOCIO" },
                 { header: "Importe", width: 70, sortable: false, dataIndex: "IMPORTE" },

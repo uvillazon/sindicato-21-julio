@@ -412,6 +412,12 @@
     <Content Include="App\View\CierresParada\FormCierre.js" />
     <Content Include="App\View\CierresParada\GridCierres.js" />
     <Content Include="App\View\CierresParada\Principal.js" />
+<<<<<<< HEAD
+=======
+    <Content Include="App\View\DetallesDeudasSocios\GridDetalles.js" />
+    <Content Include="App\View\DetallesDeudasSocios\Principal.js" />
+    <Content Include="App\View\DeudasSocios\FormSociosDeuda.js" />
+>>>>>>> 4644a4bf9ee21c07161d9889affbead06d67141f
     <Content Include="App\View\DeudasSocios\GridDetalles.js" />
     <Content Include="App\View\DeudasSocios\FormDeuda.js" />
     <Content Include="App\View\DeudasSocios\Forms.js" />

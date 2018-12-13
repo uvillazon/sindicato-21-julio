@@ -55,6 +55,45 @@ namespace Sindicato.WebSite.Controllers
             respuestaSP = _servicio.GuardarDeuda(ant, login);
             return Json(respuestaSP);
         }
+
+        [HttpPost]
+        public JsonResult GuardarDeudaSocio(SD_DETALLES_DEUDAS ant)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _servicio.GuardarDetalleDeuda(ant, login);
+            return Json(respuestaSP);
+        }
+
+        [HttpPost]
+        public JsonResult EliminarDeudaSocio(int ID_DETALLE)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _servicio.EliminarDetalleDeuda(ID_DETALLE);
+            return Json(respuestaSP);
+        }
+
+        [HttpPost]
+        public JsonResult GuardarPagoDeudaSocio(SD_DETALLES_DEUDAS ant)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _servicio.PagoDetalleDeuda(ant, login);
+            return Json(respuestaSP);
+        }
+
+        [HttpPost]
+        public JsonResult AnularPagoDeudaSocio(int ID_DETALLE)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _servicio.AnularDetalleDeuda(ID_DETALLE);
+            return Json(respuestaSP);
+        }
+
+
+
         [HttpPost]
         public JsonResult EliminarDeuda(int ID_DEUDA)
         {
@@ -79,22 +118,23 @@ namespace Sindicato.WebSite.Controllers
                 CAJA = x.SD_CAJAS.NOMBRE,
                 ESTADO = x.ESTADO,
                 FECHA_REG = x.FECHA_REG,
+                FECHA_CANCELADO = x.FECHA_CANCELADO,
                 IMPORTE = x.IMPORTE,
                 IMPORTE_CANCELADO = x.IMPORTE_CANCELADO,
                 LOGIN_USR = x.LOGIN_USR,
                 MOTIVO = x.SD_DEUDAS_SOCIOS.MOTIVO,
-                OBSERVACION = x.OBSERVACION,
+                OBSERVACION = x.SD_DEUDAS_SOCIOS.OBSERVACION,
                 MONEDA = x.SD_CAJAS.MONEDA,
                 MOVIL = x.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
                 SOCIO = x.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
-                
+                ESTADO_DEUDA = x.ESTADO =="APROBADO"? "APROBADO" :  x.IMPORTE_CANCELADO > 0 ? "CANCELADO" : "SIN_PAGO"
 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
             return JavaScript(callback1);
         }
-       
+
         //[HttpPost, ValidateInput(false)]
         //public JsonResult GuardarTipoIngreso(SD_TIPOS_INGRESOS_SOCIO ant)
         //{
@@ -114,6 +154,6 @@ namespace Sindicato.WebSite.Controllers
         //#endregion
 
 
-   
+
     }
 }
