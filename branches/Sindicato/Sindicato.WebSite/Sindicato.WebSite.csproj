@@ -47,9 +47,7 @@
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -412,12 +410,9 @@
     <Content Include="App\View\CierresParada\FormCierre.js" />
     <Content Include="App\View\CierresParada\GridCierres.js" />
     <Content Include="App\View\CierresParada\Principal.js" />
-<<<<<<< HEAD
-=======
     <Content Include="App\View\DetallesDeudasSocios\GridDetalles.js" />
     <Content Include="App\View\DetallesDeudasSocios\Principal.js" />
     <Content Include="App\View\DeudasSocios\FormSociosDeuda.js" />
->>>>>>> 4644a4bf9ee21c07161d9889affbead06d67141f
     <Content Include="App\View\DeudasSocios\GridDetalles.js" />
     <Content Include="App\View\DeudasSocios\FormDeuda.js" />
     <Content Include="App\View\DeudasSocios\Forms.js" />
@@ -461,6 +456,8 @@
     <Content Include="App\View\Reportes\Reportes.js" />
     <Content Include="App\View\Reportes\ReportesSocios.js" />
     <Content Include="App\View\Reports\ReportsPDF.js" />
+    <Content Include="App\View\Socios\FormBajaSocioMovil.js" />
+    <Content Include="App\View\Socios\FormObligacionSocioHoja.js" />
     <Content Include="App\View\Socios\GridKardexDebe.js" />
     <Content Include="App\View\TiposEgresos\FormEgreso.js" />
     <Content Include="App\View\TiposEgresos\Forms.js" />
@@ -3924,6 +3921,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\Choferes\" />
+    <Folder Include="Reportes\Reportes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -3953,6 +3951,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="InterfacesUsuario\Adm Choferes.mck" />
+    <Content Include="InterfacesUsuario\dllcondatos.sql" />
     <None Include="InterfacesUsuario\Fondo Emergencia Chofer.mck" />
     <None Include="InterfacesUsuario\Modulo  Nivelaciones.mck" />
     <None Include="InterfacesUsuario\Modulo de Descuentos.mck" />
@@ -4071,12 +4070,11 @@
     <Content Include="viewer\locale\zu\viewer.properties" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reportes\ReporteHojasDetalle.rdlc" />
-    <EmbeddedResource Include="Reportes\ReporteDetalleHoja.rdlc" />
-    <EmbeddedResource Include="Reportes\HojaDetalleUso.rdlc" />
     <EmbeddedResource Include="Reportes\Hoja.rdlc" />
+    <EmbeddedResource Include="Reportes\HojaDetalleUso.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteAhorrosCobros.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteCierreAhorro.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteDetalleHoja.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteDetalleHojaPorSocio.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteDeudores.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteDeudoresCouta.rdlc" />
@@ -4088,6 +4086,7 @@
     <EmbeddedResource Include="Reportes\ReporteEstadoResultadoPorCaja.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteEstadoResultadoPorMoneda.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteHojas.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteHojasDetalle.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteHojav1.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteIngreso.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteIngresosDetalle.rdlc" />

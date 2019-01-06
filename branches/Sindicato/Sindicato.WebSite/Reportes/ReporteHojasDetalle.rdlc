@@ -6,12 +6,12 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>12cm</Width>
+              <Width>11cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>17cm</Height>
+              <Height>15cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -48,8 +48,8 @@
         </TablixRowHierarchy>
         <DataSetName>DataSetVenta</DataSetName>
         <Top>0.02646cm</Top>
-        <Height>17cm</Height>
-        <Width>12cm</Width>
+        <Height>15cm</Height>
+        <Width>11cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -57,13 +57,13 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>17.02646cm</Height>
+    <Height>15.02646cm</Height>
     <Style />
   </Body>
-  <Width>12cm</Width>
+  <Width>11cm</Width>
   <Page>
-    <PageHeight>17cm</PageHeight>
-    <PageWidth>12cm</PageWidth>
+    <PageHeight>15cm</PageHeight>
+    <PageWidth>11cm</PageWidth>
     <LeftMargin>0cm</LeftMargin>
     <RightMargin>0cm</RightMargin>
     <TopMargin>0cm</TopMargin>
