@@ -88,7 +88,7 @@ namespace Sindicato.Services
         }
 
 
-        public RespuestaSP GuardarVentaHoja(SD_HOJAS_CONTROL venta, int CANTIDAD, string login)
+        public RespuestaSP GuardarVentaHoja(SD_HOJAS_CONTROL venta, int CANTIDAD, string HOJAS ,string login)
         {
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
@@ -96,7 +96,7 @@ namespace Sindicato.Services
                 var context = (SindicatoContext)uow.Context;
                 ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
 
-                context.P_SD_GUARDAR_HOJA(venta.ID_SOCIO_MOVIL, venta.ID_PARADA, venta.ID_CHOFER, venta.FECHA_COMPRA, CANTIDAD, login, p_res);
+                context.P_SD_GUARDAR_HOJA(venta.ID_SOCIO_MOVIL, venta.ID_PARADA, venta.ID_CHOFER, venta.FECHA_COMPRA, CANTIDAD, HOJAS,login, p_res);
                 int id;
                 bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
                 if (esNumero)
