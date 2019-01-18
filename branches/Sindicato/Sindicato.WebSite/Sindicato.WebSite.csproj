@@ -4073,6 +4073,8 @@
     <Content Include="viewer\locale\zu\viewer.properties" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reportes\ReporteGlobalIngresos.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteIngresosFechasDetalle.rdlc" />
     <EmbeddedResource Include="Reportes\Hoja.rdlc" />
     <EmbeddedResource Include="Reportes\HojaDetalleUso.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteAhorrosCobros.rdlc" />
