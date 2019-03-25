@@ -49,6 +49,14 @@ namespace Sindicato.Common.Data
             _ctx.ExecuteFunction("P_EE_SECUENCIA", p_COD_TABLAParameter, p_ID_USRParameter, p_RES);
             return Convert.ToInt32(p_RES.Value);
         }
+        public int ObtenerSecuencia(string TABLA)
+        {
+            ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+            ObjectParameter p_COD_TABLAParameter = new ObjectParameter("P_COD_TABLA", TABLA);
+            ObjectParameter p_ID_USRParameter = new ObjectParameter("P_ID_USR", 0);
+            _ctx.ExecuteFunction("P_EE_SECUENCIA", p_COD_TABLAParameter, p_ID_USRParameter, p_RES);
+            return Convert.ToInt32(p_RES.Value);
+        }
 
         #region IRepository<E> Members
 

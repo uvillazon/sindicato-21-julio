@@ -6,6 +6,7 @@
             { type: "date", name: "FECHA_ALTA", dateFormat: "d/m/Y", convert: Funciones.Fecha },
             { type: "date", name: "FECHA_BAJA", dateFormat: "d/m/Y", convert: Funciones.Fecha },
             { type: "string", name: "NRO_MOVIL" },
+            { type: "string", name: "MOVIL_ANTERIOR" , mapping : "NRO_MOVIL" },
             { type: "string", name: "DESCRIPCION" },
             { type: "string", name: "OBSERVACION" },
             { type: "string", name: "LOGIN_USR" },

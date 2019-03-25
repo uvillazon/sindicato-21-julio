@@ -31,6 +31,7 @@
           <EntitySet Name="SD_FAMILIARES" EntityType="Model.Store.SD_FAMILIARES" store:Type="Tables" Schema="SINDICATO_121" />
           <EntitySet Name="SD_FONDO_EMERGENCIAS" EntityType="Model.Store.SD_FONDO_EMERGENCIAS" store:Type="Tables" Schema="SINDICATO_121" />
           <EntitySet Name="SD_GARANTES" EntityType="Model.Store.SD_GARANTES" store:Type="Tables" Schema="SINDICATO_121" />
+          <EntitySet Name="SD_HIST_MOVIL" EntityType="Model.Store.SD_HIST_MOVIL" store:Type="Tables" Schema="SINDICATO_121" />
           <EntitySet Name="SD_HOJAS_CONTROL" EntityType="Model.Store.SD_HOJAS_CONTROL" store:Type="Tables" Schema="SINDICATO_121" />
           <EntitySet Name="SD_IMAGENES" EntityType="Model.Store.SD_IMAGENES" store:Type="Tables" Schema="SINDICATO_121" />
           <EntitySet Name="SD_IMPRESIONES" EntityType="Model.Store.SD_IMPRESIONES" store:Type="Tables" Schema="SINDICATO_121" />
@@ -227,6 +228,10 @@
           <AssociationSet Name="SD_GARANTES_R02" Association="Model.Store.SD_GARANTES_R02">
             <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
             <End Role="SD_GARANTES" EntitySet="SD_GARANTES" />
+          </AssociationSet>
+          <AssociationSet Name="SD_HIST_MOVIL_R01" Association="Model.Store.SD_HIST_MOVIL_R01">
+            <End Role="SD_MOVILES" EntitySet="SD_MOVILES" />
+            <End Role="SD_HIST_MOVIL" EntitySet="SD_HIST_MOVIL" />
           </AssociationSet>
           <AssociationSet Name="SD_HOJAS_CONTROL_R01" Association="Model.Store.SD_HOJAS_CONTROL_R01">
             <End Role="SD_PARADAS" EntitySet="SD_PARADAS" />
@@ -831,6 +836,18 @@
           <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
           <Property Name="ID_USR" Type="number" Precision="7" />
         </EntityType>
+        <EntityType Name="SD_HIST_MOVIL">
+          <Key>
+            <PropertyRef Name="ID_HIST" />
+          </Key>
+          <Property Name="ID_HIST" Type="number" Nullable="false" Precision="7" />
+          <Property Name="ID_MOVIL" Type="number" Nullable="false" Precision="7" />
+          <Property Name="MOVIL_ANTERIOR" Type="varchar2" Nullable="false" MaxLength="255" />
+          <Property Name="MOVIL_NUEVO" Type="varchar2" Nullable="false" MaxLength="255" />
+          <Property Name="OBSERVACION" Type="varchar2" MaxLength="1250" />
+          <Property Name="LOGIN" Type="varchar2" MaxLength="50" />
+          <Property Name="FECHA_REG" Type="date" />
+        </EntityType>
         <EntityType Name="SD_HOJAS_CONTROL">
           <Key>
             <PropertyRef Name="ID_HOJA" />
@@ -889,6 +906,7 @@
           <Property Name="LOGIN" Type="varchar2" MaxLength="50" />
           <Property Name="FECHA_REG" Type="date" />
           <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
+          <Property Name="TIPO" Type="varchar2" MaxLength="255" />
         </EntityType>
         <EntityType Name="SD_INGRESOS_POR_SOCIOS">
           <Key>
@@ -1929,6 +1947,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="SD_HIST_MOVIL_R01">
+          <End Role="SD_MOVILES" Type="Model.Store.SD_MOVILES" Multiplicity="1" />
+          <End Role="SD_HIST_MOVIL" Type="Model.Store.SD_HIST_MOVIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_MOVILES">
+              <PropertyRef Name="ID_MOVIL" />
+            </Principal>
+            <Dependent Role="SD_HIST_MOVIL">
+              <PropertyRef Name="ID_MOVIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="SD_HOJAS_CONTROL_R01">
           <End Role="SD_PARADAS" Type="Model.Store.SD_PARADAS" Multiplicity="1" />
           <End Role="SD_HOJAS_CONTROL" Type="Model.Store.SD_HOJAS_CONTROL" Multiplicity="*" />
@@ -2901,6 +2931,7 @@
           <Parameter Name="P_ID_CHOFER" Type="number" Mode="In" />
           <Parameter Name="P_FECHA_COMPRA" Type="date" Mode="In" />
           <Parameter Name="P_CANTIDAD" Type="number" Mode="In" />
+          <Parameter Name="P_HOJAS" Type="varchar2" Mode="In" />
           <Parameter Name="P_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
@@ -3036,27 +3067,6 @@
             <Parameter Name="P_RES" Mode="Out" Type="String" />
           </FunctionImport>
           <EntitySet Name="V_TABLAS_COLUMNAS" EntityType="Model.V_TABLAS_COLUMNAS" />
-          <FunctionImport Name="P_SD_ALTA_SD_ANTECEDENTES">
-            <Parameter Name="P_ID_ANTECEDENTE" Mode="In" Type="Decimal" />
-            <Parameter Name="P_ID_SOCIO" Mode="In" Type="Decimal" />
-            <Parameter Name="P_ID_CHOFER" Mode="In" Type="Decimal" />
-            <Parameter Name="P_MOTIVO" Mode="In" Type="String" />
-            <Parameter Name="P_OBSERVACION" Mode="In" Type="String" />
-            <Parameter Name="P_FECHA" Mode="In" Type="DateTime" />
-            <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
-            <Parameter Name="P_RES" Mode="Out" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="P_SD_ALTA_SD_DOCUMENTACIONES">
-            <Parameter Name="P_ID_DOCUMENTACION" Mode="In" Type="Decimal" />
-            <Parameter Name="P_ID_SOCIO" Mode="In" Type="Decimal" />
-            <Parameter Name="P_ID_CHOFER" Mode="In" Type="Decimal" />
-            <Parameter Name="P_DOCUMENTACION" Mode="In" Type="String" />
-            <Parameter Name="P_TIPO" Mode="In" Type="String" />
-            <Parameter Name="P_OBSERVACION" Mode="In" Type="String" />
-            <Parameter Name="P_FECHA" Mode="In" Type="DateTime" />
-            <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
-            <Parameter Name="P_RES" Mode="Out" Type="String" />
-          </FunctionImport>
           <EntitySet Name="SD_LINEAS" EntityType="Model.SD_LINEAS" />
           <EntitySet Name="SD_CHOFERES" EntityType="Model.SD_CHOFERES" />
           <EntitySet Name="SD_FAMILIARES" EntityType="Model.SD_FAMILIARES" />
@@ -3151,17 +3161,6 @@
           </AssociationSet>
           <FunctionImport Name="P_SD_ELIMINAR_CAJA">
             <Parameter Name="P_ID" Mode="In" Type="Decimal" />
-            <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
-            <Parameter Name="P_RES" Mode="Out" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="P_SD_ALTA_SD_HOJAS_CONTROL">
-            <Parameter Name="P_ID_MOVIL" Mode="In" Type="Decimal" />
-            <Parameter Name="P_ID_PARADA" Mode="In" Type="Decimal" />
-            <Parameter Name="P_ID_CAJA" Mode="In" Type="Decimal" />
-            <Parameter Name="P_OBSERVACION" Mode="In" Type="String" />
-            <Parameter Name="P_FECHA_COMPRA" Mode="In" Type="DateTime" />
-            <Parameter Name="P_FECHA_USO" Mode="In" Type="DateTime" />
-            <Parameter Name="P_MONTO" Mode="In" Type="Decimal" />
             <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
             <Parameter Name="P_RES" Mode="Out" Type="String" />
           </FunctionImport>
@@ -3343,6 +3342,7 @@
             <Parameter Name="P_ID_CHOFER" Mode="In" Type="Decimal" />
             <Parameter Name="P_FECHA_COMPRA" Mode="In" Type="DateTime" />
             <Parameter Name="P_CANTIDAD" Mode="In" Type="Decimal" />
+            <Parameter Name="P_HOJAS" Mode="In" Type="String" />
             <Parameter Name="P_USR" Mode="In" Type="String" />
             <Parameter Name="P_RES" Mode="Out" Type="String" />
           </FunctionImport>
@@ -3836,6 +3836,11 @@
           <AssociationSet Name="SD_DETALLES_HOJAS_USO_R01" Association="Model.SD_DETALLES_HOJAS_USO_R01">
             <End Role="SD_HOJAS_CONTROL" EntitySet="SD_HOJAS_CONTROL" />
             <End Role="SD_DETALLES_HOJAS_USO" EntitySet="SD_DETALLES_HOJAS_USO" />
+          </AssociationSet>
+          <EntitySet Name="SD_HIST_MOVIL" EntityType="Model.SD_HIST_MOVIL" />
+          <AssociationSet Name="SD_HIST_MOVIL_R01" Association="Model.SD_HIST_MOVIL_R01">
+            <End Role="SD_MOVILES" EntitySet="SD_MOVILES" />
+            <End Role="SD_HIST_MOVIL" EntitySet="SD_HIST_MOVIL" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="SD_LISTAS">
@@ -5195,6 +5200,7 @@
           <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SD_LINEAS" Relationship="Model.SD_MOVILES_R01" FromRole="SD_MOVILES" ToRole="SD_LINEAS" />
           <NavigationProperty Name="SD_SOCIO_MOVILES" Relationship="Model.SD_SOCIO_MOVILES_R02" FromRole="SD_MOVILES" ToRole="SD_SOCIO_MOVILES" />
+          <NavigationProperty Name="SD_HIST_MOVIL" Relationship="Model.SD_HIST_MOVIL_R01" FromRole="SD_MOVILES" ToRole="SD_HIST_MOVIL" />
         </EntityType>
         <Association Name="SD_MOVILES_R01">
           <End Type="Model.SD_LINEAS" Role="SD_LINEAS" Multiplicity="1" />
@@ -5917,6 +5923,7 @@
           <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_INGRESOS_R01" FromRole="SD_INGRESOS" ToRole="SD_CAJAS" />
+          <Property Type="String" Name="TIPO" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="SD_EGRESOS_R01">
           <End Type="Model.SD_CAJAS" Role="SD_CAJAS" Multiplicity="1" />
@@ -6184,6 +6191,31 @@
             </Principal>
             <Dependent Role="SD_DETALLES_HOJAS_USO">
               <PropertyRef Name="ID_HOJA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SD_HIST_MOVIL">
+          <Key>
+            <PropertyRef Name="ID_HIST" />
+          </Key>
+          <Property Type="Int32" Name="ID_HIST" Nullable="false" />
+          <Property Type="Int32" Name="ID_MOVIL" Nullable="false" />
+          <Property Type="String" Name="MOVIL_ANTERIOR" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MOVIL_NUEVO" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="1250" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LOGIN" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <NavigationProperty Name="SD_MOVILES" Relationship="Model.SD_HIST_MOVIL_R01" FromRole="SD_HIST_MOVIL" ToRole="SD_MOVILES" />
+        </EntityType>
+        <Association Name="SD_HIST_MOVIL_R01">
+          <End Type="Model.SD_MOVILES" Role="SD_MOVILES" Multiplicity="1" />
+          <End Type="Model.SD_HIST_MOVIL" Role="SD_HIST_MOVIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_MOVILES">
+              <PropertyRef Name="ID_MOVIL" />
+            </Principal>
+            <Dependent Role="SD_HIST_MOVIL">
+              <PropertyRef Name="ID_MOVIL" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7253,6 +7285,7 @@
           <EntitySetMapping Name="SD_INGRESOS">
             <EntityTypeMapping TypeName="Model.SD_INGRESOS">
               <MappingFragment StoreEntitySet="SD_INGRESOS">
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
                 <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
                 <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
                 <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
@@ -7358,6 +7391,19 @@
                 <ScalarProperty Name="FECHA_USO" ColumnName="FECHA_USO" />
                 <ScalarProperty Name="ID_HOJA" ColumnName="ID_HOJA" />
                 <ScalarProperty Name="ID_DETALLE" ColumnName="ID_DETALLE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_HIST_MOVIL">
+            <EntityTypeMapping TypeName="Model.SD_HIST_MOVIL">
+              <MappingFragment StoreEntitySet="SD_HIST_MOVIL">
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="MOVIL_NUEVO" ColumnName="MOVIL_NUEVO" />
+                <ScalarProperty Name="MOVIL_ANTERIOR" ColumnName="MOVIL_ANTERIOR" />
+                <ScalarProperty Name="ID_MOVIL" ColumnName="ID_MOVIL" />
+                <ScalarProperty Name="ID_HIST" ColumnName="ID_HIST" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

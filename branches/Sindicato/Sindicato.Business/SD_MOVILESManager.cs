@@ -69,5 +69,35 @@ namespace Sindicato.Business
             }
         }
 
+        public string GuardarCambiosMovil (int ID_MOVIL , int NRO_MOVIL,string OBSERVACION , string login){
+            try
+            {
+                var context = (SindicatoContext)Context;
+                var movil = BuscarTodos(x => x.ID_MOVIL == ID_MOVIL).FirstOrDefault();
+                if (movil == null) {
+                    return string.Format("El movil : {0} No existe. favor verificar",NRO_MOVIL);
+                }
+                SD_HIST_MOVIL hist = new SD_HIST_MOVIL() { 
+                    ID_HIST = ObtenerSecuencia("SD_HIST_MOVIL"),
+                    ID_MOVIL = ID_MOVIL,
+                    MOVIL_ANTERIOR= movil.NRO_MOVIL.ToString(),
+                    MOVIL_NUEVO = NRO_MOVIL.ToString(),
+                    OBSERVACION = OBSERVACION,
+                    LOGIN = login,
+                    FECHA_REG = DateTime.Now
+
+                };
+                context.SD_HIST_MOVIL.AddObject(hist);
+                movil.NRO_MOVIL = NRO_MOVIL;
+                Save();
+                return "1";
+                
+                
+
+            }
+            catch (Exception e) {
+                return e.ToString();
+            }
+        }
     }
 }

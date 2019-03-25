@@ -89,5 +89,50 @@ namespace Sindicato.Services
             });
             return result;
         }
+
+        public IEnumerable<SD_HIST_MOVIL> ObtenerHistoricosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)
+        {
+            IQueryable<SD_HIST_MOVIL> result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_HIST_MOVILManager(uow);
+
+                result = manager.BuscarTodos();
+                filtros.FiltrarDatos();
+                result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+
+                paginacion.total = result.Count();
+
+                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
+
+            });
+            return result;
+        }
+
+        public RespuestaSP GuardarCambioMovil(int ID_MOVIL , int NRO_MOVIL , string OBSERVACION, string LOGIN_USR)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_MOVILESManager(uow);
+                var res = manager.GuardarCambiosMovil(ID_MOVIL, NRO_MOVIL, OBSERVACION, LOGIN_USR);
+                int idMovil;
+                bool esNumero = int.TryParse(res, out idMovil);
+                if (esNumero)
+                {
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                    result.id = idMovil;
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = res;
+                }
+
+            });
+            return result;
+        }
+
     }
 }

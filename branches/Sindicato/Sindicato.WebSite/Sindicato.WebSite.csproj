@@ -237,6 +237,7 @@
     <Content Include="App\Model\IngresosPorSocios\Ingresos.js" />
     <Content Include="App\Model\IngresosPorSocios\TiposIngresos.js" />
     <Content Include="App\Model\KardexHojas\KardexHojas.js" />
+    <Content Include="App\Model\Moviles\Historicos.js" />
     <Content Include="App\Model\Permisos\Permisos.js" />
     <Content Include="App\Model\Prestamos\Moras.js" />
     <Content Include="App\Model\Prestamos\Pagos.js" />
@@ -299,6 +300,7 @@
     <Content Include="App\Store\IngresosPorSocios\Ingresos.js" />
     <Content Include="App\Store\IngresosPorSocios\TiposIngresos.js" />
     <Content Include="App\Store\KardexHojas\KardexHojas.js" />
+    <Content Include="App\Store\Moviles\Historicos.js" />
     <Content Include="App\Store\Permisos\Permisos.js" />
     <Content Include="App\Store\Prestamos\Moras.js" />
     <Content Include="App\Store\Prestamos\Pagos.js" />
@@ -430,6 +432,8 @@
     <Content Include="App\View\KardexHojas\GridKardexHojas.js" />
     <Content Include="App\View\KardexHojas\Grids.js" />
     <Content Include="App\View\KardexHojas\Principal.js" />
+    <Content Include="App\View\Moviles\FormCambioMovil.js" />
+    <Content Include="App\View\Moviles\GridHistoricos.js" />
     <Content Include="App\View\Obligaciones\FormObligacion.js" />
     <Content Include="App\View\Obligaciones\GridObligaciones.js" />
     <Content Include="App\View\Obligaciones\Principal.js" />
@@ -1697,7 +1701,9 @@
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="Global.asax" />
+    <Content Include="InterfacesUsuario\23032019.txt" />
     <Content Include="InterfacesUsuario\bin.txt" />
+    <Content Include="InterfacesUsuario\dllsindatos.txt" />
     <Content Include="InterfacesUsuario\FormHoja.png" />
     <Content Include="InterfacesUsuario\GridChoferes.png" />
     <Content Include="InterfacesUsuario\GridHojas.png" />

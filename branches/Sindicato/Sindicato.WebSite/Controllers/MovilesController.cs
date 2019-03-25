@@ -51,6 +51,34 @@ namespace Sindicato.WebSite.Controllers
             respuestaSP = _serMov.GuardarMovil(auto, login);
             return Json(respuestaSP);
         }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerHistoricosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var autos = _serMov.ObtenerHistoricosPaginados(paginacion, filtros);
+            var formatData = autos.Select(x => new
+            {
+                ID_MOVIL = x.ID_MOVIL,
+                MOVIL_ANTERIOR = x.MOVIL_ANTERIOR,
+                MOVIL_NUEVO = x.MOVIL_NUEVO,
+                FECHA_REG = x.FECHA_REG,
+                LOGIN_USR = x.LOGIN,
+                OBSERVACION = x.OBSERVACION
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
+
+        [HttpPost]
+        public JsonResult GuardarCambiosMovil(int ID_MOVIL , int NRO_MOVIL , string OBSERVACION )
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serMov.GuardarCambioMovil(ID_MOVIL, NRO_MOVIL, OBSERVACION, login);
+            return Json(respuestaSP);
+        }
       
     }
 }

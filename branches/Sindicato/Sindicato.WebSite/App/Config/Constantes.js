@@ -31,7 +31,7 @@ Ext.define("App.Config.Constantes", {
     CONFIG_PRECIO_VENTA_DIS: 3.72,
     CONFIG_PRECIO_COSTO_GAS: 3.52,
     CONFIG_PRECIO_COSTO_DIS: 3.54,
-    CONFIG_CUENTA_VENTA: 1,
+    CONFIG_CUENTA_VENTA: 2,
     CONFIG_DIAS_AUTOS_REEMPLAZO : 30,
     UnidadesRequeridas: function (unidad, requerido) {
         if (requerido) {

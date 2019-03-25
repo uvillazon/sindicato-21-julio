@@ -28,7 +28,7 @@
             width: '50%',
             opcion: 'GridSocios',
             fbarmenu: me.toolbar,
-            fbarmenuArray: ["btn_ConfigObligacion", "btn_ReporteSocioMovilHoja", "btn_Editar", "btn_EditarMovil", , "btn_BajaMovil", "btn_Imagen", "btn_Kardex", "btn_ConfigHoja", "btn_EliminarSocio", "btn_TransferenciasHojas"]
+            fbarmenuArray: ["btn_ConfigObligacion", "btn_ReporteSocioMovilHoja", "btn_Editar", "btn_EditarMovil", , "btn_BajaMovil", "btn_CambiarMovil", "btn_Imagen", "btn_Kardex", "btn_ConfigHoja", "btn_EliminarSocio", "btn_TransferenciasHojas"]
 
         });
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
@@ -37,6 +37,7 @@
         me.btn_editar = Funciones.CrearMenu('btn_Editar', 'Modificar Socio', 'user_edit', me.EventosPrincipal, me.toolbar, this, null, true);
         me.btn_crearMovil = Funciones.CrearMenu('btn_CrearMovil', 'Crear Socio-Movil', Constantes.ICONO_CREAR, me.EventosPrincipal, me.toolbar, this, null, false);
         me.btn_editarMovil = Funciones.CrearMenu('btn_EditarMovil', 'Modificar Movil', Constantes.ICONO_EDITAR, me.EventosPrincipal, me.toolbar, this, null, true);
+        me.btn_crearMovil = Funciones.CrearMenu('btn_CambiarMovil', 'Cambiar Movil', "user_edit", me.EventosPrincipal, me.toolbar, this, null, true);
         me.btn_crearMovil = Funciones.CrearMenu('btn_BajaMovil', 'Baja Movil', Constantes.ICONO_BAJA, me.EventosPrincipal, me.toolbar, this, null, true);
         //me.btn_transferenciasHojas = Funciones.CrearMenu('btn_TransferenciasHojas', 'Transferencias Hojas', 'arrow_refresh_small', me.EventosPrincipal, me.toolbar, this, null, true);
         me.btn_crearImagen = Funciones.CrearMenu('btn_Imagen', 'Imagen', 'image_add', me.EventosPrincipal, me.toolbar, this, null, true);
@@ -97,7 +98,7 @@
             me.panelAntecedente.setDisabled(true);
             me.panelDocumentaciones.setDisabled(true);
             me.panelDesempeno.setDisabled(true);
-            
+
             //me..setActiveTab(me.form);
 
         }
@@ -173,6 +174,9 @@
             case "btn_EditarMovil":
                 me.EditarLinea();
                 break;
+            case "btn_CambiarMovil":
+                me.CambiarMovil();
+                break;
             case "btn_BajaMovil":
                 me.BajaMovilSocio();
                 break;
@@ -234,6 +238,20 @@
             Funciones.AjaxRequestWin("Socios", "GuardarSocioMovil", win, form, me.grid, "Esta Seguro de Guardar", null, win);
         });
     },
+    CambiarMovil : function(){
+        var me = this;
+        var win = Ext.create("App.Config.Abstract.Window", { botones: true });
+        var form = Ext.create("App.View.Moviles.FormCambioMovil", {
+            title: 'Datos Movil',
+            botones: false
+        });
+        form.cargarDatos(me.grid.record);
+        win.add(form);
+        win.show();
+        win.btn_guardar.on('click', function () {
+            Funciones.AjaxRequestWin("Moviles", "GuardarCambiosMovil", win, form, me.grid, "Esta Seguro de Guardar", null, win);
+        });
+    },  
     BajaMovilSocio: function () {
 
         var me = this;

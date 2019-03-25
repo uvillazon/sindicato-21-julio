@@ -110,6 +110,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLES_DEUDAS_R01", "SD_DEUDAS_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_DEUDAS_SOCIOS), "SD_DETALLES_DEUDAS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLES_DEUDAS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLES_DEUDAS_R02", "SD_SOCIO_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIO_MOVILES), "SD_DETALLES_DEUDAS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLES_DEUDAS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLES_HOJAS_USO_R01", "SD_HOJAS_CONTROL", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_HOJAS_CONTROL), "SD_DETALLES_HOJAS_USO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLES_HOJAS_USO), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_HIST_MOVIL_R01", "SD_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_MOVILES), "SD_HIST_MOVIL", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_HIST_MOVIL), true)]
 
 #endregion
 
@@ -1328,6 +1329,22 @@ namespace Sindicato.Model
             }
         }
         private ObjectSet<SD_DETALLES_HOJAS_USO> _SD_DETALLES_HOJAS_USO;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<SD_HIST_MOVIL> SD_HIST_MOVIL
+        {
+            get
+            {
+                if ((_SD_HIST_MOVIL == null))
+                {
+                    _SD_HIST_MOVIL = base.CreateObjectSet<SD_HIST_MOVIL>("SD_HIST_MOVIL");
+                }
+                return _SD_HIST_MOVIL;
+            }
+        }
+        private ObjectSet<SD_HIST_MOVIL> _SD_HIST_MOVIL;
 
         #endregion
 
@@ -1916,6 +1933,14 @@ namespace Sindicato.Model
         {
             base.AddObject("SD_DETALLES_HOJAS_USO", sD_DETALLES_HOJAS_USO);
         }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet SD_HIST_MOVIL. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToSD_HIST_MOVIL(SD_HIST_MOVIL sD_HIST_MOVIL)
+        {
+            base.AddObject("SD_HIST_MOVIL", sD_HIST_MOVIL);
+        }
 
         #endregion
 
@@ -2080,189 +2105,6 @@ namespace Sindicato.Model
             }
     
             return base.ExecuteFunction("P_SD_GRABAR_LISTAS_ITEMS", p_ID_TABLAParameter, p_ID_PADREParameter, p_ID_LISTAParameter, p_CODIGOParameter, p_VALORParameter, p_ESTADOParameter, p_LOGIN_USRParameter, p_RES);
-        }
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        /// <param name="p_ID_ANTECEDENTE">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_ID_SOCIO">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_ID_CHOFER">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_MOTIVO">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_OBSERVACION">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_FECHA">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_ID_USR">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_RES">No hay documentación de metadatos disponible.</param>
-        public int P_SD_ALTA_SD_ANTECEDENTES(Nullable<global::System.Decimal> p_ID_ANTECEDENTE, Nullable<global::System.Decimal> p_ID_SOCIO, Nullable<global::System.Decimal> p_ID_CHOFER, global::System.String p_MOTIVO, global::System.String p_OBSERVACION, Nullable<global::System.DateTime> p_FECHA, Nullable<global::System.Decimal> p_ID_USR, ObjectParameter p_RES)
-        {
-            ObjectParameter p_ID_ANTECEDENTEParameter;
-            if (p_ID_ANTECEDENTE.HasValue)
-            {
-                p_ID_ANTECEDENTEParameter = new ObjectParameter("P_ID_ANTECEDENTE", p_ID_ANTECEDENTE);
-            }
-            else
-            {
-                p_ID_ANTECEDENTEParameter = new ObjectParameter("P_ID_ANTECEDENTE", typeof(global::System.Decimal));
-            }
-    
-            ObjectParameter p_ID_SOCIOParameter;
-            if (p_ID_SOCIO.HasValue)
-            {
-                p_ID_SOCIOParameter = new ObjectParameter("P_ID_SOCIO", p_ID_SOCIO);
-            }
-            else
-            {
-                p_ID_SOCIOParameter = new ObjectParameter("P_ID_SOCIO", typeof(global::System.Decimal));
-            }
-    
-            ObjectParameter p_ID_CHOFERParameter;
-            if (p_ID_CHOFER.HasValue)
-            {
-                p_ID_CHOFERParameter = new ObjectParameter("P_ID_CHOFER", p_ID_CHOFER);
-            }
-            else
-            {
-                p_ID_CHOFERParameter = new ObjectParameter("P_ID_CHOFER", typeof(global::System.Decimal));
-            }
-    
-            ObjectParameter p_MOTIVOParameter;
-            if (p_MOTIVO != null)
-            {
-                p_MOTIVOParameter = new ObjectParameter("P_MOTIVO", p_MOTIVO);
-            }
-            else
-            {
-                p_MOTIVOParameter = new ObjectParameter("P_MOTIVO", typeof(global::System.String));
-            }
-    
-            ObjectParameter p_OBSERVACIONParameter;
-            if (p_OBSERVACION != null)
-            {
-                p_OBSERVACIONParameter = new ObjectParameter("P_OBSERVACION", p_OBSERVACION);
-            }
-            else
-            {
-                p_OBSERVACIONParameter = new ObjectParameter("P_OBSERVACION", typeof(global::System.String));
-            }
-    
-            ObjectParameter p_FECHAParameter;
-            if (p_FECHA.HasValue)
-            {
-                p_FECHAParameter = new ObjectParameter("P_FECHA", p_FECHA);
-            }
-            else
-            {
-                p_FECHAParameter = new ObjectParameter("P_FECHA", typeof(global::System.DateTime));
-            }
-    
-            ObjectParameter p_ID_USRParameter;
-            if (p_ID_USR.HasValue)
-            {
-                p_ID_USRParameter = new ObjectParameter("P_ID_USR", p_ID_USR);
-            }
-            else
-            {
-                p_ID_USRParameter = new ObjectParameter("P_ID_USR", typeof(global::System.Decimal));
-            }
-    
-            return base.ExecuteFunction("P_SD_ALTA_SD_ANTECEDENTES", p_ID_ANTECEDENTEParameter, p_ID_SOCIOParameter, p_ID_CHOFERParameter, p_MOTIVOParameter, p_OBSERVACIONParameter, p_FECHAParameter, p_ID_USRParameter, p_RES);
-        }
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        /// <param name="p_ID_DOCUMENTACION">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_ID_SOCIO">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_ID_CHOFER">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_DOCUMENTACION">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_TIPO">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_OBSERVACION">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_FECHA">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_ID_USR">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_RES">No hay documentación de metadatos disponible.</param>
-        public int P_SD_ALTA_SD_DOCUMENTACIONES(Nullable<global::System.Decimal> p_ID_DOCUMENTACION, Nullable<global::System.Decimal> p_ID_SOCIO, Nullable<global::System.Decimal> p_ID_CHOFER, global::System.String p_DOCUMENTACION, global::System.String p_TIPO, global::System.String p_OBSERVACION, Nullable<global::System.DateTime> p_FECHA, Nullable<global::System.Decimal> p_ID_USR, ObjectParameter p_RES)
-        {
-            ObjectParameter p_ID_DOCUMENTACIONParameter;
-            if (p_ID_DOCUMENTACION.HasValue)
-            {
-                p_ID_DOCUMENTACIONParameter = new ObjectParameter("P_ID_DOCUMENTACION", p_ID_DOCUMENTACION);
-            }
-            else
-            {
-                p_ID_DOCUMENTACIONParameter = new ObjectParameter("P_ID_DOCUMENTACION", typeof(global::System.Decimal));
-            }
-    
-            ObjectParameter p_ID_SOCIOParameter;
-            if (p_ID_SOCIO.HasValue)
-            {
-                p_ID_SOCIOParameter = new ObjectParameter("P_ID_SOCIO", p_ID_SOCIO);
-            }
-            else
-            {
-                p_ID_SOCIOParameter = new ObjectParameter("P_ID_SOCIO", typeof(global::System.Decimal));
-            }
-    
-            ObjectParameter p_ID_CHOFERParameter;
-            if (p_ID_CHOFER.HasValue)
-            {
-                p_ID_CHOFERParameter = new ObjectParameter("P_ID_CHOFER", p_ID_CHOFER);
-            }
-            else
-            {
-                p_ID_CHOFERParameter = new ObjectParameter("P_ID_CHOFER", typeof(global::System.Decimal));
-            }
-    
-            ObjectParameter p_DOCUMENTACIONParameter;
-            if (p_DOCUMENTACION != null)
-            {
-                p_DOCUMENTACIONParameter = new ObjectParameter("P_DOCUMENTACION", p_DOCUMENTACION);
-            }
-            else
-            {
-                p_DOCUMENTACIONParameter = new ObjectParameter("P_DOCUMENTACION", typeof(global::System.String));
-            }
-    
-            ObjectParameter p_TIPOParameter;
-            if (p_TIPO != null)
-            {
-                p_TIPOParameter = new ObjectParameter("P_TIPO", p_TIPO);
-            }
-            else
-            {
-                p_TIPOParameter = new ObjectParameter("P_TIPO", typeof(global::System.String));
-            }
-    
-            ObjectParameter p_OBSERVACIONParameter;
-            if (p_OBSERVACION != null)
-            {
-                p_OBSERVACIONParameter = new ObjectParameter("P_OBSERVACION", p_OBSERVACION);
-            }
-            else
-            {
-                p_OBSERVACIONParameter = new ObjectParameter("P_OBSERVACION", typeof(global::System.String));
-            }
-    
-            ObjectParameter p_FECHAParameter;
-            if (p_FECHA.HasValue)
-            {
-                p_FECHAParameter = new ObjectParameter("P_FECHA", p_FECHA);
-            }
-            else
-            {
-                p_FECHAParameter = new ObjectParameter("P_FECHA", typeof(global::System.DateTime));
-            }
-    
-            ObjectParameter p_ID_USRParameter;
-            if (p_ID_USR.HasValue)
-            {
-                p_ID_USRParameter = new ObjectParameter("P_ID_USR", p_ID_USR);
-            }
-            else
-            {
-                p_ID_USRParameter = new ObjectParameter("P_ID_USR", typeof(global::System.Decimal));
-            }
-    
-            return base.ExecuteFunction("P_SD_ALTA_SD_DOCUMENTACIONES", p_ID_DOCUMENTACIONParameter, p_ID_SOCIOParameter, p_ID_CHOFERParameter, p_DOCUMENTACIONParameter, p_TIPOParameter, p_OBSERVACIONParameter, p_FECHAParameter, p_ID_USRParameter, p_RES);
         }
     
         /// <summary>
@@ -2973,103 +2815,6 @@ namespace Sindicato.Model
         /// <summary>
         /// No hay documentación de metadatos disponible.
         /// </summary>
-        /// <param name="p_ID_MOVIL">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_ID_PARADA">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_ID_CAJA">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_OBSERVACION">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_FECHA_COMPRA">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_FECHA_USO">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_MONTO">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_ID_USR">No hay documentación de metadatos disponible.</param>
-        /// <param name="p_RES">No hay documentación de metadatos disponible.</param>
-        public int P_SD_ALTA_SD_HOJAS_CONTROL(Nullable<global::System.Decimal> p_ID_MOVIL, Nullable<global::System.Decimal> p_ID_PARADA, Nullable<global::System.Decimal> p_ID_CAJA, global::System.String p_OBSERVACION, Nullable<global::System.DateTime> p_FECHA_COMPRA, Nullable<global::System.DateTime> p_FECHA_USO, Nullable<global::System.Decimal> p_MONTO, Nullable<global::System.Decimal> p_ID_USR, ObjectParameter p_RES)
-        {
-            ObjectParameter p_ID_MOVILParameter;
-            if (p_ID_MOVIL.HasValue)
-            {
-                p_ID_MOVILParameter = new ObjectParameter("P_ID_MOVIL", p_ID_MOVIL);
-            }
-            else
-            {
-                p_ID_MOVILParameter = new ObjectParameter("P_ID_MOVIL", typeof(global::System.Decimal));
-            }
-    
-            ObjectParameter p_ID_PARADAParameter;
-            if (p_ID_PARADA.HasValue)
-            {
-                p_ID_PARADAParameter = new ObjectParameter("P_ID_PARADA", p_ID_PARADA);
-            }
-            else
-            {
-                p_ID_PARADAParameter = new ObjectParameter("P_ID_PARADA", typeof(global::System.Decimal));
-            }
-    
-            ObjectParameter p_ID_CAJAParameter;
-            if (p_ID_CAJA.HasValue)
-            {
-                p_ID_CAJAParameter = new ObjectParameter("P_ID_CAJA", p_ID_CAJA);
-            }
-            else
-            {
-                p_ID_CAJAParameter = new ObjectParameter("P_ID_CAJA", typeof(global::System.Decimal));
-            }
-    
-            ObjectParameter p_OBSERVACIONParameter;
-            if (p_OBSERVACION != null)
-            {
-                p_OBSERVACIONParameter = new ObjectParameter("P_OBSERVACION", p_OBSERVACION);
-            }
-            else
-            {
-                p_OBSERVACIONParameter = new ObjectParameter("P_OBSERVACION", typeof(global::System.String));
-            }
-    
-            ObjectParameter p_FECHA_COMPRAParameter;
-            if (p_FECHA_COMPRA.HasValue)
-            {
-                p_FECHA_COMPRAParameter = new ObjectParameter("P_FECHA_COMPRA", p_FECHA_COMPRA);
-            }
-            else
-            {
-                p_FECHA_COMPRAParameter = new ObjectParameter("P_FECHA_COMPRA", typeof(global::System.DateTime));
-            }
-    
-            ObjectParameter p_FECHA_USOParameter;
-            if (p_FECHA_USO.HasValue)
-            {
-                p_FECHA_USOParameter = new ObjectParameter("P_FECHA_USO", p_FECHA_USO);
-            }
-            else
-            {
-                p_FECHA_USOParameter = new ObjectParameter("P_FECHA_USO", typeof(global::System.DateTime));
-            }
-    
-            ObjectParameter p_MONTOParameter;
-            if (p_MONTO.HasValue)
-            {
-                p_MONTOParameter = new ObjectParameter("P_MONTO", p_MONTO);
-            }
-            else
-            {
-                p_MONTOParameter = new ObjectParameter("P_MONTO", typeof(global::System.Decimal));
-            }
-    
-            ObjectParameter p_ID_USRParameter;
-            if (p_ID_USR.HasValue)
-            {
-                p_ID_USRParameter = new ObjectParameter("P_ID_USR", p_ID_USR);
-            }
-            else
-            {
-                p_ID_USRParameter = new ObjectParameter("P_ID_USR", typeof(global::System.Decimal));
-            }
-    
-            return base.ExecuteFunction("P_SD_ALTA_SD_HOJAS_CONTROL", p_ID_MOVILParameter, p_ID_PARADAParameter, p_ID_CAJAParameter, p_OBSERVACIONParameter, p_FECHA_COMPRAParameter, p_FECHA_USOParameter, p_MONTOParameter, p_ID_USRParameter, p_RES);
-        }
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
         /// <param name="p_ID_CHOFER">No hay documentación de metadatos disponible.</param>
         /// <param name="p_FECHA_INI">No hay documentación de metadatos disponible.</param>
         /// <param name="p_OBSERVACION">No hay documentación de metadatos disponible.</param>
@@ -3651,9 +3396,10 @@ namespace Sindicato.Model
         /// <param name="p_ID_CHOFER">No hay documentación de metadatos disponible.</param>
         /// <param name="p_FECHA_COMPRA">No hay documentación de metadatos disponible.</param>
         /// <param name="p_CANTIDAD">No hay documentación de metadatos disponible.</param>
+        /// <param name="p_HOJAS">No hay documentación de metadatos disponible.</param>
         /// <param name="p_USR">No hay documentación de metadatos disponible.</param>
         /// <param name="p_RES">No hay documentación de metadatos disponible.</param>
-        public int P_SD_GUARDAR_HOJA(Nullable<global::System.Decimal> p_ID_SOCIO_MOVIL, Nullable<global::System.Decimal> p_ID_PARADA, Nullable<global::System.Decimal> p_ID_CHOFER, Nullable<global::System.DateTime> p_FECHA_COMPRA, Nullable<global::System.Decimal> p_CANTIDAD, global::System.String p_USR, ObjectParameter p_RES)
+        public int P_SD_GUARDAR_HOJA(Nullable<global::System.Decimal> p_ID_SOCIO_MOVIL, Nullable<global::System.Decimal> p_ID_PARADA, Nullable<global::System.Decimal> p_ID_CHOFER, Nullable<global::System.DateTime> p_FECHA_COMPRA, Nullable<global::System.Decimal> p_CANTIDAD, global::System.String p_HOJAS, global::System.String p_USR, ObjectParameter p_RES)
         {
             ObjectParameter p_ID_SOCIO_MOVILParameter;
             if (p_ID_SOCIO_MOVIL.HasValue)
@@ -3705,6 +3451,16 @@ namespace Sindicato.Model
                 p_CANTIDADParameter = new ObjectParameter("P_CANTIDAD", typeof(global::System.Decimal));
             }
     
+            ObjectParameter p_HOJASParameter;
+            if (p_HOJAS != null)
+            {
+                p_HOJASParameter = new ObjectParameter("P_HOJAS", p_HOJAS);
+            }
+            else
+            {
+                p_HOJASParameter = new ObjectParameter("P_HOJAS", typeof(global::System.String));
+            }
+    
             ObjectParameter p_USRParameter;
             if (p_USR != null)
             {
@@ -3715,7 +3471,7 @@ namespace Sindicato.Model
                 p_USRParameter = new ObjectParameter("P_USR", typeof(global::System.String));
             }
     
-            return base.ExecuteFunction("P_SD_GUARDAR_HOJA", p_ID_SOCIO_MOVILParameter, p_ID_PARADAParameter, p_ID_CHOFERParameter, p_FECHA_COMPRAParameter, p_CANTIDADParameter, p_USRParameter, p_RES);
+            return base.ExecuteFunction("P_SD_GUARDAR_HOJA", p_ID_SOCIO_MOVILParameter, p_ID_PARADAParameter, p_ID_CHOFERParameter, p_FECHA_COMPRAParameter, p_CANTIDADParameter, p_HOJASParameter, p_USRParameter, p_RES);
         }
     
         /// <summary>
@@ -14254,6 +14010,255 @@ namespace Sindicato.Model
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Model", Name="SD_HIST_MOVIL")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SD_HIST_MOVIL : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto SD_HIST_MOVIL.
+        /// </summary>
+        /// <param name="iD_HIST">Valor inicial de la propiedad ID_HIST.</param>
+        /// <param name="iD_MOVIL">Valor inicial de la propiedad ID_MOVIL.</param>
+        /// <param name="mOVIL_ANTERIOR">Valor inicial de la propiedad MOVIL_ANTERIOR.</param>
+        /// <param name="mOVIL_NUEVO">Valor inicial de la propiedad MOVIL_NUEVO.</param>
+        public static SD_HIST_MOVIL CreateSD_HIST_MOVIL(global::System.Int32 iD_HIST, global::System.Int32 iD_MOVIL, global::System.String mOVIL_ANTERIOR, global::System.String mOVIL_NUEVO)
+        {
+            SD_HIST_MOVIL sD_HIST_MOVIL = new SD_HIST_MOVIL();
+            sD_HIST_MOVIL.ID_HIST = iD_HIST;
+            sD_HIST_MOVIL.ID_MOVIL = iD_MOVIL;
+            sD_HIST_MOVIL.MOVIL_ANTERIOR = mOVIL_ANTERIOR;
+            sD_HIST_MOVIL.MOVIL_NUEVO = mOVIL_NUEVO;
+            return sD_HIST_MOVIL;
+        }
+
+        #endregion
+
+        #region Propiedades primitivas
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_HIST
+        {
+            get
+            {
+                return _ID_HIST;
+            }
+            set
+            {
+                if (_ID_HIST != value)
+                {
+                    OnID_HISTChanging(value);
+                    ReportPropertyChanging("ID_HIST");
+                    _ID_HIST = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID_HIST");
+                    OnID_HISTChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID_HIST;
+        partial void OnID_HISTChanging(global::System.Int32 value);
+        partial void OnID_HISTChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_MOVIL
+        {
+            get
+            {
+                return _ID_MOVIL;
+            }
+            set
+            {
+                OnID_MOVILChanging(value);
+                ReportPropertyChanging("ID_MOVIL");
+                _ID_MOVIL = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ID_MOVIL");
+                OnID_MOVILChanged();
+            }
+        }
+        private global::System.Int32 _ID_MOVIL;
+        partial void OnID_MOVILChanging(global::System.Int32 value);
+        partial void OnID_MOVILChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MOVIL_ANTERIOR
+        {
+            get
+            {
+                return _MOVIL_ANTERIOR;
+            }
+            set
+            {
+                OnMOVIL_ANTERIORChanging(value);
+                ReportPropertyChanging("MOVIL_ANTERIOR");
+                _MOVIL_ANTERIOR = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MOVIL_ANTERIOR");
+                OnMOVIL_ANTERIORChanged();
+            }
+        }
+        private global::System.String _MOVIL_ANTERIOR;
+        partial void OnMOVIL_ANTERIORChanging(global::System.String value);
+        partial void OnMOVIL_ANTERIORChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MOVIL_NUEVO
+        {
+            get
+            {
+                return _MOVIL_NUEVO;
+            }
+            set
+            {
+                OnMOVIL_NUEVOChanging(value);
+                ReportPropertyChanging("MOVIL_NUEVO");
+                _MOVIL_NUEVO = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MOVIL_NUEVO");
+                OnMOVIL_NUEVOChanged();
+            }
+        }
+        private global::System.String _MOVIL_NUEVO;
+        partial void OnMOVIL_NUEVOChanging(global::System.String value);
+        partial void OnMOVIL_NUEVOChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String OBSERVACION
+        {
+            get
+            {
+                return _OBSERVACION;
+            }
+            set
+            {
+                OnOBSERVACIONChanging(value);
+                ReportPropertyChanging("OBSERVACION");
+                _OBSERVACION = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("OBSERVACION");
+                OnOBSERVACIONChanged();
+            }
+        }
+        private global::System.String _OBSERVACION;
+        partial void OnOBSERVACIONChanging(global::System.String value);
+        partial void OnOBSERVACIONChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String LOGIN
+        {
+            get
+            {
+                return _LOGIN;
+            }
+            set
+            {
+                OnLOGINChanging(value);
+                ReportPropertyChanging("LOGIN");
+                _LOGIN = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("LOGIN");
+                OnLOGINChanged();
+            }
+        }
+        private global::System.String _LOGIN;
+        partial void OnLOGINChanging(global::System.String value);
+        partial void OnLOGINChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> FECHA_REG
+        {
+            get
+            {
+                return _FECHA_REG;
+            }
+            set
+            {
+                OnFECHA_REGChanging(value);
+                ReportPropertyChanging("FECHA_REG");
+                _FECHA_REG = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FECHA_REG");
+                OnFECHA_REGChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _FECHA_REG;
+        partial void OnFECHA_REGChanging(Nullable<global::System.DateTime> value);
+        partial void OnFECHA_REGChanged();
+
+        #endregion
+
+    
+        #region Propiedades de navegación
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_HIST_MOVIL_R01", "SD_MOVILES")]
+        public SD_MOVILES SD_MOVILES
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_MOVILES>("Model.SD_HIST_MOVIL_R01", "SD_MOVILES").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_MOVILES>("Model.SD_HIST_MOVIL_R01", "SD_MOVILES").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SD_MOVILES> SD_MOVILESReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_MOVILES>("Model.SD_HIST_MOVIL_R01", "SD_MOVILES");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_MOVILES>("Model.SD_HIST_MOVIL_R01", "SD_MOVILES", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="Model", Name="SD_HOJAS_CONTROL")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -15571,6 +15576,30 @@ namespace Sindicato.Model
         private global::System.String _ESTADO;
         partial void OnESTADOChanging(global::System.String value);
         partial void OnESTADOChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TIPO
+        {
+            get
+            {
+                return _TIPO;
+            }
+            set
+            {
+                OnTIPOChanging(value);
+                ReportPropertyChanging("TIPO");
+                _TIPO = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("TIPO");
+                OnTIPOChanged();
+            }
+        }
+        private global::System.String _TIPO;
+        partial void OnTIPOChanging(global::System.String value);
+        partial void OnTIPOChanged();
 
         #endregion
 
@@ -20189,6 +20218,28 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_SOCIO_MOVILES>("Model.SD_SOCIO_MOVILES_R02", "SD_SOCIO_MOVILES", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_HIST_MOVIL_R01", "SD_HIST_MOVIL")]
+        public EntityCollection<SD_HIST_MOVIL> SD_HIST_MOVIL
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_HIST_MOVIL>("Model.SD_HIST_MOVIL_R01", "SD_HIST_MOVIL");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_HIST_MOVIL>("Model.SD_HIST_MOVIL_R01", "SD_HIST_MOVIL", value);
                 }
             }
         }

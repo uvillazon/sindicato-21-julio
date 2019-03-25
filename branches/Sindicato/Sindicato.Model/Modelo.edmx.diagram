@@ -195,6 +195,8 @@
         <edmx:AssociationConnector Association="Model.SD_DETALLES_DEUDAS_R02" />
         <edmx:EntityTypeShape EntityType="Model.SD_DETALLES_HOJAS_USO" Width="1.5" PointX="2.4679750252831609" PointY="9.03903332773551" />
         <edmx:AssociationConnector Association="Model.SD_DETALLES_HOJAS_USO_R01" />
+        <edmx:EntityTypeShape EntityType="Model.SD_HIST_MOVIL" Width="1.5" PointX="3" PointY="106.25" />
+        <edmx:AssociationConnector Association="Model.SD_HIST_MOVIL_R01" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
