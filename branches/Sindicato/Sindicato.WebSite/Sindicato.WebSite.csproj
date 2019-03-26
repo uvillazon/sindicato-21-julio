@@ -4091,12 +4091,14 @@
     <EmbeddedResource Include="Reportes\ReporteEgresosDetalle.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteEstadoResultadoPorCaja.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteEstadoResultadoPorMoneda.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteGlobalIngresos.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteHojas.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteHojasDetalle.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteHojav1.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteIngreso.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteIngresosDetalle.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteIngresosDetallePorCaja.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteIngresosFechasDetalle.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteKardexHojaSocio.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteMatrizHojas.rdlc" />
     <EmbeddedResource Include="Reportes\ReportePagoPrestamo.rdlc" />

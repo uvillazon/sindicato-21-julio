@@ -66,11 +66,11 @@ namespace Sindicato.WebSite.Controllers
 
         }
         [HttpPost]
-        public JsonResult GuardarVenta(SD_HOJAS_CONTROL venta, int CANTIDAD)
+        public JsonResult GuardarVenta(SD_HOJAS_CONTROL venta, int CANTIDAD, string HOJAS)
         {
             string login = User.Identity.Name.Split('-')[0];
             RespuestaSP respuestaSP = new RespuestaSP();
-            respuestaSP = _serven.GuardarVentaHoja(venta, CANTIDAD, login);
+            respuestaSP = _serven.GuardarVentaHoja(venta, CANTIDAD, HOJAS,login);
             return Json(respuestaSP);
         }
         [HttpPost]

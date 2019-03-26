@@ -5,7 +5,9 @@
     listeners: {
         boxready: function (form) {
             var me = this;
-            me.cargarFechasInicioFinCant(new Date());
+            if (Constantes.HOJAS == "MES") {
+                me.cargarFechasInicioFinCant(new Date());
+            }
         }
     },
     cargarFechasInicioFinCant: function (dt) {
@@ -21,8 +23,14 @@
     },
     initComponent: function () {
         var me = this;
-        me.CargarComponentes();
-        me.cargarEventos();
+        if (Constantes.HOJAS == "MES") {
+            me.CargarComponentes();
+            me.cargarEventos();
+        }
+        else {
+            me.CargarComponentesDia();
+            me.cargarEventosDia();
+        }
         this.callParent(arguments);
     },
     cargarEventos: function () {
@@ -63,31 +71,43 @@
                     });
                 }
             });
-            //if (rec[0].get('DEBE_HOJA') > 0) {
-            //    Ext.Msg.alert("Aviso", "Debe  " + rec[0].get('DEBE_HOJA') + " Hojas de Meses Pasados , Regularizar ");
-            //}
-            //else {
-            //    me.txt_socio.setValue(rec[0].get('NOMBRE_SOCIO'));
-            //    me.txt_nor_movil.setValue(rec[0].get('NRO_MOVIL'));
-            //    me.txt_id_socio.setValue(rec[0].get('ID_SOCIO_MOVIL'));
-            //    if (rec[0].get('PRECIO_HOJA') == 0) {
-            //        Ext.Msg.alert("Aviso", "No tiene Configurado su Costo de Hoja Por favor Configurar.", function () {
-            //            me.num_precio.reset();
-            //        });
-            //    }
-            //    else {
-            //        me.num_precio.setValue(rec[0].get('PRECIO_HOJA'));
-            //    }
-            //}
-
-            //var fecha = me.date_fecha.getValue();
-            //me.gridHojas.getStore().removeAll();
-            //me.CalcularTotales();
-            //me.cbx_diasDisponibles.getStore().load({ params: { FECHA_VENTA: fecha, ID_SOCIO_MOVIL: rec[0].get('ID_SOCIO_MOVIL'), NRO_MOVIL: rec[0].get('NRO_MOVIL') } });
         });
 
 
 
+    },
+
+    cargarEventosDia: function () {
+        var me = this;
+        me.cbx_socio.on('select', function (cbx, rec) {
+            Funciones.AjaxRequest("VentaHojas", "Verificar", me, { ID_SOCIO_MOVIL: rec[0].get('ID_SOCIO_MOVIL') }, function (res) {
+                //console.log(res);
+                if (res.success) {
+                    me.txt_socio.setValue(rec[0].get('NOMBRE_SOCIO'));
+                    me.txt_nor_movil.setValue(rec[0].get('NRO_MOVIL'));
+                    me.txt_id_socio.setValue(rec[0].get('ID_SOCIO_MOVIL'));
+                    if (rec[0].get('PRECIO_HOJA') == 0) {
+                        Ext.Msg.alert("Aviso", "No tiene Configurado su Costo de Hoja Por favor Configurar.", function () {
+                            me.num_precio.reset();
+                        });
+                    }
+                    else {
+                        me.num_precio.setValue(rec[0].get('PRECIO_HOJA'));
+                        //    }
+                    }
+                }
+                else {
+                    Ext.Msg.alert("Aviso", res.msg, function () {
+                        me.txt_socio.reset();
+                        me.txt_nor_movil.reset();
+                        me.txt_id_socio.reset();
+                        me.num_precio.reset();
+                        cbx.focus();
+                    });
+                }
+            });
+
+        });
     },
 
     isValid: function () {
@@ -103,6 +123,11 @@
 
     CargarComponentes: function () {
         var me = this;
+
+        me.txt_tipo_hoja = Ext.widget('hiddenfield', {
+            name: 'HOJAS',
+            value: Constantes.HOJAS
+        });
 
         me.txt_id_caja = Ext.widget('hiddenfield', {
             name: 'ID_CAJA',
@@ -158,38 +183,6 @@
             readOnly: true,
         });
 
-
-
-        //me.txt_parada = Ext.create("App.Config.Componente.TextFieldBase", {
-        //    fieldLabel: "Parada",
-        //    name: "PARADA",
-        //    readOnly: true,
-        //    afterLabelTextTpl: Constantes.REQUERIDO,
-        //    allowBlank: false,
-        //    value: Constantes.Usuario.Parada
-        //});
-        //me.store_parada = Ext.create('App.Store.Paradas.Paradas');
-
-        //me.cbx_parada = Ext.create("App.Config.Componente.ComboAutoBase", {
-        //    fieldLabel: "Parada",
-        //    name: "ID_PARADA",
-        //    displayField: 'NOMBRE',
-        //    store: me.store_parada,
-        //    readOnly: Constantes.Usuario.ID_PARADA != 0 ? true : false,
-        //    textoTpl: function () { return "{NOMBRE} - {DESCRIPCION}  , Resp : {RESPONSABLE}" }
-        //});
-
-        //me.txt_caja = Ext.create("App.Config.Componente.TextFieldBase", {
-        //    fieldLabel: "Parada/Caja",
-        //    labelWidth: 70,
-        //    name: "CAJA",
-        //    colspan: 2,
-        //    width: 480,
-        //    readOnly: true,
-        //    afterLabelTextTpl: Constantes.REQUERIDO,
-        //    allowBlank: false,
-        //    value: Constantes.Usuario.Caja
-        //});
         me.store_socio = Ext.create('App.Store.Socios.Socios');
 
         me.cbx_socio = Ext.create("App.Config.Componente.ComboAutoBase", {
@@ -250,6 +243,7 @@
             //allowBlank: false
         });
         me.items = [
+            me.txt_tipo_hoja,
             me.txt_id_caja, me.txt_id_socio,
             me.txt_id_parada,
             me.date_fecha,
@@ -266,6 +260,105 @@
 
 
     },
+
+    CargarComponentesDia: function () {
+        var me = this;
+
+        me.txt_tipo_hoja = Ext.widget('hiddenfield', {
+            name: 'HOJAS',
+            value: Constantes.HOJAS
+        });
+
+        me.txt_id_caja = Ext.widget('hiddenfield', {
+            name: 'ID_CAJA',
+            value: Constantes.Usuario.ID_CAJA
+        });
+        me.txt_id_socio = Ext.widget('hiddenfield', {
+            name: 'ID_SOCIO_MOVIL',
+        });
+        me.txt_id_parada = Ext.widget('hiddenfield', {
+            name: "ID_PARADA",
+            hidden: true,
+            value: 1
+        });
+        me.date_fecha = Ext.create("App.Config.Componente.DateFieldBase", {
+            fieldLabel: "Fecha Compra",
+            name: "FECHA_COMPRA",
+            colspan: 2,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+        });
+
+
+        me.store_socio = Ext.create('App.Store.Socios.Socios');
+
+        me.cbx_socio = Ext.create("App.Config.Componente.ComboAutoBase", {
+            fieldLabel: "Nro Movil",
+            name: "ID_SOCIO_1",
+            displayField: 'NRO_MOVIL',
+            store: me.store_socio,
+            //colspan: 2,
+            textoTpl: function () { return "Nro Movil :{NRO_MOVIL} - {NOMBRE} {APELLIDO_PATERNO} {APELLIDO_MATERNO}" }
+        });
+        me.txt_nor_movil = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Nro. Movil",
+            name: "NRO_MOVIL",
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            //colspan: 2,
+            //width: ,
+            readOnly: true,
+        });
+        me.txt_socio = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Socio",
+            name: "SOCIO",
+            colspan: 2,
+            width: 480,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            readOnly: true,
+        });
+
+        me.num_cantidad = Ext.create("App.Config.Componente.NumberFieldBase", {
+            fieldLabel: "Cantidad",
+            name: "CANTIDAD",
+            maxValue: 999999999,
+            minValue: 1,
+            value: 1,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+        });
+        me.num_precio = Ext.create("App.Config.Componente.NumberFieldBase", {
+            fieldLabel: "Precio",
+            name: "MONTO",
+            //value: 25,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            readOnly: true
+        });
+        me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
+            fieldLabel: "Observaciones",
+            name: "OBSERVACION",
+            width: 480,
+            maxLength: 500,
+            colspan: 2,
+        });
+        me.items = [
+            me.txt_tipo_hoja,
+            me.txt_id_caja, me.txt_id_socio,
+            me.txt_id_parada,
+            me.date_fecha,
+            me.cbx_socio, me.txt_nor_movil,
+            me.txt_socio,
+            me.num_precio,
+            me.num_cantidad
+
+        ];
+
+
+
+    },
+
     ImprimirHojas: function (id) {
 
         var ruta = fn.ObtenerUrlReportPDF("ReporteHojas", "ID_VENTA=" + id);

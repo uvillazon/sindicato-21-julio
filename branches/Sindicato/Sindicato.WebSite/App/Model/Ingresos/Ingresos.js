@@ -9,6 +9,7 @@
             { type: "string", name: "OBSERVACION" },
             { type: "string", name: "CONCEPTO" },
             { type: "string", name: "LOGIN" },
-            { type: "string", name: "CAJA" }
+            { type: "string", name: "CAJA" },
+            { type: "string", name: "TIPO" }
         ]
 });

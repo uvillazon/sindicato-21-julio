@@ -31,8 +31,9 @@ Ext.define("App.Config.Constantes", {
     CONFIG_PRECIO_VENTA_DIS: 3.72,
     CONFIG_PRECIO_COSTO_GAS: 3.52,
     CONFIG_PRECIO_COSTO_DIS: 3.54,
-    CONFIG_CUENTA_VENTA: 2,
-    CONFIG_DIAS_AUTOS_REEMPLAZO : 30,
+    CONFIG_CUENTA_VENTA: 1,
+    CONFIG_DIAS_AUTOS_REEMPLAZO: 30,
+    HOJAS : 'DIA',  //Parametro que define la cantidad de hojas DIA , SEMANA o MENSUAL
     UnidadesRequeridas: function (unidad, requerido) {
         if (requerido) {
             return '<span style="color:red;font-weight:bold" data-qtip="Requerido">*</span><span style="color:blue" data-qtip="Requerido">[' + unidad + ']</span>';

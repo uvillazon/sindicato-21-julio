@@ -173,9 +173,7 @@
         <edmx:EntityTypeShape EntityType="Model.SD_DETALLE_CIERRES_AHORRO" Width="1.5" PointX="3.4127243884898366" PointY="2.4523058694099569" />
         <edmx:AssociationConnector Association="Model.SD_DETALLE_CIERRES_AHORRO_R01" />
         <edmx:EntityTypeShape EntityType="Model.SD_EGRESOS" Width="1.5" PointX="9.1878451878148351" PointY="31.333875432300324" />
-        <edmx:EntityTypeShape EntityType="Model.SD_INGRESOS" Width="1.5" PointX="6.8606287198423548" PointY="21.26980854071202" />
         <edmx:AssociationConnector Association="Model.SD_EGRESOS_R01" />
-        <edmx:AssociationConnector Association="Model.SD_INGRESOS_R01" />
         <edmx:AssociationConnector Association="Model.SD_EGRESOS_R02" />
         <edmx:EntityTypeShape EntityType="Model.SD_TRANSF_HOJA_DET" Width="1.5" PointX="8.125" PointY="10.75" />
         <edmx:EntityTypeShape EntityType="Model.SD_TRANSFERENCIAS_HOJAS" Width="2.5" PointX="11.375" PointY="25.125" />
@@ -195,9 +193,11 @@
         <edmx:AssociationConnector Association="Model.SD_DETALLES_DEUDAS_R02" />
         <edmx:EntityTypeShape EntityType="Model.SD_DETALLES_HOJAS_USO" Width="1.5" PointX="2.4679750252831609" PointY="9.03903332773551" />
         <edmx:AssociationConnector Association="Model.SD_DETALLES_HOJAS_USO_R01" />
-        <edmx:EntityTypeShape EntityType="Model.SD_HIST_MOVIL" Width="1.5" PointX="3" PointY="106.25" />
+        <edmx:EntityTypeShape EntityType="Model.SD_INGRESOS" Width="1.5" PointX="8.4666378798273563" PointY="29.803413136770676" />
+        <edmx:AssociationConnector Association="Model.SD_INGRESOS_R01" />
+        <edmx:EntityTypeShape EntityType="Model.SD_HIST_MOVIL" Width="1.5" PointX="11.585267867699857" PointY="22.574376832029959" />
         <edmx:AssociationConnector Association="Model.SD_HIST_MOVIL_R01" />
-        </edmx:Diagram>
+      </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
