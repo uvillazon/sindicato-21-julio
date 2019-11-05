@@ -4072,6 +4072,7 @@
     <EmbeddedResource Include="Reportes\ReporteEstadoResultadoPorCaja.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteIngresosDetalle.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteIngresosDetallePorCaja.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteKardexSocioMovil.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteMatrizHojas.rdlc" />
     <EmbeddedResource Include="Reportes\ReportePagoPrestamo.rdlc" />
     <EmbeddedResource Include="Reportes\ReportePrestamo.rdlc" />

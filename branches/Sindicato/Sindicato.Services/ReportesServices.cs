@@ -1718,5 +1718,23 @@ namespace Sindicato.Services
             return result;
         }
 
+        public IEnumerable<SocioReporteKardexMovil> ReporteKardexMovilSocio(int ID_SOCIO_MOVIL)
+        {
+            List<SocioReporteKardexMovil> result = new List<SocioReporteKardexMovil>();
+            return result;
+        }
+        public IEnumerable<KardexMovilReporte> ReporteKardexMovil() {
+            List<KardexMovilReporte> result = new List<KardexMovilReporte>();
+            return result;
+         
+        }
+
+        public IEnumerable<KardexNroMovilReporte> ReporteKardexNroMovil()
+        {
+            List<KardexNroMovilReporte> result = new List<KardexNroMovilReporte>();
+            return result;
+
+        }
+
     }
 }

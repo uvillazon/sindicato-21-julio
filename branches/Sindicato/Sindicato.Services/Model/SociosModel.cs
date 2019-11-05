@@ -15,6 +15,10 @@ namespace Sindicato.Services.Model
         public string NOMBRE { get; set; }
         public string APELLIDO_PATERNO { get; set; }
         public string APELLIDO_MATERNO { get; set; }
+        public string ESTADO_CIVIL { get; set; }
+        public string CELULAR { get; set; }
+
+        public string TELEFONO { get; set; }
         public int? NRO_LICENCIA { get; set; }
         public int? CI { get; set; }
         public DateTime? FECHA_NAC { get; set; }
