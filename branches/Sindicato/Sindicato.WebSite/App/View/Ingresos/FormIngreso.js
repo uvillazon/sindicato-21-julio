@@ -39,6 +39,13 @@
             colspan: 2
         });
 
+        me.txt_tipo = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Tipo Ingreso",
+            name: "TIPO_INGRESO",
+            width: 480,
+            colspan: 2
+        });
+
         me.txt_caja = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Caja",
             name: "CAJA",
@@ -62,6 +69,7 @@
         });
         me.items = [
             me.txt_nro_recibo, me.date_fecha,
+            me.txt_tipo,
             me.txt_concepto,
             me.txt_caja,
             me.txt_observacion,
@@ -83,6 +91,8 @@
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false
         });
+
+       
         me.txt_concepto = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Concepto",
             name: "CONCEPTO",
@@ -92,6 +102,21 @@
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false
         });
+
+
+        me.store_tipo = Ext.create('App.Store.Listas.StoreLista');
+        me.store_tipo.setExtraParam('ID_LISTA', Lista.Buscar('TIPO_INGRESO'));
+        me.cbx_tipo = Ext.create("App.Config.Componente.ComboBase", {
+            fieldLabel: "Tipo Ingreso",
+            name: "TIPO_INGRESO",
+            displayField: 'VALOR',
+            width: 480,
+            colspan: 2,
+            store: me.store_tipo,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false
+        });
+
         me.store_caja = Ext.create('App.Store.Cajas.Cajas');
         me.store_caja.setExtraParams(me.paramsStore);
         me.cbx_caja = Ext.create("App.Config.Componente.ComboAutoBase", {
@@ -142,6 +167,7 @@
 
         me.items = [
             me.txt_nro_recibo, me.date_fecha,
+            me.cbx_tipo,
             me.txt_concepto,
             me.cbx_caja,
             me.num_saldo, me.num_nuevoSaldo,

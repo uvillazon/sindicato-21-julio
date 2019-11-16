@@ -2168,7 +2168,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Jhamila Martinez</Value>
+                <Value />
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>12pt</FontSize>
@@ -2342,7 +2342,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>REPORTE DIARIO DE INGRESOS Y EGRESOS LINEA 132</Value>
+                  <Value>REPORTE DIARIO DE INGRESOS Y EGRESOS LINEA 131</Value>
                   <Style>
                     <FontWeight>Heavy</FontWeight>
                   </Style>
@@ -2354,7 +2354,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox7</rd:DefaultName>
-          <Top>0.49953cm</Top>
+          <Top>0.46426cm</Top>
           <Left>4.89162cm</Left>
           <Height>0.6cm</Height>
           <Width>12.73937cm</Width>

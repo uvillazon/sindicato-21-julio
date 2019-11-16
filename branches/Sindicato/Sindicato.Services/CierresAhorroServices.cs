@@ -141,6 +141,9 @@ namespace Sindicato.Services
                 var managerHojas = new SD_HOJAS_CONTROLManager(uow);
                 var managerReg = new SD_REGULARIZACIONESManager(uow);
                 var managerOblig = new SD_OBLIGACIONES_HOJAManager(uow);
+                var managetDetalleHoja = new SD_DETALLES_HOJAS_CONTROLManager(uow);
+                var managerDetalleRegulacion = new SD_DETALLES_REGULARIZACIONESManager(uow);
+
                 decimal? cant_hojas = 0;
                 decimal? cant_regulaciones = 0;
                 decimal? ahorro_hojas = 0;
@@ -156,7 +159,7 @@ namespace Sindicato.Services
                 //msg = "";
                 var sociosMovil = managerSociosMovil.BuscarTodos(x => x.ESTADO == "ACTIVO");
                 var obligAhorro = managerOblig.BuscarTodos(x => x.OBLIGACION == "AHORRO").FirstOrDefault();
-                
+                var estado = "NUEVO";
                 if (sociosMovil.Count() > 0)
                 {
                     foreach (var item1 in sociosMovil)
@@ -169,18 +172,25 @@ namespace Sindicato.Services
                         cant_hojas = cant_hojas + cant_hojas_mov;
                         cant_regulaciones_mov = item1.SD_REGULARIZACIONES.Where(x => x.ESTADO == "NUEVO" && x.FECHA_COMPRA >= FECHA_INI && x.FECHA_COMPRA < fecha_fin).Sum(x => x.CANTIDAD);
                         cant_regulaciones = cant_regulaciones + cant_regulaciones_mov;
-                        var detalleHojas = item1.SD_HOJAS_CONTROL.Where(x => x.ESTADO == "NUEVO" && x.FECHA_COMPRA >= FECHA_INI && x.FECHA_COMPRA < fecha_fin);
-                        foreach (var det in detalleHojas)
-                        {
-                            ahorro_hojas_mov = ahorro_hojas_mov + det.SD_DETALLES_HOJAS_CONTROL.Where(x => x.OBLIGACION == "AHORRO").Sum(x => x.IMPORTE);
-                            ahorro_hojas = ahorro_hojas + ahorro_hojas_mov;
-                        }
-                        var detalleReg = item1.SD_REGULARIZACIONES.Where(x => x.ESTADO == "NUEVO" && x.FECHA_COMPRA >= FECHA_INI && x.FECHA_COMPRA < fecha_fin);
-                        foreach (var reg in detalleReg)
-                        {
-                            ahorro_regulaciones_mov = ahorro_regulaciones_mov + reg.SD_DETALLES_REGULARIZACIONES.Where(x => x.OBLIGACION == "AHORRO").Sum(x => x.IMPORTE);
-                            ahorro_regulaciones = ahorro_regulaciones + ahorro_regulaciones_mov;
-                        }
+
+                        ahorro_hojas_mov = managetDetalleHoja.BuscarTodos(x => x.SD_HOJAS_CONTROL.ID_SOCIO_MOVIL == item1.ID_SOCIO_MOVIL && x.SD_HOJAS_CONTROL.FECHA_COMPRA >= FECHA_INI && x.SD_HOJAS_CONTROL.FECHA_COMPRA < fecha_fin && x.SD_HOJAS_CONTROL.ESTADO == estado && x.OBLIGACION == "AHORRO").Sum(y => y.IMPORTE);
+                        ahorro_hojas_mov = ahorro_hojas_mov == null ? 0 : ahorro_hojas_mov;
+
+                        //var detalleHojas = item1.SD_HOJAS_CONTROL.Where(x => x.ESTADO == "NUEVO" && x.FECHA_COMPRA >= FECHA_INI && x.FECHA_COMPRA < fecha_fin);
+                        //foreach (var det in detalleHojas)
+                        //{
+                        //    ahorro_hojas_mov = ahorro_hojas_mov + det.SD_DETALLES_HOJAS_CONTROL.Where(x => x.OBLIGACION == "AHORRO").Sum(x => x.IMPORTE);
+                        //    ahorro_hojas = ahorro_hojas + ahorro_hojas_mov;
+                        //}
+                        //var detalleReg = item1.SD_REGULARIZACIONES.Where(x => x.ESTADO == "NUEVO" && x.FECHA_COMPRA >= FECHA_INI && x.FECHA_COMPRA < fecha_fin);
+                        //foreach (var reg in detalleReg)
+                        //{
+                        //    ahorro_regulaciones_mov = ahorro_regulaciones_mov + reg.SD_DETALLES_REGULARIZACIONES.Where(x => x.OBLIGACION == "AHORRO").Sum(x => x.IMPORTE);
+                        //    ahorro_regulaciones = ahorro_regulaciones + ahorro_regulaciones_mov;
+                        //}
+
+                        ahorro_regulaciones_mov = managerDetalleRegulacion.BuscarTodos(x => x.SD_REGULARIZACIONES.ID_SOCIO_MOVIL == item1.ID_SOCIO_MOVIL && x.SD_REGULARIZACIONES.FECHA_COMPRA >= FECHA_INI && x.SD_REGULARIZACIONES.FECHA_COMPRA < fecha_fin && x.SD_REGULARIZACIONES.ESTADO == estado && x.OBLIGACION == "AHORRO").Sum(y => y.IMPORTE);
+                        ahorro_regulaciones_mov = ahorro_regulaciones_mov == null ? 0 : ahorro_regulaciones_mov;
                         //msg = string.Format("{0}  Movil : {1}  Hojas => {2} ,Ahorro Por Hojas => {3} , Regulaciones => {4} , Ahorro por Regulacion => {5}", msg, item1.SD_MOVILES.NRO_MOVIL, cant_hojas_mov, ahorro_hojas_mov, cant_regulaciones_mov, ahorro_regulaciones_mov);
                         CierreAhorroSocioMovilModel res = new CierreAhorroSocioMovilModel()
                         {

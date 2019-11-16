@@ -759,7 +759,6 @@
                       </Style>
                     </Textbox>
                     <ColSpan>2</ColSpan>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell />
@@ -797,7 +796,6 @@
                         <PaddingBottom>1pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -834,7 +832,6 @@
                         <PaddingBottom>1pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -871,7 +868,6 @@
                         <PaddingBottom>1pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -913,7 +909,7 @@
         <Top>0.31433cm</Top>
         <Left>0.24302cm</Left>
         <Height>1.92608cm</Height>
-        <Width>19.11167cm</Width>
+        <Width>19.11168cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -938,7 +934,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>REPORTE AHORROS Y RETIROS POR MOVIL LINEA 132</Value>
+                  <Value>REPORTE AHORROS Y RETIROS POR MOVIL LINEA 131</Value>
                   <Style>
                     <FontWeight>Heavy</FontWeight>
                   </Style>

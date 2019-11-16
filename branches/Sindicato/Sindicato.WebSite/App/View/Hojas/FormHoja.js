@@ -171,7 +171,7 @@
             fieldLabel: "Cantidad",
             name: "CANTIDAD",
             //allowDecimals: true,
-            maxValue: 999999999,
+            maxValue: 26,
             minValue: 1,
             value: 1,
             //            colspan : 2,

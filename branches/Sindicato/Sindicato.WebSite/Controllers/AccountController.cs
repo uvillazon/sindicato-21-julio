@@ -33,7 +33,7 @@ namespace Sindicato.WebSite.Controllers
         {
             TestOracleConexion testConexion = new TestOracleConexion();
             testConexion.CadenaConexion = ConfigurationManager.ConnectionStrings["SindicatoContext"].ConnectionString;
-            string resultado = testConexion.TestConnection("SINDICATO_132", "Sindicato");
+            string resultado = testConexion.TestConnection("SINDICATO_131", "Sindicato");
             if (resultado == "true")
             {
                 var managerUsuario = new UsuariosServices();

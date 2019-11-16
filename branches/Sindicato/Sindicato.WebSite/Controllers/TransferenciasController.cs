@@ -33,6 +33,7 @@ namespace Sindicato.WebSite.Controllers
                 ID_INGRESO = x.ID_INGRESO,
                 ID_CAJA = x.ID_CAJA,
                 CAJA = x.SD_CAJAS.NOMBRE,
+                TIPO_INGRESO = x.TIPO_INGRESO,
                 FECHA = x.FECHA,
                 FECHA_REG = x.FECHA_REG,
                 IMPORTE = x.IMPORTE,

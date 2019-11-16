@@ -2659,7 +2659,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>REPORTE DIARIO DE INGRESOS POR HOJA DETALLE LINEA 132</Value>
+                  <Value>REPORTE DIARIO DE INGRESOS POR HOJA DETALLE LINEA 131</Value>
                   <Style>
                     <FontWeight>Heavy</FontWeight>
                   </Style>
@@ -2671,7 +2671,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox7</rd:DefaultName>
-          <Top>0.36146cm</Top>
+          <Top>0.32618cm</Top>
           <Height>0.6cm</Height>
           <Width>19.11553cm</Width>
           <Style>
