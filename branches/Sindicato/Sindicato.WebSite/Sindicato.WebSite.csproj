@@ -410,6 +410,13 @@
     <Content Include="App\View\CierreCaja\GridCierres.js" />
     <Content Include="App\View\CierreCaja\GridDetalles.js" />
     <Content Include="App\View\CierreCaja\Principal.js" />
+    <Content Include="App\View\Sgaf\Controller\GridImportarFacturaController.js" />
+    <Content Include="App\View\Sgaf\GridTransferenciasHojas.js" />
+    <Content Include="App\View\Sgaf\Model\Sgaf.js" />
+    <Content Include="App\View\Sgaf\Principal.js" />
+    <Content Include="App\View\Sgaf\Store\Sgaf.js" />
+    <Content Include="App\View\Sgaf\View\GridImportarFactura.js" />
+    <Content Include="App\View\Sgaf\View\Principal.js" />
     <Content Include="App\View\TransferenciasHojas\GridTransferenciasHojas.js" />
     <Content Include="App\View\TransferenciasHojas\Principal.js" />
     <Content Include="App\View\Prestamos\FormMora.js" />
