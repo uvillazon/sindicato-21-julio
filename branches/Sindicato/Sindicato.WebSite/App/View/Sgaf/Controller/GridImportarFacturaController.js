@@ -5,8 +5,8 @@
             boxready: "loadInitialData",
             cellclick: "onCellClick",
             viewready: "onViewReady",
-            
-           
+
+
         },
         btn_validar: {
             click: 'onBtnValidar'
@@ -16,35 +16,89 @@
         },
         btn_limpiar: {
             click: 'onBtnLimpiar'
+        },
+        btn_select_error: {
+            click: 'onBtnSelectError'
+        },
+        btn_eliminar_seleccionado: {
+            click: 'onBtnEliminarSeleccionados'
         }
-      
+
     },
     gRow: -1,
     init: function () {
         return this.callParent(arguments);
     },
+    onBtnEliminarSeleccionados: function () {
+        var me = this;
+        me.getView().getStore().remove(me.getView().getSelectionModel().getSelection());
+        //alert("1");
+        me.getView().getView().refresh();
+    },
+    getSelectRecordError: function () {
+        var me = this;
+        records = [];
+        me.getView().getStore().each(function (record) {
+            if (record.get('ID_STATUS') === 2) {
+                records.push(record);
+            }
+        });
+        return records;
+    },
+    onBtnSelectError: function () {
+        var me = this;
+        me.getView().getSelectionModel().select(me.getSelectRecordError());
+        
+    },
+    actualizarStore: function (data) {
+        var me = this;
+        Ext.each(data, function (res) {
+            var index = me.getView().getStore().find('ID', res.ID);
+            var record = me.getView().getStore().getAt(index);
+            record.set('ID_STATUS', res.ID_STATUS);
+            record.set('RESULTADO', res.RESULTADO);
+        });
+    },
     onBtnValidar: function () {
         var me = this;
         var recs = me.convertirJson();
         me.getView().setLoading(true);
-        me.getRequest("Controller", "Metodo", "POST", { detalles: recs}).then({
+        me.getRequest("Sgaf", "VerificarSgaf", "POST", { detalles: recs }).then({
             success: function (res) {
-                console.log(res);
+                Ext.Msg.alert("Exito", res.msg, function () {
+                    me.actualizarStore(res.data);
+                });
+
             },
             failure: function (errorMessage) {
-                Ext.Msg.alert("Error", errorMessage, function () {
-                    me.getView().getStore().removeAll();
-                });
+                Ext.Msg.alert("Error", errorMessage);
             }
         }).always(function () {
             return me.getView().setLoading(false);
         });
 
-        console.log(recs);
-        console.log("validarr");
     },
     onBtnProcesar: function () {
-        console.log("procesar");
+        var me = this;
+        records = me.getSelectRecordError();
+        if (records.length > 0) {
+            return Ext.Msg.alert("Error", "solo se envia registros validos");
+        }
+        var recs = me.convertirJson();
+        me.getView().setLoading(true);
+        me.getRequest("Sgaf", "procesarSgaf", "POST", { detalles: recs }).then({
+            success: function (res) {
+                Ext.Msg.alert("Exito", res.msg, function () {
+                    me.onBtnLimpiar();
+                });
+
+            },
+            failure: function (errorMessage) {
+                Ext.Msg.alert("Error", errorMessage);
+            }
+        }).always(function () {
+            return me.getView().setLoading(false);
+        });
     },
     onBtnLimpiar: function () {
         console.log("limpiar");
@@ -63,7 +117,6 @@
     },
     onViewReady: function (grid) {
         var me = this;
-        console.log("desde el controller");
         var map = new Ext.KeyMap(grid.getEl(),
               [{
                   key: "c",
@@ -102,14 +155,12 @@
                   key: "v",
                   ctrl: true,
                   fn: function () {
-                      console.log("entro");
                       var ta = document.createElement('textarea');
                       ta.id = 'cliparea';
                       ta.style.position = 'absolute';
                       ta.style.left = '-1000px';
                       ta.style.top = '-1000px';
                       ta.value = '';
-
                       document.body.appendChild(ta);
                       document.designMode = 'off';
 
@@ -152,8 +203,6 @@
     },
     getRecsFromCsv: function (grid, ta) {
         var me = this;
-        console.log("getREcsFromCvs");
-        console.log(me.getView());
         document.body.removeChild(ta);
         var del = '';
         if (ta.value.indexOf("\r\n")) {
@@ -162,18 +211,14 @@
             del = "\n"
         }
         var rows = ta.value.split("\n");
-        console.log(rows);
-        console.log(rows.length);
 
         for (var i = 0; i < rows.length; i++) {
             var cols = rows[i].split("\t");
             var columns = grid.columns;
-            console.log(cols.length);
-            console.log(columns.length);
             if (cols.length > columns.length)
                 cols = cols.slice(0, columns.length - 1)
             if (me.gRow === -1) {
-                Ext.Msg.alert('Error','seleccionar una selda y  pegar ');
+                Ext.Msg.alert('Error', 'seleccionar una selda y  pegar ');
                 return;
             }
             var cfg = {};
@@ -190,7 +235,7 @@
                 if (cols[j] === "") {
                     return;
                 }
-                cfg[columns[j].dataIndex] = cols[j];
+                cfg[columns[j + 1].dataIndex] = cols[j];
             }
             me.getView().storeInitialCount++;
             cfg['id'] = me.getView().storeInitialCount;
@@ -210,7 +255,7 @@
     },
     convertirJson: function () {
         var me = this;
-        var modified = me.getView().getStore().getModifiedRecords(); 
+        var modified = me.getView().getStore().getModifiedRecords();
         var recordsToSend = [];
         if (!Ext.isEmpty(modified)) {
             Ext.each(modified, function (record) { //step 2
@@ -224,7 +269,7 @@
         }
 
     },
-   
+
     getRequest: function (controlador, accion, method, params) {
         var method = method === null ? 'POST' : method;
         var deferred = Ext.create('Deft.promise.Deferred');

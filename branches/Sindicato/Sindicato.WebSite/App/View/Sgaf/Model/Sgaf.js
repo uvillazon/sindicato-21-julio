@@ -1,8 +1,13 @@
 ﻿Ext.define('App.View.Sgaf.Model.Sgaf', {
     extend: 'Ext.data.Model',
     fields: [
-        { type: "string", name: "ID_LINEA" },
-        { type: "string", name: "ID_STATUS" },
+        {
+            type: "string", name: "ID", convert: function (v,record) {
+                return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+            }
+        },
+        { type: "int", name: "ID_LINEA" },
+        { type: "int", name: "ID_STATUS", defaultValue: 0 },
         { type: "string", name: "FECHA_CONTABILIDAD" },
         { type: "string", name: "TIPO_CONTABILIZACION" },
         { type: "string", name: "IDPROVEEDOR" },
