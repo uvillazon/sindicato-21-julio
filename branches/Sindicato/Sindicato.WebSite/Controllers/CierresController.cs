@@ -149,6 +149,7 @@ namespace Sindicato.WebSite.Controllers
                 SALDO = x.SALDO,
                 CAJA = x.SD_CAJAS.CODIGO,
                 MONEDA = x.SD_CAJAS.MONEDA,
+                NOMBRE = x.SD_CAJAS.NOMBRE,
                 ID_CAJA = x.ID_CAJA,
                 FECHA_REG = x.FECHA_REG,
                 ID_DETALLE = x.ID_DETALLE,

@@ -2,7 +2,7 @@
     extend: 'App.Config.Abstract.Store',
     model: 'App.Model.Cajas.Kardex',
     url: 'Cajas/ObtenerKardexEfectivoPaginado',
-    sortProperty: 'ID_KARDEX',
+    sortProperty: 'FECHA',
     sortDirection: 'DESC',
     pageSize : 15,
 });

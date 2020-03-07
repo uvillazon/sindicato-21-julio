@@ -69,7 +69,8 @@
         me.formReporte = Ext.create("App.Config.Abstract.Form", { botones: false, title: "Generar Reporte", columns: 2 });
         me.store_tipo_reporte = Ext.create('App.Store.Listas.StoreLista');
         me.store_tipo_reporte.setExtraParam('ID_LISTA', Lista.Buscar('REPORTES'));
-
+        me.store_tipo_reporte.setExtraParam('ESTADO', 'A');
+        me.store_tipo_reporte.load();
         me.cbx_reporte = Ext.create("App.Config.Componente.ComboBase", {
             fieldLabel: "Reporte",
             name: "REPORTE",

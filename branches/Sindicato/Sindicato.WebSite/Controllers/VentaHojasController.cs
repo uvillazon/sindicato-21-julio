@@ -32,6 +32,7 @@ namespace Sindicato.WebSite.Controllers
             {
                 NUMERO = l.ID_HOJA,
                 ID_HOJA = l.ID_HOJA,
+                ID_VENTA = l.SD_VENTA_HOJAS.FirstOrDefault() == null ? 0 : l.SD_VENTA_HOJAS.FirstOrDefault().ID_VENTA,
                 NRO_HOJA = l.NRO_HOJA,
                 NRO_MOVIL = l.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
                 SOCIO = string.Format("{0} {1} {2}", l.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE, l.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO, l.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_MATERNO),
@@ -112,6 +113,52 @@ namespace Sindicato.WebSite.Controllers
                 FECHA_FIN = endDate.ToString("dd/MM/yyyy"),
                 CANTIDAD = endDate.Day
             });
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerVentasRefuerzosPaginadas(PagingInfo paginacion, FiltrosModel<HojasModel> filtros, HojasModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var jsondata = _serven.ObtenerVentasRefuerzosPaginados(paginacion, filtros);
+            var formattData = jsondata.Select(l => new
+            {
+                NUMERO = l.ID_VENTA,
+                ID_VENTA = l.ID_VENTA,
+                NOMBRE = l.NOMBRE,
+                PLACA = l.PLACA,
+                ESTADO = l.ESTADO,
+                FECHA = l.FECHA,
+                FECHA_REG = l.FECHA_REG,
+                LOGIN = l.LOGIN,
+                CODIGO = l.CODIGO,
+                CAJA = l.SD_CAJAS.NOMBRE,
+                CANTIDAD = l.CANTIDAD,
+                COSTO_UNITARIO = l.COSTO_UNITARIO,
+                TOTAL = l.TOTAL,
+                OBSERVACION = l.OBSERVACION
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formattData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+
+        }
+
+        [HttpPost]
+        public JsonResult GuardarVentaRefuerzo(SD_VENTA_HOJAS_REFUERZO venta)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serven.GuardarVentaRefuerzos(venta, login);
+            return Json(respuestaSP);
+        }
+
+        [HttpPost]
+        public JsonResult AnularVentaRefuerzo(int ID_VENTA)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serven.AnularVentaRefuerzo(ID_VENTA, login);
+            return Json(respuestaSP);
         }
 
     }

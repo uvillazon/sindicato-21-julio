@@ -86,7 +86,7 @@
             name: "FECHA",
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
-            readOnly: true
+            readOnly: false
         });
         me.txt_concepto = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Concepto",
@@ -108,7 +108,7 @@
             store: me.store_cajaOrigen,
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
-            textoTpl: function () { return "{NOMBRE} - {DESCRIPCION}" }
+            textoTpl: function () { return "({CODIGO}){NOMBRE} - {DESCRIPCION}" }
         });
         me.num_saldoOrigen = Ext.create("App.Config.Componente.NumberFieldBase", {
             fieldLabel: "Saldo Origen",
@@ -136,21 +136,25 @@
             store: me.store_cajaDestino,
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
-            textoTpl: function () { return "{NOMBRE} - {DESCRIPCION}" }
+            textoTpl: function () { return "({CODIGO}){NOMBRE} - {DESCRIPCION}" }
         });
         me.num_saldoDestino = Ext.create("App.Config.Componente.NumberFieldBase", {
             fieldLabel: "Saldo Destino",
             name: "SALDO_DESTINO",
             readOnly: true,
+            minValue: -999999999,
             allowDecimals: true,
+            allowNegative: true,
             maxValue: 999999999
         });
         me.num_nuevoSaldoDestino = Ext.create("App.Config.Componente.NumberFieldBase", {
             fieldLabel: "Nuevo Saldo Destino",
             name: "NUEVO_SALDO_DESTINO",
             readOnly: true,
+            minValue: -999999999,
             allowDecimals: true,
             maxValue: 999999999,
+            allowNegative: true,
             allowBlank: false
         });
 

@@ -29,7 +29,7 @@
             modoConsulta: true,
 
         });
-        me.form.BloquearFormulario();
+        //me.form.BloquearFormulario();
       
         //        me.grid.bar.add(me.toolbar);
         me.items = [me.grid, me.form];

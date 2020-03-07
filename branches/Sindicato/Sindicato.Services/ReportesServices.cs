@@ -276,7 +276,7 @@ namespace Sindicato.Services
                 }
 
 
-                var ingresosSocios = managerIngresosSocios.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.SD_CAJAS.MONEDA == "BOLIVIANOS" &&  x.ESTADO != "ANULADO");
+                var ingresosSocios = managerIngresosSocios.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.SD_CAJAS.MONEDA == "BOLIVIANOS" && x.ESTADO != "ANULADO");
                 var ingresosSociosDetalle = ingresosSocios.GroupBy(x => new { CATEGORIA = x.SD_TIPOS_INGRESOS_SOCIO.CATEGORIA, INGRESO = x.SD_TIPOS_INGRESOS_SOCIO.NOMBRE }).Select(y => new { DETALLE = y.Key.CATEGORIA, SUBDETALLE = y.Key.INGRESO, CANTIDAD = y.Count(), IMPORTE = y.Sum(z => z.IMPORTE), COSTO = y.Min(z => z.IMPORTE) });
                 foreach (var item in ingresosSociosDetalle)
                 {
@@ -653,7 +653,7 @@ namespace Sindicato.Services
                         OBSERVACION = item.SD_PRESTAMOS_POR_SOCIOS.SD_TIPOS_PRESTAMOS.NOMBRE,
                         IMPORTE_TOTAL = item.IMPORTE,
                         IMPORTE_PRESTAMO = (decimal)item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_INTERES + item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_PRESTAMO + item.SD_PRESTAMOS_POR_SOCIOS.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA),
-                        TOTAL_CANCELADO = item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Count() > 0 ? item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Where(x=>x.ESTADO != "ANULADO").Sum(x => x.IMPORTE) : 0,
+                        TOTAL_CANCELADO = item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Count() > 0 ? item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").Sum(x => x.IMPORTE) : 0,
                         IMPORTE_LITERAL = n.Convertir(item.IMPORTE.ToString(), true, item.SD_CAJAS.MONEDA),
                         SOCIO = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
                         MOVIL = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL
@@ -725,7 +725,7 @@ namespace Sindicato.Services
             {
                 DateTime Fecha_fin = FECHA_FIN.AddDays(1);
                 var managerIngresos = new SD_EGRESOSManager(uow);
-                var ingresosSocios = managerIngresos.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin  && x.ESTADO != "ANULADO");
+                var ingresosSocios = managerIngresos.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO");
                 foreach (var item in ingresosSocios)
                 {
                     var detalleRep = new ReporteDetalleIngresos()
@@ -1345,6 +1345,34 @@ namespace Sindicato.Services
                         }
                     }
                 }
+
+                var detallesIngresos = managerIngresos.BuscarTodos(x => x.ID_CAJA == ID_CAJA && x.ESTADO != "ANULADO" && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin);
+                if (detallesIngresos.Count() > 0)
+                {
+                    var grupoDetalleIngresos = detallesIngresos.GroupBy(x => new { x.SD_CAJAS.CODIGO, x.TIPO });
+                    if (grupoDetalleIngresos.Count() > 0)
+                    {
+                        foreach (var item in grupoDetalleIngresos)
+                        {
+                            EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
+                            {
+                                NRO = cnt,
+                                OPERACION = "INGRESOS",
+                                SUBOPERACION = "OTROS INGRESOS",
+                                DETALLE = string.Format("{0}", item.Key.TIPO),
+                                PERIODO = Intervalo,
+                                MONEDA = moneda,
+                                //MES =  item.FECHA.ToString("MMMM").ToUpper();
+                                IMPORTE = item.Sum(x => x.IMPORTE),
+                                //UTILIDA_BRUTA_NETA = (decimal)(totalventa - totalcosto)
+                            };
+                            result.Add(res);
+                            cnt++;
+                        }
+                    }
+                }
+
+
                 var detallesPagosPrestamos = managerPagosPrestamos.BuscarTodos(x => x.ID_CAJA == ID_CAJA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO").GroupBy(y => y.SD_PRESTAMOS_POR_SOCIOS.SD_TIPOS_PRESTAMOS.NOMBRE);
                 if (detallesPagosPrestamos.Count() > 0)
                 {
@@ -1367,7 +1395,7 @@ namespace Sindicato.Services
                         cnt++;
                     }
                 }
-                var detalleTransferencias = managerTransferencias.BuscarTodos(x => x.ID_CAJA_DESTINO == ID_CAJA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin);
+                var detalleTransferencias = managerTransferencias.BuscarTodos(x => x.ID_CAJA_DESTINO == ID_CAJA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO");
                 foreach (var item in detalleTransferencias)
                 {
                     EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
@@ -1443,7 +1471,7 @@ namespace Sindicato.Services
                     result.Add(res);
                     cnt++;
                 }
-                var detalleTransferenciasEgreso = managerTransferencias.BuscarTodos(x => x.ID_CAJA_ORIGEN == ID_CAJA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin);
+                var detalleTransferenciasEgreso = managerTransferencias.BuscarTodos(x => x.ID_CAJA_ORIGEN == ID_CAJA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO");
                 foreach (var item in detalleTransferenciasEgreso)
                 {
                     EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
@@ -1569,6 +1597,34 @@ namespace Sindicato.Services
                         }
                     }
                 }
+
+                var detallesIngresos = managerIngresos.BuscarTodos(x => x.SD_CAJAS.MONEDA == MONEDA && x.ESTADO != "ANULADO" && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin);
+                if (detallesIngresos.Count() > 0)
+                {
+                    var grupoDetalleIngresos = detallesIngresos.GroupBy(x => new { x.SD_CAJAS.CODIGO, x.TIPO });
+                    if (grupoDetalleIngresos.Count() > 0)
+                    {
+                        foreach (var item in grupoDetalleIngresos)
+                        {
+                            EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
+                            {
+                                NRO = cnt,
+                                OPERACION = "INGRESOS",
+                                SUBOPERACION = "OTROS INGRESOS",
+                                DETALLE = string.Format("{0} : {1}", item.Key.CODIGO, item.Key.TIPO),
+                                PERIODO = Intervalo,
+                                MONEDA = moneda,
+                                //MES =  item.FECHA.ToString("MMMM").ToUpper();
+                                IMPORTE = item.Sum(x => x.IMPORTE),
+                                //UTILIDA_BRUTA_NETA = (decimal)(totalventa - totalcosto)
+                            };
+                            result.Add(res);
+                            cnt++;
+                        }
+                    }
+                }
+
+
                 var detallesPagosPrestamos = managerPagosPrestamos.BuscarTodos(x => x.SD_CAJAS.MONEDA == MONEDA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO").GroupBy(y => new { y.SD_CAJAS.CODIGO, y.SD_PRESTAMOS_POR_SOCIOS.SD_TIPOS_PRESTAMOS.NOMBRE });
                 if (detallesPagosPrestamos.Count() > 0)
                 {
@@ -1590,7 +1646,7 @@ namespace Sindicato.Services
                         cnt++;
                     }
                 }
-                var detalleTransferencias = managerTransferencias.BuscarTodos(x => x.SD_CAJAS1.MONEDA == MONEDA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin);
+                var detalleTransferencias = managerTransferencias.BuscarTodos(x => x.SD_CAJAS1.MONEDA == MONEDA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO");
                 foreach (var item in detalleTransferencias)
                 {
                     EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
@@ -1662,7 +1718,7 @@ namespace Sindicato.Services
                     result.Add(res);
                     cnt++;
                 }
-                var detalleTransferenciasEgreso = managerTransferencias.BuscarTodos(x => x.SD_CAJAS.MONEDA == MONEDA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin);
+                var detalleTransferenciasEgreso = managerTransferencias.BuscarTodos(x => x.SD_CAJAS.MONEDA == MONEDA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO");
                 foreach (var item in detalleTransferenciasEgreso)
                 {
                     EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
@@ -1716,6 +1772,137 @@ namespace Sindicato.Services
             });
             result.OrderBy(x => x.FECHA_INI);
             return result;
+        }
+
+        public IEnumerable<ReporteRegulaciones> ObtenerReportePagoDeuda(int ID_DETALLE)
+        {
+            List<ReporteRegulaciones> result = new List<ReporteRegulaciones>();
+            NumLetra n = new NumLetra();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_DETALLES_DEUDASManager(uow);
+                var kardex = manager.BuscarTodos(x => x.ID_DETALLE == ID_DETALLE);
+                foreach (var item in kardex)
+                {
+                    var kar = new ReporteRegulaciones()
+                    {
+                        ID_REGULACION = item.ID_DETALLE,
+                        MOVIL = item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL.ToString(),
+                        SOCIO = string.Format("{0} {1} {2}", item.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE, item.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO, item.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_MATERNO),
+                        CANTIDAD = 1,
+                        FECHA_COMPRA = item.FECHA_CANCELADO,
+                        IMPORTE_OBLIGACION = item.IMPORTE,
+                        OBLIGACION = item.SD_DEUDAS_SOCIOS.MOTIVO,
+                        TOTAL = item.IMPORTE,
+                        TOTAL_LITERAL = n.Convertir(item.IMPORTE.ToString(), true, item.SD_CAJAS.MONEDA)
+                    };
+                    result.Add(kar);
+                }
+
+            });
+
+            return result;
+
+        }
+
+        public IEnumerable<SocioReporteKardexMovil> ReporteKardexMovilSocio(int ID_SOCIO_MOVIL)
+        {
+            List<SocioReporteKardexMovil> result = new List<SocioReporteKardexMovil>();
+            ExecuteManager(uow =>
+            {
+                var managerSocio = new SD_SOCIO_MOVILESManager(uow);
+                var socio_movil = managerSocio.BuscarTodos(x => x.ID_SOCIO_MOVIL == ID_SOCIO_MOVIL).FirstOrDefault();
+
+                var autos = socio_movil.SD_SOCIO_MOVIL_AUTOS.Count() > 0 ? socio_movil.SD_SOCIO_MOVIL_AUTOS.Where(y => y.ESTADO == "ACTIVO").FirstOrDefault() : null;
+
+                SocioReporteKardexMovil socio = new SocioReporteKardexMovil()
+                {
+                    NRO_MOVIL = socio_movil.SD_MOVILES.NRO_MOVIL,
+                    NOMBRE = socio_movil.SD_SOCIOS.NOMBRE,
+                    APELLIDO_PATERNO = socio_movil.SD_SOCIOS.APELLIDO_PATERNO,
+                    APELLIDO_MATERNO = socio_movil.SD_SOCIOS.APELLIDO_MATERNO,
+                    ESTADO_CIVIL = socio_movil.SD_SOCIOS.ESTADO_CIVIL,
+                    NRO_LICENCIA = (int)socio_movil.SD_SOCIOS.NRO_LICENCIA,
+                    CI = (int)socio_movil.SD_SOCIOS.CI,
+                    FECHA_NAC = socio_movil.SD_SOCIOS.FECHA_NAC,
+                    FECHA_ALTA = socio_movil.SD_SOCIOS.FECHA_INGRESO,
+                    TELEFONO = socio_movil.SD_SOCIOS.TELEFONO,
+                    CELULAR = socio_movil.SD_SOCIOS.CELULAR,
+                    DOMICILIO = socio_movil.SD_SOCIOS.DOMICILIO,
+                    OBSERVACION = socio_movil.SD_SOCIOS.OBSERVACION,
+                    ESTADO = socio_movil.SD_SOCIOS.ESTADO,
+                    TIPO = autos == null ? "" : autos.SD_AUTOS.TIPO,
+                    PLACA = autos == null ? "" : autos.SD_AUTOS.PLACA,
+                    COLOR = autos == null ? "" : autos.SD_AUTOS.COLOR,
+                    MARCA = autos == null ? "" : autos.SD_AUTOS.MARCA,
+                    MODELO = autos == null ? "" : autos.SD_AUTOS.MODELO,
+                    MOTOR = autos == null ? "" : autos.SD_AUTOS.MOTOR,
+                    CHASIS = autos == null ? "" : autos.SD_AUTOS.CHASIS,
+                    FECHA_ALTA_AUTO = autos == null ? null : (DateTime?)autos.SD_AUTOS.FECHA_ALTA,
+                    FECHA_ALTA_MOVIL = autos == null ? null : (DateTime?)socio_movil.FECHA_ALTA,
+                    OBSERV_AUTO = autos == null ? "" : autos.SD_AUTOS.DESCRIPCION,
+
+
+                };
+                result.Add(socio);
+            });
+            return result;
+
+        }
+        public IEnumerable<KardexMovilReporte> ReporteKardexMovil(int ID_SOCIO_MOVIL)
+        {
+            List<KardexMovilReporte> result = new List<KardexMovilReporte>();
+            ExecuteManager(uow =>
+           {
+               var managerSocio = new SD_SOCIO_MOVILESManager(uow);
+               var socio_movil = managerSocio.BuscarTodos(x => x.ID_SOCIO_MOVIL == ID_SOCIO_MOVIL).FirstOrDefault();
+               var detalles = managerSocio.BuscarTodos(x => x.ID_MOVIL == socio_movil.ID_MOVIL);
+               foreach (var item in detalles)
+               {
+                   var rec = new KardexMovilReporte()
+                   {
+                       ESTADO = item.ESTADO,
+                       FECHA_ALTA = item.FECHA_ALTA,
+                       FECHA_BAJA = item.FECHA_BAJA,
+                       FECHA_REG = item.FECHA_REG,
+                       OBSERVACION = item.OBSERVACION,
+                       SOCIO = item.ObtenerNombreSocio()
+                   };
+                   result.Add(rec);
+               }
+
+
+           });
+            return result;
+
+        }
+
+        public IEnumerable<KardexNroMovilReporte> ReporteKardexNroMovil(int ID_SOCIO_MOVIL)
+        {
+            List<KardexNroMovilReporte> result = new List<KardexNroMovilReporte>();
+            ExecuteManager(uow =>
+            {
+                var managerSocio = new SD_SOCIO_MOVILESManager(uow);
+                var context = (SindicatoContext)uow.Context;
+                var socio_movil = managerSocio.BuscarTodos(x => x.ID_SOCIO_MOVIL == ID_SOCIO_MOVIL).FirstOrDefault();
+                var detalles = context.SD_HIST_MOVIL.Where(x => x.ID_MOVIL == socio_movil.ID_MOVIL);
+                foreach (var item in detalles)
+                {
+                    var rec = new KardexNroMovilReporte()
+                    {
+                        LOGIN = item.LOGIN,
+                        NRO_MOVIL_NUEVO = Convert.ToInt32(item.MOVIL_NUEVO),
+                        NRO_MOVIL_ANTERIOR = Convert.ToInt32(item.MOVIL_ANTERIOR),
+                        FECHA_REG = item.FECHA_REG,
+                        OBSERVACION = item.OBSERVACION,
+                    };
+                    result.Add(rec);
+                }
+
+
+            });
+            return result;
+
         }
 
     }

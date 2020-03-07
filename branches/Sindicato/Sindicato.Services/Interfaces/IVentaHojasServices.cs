@@ -24,7 +24,9 @@ namespace Sindicato.Services.Interfaces
 
         RespuestaSP VerificarVentaHoja(int ID_SOCIO_MOVIL, string login);
 
-
+        IEnumerable<SD_VENTA_HOJAS_REFUERZO> ObtenerVentasRefuerzosPaginados(PagingInfo paginacion, FiltrosModel<HojasModel> filtros);
+        RespuestaSP GuardarVentaRefuerzos(SD_VENTA_HOJAS_REFUERZO venta, string login);
+        RespuestaSP AnularVentaRefuerzo(int ID_VENTA, string login);
         //SD_USUARIOS
     }
 }

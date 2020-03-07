@@ -10,7 +10,7 @@
 
         me.toolbar = Funciones.CrearMenuBar();
         Funciones.CrearMenu('btn_VerDetalle', 'Imprimir', 'report', me.EventosPrincipal, me.toolbar, this, null, true);
-        Funciones.CrearMenu('btn_Kardex', 'Kardex Pagos', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
+        //Funciones.CrearMenu('btn_Kardex', 'Kardex Pagos', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
 
 
 
@@ -41,25 +41,31 @@
         switch (btn.getItemId()) {
             case "btn_crear":
                 if (me.record.get('ESTADO') == "NUEVO") {
-                    Funciones.AjaxRequestGrid("DeudasSocios", "GuardarPagoDeudaSocio", me.grid, "Esta seguro de Pagar la Dueda del Movil  " + me.record.get('MOVIL') + "?", { ID_DETALLE: me.record.get('ID_DETALLE') }, me.grid, null);
+                    Funciones.AjaxRequestGrid("DeudasSocios", "GuardarPagoDeudaSocio", me.grid, "Esta seguro de Pagar la Dueda del Movil  " + me.record.get('MOVIL') + "?", { ID_DETALLE: me.record.get('ID_DETALLE') }, me.grid, null, function () {
+                        me.ImprimirReportePrestamo(me.record.get('ID_DETALLE'));
+                    });
                 }
                 else {
                     Ext.Msg.alert("Error", "Solo puede Anular los prestamos en estado NUEVO");
                 }
                 break;
             case "btn_eliminar":
-                if (me.record.get('ESTADO') == "NUEVO") {
+                if (me.record.get('ESTADO_DEUDA') == "CANCELADO") {
                     Funciones.AjaxRequestGrid("DeudasSocios", "AnularPagoDeudaSocio", me.grid, "Esta seguro de ANULAR la Deuda del Movil" + me.record.get('MOVIL') + "?", { ID_DETALLE: me.record.get('ID_DETALLE') }, me.grid, null);
                 }
                 else {
-                    Ext.Msg.alert("Error", "Solo puede Anular los prestamos en estado NUEVO");
+                    Ext.Msg.alert("Error", "Solo puede Anular los prestamos CANCELADOSs");
                 }
                 break;
             case "btn_Kardex":
                 me.VentanaPagos();
                 break;
             case "btn_VerDetalle":
-                me.ImprimirReportePrestamo(me.grid.record.get('ID_DETALLE'));
+                if (me.grid.record.get('ESTADO_DEUDA') != 'SIN_PAGO') {
+                    me.ImprimirReportePrestamo(me.grid.record.get('ID_DETALLE'));
+                } else {
+                    Ext.Msg.alert("Error", "Solo se puede imprimir deudas cancelados");
+                }
                 break;
             default:
                 Ext.Msg.alert("Aviso", "No Existe el botton");
@@ -67,7 +73,7 @@
         }
     },
     ImprimirReportePrestamo: function (id) {
-        var ruta = fn.ObtenerUrlReportPDF("ReportePrestamo", "ID_PRESTAMO=" + id);
+        var ruta = fn.ObtenerUrlReportPDF("ReportePagoDeuda", "ID_DETALLE=" + id);
         //var ruta = fn.ObtenerUrlReportPDF("ReporteRegulacion", "ID_REGULACION=2");
         var panel = Ext.create("App.View.Reports.ReportsPDF", {
             ruta: ruta,

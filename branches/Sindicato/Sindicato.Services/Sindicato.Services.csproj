@@ -64,6 +64,7 @@
     <Compile Include="KardexHojasServices.cs" />
     <Compile Include="Interfaces\IKardexHojasServices.cs" />
     <Compile Include="Interfaces\IPrestamosServices.cs" />
+    <Compile Include="Model\KardexReporteMovilModel.cs" />
     <Compile Include="PrestamosServices.cs" />
     <Compile Include="MovilesServices.cs" />
     <Compile Include="Interfaces\IMovilesServices.cs" />

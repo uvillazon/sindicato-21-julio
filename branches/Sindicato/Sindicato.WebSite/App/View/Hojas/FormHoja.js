@@ -284,6 +284,7 @@
         me.date_fecha = Ext.create("App.Config.Componente.DateFieldBase", {
             fieldLabel: "Fecha Compra",
             name: "FECHA_COMPRA",
+            maximo : 'max',
             colspan: 2,
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,

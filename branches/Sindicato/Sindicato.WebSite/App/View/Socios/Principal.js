@@ -14,6 +14,7 @@
         me.toolbar = Funciones.CrearMenuBar();
         Funciones.CrearMenu('btn_EliminarSocio', 'Eliminar', 'cross', me.EventosPrincipal, me.toolbar, this, null, true);
         Funciones.CrearMenu('btn_ReporteSocioMovilHoja', 'Reporte Hoja', 'printer', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_ReporteSocioMovilKardex', 'Reporte Kardex', 'printer', me.EventosPrincipal, me.toolbar, this, null, true);
         //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
         //Funciones.CrearMenu('btn_ImprimirReporte', 'Imprimir Reporte', 'printer', me.EventosPrincipal, me.toolbar, this, null, true);
         //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
@@ -28,7 +29,7 @@
             width: '50%',
             opcion: 'GridSocios',
             fbarmenu: me.toolbar,
-            fbarmenuArray: ["btn_ConfigObligacion", "btn_ReporteSocioMovilHoja", "btn_Editar", "btn_EditarMovil", , "btn_BajaMovil", "btn_CambiarMovil", "btn_Imagen", "btn_Kardex", "btn_ConfigHoja", "btn_EliminarSocio", "btn_TransferenciasHojas"]
+            fbarmenuArray: ["btn_ConfigObligacion", "btn_ReporteSocioMovilKardex", "btn_ReporteSocioMovilHoja", "btn_Editar", "btn_EditarMovil", , "btn_BajaMovil", "btn_CambiarMovil", "btn_Imagen", "btn_Kardex", "btn_ConfigHoja", "btn_EliminarSocio", "btn_TransferenciasHojas"]
 
         });
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
@@ -143,6 +144,10 @@
                 //Funciones.ImprimirReport("ReporteKardexHojaSocio", "FECHA=01-01-2009&ID_SOCIO_MOVIL=" + me.socio.get('ID_SOCIO_MOVIL'));
                 fn.VerImpresion("ReporteKardexHojaSocio", "FECHA=10-01-2016&ID_SOCIO_MOVIL=" + me.socio.get('ID_SOCIO_MOVIL'));
                 break;
+            case "btn_ReporteSocioMovilKardex":
+                fn.VerImpresion("ReporteKardexSocioMovil", "ID_SOCIO_MOVIL=" + me.socio.get('ID_SOCIO_MOVIL'));
+                break;
+                
             case "btn_ConfigObligacion":
                 var win = Ext.create("App.Config.Abstract.Window", { botones: false, title: 'Configuracion de Obligaciones' });
                 var form = Ext.create("App.View.Socios.FormObligacionSocio", { opcion: 'FormReporte' });

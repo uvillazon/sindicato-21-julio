@@ -101,12 +101,13 @@ namespace Sindicato.Services
             {
                 var manager = new SD_INGRESOSManager(uow);
                 var context = (SindicatoContext)manager.Context;
-                var ant = manager.BuscarTodos(x => x.ID_INGRESO == ID_INGRESO).FirstOrDefault();
+                var ant = manager.BuscarTodos(x => x.ID_INGRESO == ID_INGRESO && x.ESTADO == "NUEVO").FirstOrDefault();
                 if (ant != null)
                 {
                     fecha = ant.FECHA;
                     ID_CAJA = ant.ID_CAJA;
-                    manager.Delete(ant);
+                    ant.ESTADO = "ANULADO";
+                    //manager.Delete(ant);
                     var kardex = context.SD_KARDEX_EFECTIVO.Where(x => x.OPERACION == "INGRESOS" && x.ID_OPERACION == ant.ID_INGRESO && x.ID_CAJA == ant.ID_CAJA);
                     foreach (var item in kardex)
                     {

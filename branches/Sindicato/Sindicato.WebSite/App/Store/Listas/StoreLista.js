@@ -17,3 +17,11 @@
             direction: 'ASC'
         }]
 });
+
+//Ext.define('App.Store.Listas.StoreLista', {
+//    extend: 'App.Config.Abstract.Store',
+//    model: 'App.Model.Listas.StoreLista',
+//    url: 'Listas/ObtenerListasItem',
+//    sortProperty: 'CODIGO',
+//    sortDirection : 'ASC'
+//});

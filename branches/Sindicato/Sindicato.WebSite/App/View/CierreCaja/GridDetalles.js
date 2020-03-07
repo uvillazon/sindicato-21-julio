@@ -23,7 +23,8 @@
         me.CargarComponentes();
         me.columns = [
                 { xtype: "rownumberer", width: 30, sortable: false },
-                { header: "Caja", width: 50, sortable: false, dataIndex: "CAJA" },
+                { header: "Codigo", width: 50, sortable: false, dataIndex: "CAJA" },
+                { header: "Caja", width: 150, sortable: false, dataIndex: "NOMBRE" },
                 { header: "Moneda", width: 150, sortable: false, dataIndex: "MONEDA" },
                 { header: "Importe", width: 80, sortable: false, dataIndex: "SALDO" },
                 { header: "Observacion", width: 200, sortable: false, dataIndex: "OBSERVACION" },

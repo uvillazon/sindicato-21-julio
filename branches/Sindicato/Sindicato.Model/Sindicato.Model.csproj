@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="PartialSD_CHOFERES.cs" />
     <Compile Include="PartialSD_SOCIOS.cs" />
+    <Compile Include="PartialSD_VENTA_HOJAS_REFUERZO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

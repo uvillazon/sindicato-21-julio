@@ -100,9 +100,12 @@ namespace Sindicato.Services
                 {
                     fecha = ant.FECHA;
                     ID_CAJA = ant.ID_CAJA;
-                    foreach (var item in ant.SD_DETALLES_DEUDAS)
+                    var detalles = managerDetalle.BuscarTodos(x => x.ID_DEUDA == ant.ID_DEUDA);
+                    foreach (var item in detalles)
                     {
-                        managerDetalle.Delete(item);
+                        if (item != null) {
+                            managerDetalle.Delete(item);
+                        }
                     }
                     manager.Delete(ant);
                     result.success = true;

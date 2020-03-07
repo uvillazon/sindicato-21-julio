@@ -15,10 +15,12 @@
     labelWidth: 110,
     mensaje: '',
     titulo: '',
+    store : null,
     matchFieldWidth: false,
     textoTpl: null,
     initComponent: function () {
         var me = this;
+        
         me.matchFieldWidth = true;
         me.forceSelection = false;
         me.editable = false;

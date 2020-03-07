@@ -109,6 +109,8 @@
             name: "TIPO",
             width: 480,
             colspan: 2,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
             store: me.store_categoria,
             selectOnFocus: true
         });

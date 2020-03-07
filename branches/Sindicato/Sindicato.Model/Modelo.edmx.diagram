@@ -2,7 +2,7 @@
 <edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
   <edmx:Designer>
     <edmx:Diagrams>
-      <edmx:Diagram Name="Modelo" ZoomLevel="76">
+      <edmx:Diagram Name="Modelo" ZoomLevel="52">
         <edmx:EntityTypeShape EntityType="Model.SD_LISTAS" Width="1.5" PointX="0.75" PointY="1" Height="2.5571907552083326" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="Model.SD_LISTAS_ITEMS" Width="1.5" PointX="3" PointY="1" Height="2.7494921874999996" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="Model.SD_MENU_OPCIONES" Width="1.5" PointX="0.5" PointY="11.125" Height="2.9417936197916639" IsExpanded="true" />
@@ -87,10 +87,7 @@
         <edmx:AssociationConnector Association="Model.SD_DETALLE_PERIODO_SOCIO_R01" />
         <edmx:AssociationConnector Association="Model.SD_CIERRES_PARADA_R01" />
         <edmx:AssociationConnector Association="Model.SD_DETALLE_CIERRE_PARADA_R01" />
-        <edmx:EntityTypeShape EntityType="Model.SD_OBLIGACIONES_HOJA" Width="1.5" PointX="20.875" PointY="49.375" />
         <edmx:EntityTypeShape EntityType="Model.SD_SOC_MOV_OBLIG" Width="1.5" PointX="23.875" PointY="50.875" />
-        <edmx:AssociationConnector Association="Model.SD_OBLIGACIONES_HOJA_R01" />
-        <edmx:AssociationConnector Association="Model.SD_SOC_MOV_OBLIG_R01" />
         <edmx:EntityTypeShape EntityType="Model.SD_DETALLES_HOJAS_CONTROL" Width="1.5" PointX="5.98449646587693" PointY="17.340730421869424" />
         <edmx:EntityTypeShape EntityType="Model.SD_HOJAS_CONTROL" Width="1.5" PointX="1.5983340915284745" PointY="12.383375039502687" />
         <edmx:AssociationConnector Association="Model.SD_HOJAS_CONTROL_R03" />
@@ -106,7 +103,6 @@
         <edmx:AssociationConnector Association="Model.SD_DETALLES_HOJAS_CONTROL_R02" />
         <edmx:AssociationConnector Association="Model.SD_INGRESOS_POR_SOCIOS_R03" />
         <edmx:AssociationConnector Association="Model.SD_KARDEX_EFECTIVO_R01" />
-        <edmx:AssociationConnector Association="Model.SD_OBLIGACIONES_HOJA_R02" />
         <edmx:AssociationConnector Association="Model.SD_PARADAS_R01" />
         <edmx:AssociationConnector Association="Model.SD_TRANSFERENCIAS_R01" />
         <edmx:AssociationConnector Association="Model.SD_TRANSFERENCIAS_R02" />
@@ -191,13 +187,21 @@
         <edmx:AssociationConnector Association="Model.SD_DETALLES_DEUDAS_R03" />
         <edmx:AssociationConnector Association="Model.SD_DETALLES_DEUDAS_R01" />
         <edmx:AssociationConnector Association="Model.SD_DETALLES_DEUDAS_R02" />
-        <edmx:EntityTypeShape EntityType="Model.SD_DETALLES_HOJAS_USO" Width="1.5" PointX="2.4679750252831609" PointY="9.03903332773551" />
-        <edmx:AssociationConnector Association="Model.SD_DETALLES_HOJAS_USO_R01" />
         <edmx:EntityTypeShape EntityType="Model.SD_INGRESOS" Width="1.5" PointX="8.4666378798273563" PointY="29.803413136770676" />
         <edmx:AssociationConnector Association="Model.SD_INGRESOS_R01" />
         <edmx:EntityTypeShape EntityType="Model.SD_HIST_MOVIL" Width="1.5" PointX="11.585267867699857" PointY="22.574376832029959" />
         <edmx:AssociationConnector Association="Model.SD_HIST_MOVIL_R01" />
-      </edmx:Diagram>
+        <edmx:EntityTypeShape EntityType="Model.SD_DETALLES_HOJAS_USO" Width="1.5" PointX="11.512705815729081" PointY="12.362928843294704" />
+        <edmx:AssociationConnector Association="Model.SD_DETALLES_HOJAS_USO_R01" />
+        <edmx:EntityTypeShape EntityType="Model.SD_VENTA_HOJAS_REFUERZO" Width="1.5" PointX="5.19584796260849" PointY="11.722236698364018" />
+        <edmx:AssociationConnector Association="Model.SD_VENTA_HOJAS_REFUERZO_R01" />
+        <edmx:AssociationConnector Association="Model.SD_DETALLES_HOJAS_USO_R02" />
+        <edmx:EntityTypeShape EntityType="Model.SD_OBLIGACIONES_HOJA" Width="1.5" PointX="10.378023957078355" PointY="27.49308253614841" />
+        <edmx:AssociationConnector Association="Model.SD_OBLIGACIONES_HOJA_R02" />
+        <edmx:AssociationConnector Association="Model.SD_OBLIGACIONES_HOJA_R03" />
+        <edmx:AssociationConnector Association="Model.SD_OBLIGACIONES_HOJA_R01" />
+        <edmx:AssociationConnector Association="Model.SD_SOC_MOV_OBLIG_R01" />
+        </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

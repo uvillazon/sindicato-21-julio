@@ -171,7 +171,7 @@ namespace Elfec.SisMan.Presentacion.Controllers
             DateTime FECHA_INI = DateTime.Parse(e.Parameters["FECHA_INI"].Values.First());
             DateTime FECHA_FIN = DateTime.Parse(e.Parameters["FECHA_FIN"].Values.First());
 
-            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ReporteResumenHojas(FECHA_INI,FECHA_FIN));
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ReporteResumenHojas(FECHA_INI, FECHA_FIN));
             ReportDataSource reportDataSource1 = new ReportDataSource("DataSet2", rep.ReporteDetalleNumeracionHojas(FECHA_INI, FECHA_FIN));
 
             //int[] OrderNumbers = GetOrderNumbers();
@@ -492,7 +492,7 @@ namespace Elfec.SisMan.Presentacion.Controllers
             localReport.DataSources.Add(reportDataSource);
             string Intervalo = string.Format("{0} - {1}", FECHA_INI.ToString("dd/MM/yyyy"), FECHA_FIN.ToString("dd/MM/yyyy"));
 
-            ReportParameter param = new ReportParameter("Intervalo",Intervalo);
+            ReportParameter param = new ReportParameter("Intervalo", Intervalo);
             localReport.SetParameters(param);
 
             ReportDataSource reportDataSource1 = new ReportDataSource("DataSet2", rep.ObtenerReportePrestamosPagosDetalle(FECHA_INI, FECHA_FIN));
@@ -585,12 +585,12 @@ namespace Elfec.SisMan.Presentacion.Controllers
             return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
         }
 
-        public ActionResult ReporteDetalleHojasPorSocio(string tipo, DateTime FECHA_INI, DateTime FECHA_FIN , int ID_SOCIO_MOVIL)
+        public ActionResult ReporteDetalleHojasPorSocio(string tipo, DateTime FECHA_INI, DateTime FECHA_FIN, int ID_SOCIO_MOVIL)
         {
             ReportesServices rep = new ReportesServices();
             LocalReport localReport = new LocalReport();
             localReport.ReportPath = Server.MapPath("~/Reportes/ReporteDetalleHojaPorSocio.rdlc");
-            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteDetalleHojaPorSocio(FECHA_INI,FECHA_FIN,ID_SOCIO_MOVIL));
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteDetalleHojaPorSocio(FECHA_INI, FECHA_FIN, ID_SOCIO_MOVIL));
             localReport.DataSources.Add(reportDataSource);
             string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
             string mimeType;
@@ -628,7 +628,7 @@ namespace Elfec.SisMan.Presentacion.Controllers
             ReportesServices rep = new ReportesServices();
             LocalReport localReport = new LocalReport();
             localReport.ReportPath = Server.MapPath("~/Reportes/ReporteEstadoResultadoPorCaja.rdlc");
-            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ReporteEstadoResultadoPorCaja(ID_CAJA,FECHA_INI, FECHA_FIN));
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ReporteEstadoResultadoPorCaja(ID_CAJA, FECHA_INI, FECHA_FIN));
             localReport.DataSources.Add(reportDataSource);
             string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
             string mimeType;
@@ -666,7 +666,7 @@ namespace Elfec.SisMan.Presentacion.Controllers
             ReportesServices rep = new ReportesServices();
             LocalReport localReport = new LocalReport();
             localReport.ReportPath = Server.MapPath("~/Reportes/ReporteMatrizHojas.rdlc");
-            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ReporteMatrizHojasAhorro(FECHA_INI, FECHA_FIN,Reporte));
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ReporteMatrizHojasAhorro(FECHA_INI, FECHA_FIN, Reporte));
             localReport.DataSources.Add(reportDataSource);
             string Intervalo = string.Format("{0} - {1}", FECHA_INI.ToString("dd/MM/yyyy"), FECHA_FIN.ToString("dd/MM/yyyy"));
             ReportParameter param = new ReportParameter("Intervalo", Intervalo);
@@ -734,7 +734,77 @@ namespace Elfec.SisMan.Presentacion.Controllers
             return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
         }
 
-        //
+        public ActionResult ReportePagoDeuda(string tipo, int ID_DETALLE)
+        {
 
+            ReportesServices rep = new ReportesServices();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReportePagoDeuda.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReportePagoDeuda(ID_DETALLE));
+            localReport.DataSources.Add(reportDataSource);
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
+
+        public ActionResult ReporteVentaRefuerzo(string tipo, int ID_VENTA)
+        {
+            ReporteSource rep = new ReporteSource();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteHojasRefuerzoDetalle.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSetVenta", rep.ReporteHojasVentaRefuerzo(ID_VENTA));
+            localReport.DataSources.Add(reportDataSource);
+            localReport.SubreportProcessing += new SubreportProcessingEventHandler(ReporteRefuerzo_SubreportProcessing);
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
+
+        protected void ReporteRefuerzo_SubreportProcessing(object sender, SubreportProcessingEventArgs e)
+        {
+            ReporteSource rep = new ReporteSource();
+            int id_hoja = int.Parse(e.Parameters["ID_HOJA"].Values.First());
+            ReportDataSource reportDataSource = new ReportDataSource("DataSetHoja", rep.ReporteHojaDetalleRefuerzo(id_hoja));
+            //int[] OrderNumbers = GetOrderNumbers();
+            e.DataSources.Add(reportDataSource);
+        }
+        //
+        public ActionResult ReporteKardexSocioMovil(string tipo, int ID_SOCIO_MOVIL)
+        {
+
+            ReportesServices rep = new ReportesServices();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteKardexSocioMovil.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ReporteKardexMovilSocio(ID_SOCIO_MOVIL));
+            localReport.DataSources.Add(reportDataSource);
+            ReportDataSource reportDataSource2 = new ReportDataSource("DataSet2", rep.ReporteKardexMovil(ID_SOCIO_MOVIL));
+            localReport.DataSources.Add(reportDataSource2);
+            ReportDataSource reportDataSource3 = new ReportDataSource("DataSet3", rep.ReporteKardexNroMovil(ID_SOCIO_MOVIL));
+            localReport.DataSources.Add(reportDataSource3);
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
     }
 }

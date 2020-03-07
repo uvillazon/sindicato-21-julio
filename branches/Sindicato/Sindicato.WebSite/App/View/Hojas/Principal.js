@@ -22,7 +22,7 @@
             fbarmenu: me.toolbar,
             paramsStore: paramsStore,
             noLimpiar: noLimpiar,
-            fbarmenuArray: ["btn_debitar", "btn_anular"]
+            fbarmenuArray: ["btn_debitar", "btn_anular", "btn_impresion"]
 
         });
         //me.grid = Ext.create('App.View.Descuentos.GridDescuentos', {
@@ -96,7 +96,8 @@
                 }
                 break;
             case "btn_impresion":
-                me.CrearReimpresion();
+                me.ImprimirHojasRuta(me.record.get('ID_VENTA'));
+                //me.CrearReimpresion();
                 break;
             default:
                 Ext.Msg.alert("Aviso", "No Existe el botton");
@@ -115,6 +116,18 @@
                 me.ImprimirHojas(result.id);
             });
         });
+    },
+    ImprimirHojasRuta: function (id) {
+
+        var ruta = fn.ObtenerUrlReportPDF("ReporteHojas", "ID_VENTA=" + id);
+        //window.open(ruta);
+        //var ruta = fn.ObtenerUrlReportPDF("ReporteRegulacion", "ID_REGULACION=" + id);
+        //var ruta = fn.ObtenerUrlReportPDF("ReporteRegulacion", "ID_REGULACION=2");
+        var panel = Ext.create("App.View.Reports.ReportsPDF", {
+            ruta: ruta,
+            pageScale: 1.50,
+        });
+        panel.show();
     },
     ImprimirHojas: function (id) {
 

@@ -45,6 +45,7 @@ namespace Sindicato.Business
                 prestamo.ID_CAJA = tipo.ID_CAJA;
                 prestamo.ID_PRESTAMO = ObtenerSecuencia();
                 prestamo.ESTADO = "NUEVO";
+                prestamo.ESTADO_CIERRE = "NUEVO";
                 prestamo.INTERES = tipo.TIPO_INTERES == "INTERES" ? (decimal)tipo.INTERES : (decimal)tipo.INTERES_FIJO;
                 var importe_interes = tipo.TIPO_INTERES == "INTERES" ? prestamo.IMPORTE_PRESTAMO * tipo.INTERES / 100 : tipo.INTERES_FIJO;
                 prestamo.IMPORTE_INTERES = importe_interes;

@@ -6,6 +6,7 @@
             { type: "int", name: "ID_CAJA" },
             { type: "string", name: "MSG" },
             { type: "string", name: "CAJA" },
+            { type: "string", name: "NOMBRE" },
             { type: "string", name: "MONEDA" },
             { type: "string", name: "OBSERVACION" },
             { type: "string", name: "OPERACION" },

@@ -232,6 +232,7 @@
     <Content Include="App\Model\CierresParada\CierresParada.js" />
     <Content Include="App\Model\CierresParada\Detalles.js" />
     <Content Include="App\Model\Cierres\Detalles.js" />
+    <Content Include="App\Model\Refuerzos\Refuerzos.js" />
     <Content Include="App\Model\DeudasSocios\Detalles.js" />
     <Content Include="App\Model\DeudasSocios\DeudasSocios.js" />
     <Content Include="App\Model\IngresosPorSocios\Ingresos.js" />
@@ -295,6 +296,7 @@
     <Content Include="App\Store\CierresParada\CierresParada.js" />
     <Content Include="App\Store\CierresParada\Detalles.js" />
     <Content Include="App\Store\Cierres\Detalles.js" />
+    <Content Include="App\Store\Refuerzos\Refuerzos.js" />
     <Content Include="App\Store\DeudasSocios\DeudasSocios.js" />
     <Content Include="App\Store\DeudasSocios\Detalles.js" />
     <Content Include="App\Store\IngresosPorSocios\Ingresos.js" />
@@ -412,6 +414,11 @@
     <Content Include="App\View\CierresParada\FormCierre.js" />
     <Content Include="App\View\CierresParada\GridCierres.js" />
     <Content Include="App\View\CierresParada\Principal.js" />
+    <Content Include="App\View\Refuerzos\FormRefuerzo.js" />
+    <Content Include="App\View\Refuerzos\Forms.js" />
+    <Content Include="App\View\Refuerzos\GridRefuerzos.js" />
+    <Content Include="App\View\Refuerzos\Grids.js" />
+    <Content Include="App\View\Refuerzos\Principal.js" />
     <Content Include="App\View\DetallesDeudasSocios\GridDetalles.js" />
     <Content Include="App\View\DetallesDeudasSocios\Principal.js" />
     <Content Include="App\View\DeudasSocios\FormSociosDeuda.js" />
@@ -1671,6 +1678,7 @@
     <Content Include="Content\images\usermovil.png" />
     <Content Include="Content\images\worker.png" />
     <Content Include="Content\layout.css" />
+    <Content Include="Content\login.css" />
     <Content Include="Content\print.css" />
     <Content Include="Content\skeleton.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -1701,8 +1709,15 @@
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="Global.asax" />
+    <Content Include="..\..\..\..\..\132\sindicato-21-julio\branches\Sindicato\Sindicato.WebSite\DLL\01052019.txt">
+      <Link>InterfacesUsuario\01052019.txt</Link>
+    </Content>
     <Content Include="InterfacesUsuario\23032019.txt" />
+    <Content Include="InterfacesUsuario\29032019.txt" />
     <Content Include="InterfacesUsuario\bin.txt" />
+    <Content Include="..\..\..\..\..\132\sindicato-21-julio\branches\Sindicato\Sindicato.WebSite\DLL\data01052019.txt">
+      <Link>InterfacesUsuario\data01052019.txt</Link>
+    </Content>
     <Content Include="InterfacesUsuario\dllsindatos.txt" />
     <Content Include="InterfacesUsuario\FormHoja.png" />
     <Content Include="InterfacesUsuario\GridChoferes.png" />
@@ -4076,6 +4091,10 @@
     <Content Include="viewer\locale\zu\viewer.properties" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reportes\HojaDetalleUsoRefuerzo.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteHojasRefuerzoDetalle.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteKardexSocioMovil.rdlc" />
+    <EmbeddedResource Include="Reportes\ReportePagoDeuda.rdlc" />
     <EmbeddedResource Include="Reportes\Hoja.rdlc" />
     <EmbeddedResource Include="Reportes\HojaDetalleUso.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteAhorrosCobros.rdlc" />

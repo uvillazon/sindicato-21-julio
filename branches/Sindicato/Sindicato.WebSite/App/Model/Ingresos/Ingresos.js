@@ -10,6 +10,7 @@
             { type: "string", name: "CONCEPTO" },
             { type: "string", name: "LOGIN" },
             { type: "string", name: "CAJA" },
+            { type: "string", name: "ESTADO" },
             { type: "string", name: "TIPO" }
         ]
 });

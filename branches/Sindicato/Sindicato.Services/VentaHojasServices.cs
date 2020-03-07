@@ -35,7 +35,11 @@ namespace Sindicato.Services
                 }
                 paginacion.total = result.Count();
                 result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
+                //foreach (var item in result)
+                //{
 
+                //    item.SERIE =
+                //}
             });
             return result;
         }
@@ -165,10 +169,31 @@ namespace Sindicato.Services
                 var manager = new SD_VENTA_HOJASManager(uow);
                 //obtener un query de la tabla choferes
                 var res = manager.BuscarTodos(x => x.ID_VENTA == ID_VENTA);
-                var hojas = res.Select(x => x.SD_HOJAS_CONTROL);
+                var hojas = res.Select(x => x.SD_HOJAS_CONTROL).OrderByDescending(x=>x.FECHA_USO);
                 foreach (var item in hojas)
                 {
-                    foreach (var detalle in item.SD_DETALLES_HOJAS_USO)
+                    foreach (var detalle in item.SD_DETALLES_HOJAS_USO.OrderByDescending(x=>x.FECHA_USO))
+                    {
+                        result.Add(detalle);
+                    }
+                }
+
+
+            });
+            return result;
+        }
+
+        public List<SD_DETALLES_HOJAS_USO> ObtenerHojasDetallesPorVentasRefuerzos(int ID_VENTA)
+        {
+            List<SD_DETALLES_HOJAS_USO> result = new List<SD_DETALLES_HOJAS_USO>();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_VENTA_HOJAS_REFUERZOManager(uow);
+                //obtener un query de la tabla choferes
+                var res = manager.BuscarTodos(x => x.ID_VENTA == ID_VENTA);
+                foreach (var item in res)
+                {
+                    foreach (var detalle in item.SD_DETALLES_HOJAS_USO.OrderByDescending(x => x.FECHA_USO))
                     {
                         result.Add(detalle);
                     }
@@ -291,6 +316,83 @@ namespace Sindicato.Services
 
             });
 
+            return result;
+        }
+
+        public IEnumerable<SD_VENTA_HOJAS_REFUERZO> ObtenerVentasRefuerzosPaginados(PagingInfo paginacion, FiltrosModel<HojasModel> filtros)
+        {
+            IQueryable<SD_VENTA_HOJAS_REFUERZO> result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_VENTA_HOJAS_REFUERZOManager(uow);
+                //obtener un query de la tabla choferes
+                result = manager.BuscarTodos();
+                filtros.FiltrarDatos();
+                result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+                if (!string.IsNullOrEmpty(filtros.Contiene))
+                {
+                    result = result.Where(SD_VENTA_HOJAS_REFUERZO.Contiene(filtros.Contiene));
+
+                }
+                paginacion.total = result.Count();
+                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
+
+            });
+            return result;
+        }
+
+        public RespuestaSP GuardarVentaRefuerzos(SD_VENTA_HOJAS_REFUERZO venta,  string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var context = (SindicatoContext)uow.Context;
+                ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
+
+                context.P_SD_GUARDAR_VENTA_REFUERZO(venta.ID_VENTA,venta.ID_PARADA,venta.NOMBRE,venta.OBSERVACION,venta.FECHA,venta.CODIGO,venta.CANTIDAD,venta.COSTO_UNITARIO,venta.TOTAL,venta.ID_CAJA,venta.PLACA, login, p_res);
+                int id;
+                bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
+                if (esNumero)
+                {
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                    result.id = id;
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = p_res.Value.ToString();
+                }
+
+            });
+
+            return result;
+        }
+
+        public RespuestaSP AnularVentaRefuerzo(int ID_VENTA, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var context = (SindicatoContext)uow.Context;
+                ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
+
+                context.P_SD_ANULAR_VENTA_REFUERZO(ID_VENTA, login, p_res);
+                int id;
+                bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
+                if (esNumero)
+                {
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                    result.id = id;
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = p_res.Value.ToString();
+                }
+
+            });
             return result;
         }
     }

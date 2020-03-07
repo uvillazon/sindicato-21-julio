@@ -61,6 +61,7 @@ namespace Sindicato.Services.Model
     {
         public int ID_CAJA { get; set; }
         public string CAJA { get; set; }
+        public string NOMBRE { get; set; }
         public string OPERACION { get; set; }
         public string SUBOPERACION { get; set; }
         public decimal? SALDO { get; set; }

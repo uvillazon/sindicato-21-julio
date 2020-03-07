@@ -6,17 +6,17 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>12cm</Width>
+              <Width>11cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>14cm</Height>
+              <Height>15cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Subreport Name="Hoja">
-                      <ReportName>Hoja</ReportName>
+                    <Subreport Name="HojaDetalleUsoRefuerzo">
+                      <ReportName>HojaDetalleUsoRefuerzo</ReportName>
                       <Parameters>
                         <Parameter Name="ID_HOJA">
                           <Value>=Fields!ID_HOJA.Value</Value>
@@ -28,6 +28,7 @@
                         </Border>
                       </Style>
                     </Subreport>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -47,15 +48,9 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSetVenta</DataSetName>
-        <SortExpressions>
-          <SortExpression>
-            <Value>=Fields!FECHA_COMPRA.Value</Value>
-            <Direction>Descending</Direction>
-          </SortExpression>
-        </SortExpressions>
         <Top>0.02646cm</Top>
-        <Height>14cm</Height>
-        <Width>12cm</Width>
+        <Height>15cm</Height>
+        <Width>11cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -63,13 +58,13 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>14.02646cm</Height>
+    <Height>15.02646cm</Height>
     <Style />
   </Body>
-  <Width>12cm</Width>
+  <Width>11cm</Width>
   <Page>
-    <PageHeight>14cm</PageHeight>
-    <PageWidth>12cm</PageWidth>
+    <PageHeight>15cm</PageHeight>
+    <PageWidth>11cm</PageWidth>
     <LeftMargin>0cm</LeftMargin>
     <RightMargin>0cm</RightMargin>
     <TopMargin>0cm</TopMargin>

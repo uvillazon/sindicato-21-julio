@@ -8,6 +8,7 @@
         var me = this;
         if (me.modoConsulta) {
             me.CargarComponentes();
+            me.CargarTotales();
         }
         else {
             me.CargarComponentesForm();
@@ -15,15 +16,44 @@
         }
         this.callParent(arguments);
     },
+    CargarTotales: function () {
+        var me = this;
+        me.gridDetalle.getStore().on('load', function (str, records) {
+            var totalbs = 0;
+            var totalsus = 0;
+            str.each(function (record) {
+                if (record.get('MONEDA') == "BOLIVIANOS") {
+                    totalbs += record.get('SALDO');
+                }
+                else {
+                    totalsus += record.get('SALDO');
+                }
+            });
+            me.txt_total.setValue(totalbs);
+            me.txt_total_sus.setValue(totalsus);
+
+        });
+    },
     CargarEventos: function () {
         var me = this;
         me.date_fecha_fin.on('select', function (dat, value) {
             me.gridDetalle.getStore().setExtraParams({ FECHA_DESDE: me.date_fecha_ini.getValue(), FECHA_HASTA: value });
             me.gridDetalle.getStore().load();
         });
-        me.gridDetalle.getStore().on('load', function (str,records) {
-            var ingresos = str.sum('SALDO');
-            me.txt_total.setValue(ingresos );
+        me.gridDetalle.getStore().on('load', function (str, records) {
+            var totalbs = 0;
+            var totalsus = 0;
+            str.each(function (record) {
+                if (record.get('MONEDA') == "BOLIVIANOS") {
+                    totalbs += record.get('SALDO');
+                }
+                else {
+                    totalsus += record.get('SALDO');
+                }
+            });
+            me.txt_total.setValue(totalbs);
+            me.txt_total_sus.setValue(totalsus);
+
         });
     },
     CargarComponentesForm: function () {
@@ -57,17 +87,24 @@
         });
         me.txt_estado = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Estado",
-            //width: 480,
+            width: 480,
             name: "ESTADO",
             readOnly: true,
-            //colspan: 2,
+            colspan: 2,
             value: 'ACTIVO'
 
         });
         me.txt_total = Ext.create("App.Config.Componente.TextFieldBase", {
-            fieldLabel: "Total",
+            fieldLabel: "Total (Bolivianos)",
             //width: 480,
-            name: "LOGIN",
+            name: "TOTAL_BOLIVIANOS",
+            readOnly: true,
+
+        });
+        me.txt_total_sus = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Total (Dolares)",
+            //width: 480,
+            name: "TOTAL_DOLARES",
             readOnly: true,
 
         });
@@ -76,7 +113,8 @@
             me.txt_id,
             me.date_fecha_ini,me.date_fecha_fin,
             me.txt_observacion,
-            me.txt_estado, me.txt_total,
+            me.txt_estado,
+            me.txt_total,me.txt_total_sus,
             me.gridDetalle
         ];
     },
@@ -111,17 +149,25 @@
         });
         me.txt_estado = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Estado",
-            //width: 480,
+            width: 480,
             name: "ESTADO",
             readOnly: true,
-            //colspan: 2,
+            colspan: 2,
             value: 'ACTIVO'
 
         });
         me.txt_total = Ext.create("App.Config.Componente.TextFieldBase", {
-            fieldLabel: "Total",
+            fieldLabel: "Total (Bolivianos)",
             //width: 480,
             name: "LOGIN",
+            readOnly: true,
+
+        });
+
+        me.txt_total_sus = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Total (Dolares)",
+            //width: 480,
+            name: "TOTAL_DOLARES",
             readOnly: true,
 
         });
@@ -130,7 +176,8 @@
             me.txt_id,
             me.date_fecha_ini, me.date_fecha_fin,
             me.txt_observacion,
-            me.txt_estado, me.txt_total,
+            me.txt_estado,
+            me.txt_total,me.txt_total_sus,
             me.gridDetalle
         ];
 

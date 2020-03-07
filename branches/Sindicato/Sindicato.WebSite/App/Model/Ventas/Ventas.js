@@ -2,6 +2,7 @@
     extend: 'Ext.data.Model',
     fields: [
             { type: "int", name: "ID_HOJA" },
+            { type: "int", name: "ID_VENTA" },
             { type: "int", name: "ID_PARADA" },
             { type: "int", name: "NRO_MOVIL" },
             { type: "int", name: "NUMERO" },

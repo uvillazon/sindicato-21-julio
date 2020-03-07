@@ -96,7 +96,7 @@ namespace Sindicato.WebSite.Reportes
             ReporteHoja result = new ReporteHoja();
 
             result.ID_DETALLE = res.ID_DETALLE;
-            result.ID_HOJA = res.ID_HOJA;
+            result.ID_HOJA = res.ID_HOJA== null? 0 : (int)res.ID_HOJA;
             result.FECHA_COMPRA = res.SD_HOJAS_CONTROL.FECHA_COMPRA;
             result.FECHA_USO = res.FECHA_USO;
             result.MOVIL = res.SD_HOJAS_CONTROL.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL;
@@ -104,6 +104,29 @@ namespace Sindicato.WebSite.Reportes
             result.OBLIGACIONES = ObtenerObligacionesDetalle(res.SD_HOJAS_CONTROL.SD_DETALLES_HOJAS_CONTROL);
             result.PLACA = servicio.obtenerPlada(res.SD_HOJAS_CONTROL.ID_SOCIO_MOVIL);
             result.SOCIO = string.Format("{0} {1} {2}", res.SD_HOJAS_CONTROL.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE, res.SD_HOJAS_CONTROL.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO, res.SD_HOJAS_CONTROL.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_MATERNO);
+            results.Add(result);
+            return results;
+        }
+
+        public List<ReporteHoja> ReporteHojaDetalleRefuerzo(int ID_DETALLE)
+        {
+
+            List<ReporteHoja> results = new List<ReporteHoja>();
+            var servicio = new VentaHojasServices();
+            var res = servicio.ObtenerHojaDetalleUso(x => x.ID_DETALLE == ID_DETALLE);
+            ReporteHoja result = new ReporteHoja();
+
+            result.ID_DETALLE = res.ID_DETALLE;
+            result.ID_HOJA = res.ID_VENTA == null ? 0 : (int)res.ID_VENTA;
+            result.FECHA_COMPRA = res.SD_VENTA_HOJAS_REFUERZO.FECHA;
+            result.FECHA_USO = res.FECHA_USO;
+            result.PRECIO =res.SD_VENTA_HOJAS_REFUERZO.CODIGO;
+            result.NUMERO = res.SD_VENTA_HOJAS_REFUERZO.ID_VENTA;
+            result.PLACA = res.SD_VENTA_HOJAS_REFUERZO.PLACA;
+            result.SOCIO = res.SD_VENTA_HOJAS_REFUERZO.NOMBRE;
+
+            //result.PLACA = servicio.obtenerPlada(res.SD_HOJAS_CONTROL.ID_SOCIO_MOVIL);
+            //result.SOCIO = string.Format("{0} {1} {2}", res.SD_HOJAS_CONTROL.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE, res.SD_HOJAS_CONTROL.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO, res.SD_HOJAS_CONTROL.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_MATERNO);
             results.Add(result);
             return results;
         }
@@ -149,6 +172,20 @@ namespace Sindicato.WebSite.Reportes
             result = res.Select(x => new ReporteHoja()
             {
                 ID_HOJA =  (int)x.ID_DETALLE
+            });
+
+            return result;
+        }
+
+        public IEnumerable<ReporteHoja> ReporteHojasVentaRefuerzo(int ID_VENTA)
+        {
+
+            IEnumerable<ReporteHoja> result = null;
+            var servicio = new VentaHojasServices();
+            var res = servicio.ObtenerHojasDetallesPorVentasRefuerzos(ID_VENTA);
+            result = res.Select(x => new ReporteHoja()
+            {
+                ID_HOJA = (int)x.ID_DETALLE
             });
 
             return result;
