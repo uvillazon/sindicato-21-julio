@@ -4076,6 +4076,7 @@
     <EmbeddedResource Include="Reportes\ReportePagoPrestamo.rdlc" />
     <EmbeddedResource Include="Reportes\ReportePrestamo.rdlc" />
     <EmbeddedResource Include="Reportes\ReportePrestamosPagosDetalle.rdlc" />
+    <EmbeddedResource Include="Reportes\ReportePrestamosTotalesPorSocios.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteResumenHojas.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteResumenNumeracion.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteRetiro.rdlc" />

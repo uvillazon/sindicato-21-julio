@@ -940,6 +940,41 @@ namespace Sindicato.Services
             return result;
         }
 
+        public IEnumerable<ReportePrestamo> ObtenerReportePrestamosTotalesPorSocios(DateTime FECHA_INI, DateTime FECHA_FIN)
+        {
+            List<ReportePrestamo> result = new List<ReportePrestamo>();
+            NumLetra n = new NumLetra();
+            ExecuteManager(uow =>
+            {
+                DateTime Fecha_fin = FECHA_FIN.AddDays(1);
+                var managerPrestamos = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
+                var managerMoras = new SD_PRESTAMOS_MORAManager(uow);
+                var managerPagos = new SD_PAGO_DE_PRESTAMOSManager(uow);
+
+                var detalles = managerPrestamos.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO");
+
+
+                foreach (var item in detalles)
+                {
+                   
+                    var detalleRep = new ReportePrestamo()
+                    {
+                        MOVIL = item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
+                        SOCIO = item.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
+                        FECHA_PRESTAMO = item.FECHA,
+                        TIPO_PRESTAMO =   string.Format("{0} : {1}", item.ID_PRESTAMO , item.SD_TIPOS_PRESTAMOS.NOMBRE),
+                        IMPORTE_PRESTAMO = item.IMPORTE_PRESTAMO,
+                        IMPORTE_INTERES = item.IMPORTE_INTERES,
+                        TOTAL_CANCELADO = item.SD_PAGO_DE_PRESTAMOS.Where(x=>x.ESTADO != "ANULADO").Sum(y=>y.IMPORTE), 
+                        
+                    };
+                    result.Add(detalleRep);
+                }
+                //FE
+            });
+            return result;
+        }
+
         #endregion
 
         public IEnumerable<ReporteHojasDetalle> ObtenerReporteDetalleHojas(DateTime FECHA_INI, DateTime FECHA_FIN)

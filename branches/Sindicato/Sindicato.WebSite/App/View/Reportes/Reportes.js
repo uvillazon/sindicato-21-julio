@@ -207,6 +207,9 @@
                 case "REPORTE ESTADO RESULTADO POR MONEDA":
                     me.rutaReporte = "ReporteEstadoResultadoPorMoneda";
                     break;
+                case "REPORTE PRESTAMOS TOTALES POR SOCIOS":
+                    me.rutaReporte = "ReportePrestamosTotalesPorSocios";
+                    break;
                 default:
                     me.rutaReporte = "";
             }
