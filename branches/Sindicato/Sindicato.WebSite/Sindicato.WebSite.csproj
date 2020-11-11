@@ -56,7 +56,10 @@
     <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="Oracle.DataAccess, Version=4.121.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" />
+    <Reference Include="oracle.dataaccess, Version=4.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Oracle.DataAccess\v4.0_4.112.3.0__89b483f429c47342\oracle.dataaccess.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -236,6 +239,7 @@
     <Content Include="App\extensible\locale\extensible-lang-sv_SE.js" />
     <Content Include="App\extensible\locale\extensible-lang-zh_CN.js" />
     <Content Include="App\extensible\locale\extensible-lang-zh_TW.js" />
+    <Content Include="App\Model\CierreCaja\Gestion.js" />
     <Content Include="App\Model\CierresParada\CierresParada.js" />
     <Content Include="App\Model\CierresParada\Detalles.js" />
     <Content Include="App\Model\Cierres\Detalles.js" />
@@ -295,6 +299,7 @@
     <Content Include="App\Model\Ventas\DetallesVentaEdit.js" />
     <Content Include="App\Model\Ventas\DetallesVenta.js" />
     <Content Include="App\Model\Ventas\Ventas.js" />
+    <Content Include="App\Store\CierreCaja\Gestion.js" />
     <Content Include="App\Store\CierresParada\CierresParada.js" />
     <Content Include="App\Store\CierresParada\Detalles.js" />
     <Content Include="App\Store\Cierres\Detalles.js" />
@@ -4061,6 +4066,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reportes\Copia de ReporteCierreAhorro.rdlc" />
+    <EmbeddedResource Include="Reportes\ReportePrestamosTotalesPorGestion.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteEstadoResultadoPorMoneda.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteAhorrosCobros.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteDetalleHojaPorSocio.rdlc" />

@@ -976,6 +976,66 @@ namespace Sindicato.Services
             return result;
         }
 
+        public IEnumerable<ReportePrestamo> ObtenerReportePrestamosTotalesPorGestion(int ID)
+        {
+            List<ReportePrestamo> result = new List<ReportePrestamo>();
+            NumLetra n = new NumLetra();
+            ExecuteManager(uow =>
+            {
+                var managerGestion = new SD_GESTIONManager(uow);
+                var managerPrestamos = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
+                var managerMoras = new SD_PRESTAMOS_MORAManager(uow);
+                var managerPagos = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                var gestion = managerGestion.BuscarTodos(x => x.ID == ID).FirstOrDefault();
+                DateTime Fecha_fin = gestion.FECHA_FIN.Value.AddDays(1);
+                
+
+                var detalles = managerPrestamos.BuscarTodos(x => x.FECHA >= gestion.FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO").OrderBy(y=>y.ID_PRESTAMO);
+
+                var cnt = 0;
+                decimal SALDO_ANTERIOR = 0;
+                foreach (var item in detalles)
+                {
+                    if (cnt == 0) {
+                        SALDO_ANTERIOR = (decimal)gestion.SALDO_COOPERATIVA;
+                        cnt++;
+                        var detalleRep0 = new ReportePrestamo()
+                        {
+                            ID_PRESTAMO = -1,
+                            MOVIL = 0,
+                            SOCIO = "SALDO INICIAL",
+                            FECHA_PRESTAMO = gestion.FECHA_INI.Value,
+                            TIPO_PRESTAMO = string.Format("SALDO INICIAL GESTION : {0}", gestion.GESTION),
+                            IMPORTE_PRESTAMO = 0,
+                            IMPORTE_INTERES = 0,
+                            TOTAL_CANCELADO = 0,
+                            SALDO = (decimal)gestion.SALDO_COOPERATIVA
+
+                        };
+                        result.Add(detalleRep0);
+                    }
+
+                    var detalleRep = new ReportePrestamo()
+                    {
+                        ID_PRESTAMO = item.ID_PRESTAMO,
+                        MOVIL = item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
+                        SOCIO = item.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
+                        FECHA_PRESTAMO = item.FECHA,
+                        TIPO_PRESTAMO = string.Format("{0} : {1}", item.ID_PRESTAMO, item.SD_TIPOS_PRESTAMOS.NOMBRE),
+                        IMPORTE_PRESTAMO = item.IMPORTE_PRESTAMO,
+                        IMPORTE_INTERES = item.IMPORTE_INTERES,
+                        TOTAL_CANCELADO = item.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").Sum(y => y.IMPORTE),
+
+                    };
+                    detalleRep.SALDO = SALDO_ANTERIOR - detalleRep.IMPORTE_PRESTAMO + detalleRep.TOTAL_CANCELADO;
+                    SALDO_ANTERIOR = detalleRep.SALDO;
+                    result.Add(detalleRep);
+                }
+                //FE
+            });
+            return result;
+        }
+
         #endregion
 
         public IEnumerable<ReporteHojasDetalle> ObtenerReporteDetalleHojas(DateTime FECHA_INI, DateTime FECHA_FIN)

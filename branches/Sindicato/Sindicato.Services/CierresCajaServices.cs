@@ -568,5 +568,24 @@ namespace Sindicato.Services
 
 
 
+
+
+        public IEnumerable<SD_GESTION> ObtenerGestionesPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)
+        {
+            IQueryable<SD_GESTION> result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_GESTIONManager(uow);
+
+                result = manager.BuscarTodos();
+                filtros.FiltrarDatos();
+                result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+                paginacion.total = result.Count();
+
+                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
+
+            });
+            return result;
+        }
     }
 }

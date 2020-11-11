@@ -187,6 +187,7 @@
         <edmx:EntityTypeShape EntityType="Model.SD_DETALLE_CIERRES_CAJA" Width="1.5" PointX="0.84491203392153236" PointY="17.65414854216117" />
         <edmx:AssociationConnector Association="Model.SD_DETALLE_CIERRES_CAJA_R02" />
         <edmx:AssociationConnector Association="Model.SD_DETALLE_CIERRES_CAJA_R01" />
+        <edmx:EntityTypeShape EntityType="Model.SD_GESTION" Width="1.5" PointX="11.248367735766045" PointY="7.796643201167063" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
