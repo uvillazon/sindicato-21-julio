@@ -959,6 +959,7 @@ namespace Sindicato.Services
                    
                     var detalleRep = new ReportePrestamo()
                     {
+                        ID_PRESTAMO = item.ID_PRESTAMO,
                         MOVIL = item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
                         SOCIO = item.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
                         FECHA_PRESTAMO = item.FECHA,
