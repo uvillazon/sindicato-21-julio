@@ -45,6 +45,14 @@
                 me.cbx_moneda.setDisabled(true);
                 me.cbx_moneda.reset();
             }
+            else if (cbx.getValue() == "REPORTE ESTADO RESULTADO A DETALLE POR CAJA") {
+                me.cbx_socio.setDisabled(true);
+                me.cbx_socio.reset();
+                me.cbx_caja.setDisabled(false);
+                me.cbx_caja.reset();
+                me.cbx_moneda.setDisabled(true);
+                me.cbx_moneda.reset();
+            }
             else if (cbx.getValue() == "REPORTE ESTADO RESULTADO POR MONEDA") {
                 me.cbx_socio.setDisabled(true);
                 me.cbx_socio.reset();
@@ -205,6 +213,9 @@
                 case "REPORTE ESTADO RESULTADO POR CAJA":
                     me.rutaReporte = "ReporteEstadoResultadoPorCaja";
                     break;
+                case "REPORTE ESTADO RESULTADO A DETALLE POR CAJA":
+                    me.rutaReporte = "ReporteEstadoResultadoDetallePorCaja";
+                    break;
                 case "REPORTE ESTADO RESULTADO POR MONEDA":
                     me.rutaReporte = "ReporteEstadoResultadoPorMoneda";
                     break;
@@ -221,7 +232,7 @@
                     me.generarReporte(me.rutaReporte, 'FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue() + '&ID_SOCIO_MOVIL=' + me.cbx_socio.getValue());
 
                 }
-                else if (me.rutaReporte == "ReporteEstadoResultadoPorCaja") {
+                else if (me.rutaReporte == "ReporteEstadoResultadoPorCaja" || me.rutaReporte == "ReporteEstadoResultadoDetallePorCaja") {
                     me.generarReporte(me.rutaReporte, 'FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue() + '&ID_CAJA=' + me.cbx_caja.getValue());
 
                 }

@@ -675,7 +675,7 @@ namespace Sindicato.Services
             {
                 DateTime Fecha_fin = FECHA_FIN.AddDays(1);
                 var managerIngresos = new SD_INGRESOS_POR_SOCIOSManager(uow);
-                var ingresosSocios = managerIngresos.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin);
+                var ingresosSocios = managerIngresos.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO");
                 foreach (var item in ingresosSocios)
                 {
                     var detalleRep = new ReporteDetalleIngresos()
@@ -694,7 +694,7 @@ namespace Sindicato.Services
                     result.Add(detalleRep);
                 }
                 var managerOtrosIngresos = new SD_INGRESOSManager(uow);
-                var otrosingresos = managerOtrosIngresos.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin);
+                var otrosingresos = managerOtrosIngresos.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO");
                 foreach (var item1 in otrosingresos)
                 {
                     var detalleRep = new ReporteDetalleIngresos()
@@ -709,6 +709,46 @@ namespace Sindicato.Services
                         CAJA = item1.SD_CAJAS.NOMBRE,
                         BOLIVIANOS = item1.SD_CAJAS.MONEDA == "BOLIVIANOS" ? item1.IMPORTE : 0,
                         DOLARES = item1.SD_CAJAS.MONEDA == "DOLARES" ? item1.IMPORTE : 0
+                    };
+                    result.Add(detalleRep);
+                }
+
+                var managerPagosDeudas = new SD_DETALLES_DEUDASManager(uow);
+                var ingresosDeudas = managerPagosDeudas.BuscarTodos(x => x.FECHA_CANCELADO >= FECHA_INI && x.FECHA_CANCELADO < Fecha_fin && x.IMPORTE_CANCELADO > 0);
+                foreach (var item1 in ingresosDeudas)
+                {
+                    var detalleRep = new ReporteDetalleIngresos()
+                    {
+                        DETALLE = "OTROS INGRESOS (COBRO DE MULTAS)",
+                        SUBDETALLE = item1.SD_DEUDAS_SOCIOS.MOTIVO,
+                        FECHA = (DateTime)item1.FECHA_CANCELADO,
+                        FECHA_INI = FECHA_INI,
+                        FECHA_FIN = FECHA_FIN,
+                        NRO_MOVIL = item1.SD_SOCIO_MOVILES.NRO_MOVIL,
+                        NRO_RECIBO = Convert.ToString(item1.ID_DETALLE),
+                        CAJA = item1.SD_CAJAS.NOMBRE,
+                        BOLIVIANOS = item1.SD_CAJAS.MONEDA == "BOLIVIANOS" ? (decimal)item1.IMPORTE_CANCELADO : 0,
+                        DOLARES = item1.SD_CAJAS.MONEDA == "DOLARES" ? (decimal)item1.IMPORTE_CANCELADO : 0
+                    };
+                    result.Add(detalleRep);
+                }
+
+                var managerRegularizaciones = new SD_DETALLES_REGULARIZACIONESManager(uow);
+                var ingresosRegularizaciones = managerRegularizaciones.BuscarTodos(x => x.SD_REGULARIZACIONES.FECHA_COMPRA >= FECHA_INI && x.SD_REGULARIZACIONES.FECHA_COMPRA < Fecha_fin && x.SD_REGULARIZACIONES.ESTADO != "ANULADO");
+                foreach (var item1 in ingresosRegularizaciones)
+                {
+                    var detalleRep = new ReporteDetalleIngresos()
+                    {
+                        DETALLE = "OTROS INGRESOS (REGULARIZACIONES)",
+                        SUBDETALLE = item1.SD_REGULARIZACIONES.SD_SOCIO_MOVILES.ObtenerNombreSocio() + " " + item1.SD_REGULARIZACIONES.MES.ToString("MMMM - yyyy"),
+                        FECHA = (DateTime)item1.SD_REGULARIZACIONES.FECHA_COMPRA,
+                        FECHA_INI = FECHA_INI,
+                        FECHA_FIN = FECHA_FIN,
+                        NRO_MOVIL = item1.SD_REGULARIZACIONES.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
+                        NRO_RECIBO = Convert.ToString(item1.ID_REGULACION),
+                        CAJA = item1.SD_CAJAS.NOMBRE,
+                        BOLIVIANOS = item1.SD_CAJAS.MONEDA == "BOLIVIANOS" ? (decimal)item1.IMPORTE : 0,
+                        DOLARES = item1.SD_CAJAS.MONEDA == "DOLARES" ? (decimal)item1.IMPORTE : 0
                     };
                     result.Add(detalleRep);
                 }
@@ -1259,10 +1299,12 @@ namespace Sindicato.Services
                 var managerPagosPrestamos = new SD_PAGO_DE_PRESTAMOSManager(uow);
                 var managerRetiros = new SD_RETIRO_SOCIO_MOVILManager(uow);
                 var managerTransferencias = new SD_TRANSFERENCIASManager(uow);
+                var managerDeudas = new SD_DETALLES_DEUDASManager(uow);
                 int cnt = 0;
                 var cajas = managerCaja.BuscarTodos(x => x.ID_CAJA == ID_CAJA).FirstOrDefault();
                 var caja = cajas == null ? null : string.Format("{0} : {1}", cajas.CODIGO, cajas.NOMBRE);
                 var moneda = cajas.MONEDA;
+
                 var detalleshojas = managerDetalleHoja.BuscarTodos(x => x.ID_CAJA == ID_CAJA && x.SD_HOJAS_CONTROL.ESTADO != "ANULADO" && x.SD_HOJAS_CONTROL.FECHA_COMPRA >= FECHA_INI && x.SD_HOJAS_CONTROL.FECHA_COMPRA < Fecha_fin);
                 if (detalleshojas.Count() > 0)
                 {
@@ -1395,6 +1437,30 @@ namespace Sindicato.Services
                         cnt++;
                     }
                 }
+
+                var detallesPagosDeudas = managerDeudas.BuscarTodos(x => x.ID_CAJA == ID_CAJA && x.FECHA_CANCELADO >= FECHA_INI && x.FECHA_CANCELADO < Fecha_fin && x.IMPORTE_CANCELADO > 0).GroupBy(y => y.SD_DEUDAS_SOCIOS.MOTIVO);
+                if (detallesPagosDeudas.Count() > 0)
+                {
+                    foreach (var item in detallesPagosDeudas)
+                    {
+                        EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
+                        {
+                            NRO = cnt,
+                            OPERACION = "INGRESOS",
+                            SUBOPERACION = "PAGO DE DEUDAS",
+                            DETALLE = item.Key,
+                            PERIODO = Intervalo,
+                            CAJA = caja,
+                            MONEDA = moneda,
+                            //MES =  item.FECHA.ToString("MMMM").ToUpper();
+                            IMPORTE = item.Sum(x => x.IMPORTE_CANCELADO),
+                            //UTILIDA_BRUTA_NETA = (decimal)(totalventa - totalcosto)
+                        };
+                        result.Add(res);
+                        cnt++;
+                    }
+                }
+
                 var detalleTransferencias = managerTransferencias.BuscarTodos(x => x.ID_CAJA_DESTINO == ID_CAJA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO");
                 foreach (var item in detalleTransferencias)
                 {
@@ -1499,6 +1565,276 @@ namespace Sindicato.Services
 
         }
 
+        public IEnumerable<EstadoResultadoCompletoModel> ReporteEstadoResultadoDetallePorCaja(int ID_CAJA, DateTime FECHA_INI, DateTime FECHA_FIN)
+        {
+            List<EstadoResultadoCompletoModel> result = new List<EstadoResultadoCompletoModel>();
+
+            ExecuteManager(uow =>
+            {
+                DateTime Fecha_fin = FECHA_FIN.AddDays(1);
+                string Intervalo = string.Format("{0} - {1}", FECHA_INI.ToString("dd/MM/yyyy"), FECHA_FIN.ToString("dd/MM/yyyy"));
+                var managerCaja = new SD_CAJASManager(uow);
+                var managerEgresos = new SD_EGRESOSManager(uow);
+                var managerRegularizaciones = new SD_DETALLES_REGULARIZACIONESManager(uow);
+                var managerDetalleHoja = new SD_DETALLES_HOJAS_CONTROLManager(uow);
+                var managerIngresos = new SD_INGRESOSManager(uow);
+                var managerIngresosSoscios = new SD_INGRESOS_POR_SOCIOSManager(uow);
+                var managerPrestamos = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
+                var managerPagosPrestamos = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                var managerRetiros = new SD_RETIRO_SOCIO_MOVILManager(uow);
+                var managerTransferencias = new SD_TRANSFERENCIASManager(uow);
+                var managerDeudas = new SD_DETALLES_DEUDASManager(uow);
+                int cnt = 0;
+                var cajas = managerCaja.BuscarTodos(x => x.ID_CAJA == ID_CAJA).FirstOrDefault();
+                var caja = cajas == null ? null : string.Format("{0} : {1}", cajas.CODIGO, cajas.NOMBRE);
+                var moneda = cajas.MONEDA;
+
+                var detalleshojas = managerDetalleHoja.BuscarTodos(x => x.ID_CAJA == ID_CAJA && x.SD_HOJAS_CONTROL.ESTADO != "ANULADO" && x.SD_HOJAS_CONTROL.FECHA_COMPRA >= FECHA_INI && x.SD_HOJAS_CONTROL.FECHA_COMPRA < Fecha_fin);
+                if (detalleshojas.Count() > 0)
+                {
+                    foreach (var item in detalleshojas)
+                    {
+
+                        EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
+                        {
+                            NRO = cnt,
+                            OPERACION = "INGRESOS",
+                            SUBOPERACION = "VENTA DE HOJAS",
+                            DETALLE = string.Format("({0})  {1} NRO MOVIL : {2}", item.SD_HOJAS_CONTROL.FECHA_COMPRA.ToString("dd/MM/yyyy"), item.OBLIGACION, item.SD_HOJAS_CONTROL.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL),
+                            PERIODO = Intervalo,
+                            CAJA = caja,
+                            MONEDA = moneda,
+                            //MES =  item.FECHA.ToString("MMMM").ToUpper();
+                            IMPORTE = item.IMPORTE,
+                            //UTILIDA_BRUTA_NETA = (decimal)(totalventa - totalcosto)
+                        };
+                        result.Add(res);
+                        cnt++;
+
+                    }
+                }
+                var detalleregularizaciones = managerRegularizaciones.BuscarTodos(x => x.ID_CAJA == ID_CAJA && x.SD_REGULARIZACIONES.ESTADO != "ANULADO" && x.SD_REGULARIZACIONES.FECHA_COMPRA >= FECHA_INI && x.SD_REGULARIZACIONES.FECHA_COMPRA < Fecha_fin);
+                if (detalleregularizaciones.Count() > 0)
+                {
+                    foreach (var item in detalleregularizaciones)
+                    {
+                        EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
+                        {
+                            NRO = cnt,
+                            OPERACION = "INGRESOS",
+                            SUBOPERACION = "REGULARIZACIONES",
+                            DETALLE = string.Format("({0})  {1} NRO MOVIL : {2}", item.SD_REGULARIZACIONES.FECHA_COMPRA.Value.ToString("dd/MM/yyyy"), item.OBLIGACION, item.SD_REGULARIZACIONES.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL),
+                            PERIODO = Intervalo,
+                            CAJA = caja,
+                            MONEDA = moneda,
+                            IMPORTE = item.IMPORTE,
+                        };
+                        result.Add(res);
+                        cnt++;
+
+                    }
+
+                }
+                var detallesIngresosPorSocios = managerIngresosSoscios.BuscarTodos(x => x.ID_CAJA == ID_CAJA && x.ESTADO != "ANULADO" && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin);
+                if (detallesIngresosPorSocios.Count() > 0)
+                {
+
+                    foreach (var item in detallesIngresosPorSocios)
+                    {
+                        EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
+                        {
+                            NRO = cnt,
+                            OPERACION = "INGRESOS",
+                            SUBOPERACION = item.SD_TIPOS_INGRESOS_SOCIO.NOMBRE,
+                            DETALLE = string.Format("({0})   NRO MOVIL : {1}", item.FECHA.ToString("dd/MM/yyyy"), item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL),
+                            PERIODO = Intervalo,
+                            CAJA = caja,
+                            MONEDA = moneda,
+                            //MES =  item.FECHA.ToString("MMMM").ToUpper();
+                            IMPORTE = item.IMPORTE,
+                            //UTILIDA_BRUTA_NETA = (decimal)(totalventa - totalcosto)
+                        };
+                        result.Add(res);
+                        cnt++;
+                    }
+
+                }
+
+                var detallesIngresos = managerIngresos.BuscarTodos(x => x.ID_CAJA == ID_CAJA && x.ESTADO != "ANULADO" && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin);
+                if (detallesIngresos.Count() > 0)
+                {
+                    foreach (var item in detallesIngresos)
+                    {
+                        EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
+                        {
+                            NRO = cnt,
+                            OPERACION = "INGRESOS",
+                            SUBOPERACION = item.TIPO,
+                            DETALLE = string.Format("({0}) {1} ", item.FECHA.ToString("dd/MM/yyyy"), item.CONCEPTO),
+                            PERIODO = Intervalo,
+                            MONEDA = moneda,
+                            //MES =  item.FECHA.ToString("MMMM").ToUpper();
+                            IMPORTE = item.IMPORTE
+                            //UTILIDA_BRUTA_NETA = (decimal)(totalventa - totalcosto)
+                        };
+                        result.Add(res);
+                        cnt++;
+                    }
+                }
+
+
+
+                var detallesPagosPrestamos = managerPagosPrestamos.BuscarTodos(x => x.ID_CAJA == ID_CAJA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO");
+                if (detallesPagosPrestamos.Count() > 0)
+                {
+                    foreach (var item in detallesPagosPrestamos)
+                    {
+                        EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
+                        {
+                            NRO = cnt,
+                            OPERACION = "INGRESOS",
+                            SUBOPERACION = "PAGO DE PRESTAMOS",
+                            DETALLE = string.Format("({0}) {1} NRO MOVIL:{2}", item.FECHA.ToString("dd/MM/yyyy") , item.SD_PRESTAMOS_POR_SOCIOS.SD_TIPOS_PRESTAMOS.NOMBRE,item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL),
+                            PERIODO = Intervalo,
+                            CAJA = caja,
+                            MONEDA = moneda,
+                            //MES =  item.FECHA.ToString("MMMM").ToUpper();
+                            IMPORTE = item.IMPORTE,
+                            //UTILIDA_BRUTA_NETA = (decimal)(totalventa - totalcosto)
+                        };
+                        result.Add(res);
+                        cnt++;
+                    }
+                }
+
+                var detallesPagosDeudas = managerDeudas.BuscarTodos(x => x.ID_CAJA == ID_CAJA && x.FECHA_CANCELADO >= FECHA_INI && x.FECHA_CANCELADO < Fecha_fin && x.IMPORTE_CANCELADO > 0);
+                if (detallesPagosDeudas.Count() > 0)
+                {
+                    foreach (var item in detallesPagosDeudas)
+                    {
+                        EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
+                        {
+                            NRO = cnt,
+                            OPERACION = "INGRESOS",
+                            SUBOPERACION = "PAGO DE DEUDAS",
+                            DETALLE = string.Format("({0}) {1} NRO MOVIL:{2}", item.FECHA_CANCELADO.Value.ToString("dd/MM/yyyy"), item.SD_DEUDAS_SOCIOS.MOTIVO, item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL),
+                            PERIODO = Intervalo,
+                            CAJA = caja,
+                            MONEDA = moneda,
+                            //MES =  item.FECHA.ToString("MMMM").ToUpper();
+                            IMPORTE = item.IMPORTE_CANCELADO,
+                            //UTILIDA_BRUTA_NETA = (decimal)(totalventa - totalcosto)
+                        };
+                        result.Add(res);
+                        cnt++;
+                    }
+                }
+
+                var detalleTransferencias = managerTransferencias.BuscarTodos(x => x.ID_CAJA_DESTINO == ID_CAJA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO");
+                foreach (var item in detalleTransferencias)
+                {
+                    EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
+                    {
+                        NRO = cnt,
+                        OPERACION = "INGRESOS",
+                        SUBOPERACION = "TRANSFERENCIAS",
+                        DETALLE = item.CONCEPTO,
+                        PERIODO = Intervalo,
+                        CAJA = caja,
+                        MONEDA = moneda,
+                        //MES =  item.FECHA.ToString("MMMM").ToUpper();
+                        IMPORTE = item.IMPORTE,
+                        //UTILIDA_BRUTA_NETA = (decimal)(totalventa - totalcosto)
+                    };
+                    result.Add(res);
+                    cnt++;
+                }
+                var detalleEgresos = managerEgresos.BuscarTodos(x => x.ID_CAJA == ID_CAJA && x.ESTADO != "ANULADO" && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin).GroupBy(y => y.SD_TIPOS_EGRESOS.NOMBRE);
+                foreach (var item in detalleEgresos)
+                {
+                    EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
+                    {
+                        NRO = cnt,
+                        OPERACION = "EGRESOS",
+                        SUBOPERACION = "OTROS EGRESOS",
+                        DETALLE = item.Key,
+                        PERIODO = Intervalo,
+                        CAJA = caja,
+                        MONEDA = moneda,
+                        //MES =  item.FECHA.ToString("MMMM").ToUpper();
+                        IMPORTE = -item.Sum(x => x.IMPORTE),
+                        //UTILIDA_BRUTA_NETA = (decimal)(totalventa - totalcosto)
+                    };
+                    result.Add(res);
+                    cnt++;
+                }
+                var detallePrestamos = managerPrestamos.BuscarTodos(x => x.ID_CAJA == ID_CAJA && x.ESTADO != "ANULADO" && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin);
+                foreach (var item in detallePrestamos)
+                {
+                    EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
+                    {
+                        NRO = cnt,
+                        OPERACION = "EGRESOS",
+                        SUBOPERACION = "PRESTAMOS",
+                        DETALLE = string.Format("({0}) {1} NRO MOVIL:{2}", item.FECHA.ToString("dd/MM/yyyy"), item.SD_TIPOS_PRESTAMOS.NOMBRE, item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL),
+                        PERIODO = Intervalo,
+                        CAJA = caja,
+                        MONEDA = moneda,
+                        //MES =  item.FECHA.ToString("MMMM").ToUpper();
+                        IMPORTE = -item.IMPORTE_PRESTAMO,
+                        //UTILIDA_BRUTA_NETA = (decimal)(totalventa - totalcosto)
+                    };
+                    result.Add(res);
+                    cnt++;
+                }
+                var detallesRetiros = managerRetiros.BuscarTodos(x => x.ID_CAJA == ID_CAJA && x.ESTADO != "ANULADO" && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin).GroupBy(y => y.FECHA);
+                foreach (var item in detallesRetiros)
+                {
+                    EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
+                    {
+                        NRO = cnt,
+                        OPERACION = "EGRESOS",
+                        SUBOPERACION = "RETIROS AHORROS",
+                        DETALLE = string.Format("RETIRO EN : {0}", item.Key.Value.ToString("dd/MM/yyyy")),
+                        PERIODO = Intervalo,
+                        CAJA = caja,
+                        MONEDA = moneda,
+                        //MES =  item.FECHA.ToString("MMMM").ToUpper();
+                        IMPORTE = -item.Sum(x => x.RETIRO),
+                        //UTILIDA_BRUTA_NETA = (decimal)(totalventa - totalcosto)
+                    };
+                    result.Add(res);
+                    cnt++;
+                }
+                var detalleTransferenciasEgreso = managerTransferencias.BuscarTodos(x => x.ID_CAJA_ORIGEN == ID_CAJA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO");
+                foreach (var item in detalleTransferenciasEgreso)
+                {
+                    EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
+                    {
+                        NRO = cnt,
+                        OPERACION = "EGRESOS",
+                        SUBOPERACION = "TRANSFERENCIAS",
+                        DETALLE = item.CONCEPTO,
+                        PERIODO = Intervalo,
+                        CAJA = caja,
+                        MONEDA = moneda,
+                        //MES =  item.FECHA.ToString("MMMM").ToUpper();
+                        IMPORTE = -item.IMPORTE,
+                        //UTILIDA_BRUTA_NETA = (decimal)(totalventa - totalcosto)
+                    };
+                    result.Add(res);
+                    cnt++;
+                }
+
+
+            });
+            return result;
+
+
+
+        }
+
+
         public IEnumerable<EstadoResultadoCompletoModel> ReporteEstadoResultadoPorMoneda(string MONEDA, DateTime FECHA_INI, DateTime FECHA_FIN)
         {
             List<EstadoResultadoCompletoModel> result = new List<EstadoResultadoCompletoModel>();
@@ -1517,6 +1853,8 @@ namespace Sindicato.Services
                 var managerPagosPrestamos = new SD_PAGO_DE_PRESTAMOSManager(uow);
                 var managerRetiros = new SD_RETIRO_SOCIO_MOVILManager(uow);
                 var managerTransferencias = new SD_TRANSFERENCIASManager(uow);
+                var managerDeudas = new SD_DETALLES_DEUDASManager(uow);
+
                 int cnt = 0;
                 var moneda = MONEDA;
                 var detalleshojas = managerDetalleHoja.BuscarTodos(x => x.SD_CAJAS.MONEDA == MONEDA && x.SD_HOJAS_CONTROL.ESTADO != "ANULADO" && x.SD_HOJAS_CONTROL.FECHA_COMPRA >= FECHA_INI && x.SD_HOJAS_CONTROL.FECHA_COMPRA < Fecha_fin);
@@ -1664,6 +2002,29 @@ namespace Sindicato.Services
                     result.Add(res);
                     cnt++;
                 }
+
+                var detallesPagosDeudas = managerDeudas.BuscarTodos(x => x.SD_CAJAS.MONEDA == MONEDA && x.FECHA_CANCELADO >= FECHA_INI && x.FECHA_CANCELADO < Fecha_fin && x.IMPORTE_CANCELADO > 0).GroupBy(y => y.SD_DEUDAS_SOCIOS.MOTIVO);
+                if (detallesPagosDeudas.Count() > 0)
+                {
+                    foreach (var item in detallesPagosDeudas)
+                    {
+                        EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
+                        {
+                            NRO = cnt,
+                            OPERACION = "INGRESOS",
+                            SUBOPERACION = "PAGO DE DEUDAS",
+                            DETALLE = item.Key,
+                            PERIODO = Intervalo,
+                            MONEDA = moneda,
+                            //MES =  item.FECHA.ToString("MMMM").ToUpper();
+                            IMPORTE = item.Sum(x => x.IMPORTE_CANCELADO),
+                            //UTILIDA_BRUTA_NETA = (decimal)(totalventa - totalcosto)
+                        };
+                        result.Add(res);
+                        cnt++;
+                    }
+                }
+
                 var detalleEgresos = managerEgresos.BuscarTodos(x => x.SD_CAJAS.MONEDA == MONEDA && x.ESTADO != "ANULADO" && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin).GroupBy(y => new { y.SD_CAJAS.CODIGO, y.SD_TIPOS_EGRESOS.NOMBRE });
                 foreach (var item in detalleEgresos)
                 {

@@ -20,18 +20,14 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.86677cm</Top>
-        <Left>2.28937cm</Left>
-        <Height>0.75875cm</Height>
-        <Width>7.8975cm</Width>
+        <Top>3.50177cm</Top>
+        <Left>0.6225cm</Left>
+        <Height>0.60875cm</Height>
+        <Width>9.93479cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
       <Textbox Name="Textbox2">
@@ -43,6 +39,7 @@
               <TextRun>
                 <Value>=First(Fields!PLACA.Value, "DataSetHoja")</Value>
                 <Style>
+                  <FontSize>11pt</FontSize>
                   <FontWeight>ExtraBold</FontWeight>
                 </Style>
               </TextRun>
@@ -51,9 +48,9 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>3.90774cm</Top>
+        <Top>4.26052cm</Top>
         <Left>2.73916cm</Left>
-        <Height>0.45cm</Height>
+        <Height>0.5cm</Height>
         <Width>7.44771cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
@@ -73,24 +70,21 @@
                 <Style>
                   <FontSize>12pt</FontSize>
                   <FontWeight>ExtraBold</FontWeight>
-                  <Format>dd'       'MMMM'     'yyyy</Format>
+                  <Format>dd'        'MMMM'     'yyyy</Format>
                 </Style>
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Center</TextAlign>
+              <TextAlign>Left</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>4.39302cm</Top>
-        <Left>2.28937cm</Left>
+        <Top>5.02802cm</Top>
+        <Left>2.92437cm</Left>
         <Height>0.46771cm</Height>
-        <Width>7.8975cm</Width>
+        <Width>6.60104cm</Width>
         <ZIndex>2</ZIndex>
-        <Visibility>
-          <Hidden>=iif(Sum(Fields!MOVIL.Value, "DataSetHoja") &lt; 1000, false, true)</Hidden>
-        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -115,7 +109,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>1.17344cm</Top>
+        <Top>2.12594cm</Top>
         <Left>7.55458cm</Left>
         <Height>0.75875cm</Height>
         <Width>2.26188cm</Width>
@@ -130,73 +124,8 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Textbox Name="Textbox5">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>="Nro : "&amp; First(Fields!ID_HOJA.Value, "DataSetHoja") &amp; " G-VII"</Value>
-                <Style>
-                  <FontWeight>ExtraBold</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Right</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.54705cm</Top>
-        <Left>2.36875cm</Left>
-        <Height>0.45cm</Height>
-        <Width>7.44771cm</Width>
-        <ZIndex>4</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox6">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!FECHA_USO.Value, "DataSetHoja")</Value>
-                <Style>
-                  <FontSize>12pt</FontSize>
-                  <FontWeight>ExtraBold</FontWeight>
-                  <Format>'        'MMMM'     'yyyy</Format>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>4.39302cm</Top>
-        <Left>2.28937cm</Left>
-        <Height>0.46771cm</Height>
-        <Width>7.8975cm</Width>
-        <ZIndex>5</ZIndex>
-        <Visibility>
-          <Hidden>=iif(Sum(Fields!MOVIL.Value, "DataSetHoja") &gt;= 1000, false, true)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-        </Style>
-      </Textbox>
     </ReportItems>
-    <Height>15cm</Height>
+    <Height>14.99cm</Height>
     <Style>
       <Border>
         <Style>None</Style>
