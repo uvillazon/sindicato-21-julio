@@ -105,11 +105,11 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLES_DEUDAS_R03", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sindicato.Model.SD_CAJAS), "SD_DETALLES_DEUDAS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLES_DEUDAS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLES_DEUDAS_R01", "SD_DEUDAS_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_DEUDAS_SOCIOS), "SD_DETALLES_DEUDAS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLES_DEUDAS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLES_DEUDAS_R02", "SD_SOCIO_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIO_MOVILES), "SD_DETALLES_DEUDAS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLES_DEUDAS), true)]
-[assembly: EdmRelationshipAttribute("Model", "SD_INGRESOS_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_INGRESOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_INGRESOS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_HIST_MOVIL_R01", "SD_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_MOVILES), "SD_HIST_MOVIL", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_HIST_MOVIL), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLES_HOJAS_USO_R01", "SD_HOJAS_CONTROL", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sindicato.Model.SD_HOJAS_CONTROL), "SD_DETALLES_HOJAS_USO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLES_HOJAS_USO), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_VENTA_HOJAS_REFUERZO_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_VENTA_HOJAS_REFUERZO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_VENTA_HOJAS_REFUERZO), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLES_HOJAS_USO_R02", "SD_VENTA_HOJAS_REFUERZO", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sindicato.Model.SD_VENTA_HOJAS_REFUERZO), "SD_DETALLES_HOJAS_USO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLES_HOJAS_USO), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_INGRESOS_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_INGRESOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_INGRESOS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_OBLIGACIONES_HOJA_R02", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_OBLIGACIONES_HOJA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_OBLIGACIONES_HOJA), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_OBLIGACIONES_HOJA_R03", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sindicato.Model.SD_CAJAS), "SD_OBLIGACIONES_HOJA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_OBLIGACIONES_HOJA), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_OBLIGACIONES_HOJA_R01", "SD_LINEAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_LINEAS), "SD_OBLIGACIONES_HOJA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_OBLIGACIONES_HOJA), true)]
@@ -1288,22 +1288,6 @@ namespace Sindicato.Model
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<SD_INGRESOS> SD_INGRESOS
-        {
-            get
-            {
-                if ((_SD_INGRESOS == null))
-                {
-                    _SD_INGRESOS = base.CreateObjectSet<SD_INGRESOS>("SD_INGRESOS");
-                }
-                return _SD_INGRESOS;
-            }
-        }
-        private ObjectSet<SD_INGRESOS> _SD_INGRESOS;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<SD_HIST_MOVIL> SD_HIST_MOVIL
         {
             get
@@ -1348,6 +1332,22 @@ namespace Sindicato.Model
             }
         }
         private ObjectSet<SD_VENTA_HOJAS_REFUERZO> _SD_VENTA_HOJAS_REFUERZO;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<SD_INGRESOS> SD_INGRESOS
+        {
+            get
+            {
+                if ((_SD_INGRESOS == null))
+                {
+                    _SD_INGRESOS = base.CreateObjectSet<SD_INGRESOS>("SD_INGRESOS");
+                }
+                return _SD_INGRESOS;
+            }
+        }
+        private ObjectSet<SD_INGRESOS> _SD_INGRESOS;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1930,14 +1930,6 @@ namespace Sindicato.Model
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the SD_INGRESOS EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToSD_INGRESOS(SD_INGRESOS sD_INGRESOS)
-        {
-            base.AddObject("SD_INGRESOS", sD_INGRESOS);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the SD_HIST_MOVIL EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToSD_HIST_MOVIL(SD_HIST_MOVIL sD_HIST_MOVIL)
@@ -1959,6 +1951,14 @@ namespace Sindicato.Model
         public void AddToSD_VENTA_HOJAS_REFUERZO(SD_VENTA_HOJAS_REFUERZO sD_VENTA_HOJAS_REFUERZO)
         {
             base.AddObject("SD_VENTA_HOJAS_REFUERZO", sD_VENTA_HOJAS_REFUERZO);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the SD_INGRESOS EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSD_INGRESOS(SD_INGRESOS sD_INGRESOS)
+        {
+            base.AddObject("SD_INGRESOS", sD_INGRESOS);
         }
     
         /// <summary>
@@ -7392,28 +7392,6 @@ namespace Sindicato.Model
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_INGRESOS_R01", "SD_INGRESOS")]
-        public EntityCollection<SD_INGRESOS> SD_INGRESOS
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_INGRESOS>("Model.SD_INGRESOS_R01", "SD_INGRESOS");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_INGRESOS>("Model.SD_INGRESOS_R01", "SD_INGRESOS", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Model", "SD_VENTA_HOJAS_REFUERZO_R01", "SD_VENTA_HOJAS_REFUERZO")]
         public EntityCollection<SD_VENTA_HOJAS_REFUERZO> SD_VENTA_HOJAS_REFUERZO
         {
@@ -7426,6 +7404,28 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_VENTA_HOJAS_REFUERZO>("Model.SD_VENTA_HOJAS_REFUERZO_R01", "SD_VENTA_HOJAS_REFUERZO", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_INGRESOS_R01", "SD_INGRESOS")]
+        public EntityCollection<SD_INGRESOS> SD_INGRESOS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_INGRESOS>("Model.SD_INGRESOS_R01", "SD_INGRESOS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_INGRESOS>("Model.SD_INGRESOS_R01", "SD_INGRESOS", value);
                 }
             }
         }
@@ -15901,7 +15901,8 @@ namespace Sindicato.Model
         /// <param name="fECHA">Initial value of the FECHA property.</param>
         /// <param name="cONCEPTO">Initial value of the CONCEPTO property.</param>
         /// <param name="iMPORTE">Initial value of the IMPORTE property.</param>
-        public static SD_INGRESOS CreateSD_INGRESOS(global::System.Int32 iD_INGRESO, global::System.Int32 iD_CAJA, global::System.Int32 nRO_RECIBO, global::System.DateTime fECHA, global::System.String cONCEPTO, global::System.Decimal iMPORTE)
+        /// <param name="eNTREGADO">Initial value of the ENTREGADO property.</param>
+        public static SD_INGRESOS CreateSD_INGRESOS(global::System.Int32 iD_INGRESO, global::System.Int32 iD_CAJA, global::System.Int32 nRO_RECIBO, global::System.DateTime fECHA, global::System.String cONCEPTO, global::System.Decimal iMPORTE, global::System.String eNTREGADO)
         {
             SD_INGRESOS sD_INGRESOS = new SD_INGRESOS();
             sD_INGRESOS.ID_INGRESO = iD_INGRESO;
@@ -15910,6 +15911,7 @@ namespace Sindicato.Model
             sD_INGRESOS.FECHA = fECHA;
             sD_INGRESOS.CONCEPTO = cONCEPTO;
             sD_INGRESOS.IMPORTE = iMPORTE;
+            sD_INGRESOS.ENTREGADO = eNTREGADO;
             return sD_INGRESOS;
         }
 
@@ -16183,6 +16185,30 @@ namespace Sindicato.Model
         private global::System.String _TIPO;
         partial void OnTIPOChanging(global::System.String value);
         partial void OnTIPOChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ENTREGADO
+        {
+            get
+            {
+                return _ENTREGADO;
+            }
+            set
+            {
+                OnENTREGADOChanging(value);
+                ReportPropertyChanging("ENTREGADO");
+                _ENTREGADO = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ENTREGADO");
+                OnENTREGADOChanged();
+            }
+        }
+        private global::System.String _ENTREGADO;
+        partial void OnENTREGADOChanging(global::System.String value);
+        partial void OnENTREGADOChanged();
 
         #endregion
 

@@ -921,6 +921,7 @@
           <Property Name="FECHA_REG" Type="date" />
           <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
           <Property Name="TIPO" Type="varchar2" MaxLength="255" />
+          <Property Name="ENTREGADO" Type="varchar2" Nullable="false" MaxLength="255" />
         </EntityType>
         <EntityType Name="SD_INGRESOS_POR_SOCIOS">
           <Key>
@@ -2887,11 +2888,6 @@
           <Parameter Name="P_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ANULAR_VENTA_REFUERZO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
-          <Parameter Name="P_ID_VENTA" Type="number" Mode="In" />
-          <Parameter Name="P_USR" Type="varchar2" Mode="In" />
-          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
-        </Function>
         <Function Name="P_SD_BAJA_SOCIO_MOVILES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
           <Parameter Name="P_ID_SOCIO_MOVIL" Type="number" Mode="In" />
           <Parameter Name="P_FECHA_BAJA" Type="date" Mode="In" />
@@ -3070,21 +3066,6 @@
           <Parameter Name="P_CATEGORIA" Type="varchar2" Mode="In" />
           <Parameter Name="P_TIPO_INTERES" Type="varchar2" Mode="In" />
           <Parameter Name="P_INTERES_FIJO" Type="number" Mode="In" />
-          <Parameter Name="P_USR" Type="varchar2" Mode="In" />
-          <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
-        </Function>
-        <Function Name="P_SD_GUARDAR_VENTA_REFUERZO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
-          <Parameter Name="P_ID_VENTA" Type="number" Mode="In" />
-          <Parameter Name="P_ID_PARADA" Type="number" Mode="In" />
-          <Parameter Name="P_NOMBRE" Type="varchar2" Mode="In" />
-          <Parameter Name="P_OBSERVACION" Type="varchar2" Mode="In" />
-          <Parameter Name="P_FECHA" Type="date" Mode="In" />
-          <Parameter Name="P_CODIGO" Type="varchar2" Mode="In" />
-          <Parameter Name="P_CANTIDAD" Type="number" Mode="In" />
-          <Parameter Name="P_COSTO_UNITARIO" Type="number" Mode="In" />
-          <Parameter Name="P_TOTAL" Type="number" Mode="In" />
-          <Parameter Name="P_ID_CAJA" Type="number" Mode="In" />
-          <Parameter Name="P_PLACA" Type="varchar2" Mode="In" />
           <Parameter Name="P_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
@@ -3926,11 +3907,6 @@
             <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
             <End Role="SD_DETALLES_DEUDAS" EntitySet="SD_DETALLES_DEUDAS" />
           </AssociationSet>
-          <EntitySet Name="SD_INGRESOS" EntityType="Model.SD_INGRESOS" />
-          <AssociationSet Name="SD_INGRESOS_R01" Association="Model.SD_INGRESOS_R01">
-            <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
-            <End Role="SD_INGRESOS" EntitySet="SD_INGRESOS" />
-          </AssociationSet>
           <FunctionImport Name="P_SD_GUARDAR_HOJA">
             <Parameter Name="P_ID_SOCIO_MOVIL" Mode="In" Type="Decimal" />
             <Parameter Name="P_ID_PARADA" Mode="In" Type="Decimal" />
@@ -3980,6 +3956,11 @@
             <Parameter Name="P_USR" Mode="In" Type="String" />
             <Parameter Name="P_RES" Mode="Out" Type="String" />
           </FunctionImport>
+          <EntitySet Name="SD_INGRESOS" EntityType="Model.SD_INGRESOS" />
+          <AssociationSet Name="SD_INGRESOS_R01" Association="Model.SD_INGRESOS_R01">
+            <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
+            <End Role="SD_INGRESOS" EntitySet="SD_INGRESOS" />
+          </AssociationSet>
           <EntitySet Name="SD_OBLIGACIONES_HOJA" EntityType="Model.SD_OBLIGACIONES_HOJA" />
           <AssociationSet Name="SD_OBLIGACIONES_HOJA_R02" Association="Model.SD_OBLIGACIONES_HOJA_R02">
             <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
@@ -3997,7 +3978,7 @@
             <End Role="SD_OBLIGACIONES_HOJA" EntitySet="SD_OBLIGACIONES_HOJA" />
             <End Role="SD_SOC_MOV_OBLIG" EntitySet="SD_SOC_MOV_OBLIG" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="SD_LISTAS">
           <Key>
             <PropertyRef Name="ID_LISTA" />
@@ -4986,11 +4967,11 @@
           <NavigationProperty Name="SD_DETALLE_CIERRES_CAJA" Relationship="Model.SD_DETALLE_CIERRES_CAJA_R02" FromRole="SD_CAJAS" ToRole="SD_DETALLE_CIERRES_CAJA" />
           <NavigationProperty Name="SD_DEUDAS_SOCIOS" Relationship="Model.SD_DEUDAS_SOCIOS_R01" FromRole="SD_CAJAS" ToRole="SD_DEUDAS_SOCIOS" />
           <NavigationProperty Name="SD_DETALLES_DEUDAS" Relationship="Model.SD_DETALLES_DEUDAS_R03" FromRole="SD_CAJAS" ToRole="SD_DETALLES_DEUDAS" />
-          <NavigationProperty Name="SD_INGRESOS" Relationship="Model.SD_INGRESOS_R01" FromRole="SD_CAJAS" ToRole="SD_INGRESOS" />
           <NavigationProperty Name="SD_VENTA_HOJAS_REFUERZO" Relationship="Model.SD_VENTA_HOJAS_REFUERZO_R01" FromRole="SD_CAJAS" ToRole="SD_VENTA_HOJAS_REFUERZO" />
+          <NavigationProperty Name="SD_INGRESOS" Relationship="Model.SD_INGRESOS_R01" FromRole="SD_CAJAS" ToRole="SD_INGRESOS" />
           <NavigationProperty Name="SD_OBLIGACIONES_HOJA" Relationship="Model.SD_OBLIGACIONES_HOJA_R02" FromRole="SD_CAJAS" ToRole="SD_OBLIGACIONES_HOJA" />
           <NavigationProperty Name="SD_OBLIGACIONES_HOJA1" Relationship="Model.SD_OBLIGACIONES_HOJA_R03" FromRole="SD_CAJAS" ToRole="SD_OBLIGACIONES_HOJA" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="SD_INGRESOS_POR_SOCIOS">
           <Key>
             <PropertyRef Name="ID_INGRESO" />
@@ -6248,35 +6229,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="SD_INGRESOS">
-          <Key>
-            <PropertyRef Name="ID_INGRESO" />
-          </Key>
-          <Property Type="Int32" Name="ID_INGRESO" Nullable="false" />
-          <Property Type="Int32" Name="ID_CAJA" Nullable="false" />
-          <Property Type="Int32" Name="NRO_RECIBO" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA" Nullable="false" Precision="0" />
-          <Property Type="String" Name="CONCEPTO" Nullable="false" MaxLength="140" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="OBSERVACION" MaxLength="1500" FixedLength="false" Unicode="false" />
-          <Property Type="Decimal" Name="IMPORTE" Nullable="false" Precision="15" Scale="5" />
-          <Property Type="String" Name="LOGIN" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
-          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="TIPO" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_INGRESOS_R01" FromRole="SD_INGRESOS" ToRole="SD_CAJAS" />
-        </EntityType>
-        <Association Name="SD_INGRESOS_R01">
-          <End Type="Model.SD_CAJAS" Role="SD_CAJAS" Multiplicity="1" />
-          <End Type="Model.SD_INGRESOS" Role="SD_INGRESOS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_CAJAS">
-              <PropertyRef Name="ID_CAJA" />
-            </Principal>
-            <Dependent Role="SD_INGRESOS">
-              <PropertyRef Name="ID_CAJA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="SD_HIST_MOVIL">
           <Key>
             <PropertyRef Name="ID_HIST" />
@@ -6372,6 +6324,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SD_INGRESOS">
+          <Key>
+            <PropertyRef Name="ID_INGRESO" />
+          </Key>
+          <Property Type="Int32" Name="ID_INGRESO" Nullable="false" />
+          <Property Type="Int32" Name="ID_CAJA" Nullable="false" />
+          <Property Type="Int32" Name="NRO_RECIBO" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA" Nullable="false" />
+          <Property Type="String" Name="CONCEPTO" Nullable="false" MaxLength="140" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="IMPORTE" Nullable="false" Precision="15" Scale="5" />
+          <Property Type="String" Name="LOGIN" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TIPO" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ENTREGADO" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_INGRESOS_R01" FromRole="SD_INGRESOS" ToRole="SD_CAJAS" />
+        </EntityType>
+        <Association Name="SD_INGRESOS_R01">
+          <End Type="Model.SD_CAJAS" Role="SD_CAJAS" Multiplicity="1" />
+          <End Type="Model.SD_INGRESOS" Role="SD_INGRESOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CAJAS">
+              <PropertyRef Name="ID_CAJA" />
+            </Principal>
+            <Dependent Role="SD_INGRESOS">
+              <PropertyRef Name="ID_CAJA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="SD_OBLIGACIONES_HOJA">
           <Key>
             <PropertyRef Name="ID_OBLIGACION" />
@@ -6381,7 +6363,7 @@
           <Property Type="Int32" Name="ID_CAJA" Nullable="false" />
           <Property Type="String" Name="OBLIGACION" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Type="Decimal" Name="IMPORTE_DEFECTO" Nullable="false" Precision="15" Scale="5" />
-          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_REG" />
           <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="ID_CAJA_REG" />
           <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_OBLIGACIONES_HOJA_R02" FromRole="SD_OBLIGACIONES_HOJA" ToRole="SD_CAJAS" />
@@ -7590,23 +7572,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SD_INGRESOS">
-            <EntityTypeMapping TypeName="Model.SD_INGRESOS">
-              <MappingFragment StoreEntitySet="SD_INGRESOS">
-                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
-                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
-                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
-                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
-                <ScalarProperty Name="IMPORTE" ColumnName="IMPORTE" />
-                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
-                <ScalarProperty Name="CONCEPTO" ColumnName="CONCEPTO" />
-                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
-                <ScalarProperty Name="NRO_RECIBO" ColumnName="NRO_RECIBO" />
-                <ScalarProperty Name="ID_CAJA" ColumnName="ID_CAJA" />
-                <ScalarProperty Name="ID_INGRESO" ColumnName="ID_INGRESO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="P_SD_GUARDAR_HOJA" FunctionName="Model.Store.P_SD_GUARDAR_HOJA" />
           <EntitySetMapping Name="SD_HIST_MOVIL">
             <EntityTypeMapping TypeName="Model.SD_HIST_MOVIL">
@@ -7633,7 +7598,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="P_SD_ANULAR_VENTA_REFUERZO" FunctionName="Model.Store.P_SD_ANULAR_VENTA_REFUERZO" />
           <EntitySetMapping Name="SD_VENTA_HOJAS_REFUERZO">
             <EntityTypeMapping TypeName="Model.SD_VENTA_HOJAS_REFUERZO">
               <MappingFragment StoreEntitySet="SD_VENTA_HOJAS_REFUERZO">
@@ -7654,7 +7618,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="P_SD_GUARDAR_VENTA_REFUERZO" FunctionName="Model.Store.P_SD_GUARDAR_VENTA_REFUERZO" />
+          <EntitySetMapping Name="SD_INGRESOS">
+            <EntityTypeMapping TypeName="Model.SD_INGRESOS">
+              <MappingFragment StoreEntitySet="SD_INGRESOS">
+                <ScalarProperty Name="ENTREGADO" ColumnName="ENTREGADO" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="IMPORTE" ColumnName="IMPORTE" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="CONCEPTO" ColumnName="CONCEPTO" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="NRO_RECIBO" ColumnName="NRO_RECIBO" />
+                <ScalarProperty Name="ID_CAJA" ColumnName="ID_CAJA" />
+                <ScalarProperty Name="ID_INGRESO" ColumnName="ID_INGRESO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="SD_OBLIGACIONES_HOJA">
             <EntityTypeMapping TypeName="Model.SD_OBLIGACIONES_HOJA">
               <MappingFragment StoreEntitySet="SD_OBLIGACIONES_HOJA">

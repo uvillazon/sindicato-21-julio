@@ -39,6 +39,13 @@
             colspan: 2
         });
 
+        me.txt_entregado = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Entregado Por",
+            name: "ENTREGADO",
+            width: 480,
+            colspan: 2
+        });
+
         me.txt_tipo = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Tipo",
             name: "TIPO",
@@ -71,6 +78,7 @@
             me.txt_nro_recibo, me.date_fecha,
             me.txt_tipo,
             me.txt_concepto,
+            me.txt_entregado,
             me.txt_caja,
             me.txt_observacion,
             me.txt_total
@@ -94,6 +102,16 @@
         me.txt_concepto = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Concepto",
             name: "CONCEPTO",
+            width: 480,
+            colspan: 2,
+            maxLength: 140,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false
+        });
+
+        me.txt_entregado = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Entregado Por",
+            name: "ENTREGADO",
             width: 480,
             colspan: 2,
             maxLength: 140,
@@ -167,6 +185,7 @@
             me.txt_nro_recibo, me.date_fecha,
             me.cbx_categoria,
             me.txt_concepto,
+            me.txt_entregado,
             me.cbx_caja,
             me.num_saldo, me.num_nuevoSaldo,
             me.txt_observacion,

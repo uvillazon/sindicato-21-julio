@@ -17,6 +17,8 @@
         me.toolbar = Funciones.CrearMenuBar();
         //Funciones.CrearMenu('btn_Detalle', 'Detalle Socio', 'report', me.EventosPrincipal, me.toolbar, this);
         Funciones.CrearMenu('btn_Kardex', 'Kardex Caja', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_VerDetalle', 'Ver Recibo', 'report', me.EventosPrincipal, me.toolbar, this, null, true);
+
         //Funciones.CrearMenu('btn_KardexDestino', 'Kardex Caja Destino', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
         //Funciones.CrearMenu('btn_ConfigObligacion', 'Configuracion Obligaciones', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
 
@@ -28,7 +30,7 @@
             fbarmenu: me.toolbar,
             paramsStore: me.paramsStore,
             noLimpiar : me.noLimpiar,
-            fbarmenuArray: ["btn_Kardex", "btn_eliminar"]
+            fbarmenuArray: ["btn_Kardex", "btn_eliminar", "btn_VerDetalle"]
 
         });
         me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Ingreso', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
@@ -74,6 +76,9 @@
             case "btn_Kardex":
                 me.VentanaKardex(me.record.get('ID_CAJA'));
                 break;
+            case "btn_VerDetalle":
+                me.VentanaRecibo(me.grid.record.get('ID_INGRESO'));
+                break;
             default:
                 Ext.Msg.alert("Aviso", "No Existe el botton");
                 break;
@@ -92,7 +97,10 @@
         win.show();
         win.btn_guardar.on('click', function () {
             //console.dir(params);
-            Funciones.AjaxRequestWin("Transferencias", "GuardarIngreso", win, form, me.grid, "Esta Seguro de Guardar", null, win);
+            //Funciones.AjaxRequestWin("Transferencias", "GuardarIngreso", win, form, me.grid, "Esta Seguro de Guardar", null, win);
+            Funciones.AjaxRequestWinSc("Transferencias", "GuardarIngreso", win, form, me.grid, "Esta Seguro de Guardar", null, win, function (result) {
+                me.VentanaRecibo(result.id);
+            });
         });
 
     },
@@ -108,6 +116,9 @@
         win.add(grid);
         win.show();
 
+    },
+    VentanaRecibo: function (id) {
+        fn.VerImpresion("ReporteOtroIngreso", "ID_INGRESO=" + id);
     }
 
 });

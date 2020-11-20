@@ -149,6 +149,40 @@ namespace Sindicato.Services
 
         }
 
+        public IEnumerable<ReporteRegulaciones> ObtenerReporteOtroIngreso(int ID_INGRESO)
+        {
+            List<ReporteRegulaciones> result = new List<ReporteRegulaciones>();
+            NumLetra n = new NumLetra();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_INGRESOSManager(uow);
+                var kardex = manager.BuscarTodos(x => x.ID_INGRESO == ID_INGRESO);
+                foreach (var item in kardex)
+                {
+                    var kar = new ReporteRegulaciones()
+                    {
+                        ID_REGULACION = item.ID_INGRESO,
+                        CANTIDAD = 1,
+                        FECHA_COMPRA = item.FECHA,
+                        IMPORTE_OBLIGACION = item.IMPORTE,
+                        OBLIGACION = item.CONCEPTO,
+                        SOCIO = item.ENTREGADO,
+                        CONCEPTO = item.OBSERVACION,
+                        CAJA = string.Format("{0} : {1}", item.SD_CAJAS.CODIGO, item.SD_CAJAS.NOMBRE),
+                        TOTAL = item.IMPORTE,
+                        TOTAL_LITERAL = n.Convertir(item.IMPORTE.ToString(), true, item.SD_CAJAS.MONEDA)
+                    };
+                    result.Add(kar);
+                }
+
+            });
+
+            return result;
+
+        }
+
+        
+
         public IEnumerable<RepoteDetalleHojas> ObtenerReporteDetalleHoja(DateTime FECHA_INI, DateTime FECHA_FIN)
         {
             List<RepoteDetalleHojas> result = new List<RepoteDetalleHojas>();

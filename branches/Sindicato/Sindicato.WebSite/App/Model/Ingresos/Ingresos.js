@@ -8,6 +8,7 @@
             { type: "int", name: "ID_CAJA" },
             { type: "string", name: "OBSERVACION" },
             { type: "string", name: "CONCEPTO" },
+            { type: "string", name: "ENTREGADO" },
             { type: "string", name: "LOGIN" },
             { type: "string", name: "CAJA" },
             { type: "string", name: "ESTADO" },

@@ -34,6 +34,7 @@ namespace Sindicato.WebSite.Controllers
                 ID_CAJA = x.ID_CAJA,
                 CAJA = x.SD_CAJAS.NOMBRE,
                 TIPO = x.TIPO,
+                ENTREGADO = x.ENTREGADO,
                 FECHA = x.FECHA,
                 ESTADO = x.ESTADO,
                 FECHA_REG = x.FECHA_REG,
