@@ -23,6 +23,8 @@
                 { xtype: "rownumberer", width: 30, sortable: false },
                 { header: "Deuda", width: 150, sortable: false, dataIndex: "MOTIVO" },
                 { header: "Observacion", width: 200, sortable: false, dataIndex: "OBSERVACION" },
+                { header: "Observacion Anulacion", width: 200, sortable: false, dataIndex: "OBSERVACION_ANULACION" },
+                
                 { header: "Caja", width: 100, sortable: false, dataIndex: "CAJA" },
                 { header: "Movil", width: 50, sortable: false, dataIndex: "MOVIL" },
                 { header: "Socio", width: 150, sortable: false, dataIndex: "SOCIO" },

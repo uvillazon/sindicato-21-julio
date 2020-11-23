@@ -417,6 +417,7 @@
     <Content Include="App\View\CierresParada\FormCierre.js" />
     <Content Include="App\View\CierresParada\GridCierres.js" />
     <Content Include="App\View\CierresParada\Principal.js" />
+    <Content Include="App\View\DetallesDeudasSocios\FormAnular.js" />
     <Content Include="App\View\Refuerzos\FormRefuerzo.js" />
     <Content Include="App\View\Refuerzos\Forms.js" />
     <Content Include="App\View\Refuerzos\GridRefuerzos.js" />

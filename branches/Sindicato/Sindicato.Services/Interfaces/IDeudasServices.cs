@@ -21,6 +21,7 @@ namespace Sindicato.Services.Interfaces
         RespuestaSP PagoDetalleDeuda(SD_DETALLES_DEUDAS detalle, string login);
         RespuestaSP AnularDetalleDeuda(int ID_DETALLE);
         RespuestaSP EliminarDetalleDeuda(int ID_DETALLE);
+        RespuestaSP AnularDeuda(SD_DETALLES_DEUDAS detalle, string login);
 
     }
 }

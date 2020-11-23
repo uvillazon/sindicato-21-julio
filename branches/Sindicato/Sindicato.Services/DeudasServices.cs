@@ -195,7 +195,7 @@ namespace Sindicato.Services
             {
                 var manager = new SD_DETALLES_DEUDASManager(uow);
                 var context = (SindicatoContext)manager.Context;
-                var det = manager.BuscarTodos(x => x.ID_DETALLE == detalle.ID_DETALLE && x.IMPORTE_CANCELADO == 0).FirstOrDefault();
+                var det = manager.BuscarTodos(x => x.ID_DETALLE == detalle.ID_DETALLE && x.IMPORTE_CANCELADO == 0 && x.ESTADO != "ANULADO").FirstOrDefault();
                 if (det != null)
                 {
                     det.IMPORTE_CANCELADO = det.IMPORTE;
@@ -233,6 +233,34 @@ namespace Sindicato.Services
             return result;
         }
 
+        public RespuestaSP AnularDeuda(SD_DETALLES_DEUDAS detalle, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_DETALLES_DEUDASManager(uow);
+                var context = (SindicatoContext)manager.Context;
+                var det = manager.BuscarTodos(x => x.ID_DETALLE == detalle.ID_DETALLE && x.IMPORTE_CANCELADO == 0 && x.ESTADO != "ANULADO").FirstOrDefault();
+                if (det != null)
+                {
+                    det.ESTADO = "ANULADO";
+                    det.OBSERVACION = detalle.OBSERVACION;
+                    manager.Save();
+                    result.success = true;
+                    result.msg = "Proceso ejecutado correctamente";
+
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = "La dueda ya se encuentra cancelado o no existe el registro";
+                }
+
+            });
+
+            return result;
+        }
+
         public RespuestaSP AnularDetalleDeuda(int ID_DETALLE)
         {
             RespuestaSP result = new RespuestaSP();
@@ -242,7 +270,7 @@ namespace Sindicato.Services
             {
                 var manager = new SD_DETALLES_DEUDASManager(uow);
                 var context = (SindicatoContext)manager.Context;
-                var det = manager.BuscarTodos(x => x.ID_DETALLE == ID_DETALLE && x.IMPORTE_CANCELADO > 0).FirstOrDefault();
+                var det = manager.BuscarTodos(x => x.ID_DETALLE == ID_DETALLE && x.IMPORTE_CANCELADO > 0 && x.ESTADO != "APROBADO").FirstOrDefault();
                 if (det != null)
                 {
                     fecha = det.FECHA_CANCELADO;
