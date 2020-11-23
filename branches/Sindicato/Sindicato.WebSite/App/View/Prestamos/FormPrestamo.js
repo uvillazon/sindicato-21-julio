@@ -100,7 +100,7 @@
 
         });
         me.txt_interes = Ext.create("App.Config.Componente.TextFieldBase", {
-            fieldLabel: "Interes",
+            fieldLabel: "Interes%",
             name: "INTERES",
             readOnly: true
 
@@ -130,7 +130,7 @@
 
         });
         me.txt_nro_semanas = Ext.create("App.Config.Componente.TextFieldBase", {
-            fieldLabel: "Nro de Semenas",
+            fieldLabel: "Nro de Cuotas",
             name: "SEMANAS",
             readOnly: true
 
@@ -194,8 +194,12 @@
                 var valor = num.getValue();
                 if ( valor <= me.txt_importe_maximo.getValue()) {
 
-                    if (me.rec_tipo_prestamo.get('TIPO_INTERES') === 'INTERES') {
+                    if (me.rec_tipo_prestamo.get('TIPO_INTERES') === 'INTERES SEMANAL') {
                         var total = (num.getValue() * (me.rec_tipo_prestamo.get('INTERES') / 100)) + num.getValue();
+                        me.txt_importe_total.setValue(total);
+                    }
+                    else if (me.rec_tipo_prestamo.get('TIPO_INTERES') === 'INTERES MENSUAL') {
+                        var total = (me.txt_nro_semanas.getValue() * num.getValue() * (me.rec_tipo_prestamo.get('INTERES') / 100)) + num.getValue();
                         me.txt_importe_total.setValue(total);
                     }
                     else {
@@ -212,32 +216,4 @@
         });
        
     },
-
-    //actualizarNuevoSaldo: function (isNew) {
-    //    var me = this;
-    //    var res = me.num_saldo.getValue() - me.num_ingreso.getValue();
-    //    if (res < 0) {
-    //        Ext.Msg.alert("Error", "No Puede Retirar mas de lo que tiene", function () {
-    //            me.txt_nuevo_saldo.reset();
-    //            me.num_ingreso.reset();
-    //        });
-            
-
-    //    }
-    //    else { 
-    //        me.txt_nuevo_saldo.setValue(res);
-    //        me.txt_nuevo_saldo_caja.setValue(me.num_saldo_caja.getValue() - me.num_ingreso.getValue());
-    //    }
-    //},
-    //ocultarSaldos: function (value) {
-    //    var me = this;
-    //    me.num_saldo.setVisible(value);
-    //    me.txt_nuevo_saldo.setVisible(value);
-    //    me.cbx_socio.setVisible(value);
-    //},
-    //ImprimirRecibo: function (id) {
-
-    //    var ruta = fn.ObtenerUrlReportPDF("ReporteRetiro", "ID_RETIRO=" + id);
-    //    window.open(ruta);
-    //}
 });
