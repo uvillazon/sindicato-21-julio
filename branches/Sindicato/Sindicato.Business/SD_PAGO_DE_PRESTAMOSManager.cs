@@ -32,8 +32,9 @@ namespace Sindicato.Business
                     return result;
                 }
                 var moras = pres.SD_PRESTAMOS_MORA.Sum(x => x.IMPORTE_MORA);
-                var cancelado = pres.SD_PAGO_DE_PRESTAMOS.Where(x=>x.ESTADO!="ANULADO").Sum(x=>x.IMPORTE);
-                if (cancelado + pago.IMPORTE > (pres.IMPORTE_INTERES + pres.IMPORTE_PRESTAMO + moras)) {
+                var cancelado = pres.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").Sum(x => x.IMPORTE);
+                if (cancelado + pago.IMPORTE > (pres.IMPORTE_INTERES + pres.IMPORTE_PRESTAMO + moras))
+                {
                     result.success = false;
                     result.msg = "No puedo pagar mas del total prestado + el interes + moras";
                     return result;
@@ -43,10 +44,35 @@ namespace Sindicato.Business
                 pago.ID_CAJA = pres.ID_CAJA;
                 pago.ID_PAGO = ObtenerSecuencia();
                 pago.FECHA_REG = DateTime.Now;
+                pago.TIPO = "PAGO";
                 pago.ESTADO = "NUEVO";
                 Add(pago);
-                pres.SALDO = pres.SALDO + pago.IMPORTE;
-               
+                if (pago.TIPO_PAGO == "PAGAR TOTAL DEUDA")
+                {
+                    pres.SALDO = pres.SALDO + pago.IMPORTE + (decimal)pago.CONDONACION_INTERES;
+                    if (pago.CONDONACION_INTERES > 0)
+                    {
+                        SD_PAGO_DE_PRESTAMOS condonacion_pago = new SD_PAGO_DE_PRESTAMOS();
+                        condonacion_pago.LOGIN_USR = login;
+                        condonacion_pago.MONEDA = pres.MONEDA;
+                        condonacion_pago.ID_PRESTAMO = pago.ID_PRESTAMO;
+                        condonacion_pago.ID_CAJA = pres.ID_CAJA;
+                        condonacion_pago.ID_PAGO = ObtenerSecuencia();
+                        condonacion_pago.IMPORTE = (decimal)pago.CONDONACION_INTERES;
+                        condonacion_pago.FECHA_REG = DateTime.Now;
+                        condonacion_pago.OBSERVACION = "CONDONACION DE INTERES POR PAGO ADELANTADO DEL TOTAL";
+                        condonacion_pago.ESTADO = "NUEVO";
+                        condonacion_pago.TIPO = "CONDONACION";
+                        Add(condonacion_pago);
+                    }
+                }
+                else
+                {
+
+                    pres.SALDO = pres.SALDO + pago.IMPORTE;
+                }
+
+
 
                 ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
                 context.P_EE_SECUENCIA("SD_KARDEX_EFECTIVO", 0, p_RES);
@@ -54,7 +80,7 @@ namespace Sindicato.Business
                 SD_KARDEX_EFECTIVO kardex = new SD_KARDEX_EFECTIVO()
                 {
                     ID_KARDEX = idKardex,
-                    DETALLE = string.Format("PAGO PRESTAMO {0} NRO : {1} - NRO MOVIL : {2}",pres.SD_TIPOS_PRESTAMOS.NOMBRE ,pres.ID_PRESTAMO, pres.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL),
+                    DETALLE = string.Format("PAGO PRESTAMO {0} NRO : {1} - NRO MOVIL : {2}", pres.SD_TIPOS_PRESTAMOS.NOMBRE, pres.ID_PRESTAMO, pres.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL),
                     //DETALLE = "Pago de Prestamo Nro :"+ pres.ID_PRESTAMO,
                     FECHA = (DateTime)pago.FECHA,
                     FECHA_REG = DateTime.Now,
@@ -114,8 +140,8 @@ namespace Sindicato.Business
                 }
 
                 Save();
-                
-               
+
+
                 ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
                 context.P_SD_ACT_KARDEX_EFECTIVO(pago.ID_CAJA, fecha, 0, p_RES);
                 result.success = true;
@@ -140,10 +166,10 @@ namespace Sindicato.Business
             {
                 var context = (SindicatoContext)Context;
                 var pago = BuscarTodos(x => x.ID_PAGO == ID_PAGO).FirstOrDefault();
-                
+
                 ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
                 context.P_SD_ACT_PLAN_PAGOS(pago.ID_PRESTAMO, 0, p_RES);
-                
+
                 result.success = true;
                 result.msg = "Se Anulo Correctamente";
             }
@@ -157,6 +183,6 @@ namespace Sindicato.Business
             return result;
         }
         //test
-        
+
     }
 }

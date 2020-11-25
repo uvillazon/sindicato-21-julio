@@ -9,3 +9,7 @@ MODIFY(ENTREGADO  NOT NULL);
 
 agregar sd_obligaciones_hoja id_caja_reg
 relacionar a sd_cajas
+
+
+ALTER TABLE SINDICATO_121.SD_PAGO_DE_PRESTAMOS
+ ADD (TIPO  VARCHAR2(255));

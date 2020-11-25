@@ -121,8 +121,6 @@
         <edmx:EntityTypeShape EntityType="Model.SD_KARDEX_HOJAS" Width="1.5" PointX="3.8128912261747248" PointY="28.797100393472753" />
         <edmx:EntityTypeShape EntityType="Model.SD_MOVILES" Width="1.5" PointX="10.803012722545775" PointY="18.319741272516428" />
         <edmx:AssociationConnector Association="Model.SD_MOVILES_R01" />
-        <edmx:EntityTypeShape EntityType="Model.SD_PAGO_DE_PRESTAMOS" Width="1.5" PointX="2.0302573675430651" PointY="24.717694070524395" />
-        <edmx:AssociationConnector Association="Model.SD_PAGO_DE_PRESTAMOS_R02" />
         <edmx:EntityTypeShape EntityType="Model.SD_TIPOS_PRESTAMOS" Width="1.5" PointX="2.8216280950334056" PointY="27.079506722781577" />
         <edmx:AssociationConnector Association="Model.SD_TIPOS_PRESTAMOS_R01" />
         <edmx:EntityTypeShape EntityType="Model.SD_KARDEX_SOCIO_MOVIL" Width="1.5" PointX="11.231262646257534" PointY="9.764951933997196" />
@@ -158,7 +156,6 @@
         <edmx:AssociationConnector Association="Model.SD_TIPOS_EGRESOS_R01" />
         <edmx:EntityTypeShape EntityType="Model.SD_PRESTAMOS_POR_SOCIOS" Width="1.5" PointX="10.769194291331431" PointY="12.317062100543204" />
         <edmx:AssociationConnector Association="Model.SD_PRESTAMOS_POR_SOCIOS_R03" />
-        <edmx:AssociationConnector Association="Model.SD_PAGO_DE_PRESTAMOS_R01" />
         <edmx:AssociationConnector Association="Model.SD_PRESTAMOS_POR_SOCIOS_R01" />
         <edmx:AssociationConnector Association="Model.SD_PRESTAMOS_POR_SOCIOS_R02" />
         <edmx:EntityTypeShape EntityType="Model.SD_PLAN_DE_PAGO" Width="1.5" PointX="0.83631724158130449" PointY="23.70335611314669" />
@@ -201,6 +198,9 @@
         <edmx:AssociationConnector Association="Model.SD_OBLIGACIONES_HOJA_R03" />
         <edmx:AssociationConnector Association="Model.SD_OBLIGACIONES_HOJA_R01" />
         <edmx:AssociationConnector Association="Model.SD_SOC_MOV_OBLIG_R01" />
+        <edmx:EntityTypeShape EntityType="Model.SD_PAGO_DE_PRESTAMOS" Width="1.5" PointX="13.875" PointY="111.375" />
+        <edmx:AssociationConnector Association="Model.SD_PAGO_DE_PRESTAMOS_R02" />
+        <edmx:AssociationConnector Association="Model.SD_PAGO_DE_PRESTAMOS_R01" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

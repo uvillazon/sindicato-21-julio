@@ -5,7 +5,7 @@
     initComponent: function () {
         var me = this;
         me.CargarComponentes();
-        //me.cargarEventos();
+        me.cargarEventos();
         this.callParent(arguments);
     },
     //cargarEventos: function () {
@@ -34,7 +34,47 @@
 
     //},
 
-
+    cargarEventos : function(){
+        var me = this;
+        me.cbx_tipo_pago.on('select', function (cbx, record) {
+            if (cbx.getValue() === "PAGAR CUOTA") {
+                me.txt_importe.setReadOnly(true);
+                me.setLoading(true);
+                Funciones.getRequest("Prestamos", "ObtenerImporteDeuda", "POST", { TIPO: cbx.getValue(), FECHA: me.date_fecha.getRawValue(), ID_PRESTAMO: me.txt_nro_prestamo.getValue() }).then({
+                    success: function (res) {
+                        me.txt_importe.setValue(res.data.importe);
+                        me.txt_cuota_capital.setValue(res.data.cuota_capital);
+                        me.txt_cuota_interess.setValue(res.data.cuota_interes);
+                    },
+                    failure: function (errorMessage) {
+                        Ext.Msg.alert("Error", errorMessage);
+                    }
+                }).always(function () {
+                    return me.setLoading(false);
+                });
+            }
+            else if (cbx.getValue() === "PAGAR TOTAL DEUDA") {
+                me.txt_importe.setReadOnly(true);
+                me.setLoading(true);
+                Funciones.getRequest("Prestamos", "ObtenerImporteDeuda", "POST", { TIPO: cbx.getValue(), FECHA: me.date_fecha.getRawValue(), ID_PRESTAMO: me.txt_nro_prestamo.getValue() }).then({
+                    success: function (res) {
+                        me.txt_importe.setValue(res.data.importe);
+                        me.txt_cuota_capital.setValue(res.data.cuota_capital);
+                        me.txt_cuota_interess.setValue(res.data.cuota_interes);
+                        me.txt_condonacion_interes.setValue(res.data.condonacion_interes);
+                    },
+                    failure: function (errorMessage) {
+                        Ext.Msg.alert("Error", errorMessage);
+                    }
+                }).always(function () {
+                    return me.setLoading(false);
+                });
+            }
+            else {
+                Ext.Msg.alert("Error", 'No Existe el Tipo definido');
+            }
+        });
+    },
     CargarComponentes: function () {
         var me = this;
 
@@ -125,6 +165,18 @@
             colspan: 2,
             //maxLength: 500,
         });
+
+        me.cbx_tipo_pago = Ext.create("App.Config.Componente.ComboBase", {
+            fieldLabel: "Pago",
+            name: "TIPO_PAGO",
+            width: 480,
+            colspan: 2,
+            store: ["PAGAR CUOTA", "PAGAR TOTAL DEUDA", "EXTENDER PRESTAMO"],
+            selectOnFocus: true,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false
+        });
+
         me.txt_importe = Ext.create("App.Config.Componente.NumberFieldBase", {
             fieldLabel: "Importe a Cancelar",
             name: "COUTA",
@@ -135,6 +187,32 @@
 
         });
 
+        me.txt_cuota_capital = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Cuota Capital",
+            name: "CUOTA_CAPITAL",
+            readOnly: true,
+            value  : 0
+
+        });
+        me.txt_cuota_interess = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Cuota Interes",
+            name: "CUOTA_INTERES",
+            readOnly: true,
+            value : 0
+
+        });
+        me.txt_condonacion_interes = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Condonacion de Interes",
+            name: "CONDONACION_INTERES",
+            readOnly: true,
+            labelWidth : 150,
+            value: 0,
+            width: 480,
+            colspan: 2,
+
+        });
+
+
         me.items = [
             me.txt_id_caja, me.txt_id_socio,
             me.txt_nro_prestamo, me.date_fecha,
@@ -143,7 +221,10 @@
             me.txt_caja, me.txt_importe_prestamo,
             me.txt_importe_interes, me.txt_importe_total,
             me.txt_debe, me.txt_cancelado,
+            me.cbx_tipo_pago,
             me.txt_importe,
+            me.txt_cuota_capital, me.txt_cuota_interess,
+            me.txt_condonacion_interes,
             me.txt_observacion
         ];
 

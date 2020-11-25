@@ -268,6 +268,15 @@ namespace Sindicato.WebSite.Controllers
             return JavaScript(callback1);
         }
 
+        [HttpPost]
+        public JsonResult ObtenerImporteDeuda(string TIPO, DateTime FECHA, int ID_PRESTAMO)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serPre.ObtenerImporteDeuda(TIPO ,FECHA ,ID_PRESTAMO, login);
+            return Json(respuestaSP);
+        }
+
         #endregion
 
 
