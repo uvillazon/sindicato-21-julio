@@ -70,6 +70,25 @@
                     return me.setLoading(false);
                 });
             }
+            else if (cbx.getValue() === "EXTENDER PRESTAMO") {
+                me.txt_importe.setReadOnly(true);
+                me.setLoading(true);
+                Funciones.getRequest("Prestamos", "ObtenerImporteDeuda", "POST", { TIPO: cbx.getValue(), FECHA: me.date_fecha.getRawValue(), ID_PRESTAMO: me.txt_nro_prestamo.getValue() }).then({
+                    success: function (res) {
+                        me.txt_importe.setValue(res.data.importe);
+                        me.txt_cuota_capital.setValue(res.data.cuota_capital);
+                        me.txt_cuota_interess.setValue(res.data.cuota_interes);
+                        me.txt_condonacion_interes.setValue(res.data.condonacion_interes);
+                    },
+                    failure: function (errorMessage) {
+                        Ext.Msg.alert("Error", errorMessage, function () {
+                            cbx.reset();
+                        });
+                    }
+                }).always(function () {
+                    return me.setLoading(false);
+                });
+            }
             else {
                 Ext.Msg.alert("Error", 'No Existe el Tipo definido');
             }

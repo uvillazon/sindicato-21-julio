@@ -23,6 +23,7 @@
                 { xtype: "rownumberer", width: 30, sortable: false },
                 { header: "Estado<br>Cierre", width: 60, sortable: false, dataIndex: "ESTADO_CIERRE" },
                 { header: "Nro <br>Prestamos", width: 60, sortable: false, dataIndex: "ID_PRESTAMO" },
+                { header: "Nro <br>Prestamos<br>Ref.", width: 60, sortable: false, dataIndex: "ID_PRESTAMO_REF" },
                 { header: "Nro Movil", width: 60, sortable: false, dataIndex: "NRO_MOVIL" },
                 { header: "Socio", width: 150, sortable: false, dataIndex: "SOCIO" },
                 { header: "Caja", width: 100, sortable: false, dataIndex: "CAJA" },

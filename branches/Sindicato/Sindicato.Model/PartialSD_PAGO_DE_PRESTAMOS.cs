@@ -10,6 +10,7 @@ namespace Sindicato.Model
     {
         public decimal? CONDONACION_INTERES { get; set; }
         public string TIPO_PAGO { get; set; }
+        public int? ID_PRESTAMO_REF { get; set; }
         
     }
 

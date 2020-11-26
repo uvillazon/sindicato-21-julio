@@ -31,6 +31,7 @@ namespace Sindicato.WebSite.Controllers
             var formatData = ingresos.Select(x => new
             {
                 ID_PRESTAMO = x.ID_PRESTAMO,
+                ID_PRESTAMO_REF = x.ID_PRESTAMO_REF,
                 ID_CAJA = x.ID_CAJA,
                 CAJA = x.SD_CAJAS.NOMBRE,
                 FECHA = x.FECHA,
@@ -193,6 +194,7 @@ namespace Sindicato.WebSite.Controllers
                 IMPORTE = x.IMPORTE,
                 MONEDA = x.MONEDA,
                 OBSERVACION = x.OBSERVACION,
+                TIPO = x.TIPO,
                 LOGIN_USR = x.LOGIN_USR,
                 SOCIO = x.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.ObtenerNombreSocio()
 

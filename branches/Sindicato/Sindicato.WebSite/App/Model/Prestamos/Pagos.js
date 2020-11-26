@@ -12,7 +12,8 @@
             { type: "string", name: "ESTADO" },
             { type: "string", name: "SOCIO" },
             { type: "string", name: "OBSERVACION" },
-             { type: "string", name: "CAJA" },
+            { type: "string", name: "CAJA" },
+            { type: "string", name: "TIPO" }
             
         ]
 });

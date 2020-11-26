@@ -8,6 +8,7 @@
             { type: "float", name: "IMPORTE_PRESTAMO" },
             { type: "float", name: "TOTAL_CANCELADO" },
             { type: "int", name: "ID_PRESTAMO" },
+            { type: "int", name: "ID_PRESTAMO_REF", convert: null },
             { type: "int", name: "ID_CAJA" },
             { type: "string", name: "OBSERVACION" },
             { type: "string", name: "MONEDA" },

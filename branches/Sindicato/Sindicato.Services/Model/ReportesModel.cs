@@ -165,6 +165,8 @@ namespace Sindicato.Services.Model
         public decimal SEMANAS { get; set; }
         public DateTime? FECHA_LIMITE_PAGO { get; set; }
         public decimal? IMPORTE_INTERES { get; set; }
+        public decimal? CONDONACION_INTERES { get; set; }
+
         public decimal NRO_SEMANA { get; set; }
         public decimal IMPORTE_A_PAGAR { get; set; }
         public decimal IMPORTE_TOTAL { get; set; }

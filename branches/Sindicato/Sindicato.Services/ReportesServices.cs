@@ -684,15 +684,17 @@ namespace Sindicato.Services
                         ID_PRESTAMO = item.ID_PRESTAMO,
                         FECHA_PAGO = item.FECHA,
                         FECHA_LIMITE_PAGO = item.SD_PRESTAMOS_POR_SOCIOS.FECHA_LIMITE_PAGO,
-                        OBSERVACION = item.SD_PRESTAMOS_POR_SOCIOS.SD_TIPOS_PRESTAMOS.NOMBRE,
+                        //OBSERVACION = item.SD_PRESTAMOS_POR_SOCIOS.SD_TIPOS_PRESTAMOS.NOMBRE,
+                        OBSERVACION = item.OBSERVACION,
                         IMPORTE_TOTAL = item.IMPORTE,
                         IMPORTE_PRESTAMO = (decimal)item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_INTERES + item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_PRESTAMO + item.SD_PRESTAMOS_POR_SOCIOS.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA),
-                        TOTAL_CANCELADO = item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Count() > 0 ? item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").Sum(x => x.IMPORTE) : 0,
+                        TOTAL_CANCELADO = item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Count() > 0 ? item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO" && x.TIPO == "PAGO").Sum(x => x.IMPORTE) : 0,
+                        IMPORTE_INTERES = item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Count() > 0 ? item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO" && x.TIPO == "CONDONACION").Sum(x => x.IMPORTE) : 0,
                         IMPORTE_LITERAL = n.Convertir(item.IMPORTE.ToString(), true, item.SD_CAJAS.MONEDA),
                         SOCIO = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
                         MOVIL = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL
                     };
-                    kar.DEBE = kar.IMPORTE_PRESTAMO - kar.TOTAL_CANCELADO;
+                    kar.DEBE = kar.IMPORTE_PRESTAMO - kar.TOTAL_CANCELADO -  (decimal)kar.IMPORTE_INTERES;
                     result.Add(kar);
                 }
                 //FE

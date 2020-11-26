@@ -237,7 +237,12 @@ namespace Sindicato.Services
             ExecuteManager(uow =>
             {
                 var manager = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                var managerPlan = new SD_PLAN_DE_PAGOManager(uow);
                 result = manager.GuardarPagoPrestamo(pago, login);
+                if (pago.TIPO_PAGO == "EXTENDER PRESTAMO")
+                {
+                    var resp = managerPlan.GenerarPlanDePagos((int)pago.ID_PRESTAMO_REF, login);
+                }
 
 
             });
@@ -374,6 +379,28 @@ namespace Sindicato.Services
                     }
                     result.success = true;
                     result.data = new { importe = importe, cuota_capital = cuota_capital, cuota_interes = cuota_interes, condonacion_interes = condonacion_interes };
+
+                }
+                else if (TIPO == "EXTENDER PRESTAMO")
+                {
+                    FECHA = FECHA.AddMonths(1);
+                    decimal cancelado = managerPagos.BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO != "ANULADO").Count() > 0?  managerPagos.BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO != "ANULADO").Sum(y=> y.IMPORTE): 0 ;
+                    if (cancelado > 0)
+                    {
+                        result.success = false;
+                        result.msg = string.Format("El prestamo Nro: {0} tiene el importe : {1} CANCELADO",ID_PRESTAMO,cancelado);
+                    }
+                    else
+                    {
+                        var planes = managerPlan.BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO != "CANCELADO");
+                        foreach (var item in planes)
+                        {
+                            importe = importe + item.INTERES_A_PAGAR;
+                            cuota_interes = cuota_interes + item.INTERES_A_PAGAR;
+                        }
+                        result.success = true;
+                        result.data = new { importe = importe, cuota_capital = cuota_capital, cuota_interes = cuota_interes, condonacion_interes = condonacion_interes };
+                    }
 
                 }
                 else
