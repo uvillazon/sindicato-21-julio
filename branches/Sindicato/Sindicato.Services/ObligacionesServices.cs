@@ -137,6 +137,12 @@ namespace Sindicato.Services
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
+                var managerCierre = new SD_CIERRES_CAJASManager(uow);
+                var valid = managerCierre.VerificarCierre((DateTime)amortizacion.FECHA);
+                if (!valid.success)
+                {
+                    throw new NullReferenceException(valid.msg);
+                }
                 var manager = new SD_AMORTIZACIONESManager(uow);
                 var ing = manager.GuardarAmortizacion(amortizacion, login);
                 int id;
@@ -155,7 +161,8 @@ namespace Sindicato.Services
 
             });
 
-            return result;
+            return result = resultado == null ? result : resultado;
+            //return result;
         }
 
         public RespuestaSP EliminarAmortizacion(int ID_AMORTIZACION)

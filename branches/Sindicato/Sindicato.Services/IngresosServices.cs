@@ -69,6 +69,13 @@ namespace Sindicato.Services
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
+                var managerCierre = new SD_CIERRES_CAJASManager(uow);
+                var valid = managerCierre.VerificarCierre((DateTime)ingreso.FECHA);
+                if (!valid.success)
+                {
+                    throw new NullReferenceException(valid.msg);
+                }
+
                 var context = (SindicatoContext)uow.Context;
                 ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
 
@@ -88,8 +95,8 @@ namespace Sindicato.Services
                 }
 
             });
-            return result;
-
+            return result = resultado == null ? result : resultado;
+            
         }
 
         public RespuestaSP EliminarIngreso(int ID_INGRESO)

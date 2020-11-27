@@ -44,5 +44,33 @@ namespace Sindicato.Business
                 return e.ToString();
             }
         }
+
+        public RespuestaSP VerificarCierre(DateTime FECHA)
+        {
+            RespuestaSP result = new RespuestaSP();
+
+            var cierre = BuscarTodos().OrderByDescending(x => x.FECHA_FIN).FirstOrDefault();
+            if (cierre == null)
+            {
+                result.success = true;
+                result.msg = "No existe Fechas de cierre";
+            }
+            else
+            {
+                if (FECHA > cierre.FECHA_FIN)
+                {
+                    result.success = true;
+                    result.msg = "No existe Fechas de cierre";
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = "No se puede crear registros en la caja por que ya fue cerrado";
+                }
+            }
+
+
+            return result;
+        }
     }
 }

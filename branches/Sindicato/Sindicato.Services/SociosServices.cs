@@ -16,11 +16,9 @@ namespace Sindicato.Services
 {
     public class SociosServices : BaseService, ISociosServices
     {
-        //private ISD_LISTASManager _manListas;
-
-        public SociosServices(/*ISD_LISTASManager manListas*/)
+        
+        public SociosServices()
         {
-            //_manListas = manListas;
         }
 
 
@@ -39,7 +37,6 @@ namespace Sindicato.Services
 
                 if (!string.IsNullOrEmpty(filtros.Contiene))
                 {
-                    //result = result.Where(SD_SOCIOS
                     result = result.Where(SD_SOCIO_MOVILES.Contiene(filtros.Contiene));
 
                 }
@@ -61,8 +58,6 @@ namespace Sindicato.Services
                 result = manager.BuscarTodos();
                 filtros.FiltrarDatos();
                 result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
-
-
                 if (!string.IsNullOrEmpty(filtros.Contiene))
                 {
                     result = result.Where(SD_SOCIOS.Contiene(filtros.Contiene));
@@ -89,9 +84,6 @@ namespace Sindicato.Services
             });
             return result;
         }
-
-
-
 
         public RespuestaSP GuardarSocio(SD_SOCIOS socio, int ID_USR)
         {
@@ -417,6 +409,12 @@ namespace Sindicato.Services
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
+                var managerCierre = new SD_CIERRES_CAJASManager(uow);
+                var valid = managerCierre.VerificarCierre((DateTime)ingreso.FECHA);
+                if (!valid.success)
+                {
+                    throw new NullReferenceException(valid.msg);
+                }
                 var manager = new SD_INGRESOS_SOCIOManager(uow);
                 var ing = manager.GuardarIngreso(ingreso, login);
                 int id;
@@ -434,8 +432,7 @@ namespace Sindicato.Services
                 }
 
             });
-
-            return result;
+            return result = resultado == null ? result : resultado;
         }
 
         public RespuestaSP EliminarIngresoSocio(int ID_INGRESO)
@@ -538,6 +535,14 @@ namespace Sindicato.Services
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
+                var managerCierre = new SD_CIERRES_CAJASManager(uow);
+                var valid = managerCierre.VerificarCierre((DateTime)ingreso.FECHA);
+                if (!valid.success)
+                {
+                    throw new NullReferenceException(valid.msg);
+                }
+				
+
                 var manager = new SD_RETIRO_SOCIO_MOVILManager(uow);
                 var ing = manager.GuardarRetiro(ingreso, login);
                 int id;
@@ -555,8 +560,7 @@ namespace Sindicato.Services
                 }
 
             });
-
-            return result;
+            return result = resultado == null ? result : resultado;
         }
 
         public RespuestaSP EliminarRetiroSocio(int ID_RETIRO)

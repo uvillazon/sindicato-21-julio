@@ -35,11 +35,7 @@ namespace Sindicato.Services
                 }
                 paginacion.total = result.Count();
                 result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
-                //foreach (var item in result)
-                //{
-
-                //    item.SERIE =
-                //}
+               
             });
             return result;
         }
@@ -97,6 +93,12 @@ namespace Sindicato.Services
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
+                var managerCierre = new SD_CIERRES_CAJASManager(uow);
+                var valid = managerCierre.VerificarCierre((DateTime)venta.FECHA_COMPRA);
+                if (!valid.success)
+                {
+                    throw new NullReferenceException(valid.msg);
+                }
                 var context = (SindicatoContext)uow.Context;
                 ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
 
@@ -116,8 +118,7 @@ namespace Sindicato.Services
                 }
 
             });
-
-            return result;
+            return result = resultado == null ? result : resultado;
         }
 
 
@@ -203,20 +204,7 @@ namespace Sindicato.Services
             });
             return result;
         }
-        //public IEnumerable<SD_DETALLES_HOJAS_USO> ObtenerHojasDetallesPorVentas(int ID_VENTA)
-        //{
-        //    IQueryable<SD_DETALLES_HOJAS_USO> result = null;
-        //    ExecuteManager(uow =>
-        //    {
-        //      var manager = new SD_VENTA_HOJASManager(uow);
-        //        //obtener un query de la tabla choferes
-        //        var res = manager.BuscarTodos(x => x.ID_VENTA == ID_VENTA);
-        //        var result2 = res.Select(x => x.SD_HOJAS_CONTROL);
-        //        result = result2.Select(x=> x.SD_DETALLES_HOJAS_USO.)
-
-        //    });
-        //    return result;
-        //}
+       
 
 
         public RespuestaSP Reimprimir(SD_IMPRESIONES imp, string login)
@@ -346,6 +334,12 @@ namespace Sindicato.Services
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
+                var managerCierre = new SD_CIERRES_CAJASManager(uow);
+                var valid = managerCierre.VerificarCierre((DateTime)venta.FECHA);
+                if (!valid.success)
+                {
+                    throw new NullReferenceException(valid.msg);
+                }
                 var context = (SindicatoContext)uow.Context;
                 ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
 
@@ -365,8 +359,7 @@ namespace Sindicato.Services
                 }
 
             });
-
-            return result;
+            return result = resultado == null ? result : resultado;
         }
 
         public RespuestaSP AnularVentaRefuerzo(int ID_VENTA, string login)

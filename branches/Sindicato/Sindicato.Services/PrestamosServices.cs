@@ -194,12 +194,18 @@ namespace Sindicato.Services
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
+                var managerCierre = new SD_CIERRES_CAJASManager(uow);
+                var valid = managerCierre.VerificarCierre((DateTime)prestamo.FECHA);
+                if (!valid.success)
+                {
+                    throw new NullReferenceException(valid.msg);
+                }
                 var manager = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
                 result = manager.GuardarPrestamo(prestamo, login);
 
 
             });
-            return result;
+            return result = resultado == null ? result : resultado;
         }
 
 
@@ -236,6 +242,13 @@ namespace Sindicato.Services
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
+                var managerCierre = new SD_CIERRES_CAJASManager(uow);
+                var valid = managerCierre.VerificarCierre((DateTime)pago.FECHA);
+                if (!valid.success)
+                {
+                    throw new NullReferenceException(valid.msg);
+                }
+
                 var manager = new SD_PAGO_DE_PRESTAMOSManager(uow);
                 var managerPlan = new SD_PLAN_DE_PAGOManager(uow);
                 result = manager.GuardarPagoPrestamo(pago, login);
@@ -246,7 +259,7 @@ namespace Sindicato.Services
 
 
             });
-            return result;
+            return result = resultado == null ? result : resultado;
         }
 
         public RespuestaSP EliminarPagoPrestamo(int ID_PAGO, string login)

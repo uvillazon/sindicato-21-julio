@@ -71,6 +71,13 @@ namespace Sindicato.Services
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
+                var managerCierre = new SD_CIERRES_CAJASManager(uow);
+                var valid = managerCierre.VerificarCierre((DateTime)ingreso.FECHA);
+                if (!valid.success)
+                {
+                    throw new NullReferenceException(valid.msg);
+                }
+
                 var manager = new SD_INGRESOSManager(uow);
                 var ing = manager.GuardarIngreso(ingreso, login);
                 int id;
@@ -88,8 +95,7 @@ namespace Sindicato.Services
                 }
 
             });
-
-            return result;
+            return result = resultado == null ? result : resultado;
         }
 
         public RespuestaSP EliminarIngreso(int ID_INGRESO)
@@ -126,12 +132,6 @@ namespace Sindicato.Services
                     result.msg = "Ocurrio algun Problema";
                 }
             });
-            //ExecuteManager(uow =>
-            //    {
-            //        var context = (SindicatoContext)uow.Context;
-            //        ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
-            //        context.P_SD_ACT_KARDEX_EFECTIVO(ID_CAJA, fecha, 0, p_RES);
-            //    });
             return result;
         }
 
@@ -144,7 +144,7 @@ namespace Sindicato.Services
             {
                 var manager = new SD_INGRESOS_POR_SOCIOSManager(uow);
                 var context = (SindicatoContext)manager.Context;
-                var ant = manager.BuscarTodos(x => x.ID_INGRESO == ID_INGRESO &&  x.ESTADO =="NUEVO").FirstOrDefault();
+                var ant = manager.BuscarTodos(x => x.ID_INGRESO == ID_INGRESO && x.ESTADO == "NUEVO").FirstOrDefault();
                 if (ant != null)
                 {
                     fecha = ant.FECHA;
@@ -169,12 +169,6 @@ namespace Sindicato.Services
                     result.msg = "Ocurrio algun Problema";
                 }
             });
-            //ExecuteManager(uow =>
-            //    {
-            //        var context = (SindicatoContext)uow.Context;
-            //        ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
-            //        context.P_SD_ACT_KARDEX_EFECTIVO(ID_CAJA, fecha, 0, p_RES);
-            //    });
             return result;
         }
 
@@ -183,6 +177,12 @@ namespace Sindicato.Services
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
+                var managerCierre = new SD_CIERRES_CAJASManager(uow);
+                var valid = managerCierre.VerificarCierre((DateTime)egreso.FECHA);
+                if (!valid.success)
+                {
+                    throw new NullReferenceException(valid.msg);
+                }
                 var manager = new SD_EGRESOSManager(uow);
                 var ing = manager.GuardarEgreso(egreso, login);
                 int id;
@@ -200,8 +200,7 @@ namespace Sindicato.Services
                 }
 
             });
-
-            return result;
+            return result = resultado == null ? result : resultado;
         }
 
         public RespuestaSP EliminarEgreso(int ID_EGRESO)
@@ -266,6 +265,13 @@ namespace Sindicato.Services
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
+                var managerCierre = new SD_CIERRES_CAJASManager(uow);
+                var valid = managerCierre.VerificarCierre((DateTime)transf.FECHA);
+                if (!valid.success)
+                {
+                    throw new NullReferenceException(valid.msg);
+                }
+
                 var manager = new SD_TRANSFERENCIASManager(uow);
                 var ing = manager.GuardarTransferencia(transf, login);
                 int id;
@@ -283,8 +289,7 @@ namespace Sindicato.Services
                 }
 
             });
-
-            return result;
+            return result = resultado == null ? result : resultado;
         }
 
         public RespuestaSP EliminarTransferencia(int ID_TRANSFERENCIA)

@@ -66,6 +66,8 @@ namespace Sindicato.Services
             return result;
         }
 
+        
+
         public RespuestaSP GuardarCierre(SD_CIERRES_CAJAS cierre, string detalles, string login)
         {
             RespuestaSP result = new RespuestaSP();
@@ -84,7 +86,7 @@ namespace Sindicato.Services
                 var managerTransferencias = new SD_TRANSFERENCIASManager(uow);
                 var managerPagosDeudas = new SD_DETALLES_DEUDASManager(uow);
                 var managerVentaRefuerzos = new SD_VENTA_HOJAS_REFUERZOManager(uow);
-                
+
                 var resp = manager.GuardarCierre(cierre, login);
                 int id_venta;
                 bool esNumero = int.TryParse(resp, out id_venta);
@@ -436,10 +438,10 @@ namespace Sindicato.Services
 
         public IEnumerable<CierreCajaModel> ObtenerCierreCajaGenerado(int ID_CIERRE_ANTERIOR, DateTime FECHA_INI, DateTime FECHA_FIN)
         {
-          var   result = ObtenerDetalleCierreCaja(FECHA_INI, FECHA_FIN);
+            var result = ObtenerDetalleCierreCaja(FECHA_INI, FECHA_FIN);
 
-          var cierre_anterior = ObtenerCierrePorCriterio(x => x.ID_CIERRE == ID_CIERRE_ANTERIOR);
-           
+            var cierre_anterior = ObtenerCierrePorCriterio(x => x.ID_CIERRE == ID_CIERRE_ANTERIOR);
+
 
             //return result;
             return result.GroupBy(x => new { x.CAJA, x.ID_CAJA, x.MONEDA, x.NOMBRE }).Select(y => new CierreCajaModel

@@ -55,3 +55,136 @@ Verificar
           <AssociationSet Name="SD_DETALLE_CIERRES_CAJA_R01" Association="Model.SD_DETALLE_CIERRES_CAJA_R01">
             <End Role="SD_CIERRES_CAJAS" EntitySet="SD_CIERRES_CAJAS" />
             <End Role="SD_DETALLE_CIERRES_CAJA" EntitySet="SD_DETALLE_CIERRES_CAJA" />
+
+27-11-2020
+
+CREATE OR REPLACE PROCEDURE SINDICATO_121.P_SD_GUARDAR_REGULACION(
+p_ID_SOCIO_MOVIL  SINDICATO_121.SD_REGULARIZACIONES.ID_SOCIO_MOVIL%type,
+p_id_parada SINDICATO_121.SD_REGULARIZACIONES.Id_PARADA%type,
+p_fecha_compra SINDICATO_121.SD_REGULARIZACIONES.FECHA_COMPRA%type,
+p_mes  VARCHAR2,
+p_cantidad number,
+p_usr VARCHAR2,
+p_res OUT VARCHAR2
+)
+IS
+v_cnt NUMBER:=0;
+v_cnt_numero NUMBER:=0;
+v_numero NUMBER :=0;
+v_monto NUMBER := 0;
+v_res VARCHAR2(100):='0';
+v_fecha DATE;
+v_errC SD_AUX_LOG_ERRORES.cod_error%type;
+v_errD SD_AUX_LOG_ERRORES.desc_error%type;
+v_id_log SINDICATO_121.sd_aux_log_errores.id_log%type;
+v_id_hoja  NUMBER := 0;
+v_id_venta  NUMBER := 0;
+v_nro_movil  NUMBER := 0;
+BEGIN
+IF p_ID_SOCIO_MOVIL  IS NULL OR p_id_parada IS NULL OR p_mes IS NULL 
+THEN
+v_res := 'Faltan parametros.';
+END IF;
+IF v_res =  '0' THEN
+      
+      
+
+            v_id_hoja := Q_SD_REGULARIZACIONES.nextval;
+            select SUM(IMPORTE ) INTO v_monto from SD_SOC_MOV_OBLIG  WHERE ID_SOCIO_MOVIL = p_ID_SOCIO_MOVIL;
+            
+            SELECT NRO_MOVIL INTO v_nro_movil  FROM SD_MOVILES mov , SD_SOCIO_MOVILES som WHERE MOV.ID_MOVIL = SOM.ID_MOVIL AND SOM.ESTADO = 'ACTIVO' AND SOM.ID_SOCIO_MOVIL = p_ID_SOCIO_MOVIL ;
+             INSERT INTO SD_REGULARIZACIONES ( ID_REGULACION,ID_PARADA ,ID_SOCIO_MOVIL ,MES ,MONTO ,CANTIDAD ,OBSERVACION ,ESTADO ,LOGIN ,FECHA_REG ,fecha_compra )
+             VALUES (v_id_hoja ,p_ID_PARADA,p_ID_SOCIO_MOVIL , to_date(p_mes , 'MM-YYYY'),v_monto * p_cantidad , p_cantidad, 'REGULACION DE HOJAS', 'NUEVO' , p_usr , sysdate , p_fecha_compra );
+             
+             INSERT INTO SD_DETALLES_REGULARIZACIONES  (ID_DETALLE ,ID_REGULACION , ID_CAJA, OBLIGACION, IMPORTE ,LOGIN ,FECHA_REG )
+            (
+            SELECT Q_SD_DETALLES_REGULARIZACIONES.nextval , v_id_hoja ,OB.ID_CAJA_REG ,OB.OBLIGACION,SOC.IMPORTE * p_cantidad, p_usr , sysdate  from SD_SOC_MOV_OBLIG soc , SD_OBLIGACIONES_HOJA  ob where SOC.ID_OBLIGACION =  OB.ID_OBLIGACION AND id_socio_movil = p_ID_SOCIO_MOVIL
+            );
+            INSERT INTO SD_KARDEX_EFECTIVO (ID_KARDEX ,ID_CAJA ,ID_OPERACION ,OPERACION ,FECHA, DETALLE ,INGRESO ,EGRESO, SALDO, LOGIN, FECHA_REG )
+            (
+               SELECT Q_SD_KARDEX_EFECTIVO.nextval , ob.ID_CAJA_REG ,  v_id_hoja , 'REGULACION', p_fecha_compra, '(REGULARIZACION)'|| ob.obligacion||' - Movil : '||v_nro_movil ,SOC.IMPORTE * p_cantidad, 0 , 0 , p_usr , sysdate  from SD_SOC_MOV_OBLIG soc , SD_OBLIGACIONES_HOJA  ob where SOC.ID_OBLIGACION =  OB.ID_OBLIGACION AND id_socio_movil = p_ID_SOCIO_MOVIL
+            );
+            
+     
+      
+        
+         COMMIT;
+         P_SD_ACT_KARDEX_HOJA(p_ID_SOCIO_MOVIL, to_date(p_mes , 'MM-YYYY') ,p_usr,v_res);
+         
+         FOR x IN (select ID_CAJA_REG from SD_OBLIGACIONES_HOJA group by ID_CAJA_REG ) LOOP
+            P_SD_ACT_KARDEX_EFECTIVO(x.ID_CAJA_REG, p_fecha_compra,1 ,v_res);
+            
+         END LOOP;
+         v_res := v_id_hoja;
+
+END IF; 
+
+p_res := v_res;
+EXCEPTION
+WHEN OTHERS THEN
+ROLLBACK;
+v_errC:=substr(sqlcode,1,20);
+v_errD:=substr(sqlerrm,1,200);
+p_grabar_error_bd(v_errC,v_errD,'P_SD_GUARDAR_REGULACION','P_SD_GUARDAR_REGULACION','-','-',v_id_log);
+p_res :='ERROR. Avise a TI. LOG generado #' || v_id_log;
+END;
+/
+
+
+
+
+CREATE OR REPLACE PROCEDURE SINDICATO_121.P_SD_ANULAR_REGULACION(
+p_id_regulacion  SINDICATO_121.SD_REGULARIZACIONES.ID_REGULACION %type,
+p_observacion IN SD_REGULARIZACIONES.OBSERVACION%TYPE,
+p_usr VARCHAR2,
+p_res OUT VARCHAR2
+)
+IS
+v_cnt NUMBER:=0;
+v_res VARCHAR2(100):='0';
+v_errC SD_AUX_LOG_ERRORES.cod_error%type;
+v_errD SD_AUX_LOG_ERRORES.desc_error%type;
+v_id_log SINDICATO_121.sd_aux_log_errores.id_log%type;
+v_id_anulacion  NUMBER := 0;
+v_fecha DATE;
+v_id_socio_movil NUMBER;
+v_mes DATE;
+BEGIN
+IF p_id_regulacion  IS NULL 
+THEN
+v_res := 'Faltan parametros.';
+END IF;
+IF v_res =  '0' THEN
+           
+        SELECT COUNT(*) INTO v_cnt FROM SD_REGULARIZACIONES  WHERE ID_REGULACION  = p_id_regulacion AND ESTADO = 'NUEVO' ;
+        IF v_cnt > 0 THEN
+                  SELECT FECHA_COMPRA ,ID_SOCIO_MOVIL , MES INTO v_fecha ,v_id_socio_movil , v_mes FROM SD_REGULARIZACIONES WHERE ID_REGULACION  = p_id_regulacion ;
+                  UPDATE SD_REGULARIZACIONES SET OBSERVACION  = OBSERVACION ||' - ANULADO' , ESTADO = 'ANULADO' WHERE ID_REGULACION = p_id_regulacion;
+                  DELETE FROM SD_KARDEX_EFECTIVO  WHERE ID_OPERACION  = p_id_regulacion AND OPERACION ='REGULACION';
+                   commit;
+                   
+                   P_SD_ACT_KARDEX_HOJA(v_id_socio_movil,v_mes  ,p_usr,v_res);
+                   
+                    FOR x IN (select id_caja_reg from SD_OBLIGACIONES_HOJA group by id_caja_reg ) LOOP
+                        P_SD_ACT_KARDEX_EFECTIVO(x.id_caja_reg,v_fecha ,1 ,v_res);
+                        
+                    END LOOP;
+                    v_res := '1';
+                   --P_SD_ACT_KARDEX_EFECTIVO(v_id_caja, p_fecha ,1,v_res); 
+        ELSE 
+           v_res := 'No existe hoja de control o esta en estado diferente a NUEVO.';
+        END IF;
+ 
+END IF; 
+
+p_res := v_res;
+EXCEPTION
+WHEN OTHERS THEN
+ROLLBACK;
+v_errC:=substr(sqlcode,1,20);
+v_errD:=substr(sqlerrm,1,200);
+p_grabar_error_bd(v_errC,v_errD,'P_SD_ANULAR_REGULACION','P_SD_ANULAR_REGULACION','-','-',v_id_log);
+p_res :='ERROR. Avise a TI. LOG generado #' || v_id_log;
+END;
+/
+

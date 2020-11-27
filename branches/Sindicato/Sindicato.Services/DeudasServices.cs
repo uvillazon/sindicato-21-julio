@@ -103,7 +103,8 @@ namespace Sindicato.Services
                     var detalles = managerDetalle.BuscarTodos(x => x.ID_DEUDA == ant.ID_DEUDA);
                     foreach (var item in detalles)
                     {
-                        if (item != null) {
+                        if (item != null)
+                        {
                             managerDetalle.Delete(item);
                         }
                     }
@@ -193,6 +194,13 @@ namespace Sindicato.Services
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
+                var managerCierre = new SD_CIERRES_CAJASManager(uow);
+                var valid = managerCierre.VerificarCierre(DateTime.Now);
+                if (!valid.success)
+                {
+                    throw new NullReferenceException(valid.msg);
+                }
+
                 var manager = new SD_DETALLES_DEUDASManager(uow);
                 var context = (SindicatoContext)manager.Context;
                 var det = manager.BuscarTodos(x => x.ID_DETALLE == detalle.ID_DETALLE && x.IMPORTE_CANCELADO == 0 && x.ESTADO != "ANULADO").FirstOrDefault();
@@ -206,7 +214,7 @@ namespace Sindicato.Services
                     SD_KARDEX_EFECTIVO kardex = new SD_KARDEX_EFECTIVO()
                     {
                         ID_KARDEX = idKardex,
-                        DETALLE = "CENCELACION DEUDA " + det.SD_DEUDAS_SOCIOS.MOTIVO + " Movil:" + det.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL + " Socio :"+det.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
+                        DETALLE = "CENCELACION DEUDA " + det.SD_DEUDAS_SOCIOS.MOTIVO + " Movil:" + det.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL + " Socio :" + det.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
                         FECHA = (DateTime)det.FECHA_CANCELADO,
                         FECHA_REG = DateTime.Now,
                         ID_OPERACION = det.ID_DETALLE,
@@ -230,7 +238,7 @@ namespace Sindicato.Services
 
             });
 
-            return result;
+            return result = resultado == null ? result : resultado;
         }
 
         public RespuestaSP AnularDeuda(SD_DETALLES_DEUDAS detalle, string login)

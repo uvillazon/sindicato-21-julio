@@ -16,8 +16,8 @@ namespace Sindicato.Services
 {
     public class RegulacionesServices : BaseService, IRegulacionesServices
     {
-        
-     
+
+
         public IEnumerable<SD_REGULARIZACIONES> ObtenerRegulacionesPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)
         {
             IQueryable<SD_REGULARIZACIONES> result = null;
@@ -40,17 +40,24 @@ namespace Sindicato.Services
             return result;
         }
 
-       
 
-        public RespuestaSP GuardarRegulaciones(SD_REGULARIZACIONES regulacion,string login)
+
+        public RespuestaSP GuardarRegulaciones(SD_REGULARIZACIONES regulacion, string login)
         {
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
+                var managerCierre = new SD_CIERRES_CAJASManager(uow);
+                var valid = managerCierre.VerificarCierre((DateTime)regulacion.FECHA_COMPRA);
+                if (!valid.success)
+                {
+                    throw new NullReferenceException(valid.msg);
+                }
+
                 var context = (SindicatoContext)uow.Context;
                 ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
 
-                context.P_SD_GUARDAR_REGULACION(regulacion.ID_SOCIO_MOVIL,regulacion.ID_PARADA,regulacion.FECHA_COMPRA,regulacion.MES.ToString("MM-yyyy"),regulacion.CANTIDAD, login, p_res);
+                context.P_SD_GUARDAR_REGULACION(regulacion.ID_SOCIO_MOVIL, regulacion.ID_PARADA, regulacion.FECHA_COMPRA, regulacion.MES.ToString("MM-yyyy"), regulacion.CANTIDAD, login, p_res);
                 int id;
                 bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
                 if (esNumero)
@@ -66,7 +73,8 @@ namespace Sindicato.Services
                 }
 
             });
-            return result;
+
+            return result = resultado == null ? result : resultado;
         }
 
         public RespuestaSP AnularRegulacion(SD_REGULARIZACIONES regulacion, string login)
@@ -77,7 +85,7 @@ namespace Sindicato.Services
                 var context = (SindicatoContext)uow.Context;
                 ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
 
-                context.P_SD_ANULAR_REGULACION(regulacion.ID_REGULACION,regulacion.OBSERVACION , login, p_res);
+                context.P_SD_ANULAR_REGULACION(regulacion.ID_REGULACION, regulacion.OBSERVACION, login, p_res);
                 int id;
                 bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
                 if (esNumero)
