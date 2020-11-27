@@ -2,7 +2,7 @@
 <edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
   <edmx:Designer>
     <edmx:Diagrams>
-      <edmx:Diagram Name="Modelo" ZoomLevel="108">
+      <edmx:Diagram Name="Modelo" ZoomLevel="104">
         <edmx:EntityTypeShape EntityType="Model.SD_LISTAS" Width="1.5" PointX="0.75" PointY="1" Height="2.5571907552083326" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="Model.SD_LISTAS_ITEMS" Width="1.5" PointX="3" PointY="1" Height="2.7494921874999996" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="Model.SD_MENU_OPCIONES" Width="1.5" PointX="0.5" PointY="11.125" Height="2.9417936197916639" IsExpanded="true" />
@@ -168,10 +168,8 @@
         <edmx:AssociationConnector Association="Model.SD_TRANSFERENCIAS_HOJAS_R01" />
         <edmx:AssociationConnector Association="Model.SD_TRANSFERENCIAS_HOJAS_R02" />
         <edmx:AssociationConnector Association="Model.SD_TRANSF_HOJA_DET_R01" />
-        <edmx:EntityTypeShape EntityType="Model.SD_CIERRES_CAJAS" Width="1.5" PointX="6.088335310150093" PointY="16.132124133469596" />
         <edmx:EntityTypeShape EntityType="Model.SD_DETALLE_CIERRES_CAJA" Width="1.5" PointX="0.84491203392153236" PointY="17.65414854216117" />
         <edmx:AssociationConnector Association="Model.SD_DETALLE_CIERRES_CAJA_R02" />
-        <edmx:AssociationConnector Association="Model.SD_DETALLE_CIERRES_CAJA_R01" />
         <edmx:EntityTypeShape EntityType="Model.SD_DEUDAS_SOCIOS" Width="1.5" PointX="6.5197849136403692" PointY="31.91174921389285" />
         <edmx:AssociationConnector Association="Model.SD_DEUDAS_SOCIOS_R01" />
         <edmx:EntityTypeShape EntityType="Model.SD_DETALLES_DEUDAS" Width="1.5" PointX="2.2188795759430526" PointY="26.93064734103654" />
@@ -203,6 +201,9 @@
         <edmx:AssociationConnector Association="Model.SD_PRESTAMOS_POR_SOCIOS_R01" />
         <edmx:AssociationConnector Association="Model.SD_PRESTAMOS_POR_SOCIOS_R02" />
         <edmx:AssociationConnector Association="Model.SD_PRESTAMOS_POR_SOCIOS_R04" />
+        <edmx:EntityTypeShape EntityType="Model.SD_CIERRES_CAJAS" Width="1.5" PointX="17.25" PointY="112.375" />
+        <edmx:AssociationConnector Association="Model.SD_CIERRES_CAJAS_R01" />
+        <edmx:AssociationConnector Association="Model.SD_DETALLE_CIERRES_CAJA_R01" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
