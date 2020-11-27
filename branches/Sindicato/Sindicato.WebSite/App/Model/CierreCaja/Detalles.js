@@ -12,6 +12,8 @@
             { type: "string", name: "OPERACION" },
             { type: "string", name: "SUBOPERACION" },
             { type: "float", name: "SALDO" },
+            { type: "float", name: "SALDO_ANTERIOR" },
+            { type: "float", name: "TOTAL" },
             { type: "date", name: "CIERRE.FECHA_INI", dateFormat: "d/m/Y", mapping: 'CIERRE.FECHA_INI', convert: Funciones.Fecha },
             { type: "date", name: "CIERRE.FECHA_FIN", dateFormat: "d/m/Y", mapping: 'CIERRE.FECHA_FIN', convert: Funciones.Fecha },
             { type: "string", name: "CIERRE.OBSERVACION", mapping: 'CIERRE.OBSERVACION' },

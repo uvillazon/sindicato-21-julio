@@ -172,7 +172,8 @@
         //me.store.load();
         me.columns = [
            { xtype: "rownumberer", width: 30, sortable: false },
-            { header: "Caja", width: 150, sortable: false,dataIndex : "CAJA" },
+            { header: "Caja Hoja", width: 120, sortable: false, dataIndex: "CAJA" },
+            { header: "Caja Regularizacion", width: 120, sortable: false, dataIndex: "CAJA_REGULACIONES" },
             { header: "Obligacion", width: 150, sortable: true, dataIndex: "OBLIGACION" },
             { header: "Importe", width: 100, sortable: true, dataIndex: "IMPORTE" },
             { header: "Responsable", width: 60, sortable: true, dataIndex: "LOGIN" },

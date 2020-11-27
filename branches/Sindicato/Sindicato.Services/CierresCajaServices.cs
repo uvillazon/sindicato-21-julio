@@ -434,9 +434,12 @@ namespace Sindicato.Services
         }
 
 
-        public IEnumerable<CierreCajaModel> ObtenerCierreCajaGenerado(DateTime FECHA_INI, DateTime FECHA_FIN)
+        public IEnumerable<CierreCajaModel> ObtenerCierreCajaGenerado(int ID_CIERRE_ANTERIOR, DateTime FECHA_INI, DateTime FECHA_FIN)
         {
           var   result = ObtenerDetalleCierreCaja(FECHA_INI, FECHA_FIN);
+
+          var cierre_anterior = ObtenerCierrePorCriterio(x => x.ID_CIERRE == ID_CIERRE_ANTERIOR);
+           
 
             //return result;
             return result.GroupBy(x => new { x.CAJA, x.ID_CAJA, x.MONEDA, x.NOMBRE }).Select(y => new CierreCajaModel
@@ -445,27 +448,25 @@ namespace Sindicato.Services
                 CAJA = y.Key.CAJA,
                 NOMBRE = y.Key.NOMBRE,
                 MONEDA = y.Key.MONEDA,
-                SALDO = y.Sum(z => z.SALDO)
+                SALDO = y.Sum(z => z.SALDO),
+                TOTAL = y.Sum(z => z.SALDO) + (cierre_anterior == null ? 0 : cierre_anterior.SD_DETALLE_CIERRES_CAJA.FirstOrDefault(z => z.ID_CAJA == y.Key.ID_CAJA) == null ? 0 : cierre_anterior.SD_DETALLE_CIERRES_CAJA.FirstOrDefault(z => z.ID_CAJA == y.Key.ID_CAJA).SALDO),
+                SALDO_ANTERIOR = cierre_anterior == null ? 0 : cierre_anterior.SD_DETALLE_CIERRES_CAJA.FirstOrDefault(z => z.ID_CAJA == y.Key.ID_CAJA) == null ? 0 : cierre_anterior.SD_DETALLE_CIERRES_CAJA.FirstOrDefault(z => z.ID_CAJA == y.Key.ID_CAJA).SALDO
             });
         }
 
-        //public IEnumerable<SD_CIERRES> ObtenerCierresPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)
-        //{
-        //    IQueryable<SD_CIERRES> result = null;
-        //    ExecuteManager(uow =>
-        //    {
-        //        var manager = new SD_CIERRESManager(uow);
+        public SD_CIERRES_CAJAS ObtenerCierrePorCriterio(Expression<Func<SD_CIERRES_CAJAS, bool>> criterio)
+        {
+            SD_CIERRES_CAJAS result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_CIERRES_CAJASManager(uow);
 
-        //        result = manager.BuscarTodos();
-        //        filtros.FiltrarDatos();
-        //        result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
-        //        paginacion.total = result.Count();
+                result = manager.BuscarTodos(criterio).FirstOrDefault();
 
-        //        result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
 
-        //    });
-        //    return result;
-        //}
+            });
+            return result;
+        }
 
 
         //public IEnumerable<CierreAhorroSocioMovilModel> ObtenerCierreAhorroSocioMovil(DateTime FECHA_INI, DateTime FECHA_FIN)

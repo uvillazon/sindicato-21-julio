@@ -79,13 +79,15 @@ Ext.define("App.Config.Abstract.Form", {
         this.callParent();
         //me.addDocked(me.encabezado, 'top');
     },
-    BloquearFormulario: function (array) {
+    BloquearFormulario: function (array , btn) {
         var me = this;
+        console.log('entro');
+        console.log(btn);
         if (me.botones) {
             me.btn_guardar.hide();
             me.btn_limpiar.hide();
         }
-        me.bloquearFormulario ? Funciones.BloquearFormulario(me, array) : me.getForm().reset();
+        me.bloquearFormulario ? Funciones.BloquearFormulario(me, array , btn) : me.getForm().reset();
     },
     BloquearFormularioReadOnly: function (array) {
         var me = this;

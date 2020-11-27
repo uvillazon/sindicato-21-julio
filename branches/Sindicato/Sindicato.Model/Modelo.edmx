@@ -122,6 +122,10 @@
             <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
             <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
           </AssociationSet>
+          <AssociationSet Name="SD_CIERRES_CAJAS_R01" Association="Model.Store.SD_CIERRES_CAJAS_R01">
+            <End Role="SD_CIERRES_CAJAS" EntitySet="SD_CIERRES_CAJAS" />
+            <End Role="SD_CIERRES_CAJAS1" EntitySet="SD_CIERRES_CAJAS" />
+          </AssociationSet>
           <AssociationSet Name="SD_CIERRES_PARADA_R01" Association="Model.Store.SD_CIERRES_PARADA_R01">
             <End Role="SD_PARADAS" EntitySet="SD_PARADAS" />
             <End Role="SD_CIERRES_PARADA" EntitySet="SD_CIERRES_PARADA" />
@@ -601,6 +605,7 @@
           <Property Name="FECHA_REG" Type="date" />
           <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
           <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
+          <Property Name="ID_CIERRE_ANTERIOR" Type="number" Precision="7" />
         </EntityType>
         <EntityType Name="SD_CIERRES_PARADA">
           <Key>
@@ -690,6 +695,7 @@
           <Property Name="FECHA_REG" Type="date" />
           <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
           <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
+          <Property Name="SALDO_ANTERIOR" Type="number" Precision="15" Scale="5" />
         </EntityType>
         <EntityType Name="SD_DETALLE_PERIODO_SOCIO">
           <Key>
@@ -1655,6 +1661,18 @@
             </Principal>
             <Dependent Role="SD_CHOFERES">
               <PropertyRef Name="ID_SOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_CIERRES_CAJAS_R01">
+          <End Role="SD_CIERRES_CAJAS" Type="Model.Store.SD_CIERRES_CAJAS" Multiplicity="0..1" />
+          <End Role="SD_CIERRES_CAJAS1" Type="Model.Store.SD_CIERRES_CAJAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CIERRES_CAJAS">
+              <PropertyRef Name="ID_CIERRE" />
+            </Principal>
+            <Dependent Role="SD_CIERRES_CAJAS1">
+              <PropertyRef Name="ID_CIERRE_ANTERIOR" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3869,14 +3887,9 @@
             <End Role="SD_TRANSFERENCIAS_HOJAS" EntitySet="SD_TRANSFERENCIAS_HOJAS" />
             <End Role="SD_TRANSF_HOJA_DET" EntitySet="SD_TRANSF_HOJA_DET" />
           </AssociationSet>
-          <EntitySet Name="SD_CIERRES_CAJAS" EntityType="Model.SD_CIERRES_CAJAS" />
           <EntitySet Name="SD_DETALLE_CIERRES_CAJA" EntityType="Model.SD_DETALLE_CIERRES_CAJA" />
           <AssociationSet Name="SD_DETALLE_CIERRES_CAJA_R02" Association="Model.SD_DETALLE_CIERRES_CAJA_R02">
             <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
-            <End Role="SD_DETALLE_CIERRES_CAJA" EntitySet="SD_DETALLE_CIERRES_CAJA" />
-          </AssociationSet>
-          <AssociationSet Name="SD_DETALLE_CIERRES_CAJA_R01" Association="Model.SD_DETALLE_CIERRES_CAJA_R01">
-            <End Role="SD_CIERRES_CAJAS" EntitySet="SD_CIERRES_CAJAS" />
             <End Role="SD_DETALLE_CIERRES_CAJA" EntitySet="SD_DETALLE_CIERRES_CAJA" />
           </AssociationSet>
           <EntitySet Name="SD_DEUDAS_SOCIOS" EntityType="Model.SD_DEUDAS_SOCIOS" />
@@ -3977,6 +3990,15 @@
           <AssociationSet Name="SD_SOC_MOV_OBLIG_R01" Association="Model.SD_SOC_MOV_OBLIG_R01">
             <End Role="SD_OBLIGACIONES_HOJA" EntitySet="SD_OBLIGACIONES_HOJA" />
             <End Role="SD_SOC_MOV_OBLIG" EntitySet="SD_SOC_MOV_OBLIG" />
+          </AssociationSet>
+          <EntitySet Name="SD_CIERRES_CAJAS" EntityType="Model.SD_CIERRES_CAJAS" />
+          <AssociationSet Name="SD_CIERRES_CAJAS_R01" Association="Model.SD_CIERRES_CAJAS_R01">
+            <End Role="SD_CIERRES_CAJAS" EntitySet="SD_CIERRES_CAJAS" />
+            <End Role="SD_CIERRES_CAJAS1" EntitySet="SD_CIERRES_CAJAS" />
+          </AssociationSet>
+          <AssociationSet Name="SD_DETALLE_CIERRES_CAJA_R01" Association="Model.SD_DETALLE_CIERRES_CAJA_R01">
+            <End Role="SD_CIERRES_CAJAS" EntitySet="SD_CIERRES_CAJAS" />
+            <End Role="SD_DETALLE_CIERRES_CAJA" EntitySet="SD_DETALLE_CIERRES_CAJA" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="SD_LISTAS">
@@ -6092,20 +6114,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="SD_CIERRES_CAJAS">
-          <Key>
-            <PropertyRef Name="ID_CIERRE" />
-          </Key>
-          <Property Type="Int32" Name="ID_CIERRE" Nullable="false" />
-          <Property Type="String" Name="CODIGO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_INI" Nullable="false" Precision="0" />
-          <Property Type="DateTime" Name="FECHA_FIN" Nullable="false" Precision="0" />
-          <Property Type="String" Name="OBSERVACION" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
-          <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SD_DETALLE_CIERRES_CAJA" Relationship="Model.SD_DETALLE_CIERRES_CAJA_R01" FromRole="SD_CIERRES_CAJAS" ToRole="SD_DETALLE_CIERRES_CAJA" />
-        </EntityType>
         <EntityType Name="SD_DETALLE_CIERRES_CAJA">
           <Key>
             <PropertyRef Name="ID_DETALLE" />
@@ -6119,6 +6127,7 @@
           <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_DETALLE_CIERRES_CAJA_R02" FromRole="SD_DETALLE_CIERRES_CAJA" ToRole="SD_CAJAS" />
+          <Property Type="Decimal" Name="SALDO_ANTERIOR" Precision="15" Scale="5" />
           <NavigationProperty Name="SD_CIERRES_CAJAS" Relationship="Model.SD_DETALLE_CIERRES_CAJA_R01" FromRole="SD_DETALLE_CIERRES_CAJA" ToRole="SD_CIERRES_CAJAS" />
         </EntityType>
         <Association Name="SD_DETALLE_CIERRES_CAJA_R02">
@@ -6130,18 +6139,6 @@
             </Principal>
             <Dependent Role="SD_DETALLE_CIERRES_CAJA">
               <PropertyRef Name="ID_CAJA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="SD_DETALLE_CIERRES_CAJA_R01">
-          <End Type="Model.SD_CIERRES_CAJAS" Role="SD_CIERRES_CAJAS" Multiplicity="1" />
-          <End Type="Model.SD_DETALLE_CIERRES_CAJA" Role="SD_DETALLE_CIERRES_CAJA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_CIERRES_CAJAS">
-              <PropertyRef Name="ID_CIERRE" />
-            </Principal>
-            <Dependent Role="SD_DETALLE_CIERRES_CAJA">
-              <PropertyRef Name="ID_CIERRE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6331,12 +6328,12 @@
           <Property Type="Int32" Name="ID_INGRESO" Nullable="false" />
           <Property Type="Int32" Name="ID_CAJA" Nullable="false" />
           <Property Type="Int32" Name="NRO_RECIBO" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA" Nullable="false" Precision="0" />
           <Property Type="String" Name="CONCEPTO" Nullable="false" MaxLength="140" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="OBSERVACION" MaxLength="1500" FixedLength="false" Unicode="false" />
           <Property Type="Decimal" Name="IMPORTE" Nullable="false" Precision="15" Scale="5" />
           <Property Type="String" Name="LOGIN" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="TIPO" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ENTREGADO" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -6363,7 +6360,7 @@
           <Property Type="Int32" Name="ID_CAJA" Nullable="false" />
           <Property Type="String" Name="OBLIGACION" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Type="Decimal" Name="IMPORTE_DEFECTO" Nullable="false" Precision="15" Scale="5" />
-          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
           <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="ID_CAJA_REG" />
           <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_OBLIGACIONES_HOJA_R02" FromRole="SD_OBLIGACIONES_HOJA" ToRole="SD_CAJAS" />
@@ -6416,6 +6413,47 @@
             </Principal>
             <Dependent Role="SD_SOC_MOV_OBLIG">
               <PropertyRef Name="ID_OBLIGACION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SD_CIERRES_CAJAS">
+          <Key>
+            <PropertyRef Name="ID_CIERRE" />
+          </Key>
+          <Property Type="Int32" Name="ID_CIERRE" Nullable="false" />
+          <Property Type="String" Name="CODIGO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_INI" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_FIN" Nullable="false" Precision="0" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ID_CIERRE_ANTERIOR" />
+          <NavigationProperty Name="SD_CIERRES_CAJAS1" Relationship="Model.SD_CIERRES_CAJAS_R01" FromRole="SD_CIERRES_CAJAS" ToRole="SD_CIERRES_CAJAS1" />
+          <NavigationProperty Name="SD_CIERRES_CAJAS2" Relationship="Model.SD_CIERRES_CAJAS_R01" FromRole="SD_CIERRES_CAJAS1" ToRole="SD_CIERRES_CAJAS" />
+          <NavigationProperty Name="SD_DETALLE_CIERRES_CAJA" Relationship="Model.SD_DETALLE_CIERRES_CAJA_R01" FromRole="SD_CIERRES_CAJAS" ToRole="SD_DETALLE_CIERRES_CAJA" />
+        </EntityType>
+        <Association Name="SD_CIERRES_CAJAS_R01">
+          <End Type="Model.SD_CIERRES_CAJAS" Role="SD_CIERRES_CAJAS" Multiplicity="0..1" />
+          <End Type="Model.SD_CIERRES_CAJAS" Role="SD_CIERRES_CAJAS1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CIERRES_CAJAS">
+              <PropertyRef Name="ID_CIERRE" />
+            </Principal>
+            <Dependent Role="SD_CIERRES_CAJAS1">
+              <PropertyRef Name="ID_CIERRE_ANTERIOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_DETALLE_CIERRES_CAJA_R01">
+          <End Type="Model.SD_CIERRES_CAJAS" Role="SD_CIERRES_CAJAS" Multiplicity="1" />
+          <End Type="Model.SD_DETALLE_CIERRES_CAJA" Role="SD_DETALLE_CIERRES_CAJA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CIERRES_CAJAS">
+              <PropertyRef Name="ID_CIERRE" />
+            </Principal>
+            <Dependent Role="SD_DETALLE_CIERRES_CAJA">
+              <PropertyRef Name="ID_CIERRE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7510,23 +7548,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SD_CIERRES_CAJAS">
-            <EntityTypeMapping TypeName="Model.SD_CIERRES_CAJAS">
-              <MappingFragment StoreEntitySet="SD_CIERRES_CAJAS">
-                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
-                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
-                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
-                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
-                <ScalarProperty Name="FECHA_FIN" ColumnName="FECHA_FIN" />
-                <ScalarProperty Name="FECHA_INI" ColumnName="FECHA_INI" />
-                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
-                <ScalarProperty Name="ID_CIERRE" ColumnName="ID_CIERRE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SD_DETALLE_CIERRES_CAJA">
             <EntityTypeMapping TypeName="Model.SD_DETALLE_CIERRES_CAJA">
               <MappingFragment StoreEntitySet="SD_DETALLE_CIERRES_CAJA">
+                <ScalarProperty Name="SALDO_ANTERIOR" ColumnName="SALDO_ANTERIOR" />
                 <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
                 <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
                 <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
@@ -7647,6 +7672,21 @@
                 <ScalarProperty Name="ID_CAJA" ColumnName="ID_CAJA" />
                 <ScalarProperty Name="ID_LINEA" ColumnName="ID_LINEA" />
                 <ScalarProperty Name="ID_OBLIGACION" ColumnName="ID_OBLIGACION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_CIERRES_CAJAS">
+            <EntityTypeMapping TypeName="Model.SD_CIERRES_CAJAS">
+              <MappingFragment StoreEntitySet="SD_CIERRES_CAJAS">
+                <ScalarProperty Name="ID_CIERRE_ANTERIOR" ColumnName="ID_CIERRE_ANTERIOR" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="FECHA_FIN" ColumnName="FECHA_FIN" />
+                <ScalarProperty Name="FECHA_INI" ColumnName="FECHA_INI" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_CIERRE" ColumnName="ID_CIERRE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -177,10 +177,8 @@
         <edmx:AssociationConnector Association="Model.SD_TRANSFERENCIAS_HOJAS_R01" />
         <edmx:AssociationConnector Association="Model.SD_TRANSFERENCIAS_HOJAS_R02" />
         <edmx:AssociationConnector Association="Model.SD_TRANSF_HOJA_DET_R01" />
-        <edmx:EntityTypeShape EntityType="Model.SD_CIERRES_CAJAS" Width="1.5" PointX="6.088335310150093" PointY="16.132124133469596" />
         <edmx:EntityTypeShape EntityType="Model.SD_DETALLE_CIERRES_CAJA" Width="1.5" PointX="0.84491203392153236" PointY="17.65414854216117" />
         <edmx:AssociationConnector Association="Model.SD_DETALLE_CIERRES_CAJA_R02" />
-        <edmx:AssociationConnector Association="Model.SD_DETALLE_CIERRES_CAJA_R01" />
         <edmx:EntityTypeShape EntityType="Model.SD_DEUDAS_SOCIOS" Width="1.5" PointX="6.5197849136403692" PointY="31.91174921389285" />
         <edmx:AssociationConnector Association="Model.SD_DEUDAS_SOCIOS_R01" />
         <edmx:EntityTypeShape EntityType="Model.SD_DETALLES_DEUDAS" Width="1.5" PointX="2.2188795759430526" PointY="26.93064734103654" />
@@ -201,6 +199,9 @@
         <edmx:AssociationConnector Association="Model.SD_OBLIGACIONES_HOJA_R03" />
         <edmx:AssociationConnector Association="Model.SD_OBLIGACIONES_HOJA_R01" />
         <edmx:AssociationConnector Association="Model.SD_SOC_MOV_OBLIG_R01" />
+        <edmx:EntityTypeShape EntityType="Model.SD_CIERRES_CAJAS" Width="2.375" PointX="15" PointY="112.5" />
+        <edmx:AssociationConnector Association="Model.SD_CIERRES_CAJAS_R01" />
+        <edmx:AssociationConnector Association="Model.SD_DETALLE_CIERRES_CAJA_R01" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

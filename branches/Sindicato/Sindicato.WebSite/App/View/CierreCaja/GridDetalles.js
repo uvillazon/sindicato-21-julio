@@ -26,7 +26,9 @@
                 { header: "Codigo", width: 50, sortable: false, dataIndex: "CAJA" },
                 { header: "Caja", width: 150, sortable: false, dataIndex: "NOMBRE" },
                 { header: "Moneda", width: 150, sortable: false, dataIndex: "MONEDA" },
+                { header: "Saldo<br>Anterior", width: 80, sortable: false, dataIndex: "SALDO_ANTERIOR" },
                 { header: "Importe", width: 80, sortable: false, dataIndex: "SALDO" },
+                { header: "Total", width: 80, sortable: false, dataIndex: "TOTAL" },
                 { header: "Observacion", width: 200, sortable: false, dataIndex: "OBSERVACION" },
         ];
 

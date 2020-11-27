@@ -54,9 +54,9 @@
     <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="oracle.dataaccess, Version=4.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
+    <Reference Include="Oracle.DataAccess, Version=4.112.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Oracle.DataAccess\v4.0_4.112.3.0__89b483f429c47342\oracle.dataaccess.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\app\uvillazon\product\12.1.0\client_1\odp.net\bin\4\Oracle.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -250,6 +250,7 @@
     <Content Include="App\Model\Prestamos\TiposPrestamos.js" />
     <Content Include="App\Model\Regulaciones\Detalles.js" />
     <Content Include="App\Model\Regulaciones\Regulaciones.js" />
+    <Content Include="App\Model\Socios\DetalleConfigHojas.js" />
     <Content Include="App\Model\Socios\KardexDebe.js" />
     <Content Include="App\Model\Cajas\Cajas.js" />
     <Content Include="App\Model\Cajas\Kardex.js" />
@@ -261,6 +262,7 @@
     <Content Include="App\Model\Cierres\Cierres.js" />
     <Content Include="App\Model\Amortizaciones\Amortizaciones.js" />
     <Content Include="App\Model\Obligaciones\Obligaciones.js" />
+    <Content Include="App\Model\Socios\ObligacionesHoja.js" />
     <Content Include="App\Model\TransferenciasHojas\Transferencias.js" />
     <Content Include="App\Model\Transferencias\Transferencias.js" />
     <Content Include="App\Model\Descuentos\Detalles.js" />
@@ -473,6 +475,7 @@
     <Content Include="App\View\Socios\FormBajaSocioMovil.js" />
     <Content Include="App\View\Socios\FormObligacionSocioHoja.js" />
     <Content Include="App\View\Socios\GridKardexDebe.js" />
+    <Content Include="App\View\Socios\TransferenciasHojasForm.js" />
     <Content Include="App\View\TiposEgresos\FormEgreso.js" />
     <Content Include="App\View\TiposEgresos\Forms.js" />
     <Content Include="App\View\TiposEgresos\GridEgresos.js" />
@@ -1711,21 +1714,14 @@
     <Content Include="Content\themes\base\jquery.ui.slider.css" />
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="DDL\scriptAyuda.txt" />
     <Content Include="Global.asax" />
     <Content Include="..\..\..\..\..\132\sindicato-21-julio\branches\Sindicato\Sindicato.WebSite\DLL\01052019.txt">
       <Link>InterfacesUsuario\01052019.txt</Link>
     </Content>
-    <Content Include="InterfacesUsuario\23032019.txt" />
-    <Content Include="InterfacesUsuario\29032019.txt" />
-    <Content Include="InterfacesUsuario\bin.txt" />
     <Content Include="..\..\..\..\..\132\sindicato-21-julio\branches\Sindicato\Sindicato.WebSite\DLL\data01052019.txt">
       <Link>InterfacesUsuario\data01052019.txt</Link>
     </Content>
-    <Content Include="InterfacesUsuario\dllsindatos.txt" />
-    <Content Include="InterfacesUsuario\FormHoja.png" />
-    <Content Include="InterfacesUsuario\GridChoferes.png" />
-    <Content Include="InterfacesUsuario\GridHojas.png" />
-    <Content Include="InterfacesUsuario\GridSocios.png" />
     <Content Include="InterfacesUsuario\20112020.txt" />
     <Content Include="Scripts\Extjs\bootstrap.js" />
     <Content Include="Scripts\Extjs\build.xml" />
@@ -3975,14 +3971,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="InterfacesUsuario\Adm Choferes.mck" />
-    <Content Include="InterfacesUsuario\dllcondatos.sql" />
-    <None Include="InterfacesUsuario\Fondo Emergencia Chofer.mck" />
-    <None Include="InterfacesUsuario\Modulo  Nivelaciones.mck" />
-    <None Include="InterfacesUsuario\Modulo de Descuentos.mck" />
-    <None Include="InterfacesUsuario\Modulo de Hojas.mck" />
-    <None Include="InterfacesUsuario\Modulo de Retiros.mck" />
-    <None Include="InterfacesUsuario\Socios.mck" />
     <None Include="Properties\PublishProfiles\sistema.pubxml" />
     <None Include="Scripts\Extjs\resources\ext-theme-classic-sandbox\Readme.md" />
     <None Include="Scripts\Extjs\resources\ext-theme-classic\Readme.md" />

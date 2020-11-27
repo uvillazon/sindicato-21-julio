@@ -21,7 +21,7 @@ Ext.onReady(function () {
             {
                 xtype: 'image',
                 rowspan: 3,
-                src:  '/Content/images/toyota.png'
+                src:  '../Content/images/toyota.png'
             },
             {
             itemId: 'loginField',
@@ -88,7 +88,7 @@ Ext.onReady(function () {
             success: function () {
                 //Ext.Msg.alert('Status', 'Login Successful!', function (btn, text) {
                 //    if (btn == 'ok') {
-                //var redirect = 'http://elfpre02/SisMan/';
+                //var redirect = 'http://server-pc/Sindicato/';
                 var redirect = '/';
                 window.location = redirect;
                 win.hide();

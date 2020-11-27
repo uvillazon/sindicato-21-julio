@@ -23,10 +23,10 @@
             var totalsus = 0;
             str.each(function (record) {
                 if (record.get('MONEDA') == "BOLIVIANOS") {
-                    totalbs += record.get('SALDO');
+                    totalbs += record.get('TOTAL');
                 }
                 else {
-                    totalsus += record.get('SALDO');
+                    totalsus += record.get('TOTAL');
                 }
             });
             me.txt_total.setValue(totalbs);
@@ -37,7 +37,11 @@
     CargarEventos: function () {
         var me = this;
         me.date_fecha_fin.on('select', function (dat, value) {
-            me.gridDetalle.getStore().setExtraParams({ FECHA_DESDE: me.date_fecha_ini.getValue(), FECHA_HASTA: value });
+            var id_cierre_detalle = -1;
+            if (!Ext.isEmpty(me.txt_id_cierre_anterior.getValue())) {
+                id_cierre_detalle = me.txt_id_cierre_anterior.getValue();
+            }
+            me.gridDetalle.getStore().setExtraParams({ FECHA_DESDE: me.date_fecha_ini.getValue(), FECHA_HASTA: value , ID_CIERRE_ANTERIOR : id_cierre_detalle });
             me.gridDetalle.getStore().load();
         });
         me.gridDetalle.getStore().on('load', function (str, records) {
@@ -45,10 +49,10 @@
             var totalsus = 0;
             str.each(function (record) {
                 if (record.get('MONEDA') == "BOLIVIANOS") {
-                    totalbs += record.get('SALDO');
+                    totalbs += record.get('TOTAL');
                 }
                 else {
-                    totalsus += record.get('SALDO');
+                    totalsus += record.get('TOTAL');
                 }
             });
             me.txt_total.setValue(totalbs);
@@ -61,6 +65,11 @@
         me.txt_id = Ext.create("App.Config.Componente.TextFieldBase", {
             hidden: true,
             name: "ID_CIERRE"
+
+        });
+        me.txt_id_cierre_anterior = Ext.create("App.Config.Componente.TextFieldBase", {
+            hidden: true,
+            name: "ID_CIERRE_ANTERIOR"
 
         });
         me.date_fecha_ini = Ext.create("App.Config.Componente.DateFieldBase", {
@@ -111,6 +120,7 @@
         me.gridDetalle = Ext.create("App.View.CierreCaja.GridDetalles", { colspan: 2, width: 550, cargarStore: false, height: 400,storeGenerar: true });
         me.items = [
             me.txt_id,
+            me.txt_id_cierre_anterior,
             me.date_fecha_ini,me.date_fecha_fin,
             me.txt_observacion,
             me.txt_estado,
@@ -192,6 +202,9 @@
                 var str = Ext.JSON.decode(response.responseText);
                 me.date_fecha_ini.setValue(str.value);
                 me.date_fecha_ini.setReadOnly(str.disabled);
+                if (str.disabled == true) {
+                    me.txt_id_cierre_anterior.setValue(str.id_cierre_anterior);
+                }
             }
         });
     },

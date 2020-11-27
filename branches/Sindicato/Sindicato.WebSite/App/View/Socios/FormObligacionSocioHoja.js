@@ -85,7 +85,7 @@
             colspan: 2,
             readOnly: true
         });
-        me.gridObligaciones = Ext.create("App.View.Socios.Grids", { opcion: "GridConfigHojas", height: 250, width: 550, colspan: 2 });
+        me.gridObligaciones = Ext.create("App.View.Socios.Grids", { opcion: "GridConfigHojas", height: 250, width: 600, colspan: 2 });
         //me.gridKardex = Ext.create("App.View.Socios.Grids", { opcion: "GridKardexObligaciones", height: 250, width: 400 });
         me.btn_cambiar = Funciones.CrearMenu('btn_CambiarObligacion', 'Modificar Detalle', Constantes.ICONO_EDITAR, null, null, me, null, true);
         me.btn_agregar = Funciones.CrearMenu('btn_CrearObligacion', 'Agregar Detalle', Constantes.ICONO_CREAR, null, null, me, null, false);

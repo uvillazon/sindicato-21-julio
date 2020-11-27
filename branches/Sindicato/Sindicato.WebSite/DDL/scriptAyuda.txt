@@ -1,0 +1,38 @@
+﻿--revertir cierre de caja script 
+delete from SINDICATO_121.SD_DETALLE_CIERRES_CAJA d where D.ID_CIERRE = 32 ;
+delete from SINDICATO_121.SD_CIERRES_CAJAS where id_cierre = 32;
+
+select estado , count(1) from SINDICATO_121.SD_INGRESOS_POR_SOCIOS group by estado
+update SINDICATO_121.SD_INGRESOS_POR_SOCIOS set estado = 'NUEVO' where estado = 'APROBADO'
+
+select estado , count(1) from SINDICATO_121.SD_INGRESOS group by estado
+update SINDICATO_121.SD_INGRESOS set estado = 'NUEVO' where estado = 'APROBADO'
+
+select estado , count(1) from SINDICATO_121.SD_PAGO_DE_PRESTAMOS group by estado
+update SINDICATO_121.SD_PAGO_DE_PRESTAMOS set estado = 'NUEVO' where estado = 'APROBADO'
+
+select estado , count(1) from SINDICATO_121.SD_TRANSFERENCIAS  group by estado
+update SINDICATO_121.SD_TRANSFERENCIAS set estado = 'NUEVO' where estado = 'APROBADO'
+
+select estado , count(1) from SINDICATO_121.SD_EGRESOS  group by estado
+update SINDICATO_121.SD_EGRESOS set estado = 'NUEVO' where estado = 'APROBADO'
+
+select estado_cierre , count(1) from SINDICATO_121.SD_PRESTAMOS_POR_SOCIOS  group by estado_cierre
+update SINDICATO_121.SD_PRESTAMOS_POR_SOCIOS set estado_cierre = 'NUEVO' where estado_cierre = 'APROBADO'
+
+select estado , count(1) from SINDICATO_121.SD_RETIRO_SOCIO_MOVIL  group by estado
+update SINDICATO_121.SD_RETIRO_SOCIO_MOVIL set estado = 'NUEVO' where estado = 'APROBADO'
+
+select estado , count(1) from SINDICATO_121.SD_HOJAS_CONTROL  group by estado
+update SINDICATO_121.SD_HOJAS_CONTROL set estado = 'NUEVO' where estado = 'APROBADO'
+
+select estado , count(1) from SINDICATO_121.SD_REGULARIZACIONES  group by estado
+update SINDICATO_121.SD_REGULARIZACIONES set estado = 'NUEVO' where estado = 'APROBADO'
+
+
+select estado , count(1) from SINDICATO_121.SD_DETALLES_DEUDAS  group by estado
+update SINDICATO_121.SD_DETALLES_DEUDAS set estado = 'NUEVO' where estado = 'APROBADO'
+
+
+select estado , count(1) from SINDICATO_121.SD_VENTA_HOJAS_REFUERZO  group by estado
+update SINDICATO_121.SD_VENTA_HOJAS_REFUERZO set estado = 'NUEVO' where estado = 'APROBADO'

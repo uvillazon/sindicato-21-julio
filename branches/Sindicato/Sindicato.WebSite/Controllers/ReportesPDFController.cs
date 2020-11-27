@@ -409,12 +409,12 @@ namespace Elfec.SisMan.Presentacion.Controllers
             return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
         }
 
-        public ActionResult ReporteIngresosDetalle(string tipo, DateTime FECHA_INI, DateTime FECHA_FIN)
+        public ActionResult ReporteIngresosDetalle(string tipo, string CONDICION ,DateTime FECHA_INI, DateTime FECHA_FIN)
         {
             ReportesServices rep = new ReportesServices();
             LocalReport localReport = new LocalReport();
             localReport.ReportPath = Server.MapPath("~/Reportes/ReporteIngresosDetalle.rdlc");
-            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteIngresoDetalle(FECHA_INI, FECHA_FIN));
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteIngresoDetalle(CONDICION ,FECHA_INI, FECHA_FIN));
             localReport.DataSources.Add(reportDataSource);
             string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
             string mimeType;
@@ -428,12 +428,12 @@ namespace Elfec.SisMan.Presentacion.Controllers
             return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
         }
 
-        public ActionResult ReporteIngresosDetallePorCaja(string tipo, DateTime FECHA_INI, DateTime FECHA_FIN)
+        public ActionResult ReporteIngresosDetallePorCaja(string tipo, DateTime FECHA_INI, DateTime FECHA_FIN , string CONDICION = "")
         {
             ReportesServices rep = new ReportesServices();
             LocalReport localReport = new LocalReport();
             localReport.ReportPath = Server.MapPath("~/Reportes/ReporteIngresosDetallePorCaja.rdlc");
-            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteIngresoDetalle(FECHA_INI, FECHA_FIN));
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteIngresoDetalle(CONDICION, FECHA_INI, FECHA_FIN));
             localReport.DataSources.Add(reportDataSource);
             string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
             string mimeType;

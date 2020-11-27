@@ -97,7 +97,7 @@ namespace Sindicato.WebSite.Controllers
             var cierre = _serCierre.ObtenerUltimoRegistroCierre();
             if (cierre != null)
             {
-                return Json(new { disabled = true, value = String.Format("{0:dd/MM/yyyy}", cierre.FECHA_FIN.AddDays(1)) }, JsonRequestBehavior.AllowGet);
+                return Json(new { disabled = true, value = String.Format("{0:dd/MM/yyyy}", cierre.FECHA_FIN.AddDays(1)), id_cierre_anterior = cierre.ID_CIERRE }, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -147,6 +147,8 @@ namespace Sindicato.WebSite.Controllers
                 ID_CIERRE = x.ID_CIERRE,
                 ESTADO = x.ESTADO,
                 SALDO = x.SALDO,
+                SALDO_ANTERIOR = x.SD_CIERRES_CAJAS.SD_CIERRES_CAJAS2 == null ? 0 : x.SD_CIERRES_CAJAS.SD_CIERRES_CAJAS2.SD_DETALLE_CIERRES_CAJA.FirstOrDefault(y => y.ID_CAJA == x.ID_CAJA) == null ? 0 : x.SD_CIERRES_CAJAS.SD_CIERRES_CAJAS2.SD_DETALLE_CIERRES_CAJA.FirstOrDefault(y => y.ID_CAJA == x.ID_CAJA).SALDO,
+                TOTAL = x.SALDO + (x.SD_CIERRES_CAJAS.SD_CIERRES_CAJAS2 == null ? 0 :  x.SD_CIERRES_CAJAS.SD_CIERRES_CAJAS2.SD_DETALLE_CIERRES_CAJA.FirstOrDefault(y => y.ID_CAJA == x.ID_CAJA) == null ? 0 : x.SD_CIERRES_CAJAS.SD_CIERRES_CAJAS2.SD_DETALLE_CIERRES_CAJA.FirstOrDefault(y => y.ID_CAJA == x.ID_CAJA).SALDO),
                 CAJA = x.SD_CAJAS.CODIGO,
                 MONEDA = x.SD_CAJAS.MONEDA,
                 NOMBRE = x.SD_CAJAS.NOMBRE,
@@ -172,9 +174,9 @@ namespace Sindicato.WebSite.Controllers
         //ObtenerDetallesPaginados
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult ObtenerDetalleCierreCajaGenerado(PagingInfo paginacion, DateTime FECHA_DESDE, DateTime FECHA_HASTA)
+        public ActionResult ObtenerDetalleCierreCajaGenerado(PagingInfo paginacion,int ID_CIERRE_ANTERIOR,  DateTime FECHA_DESDE, DateTime FECHA_HASTA)
         {
-            var detalles = _serCierreCaja.ObtenerCierreCajaGenerado(FECHA_DESDE, FECHA_HASTA);
+            var detalles = _serCierreCaja.ObtenerCierreCajaGenerado(ID_CIERRE_ANTERIOR,FECHA_DESDE, FECHA_HASTA);
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = detalles, Total = detalles.Count() }) + ");";
             return JavaScript(callback1);
@@ -186,7 +188,7 @@ namespace Sindicato.WebSite.Controllers
             var cierre = _serCierreCaja.ObtenerUltimoRegistroCierre();
             if (cierre != null)
             {
-                return Json(new { disabled = true, value = String.Format("{0:dd/MM/yyyy}", cierre.FECHA_FIN.AddDays(1)) }, JsonRequestBehavior.AllowGet);
+                return Json(new { disabled = true, value = String.Format("{0:dd/MM/yyyy}", cierre.FECHA_FIN.AddDays(1)), id_cierre_anterior = cierre.ID_CIERRE }, JsonRequestBehavior.AllowGet);
             }
             else
             {

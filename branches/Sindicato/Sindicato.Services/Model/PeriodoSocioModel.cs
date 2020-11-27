@@ -65,6 +65,8 @@ namespace Sindicato.Services.Model
         public string OPERACION { get; set; }
         public string SUBOPERACION { get; set; }
         public decimal? SALDO { get; set; }
+        public decimal? SALDO_ANTERIOR { get; set; }
+        public decimal? TOTAL { get; set; }
         public string MONEDA { get; set; }
         public string MSG { get; set; }
         public DateTime FECHA_INI { get; set; }

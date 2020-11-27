@@ -813,7 +813,7 @@
             width: 480,
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
-            textoTpl: function () { return "Caja :{CAJA} - Detalle {OBLIGACION} -  importe {IMPORTE_DEFECTO}" }
+            textoTpl: function () { return "Caja :{CAJA} - Caja Reg.:{CAJA_REGULACIONES} - Detalle {OBLIGACION} -  importe {IMPORTE_DEFECTO}" }
         });
         me.num_importe = Ext.create("App.Config.Componente.NumberFieldBase", {
             fieldLabel: "Importe",

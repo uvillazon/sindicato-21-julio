@@ -6,6 +6,7 @@
             { type: "int", name: "ID_LINEA" },
             { type: "string", name: "OBLIGACION" },
             { type: "string", name: "CAJA" },
+            { type: "string", name: "CAJA_REGULACIONES" },
             { type: "float", name: "IMPORTE_DEFECTO" },
             { type: "string", name: "LOGIN" },
             { type: "date", name: "FECHA_REG", dateFormat: "d/m/Y", convert: Funciones.Fecha } 

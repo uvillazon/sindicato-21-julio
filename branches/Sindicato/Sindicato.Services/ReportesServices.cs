@@ -181,7 +181,7 @@ namespace Sindicato.Services
 
         }
 
-        
+
 
         public IEnumerable<RepoteDetalleHojas> ObtenerReporteDetalleHoja(DateTime FECHA_INI, DateTime FECHA_FIN)
         {
@@ -701,9 +701,10 @@ namespace Sindicato.Services
             return result;
 
         }
-        public IEnumerable<ReporteDetalleIngresos> ObtenerReporteIngresoDetalle(DateTime FECHA_INI, DateTime FECHA_FIN)
+        public IEnumerable<ReporteDetalleIngresos> ObtenerReporteIngresoDetalle(string CONDICION, DateTime FECHA_INI, DateTime FECHA_FIN)
         {
             List<ReporteDetalleIngresos> result = new List<ReporteDetalleIngresos>();
+            List<ReporteDetalleIngresos> result1 = new List<ReporteDetalleIngresos>();
             NumLetra n = new NumLetra();
             ExecuteManager(uow =>
             {
@@ -715,7 +716,7 @@ namespace Sindicato.Services
                     var detalleRep = new ReporteDetalleIngresos()
                     {
                         DETALLE = item.SD_TIPOS_INGRESOS_SOCIO.NOMBRE,
-                        SUBDETALLE = item.OBSERVACION,
+                        SUBDETALLE = string.Format("{0} ({1})", item.OBSERVACION, item.SD_SOCIO_MOVILES.ObtenerNombreSocio()),
                         FECHA = item.FECHA,
                         FECHA_INI = FECHA_INI,
                         FECHA_FIN = FECHA_FIN,
@@ -754,11 +755,11 @@ namespace Sindicato.Services
                     var detalleRep = new ReporteDetalleIngresos()
                     {
                         DETALLE = "OTROS INGRESOS (COBRO DE MULTAS)",
-                        SUBDETALLE = item1.SD_DEUDAS_SOCIOS.MOTIVO,
+                        SUBDETALLE = string.Format("{0} ({1})", item1.SD_DEUDAS_SOCIOS.MOTIVO, item1.SD_SOCIO_MOVILES.ObtenerNombreSocio()),
                         FECHA = (DateTime)item1.FECHA_CANCELADO,
                         FECHA_INI = FECHA_INI,
                         FECHA_FIN = FECHA_FIN,
-                        NRO_MOVIL = item1.SD_SOCIO_MOVILES.NRO_MOVIL,
+                        NRO_MOVIL = item1.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
                         NRO_RECIBO = Convert.ToString(item1.ID_DETALLE),
                         CAJA = item1.SD_CAJAS.NOMBRE,
                         BOLIVIANOS = item1.SD_CAJAS.MONEDA == "BOLIVIANOS" ? (decimal)item1.IMPORTE_CANCELADO : 0,
@@ -787,8 +788,43 @@ namespace Sindicato.Services
                     result.Add(detalleRep);
                 }
                 //FE
+                foreach (var item1 in result)
+                {
+                    if (CONDICION == "REPORTE1")
+                    {
+                        string[] cajas = { "CAJA PRESTAMOS", "CAJA PANTER", "CAJA PRO CEDE" };
+                        if (!cajas.Contains(item1.CAJA.Trim().ToUpper()))
+                        {
+                            result1.Add(item1);
+                        }
+                    }
+                    else if (CONDICION == "REPORTE_PRESTAMOS") {
+                        if (item1.CAJA.Trim().ToUpper() == "CAJA PRESTAMO") {
+                            result1.Add(item1);
+                        }
+                    }
+                    else if (CONDICION == "REPORTE_PANTER")
+                    {
+                        if (item1.CAJA.Trim().ToUpper() == "CAJA PANTER")
+                        {
+                            result1.Add(item1);
+                        }
+                    }
+                    else if (CONDICION == "REPORTE_PRO_CEDE")
+                    {
+                        if (item1.CAJA.Trim().ToUpper() == "CAJA PRO CEDE")
+                        {
+                            result1.Add(item1);
+                        }
+                    }
+                    else
+                    {
+                        result1.Add(item1);
+                    }
+
+                }
             });
-            return result;
+            return result1;
         }
 
         public IEnumerable<ReporteDetalleIngresos> ObtenerReporteEgresosDetalle(DateTime FECHA_INI, DateTime FECHA_FIN)
@@ -1728,7 +1764,7 @@ namespace Sindicato.Services
                             NRO = cnt,
                             OPERACION = "INGRESOS",
                             SUBOPERACION = "PAGO DE PRESTAMOS",
-                            DETALLE = string.Format("({0}) {1} NRO MOVIL:{2}", item.FECHA.ToString("dd/MM/yyyy") , item.SD_PRESTAMOS_POR_SOCIOS.SD_TIPOS_PRESTAMOS.NOMBRE,item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL),
+                            DETALLE = string.Format("({0}) {1} NRO MOVIL:{2}", item.FECHA.ToString("dd/MM/yyyy"), item.SD_PRESTAMOS_POR_SOCIOS.SD_TIPOS_PRESTAMOS.NOMBRE, item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL),
                             PERIODO = Intervalo,
                             CAJA = caja,
                             MONEDA = moneda,

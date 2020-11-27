@@ -25,8 +25,8 @@
         me.store = Ext.create("App.Store.Listas.StoreLista", { autoLoad: false });
         me.columns = [
             { xtype: "rownumberer", width: 30, sortable: false },
-            { header: "Codigo", width: 100, sortable: true, dataIndex: "CODIGO" },
-            { header: "Valor", width: 150, sortable: true, dataIndex: "VALOR" },
+            { header: "Codigo", width: 80, sortable: true, dataIndex: "CODIGO" },
+            { header: "Valor", width: 300, sortable: true, dataIndex: "VALOR" },
             { header: "Estado", width: 80, sortable: true, dataIndex: "ESTADO" },
             
         ];
@@ -36,8 +36,8 @@
         me.store = Ext.create("App.Store.Listas.StoreLista", { autoLoad: false });
         me.columns = [
             { xtype: "rownumberer", width: 30, sortable: false },
-            { header: "Codigo", width: 100, sortable: true, dataIndex: "CODIGO" },
-            { header: "Valor", width: 150, sortable: true, dataIndex: "VALOR" },
+            { header: "Codigo", width: 80, sortable: true, dataIndex: "CODIGO" },
+            { header: "Valor", width: 300, sortable: true, dataIndex: "VALOR" },
             { header: "Estado", width: 80, sortable: true, dataIndex: "ESTADO" },
 
         ];

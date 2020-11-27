@@ -4,6 +4,7 @@
     botones: true,
     columns: 2,
     rutaReporte: '',
+    condicion : '',
     initComponent: function () {
         var me = this;
         if (me.opcion == "ReportesIngresos") {
@@ -151,7 +152,9 @@
     },
     cargarEventos: function () {
         var me = this;
+        me.condicion = "";
         me.cbx_reporte.on('select', function (cbx, record) {
+            me.condicion = "";
             switch (cbx.getValue()) {
                 case "REPORTE DETALLE DE HOJAS":
                     me.rutaReporte = "ReporteDetalleHoja";
@@ -174,8 +177,24 @@
                 case "REPORTE SOCIOS ACTIVOS":
                     me.rutaReporte = "ReporteSociosMovilesActivos";
                     break;
+                case "REPORTE INGRESOS DETALLE GLOBAL":
+                    me.rutaReporte = "ReporteIngresosDetalle";
+                    break;
                 case "REPORTE INGRESOS DETALLE":
                     me.rutaReporte = "ReporteIngresosDetalle";
+                    me.condicion = "REPORTE1";
+                    break;
+                case "REPORTE INGRESOS DETALLE PRESTAMOS":
+                    me.rutaReporte = "ReporteIngresosDetalle";
+                    me.condicion = "REPORTE_PRESTAMOS";
+                    break;
+                case "REPORTE INGRESOS DETALLE PANTER":
+                    me.rutaReporte = "ReporteIngresosDetalle";
+                    me.condicion = "REPORTE_PANTER";
+                    break;
+                case "REPORTE INGRESOS DETALLE PRO CEDE":
+                    me.rutaReporte = "ReporteIngresosDetalle";
+                    me.condicion = "REPORTE_PRO_CEDE";
                     break;
                 case "REPORTE INGRESOS DETALLE POR CAJA":
                     me.rutaReporte = "ReporteIngresosDetallePorCaja";
@@ -241,7 +260,7 @@
 
                 }
                 else {
-                    me.generarReporte(me.rutaReporte, 'FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue());
+                    me.generarReporte(me.rutaReporte, 'FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue()+'&CONDICION='+me.condicion);
                 }
                 //window.open(Constantes.HOST + 'ReportesPDF/ReporteIngresosTotales?tipo=pdf&FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue());
                 //me.hide();
