@@ -18,12 +18,16 @@
             region: 'center',
             width: '100%',
             fbarmenu: me.toolbar,
-            fbarmenuArray: ["btn_Kardex", "btn_crear", "btn_eliminar", "btn_VerDetalle"]
+            fbarmenuArray: ["btn_Kardex", "btn_crear", "btn_eliminar", "btn_VerDetalle", "btn_anular"]
 
         });
+
+        me.btn_anular = Funciones.CrearMenu('btn_anular', 'Anular Deuda', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
+
+
         me.btn_crear = Funciones.CrearMenu('btn_crear', 'Realizar Pago', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this,null,true);
         me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Anular Pago', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
-        me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar, me.btn_pagarPrestamo]);
+        me.grid.AgregarBtnToolbar([me.btn_anular, me.btn_crear, me.btn_eliminar, me.btn_pagarPrestamo]);
 
         me.items = [me.grid];
         me.grid.getSelectionModel().on('selectionchange', me.CargarDatos, this);
@@ -67,10 +71,39 @@
                     Ext.Msg.alert("Error", "Solo se puede imprimir deudas cancelados");
                 }
                 break;
+            case "btn_anular":
+                if (me.record.get('ESTADO') == "NUEVO") {
+
+                    me.FormAnularDeuda(me.record);
+
+                }
+                else {
+                    Ext.Msg.alert("Error", "Solo puede Anular los prestamos en estado NUEVO");
+                }
+                break;
             default:
                 Ext.Msg.alert("Aviso", "No Existe el botton");
                 break;
         }
+    },
+
+    FormAnularDeuda: function (record) {
+        var me = this;
+        var win = Ext.create("App.Config.Abstract.Window", { botones: true, textGuardar: "Anular" });
+        var form = Ext.create("App.View.DetallesDeudasSocios.FormAnular", {
+            
+            botones: false
+        });
+        win.add(form);
+        win.show();
+        if (record != null) {
+            form.loadRecord(record);
+            form.txt_observacion.setValue("");
+        }
+        win.btn_guardar.on('click', function () {
+            Funciones.AjaxRequestWinSc("DeudasSocios", "AnularDeuda", win, form, me.grid, "Esta Seguro de Anular", null, win);
+        });
+
     },
     ImprimirReportePrestamo: function (id) {
         var ruta = fn.ObtenerUrlReportPDF("ReportePagoDeuda", "ID_DETALLE=" + id);
@@ -83,7 +116,7 @@
     },
     VentanaKardex: function () {
         var me = this;
-        var win = Ext.create("App.Config.Abstract.Window", { botones: false, gridLoads: [me.grid] });
+        var win = Ext.create("App.Config.Abstract.Window", { botones: false, gridLoads: [me.grid]  });
         var grid = Ext.create("App.View.Socios.GridKardex", {
             region: 'center',
             width: 760,

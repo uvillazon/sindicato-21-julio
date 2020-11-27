@@ -26,7 +26,7 @@ namespace Sindicato.Business
             try
             {
                 var context = (SindicatoContext)Context;
-                
+
 
                 var tipo = context.SD_TIPOS_PRESTAMOS.FirstOrDefault(x => x.ID_TIPO == prestamo.ID_TIPO_PRESTAMO);
                 if (tipo == null)
@@ -42,12 +42,31 @@ namespace Sindicato.Business
                     result.msg = string.Format("No puede Prestar mas que su saldo. Saldo Disponible : {0}", saldo);
                     return result;
                 }
+                decimal interes = 0;
+                decimal importe_interes = 0;
+                if (tipo.TIPO_INTERES == "INTERES SEMANAL")
+                {
+                    interes = (decimal)tipo.INTERES;
+                    importe_interes = prestamo.IMPORTE_PRESTAMO * interes / 100;
+                }
+                else if (tipo.TIPO_INTERES == "INTERES MENSUAL")
+                {
+                    interes = (decimal)tipo.INTERES;
+                    importe_interes = tipo.SEMANAS* prestamo.IMPORTE_PRESTAMO * interes / 100;
+                }
+                else
+                {
+                    interes = (decimal)tipo.INTERES_FIJO;
+                    importe_interes = (decimal)tipo.INTERES_FIJO;
+                }
                 prestamo.ID_CAJA = tipo.ID_CAJA;
                 prestamo.ID_PRESTAMO = ObtenerSecuencia();
                 prestamo.ESTADO = "NUEVO";
                 prestamo.ESTADO_CIERRE = "NUEVO";
-                prestamo.INTERES = tipo.TIPO_INTERES == "INTERES" ? (decimal)tipo.INTERES : (decimal)tipo.INTERES_FIJO;
-                var importe_interes = tipo.TIPO_INTERES == "INTERES" ? prestamo.IMPORTE_PRESTAMO * tipo.INTERES / 100 : tipo.INTERES_FIJO;
+                //prestamo.INTERES = tipo.TIPO_INTERES == "INTERES" ? (decimal)tipo.INTERES : (decimal)tipo.INTERES_FIJO;
+                prestamo.INTERES = interes;
+
+                //var importe_interes = tipo.TIPO_INTERES == "INTERES" ? prestamo.IMPORTE_PRESTAMO * tipo.INTERES / 100 : tipo.INTERES_FIJO;
                 prestamo.IMPORTE_INTERES = importe_interes;
                 prestamo.FECHA_REG = DateTime.Now;
 
@@ -60,7 +79,7 @@ namespace Sindicato.Business
                 SD_KARDEX_EFECTIVO kardex = new SD_KARDEX_EFECTIVO()
                 {
                     ID_KARDEX = idKardex,
-                    DETALLE = string.Format("PRESTAMO {0} - SOCIO NRO MOVIL : {1}",prestamo.SD_TIPOS_PRESTAMOS.NOMBRE , prestamo.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL),
+                    DETALLE = string.Format("PRESTAMO {0} - SOCIO NRO MOVIL : {1}", prestamo.SD_TIPOS_PRESTAMOS.NOMBRE, prestamo.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL),
                     FECHA = (DateTime)prestamo.FECHA,
                     FECHA_REG = DateTime.Now,
                     ID_OPERACION = prestamo.ID_PRESTAMO,
@@ -94,18 +113,21 @@ namespace Sindicato.Business
             try
             {
                 var pres = BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO == "NUEVO").FirstOrDefault();
-                if (pres == null) {
+                if (pres == null)
+                {
                     result.success = false;
                     result.msg = "No existe prestamo o esta en estado Diferente a NUEVO";
                     return result;
                 }
-                if (pres.SD_PAGO_DE_PRESTAMOS.Count() > 0) {
+                if (pres.SD_PAGO_DE_PRESTAMOS.Count() > 0)
+                {
                     result.success = false;
                     result.msg = "Existe Pagos del Socio Eliminar primero los  pagos para eliminar el prestamo";
                     return result;
                 }
                 var context = (SindicatoContext)Context;
-                if (pres.SD_PLAN_DE_PAGO.Count() > 0) {
+                if (pres.SD_PLAN_DE_PAGO.Count() > 0)
+                {
                     var detalles = context.SD_PLAN_DE_PAGO.Where(x => x.ID_PRESTAMO == ID_PRESTAMO);
                     foreach (var item in detalles)
                     {

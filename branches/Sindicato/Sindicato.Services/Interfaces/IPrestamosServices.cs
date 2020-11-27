@@ -33,5 +33,7 @@ namespace Sindicato.Services.Interfaces
 
         IEnumerable<SD_PRESTAMOS_MORA> ObtenerMorasPaginados(PagingInfo paginacion, FiltrosModel<IngresosModel> filtros);
 
+        RespuestaSP ObtenerImporteDeuda(string TIPO, DateTime FECHA, int ID_PRESTAMO, string login);
+
     }
 }

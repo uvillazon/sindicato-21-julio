@@ -5,6 +5,7 @@
     tamBusqueda: 50,
     title: 'Lista de Socios con Deuda',
     equipo: '',
+    cargarStore: false,
     initComponent: function () {
         var me = this;
         me.CargarGrid();

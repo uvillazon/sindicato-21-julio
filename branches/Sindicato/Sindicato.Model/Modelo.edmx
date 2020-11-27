@@ -122,10 +122,6 @@
             <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
             <End Role="SD_CHOFERES" EntitySet="SD_CHOFERES" />
           </AssociationSet>
-          <AssociationSet Name="SD_CIERRES_CAJAS_R01" Association="Model.Store.SD_CIERRES_CAJAS_R01">
-            <End Role="SD_CIERRES_CAJAS" EntitySet="SD_CIERRES_CAJAS" />
-            <End Role="SD_CIERRES_CAJAS1" EntitySet="SD_CIERRES_CAJAS" />
-          </AssociationSet>
           <AssociationSet Name="SD_CIERRES_PARADA_R01" Association="Model.Store.SD_CIERRES_PARADA_R01">
             <End Role="SD_PARADAS" EntitySet="SD_PARADAS" />
             <End Role="SD_CIERRES_PARADA" EntitySet="SD_CIERRES_PARADA" />
@@ -338,6 +334,10 @@
             <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
             <End Role="SD_PAGO_DE_PRESTAMOS" EntitySet="SD_PAGO_DE_PRESTAMOS" />
           </AssociationSet>
+          <AssociationSet Name="SD_PAGO_DE_PRESTAMOS_R03" Association="Model.Store.SD_PAGO_DE_PRESTAMOS_R03">
+            <End Role="SD_PAGO_DE_PRESTAMOS" EntitySet="SD_PAGO_DE_PRESTAMOS" />
+            <End Role="SD_PAGO_DE_PRESTAMOS1" EntitySet="SD_PAGO_DE_PRESTAMOS" />
+          </AssociationSet>
           <AssociationSet Name="SD_PARADAS_R01" Association="Model.Store.SD_PARADAS_R01">
             <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
             <End Role="SD_PARADAS" EntitySet="SD_PARADAS" />
@@ -354,6 +354,10 @@
             <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
             <End Role="SD_PERMISOS" EntitySet="SD_PERMISOS" />
           </AssociationSet>
+          <AssociationSet Name="SD_PLAN_DE_PAGO_R01" Association="Model.Store.SD_PLAN_DE_PAGO_R01">
+            <End Role="SD_PRESTAMOS_POR_SOCIOS" EntitySet="SD_PRESTAMOS_POR_SOCIOS" />
+            <End Role="SD_PLAN_DE_PAGO" EntitySet="SD_PLAN_DE_PAGO" />
+          </AssociationSet>
           <AssociationSet Name="SD_PRESTAMOS_MORA_R01" Association="Model.Store.SD_PRESTAMOS_MORA_R01">
             <End Role="SD_PRESTAMOS_POR_SOCIOS" EntitySet="SD_PRESTAMOS_POR_SOCIOS" />
             <End Role="SD_PRESTAMOS_MORA" EntitySet="SD_PRESTAMOS_MORA" />
@@ -369,6 +373,10 @@
           <AssociationSet Name="SD_PRESTAMOS_POR_SOCIOS_R03" Association="Model.Store.SD_PRESTAMOS_POR_SOCIOS_R03">
             <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
             <End Role="SD_PRESTAMOS_POR_SOCIOS" EntitySet="SD_PRESTAMOS_POR_SOCIOS" />
+          </AssociationSet>
+          <AssociationSet Name="SD_PRESTAMOS_POR_SOCIOS_R04" Association="Model.Store.SD_PRESTAMOS_POR_SOCIOS_R04">
+            <End Role="SD_PRESTAMOS_POR_SOCIOS" EntitySet="SD_PRESTAMOS_POR_SOCIOS" />
+            <End Role="SD_PRESTAMOS_POR_SOCIOS1" EntitySet="SD_PRESTAMOS_POR_SOCIOS" />
           </AssociationSet>
           <AssociationSet Name="SD_REGULARIZACIONES_R01" Association="Model.Store.SD_REGULARIZACIONES_R01">
             <End Role="SD_PARADAS" EntitySet="SD_PARADAS" />
@@ -605,7 +613,6 @@
           <Property Name="FECHA_REG" Type="date" />
           <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
           <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
-          <Property Name="ID_CIERRE_ANTERIOR" Type="number" Precision="7" />
         </EntityType>
         <EntityType Name="SD_CIERRES_PARADA">
           <Key>
@@ -695,7 +702,6 @@
           <Property Name="FECHA_REG" Type="date" />
           <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
           <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
-          <Property Name="SALDO_ANTERIOR" Type="number" Precision="15" Scale="5" />
         </EntityType>
         <EntityType Name="SD_DETALLE_PERIODO_SOCIO">
           <Key>
@@ -1186,6 +1192,8 @@
           <Property Name="ESTADO" Type="varchar2" MaxLength="20" />
           <Property Name="FECHA_REG" Type="date" />
           <Property Name="LOGIN_USR" Type="varchar2" MaxLength="20" />
+          <Property Name="TIPO" Type="varchar2" MaxLength="255" />
+          <Property Name="ID_PAGO_REF" Type="number" Precision="7" />
         </EntityType>
         <EntityType Name="SD_PARADAS">
           <Key>
@@ -1326,6 +1334,7 @@
           <Property Name="TIPO_INTERES" Type="varchar2" MaxLength="50" />
           <Property Name="IMPORTE_INTERES" Type="number" Precision="15" Scale="2" />
           <Property Name="ESTADO_CIERRE" Type="varchar2" MaxLength="50" />
+          <Property Name="ID_PRESTAMO_REF" Type="number" Precision="7" />
         </EntityType>
         <EntityType Name="SD_REGULARIZACIONES">
           <Key>
@@ -1661,18 +1670,6 @@
             </Principal>
             <Dependent Role="SD_CHOFERES">
               <PropertyRef Name="ID_SOCIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="SD_CIERRES_CAJAS_R01">
-          <End Role="SD_CIERRES_CAJAS" Type="Model.Store.SD_CIERRES_CAJAS" Multiplicity="0..1" />
-          <End Role="SD_CIERRES_CAJAS1" Type="Model.Store.SD_CIERRES_CAJAS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_CIERRES_CAJAS">
-              <PropertyRef Name="ID_CIERRE" />
-            </Principal>
-            <Dependent Role="SD_CIERRES_CAJAS1">
-              <PropertyRef Name="ID_CIERRE_ANTERIOR" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2312,6 +2309,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="SD_PAGO_DE_PRESTAMOS_R03">
+          <End Role="SD_PAGO_DE_PRESTAMOS" Type="Model.Store.SD_PAGO_DE_PRESTAMOS" Multiplicity="0..1" />
+          <End Role="SD_PAGO_DE_PRESTAMOS1" Type="Model.Store.SD_PAGO_DE_PRESTAMOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_PAGO_DE_PRESTAMOS">
+              <PropertyRef Name="ID_PAGO" />
+            </Principal>
+            <Dependent Role="SD_PAGO_DE_PRESTAMOS1">
+              <PropertyRef Name="ID_PAGO_REF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="SD_PARADAS_R01">
           <End Role="SD_CAJAS" Type="Model.Store.SD_CAJAS" Multiplicity="1" />
           <End Role="SD_PARADAS" Type="Model.Store.SD_PARADAS" Multiplicity="*" />
@@ -2360,6 +2369,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="SD_PLAN_DE_PAGO_R01">
+          <End Role="SD_PRESTAMOS_POR_SOCIOS" Type="Model.Store.SD_PRESTAMOS_POR_SOCIOS" Multiplicity="1" />
+          <End Role="SD_PLAN_DE_PAGO" Type="Model.Store.SD_PLAN_DE_PAGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_PRESTAMOS_POR_SOCIOS">
+              <PropertyRef Name="ID_PRESTAMO" />
+            </Principal>
+            <Dependent Role="SD_PLAN_DE_PAGO">
+              <PropertyRef Name="ID_PRESTAMO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="SD_PRESTAMOS_MORA_R01">
           <End Role="SD_PRESTAMOS_POR_SOCIOS" Type="Model.Store.SD_PRESTAMOS_POR_SOCIOS" Multiplicity="1" />
           <End Role="SD_PRESTAMOS_MORA" Type="Model.Store.SD_PRESTAMOS_MORA" Multiplicity="*" />
@@ -2405,6 +2426,18 @@
             </Principal>
             <Dependent Role="SD_PRESTAMOS_POR_SOCIOS">
               <PropertyRef Name="ID_CAJA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_PRESTAMOS_POR_SOCIOS_R04">
+          <End Role="SD_PRESTAMOS_POR_SOCIOS" Type="Model.Store.SD_PRESTAMOS_POR_SOCIOS" Multiplicity="0..1" />
+          <End Role="SD_PRESTAMOS_POR_SOCIOS1" Type="Model.Store.SD_PRESTAMOS_POR_SOCIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_PRESTAMOS_POR_SOCIOS">
+              <PropertyRef Name="ID_PRESTAMO" />
+            </Principal>
+            <Dependent Role="SD_PRESTAMOS_POR_SOCIOS1">
+              <PropertyRef Name="ID_PRESTAMO_REF" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3610,11 +3643,6 @@
             <End Role="SD_LINEAS" EntitySet="SD_LINEAS" />
             <End Role="SD_MOVILES" EntitySet="SD_MOVILES" />
           </AssociationSet>
-          <EntitySet Name="SD_PAGO_DE_PRESTAMOS" EntityType="Model.SD_PAGO_DE_PRESTAMOS" />
-          <AssociationSet Name="SD_PAGO_DE_PRESTAMOS_R02" Association="Model.SD_PAGO_DE_PRESTAMOS_R02">
-            <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
-            <End Role="SD_PAGO_DE_PRESTAMOS" EntitySet="SD_PAGO_DE_PRESTAMOS" />
-          </AssociationSet>
           <EntitySet Name="SD_TIPOS_PRESTAMOS" EntityType="Model.SD_TIPOS_PRESTAMOS" />
           <AssociationSet Name="SD_TIPOS_PRESTAMOS_R01" Association="Model.SD_TIPOS_PRESTAMOS_R01">
             <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
@@ -3774,28 +3802,7 @@
             <Parameter Name="P_ID_USR" Mode="In" Type="Decimal" />
             <Parameter Name="P_RES" Mode="Out" Type="String" />
           </FunctionImport>
-          <EntitySet Name="SD_PRESTAMOS_POR_SOCIOS" EntityType="Model.SD_PRESTAMOS_POR_SOCIOS" />
-          <AssociationSet Name="SD_PRESTAMOS_POR_SOCIOS_R03" Association="Model.SD_PRESTAMOS_POR_SOCIOS_R03">
-            <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
-            <End Role="SD_PRESTAMOS_POR_SOCIOS" EntitySet="SD_PRESTAMOS_POR_SOCIOS" />
-          </AssociationSet>
-          <AssociationSet Name="SD_PAGO_DE_PRESTAMOS_R01" Association="Model.SD_PAGO_DE_PRESTAMOS_R01">
-            <End Role="SD_PRESTAMOS_POR_SOCIOS" EntitySet="SD_PRESTAMOS_POR_SOCIOS" />
-            <End Role="SD_PAGO_DE_PRESTAMOS" EntitySet="SD_PAGO_DE_PRESTAMOS" />
-          </AssociationSet>
-          <AssociationSet Name="SD_PRESTAMOS_POR_SOCIOS_R01" Association="Model.SD_PRESTAMOS_POR_SOCIOS_R01">
-            <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
-            <End Role="SD_PRESTAMOS_POR_SOCIOS" EntitySet="SD_PRESTAMOS_POR_SOCIOS" />
-          </AssociationSet>
-          <AssociationSet Name="SD_PRESTAMOS_POR_SOCIOS_R02" Association="Model.SD_PRESTAMOS_POR_SOCIOS_R02">
-            <End Role="SD_TIPOS_PRESTAMOS" EntitySet="SD_TIPOS_PRESTAMOS" />
-            <End Role="SD_PRESTAMOS_POR_SOCIOS" EntitySet="SD_PRESTAMOS_POR_SOCIOS" />
-          </AssociationSet>
           <EntitySet Name="SD_PLAN_DE_PAGO" EntityType="Model.SD_PLAN_DE_PAGO" />
-          <AssociationSet Name="SD_PLAN_DE_PAGO_R01" Association="Model.SD_PLAN_DE_PAGO_R01">
-            <End Role="SD_PRESTAMOS_POR_SOCIOS" EntitySet="SD_PRESTAMOS_POR_SOCIOS" />
-            <End Role="SD_PLAN_DE_PAGO" EntitySet="SD_PLAN_DE_PAGO" />
-          </AssociationSet>
           <EntitySet Name="SD_PARAM_CANT_HOJAS_MES" EntityType="Model.SD_PARAM_CANT_HOJAS_MES" />
           <FunctionImport Name="P_SD_ELIMINAR_PERFIL_OPCION">
             <Parameter Name="P_ID_PERFIL" Mode="In" Type="Decimal" />
@@ -3828,10 +3835,6 @@
             <Parameter Name="P_RES" Mode="Out" Type="String" />
           </FunctionImport>
           <EntitySet Name="SD_PRESTAMOS_MORA" EntityType="Model.SD_PRESTAMOS_MORA" />
-          <AssociationSet Name="SD_PRESTAMOS_MORA_R01" Association="Model.SD_PRESTAMOS_MORA_R01">
-            <End Role="SD_PRESTAMOS_POR_SOCIOS" EntitySet="SD_PRESTAMOS_POR_SOCIOS" />
-            <End Role="SD_PRESTAMOS_MORA" EntitySet="SD_PRESTAMOS_MORA" />
-          </AssociationSet>
           <FunctionImport Name="P_SD_GUARDAR_MORA">
             <Parameter Name="P_ID_MORA" Mode="In" Type="Decimal" />
             <Parameter Name="P_ID_PRESTAMO" Mode="In" Type="Decimal" />
@@ -3887,9 +3890,14 @@
             <End Role="SD_TRANSFERENCIAS_HOJAS" EntitySet="SD_TRANSFERENCIAS_HOJAS" />
             <End Role="SD_TRANSF_HOJA_DET" EntitySet="SD_TRANSF_HOJA_DET" />
           </AssociationSet>
+          <EntitySet Name="SD_CIERRES_CAJAS" EntityType="Model.SD_CIERRES_CAJAS" />
           <EntitySet Name="SD_DETALLE_CIERRES_CAJA" EntityType="Model.SD_DETALLE_CIERRES_CAJA" />
           <AssociationSet Name="SD_DETALLE_CIERRES_CAJA_R02" Association="Model.SD_DETALLE_CIERRES_CAJA_R02">
             <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
+            <End Role="SD_DETALLE_CIERRES_CAJA" EntitySet="SD_DETALLE_CIERRES_CAJA" />
+          </AssociationSet>
+          <AssociationSet Name="SD_DETALLE_CIERRES_CAJA_R01" Association="Model.SD_DETALLE_CIERRES_CAJA_R01">
+            <End Role="SD_CIERRES_CAJAS" EntitySet="SD_CIERRES_CAJAS" />
             <End Role="SD_DETALLE_CIERRES_CAJA" EntitySet="SD_DETALLE_CIERRES_CAJA" />
           </AssociationSet>
           <EntitySet Name="SD_DEUDAS_SOCIOS" EntityType="Model.SD_DEUDAS_SOCIOS" />
@@ -3991,14 +3999,43 @@
             <End Role="SD_OBLIGACIONES_HOJA" EntitySet="SD_OBLIGACIONES_HOJA" />
             <End Role="SD_SOC_MOV_OBLIG" EntitySet="SD_SOC_MOV_OBLIG" />
           </AssociationSet>
-          <EntitySet Name="SD_CIERRES_CAJAS" EntityType="Model.SD_CIERRES_CAJAS" />
-          <AssociationSet Name="SD_CIERRES_CAJAS_R01" Association="Model.SD_CIERRES_CAJAS_R01">
-            <End Role="SD_CIERRES_CAJAS" EntitySet="SD_CIERRES_CAJAS" />
-            <End Role="SD_CIERRES_CAJAS1" EntitySet="SD_CIERRES_CAJAS" />
+          <EntitySet Name="SD_PAGO_DE_PRESTAMOS" EntityType="Model.SD_PAGO_DE_PRESTAMOS" />
+          <AssociationSet Name="SD_PAGO_DE_PRESTAMOS_R02" Association="Model.SD_PAGO_DE_PRESTAMOS_R02">
+            <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
+            <End Role="SD_PAGO_DE_PRESTAMOS" EntitySet="SD_PAGO_DE_PRESTAMOS" />
           </AssociationSet>
-          <AssociationSet Name="SD_DETALLE_CIERRES_CAJA_R01" Association="Model.SD_DETALLE_CIERRES_CAJA_R01">
-            <End Role="SD_CIERRES_CAJAS" EntitySet="SD_CIERRES_CAJAS" />
-            <End Role="SD_DETALLE_CIERRES_CAJA" EntitySet="SD_DETALLE_CIERRES_CAJA" />
+          <AssociationSet Name="SD_PAGO_DE_PRESTAMOS_R03" Association="Model.SD_PAGO_DE_PRESTAMOS_R03">
+            <End Role="SD_PAGO_DE_PRESTAMOS" EntitySet="SD_PAGO_DE_PRESTAMOS" />
+            <End Role="SD_PAGO_DE_PRESTAMOS1" EntitySet="SD_PAGO_DE_PRESTAMOS" />
+          </AssociationSet>
+          <EntitySet Name="SD_PRESTAMOS_POR_SOCIOS" EntityType="Model.SD_PRESTAMOS_POR_SOCIOS" />
+          <AssociationSet Name="SD_PRESTAMOS_POR_SOCIOS_R03" Association="Model.SD_PRESTAMOS_POR_SOCIOS_R03">
+            <End Role="SD_CAJAS" EntitySet="SD_CAJAS" />
+            <End Role="SD_PRESTAMOS_POR_SOCIOS" EntitySet="SD_PRESTAMOS_POR_SOCIOS" />
+          </AssociationSet>
+          <AssociationSet Name="SD_PAGO_DE_PRESTAMOS_R01" Association="Model.SD_PAGO_DE_PRESTAMOS_R01">
+            <End Role="SD_PRESTAMOS_POR_SOCIOS" EntitySet="SD_PRESTAMOS_POR_SOCIOS" />
+            <End Role="SD_PAGO_DE_PRESTAMOS" EntitySet="SD_PAGO_DE_PRESTAMOS" />
+          </AssociationSet>
+          <AssociationSet Name="SD_PLAN_DE_PAGO_R01" Association="Model.SD_PLAN_DE_PAGO_R01">
+            <End Role="SD_PRESTAMOS_POR_SOCIOS" EntitySet="SD_PRESTAMOS_POR_SOCIOS" />
+            <End Role="SD_PLAN_DE_PAGO" EntitySet="SD_PLAN_DE_PAGO" />
+          </AssociationSet>
+          <AssociationSet Name="SD_PRESTAMOS_MORA_R01" Association="Model.SD_PRESTAMOS_MORA_R01">
+            <End Role="SD_PRESTAMOS_POR_SOCIOS" EntitySet="SD_PRESTAMOS_POR_SOCIOS" />
+            <End Role="SD_PRESTAMOS_MORA" EntitySet="SD_PRESTAMOS_MORA" />
+          </AssociationSet>
+          <AssociationSet Name="SD_PRESTAMOS_POR_SOCIOS_R01" Association="Model.SD_PRESTAMOS_POR_SOCIOS_R01">
+            <End Role="SD_SOCIO_MOVILES" EntitySet="SD_SOCIO_MOVILES" />
+            <End Role="SD_PRESTAMOS_POR_SOCIOS" EntitySet="SD_PRESTAMOS_POR_SOCIOS" />
+          </AssociationSet>
+          <AssociationSet Name="SD_PRESTAMOS_POR_SOCIOS_R02" Association="Model.SD_PRESTAMOS_POR_SOCIOS_R02">
+            <End Role="SD_TIPOS_PRESTAMOS" EntitySet="SD_TIPOS_PRESTAMOS" />
+            <End Role="SD_PRESTAMOS_POR_SOCIOS" EntitySet="SD_PRESTAMOS_POR_SOCIOS" />
+          </AssociationSet>
+          <AssociationSet Name="SD_PRESTAMOS_POR_SOCIOS_R04" Association="Model.SD_PRESTAMOS_POR_SOCIOS_R04">
+            <End Role="SD_PRESTAMOS_POR_SOCIOS" EntitySet="SD_PRESTAMOS_POR_SOCIOS" />
+            <End Role="SD_PRESTAMOS_POR_SOCIOS1" EntitySet="SD_PRESTAMOS_POR_SOCIOS" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="SD_LISTAS">
@@ -4980,11 +5017,9 @@
           <NavigationProperty Name="SD_AMORTIZACIONES" Relationship="Model.SD_AMORTIZACIONES_R02" FromRole="SD_CAJAS" ToRole="SD_AMORTIZACIONES" />
           <NavigationProperty Name="SD_TIPOS_INGRESOS_SOCIO" Relationship="Model.SD_TIPOS_INGRESOS_SOCIO_R01" FromRole="SD_CAJAS" ToRole="SD_TIPOS_INGRESOS_SOCIO" />
           <NavigationProperty Name="SD_DETALLES_REGULARIZACIONES" Relationship="Model.SD_DETALLES_REGULARIZACION_R02" FromRole="SD_CAJAS" ToRole="SD_DETALLES_REGULARIZACIONES" />
-          <NavigationProperty Name="SD_PAGO_DE_PRESTAMOS" Relationship="Model.SD_PAGO_DE_PRESTAMOS_R02" FromRole="SD_CAJAS" ToRole="SD_PAGO_DE_PRESTAMOS" />
           <NavigationProperty Name="SD_TIPOS_PRESTAMOS" Relationship="Model.SD_TIPOS_PRESTAMOS_R01" FromRole="SD_CAJAS" ToRole="SD_TIPOS_PRESTAMOS" />
           <NavigationProperty Name="SD_RETIRO_SOCIO_MOVIL" Relationship="Model.SD_RETIRO_SOCIO_MOVIL_R02" FromRole="SD_CAJAS" ToRole="SD_RETIRO_SOCIO_MOVIL" />
           <NavigationProperty Name="SD_TIPOS_EGRESOS" Relationship="Model.SD_TIPOS_EGRESOS_R01" FromRole="SD_CAJAS" ToRole="SD_TIPOS_EGRESOS" />
-          <NavigationProperty Name="SD_PRESTAMOS_POR_SOCIOS" Relationship="Model.SD_PRESTAMOS_POR_SOCIOS_R03" FromRole="SD_CAJAS" ToRole="SD_PRESTAMOS_POR_SOCIOS" />
           <NavigationProperty Name="SD_EGRESOS" Relationship="Model.SD_EGRESOS_R01" FromRole="SD_CAJAS" ToRole="SD_EGRESOS" />
           <NavigationProperty Name="SD_DETALLE_CIERRES_CAJA" Relationship="Model.SD_DETALLE_CIERRES_CAJA_R02" FromRole="SD_CAJAS" ToRole="SD_DETALLE_CIERRES_CAJA" />
           <NavigationProperty Name="SD_DEUDAS_SOCIOS" Relationship="Model.SD_DEUDAS_SOCIOS_R01" FromRole="SD_CAJAS" ToRole="SD_DEUDAS_SOCIOS" />
@@ -4993,6 +5028,8 @@
           <NavigationProperty Name="SD_INGRESOS" Relationship="Model.SD_INGRESOS_R01" FromRole="SD_CAJAS" ToRole="SD_INGRESOS" />
           <NavigationProperty Name="SD_OBLIGACIONES_HOJA" Relationship="Model.SD_OBLIGACIONES_HOJA_R02" FromRole="SD_CAJAS" ToRole="SD_OBLIGACIONES_HOJA" />
           <NavigationProperty Name="SD_OBLIGACIONES_HOJA1" Relationship="Model.SD_OBLIGACIONES_HOJA_R03" FromRole="SD_CAJAS" ToRole="SD_OBLIGACIONES_HOJA" />
+          <NavigationProperty Name="SD_PAGO_DE_PRESTAMOS" Relationship="Model.SD_PAGO_DE_PRESTAMOS_R02" FromRole="SD_CAJAS" ToRole="SD_PAGO_DE_PRESTAMOS" />
+          <NavigationProperty Name="SD_PRESTAMOS_POR_SOCIOS" Relationship="Model.SD_PRESTAMOS_POR_SOCIOS_R03" FromRole="SD_CAJAS" ToRole="SD_PRESTAMOS_POR_SOCIOS" />
           </EntityType>
         <EntityType Name="SD_INGRESOS_POR_SOCIOS">
           <Key>
@@ -5323,35 +5360,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="SD_PAGO_DE_PRESTAMOS">
-          <Key>
-            <PropertyRef Name="ID_PAGO" />
-          </Key>
-          <Property Type="Int32" Name="ID_PAGO" Nullable="false" />
-          <Property Type="Int32" Name="ID_PRESTAMO" Nullable="false" />
-          <Property Type="Int32" Name="ID_CAJA" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA" Nullable="false" Precision="0" />
-          <Property Type="Decimal" Name="IMPORTE" Nullable="false" Precision="15" Scale="2" />
-          <Property Type="String" Name="MONEDA" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="OBSERVACION" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
-          <Property Type="String" Name="LOGIN_USR" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_PAGO_DE_PRESTAMOS_R02" FromRole="SD_PAGO_DE_PRESTAMOS" ToRole="SD_CAJAS" />
-          <NavigationProperty Name="SD_PRESTAMOS_POR_SOCIOS" Relationship="Model.SD_PAGO_DE_PRESTAMOS_R01" FromRole="SD_PAGO_DE_PRESTAMOS" ToRole="SD_PRESTAMOS_POR_SOCIOS" />
-        </EntityType>
-        <Association Name="SD_PAGO_DE_PRESTAMOS_R02">
-          <End Type="Model.SD_CAJAS" Role="SD_CAJAS" Multiplicity="1" />
-          <End Type="Model.SD_PAGO_DE_PRESTAMOS" Role="SD_PAGO_DE_PRESTAMOS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_CAJAS">
-              <PropertyRef Name="ID_CAJA" />
-            </Principal>
-            <Dependent Role="SD_PAGO_DE_PRESTAMOS">
-              <PropertyRef Name="ID_CAJA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="SD_TIPOS_PRESTAMOS">
           <Key>
             <PropertyRef Name="ID_TIPO" />
@@ -5432,10 +5440,10 @@
           <NavigationProperty Name="SD_SOCIO_MOVIL_AUTOS" Relationship="Model.SD_SOCIO_MOVIL_AUTOS_R01" FromRole="SD_SOCIO_MOVILES" ToRole="SD_SOCIO_MOVIL_AUTOS" />
           <NavigationProperty Name="SD_RETIRO_SOCIO_MOVIL" Relationship="Model.SD_RETIRO_SOCIO_MOVIL_R01" FromRole="SD_SOCIO_MOVILES" ToRole="SD_RETIRO_SOCIO_MOVIL" />
           <NavigationProperty Name="SD_SOCIOS" Relationship="Model.SD_SOCIO_MOVILES_R01" FromRole="SD_SOCIO_MOVILES" ToRole="SD_SOCIOS" />
-          <NavigationProperty Name="SD_PRESTAMOS_POR_SOCIOS" Relationship="Model.SD_PRESTAMOS_POR_SOCIOS_R01" FromRole="SD_SOCIO_MOVILES" ToRole="SD_PRESTAMOS_POR_SOCIOS" />
           <NavigationProperty Name="SD_TRANSFERENCIAS_HOJAS" Relationship="Model.SD_TRANSFERENCIAS_HOJAS_R01" FromRole="SD_SOCIO_MOVILES" ToRole="SD_TRANSFERENCIAS_HOJAS" />
           <NavigationProperty Name="SD_TRANSFERENCIAS_HOJAS1" Relationship="Model.SD_TRANSFERENCIAS_HOJAS_R02" FromRole="SD_SOCIO_MOVILES" ToRole="SD_TRANSFERENCIAS_HOJAS" />
           <NavigationProperty Name="SD_DETALLES_DEUDAS" Relationship="Model.SD_DETALLES_DEUDAS_R02" FromRole="SD_SOCIO_MOVILES" ToRole="SD_DETALLES_DEUDAS" />
+          <NavigationProperty Name="SD_PRESTAMOS_POR_SOCIOS" Relationship="Model.SD_PRESTAMOS_POR_SOCIOS_R01" FromRole="SD_SOCIO_MOVILES" ToRole="SD_PRESTAMOS_POR_SOCIOS" />
         </EntityType>
         <Association Name="SD_HOJAS_CONTROL_R02">
           <End Type="Model.SD_SOCIO_MOVILES" Role="SD_SOCIO_MOVILES" Multiplicity="1" />
@@ -5822,83 +5830,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="SD_PRESTAMOS_POR_SOCIOS">
-          <Key>
-            <PropertyRef Name="ID_PRESTAMO" />
-          </Key>
-          <Property Type="Int32" Name="ID_PRESTAMO" Nullable="false" />
-          <Property Type="Int32" Name="ID_SOCIO_MOVIL" Nullable="false" />
-          <Property Type="Int32" Name="ID_TIPO_PRESTAMO" Nullable="false" />
-          <Property Type="Int32" Name="ID_CAJA" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA" Nullable="false" Precision="0" />
-          <Property Type="Decimal" Name="IMPORTE_PRESTAMO" Nullable="false" Precision="15" Scale="2" />
-          <Property Type="String" Name="MONEDA" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="OBSERVACION" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="Decimal" Name="INTERES" Nullable="false" Precision="6" Scale="2" />
-          <Property Type="Int32" Name="SEMANAS" Nullable="false" />
-          <Property Type="Decimal" Name="SALDO" Nullable="false" Precision="15" Scale="2" />
-          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
-          <Property Type="String" Name="LOGIN_USR" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="Decimal" Name="IMPORTE_INTERES" Precision="15" Scale="2" />
-          <Property Type="String" Name="TIPO_INTERES" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_LIMITE_PAGO" Precision="0" />
-          <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_PRESTAMOS_POR_SOCIOS_R03" FromRole="SD_PRESTAMOS_POR_SOCIOS" ToRole="SD_CAJAS" />
-          <NavigationProperty Name="SD_PAGO_DE_PRESTAMOS" Relationship="Model.SD_PAGO_DE_PRESTAMOS_R01" FromRole="SD_PRESTAMOS_POR_SOCIOS" ToRole="SD_PAGO_DE_PRESTAMOS" />
-          <NavigationProperty Name="SD_SOCIO_MOVILES" Relationship="Model.SD_PRESTAMOS_POR_SOCIOS_R01" FromRole="SD_PRESTAMOS_POR_SOCIOS" ToRole="SD_SOCIO_MOVILES" />
-          <NavigationProperty Name="SD_TIPOS_PRESTAMOS" Relationship="Model.SD_PRESTAMOS_POR_SOCIOS_R02" FromRole="SD_PRESTAMOS_POR_SOCIOS" ToRole="SD_TIPOS_PRESTAMOS" />
-          <NavigationProperty Name="SD_PLAN_DE_PAGO" Relationship="Model.SD_PLAN_DE_PAGO_R01" FromRole="SD_PRESTAMOS_POR_SOCIOS" ToRole="SD_PLAN_DE_PAGO" />
-          <NavigationProperty Name="SD_PRESTAMOS_MORA" Relationship="Model.SD_PRESTAMOS_MORA_R01" FromRole="SD_PRESTAMOS_POR_SOCIOS" ToRole="SD_PRESTAMOS_MORA" />
-          <Property Type="String" Name="ESTADO_CIERRE" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <Association Name="SD_PRESTAMOS_POR_SOCIOS_R03">
-          <End Type="Model.SD_CAJAS" Role="SD_CAJAS" Multiplicity="1" />
-          <End Type="Model.SD_PRESTAMOS_POR_SOCIOS" Role="SD_PRESTAMOS_POR_SOCIOS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_CAJAS">
-              <PropertyRef Name="ID_CAJA" />
-            </Principal>
-            <Dependent Role="SD_PRESTAMOS_POR_SOCIOS">
-              <PropertyRef Name="ID_CAJA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="SD_PAGO_DE_PRESTAMOS_R01">
-          <End Type="Model.SD_PRESTAMOS_POR_SOCIOS" Role="SD_PRESTAMOS_POR_SOCIOS" Multiplicity="1" />
-          <End Type="Model.SD_PAGO_DE_PRESTAMOS" Role="SD_PAGO_DE_PRESTAMOS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_PRESTAMOS_POR_SOCIOS">
-              <PropertyRef Name="ID_PRESTAMO" />
-            </Principal>
-            <Dependent Role="SD_PAGO_DE_PRESTAMOS">
-              <PropertyRef Name="ID_PRESTAMO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="SD_PRESTAMOS_POR_SOCIOS_R01">
-          <End Type="Model.SD_SOCIO_MOVILES" Role="SD_SOCIO_MOVILES" Multiplicity="1" />
-          <End Type="Model.SD_PRESTAMOS_POR_SOCIOS" Role="SD_PRESTAMOS_POR_SOCIOS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_SOCIO_MOVILES">
-              <PropertyRef Name="ID_SOCIO_MOVIL" />
-            </Principal>
-            <Dependent Role="SD_PRESTAMOS_POR_SOCIOS">
-              <PropertyRef Name="ID_SOCIO_MOVIL" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="SD_PRESTAMOS_POR_SOCIOS_R02">
-          <End Type="Model.SD_TIPOS_PRESTAMOS" Role="SD_TIPOS_PRESTAMOS" Multiplicity="1" />
-          <End Type="Model.SD_PRESTAMOS_POR_SOCIOS" Role="SD_PRESTAMOS_POR_SOCIOS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_TIPOS_PRESTAMOS">
-              <PropertyRef Name="ID_TIPO" />
-            </Principal>
-            <Dependent Role="SD_PRESTAMOS_POR_SOCIOS">
-              <PropertyRef Name="ID_TIPO_PRESTAMO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="SD_PLAN_DE_PAGO">
           <Key>
             <PropertyRef Name="ID_PLAN" />
@@ -5917,18 +5848,6 @@
           <Property Type="String" Name="LOGIN_USR" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SD_PRESTAMOS_POR_SOCIOS" Relationship="Model.SD_PLAN_DE_PAGO_R01" FromRole="SD_PLAN_DE_PAGO" ToRole="SD_PRESTAMOS_POR_SOCIOS" />
         </EntityType>
-        <Association Name="SD_PLAN_DE_PAGO_R01">
-          <End Type="Model.SD_PRESTAMOS_POR_SOCIOS" Role="SD_PRESTAMOS_POR_SOCIOS" Multiplicity="1" />
-          <End Type="Model.SD_PLAN_DE_PAGO" Role="SD_PLAN_DE_PAGO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_PRESTAMOS_POR_SOCIOS">
-              <PropertyRef Name="ID_PRESTAMO" />
-            </Principal>
-            <Dependent Role="SD_PLAN_DE_PAGO">
-              <PropertyRef Name="ID_PRESTAMO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="SD_PARAM_CANT_HOJAS_MES">
           <Key>
             <PropertyRef Name="ID_PARAMETRO" />
@@ -5954,18 +5873,6 @@
           <Property Type="String" Name="LOGIN_USR" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SD_PRESTAMOS_POR_SOCIOS" Relationship="Model.SD_PRESTAMOS_MORA_R01" FromRole="SD_PRESTAMOS_MORA" ToRole="SD_PRESTAMOS_POR_SOCIOS" />
         </EntityType>
-        <Association Name="SD_PRESTAMOS_MORA_R01">
-          <End Type="Model.SD_PRESTAMOS_POR_SOCIOS" Role="SD_PRESTAMOS_POR_SOCIOS" Multiplicity="1" />
-          <End Type="Model.SD_PRESTAMOS_MORA" Role="SD_PRESTAMOS_MORA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SD_PRESTAMOS_POR_SOCIOS">
-              <PropertyRef Name="ID_PRESTAMO" />
-            </Principal>
-            <Dependent Role="SD_PRESTAMOS_MORA">
-              <PropertyRef Name="ID_PRESTAMO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="SD_DETALLE_CIERRES_AHORRO">
           <Key>
             <PropertyRef Name="ID_DETALLE" />
@@ -6114,6 +6021,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SD_CIERRES_CAJAS">
+          <Key>
+            <PropertyRef Name="ID_CIERRE" />
+          </Key>
+          <Property Type="Int32" Name="ID_CIERRE" Nullable="false" />
+          <Property Type="String" Name="CODIGO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_INI" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_FIN" Nullable="false" Precision="0" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SD_DETALLE_CIERRES_CAJA" Relationship="Model.SD_DETALLE_CIERRES_CAJA_R01" FromRole="SD_CIERRES_CAJAS" ToRole="SD_DETALLE_CIERRES_CAJA" />
+        </EntityType>
         <EntityType Name="SD_DETALLE_CIERRES_CAJA">
           <Key>
             <PropertyRef Name="ID_DETALLE" />
@@ -6127,7 +6048,6 @@
           <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_DETALLE_CIERRES_CAJA_R02" FromRole="SD_DETALLE_CIERRES_CAJA" ToRole="SD_CAJAS" />
-          <Property Type="Decimal" Name="SALDO_ANTERIOR" Precision="15" Scale="5" />
           <NavigationProperty Name="SD_CIERRES_CAJAS" Relationship="Model.SD_DETALLE_CIERRES_CAJA_R01" FromRole="SD_DETALLE_CIERRES_CAJA" ToRole="SD_CIERRES_CAJAS" />
         </EntityType>
         <Association Name="SD_DETALLE_CIERRES_CAJA_R02">
@@ -6139,6 +6059,18 @@
             </Principal>
             <Dependent Role="SD_DETALLE_CIERRES_CAJA">
               <PropertyRef Name="ID_CAJA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_DETALLE_CIERRES_CAJA_R01">
+          <End Type="Model.SD_CIERRES_CAJAS" Role="SD_CIERRES_CAJAS" Multiplicity="1" />
+          <End Type="Model.SD_DETALLE_CIERRES_CAJA" Role="SD_DETALLE_CIERRES_CAJA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CIERRES_CAJAS">
+              <PropertyRef Name="ID_CIERRE" />
+            </Principal>
+            <Dependent Role="SD_DETALLE_CIERRES_CAJA">
+              <PropertyRef Name="ID_CIERRE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6328,12 +6260,12 @@
           <Property Type="Int32" Name="ID_INGRESO" Nullable="false" />
           <Property Type="Int32" Name="ID_CAJA" Nullable="false" />
           <Property Type="Int32" Name="NRO_RECIBO" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="FECHA" Nullable="false" />
           <Property Type="String" Name="CONCEPTO" Nullable="false" MaxLength="140" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="OBSERVACION" MaxLength="1500" FixedLength="false" Unicode="false" />
           <Property Type="Decimal" Name="IMPORTE" Nullable="false" Precision="15" Scale="5" />
           <Property Type="String" Name="LOGIN" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_REG" />
           <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="TIPO" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ENTREGADO" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -6360,7 +6292,7 @@
           <Property Type="Int32" Name="ID_CAJA" Nullable="false" />
           <Property Type="String" Name="OBLIGACION" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Type="Decimal" Name="IMPORTE_DEFECTO" Nullable="false" Precision="15" Scale="5" />
-          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
+          <Property Type="DateTime" Name="FECHA_REG" />
           <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="ID_CAJA_REG" />
           <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_OBLIGACIONES_HOJA_R02" FromRole="SD_OBLIGACIONES_HOJA" ToRole="SD_CAJAS" />
@@ -6416,44 +6348,164 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="SD_CIERRES_CAJAS">
+        <EntityType Name="SD_PAGO_DE_PRESTAMOS">
           <Key>
-            <PropertyRef Name="ID_CIERRE" />
+            <PropertyRef Name="ID_PAGO" />
           </Key>
-          <Property Type="Int32" Name="ID_CIERRE" Nullable="false" />
-          <Property Type="String" Name="CODIGO" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_INI" Nullable="false" Precision="0" />
-          <Property Type="DateTime" Name="FECHA_FIN" Nullable="false" Precision="0" />
-          <Property Type="String" Name="OBSERVACION" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="FECHA_REG" Precision="0" />
-          <Property Type="String" Name="LOGIN" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ID_PAGO" Nullable="false" />
+          <Property Type="Int32" Name="ID_PRESTAMO" Nullable="false" />
+          <Property Type="Int32" Name="ID_CAJA" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA" Nullable="false" />
+          <Property Type="Decimal" Name="IMPORTE" Nullable="false" Precision="15" Scale="2" />
+          <Property Type="String" Name="MONEDA" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="ID_CIERRE_ANTERIOR" />
-          <NavigationProperty Name="SD_CIERRES_CAJAS1" Relationship="Model.SD_CIERRES_CAJAS_R01" FromRole="SD_CIERRES_CAJAS" ToRole="SD_CIERRES_CAJAS1" />
-          <NavigationProperty Name="SD_CIERRES_CAJAS2" Relationship="Model.SD_CIERRES_CAJAS_R01" FromRole="SD_CIERRES_CAJAS1" ToRole="SD_CIERRES_CAJAS" />
-          <NavigationProperty Name="SD_DETALLE_CIERRES_CAJA" Relationship="Model.SD_DETALLE_CIERRES_CAJA_R01" FromRole="SD_CIERRES_CAJAS" ToRole="SD_DETALLE_CIERRES_CAJA" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="String" Name="LOGIN_USR" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TIPO" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ID_PAGO_REF" />
+          <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_PAGO_DE_PRESTAMOS_R02" FromRole="SD_PAGO_DE_PRESTAMOS" ToRole="SD_CAJAS" />
+          <NavigationProperty Name="SD_PAGO_DE_PRESTAMOS1" Relationship="Model.SD_PAGO_DE_PRESTAMOS_R03" FromRole="SD_PAGO_DE_PRESTAMOS" ToRole="SD_PAGO_DE_PRESTAMOS1" />
+          <NavigationProperty Name="SD_PAGO_DE_PRESTAMOS2" Relationship="Model.SD_PAGO_DE_PRESTAMOS_R03" FromRole="SD_PAGO_DE_PRESTAMOS1" ToRole="SD_PAGO_DE_PRESTAMOS" />
+          <NavigationProperty Name="SD_PRESTAMOS_POR_SOCIOS" Relationship="Model.SD_PAGO_DE_PRESTAMOS_R01" FromRole="SD_PAGO_DE_PRESTAMOS" ToRole="SD_PRESTAMOS_POR_SOCIOS" />
         </EntityType>
-        <Association Name="SD_CIERRES_CAJAS_R01">
-          <End Type="Model.SD_CIERRES_CAJAS" Role="SD_CIERRES_CAJAS" Multiplicity="0..1" />
-          <End Type="Model.SD_CIERRES_CAJAS" Role="SD_CIERRES_CAJAS1" Multiplicity="*" />
+        <Association Name="SD_PAGO_DE_PRESTAMOS_R02">
+          <End Type="Model.SD_CAJAS" Role="SD_CAJAS" Multiplicity="1" />
+          <End Type="Model.SD_PAGO_DE_PRESTAMOS" Role="SD_PAGO_DE_PRESTAMOS" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SD_CIERRES_CAJAS">
-              <PropertyRef Name="ID_CIERRE" />
+            <Principal Role="SD_CAJAS">
+              <PropertyRef Name="ID_CAJA" />
             </Principal>
-            <Dependent Role="SD_CIERRES_CAJAS1">
-              <PropertyRef Name="ID_CIERRE_ANTERIOR" />
+            <Dependent Role="SD_PAGO_DE_PRESTAMOS">
+              <PropertyRef Name="ID_CAJA" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="SD_DETALLE_CIERRES_CAJA_R01">
-          <End Type="Model.SD_CIERRES_CAJAS" Role="SD_CIERRES_CAJAS" Multiplicity="1" />
-          <End Type="Model.SD_DETALLE_CIERRES_CAJA" Role="SD_DETALLE_CIERRES_CAJA" Multiplicity="*" />
+        <Association Name="SD_PAGO_DE_PRESTAMOS_R03">
+          <End Type="Model.SD_PAGO_DE_PRESTAMOS" Role="SD_PAGO_DE_PRESTAMOS" Multiplicity="0..1" />
+          <End Type="Model.SD_PAGO_DE_PRESTAMOS" Role="SD_PAGO_DE_PRESTAMOS1" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SD_CIERRES_CAJAS">
-              <PropertyRef Name="ID_CIERRE" />
+            <Principal Role="SD_PAGO_DE_PRESTAMOS">
+              <PropertyRef Name="ID_PAGO" />
             </Principal>
-            <Dependent Role="SD_DETALLE_CIERRES_CAJA">
-              <PropertyRef Name="ID_CIERRE" />
+            <Dependent Role="SD_PAGO_DE_PRESTAMOS1">
+              <PropertyRef Name="ID_PAGO_REF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SD_PRESTAMOS_POR_SOCIOS">
+          <Key>
+            <PropertyRef Name="ID_PRESTAMO" />
+          </Key>
+          <Property Type="Int32" Name="ID_PRESTAMO" Nullable="false" />
+          <Property Type="Int32" Name="ID_SOCIO_MOVIL" Nullable="false" />
+          <Property Type="Int32" Name="ID_TIPO_PRESTAMO" Nullable="false" />
+          <Property Type="Int32" Name="ID_CAJA" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA" Nullable="false" />
+          <Property Type="Decimal" Name="IMPORTE_PRESTAMO" Nullable="false" Precision="15" Scale="2" />
+          <Property Type="String" Name="MONEDA" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OBSERVACION" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="INTERES" Nullable="false" Precision="6" Scale="2" />
+          <Property Type="Int32" Name="SEMANAS" Nullable="false" />
+          <Property Type="Decimal" Name="SALDO" Nullable="false" Precision="15" Scale="2" />
+          <Property Type="String" Name="ESTADO" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_REG" />
+          <Property Type="String" Name="LOGIN_USR" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FECHA_LIMITE_PAGO" />
+          <Property Type="String" Name="TIPO_INTERES" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="IMPORTE_INTERES" Precision="15" Scale="2" />
+          <Property Type="String" Name="ESTADO_CIERRE" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ID_PRESTAMO_REF" />
+          <NavigationProperty Name="SD_CAJAS" Relationship="Model.SD_PRESTAMOS_POR_SOCIOS_R03" FromRole="SD_PRESTAMOS_POR_SOCIOS" ToRole="SD_CAJAS" />
+          <NavigationProperty Name="SD_PAGO_DE_PRESTAMOS" Relationship="Model.SD_PAGO_DE_PRESTAMOS_R01" FromRole="SD_PRESTAMOS_POR_SOCIOS" ToRole="SD_PAGO_DE_PRESTAMOS" />
+          <NavigationProperty Name="SD_PLAN_DE_PAGO" Relationship="Model.SD_PLAN_DE_PAGO_R01" FromRole="SD_PRESTAMOS_POR_SOCIOS" ToRole="SD_PLAN_DE_PAGO" />
+          <NavigationProperty Name="SD_PRESTAMOS_MORA" Relationship="Model.SD_PRESTAMOS_MORA_R01" FromRole="SD_PRESTAMOS_POR_SOCIOS" ToRole="SD_PRESTAMOS_MORA" />
+          <NavigationProperty Name="SD_SOCIO_MOVILES" Relationship="Model.SD_PRESTAMOS_POR_SOCIOS_R01" FromRole="SD_PRESTAMOS_POR_SOCIOS" ToRole="SD_SOCIO_MOVILES" />
+          <NavigationProperty Name="SD_TIPOS_PRESTAMOS" Relationship="Model.SD_PRESTAMOS_POR_SOCIOS_R02" FromRole="SD_PRESTAMOS_POR_SOCIOS" ToRole="SD_TIPOS_PRESTAMOS" />
+          <NavigationProperty Name="SD_PRESTAMOS_POR_SOCIOS1" Relationship="Model.SD_PRESTAMOS_POR_SOCIOS_R04" FromRole="SD_PRESTAMOS_POR_SOCIOS" ToRole="SD_PRESTAMOS_POR_SOCIOS1" />
+          <NavigationProperty Name="SD_PRESTAMOS_POR_SOCIOS2" Relationship="Model.SD_PRESTAMOS_POR_SOCIOS_R04" FromRole="SD_PRESTAMOS_POR_SOCIOS1" ToRole="SD_PRESTAMOS_POR_SOCIOS" />
+        </EntityType>
+        <Association Name="SD_PRESTAMOS_POR_SOCIOS_R03">
+          <End Type="Model.SD_CAJAS" Role="SD_CAJAS" Multiplicity="1" />
+          <End Type="Model.SD_PRESTAMOS_POR_SOCIOS" Role="SD_PRESTAMOS_POR_SOCIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_CAJAS">
+              <PropertyRef Name="ID_CAJA" />
+            </Principal>
+            <Dependent Role="SD_PRESTAMOS_POR_SOCIOS">
+              <PropertyRef Name="ID_CAJA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_PAGO_DE_PRESTAMOS_R01">
+          <End Type="Model.SD_PRESTAMOS_POR_SOCIOS" Role="SD_PRESTAMOS_POR_SOCIOS" Multiplicity="1" />
+          <End Type="Model.SD_PAGO_DE_PRESTAMOS" Role="SD_PAGO_DE_PRESTAMOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_PRESTAMOS_POR_SOCIOS">
+              <PropertyRef Name="ID_PRESTAMO" />
+            </Principal>
+            <Dependent Role="SD_PAGO_DE_PRESTAMOS">
+              <PropertyRef Name="ID_PRESTAMO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_PLAN_DE_PAGO_R01">
+          <End Type="Model.SD_PRESTAMOS_POR_SOCIOS" Role="SD_PRESTAMOS_POR_SOCIOS" Multiplicity="1" />
+          <End Type="Model.SD_PLAN_DE_PAGO" Role="SD_PLAN_DE_PAGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_PRESTAMOS_POR_SOCIOS">
+              <PropertyRef Name="ID_PRESTAMO" />
+            </Principal>
+            <Dependent Role="SD_PLAN_DE_PAGO">
+              <PropertyRef Name="ID_PRESTAMO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_PRESTAMOS_MORA_R01">
+          <End Type="Model.SD_PRESTAMOS_POR_SOCIOS" Role="SD_PRESTAMOS_POR_SOCIOS" Multiplicity="1" />
+          <End Type="Model.SD_PRESTAMOS_MORA" Role="SD_PRESTAMOS_MORA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_PRESTAMOS_POR_SOCIOS">
+              <PropertyRef Name="ID_PRESTAMO" />
+            </Principal>
+            <Dependent Role="SD_PRESTAMOS_MORA">
+              <PropertyRef Name="ID_PRESTAMO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_PRESTAMOS_POR_SOCIOS_R01">
+          <End Type="Model.SD_SOCIO_MOVILES" Role="SD_SOCIO_MOVILES" Multiplicity="1" />
+          <End Type="Model.SD_PRESTAMOS_POR_SOCIOS" Role="SD_PRESTAMOS_POR_SOCIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_SOCIO_MOVILES">
+              <PropertyRef Name="ID_SOCIO_MOVIL" />
+            </Principal>
+            <Dependent Role="SD_PRESTAMOS_POR_SOCIOS">
+              <PropertyRef Name="ID_SOCIO_MOVIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_PRESTAMOS_POR_SOCIOS_R02">
+          <End Type="Model.SD_TIPOS_PRESTAMOS" Role="SD_TIPOS_PRESTAMOS" Multiplicity="1" />
+          <End Type="Model.SD_PRESTAMOS_POR_SOCIOS" Role="SD_PRESTAMOS_POR_SOCIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_TIPOS_PRESTAMOS">
+              <PropertyRef Name="ID_TIPO" />
+            </Principal>
+            <Dependent Role="SD_PRESTAMOS_POR_SOCIOS">
+              <PropertyRef Name="ID_TIPO_PRESTAMO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SD_PRESTAMOS_POR_SOCIOS_R04">
+          <End Type="Model.SD_PRESTAMOS_POR_SOCIOS" Role="SD_PRESTAMOS_POR_SOCIOS" Multiplicity="0..1" />
+          <End Type="Model.SD_PRESTAMOS_POR_SOCIOS" Role="SD_PRESTAMOS_POR_SOCIOS1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SD_PRESTAMOS_POR_SOCIOS">
+              <PropertyRef Name="ID_PRESTAMO" />
+            </Principal>
+            <Dependent Role="SD_PRESTAMOS_POR_SOCIOS1">
+              <PropertyRef Name="ID_PRESTAMO_REF" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7275,22 +7327,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SD_PAGO_DE_PRESTAMOS">
-            <EntityTypeMapping TypeName="Model.SD_PAGO_DE_PRESTAMOS">
-              <MappingFragment StoreEntitySet="SD_PAGO_DE_PRESTAMOS">
-                <ScalarProperty Name="LOGIN_USR" ColumnName="LOGIN_USR" />
-                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
-                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
-                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
-                <ScalarProperty Name="MONEDA" ColumnName="MONEDA" />
-                <ScalarProperty Name="IMPORTE" ColumnName="IMPORTE" />
-                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
-                <ScalarProperty Name="ID_CAJA" ColumnName="ID_CAJA" />
-                <ScalarProperty Name="ID_PRESTAMO" ColumnName="ID_PRESTAMO" />
-                <ScalarProperty Name="ID_PAGO" ColumnName="ID_PAGO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SD_TIPOS_PRESTAMOS">
             <EntityTypeMapping TypeName="Model.SD_TIPOS_PRESTAMOS">
               <MappingFragment StoreEntitySet="SD_TIPOS_PRESTAMOS">
@@ -7412,30 +7448,6 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="P_SD_BAJA_SOCIO_MOVILES" FunctionName="Model.Store.P_SD_BAJA_SOCIO_MOVILES" />
-          <EntitySetMapping Name="SD_PRESTAMOS_POR_SOCIOS">
-            <EntityTypeMapping TypeName="Model.SD_PRESTAMOS_POR_SOCIOS">
-              <MappingFragment StoreEntitySet="SD_PRESTAMOS_POR_SOCIOS">
-                <ScalarProperty Name="ESTADO_CIERRE" ColumnName="ESTADO_CIERRE" />
-                <ScalarProperty Name="FECHA_LIMITE_PAGO" ColumnName="FECHA_LIMITE_PAGO" />
-                <ScalarProperty Name="TIPO_INTERES" ColumnName="TIPO_INTERES" />
-                <ScalarProperty Name="IMPORTE_INTERES" ColumnName="IMPORTE_INTERES" />
-                <ScalarProperty Name="LOGIN_USR" ColumnName="LOGIN_USR" />
-                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
-                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
-                <ScalarProperty Name="SALDO" ColumnName="SALDO" />
-                <ScalarProperty Name="SEMANAS" ColumnName="SEMANAS" />
-                <ScalarProperty Name="INTERES" ColumnName="INTERES" />
-                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
-                <ScalarProperty Name="MONEDA" ColumnName="MONEDA" />
-                <ScalarProperty Name="IMPORTE_PRESTAMO" ColumnName="IMPORTE_PRESTAMO" />
-                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
-                <ScalarProperty Name="ID_CAJA" ColumnName="ID_CAJA" />
-                <ScalarProperty Name="ID_TIPO_PRESTAMO" ColumnName="ID_TIPO_PRESTAMO" />
-                <ScalarProperty Name="ID_SOCIO_MOVIL" ColumnName="ID_SOCIO_MOVIL" />
-                <ScalarProperty Name="ID_PRESTAMO" ColumnName="ID_PRESTAMO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SD_PLAN_DE_PAGO">
             <EntityTypeMapping TypeName="Model.SD_PLAN_DE_PAGO">
               <MappingFragment StoreEntitySet="SD_PLAN_DE_PAGO">
@@ -7548,10 +7560,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SD_CIERRES_CAJAS">
+            <EntityTypeMapping TypeName="Model.SD_CIERRES_CAJAS">
+              <MappingFragment StoreEntitySet="SD_CIERRES_CAJAS">
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="FECHA_FIN" ColumnName="FECHA_FIN" />
+                <ScalarProperty Name="FECHA_INI" ColumnName="FECHA_INI" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_CIERRE" ColumnName="ID_CIERRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="SD_DETALLE_CIERRES_CAJA">
             <EntityTypeMapping TypeName="Model.SD_DETALLE_CIERRES_CAJA">
               <MappingFragment StoreEntitySet="SD_DETALLE_CIERRES_CAJA">
-                <ScalarProperty Name="SALDO_ANTERIOR" ColumnName="SALDO_ANTERIOR" />
                 <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
                 <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
                 <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
@@ -7675,18 +7700,46 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SD_CIERRES_CAJAS">
-            <EntityTypeMapping TypeName="Model.SD_CIERRES_CAJAS">
-              <MappingFragment StoreEntitySet="SD_CIERRES_CAJAS">
-                <ScalarProperty Name="ID_CIERRE_ANTERIOR" ColumnName="ID_CIERRE_ANTERIOR" />
-                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
-                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+          <EntitySetMapping Name="SD_PAGO_DE_PRESTAMOS">
+            <EntityTypeMapping TypeName="Model.SD_PAGO_DE_PRESTAMOS">
+              <MappingFragment StoreEntitySet="SD_PAGO_DE_PRESTAMOS">
+                <ScalarProperty Name="ID_PAGO_REF" ColumnName="ID_PAGO_REF" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="LOGIN_USR" ColumnName="LOGIN_USR" />
                 <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
                 <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
-                <ScalarProperty Name="FECHA_FIN" ColumnName="FECHA_FIN" />
-                <ScalarProperty Name="FECHA_INI" ColumnName="FECHA_INI" />
-                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
-                <ScalarProperty Name="ID_CIERRE" ColumnName="ID_CIERRE" />
+                <ScalarProperty Name="MONEDA" ColumnName="MONEDA" />
+                <ScalarProperty Name="IMPORTE" ColumnName="IMPORTE" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="ID_CAJA" ColumnName="ID_CAJA" />
+                <ScalarProperty Name="ID_PRESTAMO" ColumnName="ID_PRESTAMO" />
+                <ScalarProperty Name="ID_PAGO" ColumnName="ID_PAGO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD_PRESTAMOS_POR_SOCIOS">
+            <EntityTypeMapping TypeName="Model.SD_PRESTAMOS_POR_SOCIOS">
+              <MappingFragment StoreEntitySet="SD_PRESTAMOS_POR_SOCIOS">
+                <ScalarProperty Name="ID_PRESTAMO_REF" ColumnName="ID_PRESTAMO_REF" />
+                <ScalarProperty Name="ESTADO_CIERRE" ColumnName="ESTADO_CIERRE" />
+                <ScalarProperty Name="IMPORTE_INTERES" ColumnName="IMPORTE_INTERES" />
+                <ScalarProperty Name="TIPO_INTERES" ColumnName="TIPO_INTERES" />
+                <ScalarProperty Name="FECHA_LIMITE_PAGO" ColumnName="FECHA_LIMITE_PAGO" />
+                <ScalarProperty Name="LOGIN_USR" ColumnName="LOGIN_USR" />
+                <ScalarProperty Name="FECHA_REG" ColumnName="FECHA_REG" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="SALDO" ColumnName="SALDO" />
+                <ScalarProperty Name="SEMANAS" ColumnName="SEMANAS" />
+                <ScalarProperty Name="INTERES" ColumnName="INTERES" />
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="MONEDA" ColumnName="MONEDA" />
+                <ScalarProperty Name="IMPORTE_PRESTAMO" ColumnName="IMPORTE_PRESTAMO" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="ID_CAJA" ColumnName="ID_CAJA" />
+                <ScalarProperty Name="ID_TIPO_PRESTAMO" ColumnName="ID_TIPO_PRESTAMO" />
+                <ScalarProperty Name="ID_SOCIO_MOVIL" ColumnName="ID_SOCIO_MOVIL" />
+                <ScalarProperty Name="ID_PRESTAMO" ColumnName="ID_PRESTAMO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -91,7 +91,7 @@
             name: "TIPO_INTERES",
             width: 480,
             colspan :2,
-            store: ["INTERES","MONTO FIJO"],
+            store: ["INTERES SEMANAL","MONTO FIJO" , "INTERES MENSUAL"],
             selectOnFocus: true,
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false
@@ -123,7 +123,7 @@
 
         });
         me.txt_semanas = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "Nro Semanas",
+            fieldLabel: "Nro Cuotas",
             name: "SEMANAS",
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
@@ -205,7 +205,7 @@
         });
 
         me.txt_semanas = Ext.create("App.Config.Componente.TextFieldBase", {
-            fieldLabel: "Nro Semanas",
+            fieldLabel: "Nro Cuotas",
             name: "SEMANAS",
 
         });
@@ -234,7 +234,7 @@
             me.txt_moneda.setValue(record[0].get('MONEDA'));
         });
         me.cbx_tipo_interes.on('select', function (cbx, rec) {
-            if (cbx.getValue() === 'INTERES') {
+            if (cbx.getValue() === 'INTERES SEMANAL' || cbx.getValue() === 'INTERES MENSUAL' ) {
                 me.txt_interes_fijo.reset();
                 me.txt_interes.reset();
                 me.txt_interes_fijo.setDisabled(true);

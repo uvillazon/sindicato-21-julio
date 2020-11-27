@@ -237,14 +237,19 @@ namespace Sindicato.Services
             ExecuteManager(uow =>
             {
                 var manager = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                var managerPlan = new SD_PLAN_DE_PAGOManager(uow);
                 result = manager.GuardarPagoPrestamo(pago, login);
+                if (pago.TIPO_PAGO == "EXTENDER PRESTAMO")
+                {
+                    var resp = managerPlan.GenerarPlanDePagos((int)pago.ID_PRESTAMO_REF, login);
+                }
 
 
             });
             return result;
         }
 
-        public RespuestaSP EliminarPagoPrestamo(int ID_PAGO,string login)
+        public RespuestaSP EliminarPagoPrestamo(int ID_PAGO, string login)
         {
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
@@ -258,7 +263,7 @@ namespace Sindicato.Services
             {
                 var manager = new SD_PAGO_DE_PRESTAMOSManager(uow);
                 result = manager.ActualizaPlanPagoPrestamo(ID_PAGO, login);
-               
+
 
             });
             return result;
@@ -317,6 +322,99 @@ namespace Sindicato.Services
             });
             return result;
         }
+
+        public RespuestaSP ObtenerImporteDeuda(string TIPO, DateTime FECHA, int ID_PRESTAMO, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
+                var managerPlan = new SD_PLAN_DE_PAGOManager(uow);
+                var managerPagos = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                var prestamo = manager.BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO).FirstOrDefault();
+                decimal importe = 0;
+                decimal cuota_capital = 0;
+                decimal cuota_interes = 0;
+                decimal condonacion_interes = 0;
+                string msg = "";
+                if (TIPO == "PAGAR CUOTA")
+                {
+                    var plan = managerPlan.BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO != "CANCELADO").OrderBy(y => y.NRO_SEMANA).FirstOrDefault();
+                    if (plan != null)
+                    {
+                        importe = plan.IMPORTE_A_PAGAR + plan.INTERES_A_PAGAR;
+                        cuota_capital = plan.IMPORTE_A_PAGAR;
+                        cuota_interes = plan.INTERES_A_PAGAR;
+
+                    }
+                    else
+                    {
+                        importe = 0;
+                        cuota_capital = 0;
+                        cuota_interes = 0;
+                    }
+                    result.success = true;
+                    result.data = new { importe = importe, cuota_capital = cuota_capital, cuota_interes = cuota_interes, condonacion_interes = condonacion_interes };
+
+                }
+                else if (TIPO == "PAGAR TOTAL DEUDA")
+                {
+                    FECHA = FECHA.AddMonths(1);
+                    var planes = managerPlan.BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO != "CANCELADO");
+                    foreach (var item in planes)
+                    {
+                        if (item.FECHA_PAGO <= FECHA)
+                        {
+                            importe = importe + item.IMPORTE_A_PAGAR + item.INTERES_A_PAGAR;
+                            cuota_capital = cuota_capital + item.IMPORTE_A_PAGAR;
+                            cuota_interes = cuota_interes + item.INTERES_A_PAGAR;
+                        }
+                        else
+                        {
+                            importe = importe + item.IMPORTE_A_PAGAR;
+                            cuota_capital = cuota_capital + item.IMPORTE_A_PAGAR;
+                            condonacion_interes = condonacion_interes + item.INTERES_A_PAGAR;
+
+                        }
+                    }
+                    result.success = true;
+                    result.data = new { importe = importe, cuota_capital = cuota_capital, cuota_interes = cuota_interes, condonacion_interes = condonacion_interes };
+
+                }
+                else if (TIPO == "EXTENDER PRESTAMO")
+                {
+                    FECHA = FECHA.AddMonths(1);
+                    decimal cancelado = managerPagos.BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO != "ANULADO").Count() > 0?  managerPagos.BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO != "ANULADO").Sum(y=> y.IMPORTE): 0 ;
+                    if (cancelado > 0)
+                    {
+                        result.success = false;
+                        result.msg = string.Format("El prestamo Nro: {0} tiene el importe : {1} CANCELADO",ID_PRESTAMO,cancelado);
+                    }
+                    else
+                    {
+                        var planes = managerPlan.BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO != "CANCELADO");
+                        foreach (var item in planes)
+                        {
+                            importe = importe + item.INTERES_A_PAGAR;
+                            cuota_interes = cuota_interes + item.INTERES_A_PAGAR;
+                        }
+                        result.success = true;
+                        result.data = new { importe = importe, cuota_capital = cuota_capital, cuota_interes = cuota_interes, condonacion_interes = condonacion_interes };
+                    }
+
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = "No Existe el Tipo de PAGO definido";
+                }
+
+
+
+            });
+            return result;
+        }
+
     }
 
 }

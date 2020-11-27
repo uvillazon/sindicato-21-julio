@@ -40,6 +40,8 @@ namespace Sindicato.Business
                 decimal saldo = (decimal)pres.IMPORTE_INTERES + pres.IMPORTE_PRESTAMO;
                 decimal capital = 0;
                 DateTime fecha = pres.FECHA;
+                decimal prestamo_interes =  pres.SEMANAS *  Math.Round( ( (pres.IMPORTE_PRESTAMO + (decimal)pres.IMPORTE_INTERES)  / pres.SEMANAS) , 2);
+                decimal ajuste = (pres.IMPORTE_PRESTAMO + (decimal)pres.IMPORTE_INTERES) - prestamo_interes;
                 for (int i = 1; i <= pres.SEMANAS; i++)
                 {
 
@@ -48,11 +50,18 @@ namespace Sindicato.Business
                     plan.ID_PRESTAMO = ID_PRESTAMO;
                     plan.LOGIN_USR = login;
                     plan.NRO_SEMANA = i;
-                    plan.IMPORTE_A_PAGAR = pres.IMPORTE_PRESTAMO / pres.SEMANAS;
-                    plan.INTERES_A_PAGAR = (decimal)pres.IMPORTE_INTERES / pres.SEMANAS;
-                    saldo = saldo - (plan.IMPORTE_A_PAGAR + plan.INTERES_A_PAGAR);
-                    fecha = fecha.AddDays(7);
-                    capital = capital + plan.IMPORTE_A_PAGAR;
+                    plan.IMPORTE_A_PAGAR = Math.Round( pres.IMPORTE_PRESTAMO / pres.SEMANAS + ajuste ,2 );
+                    ajuste = 0;
+                    plan.INTERES_A_PAGAR = Math.Round( (decimal)pres.IMPORTE_INTERES / pres.SEMANAS ,2 );
+                    saldo = saldo - Math.Round( (plan.IMPORTE_A_PAGAR + plan.INTERES_A_PAGAR) ,2);
+                    if (pres.SD_TIPOS_PRESTAMOS.TIPO_INTERES == "INTERES MENSUAL")
+                    {
+                        fecha = fecha.AddMonths(1);
+                    }
+                    else {
+                        fecha = fecha.AddDays(7);
+                    }
+                    capital = Math.Round( capital + plan.IMPORTE_A_PAGAR ,2);
                     plan.SALDO_PLAN = saldo;
                     plan.CAPITAL_A_PAGAR = capital;
                     plan.FECHA_REG = DateTime.Now;

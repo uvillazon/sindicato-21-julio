@@ -11,6 +11,7 @@
             { type: "int", name: "ID_DETALLE" },
             { type: "int", name: "ID_CAJA" },
             { type: "string", name: "OBSERVACION" },
+            { type: "string", name: "OBSERVACION_ANULACION" },
             { type: "string", name: "ESTADO" },
             { type: "string", name: "LOGIN_USR" },
             { type: "string", name: "CAJA" },

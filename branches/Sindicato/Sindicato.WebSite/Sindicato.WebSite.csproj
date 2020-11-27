@@ -419,6 +419,7 @@
     <Content Include="App\View\CierresParada\FormCierre.js" />
     <Content Include="App\View\CierresParada\GridCierres.js" />
     <Content Include="App\View\CierresParada\Principal.js" />
+    <Content Include="App\View\DetallesDeudasSocios\FormAnular.js" />
     <Content Include="App\View\Refuerzos\FormRefuerzo.js" />
     <Content Include="App\View\Refuerzos\Forms.js" />
     <Content Include="App\View\Refuerzos\GridRefuerzos.js" />
@@ -4128,6 +4129,20 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sindicato.Common\Sindicato.Common.csproj">
+      <Project>{fe4a4415-fb83-4c99-85b0-405fc9278914}</Project>
+      <Name>Sindicato.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sindicato.Model\Sindicato.Model.csproj">
+      <Project>{1ca5f33c-3e60-4ad8-8e64-80de359b6f09}</Project>
+      <Name>Sindicato.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sindicato.Services\Sindicato.Services.csproj">
+      <Project>{eaeb9b4b-1e2a-4f70-a1bf-b87720b2a7e0}</Project>
+      <Name>Sindicato.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

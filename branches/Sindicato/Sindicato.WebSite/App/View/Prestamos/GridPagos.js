@@ -31,11 +31,12 @@
         me.columns = [
                 { xtype: "rownumberer", width: 30, sortable: false },
                 { header: "Fecha<br>Pago", width: 80, sortable: true, dataIndex: "FECHA", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
+                { header: "Tipo", width: 80, sortable: false, dataIndex: "TIPO" },
                 { header: "Importe", width: 100, sortable: false, dataIndex: "IMPORTE" },
                 { header: "Socio", width: 200, sortable: false, dataIndex: "SOCIO" },
                 { header: "Caja", width: 100, sortable: false, dataIndex: "CAJA" },
                 { header: "Observaciones", width: 200, sortable: false, dataIndex: "OBSERVACION" },
-                 { header: "Estado", width: 80, sortable: false, dataIndex: "ESTADO" },
+                { header: "Estado", width: 80, sortable: false, dataIndex: "ESTADO" },
                 { header: "Login", width: 80, sortable: false, dataIndex: "LOGIN_USR" }
         ];
 
@@ -47,11 +48,11 @@
     },
     Eliminar: function () {
         var me = this;
-        if (me.record.get('ESTADO') == "NUEVO") {
+        if (me.record.get('ESTADO') == "NUEVO" && me.record.get('TIPO') == "PAGO") {
             Funciones.AjaxRequestGrid("Prestamos", "EliminarPago", me, "Esta seguro de Anular el Pago?", { ID_PAGO: me.record.get('ID_PAGO') }, me, null, null);
         }
         else {
-            Ext.Msg.alert("Error", "Solo puede anular los pagos en estado NUEVO");
+            Ext.Msg.alert("Error", "Solo puede anular los pagos en estado NUEVO y Tipo PAGO");
         }
     }
 });

@@ -31,6 +31,7 @@ namespace Sindicato.WebSite.Controllers
             var formatData = ingresos.Select(x => new
             {
                 ID_PRESTAMO = x.ID_PRESTAMO,
+                ID_PRESTAMO_REF = x.ID_PRESTAMO_REF,
                 ID_CAJA = x.ID_CAJA,
                 CAJA = x.SD_CAJAS.NOMBRE,
                 FECHA = x.FECHA,
@@ -193,6 +194,7 @@ namespace Sindicato.WebSite.Controllers
                 IMPORTE = x.IMPORTE,
                 MONEDA = x.MONEDA,
                 OBSERVACION = x.OBSERVACION,
+                TIPO = x.TIPO,
                 LOGIN_USR = x.LOGIN_USR,
                 SOCIO = x.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.ObtenerNombreSocio()
 
@@ -266,6 +268,15 @@ namespace Sindicato.WebSite.Controllers
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
             return JavaScript(callback1);
+        }
+
+        [HttpPost]
+        public JsonResult ObtenerImporteDeuda(string TIPO, DateTime FECHA, int ID_PRESTAMO)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serPre.ObtenerImporteDeuda(TIPO ,FECHA ,ID_PRESTAMO, login);
+            return Json(respuestaSP);
         }
 
         #endregion

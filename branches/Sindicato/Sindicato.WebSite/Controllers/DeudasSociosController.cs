@@ -66,6 +66,15 @@ namespace Sindicato.WebSite.Controllers
         }
 
         [HttpPost]
+        public JsonResult AnularDeuda(SD_DETALLES_DEUDAS ant)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _servicio.AnularDeuda(ant, login);
+            return Json(respuestaSP);
+        }
+
+        [HttpPost]
         public JsonResult EliminarDeudaSocio(int ID_DETALLE)
         {
             string login = User.Identity.Name.Split('-')[0];
@@ -124,10 +133,11 @@ namespace Sindicato.WebSite.Controllers
                 LOGIN_USR = x.LOGIN_USR,
                 MOTIVO = x.SD_DEUDAS_SOCIOS.MOTIVO,
                 OBSERVACION = x.SD_DEUDAS_SOCIOS.OBSERVACION,
+                OBSERVACION_ANULACION = x.OBSERVACION,
                 MONEDA = x.SD_CAJAS.MONEDA,
                 MOVIL = x.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
                 SOCIO = x.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
-                ESTADO_DEUDA = x.ESTADO =="APROBADO"? "APROBADO" :  x.IMPORTE_CANCELADO > 0 ? "CANCELADO" : "SIN_PAGO"
+                ESTADO_DEUDA = x.ESTADO == "APROBADO" ? "APROBADO" : x.ESTADO == "ANULADO" ? "ANULADO" : x.IMPORTE_CANCELADO > 0 ? "CANCELADO" : "SIN_PAGO"
 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
