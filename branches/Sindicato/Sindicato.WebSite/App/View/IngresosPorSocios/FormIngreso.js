@@ -32,7 +32,7 @@
             name: "FECHA",
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
-            readOnly: true
+            readOnly: false
         });
 
         me.store_tipo = Ext.create('App.Store.IngresosPorSocios.TiposIngresos');

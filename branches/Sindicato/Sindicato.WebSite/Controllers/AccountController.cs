@@ -28,12 +28,11 @@ namespace Sindicato.WebSite.Controllers
         // POST: /Account/LogOn
 
         [HttpPost]
-        //[]
         public ActionResult LogOn(string loginUsername, string loginPassword)
         {
             TestOracleConexion testConexion = new TestOracleConexion();
             testConexion.CadenaConexion = ConfigurationManager.ConnectionStrings["SindicatoContext"].ConnectionString;
-            string resultado = testConexion.TestConnection("SINDICATO_121", "Sindicato");
+            string resultado = testConexion.TestConnection("SD_121", "Sindicato");
             if (resultado == "true")
             {
                 var managerUsuario = new UsuariosServices();
@@ -66,7 +65,7 @@ namespace Sindicato.WebSite.Controllers
             }
             else
             {
-                return Json(new { success = false, msg = "El Nombre de Usuario o Contraseña es Incorrecto" + resultado }, JsonRequestBehavior.DenyGet);
+                return Json(new { success = false, msg = "El Nombre de Usuario o Contraseña es Incorrecto =========> "  +resultado }, JsonRequestBehavior.DenyGet);
             }
 
 

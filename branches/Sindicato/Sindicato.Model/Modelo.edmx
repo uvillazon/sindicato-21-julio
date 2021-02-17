@@ -6,56 +6,56 @@
     <edmx:StorageModels>
     <Schema Namespace="Model.Store" Alias="Self" Provider="Oracle.DataAccess.Client" ProviderManifestToken="11.2" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ModelStoreContainer">
-          <EntitySet Name="SD_AMORTIZACIONES" EntityType="Model.Store.SD_AMORTIZACIONES" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_ANTECEDENTES" EntityType="Model.Store.SD_ANTECEDENTES" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_ANULACIONES" EntityType="Model.Store.SD_ANULACIONES" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_AUTOS" EntityType="Model.Store.SD_AUTOS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_CAJAS" EntityType="Model.Store.SD_CAJAS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_CHOFERES" EntityType="Model.Store.SD_CHOFERES" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_CIERRES" EntityType="Model.Store.SD_CIERRES" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_CIERRES_CAJAS" EntityType="Model.Store.SD_CIERRES_CAJAS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_CIERRES_PARADA" EntityType="Model.Store.SD_CIERRES_PARADA" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_DESCUENTOS" EntityType="Model.Store.SD_DESCUENTOS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_DESCUENTOS_SOCIO" EntityType="Model.Store.SD_DESCUENTOS_SOCIO" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_DETALLE_CIERRE_PARADA" EntityType="Model.Store.SD_DETALLE_CIERRE_PARADA" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_DETALLE_CIERRES_AHORRO" EntityType="Model.Store.SD_DETALLE_CIERRES_AHORRO" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_DETALLE_CIERRES_CAJA" EntityType="Model.Store.SD_DETALLE_CIERRES_CAJA" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_DETALLE_PERIODO_SOCIO" EntityType="Model.Store.SD_DETALLE_PERIODO_SOCIO" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_DETALLES_DEUDAS" EntityType="Model.Store.SD_DETALLES_DEUDAS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_DETALLES_HOJAS_CONTROL" EntityType="Model.Store.SD_DETALLES_HOJAS_CONTROL" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_DETALLES_HOJAS_USO" EntityType="Model.Store.SD_DETALLES_HOJAS_USO" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_DETALLES_REGULARIZACIONES" EntityType="Model.Store.SD_DETALLES_REGULARIZACIONES" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_DEUDAS_SOCIOS" EntityType="Model.Store.SD_DEUDAS_SOCIOS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_DOCUMENTACIONES" EntityType="Model.Store.SD_DOCUMENTACIONES" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_EGRESOS" EntityType="Model.Store.SD_EGRESOS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_FAMILIARES" EntityType="Model.Store.SD_FAMILIARES" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_FONDO_EMERGENCIAS" EntityType="Model.Store.SD_FONDO_EMERGENCIAS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_GARANTES" EntityType="Model.Store.SD_GARANTES" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_HIST_MOVIL" EntityType="Model.Store.SD_HIST_MOVIL" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_HOJAS_CONTROL" EntityType="Model.Store.SD_HOJAS_CONTROL" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_IMAGENES" EntityType="Model.Store.SD_IMAGENES" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_IMPRESIONES" EntityType="Model.Store.SD_IMPRESIONES" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_INGRESOS" EntityType="Model.Store.SD_INGRESOS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_INGRESOS_POR_SOCIOS" EntityType="Model.Store.SD_INGRESOS_POR_SOCIOS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_INGRESOS_SOCIO" EntityType="Model.Store.SD_INGRESOS_SOCIO" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_KARDEX_EFECTIVO" EntityType="Model.Store.SD_KARDEX_EFECTIVO" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_KARDEX_FM" EntityType="Model.Store.SD_KARDEX_FM" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_KARDEX_HOJAS" EntityType="Model.Store.SD_KARDEX_HOJAS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_KARDEX_OBLIGACION" EntityType="Model.Store.SD_KARDEX_OBLIGACION" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_KARDEX_SOCIO" EntityType="Model.Store.SD_KARDEX_SOCIO" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_KARDEX_SOCIO_DEBE" EntityType="Model.Store.SD_KARDEX_SOCIO_DEBE" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_KARDEX_SOCIO_MOVIL" EntityType="Model.Store.SD_KARDEX_SOCIO_MOVIL" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_LINEAS" EntityType="Model.Store.SD_LINEAS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_LISTAS" EntityType="Model.Store.SD_LISTAS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_LISTAS_ITEMS" EntityType="Model.Store.SD_LISTAS_ITEMS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_MENU_OPCIONES" EntityType="Model.Store.SD_MENU_OPCIONES" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_MOVILES" EntityType="Model.Store.SD_MOVILES" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_OBLIGACIONES_HOJA" EntityType="Model.Store.SD_OBLIGACIONES_HOJA" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_OBLIGACIONES_SOCIO" EntityType="Model.Store.SD_OBLIGACIONES_SOCIO" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_OTRAS_OBLIGACIONES" EntityType="Model.Store.SD_OTRAS_OBLIGACIONES" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_PAGO_DE_PRESTAMOS" EntityType="Model.Store.SD_PAGO_DE_PRESTAMOS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_PARADAS" EntityType="Model.Store.SD_PARADAS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_PARAM_CANT_HOJAS_MES" EntityType="Model.Store.SD_PARAM_CANT_HOJAS_MES" store:Type="Tables" store:Schema="SINDICATO_121" store:Name="SD_PARAM_CANT_HOJAS_MES">
+          <EntitySet Name="SD_AMORTIZACIONES" EntityType="Model.Store.SD_AMORTIZACIONES" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_ANTECEDENTES" EntityType="Model.Store.SD_ANTECEDENTES" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_ANULACIONES" EntityType="Model.Store.SD_ANULACIONES" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_AUTOS" EntityType="Model.Store.SD_AUTOS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_CAJAS" EntityType="Model.Store.SD_CAJAS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_CHOFERES" EntityType="Model.Store.SD_CHOFERES" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_CIERRES" EntityType="Model.Store.SD_CIERRES" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_CIERRES_CAJAS" EntityType="Model.Store.SD_CIERRES_CAJAS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_CIERRES_PARADA" EntityType="Model.Store.SD_CIERRES_PARADA" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_DESCUENTOS" EntityType="Model.Store.SD_DESCUENTOS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_DESCUENTOS_SOCIO" EntityType="Model.Store.SD_DESCUENTOS_SOCIO" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_DETALLE_CIERRE_PARADA" EntityType="Model.Store.SD_DETALLE_CIERRE_PARADA" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_DETALLE_CIERRES_AHORRO" EntityType="Model.Store.SD_DETALLE_CIERRES_AHORRO" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_DETALLE_CIERRES_CAJA" EntityType="Model.Store.SD_DETALLE_CIERRES_CAJA" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_DETALLE_PERIODO_SOCIO" EntityType="Model.Store.SD_DETALLE_PERIODO_SOCIO" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_DETALLES_DEUDAS" EntityType="Model.Store.SD_DETALLES_DEUDAS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_DETALLES_HOJAS_CONTROL" EntityType="Model.Store.SD_DETALLES_HOJAS_CONTROL" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_DETALLES_HOJAS_USO" EntityType="Model.Store.SD_DETALLES_HOJAS_USO" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_DETALLES_REGULARIZACIONES" EntityType="Model.Store.SD_DETALLES_REGULARIZACIONES" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_DEUDAS_SOCIOS" EntityType="Model.Store.SD_DEUDAS_SOCIOS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_DOCUMENTACIONES" EntityType="Model.Store.SD_DOCUMENTACIONES" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_EGRESOS" EntityType="Model.Store.SD_EGRESOS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_FAMILIARES" EntityType="Model.Store.SD_FAMILIARES" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_FONDO_EMERGENCIAS" EntityType="Model.Store.SD_FONDO_EMERGENCIAS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_GARANTES" EntityType="Model.Store.SD_GARANTES" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_HIST_MOVIL" EntityType="Model.Store.SD_HIST_MOVIL" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_HOJAS_CONTROL" EntityType="Model.Store.SD_HOJAS_CONTROL" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_IMAGENES" EntityType="Model.Store.SD_IMAGENES" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_IMPRESIONES" EntityType="Model.Store.SD_IMPRESIONES" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_INGRESOS" EntityType="Model.Store.SD_INGRESOS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_INGRESOS_POR_SOCIOS" EntityType="Model.Store.SD_INGRESOS_POR_SOCIOS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_INGRESOS_SOCIO" EntityType="Model.Store.SD_INGRESOS_SOCIO" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_KARDEX_EFECTIVO" EntityType="Model.Store.SD_KARDEX_EFECTIVO" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_KARDEX_FM" EntityType="Model.Store.SD_KARDEX_FM" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_KARDEX_HOJAS" EntityType="Model.Store.SD_KARDEX_HOJAS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_KARDEX_OBLIGACION" EntityType="Model.Store.SD_KARDEX_OBLIGACION" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_KARDEX_SOCIO" EntityType="Model.Store.SD_KARDEX_SOCIO" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_KARDEX_SOCIO_DEBE" EntityType="Model.Store.SD_KARDEX_SOCIO_DEBE" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_KARDEX_SOCIO_MOVIL" EntityType="Model.Store.SD_KARDEX_SOCIO_MOVIL" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_LINEAS" EntityType="Model.Store.SD_LINEAS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_LISTAS" EntityType="Model.Store.SD_LISTAS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_LISTAS_ITEMS" EntityType="Model.Store.SD_LISTAS_ITEMS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_MENU_OPCIONES" EntityType="Model.Store.SD_MENU_OPCIONES" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_MOVILES" EntityType="Model.Store.SD_MOVILES" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_OBLIGACIONES_HOJA" EntityType="Model.Store.SD_OBLIGACIONES_HOJA" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_OBLIGACIONES_SOCIO" EntityType="Model.Store.SD_OBLIGACIONES_SOCIO" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_OTRAS_OBLIGACIONES" EntityType="Model.Store.SD_OTRAS_OBLIGACIONES" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_PAGO_DE_PRESTAMOS" EntityType="Model.Store.SD_PAGO_DE_PRESTAMOS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_PARADAS" EntityType="Model.Store.SD_PARADAS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_PARAM_CANT_HOJAS_MES" EntityType="Model.Store.SD_PARAM_CANT_HOJAS_MES" store:Type="Tables" store:Schema="SD_121" store:Name="SD_PARAM_CANT_HOJAS_MES">
             <DefiningQuery>SELECT 
       "SD_PARAM_CANT_HOJAS_MES"."ID_PARAMETRO" AS "ID_PARAMETRO", 
       "SD_PARAM_CANT_HOJAS_MES"."FECHA" AS "FECHA", 
@@ -63,33 +63,33 @@
       "SD_PARAM_CANT_HOJAS_MES"."ID_USUARIO" AS "ID_USUARIO", 
       "SD_PARAM_CANT_HOJAS_MES"."OBSERVACION" AS "OBSERVACION", 
       "SD_PARAM_CANT_HOJAS_MES"."FECHA_REG" AS "FECHA_REG"
-      FROM "SINDICATO_121"."SD_PARAM_CANT_HOJAS_MES" "SD_PARAM_CANT_HOJAS_MES"</DefiningQuery>
+      FROM "SD_121"."SD_PARAM_CANT_HOJAS_MES" "SD_PARAM_CANT_HOJAS_MES"</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="SD_PARAMETROS_LINEA" EntityType="Model.Store.SD_PARAMETROS_LINEA" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_PERFILES" EntityType="Model.Store.SD_PERFILES" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_PERFILES_OPCIONES" EntityType="Model.Store.SD_PERFILES_OPCIONES" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_PERMISOS" EntityType="Model.Store.SD_PERMISOS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_PLAN_DE_PAGO" EntityType="Model.Store.SD_PLAN_DE_PAGO" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_PRESTAMOS_MORA" EntityType="Model.Store.SD_PRESTAMOS_MORA" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_PRESTAMOS_POR_SOCIOS" EntityType="Model.Store.SD_PRESTAMOS_POR_SOCIOS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_REGULARIZACIONES" EntityType="Model.Store.SD_REGULARIZACIONES" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_RETIRO_SOCIO" EntityType="Model.Store.SD_RETIRO_SOCIO" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_RETIRO_SOCIO_MOVIL" EntityType="Model.Store.SD_RETIRO_SOCIO_MOVIL" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_SOC_MOV_OBLIG" EntityType="Model.Store.SD_SOC_MOV_OBLIG" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_SOCIO_DESEMPENOS" EntityType="Model.Store.SD_SOCIO_DESEMPENOS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_SOCIO_MOVIL_AUTOS" EntityType="Model.Store.SD_SOCIO_MOVIL_AUTOS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_SOCIO_MOVILES" EntityType="Model.Store.SD_SOCIO_MOVILES" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_SOCIOS" EntityType="Model.Store.SD_SOCIOS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_TIPOS_EGRESOS" EntityType="Model.Store.SD_TIPOS_EGRESOS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_TIPOS_INGRESOS_SOCIO" EntityType="Model.Store.SD_TIPOS_INGRESOS_SOCIO" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_TIPOS_PRESTAMOS" EntityType="Model.Store.SD_TIPOS_PRESTAMOS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_TRANSF_HOJA_DET" EntityType="Model.Store.SD_TRANSF_HOJA_DET" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_TRANSFERENCIAS" EntityType="Model.Store.SD_TRANSFERENCIAS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_TRANSFERENCIAS_HOJAS" EntityType="Model.Store.SD_TRANSFERENCIAS_HOJAS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_USUARIOS" EntityType="Model.Store.SD_USUARIOS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_VENTA_HOJAS" EntityType="Model.Store.SD_VENTA_HOJAS" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="SD_VENTA_HOJAS_REFUERZO" EntityType="Model.Store.SD_VENTA_HOJAS_REFUERZO" store:Type="Tables" Schema="SINDICATO_121" />
-          <EntitySet Name="V_TABLAS_COLUMNAS" EntityType="Model.Store.V_TABLAS_COLUMNAS" store:Type="Views" store:Schema="SINDICATO_121" store:Name="V_TABLAS_COLUMNAS">
+          <EntitySet Name="SD_PARAMETROS_LINEA" EntityType="Model.Store.SD_PARAMETROS_LINEA" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_PERFILES" EntityType="Model.Store.SD_PERFILES" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_PERFILES_OPCIONES" EntityType="Model.Store.SD_PERFILES_OPCIONES" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_PERMISOS" EntityType="Model.Store.SD_PERMISOS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_PLAN_DE_PAGO" EntityType="Model.Store.SD_PLAN_DE_PAGO" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_PRESTAMOS_MORA" EntityType="Model.Store.SD_PRESTAMOS_MORA" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_PRESTAMOS_POR_SOCIOS" EntityType="Model.Store.SD_PRESTAMOS_POR_SOCIOS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_REGULARIZACIONES" EntityType="Model.Store.SD_REGULARIZACIONES" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_RETIRO_SOCIO" EntityType="Model.Store.SD_RETIRO_SOCIO" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_RETIRO_SOCIO_MOVIL" EntityType="Model.Store.SD_RETIRO_SOCIO_MOVIL" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_SOC_MOV_OBLIG" EntityType="Model.Store.SD_SOC_MOV_OBLIG" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_SOCIO_DESEMPENOS" EntityType="Model.Store.SD_SOCIO_DESEMPENOS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_SOCIO_MOVIL_AUTOS" EntityType="Model.Store.SD_SOCIO_MOVIL_AUTOS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_SOCIO_MOVILES" EntityType="Model.Store.SD_SOCIO_MOVILES" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_SOCIOS" EntityType="Model.Store.SD_SOCIOS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_TIPOS_EGRESOS" EntityType="Model.Store.SD_TIPOS_EGRESOS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_TIPOS_INGRESOS_SOCIO" EntityType="Model.Store.SD_TIPOS_INGRESOS_SOCIO" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_TIPOS_PRESTAMOS" EntityType="Model.Store.SD_TIPOS_PRESTAMOS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_TRANSF_HOJA_DET" EntityType="Model.Store.SD_TRANSF_HOJA_DET" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_TRANSFERENCIAS" EntityType="Model.Store.SD_TRANSFERENCIAS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_TRANSFERENCIAS_HOJAS" EntityType="Model.Store.SD_TRANSFERENCIAS_HOJAS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_USUARIOS" EntityType="Model.Store.SD_USUARIOS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_VENTA_HOJAS" EntityType="Model.Store.SD_VENTA_HOJAS" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="SD_VENTA_HOJAS_REFUERZO" EntityType="Model.Store.SD_VENTA_HOJAS_REFUERZO" store:Type="Tables" Schema="SD_121" />
+          <EntitySet Name="V_TABLAS_COLUMNAS" EntityType="Model.Store.V_TABLAS_COLUMNAS" store:Type="Views" store:Schema="SD_121" store:Name="V_TABLAS_COLUMNAS">
             <DefiningQuery>SELECT 
       "V_TABLAS_COLUMNAS"."ID_TABLA" AS "ID_TABLA", 
       "V_TABLAS_COLUMNAS"."TABLA" AS "TABLA", 
@@ -100,7 +100,7 @@
       "V_TABLAS_COLUMNAS"."TAMANO" AS "TAMANO", 
       "V_TABLAS_COLUMNAS"."REQUERIDO" AS "REQUERIDO", 
       "V_TABLAS_COLUMNAS"."COMENTARIO" AS "COMENTARIO"
-      FROM "SINDICATO_121"."V_TABLAS_COLUMNAS" "V_TABLAS_COLUMNAS"</DefiningQuery>
+      FROM "SD_121"."V_TABLAS_COLUMNAS" "V_TABLAS_COLUMNAS"</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="SD_AMORTIZACIONES_R01" Association="Model.Store.SD_AMORTIZACIONES_R01">
             <End Role="SD_SOCIOS" EntitySet="SD_SOCIOS" />
@@ -1218,7 +1218,7 @@
           <Property Name="FECHA_REG" Type="date" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'SINDICATO_121.SD_PARAM_CANT_HOJAS_MES' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'SD_121.SD_PARAM_CANT_HOJAS_MES' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="SD_PARAM_CANT_HOJAS_MES">
           <Key>
@@ -1601,7 +1601,7 @@
           <Property Name="PLACA" Type="varchar2" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'SINDICATO_121.V_TABLAS_COLUMNAS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'SD_121.V_TABLAS_COLUMNAS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="V_TABLAS_COLUMNAS">
           <Key>
@@ -2795,56 +2795,56 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="P_ACT_PAGOS_AHORROS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_ACT_PAGOS_AHORROS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_EE_SECUENCIA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_EE_SECUENCIA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_COD_TABLA" Type="varchar2" Mode="In" />
           <Parameter Name="P_ID_USR" Type="number" Mode="In" />
           <Parameter Name="P_RES" Type="number" Mode="Out" />
         </Function>
-        <Function Name="P_REC_PARAMETROS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_REC_PARAMETROS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_COD_PAR" Type="varchar2" Mode="In" />
           <Parameter Name="P_ID_LINEA" Type="number" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ACT_KARDEX_CIERRE_AHORRO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_ACT_KARDEX_CIERRE_AHORRO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_CIERRE" Type="number" Mode="In" />
           <Parameter Name="P_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ACT_KARDEX_DEBE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_ACT_KARDEX_DEBE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_SOCIO" Type="number" Mode="In" />
           <Parameter Name="P_FECHA" Type="date" Mode="In" />
           <Parameter Name="P_ID_USR" Type="number" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ACT_KARDEX_EFECTIVO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_ACT_KARDEX_EFECTIVO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_CAJA" Type="number" Mode="In" />
           <Parameter Name="P_FECHA" Type="date" Mode="In" />
           <Parameter Name="P_ID_USR" Type="number" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ACT_KARDEX_HOJA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_ACT_KARDEX_HOJA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_SOCIO_MOVIL" Type="number" Mode="In" />
           <Parameter Name="P_FECHA" Type="date" Mode="In" />
           <Parameter Name="P_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ACT_KARDEX_SOCIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_ACT_KARDEX_SOCIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_SOCIO" Type="number" Mode="In" />
           <Parameter Name="P_FECHA" Type="date" Mode="In" />
           <Parameter Name="P_LOGIN" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ACT_KARDEX_SOCIO_MOVIL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_ACT_KARDEX_SOCIO_MOVIL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_SOCIO_MOVIL" Type="number" Mode="In" />
           <Parameter Name="P_FECHA" Type="date" Mode="In" />
           <Parameter Name="P_LOGIN" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ACT_OBLIGACIONES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_ACT_OBLIGACIONES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_SOCIO" Type="number" Mode="In" />
           <Parameter Name="P_ID_OBLIGACION" Type="number" Mode="In" />
           <Parameter Name="P_FECHA" Type="date" Mode="In" />
@@ -2853,12 +2853,12 @@
           <Parameter Name="P_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ACT_PLAN_PAGOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_ACT_PLAN_PAGOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_PRESTAMO" Type="number" Mode="In" />
           <Parameter Name="P_ID_USR" Type="number" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ALTA_AUTOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_ALTA_AUTOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_AUTO" Type="number" Mode="In" />
           <Parameter Name="P_TIPO" Type="varchar2" Mode="In" />
           <Parameter Name="P_COLOR" Type="varchar2" Mode="In" />
@@ -2873,7 +2873,7 @@
           <Parameter Name="P_ID_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ALTA_LISTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_ALTA_LISTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_LISTA" Type="varchar2" Mode="In" />
           <Parameter Name="P_DESCRIPCION" Type="varchar2" Mode="In" />
           <Parameter Name="P_TAM_LIMITE" Type="number" Mode="In" />
@@ -2882,7 +2882,7 @@
           <Parameter Name="P_ID_USR" Type="number" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ALTA_SD_CHOFERES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_ALTA_SD_CHOFERES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_CHOFER" Type="number" Mode="In" />
           <Parameter Name="P_NRO_CHOFER" Type="number" Mode="In" />
           <Parameter Name="P_NOMBRE" Type="varchar2" Mode="In" />
@@ -2903,7 +2903,7 @@
           <Parameter Name="P_ID_USR" Type="number" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ALTA_SD_FAMILIARES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_ALTA_SD_FAMILIARES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_FAMILIAR" Type="number" Mode="In" />
           <Parameter Name="P_ID_SOCIO" Type="number" Mode="In" />
           <Parameter Name="P_ID_CHOFER" Type="number" Mode="In" />
@@ -2920,7 +2920,7 @@
           <Parameter Name="P_ID_USR" Type="number" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ALTA_SD_SOCIOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_ALTA_SD_SOCIOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_SOCIO" Type="number" Mode="In" />
           <Parameter Name="P_NOMBRE" Type="varchar2" Mode="In" />
           <Parameter Name="P_APELLIDO_PATERNO" Type="varchar2" Mode="In" />
@@ -2939,32 +2939,32 @@
           <Parameter Name="P_ID_USR" Type="number" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ANULAR_HOJA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_ANULAR_HOJA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_HOJA" Type="number" Mode="In" />
           <Parameter Name="P_OBSERVACION" Type="varchar2" Mode="In" />
           <Parameter Name="P_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ANULAR_PERMISOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_ANULAR_PERMISOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_PERMISO" Type="number" Mode="In" />
           <Parameter Name="P_OBSERVACION" Type="varchar2" Mode="In" />
           <Parameter Name="P_LOGIN_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ANULAR_REGULACION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_ANULAR_REGULACION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_REGULACION" Type="number" Mode="In" />
           <Parameter Name="P_OBSERVACION" Type="varchar2" Mode="In" />
           <Parameter Name="P_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_BAJA_SOCIO_MOVILES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_BAJA_SOCIO_MOVILES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_SOCIO_MOVIL" Type="number" Mode="In" />
           <Parameter Name="P_FECHA_BAJA" Type="date" Mode="In" />
           <Parameter Name="P_OBSERVACION" Type="varchar2" Mode="In" />
           <Parameter Name="P_ID_USR" Type="number" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_CAMBIO_GARANTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_CAMBIO_GARANTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_CHOFER" Type="number" Mode="In" />
           <Parameter Name="P_FECHA_INI" Type="date" Mode="In" />
           <Parameter Name="P_OBSERVACION" Type="varchar2" Mode="In" />
@@ -2972,34 +2972,34 @@
           <Parameter Name="P_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ELIMINAR_CAJA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_ELIMINAR_CAJA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID" Type="number" Mode="In" />
           <Parameter Name="P_ID_USR" Type="number" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ELIMINAR_MORA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_ELIMINAR_MORA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_MORA" Type="number" Mode="In" />
           <Parameter Name="P_ID_USR" Type="number" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ELIMINAR_PERFIL_OPCION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_ELIMINAR_PERFIL_OPCION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_PERFIL" Type="number" Mode="In" />
           <Parameter Name="P_ID_OPC" Type="number" Mode="In" />
           <Parameter Name="P_ID_USR" Type="number" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_ELIMINAR_SOCIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_ELIMINAR_SOCIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_SOCIO" Type="number" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_GRABAR_IMPRESION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_GRABAR_IMPRESION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_NRO_INICIO" Type="number" Mode="In" />
           <Parameter Name="P_NRO_FIN" Type="number" Mode="In" />
           <Parameter Name="P_OBSERVACION" Type="varchar2" Mode="In" />
           <Parameter Name="P_LOGIN_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_GRABAR_LISTAS_ITEMS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_GRABAR_LISTAS_ITEMS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_TABLA" Type="number" Mode="In" />
           <Parameter Name="P_ID_PADRE" Type="number" Mode="In" />
           <Parameter Name="P_ID_LISTA" Type="number" Mode="In" />
@@ -3009,7 +3009,7 @@
           <Parameter Name="P_LOGIN_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_GRABAR_PERMISOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_GRABAR_PERMISOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_SOCIO_MOVIL" Type="number" Mode="In" />
           <Parameter Name="P_MOTIVO" Type="varchar2" Mode="In" />
           <Parameter Name="P_OBSERVACION" Type="varchar2" Mode="In" />
@@ -3019,7 +3019,7 @@
           <Parameter Name="P_LOGIN_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_GRABAR_SOCIO_MOVILES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_GRABAR_SOCIO_MOVILES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_SOCIO_MOVIL" Type="number" Mode="In" />
           <Parameter Name="P_ID_SOCIO" Type="number" Mode="In" />
           <Parameter Name="P_ID_MOVIL" Type="number" Mode="In" />
@@ -3032,7 +3032,7 @@
           <Parameter Name="P_ESTADO" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_GUARDAR_CAJAS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_GUARDAR_CAJAS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_CAJA" Type="number" Mode="In" />
           <Parameter Name="P_CODIGO" Type="varchar2" Mode="In" />
           <Parameter Name="P_NOMBRE" Type="varchar2" Mode="In" />
@@ -3043,7 +3043,7 @@
           <Parameter Name="P_LOGIN" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_GUARDAR_DEUDAS_SOCIOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_GUARDAR_DEUDAS_SOCIOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_DEUDA" Type="number" Mode="In" />
           <Parameter Name="P_ID_CAJA" Type="number" Mode="In" />
           <Parameter Name="P_MOTIVO" Type="varchar2" Mode="In" />
@@ -3053,7 +3053,7 @@
           <Parameter Name="P_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_GUARDAR_FONDO_EMER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_GUARDAR_FONDO_EMER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_CHOFE" Type="number" Mode="In" />
           <Parameter Name="P_ID_KARDEX" Type="number" Mode="In" />
           <Parameter Name="P_NRO_CMP" Type="number" Mode="In" />
@@ -3065,7 +3065,7 @@
           <Parameter Name="P_LOGIN" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_GUARDAR_HOJA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_GUARDAR_HOJA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_SOCIO_MOVIL" Type="number" Mode="In" />
           <Parameter Name="P_ID_PARADA" Type="number" Mode="In" />
           <Parameter Name="P_ID_CHOFER" Type="number" Mode="In" />
@@ -3075,7 +3075,7 @@
           <Parameter Name="P_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_GUARDAR_MORA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_GUARDAR_MORA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_MORA" Type="number" Mode="In" />
           <Parameter Name="P_ID_PRESTAMO" Type="number" Mode="In" />
           <Parameter Name="P_IMPORTE_MORA" Type="number" Mode="In" />
@@ -3084,14 +3084,14 @@
           <Parameter Name="P_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_GUARDAR_PERFIL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_GUARDAR_PERFIL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_PERFIL" Type="number" Mode="In" />
           <Parameter Name="P_NOMBRE" Type="varchar2" Mode="In" />
           <Parameter Name="P_DESCRIPCION" Type="varchar2" Mode="In" />
           <Parameter Name="P_ID_USR" Type="number" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_GUARDAR_REGULACION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_GUARDAR_REGULACION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_SOCIO_MOVIL" Type="number" Mode="In" />
           <Parameter Name="P_ID_PARADA" Type="number" Mode="In" />
           <Parameter Name="P_FECHA_COMPRA" Type="date" Mode="In" />
@@ -3100,7 +3100,7 @@
           <Parameter Name="P_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_GUARDAR_TIPO_EGRESO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_GUARDAR_TIPO_EGRESO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_TIPO" Type="number" Mode="In" />
           <Parameter Name="P_ID_CAJA" Type="number" Mode="In" />
           <Parameter Name="P_NOMBRE" Type="varchar2" Mode="In" />
@@ -3110,7 +3110,7 @@
           <Parameter Name="P_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_GUARDAR_TIPO_INGRESO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_GUARDAR_TIPO_INGRESO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_TIPO" Type="number" Mode="In" />
           <Parameter Name="P_ID_CAJA" Type="number" Mode="In" />
           <Parameter Name="P_NOMBRE" Type="varchar2" Mode="In" />
@@ -3121,7 +3121,7 @@
           <Parameter Name="P_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_GUARDAR_TIPO_PRESTAMO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_GUARDAR_TIPO_PRESTAMO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_TIPO" Type="number" Mode="In" />
           <Parameter Name="P_ID_CAJA" Type="number" Mode="In" />
           <Parameter Name="P_NOMBRE" Type="varchar2" Mode="In" />
@@ -3138,7 +3138,7 @@
           <Parameter Name="P_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SD_INGRESOS_POR_SOCIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SD_INGRESOS_POR_SOCIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_INGRESO" Type="number" Mode="In" />
           <Parameter Name="P_ID_SOCIO_MOVIL" Type="number" Mode="In" />
           <Parameter Name="P_ID_TIPO" Type="number" Mode="In" />
@@ -3148,13 +3148,13 @@
           <Parameter Name="P_USR" Type="varchar2" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SG_GUARDAR_PERFIL_OPCION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SG_GUARDAR_PERFIL_OPCION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_PERFIL" Type="number" Mode="In" />
           <Parameter Name="P_ID_OPC" Type="number" Mode="In" />
           <Parameter Name="P_ID_USR" Type="number" Mode="In" />
           <Parameter Name="P_RES" Type="varchar2" Mode="Out" />
         </Function>
-        <Function Name="P_SG_GUARDAR_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SINDICATO_121">
+        <Function Name="P_SG_GUARDAR_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SD_121">
           <Parameter Name="P_ID_USUARIO" Type="number" Mode="In" />
           <Parameter Name="P_LOGIN" Type="varchar2" Mode="In" />
           <Parameter Name="P_NOMBRE" Type="varchar2" Mode="In" />

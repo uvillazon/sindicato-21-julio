@@ -63,7 +63,7 @@ namespace Sindicato.WebSite.Infraestructura
                 }
                 catch (Exception e)
                 {
-                    return e.ToString();
+                    return string.Format("{0} error {1}",oracle.ConnectionString, e.ToString() );
                 }
                 finally 
                 {

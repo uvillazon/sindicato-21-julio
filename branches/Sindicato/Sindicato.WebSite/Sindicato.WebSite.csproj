@@ -1715,6 +1715,10 @@
     <Content Include="Content\themes\base\jquery.ui.slider.css" />
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="DDL\28112020\constraint.sql" />
+    <Content Include="DDL\28112020\procedureandview.sql" />
+    <Content Include="DDL\28112020\secuencias.sql" />
+    <Content Include="DDL\28112020\tablas.sql" />
     <Content Include="DDL\scriptAyuda.txt" />
     <Content Include="Global.asax" />
     <Content Include="..\..\..\..\..\132\sindicato-21-julio\branches\Sindicato\Sindicato.WebSite\DLL\01052019.txt">

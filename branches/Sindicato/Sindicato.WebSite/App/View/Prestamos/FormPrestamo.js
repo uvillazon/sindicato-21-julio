@@ -43,7 +43,7 @@
             name: "FECHA",
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
-            readOnly : true
+            readOnly : false
         });
 
         me.store_socio = Ext.create('App.Store.Socios.Socios');

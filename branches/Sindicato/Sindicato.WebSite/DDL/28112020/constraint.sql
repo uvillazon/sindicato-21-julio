@@ -1,0 +1,2001 @@
+
+
+ALTER TABLE SINDICATO_121_2020.SD_AUTOS ADD (
+  CONSTRAINT SD_AUTOS_PK
+ PRIMARY KEY
+ (ID_AUTO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_AUX_LOG_ERRORES ADD (
+  CONSTRAINT SD_AUX_LOG_ERRORES_PK
+ PRIMARY KEY
+ (ID_LOG)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_CAJAS ADD (
+  CONSTRAINT SD_CAJAS_PK
+ PRIMARY KEY
+ (ID_CAJA)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_CIERRES ADD (
+  CONSTRAINT SD_CIERRES_PK
+ PRIMARY KEY
+ (ID_CIERRE)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_CIERRES_CAJAS ADD (
+  CONSTRAINT SD_CIERRES_CAJAS_PK
+ PRIMARY KEY
+ (ID_CIERRE)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DESCUENTOS ADD (
+  CONSTRAINT SD_DESCUENTOS_PK
+ PRIMARY KEY
+ (ID_DESCUENTO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLE_CIERRES_AHORRO ADD (
+  CONSTRAINT SD_DETALLE_CIERRES_AHORRO_PK
+ PRIMARY KEY
+ (ID_DETALLE)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLE_CIERRES_CAJA ADD (
+  CONSTRAINT SD_DETALLE_CIERRES_CAJA_PK
+ PRIMARY KEY
+ (ID_DETALLE)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLE_HOJAS ADD (
+  CONSTRAINT SD_DETALLE_HOJAS_PK
+ PRIMARY KEY
+ (ID_DETALLE)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DEUDAS_SOCIOS ADD (
+  CONSTRAINT SD_DEUDAS_SOCIOS_PK
+ PRIMARY KEY
+ (ID_DEUDA)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_FONDO_EMERGENCIAS ADD (
+  CONSTRAINT SD_FONDO_EMERGENCIAS_PK
+ PRIMARY KEY
+ (ID_FONDO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_HIST_EDICION_DATOS ADD (
+  CONSTRAINT SD_HIST_EDICION_DATOS_PK
+ PRIMARY KEY
+ (ID_HIST)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_IMAGENES ADD (
+  CONSTRAINT SD_IMAGENES_PK
+ PRIMARY KEY
+ (ID_IMG)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_IMPRESIONES ADD (
+  CONSTRAINT SD_IMPRESIONES_PK
+ PRIMARY KEY
+ (ID_IMPRESION)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_INGRESOS ADD (
+  CONSTRAINT SD_INGRESOS_PK
+ PRIMARY KEY
+ (ID_INGRESO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_KARDEX_EFECTIVO ADD (
+  CONSTRAINT SD_KARDEX_EFECTIVO_PK
+ PRIMARY KEY
+ (ID_KARDEX)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_LINEAS ADD (
+  CONSTRAINT SD_LINEAS_PK
+ PRIMARY KEY
+ (ID_LINEA)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_LISTAS ADD (
+  CONSTRAINT PK_SG_LISTAS
+ PRIMARY KEY
+ (ID_LISTA)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_LISTAS_ITEMS ADD (
+  CONSTRAINT SG_LISTAS_ITEMS_PK
+ PRIMARY KEY
+ (ID_TABLA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_MENU_OPCIONES ADD (
+  CONSTRAINT SG_MENU_OPCIONES_PK
+ PRIMARY KEY
+ (ID_OPC));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_MOVILES ADD (
+  CONSTRAINT SD_MOVILES_PK
+ PRIMARY KEY
+ (ID_MOVIL)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_OBLIGACIONES_HOJA ADD (
+  CONSTRAINT SD_OBLIGACIONES_HOJA_PK
+ PRIMARY KEY
+ (ID_OBLIGACION)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_PARADAS ADD (
+  CONSTRAINT SD_PARADAS_PK
+ PRIMARY KEY
+ (ID_PARADA)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_PARAMETROS_LINEA ADD (
+  CONSTRAINT SD_PARAMETROS_LINEA_PK
+ PRIMARY KEY
+ (ID_PARAMETRO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_PERFILES ADD (
+  CONSTRAINT SG_PERFILES_PK
+ PRIMARY KEY
+ (ID_PERFIL));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_PERFILES_OPCIONES ADD (
+  CONSTRAINT SG_PERFILES_OPCIONES_PK
+ PRIMARY KEY
+ (ID_PRF_OPC));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_REP_INGRESOS_EGRESOS ADD (
+  CONSTRAINT SD_REP_INGRESOS_EGRESOS_PK
+ PRIMARY KEY
+ (ID)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_SOCIOS ADD (
+  CONSTRAINT SD_SOCIOS_PK
+ PRIMARY KEY
+ (ID_SOCIO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+ALTER TABLE SINDICATO_121_2020.SD_SOCIOS ADD (
+  CONSTRAINT SD_SOCIOS_U01
+ UNIQUE (NRO_SOCIO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_SOCIO_DESEMPENOS ADD (
+  CONSTRAINT SD_SOCIO_DESEMPENOS_PK
+ PRIMARY KEY
+ (ID_DESEMPENO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_SOCIO_MOVILES ADD (
+  CONSTRAINT SD_SOCIO_MOVILES_PK
+ PRIMARY KEY
+ (ID_SOCIO_MOVIL)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_SOCIO_MOVIL_AUTOS ADD (
+  CONSTRAINT SD_SOCIO_MOVIL_AUTOS_PK
+ PRIMARY KEY
+ (ID_SOCIO_MOVIL_AUTO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_SOC_MOV_OBLIG ADD (
+  CONSTRAINT SD_SOC_MOV_OBLIG_PK
+ PRIMARY KEY
+ (ID_SOC_MOV_OBLIG)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_TIPOS_EGRESOS ADD (
+  CONSTRAINT SD_TIPOS_EGRESOS_PK
+ PRIMARY KEY
+ (ID_TIPO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_TIPOS_INGRESOS_SOCIO ADD (
+  CONSTRAINT SD_TIPOS_INGRESOS_SOCIO_PK
+ PRIMARY KEY
+ (ID_TIPO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_TIPOS_PRESTAMOS ADD (
+  CONSTRAINT SD_TIPOS_PRESTAMOS_PK
+ PRIMARY KEY
+ (ID_TIPO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_TRANSFERENCIAS ADD (
+  CONSTRAINT SD_TRANSFERENCIAS_PK
+ PRIMARY KEY
+ (ID_TRANSFERENCIA)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_TRANSFERENCIAS_HOJAS ADD (
+  CONSTRAINT SD_TRANSFERENCIAS_HOJAS_PK
+ PRIMARY KEY
+ (ID_TRANSF)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_USUARIOS ADD (
+  CONSTRAINT SG_USUARIOS_PK
+ PRIMARY KEY
+ (ID_USUARIO));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_VENTA_HOJAS_CONTROL ADD (
+  CONSTRAINT SD_VENTA_HOJAS_CONTROL_PK
+ PRIMARY KEY
+ (ID_VENTA)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_VENTA_HOJAS_REFUERZO ADD (
+  CONSTRAINT SD_VENTA_HOJAS_REFUERZO_PK
+ PRIMARY KEY
+ (ID_VENTA)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_AMORTIZACIONES ADD (
+  CONSTRAINT SD_AMORTIZACIONES_PK
+ PRIMARY KEY
+ (ID_AMORTIZACION)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_CHOFERES ADD (
+  CONSTRAINT SD_CHOFERES_PK
+ PRIMARY KEY
+ (ID_CHOFER)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_CIERRES_PARADA ADD (
+  CONSTRAINT SD_CIERRES_PARADA_PK
+ PRIMARY KEY
+ (ID_CIERRE)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DEPOSITO_FE ADD (
+  CONSTRAINT SD_DEPOSITO_FE_PK
+ PRIMARY KEY
+ (ID_DEPOSITO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DESCUENTOS_SOCIO ADD (
+  CONSTRAINT SD_DESCUENTOS_SOCIO_PK
+ PRIMARY KEY
+ (ID_DESCUENTO_SOCIO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLES_DEUDAS ADD (
+  CONSTRAINT SD_DETALLES_DEUDAS_PK
+ PRIMARY KEY
+ (ID_DETALLE)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLE_CIERRE_PARADA ADD (
+  CONSTRAINT SD_DETALLE_CIERRE_PARADA_PK
+ PRIMARY KEY
+ (ID_DETALLE)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLE_PERIODO_SOCIO ADD (
+  CONSTRAINT SD_DETALLE_PERIODO_SOCIO_PK
+ PRIMARY KEY
+ (ID_DETALLE)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DOCUMENTACIONES ADD (
+  CONSTRAINT SD_DOCUMENTACIONES_PK
+ PRIMARY KEY
+ (ID_DOCUMENTACION)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_EGRESOS ADD (
+  CONSTRAINT SD_EGRESOS_PK
+ PRIMARY KEY
+ (ID_EGRESO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_FAMILIARES ADD (
+  CONSTRAINT SD_FAMILIARES_PK
+ PRIMARY KEY
+ (ID_FAMILIAR)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_GARANTES ADD (
+  CONSTRAINT SD_GARANTES_PK
+ PRIMARY KEY
+ (ID_GARANTE)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_HIST_MOVIL ADD (
+  CONSTRAINT SD_HIST_MOVIL_PK
+ PRIMARY KEY
+ (ID_HIST)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_HOJAS_CONTROL ADD (
+  CONSTRAINT SD_HOJAS_CONTROL_PK
+ PRIMARY KEY
+ (ID_HOJA)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_HOJAS_LINEA ADD (
+  CONSTRAINT SD_HOJAS_LINEA_PK
+ PRIMARY KEY
+ (ID_HOJA)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_INGRESOS_POR_SOCIOS ADD (
+  CONSTRAINT SD_INGRESOS_POR_SOCIOS_PK
+ PRIMARY KEY
+ (ID_INGRESO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_INGRESOS_SOCIO ADD (
+  CONSTRAINT SD_INGRESOS_SOCIO_PK
+ PRIMARY KEY
+ (ID_INGRESO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_KARDEX_FM ADD (
+  CONSTRAINT SD_KARDEX_FM_PK
+ PRIMARY KEY
+ (ID_KARDEX)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_KARDEX_HOJAS ADD (
+  CONSTRAINT SD_KARDEX_HOJAS_PK
+ PRIMARY KEY
+ (ID_KARDEX)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_KARDEX_SOCIO ADD (
+  CONSTRAINT SD_KARDEX_SOCIO_PK
+ PRIMARY KEY
+ (ID_KARDEX)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_KARDEX_SOCIO_DEBE ADD (
+  CONSTRAINT SD_KARDEX_SOCIO_DEBE_PK
+ PRIMARY KEY
+ (ID_KARDEX)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_KARDEX_SOCIO_MOVIL ADD (
+  CONSTRAINT SD_KARDEX_SOCIO_MOVIL_PK
+ PRIMARY KEY
+ (ID_KARDEX)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_OBLIGACIONES_SOCIO ADD (
+  CONSTRAINT SD_OBLIGACIONES_SOCIO_PK
+ PRIMARY KEY
+ (ID_OBLIGACION)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_OTRAS_OBLIGACIONES ADD (
+  CONSTRAINT SD_OTRAS_OBLIGACIONES_PK
+ PRIMARY KEY
+ (ID_OBLIGACION)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_PERMISOS ADD (
+  CONSTRAINT SD_PERMISOS_PK
+ PRIMARY KEY
+ (ID_PERMISO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_PRESTAMOS_POR_SOCIOS ADD (
+  CONSTRAINT SD_PRESTAMOS_POR_SOCIOS_PK
+ PRIMARY KEY
+ (ID_PRESTAMO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_REGULARIZACIONES ADD (
+  CONSTRAINT SD_REGULARIZACIONES_PK
+ PRIMARY KEY
+ (ID_REGULACION)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_RETIRO_FE ADD (
+  CONSTRAINT SD_RETIRO_FE_PK
+ PRIMARY KEY
+ (ID_RETIRO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_RETIRO_SOCIO ADD (
+  CONSTRAINT SD_RETIRO_SOCIO_PK
+ PRIMARY KEY
+ (ID_RETIRO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_RETIRO_SOCIO_MOVIL ADD (
+  CONSTRAINT SD_RETIRO_SOCIO_MOVIL_PK
+ PRIMARY KEY
+ (ID_RETIRO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_TRANSF_HOJA_DET ADD (
+  CONSTRAINT SD_TRANSF_HOJA_DET_PK
+ PRIMARY KEY
+ (ID_DETALLE)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_VENTA_HOJAS ADD (
+  CONSTRAINT SD_VENTA_HOJAS_PK
+ PRIMARY KEY
+ (ID)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_ANTECEDENTES ADD (
+  CONSTRAINT SD_ANTECEDENTES_PK
+ PRIMARY KEY
+ (ID_ANTECEDENTE)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_ANULACIONES ADD (
+  CONSTRAINT SD_ANULACIONES_PK
+ PRIMARY KEY
+ (ID_ANULACION)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLES_HOJAS_CONTROL ADD (
+  CONSTRAINT SD_DETALLES_HOJAS_CONTROL_PK
+ PRIMARY KEY
+ (ID_DETALLE)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLES_HOJAS_USO ADD (
+  CONSTRAINT SD_DETALLES_HOJAS_USO_PK
+ PRIMARY KEY
+ (ID_DETALLE)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLES_REGULARIZACIONES ADD (
+  CONSTRAINT SD_DETALLES_REGULARIZACIONESPK
+ PRIMARY KEY
+ (ID_DETALLE)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_KARDEX_OBLIGACION ADD (
+  CONSTRAINT SD_KARDEX_OBLIGACION_PK
+ PRIMARY KEY
+ (ID_KARDEX)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_PAGO_DE_PRESTAMOS ADD (
+  CONSTRAINT SD_PAGO_DE_PRESTAMOS_PK
+ PRIMARY KEY
+ (ID_PAGO)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_PLAN_DE_PAGO ADD (
+  CONSTRAINT SD_PLAN_DE_PAGO_PK
+ PRIMARY KEY
+ (ID_PLAN)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_PRESTAMOS_MORA ADD (
+  CONSTRAINT SD_PRESTAMOS_MORA_PK
+ PRIMARY KEY
+ (ID_MORA)
+    USING INDEX 
+    TABLESPACE USERS
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+               ));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_CIERRES_CAJAS ADD (
+  CONSTRAINT SD_CIERRES_CAJAS_R01 
+ FOREIGN KEY (ID_CIERRE_ANTERIOR) 
+ REFERENCES SINDICATO_121_2020.SD_CIERRES_CAJAS (ID_CIERRE));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DESCUENTOS ADD (
+  CONSTRAINT SD_DESCUENTOS_R01 
+ FOREIGN KEY (ID_CIERRE) 
+ REFERENCES SINDICATO_121_2020.SD_CIERRES (ID_CIERRE));
+
+ALTER TABLE SINDICATO_121_2020.SD_DESCUENTOS ADD (
+  CONSTRAINT SD_DESCUENTOS_R02 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLE_CIERRES_AHORRO ADD (
+  CONSTRAINT SD_DETALLE_CIERRES_AHORRO_R01 
+ FOREIGN KEY (ID_CIERRE) 
+ REFERENCES SINDICATO_121_2020.SD_CIERRES (ID_CIERRE));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLE_CIERRES_CAJA ADD (
+  CONSTRAINT SD_DETALLE_CIERRES_CAJA_R01 
+ FOREIGN KEY (ID_CIERRE) 
+ REFERENCES SINDICATO_121_2020.SD_CIERRES_CAJAS (ID_CIERRE));
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLE_CIERRES_CAJA ADD (
+  CONSTRAINT SD_DETALLE_CIERRES_CAJA_R02 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DEUDAS_SOCIOS ADD (
+  CONSTRAINT SD_DEUDAS_SOCIOS_R01 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_INGRESOS ADD (
+  CONSTRAINT SD_INGRESOS_R01 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_KARDEX_EFECTIVO ADD (
+  CONSTRAINT SD_KARDEX_EFECTIVO_R01 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_LISTAS_ITEMS ADD (
+  CONSTRAINT SG_LISTAS_ITEMS_R01 
+ FOREIGN KEY (ID_LISTA) 
+ REFERENCES SINDICATO_121_2020.SD_LISTAS (ID_LISTA));
+
+ALTER TABLE SINDICATO_121_2020.SD_LISTAS_ITEMS ADD (
+  CONSTRAINT SG_LISTAS_ITEMS_R02 
+ FOREIGN KEY (ID_PADRE) 
+ REFERENCES SINDICATO_121_2020.SD_LISTAS_ITEMS (ID_TABLA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_MOVILES ADD (
+  CONSTRAINT SD_MOVILES_R01 
+ FOREIGN KEY (ID_LINEA) 
+ REFERENCES SINDICATO_121_2020.SD_LINEAS (ID_LINEA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_OBLIGACIONES_HOJA ADD (
+  CONSTRAINT SD_OBLIGACIONES_HOJA_R01 
+ FOREIGN KEY (ID_LINEA) 
+ REFERENCES SINDICATO_121_2020.SD_LINEAS (ID_LINEA));
+
+ALTER TABLE SINDICATO_121_2020.SD_OBLIGACIONES_HOJA ADD (
+  CONSTRAINT SD_OBLIGACIONES_HOJA_R02 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+ALTER TABLE SINDICATO_121_2020.SD_OBLIGACIONES_HOJA ADD (
+  CONSTRAINT SD_OBLIGACIONES_HOJA_R03 
+ FOREIGN KEY (ID_CAJA_REG) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_PARADAS ADD (
+  CONSTRAINT SD_PARADAS_R01 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_PARAMETROS_LINEA ADD (
+  CONSTRAINT SD_PARAMETROS_LINEA_R01 
+ FOREIGN KEY (ID_LINEA) 
+ REFERENCES SINDICATO_121_2020.SD_LINEAS (ID_LINEA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_PERFILES ADD (
+  CONSTRAINT SD_PERFILES_R01 
+ FOREIGN KEY (ID_PARADA) 
+ REFERENCES SINDICATO_121_2020.SD_PARADAS (ID_PARADA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_PERFILES_OPCIONES ADD (
+  CONSTRAINT SG_PERFILES_OPCIONES_R01 
+ FOREIGN KEY (ID_PERFIL) 
+ REFERENCES SINDICATO_121_2020.SD_PERFILES (ID_PERFIL));
+
+ALTER TABLE SINDICATO_121_2020.SD_PERFILES_OPCIONES ADD (
+  CONSTRAINT SG_PERFILES_OPCIONES_R02 
+ FOREIGN KEY (ID_OPC) 
+ REFERENCES SINDICATO_121_2020.SD_MENU_OPCIONES (ID_OPC));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_SOCIO_DESEMPENOS ADD (
+  CONSTRAINT SD_SOCIO_DESEMPENOS_R01 
+ FOREIGN KEY (ID_SOCIO) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIOS (ID_SOCIO));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_SOCIO_MOVILES ADD (
+  CONSTRAINT SD_SOCIO_MOVILES_R01 
+ FOREIGN KEY (ID_SOCIO) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIOS (ID_SOCIO));
+
+ALTER TABLE SINDICATO_121_2020.SD_SOCIO_MOVILES ADD (
+  CONSTRAINT SD_SOCIO_MOVILES_R02 
+ FOREIGN KEY (ID_MOVIL) 
+ REFERENCES SINDICATO_121_2020.SD_MOVILES (ID_MOVIL));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_SOCIO_MOVIL_AUTOS ADD (
+  CONSTRAINT SD_SOCIO_MOVIL_AUTOS_R01 
+ FOREIGN KEY (ID_SOCIO_MOVIL) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIO_MOVILES (ID_SOCIO_MOVIL));
+
+ALTER TABLE SINDICATO_121_2020.SD_SOCIO_MOVIL_AUTOS ADD (
+  CONSTRAINT SD_SOCIO_MOVIL_AUTOS_R02 
+ FOREIGN KEY (ID_AUTO) 
+ REFERENCES SINDICATO_121_2020.SD_AUTOS (ID_AUTO));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_SOC_MOV_OBLIG ADD (
+  CONSTRAINT SD_SOC_MOV_OBLIG_R01 
+ FOREIGN KEY (ID_OBLIGACION) 
+ REFERENCES SINDICATO_121_2020.SD_OBLIGACIONES_HOJA (ID_OBLIGACION));
+
+ALTER TABLE SINDICATO_121_2020.SD_SOC_MOV_OBLIG ADD (
+  CONSTRAINT SD_SOC_MOV_OBLIG_R02 
+ FOREIGN KEY (ID_SOCIO_MOVIL) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIO_MOVILES (ID_SOCIO_MOVIL));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_TIPOS_EGRESOS ADD (
+  CONSTRAINT SD_TIPOS_EGRESOS_R01 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_TIPOS_INGRESOS_SOCIO ADD (
+  CONSTRAINT SD_TIPOS_INGRESOS_SOCIO_R01 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_TIPOS_PRESTAMOS ADD (
+  CONSTRAINT SD_TIPOS_PRESTAMOS_R01 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_TRANSFERENCIAS ADD (
+  CONSTRAINT SD_TRANSFERENCIAS_R01 
+ FOREIGN KEY (ID_CAJA_ORIGEN) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+ALTER TABLE SINDICATO_121_2020.SD_TRANSFERENCIAS ADD (
+  CONSTRAINT SD_TRANSFERENCIAS_R02 
+ FOREIGN KEY (ID_CAJA_DESTINO) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_TRANSFERENCIAS_HOJAS ADD (
+  CONSTRAINT SD_TRANSFERENCIAS_HOJAS_R01 
+ FOREIGN KEY (TO_SOCIO_MOVIL) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIO_MOVILES (ID_SOCIO_MOVIL));
+
+ALTER TABLE SINDICATO_121_2020.SD_TRANSFERENCIAS_HOJAS ADD (
+  CONSTRAINT SD_TRANSFERENCIAS_HOJAS_R02 
+ FOREIGN KEY (FROM_SOCIO_MOVIL) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIO_MOVILES (ID_SOCIO_MOVIL));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_USUARIOS ADD (
+  CONSTRAINT SG_USUARIOS_R01 
+ FOREIGN KEY (ID_PERFIL) 
+ REFERENCES SINDICATO_121_2020.SD_PERFILES (ID_PERFIL));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_VENTA_HOJAS_CONTROL ADD (
+  CONSTRAINT SD_VENTA_HOJAS_CONTROL_R01 
+ FOREIGN KEY (ID_PARADA) 
+ REFERENCES SINDICATO_121_2020.SD_PARADAS (ID_PARADA));
+
+ALTER TABLE SINDICATO_121_2020.SD_VENTA_HOJAS_CONTROL ADD (
+  CONSTRAINT SD_VENTA_HOJAS_CONTROL_R02 
+ FOREIGN KEY (ID_SOCIO) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIOS (ID_SOCIO));
+
+ALTER TABLE SINDICATO_121_2020.SD_VENTA_HOJAS_CONTROL ADD (
+  CONSTRAINT SD_VENTA_HOJAS_CONTROL_R03 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_VENTA_HOJAS_REFUERZO ADD (
+  CONSTRAINT SD_VENTA_HOJAS_REFUERZO_R01 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_AMORTIZACIONES ADD (
+  CONSTRAINT SD_AMORTIZACIONES_R01 
+ FOREIGN KEY (ID_SOCIO) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIOS (ID_SOCIO));
+
+ALTER TABLE SINDICATO_121_2020.SD_AMORTIZACIONES ADD (
+  CONSTRAINT SD_AMORTIZACIONES_R02 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_CHOFERES ADD (
+  CONSTRAINT SD_CHOFERES_R01 
+ FOREIGN KEY (ID_SOCIO) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIOS (ID_SOCIO));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_CIERRES_PARADA ADD (
+  CONSTRAINT SD_CIERRES_PARADA_R01 
+ FOREIGN KEY (ID_PARADA) 
+ REFERENCES SINDICATO_121_2020.SD_PARADAS (ID_PARADA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DEPOSITO_FE ADD (
+  CONSTRAINT SD_DEPOSITO_FE_R01 
+ FOREIGN KEY (ID_CHOFER) 
+ REFERENCES SINDICATO_121_2020.SD_CHOFERES (ID_CHOFER));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DESCUENTOS_SOCIO ADD (
+  CONSTRAINT SD_DESCUENTOS_SOCIO_R01 
+ FOREIGN KEY (ID_DESCUENTO) 
+ REFERENCES SINDICATO_121_2020.SD_DESCUENTOS (ID_DESCUENTO));
+
+ALTER TABLE SINDICATO_121_2020.SD_DESCUENTOS_SOCIO ADD (
+  CONSTRAINT SD_DESCUENTOS_SOCIO_R02 
+ FOREIGN KEY (ID_SOCIO) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIOS (ID_SOCIO));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLES_DEUDAS ADD (
+  CONSTRAINT SD_DETALLES_DEUDAS_R01 
+ FOREIGN KEY (ID_DEUDA) 
+ REFERENCES SINDICATO_121_2020.SD_DEUDAS_SOCIOS (ID_DEUDA));
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLES_DEUDAS ADD (
+  CONSTRAINT SD_DETALLES_DEUDAS_R02 
+ FOREIGN KEY (ID_SOCIO_MOVIL) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIO_MOVILES (ID_SOCIO_MOVIL));
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLES_DEUDAS ADD (
+  CONSTRAINT SD_DETALLES_DEUDAS_R03 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLE_CIERRE_PARADA ADD (
+  CONSTRAINT SD_DETALLE_CIERRE_PARADA_R01 
+ FOREIGN KEY (ID_CIERRE) 
+ REFERENCES SINDICATO_121_2020.SD_CIERRES_PARADA (ID_CIERRE));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLE_PERIODO_SOCIO ADD (
+  CONSTRAINT SD_DETALLE_PERIODO_SOCIO_R01 
+ FOREIGN KEY (ID_CIERRE) 
+ REFERENCES SINDICATO_121_2020.SD_CIERRES (ID_CIERRE));
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLE_PERIODO_SOCIO ADD (
+  CONSTRAINT SD_DETALLE_PERIODO_SOCIO_R02 
+ FOREIGN KEY (ID_SOCIO) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIOS (ID_SOCIO));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DOCUMENTACIONES ADD (
+  CONSTRAINT SD_DOCUMENTACIONES_R02 
+ FOREIGN KEY (ID_CHOFER) 
+ REFERENCES SINDICATO_121_2020.SD_CHOFERES (ID_CHOFER));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_EGRESOS ADD (
+  CONSTRAINT SD_EGRESOS_R01 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+ALTER TABLE SINDICATO_121_2020.SD_EGRESOS ADD (
+  CONSTRAINT SD_EGRESOS_R02 
+ FOREIGN KEY (ID_TIPO) 
+ REFERENCES SINDICATO_121_2020.SD_TIPOS_EGRESOS (ID_TIPO));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_FAMILIARES ADD (
+  CONSTRAINT SD_FAMILIARES_R01 
+ FOREIGN KEY (ID_SOCIO) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIOS (ID_SOCIO));
+
+ALTER TABLE SINDICATO_121_2020.SD_FAMILIARES ADD (
+  CONSTRAINT SD_FAMILIARES_R02 
+ FOREIGN KEY (ID_CHOFER) 
+ REFERENCES SINDICATO_121_2020.SD_CHOFERES (ID_CHOFER));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_GARANTES ADD (
+  CONSTRAINT SD_GARANTES_R01 
+ FOREIGN KEY (ID_CHOFER) 
+ REFERENCES SINDICATO_121_2020.SD_CHOFERES (ID_CHOFER));
+
+ALTER TABLE SINDICATO_121_2020.SD_GARANTES ADD (
+  CONSTRAINT SD_GARANTES_R02 
+ FOREIGN KEY (ID_SOCIO) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIOS (ID_SOCIO));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_HIST_MOVIL ADD (
+  CONSTRAINT SD_HIST_MOVIL_R01 
+ FOREIGN KEY (ID_MOVIL) 
+ REFERENCES SINDICATO_121_2020.SD_MOVILES (ID_MOVIL));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_HOJAS_CONTROL ADD (
+  CONSTRAINT SD_HOJAS_CONTROL_R01 
+ FOREIGN KEY (ID_PARADA) 
+ REFERENCES SINDICATO_121_2020.SD_PARADAS (ID_PARADA));
+
+ALTER TABLE SINDICATO_121_2020.SD_HOJAS_CONTROL ADD (
+  CONSTRAINT SD_HOJAS_CONTROL_R02 
+ FOREIGN KEY (ID_SOCIO_MOVIL) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIO_MOVILES (ID_SOCIO_MOVIL));
+
+ALTER TABLE SINDICATO_121_2020.SD_HOJAS_CONTROL ADD (
+  CONSTRAINT SD_HOJAS_CONTROL_R03 
+ FOREIGN KEY (ID_CHOFER) 
+ REFERENCES SINDICATO_121_2020.SD_CHOFERES (ID_CHOFER));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_HOJAS_LINEA ADD (
+  CONSTRAINT SD_HOJAS_LINEA_R01 
+ FOREIGN KEY (ID_LINEA) 
+ REFERENCES SINDICATO_121_2020.SD_LINEAS (ID_LINEA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_INGRESOS_POR_SOCIOS ADD (
+  CONSTRAINT SD_INGRESOS_POR_SOCIOS_R01 
+ FOREIGN KEY (ID_SOCIO_MOVIL) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIO_MOVILES (ID_SOCIO_MOVIL));
+
+ALTER TABLE SINDICATO_121_2020.SD_INGRESOS_POR_SOCIOS ADD (
+  CONSTRAINT SD_INGRESOS_POR_SOCIOS_R02 
+ FOREIGN KEY (ID_TIPO_INGRESO) 
+ REFERENCES SINDICATO_121_2020.SD_TIPOS_INGRESOS_SOCIO (ID_TIPO));
+
+ALTER TABLE SINDICATO_121_2020.SD_INGRESOS_POR_SOCIOS ADD (
+  CONSTRAINT SD_INGRESOS_POR_SOCIOS_R03 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_INGRESOS_SOCIO ADD (
+  CONSTRAINT SD_INGRESOS_SOCIO_R01 
+ FOREIGN KEY (ID_SOCIO) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIOS (ID_SOCIO));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_KARDEX_FM ADD (
+  CONSTRAINT SD_KARDEX_FM_R01 
+ FOREIGN KEY (ID_CHOFER) 
+ REFERENCES SINDICATO_121_2020.SD_CHOFERES (ID_CHOFER));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_KARDEX_HOJAS ADD (
+  CONSTRAINT SD_KARDEX_HOJAS_R01 
+ FOREIGN KEY (ID_SOCIO_MOVIL) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIO_MOVILES (ID_SOCIO_MOVIL));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_KARDEX_SOCIO ADD (
+  CONSTRAINT SD_KARDEX_SOCIO_R01 
+ FOREIGN KEY (ID_SOCIO) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIOS (ID_SOCIO));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_KARDEX_SOCIO_DEBE ADD (
+  CONSTRAINT SD_KARDEX_SOCIO_DEBE_R01 
+ FOREIGN KEY (ID_SOCIO) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIOS (ID_SOCIO));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_KARDEX_SOCIO_MOVIL ADD (
+  CONSTRAINT SD_KARDEX_SOCIO_MOVIL_R01 
+ FOREIGN KEY (ID_SOCIO_MOVIL) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIO_MOVILES (ID_SOCIO_MOVIL));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_OBLIGACIONES_SOCIO ADD (
+  CONSTRAINT SD_OBLIGACIONES_SOCIO_R01 
+ FOREIGN KEY (ID_SOCIO) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIOS (ID_SOCIO));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_OTRAS_OBLIGACIONES ADD (
+  CONSTRAINT SD_OTRAS_OBLIGACIONES_R01 
+ FOREIGN KEY (ID_SOCIO) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIOS (ID_SOCIO));
+
+ALTER TABLE SINDICATO_121_2020.SD_OTRAS_OBLIGACIONES ADD (
+  CONSTRAINT SD_OTRAS_OBLIGACIONES_R02 
+ FOREIGN KEY (ID_CIERRE) 
+ REFERENCES SINDICATO_121_2020.SD_CIERRES (ID_CIERRE));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_PERMISOS ADD (
+  CONSTRAINT SD_PERMISOS_R01 
+ FOREIGN KEY (ID_SOCIO_MOVIL) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIO_MOVILES (ID_SOCIO_MOVIL));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_PRESTAMOS_POR_SOCIOS ADD (
+  CONSTRAINT SD_PRESTAMOS_POR_SOCIOS_R01 
+ FOREIGN KEY (ID_SOCIO_MOVIL) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIO_MOVILES (ID_SOCIO_MOVIL));
+
+ALTER TABLE SINDICATO_121_2020.SD_PRESTAMOS_POR_SOCIOS ADD (
+  CONSTRAINT SD_PRESTAMOS_POR_SOCIOS_R02 
+ FOREIGN KEY (ID_TIPO_PRESTAMO) 
+ REFERENCES SINDICATO_121_2020.SD_TIPOS_PRESTAMOS (ID_TIPO));
+
+ALTER TABLE SINDICATO_121_2020.SD_PRESTAMOS_POR_SOCIOS ADD (
+  CONSTRAINT SD_PRESTAMOS_POR_SOCIOS_R03 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+ALTER TABLE SINDICATO_121_2020.SD_PRESTAMOS_POR_SOCIOS ADD (
+  CONSTRAINT SD_PRESTAMOS_POR_SOCIOS_R04 
+ FOREIGN KEY (ID_PRESTAMO_REF) 
+ REFERENCES SINDICATO_121_2020.SD_PRESTAMOS_POR_SOCIOS (ID_PRESTAMO));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_REGULARIZACIONES ADD (
+  CONSTRAINT SD_REGULARIZACIONES_R01 
+ FOREIGN KEY (ID_PARADA) 
+ REFERENCES SINDICATO_121_2020.SD_PARADAS (ID_PARADA));
+
+ALTER TABLE SINDICATO_121_2020.SD_REGULARIZACIONES ADD (
+  CONSTRAINT SD_REGULARIZACIONES_R02 
+ FOREIGN KEY (ID_SOCIO_MOVIL) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIO_MOVILES (ID_SOCIO_MOVIL));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_RETIRO_FE ADD (
+  CONSTRAINT SD_RETIRO_FE_R01 
+ FOREIGN KEY (ID_CHOFER) 
+ REFERENCES SINDICATO_121_2020.SD_CHOFERES (ID_CHOFER));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_RETIRO_SOCIO ADD (
+  CONSTRAINT SD_RETIRO_SOCIO_R01 
+ FOREIGN KEY (ID_SOCIO) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIOS (ID_SOCIO));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_RETIRO_SOCIO_MOVIL ADD (
+  CONSTRAINT SD_RETIRO_SOCIO_MOVIL_R01 
+ FOREIGN KEY (ID_SOCIO_MOVIL) 
+ REFERENCES SINDICATO_121_2020.SD_SOCIO_MOVILES (ID_SOCIO_MOVIL));
+
+ALTER TABLE SINDICATO_121_2020.SD_RETIRO_SOCIO_MOVIL ADD (
+  CONSTRAINT SD_RETIRO_SOCIO_MOVIL_R02 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_TRANSF_HOJA_DET ADD (
+  CONSTRAINT SD_TRANSF_HOJA_DET_R01 
+ FOREIGN KEY (ID_TRANSF) 
+ REFERENCES SINDICATO_121_2020.SD_TRANSFERENCIAS_HOJAS (ID_TRANSF));
+
+ALTER TABLE SINDICATO_121_2020.SD_TRANSF_HOJA_DET ADD (
+  CONSTRAINT SD_TRANSF_HOJA_DET_R02 
+ FOREIGN KEY (ID_HOJA) 
+ REFERENCES SINDICATO_121_2020.SD_HOJAS_CONTROL (ID_HOJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_VENTA_HOJAS ADD (
+  CONSTRAINT SD_VENTA_HOJAS_R01 
+ FOREIGN KEY (ID_HOJA) 
+ REFERENCES SINDICATO_121_2020.SD_HOJAS_CONTROL (ID_HOJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_ANTECEDENTES ADD (
+  CONSTRAINT SD_ANTECEDENTES_R02 
+ FOREIGN KEY (ID_CHOFER) 
+ REFERENCES SINDICATO_121_2020.SD_CHOFERES (ID_CHOFER));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_ANULACIONES ADD (
+  CONSTRAINT SD_ANULACIONES_R01 
+ FOREIGN KEY (ID_HOJA) 
+ REFERENCES SINDICATO_121_2020.SD_HOJAS_CONTROL (ID_HOJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLES_HOJAS_CONTROL ADD (
+  CONSTRAINT SD_DETALLES_HOJAS_CONTROL_R01 
+ FOREIGN KEY (ID_HOJA) 
+ REFERENCES SINDICATO_121_2020.SD_HOJAS_CONTROL (ID_HOJA));
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLES_HOJAS_CONTROL ADD (
+  CONSTRAINT SD_DETALLES_HOJAS_CONTROL_R02 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLES_HOJAS_USO ADD (
+  CONSTRAINT SD_DETALLES_HOJAS_USO_R01 
+ FOREIGN KEY (ID_HOJA) 
+ REFERENCES SINDICATO_121_2020.SD_HOJAS_CONTROL (ID_HOJA));
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLES_HOJAS_USO ADD (
+  CONSTRAINT SD_DETALLES_HOJAS_USO_R02 
+ FOREIGN KEY (ID_VENTA) 
+ REFERENCES SINDICATO_121_2020.SD_VENTA_HOJAS_REFUERZO (ID_VENTA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLES_REGULARIZACIONES ADD (
+  CONSTRAINT SD_DETALLES_REGULARIZACION_R01 
+ FOREIGN KEY (ID_REGULACION) 
+ REFERENCES SINDICATO_121_2020.SD_REGULARIZACIONES (ID_REGULACION));
+
+ALTER TABLE SINDICATO_121_2020.SD_DETALLES_REGULARIZACIONES ADD (
+  CONSTRAINT SD_DETALLES_REGULARIZACION_R02 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_KARDEX_OBLIGACION ADD (
+  CONSTRAINT SD_KARDEX_OBLIGACION_R01 
+ FOREIGN KEY (ID_OBLIGACION) 
+ REFERENCES SINDICATO_121_2020.SD_OBLIGACIONES_SOCIO (ID_OBLIGACION));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_PAGO_DE_PRESTAMOS ADD (
+  CONSTRAINT SD_PAGO_DE_PRESTAMOS_R01 
+ FOREIGN KEY (ID_PRESTAMO) 
+ REFERENCES SINDICATO_121_2020.SD_PRESTAMOS_POR_SOCIOS (ID_PRESTAMO));
+
+ALTER TABLE SINDICATO_121_2020.SD_PAGO_DE_PRESTAMOS ADD (
+  CONSTRAINT SD_PAGO_DE_PRESTAMOS_R02 
+ FOREIGN KEY (ID_CAJA) 
+ REFERENCES SINDICATO_121_2020.SD_CAJAS (ID_CAJA));
+
+ALTER TABLE SINDICATO_121_2020.SD_PAGO_DE_PRESTAMOS ADD (
+  CONSTRAINT SD_PAGO_DE_PRESTAMOS_R03 
+ FOREIGN KEY (ID_PAGO_REF) 
+ REFERENCES SINDICATO_121_2020.SD_PAGO_DE_PRESTAMOS (ID_PAGO));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_PLAN_DE_PAGO ADD (
+  CONSTRAINT SD_PLAN_DE_PAGO_R01 
+ FOREIGN KEY (ID_PRESTAMO) 
+ REFERENCES SINDICATO_121_2020.SD_PRESTAMOS_POR_SOCIOS (ID_PRESTAMO));
+
+
+ALTER TABLE SINDICATO_121_2020.SD_PRESTAMOS_MORA ADD (
+  CONSTRAINT SD_PRESTAMOS_MORA_R01 
+ FOREIGN KEY (ID_PRESTAMO) 
+ REFERENCES SINDICATO_121_2020.SD_PRESTAMOS_POR_SOCIOS (ID_PRESTAMO));

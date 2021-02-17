@@ -70,7 +70,7 @@
             colspan: 2,
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
-            readOnly: true
+            readOnly: false
         });
 
         me.date_fecha = Ext.create("App.Config.Componente.DateFieldBase", {
