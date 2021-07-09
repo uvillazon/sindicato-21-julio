@@ -13,6 +13,11 @@
     CargarGrid: function () {
         var me = this;
         me.store = Ext.create("App.Store.Ingresos.Ingresos");
+        me.viewConfig = {
+            getRowClass: function (record, rowIndex, rowParams, store) {
+                return Constantes.CargarCssEstados(record.get("ESTADO"), 'VENTAS');
+            }
+        };
         me.CargarComponentes();
         me.columns = [
                 { xtype: "rownumberer", width: 30, sortable: false },
@@ -22,6 +27,7 @@
                 { header: "Concepto", width: 100, sortable: false, dataIndex: "CONCEPTO" },
                 { header: "Observacion", width: 200, sortable: false, dataIndex: "OBSERVACION" },
                 { header: "Importe<br>Retiro BOB", width: 100, sortable: false, dataIndex: "IMPORTE" },
+                { header: "Estado", width: 80, sortable: false, dataIndex: "ESTADO" },
                 { header: "Login", width: 80, sortable: false, dataIndex: "LOGIN" }
         ];
 

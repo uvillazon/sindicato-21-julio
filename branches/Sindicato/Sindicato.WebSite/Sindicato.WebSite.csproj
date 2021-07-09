@@ -56,9 +56,9 @@
     <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="oracle.dataaccess, Version=4.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
+    <Reference Include="Oracle.DataAccess, Version=4.112.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Oracle.DataAccess\v4.0_4.112.3.0__89b483f429c47342\oracle.dataaccess.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\app\uvill\product\12.1.0\client_2\odp.net\bin\4\Oracle.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -554,6 +554,11 @@
     <Content Include="App\View\Tanques\Grids.js" />
     <Content Include="App\View\Tanques\GridTanques.js" />
     <Content Include="App\View\Tanques\Principal.js" />
+    <Content Include="App\View\Usuarios\Forms.js" />
+    <Content Include="App\View\Usuarios\FormUsuario.js" />
+    <Content Include="App\View\Usuarios\Grids.js" />
+    <Content Include="App\View\Usuarios\GridUsuarios.js" />
+    <Content Include="App\View\Usuarios\Principal.js" />
     <Content Include="App\View\Utils\Principal.js" />
     <Content Include="App\View\Ventas\FormCrearVenta.js" />
     <Content Include="App\View\Ventas\Forms.js" />

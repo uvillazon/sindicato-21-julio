@@ -39,7 +39,8 @@ namespace Sindicato.WebSite.Controllers
                 LOGIN = x.LOGIN,
                 CONCEPTO = x.CONCEPTO,
                 NRO_RECIBO = x.NRO_RECIBO,
-                OBSERVACION = x.OBSERVACION
+                OBSERVACION = x.OBSERVACION,
+                ESTADO = x.ESTADO
 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
