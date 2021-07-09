@@ -234,7 +234,7 @@
             for (var j = 0; j < l; j++) {
                 if (cols[j] === "") {
                     return;
-                }
+                }=][
                 cfg[columns[j + 1].dataIndex] = cols[j];
             }
             me.getView().storeInitialCount++;
