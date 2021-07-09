@@ -20,5 +20,7 @@ namespace Sindicato.Services.Interfaces
 
         RespuestaSP GuardarCierre(SD_CIERRES_CAJAS cierre, string detalles, string login);
 
+        IEnumerable<SD_GESTION> ObtenerGestionesPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
+
     }
 }

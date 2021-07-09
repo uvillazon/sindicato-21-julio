@@ -32,6 +32,11 @@
             if (cbx.getValue() == "REPORTE COMPRA DE HOJAS POR SOCIO") {
                 me.cbx_socio.setDisabled(false);
                 me.cbx_socio.reset();
+                
+                me.cbx_gestion.setDisabled(true);
+                me.cbx_gestion.reset();
+
+
                 me.cbx_caja.setDisabled(true);
                 me.cbx_caja.reset();
                 me.cbx_moneda.setDisabled(true);
@@ -40,6 +45,10 @@
             else if (cbx.getValue() == "REPORTE ESTADO RESULTADO POR CAJA") {
                 me.cbx_socio.setDisabled(true);
                 me.cbx_socio.reset();
+
+                me.cbx_gestion.setDisabled(true);
+                me.cbx_gestion.reset();
+
                 me.cbx_caja.setDisabled(false);
                 me.cbx_caja.reset();
                 me.cbx_moneda.setDisabled(true);
@@ -50,8 +59,23 @@
                 me.cbx_socio.reset();
                 me.cbx_caja.setDisabled(true);
                 me.cbx_caja.reset();
+
+                me.cbx_gestion.setDisabled(true);
+                me.cbx_gestion.reset();
+
                 me.cbx_moneda.setDisabled(false);
                 me.cbx_moneda.reset();
+            }
+            else if (cbx.getValue() == "REPORTE PRESTAMOS TOTALES POR GESTION") {
+                me.cbx_socio.setDisabled(true);
+                me.cbx_socio.reset();
+                me.cbx_caja.setDisabled(true);
+                me.cbx_caja.reset();
+                me.cbx_moneda.setDisabled(true);
+                me.cbx_moneda.reset();
+
+                me.cbx_gestion.setDisabled(false);
+                me.cbx_gestion.reset();
             }
             else {
                 me.cbx_socio.setDisabled(true);
@@ -60,6 +84,9 @@
                 me.cbx_caja.reset();
                 me.cbx_moneda.setDisabled(true);
                 me.cbx_moneda.reset();
+
+                me.cbx_gestion.setDisabled(true);
+                me.cbx_gestion.reset();
             }
 
         });
@@ -92,6 +119,7 @@
             fieldLabel: "Fecha Hasta",
             name: "FECHA_FIN",
             format: 'm-d-Y',
+            maximo : 'sinmaximo',
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
         });
@@ -107,8 +135,23 @@
             allowBlank: false,
             width: 480,
             colspan: 2,
-            //colspan: 2,
             textoTpl: function () { return "Nro Movil :{NRO_MOVIL} - {NOMBRE} {APELLIDO_PATERNO} {APELLIDO_MATERNO}" }
+        });
+
+        me.store_gestion = Ext.create('App.Store.CierreCaja.Gestion');
+
+
+        me.cbx_gestion = Ext.create("App.Config.Componente.ComboAutoBase", {
+            fieldLabel: "Gestion",
+            name: "ID",
+            displayField: 'GESTION',
+            valueField : 'ID',
+            store: me.store_gestion,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            width: 480,
+            colspan: 2,
+            textoTpl: function () { return "GESTION :{GESTION}" }
         });
         me.store_moneda = Ext.create('App.Store.Listas.StoreLista');
         me.store_moneda.setExtraParam('ID_LISTA', Lista.Buscar('MONEDA'));
@@ -135,13 +178,18 @@
             textoTpl: function () { return "{CODIGO} : {NOMBRE} - {DESCRIPCION} - {MONEDA}" }
         });
 
-        me.formReporte.add([me.cbx_reporte, me.date_fecha_inicial, me.date_fecha_final, me.cbx_socio, me.cbx_caja, me.cbx_moneda]);
+        me.formReporte.add([me.cbx_reporte, me.date_fecha_inicial, me.date_fecha_final, me.cbx_socio, me.cbx_gestion, me.cbx_caja, me.cbx_moneda]);
         me.items = me.formReporte;
         me.cargarEventos();
 
     },
     cargarEventos: function () {
         var me = this;
+        me.cbx_gestion.on('select', function (cbx, record) {
+            console.log('entrooo');
+            me.date_fecha_inicial.setValue(record[0].get('FECHA_INI'));
+            me.date_fecha_final.setValue(record[0].get('FECHA_FIN'));
+        });
         me.cbx_reporte.on('select', function (cbx, record) {
             switch (cbx.getValue()) {
                 case "REPORTE DETALLE DE HOJAS":
@@ -207,6 +255,12 @@
                 case "REPORTE ESTADO RESULTADO POR MONEDA":
                     me.rutaReporte = "ReporteEstadoResultadoPorMoneda";
                     break;
+                case "REPORTE PRESTAMOS TOTALES POR SOCIOS":
+                    me.rutaReporte = "ReportePrestamosTotalesPorSocios";
+                    break;
+                case "REPORTE PRESTAMOS TOTALES POR GESTION":
+                    me.rutaReporte = "ReportePrestamosTotalesPorGestion";
+                    break;
                 default:
                     me.rutaReporte = "";
             }
@@ -226,6 +280,10 @@
                 }
                 else if (me.rutaReporte == "ReporteEstadoResultadoPorMoneda") {
                     me.generarReporte(me.rutaReporte, 'FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue() + '&MONEDA=' + me.cbx_moneda.getValue());
+
+                }
+                else if (me.rutaReporte == "ReportePrestamosTotalesPorGestion") {
+                    me.generarReporte(me.rutaReporte, 'FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue() + '&id=' + me.cbx_gestion.getValue());
 
                 }
                 else {

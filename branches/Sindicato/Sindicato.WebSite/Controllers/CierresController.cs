@@ -203,5 +203,30 @@ namespace Sindicato.WebSite.Controllers
         }
         #endregion
 
+
+        #region gestion
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerGestionesPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var gestiones = _serCierreCaja.ObtenerGestionesPaginados(paginacion, filtros);
+
+            var formatData = gestiones.Select(x => new
+            {
+                ID = x.ID,
+                FECHA_FIN = x.FECHA_FIN.Value.ToString("MM-dd-yyyyy"),
+                OBSERVACION = x.OBSERVACION,
+                FECHA_INI = x.FECHA_INI.Value.ToString("MM-dd-yyyy"),
+                GESTION = x.GESTION
+
+            });
+            
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
+
+        #endregion
     }
 }

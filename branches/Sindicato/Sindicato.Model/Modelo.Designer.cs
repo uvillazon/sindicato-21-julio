@@ -1247,6 +1247,7 @@ namespace Sindicato.Model
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+<<<<<<< HEAD
         public ObjectSet<SD_INGRESOS> SD_INGRESOS
         {
             get
@@ -1275,6 +1276,20 @@ namespace Sindicato.Model
             }
         }
         private ObjectSet<SD_TRANSFERENCIAS> _SD_TRANSFERENCIAS;
+=======
+        public ObjectSet<SD_GESTION> SD_GESTION
+        {
+            get
+            {
+                if ((_SD_GESTION == null))
+                {
+                    _SD_GESTION = base.CreateObjectSet<SD_GESTION>("SD_GESTION");
+                }
+                return _SD_GESTION;
+            }
+        }
+        private ObjectSet<SD_GESTION> _SD_GESTION;
+>>>>>>> 131V1
 
         #endregion
 
@@ -1825,6 +1840,7 @@ namespace Sindicato.Model
         }
     
         /// <summary>
+<<<<<<< HEAD
         /// Deprecated Method for adding a new object to the SD_INGRESOS EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToSD_INGRESOS(SD_INGRESOS sD_INGRESOS)
@@ -1838,6 +1854,13 @@ namespace Sindicato.Model
         public void AddToSD_TRANSFERENCIAS(SD_TRANSFERENCIAS sD_TRANSFERENCIAS)
         {
             base.AddObject("SD_TRANSFERENCIAS", sD_TRANSFERENCIAS);
+=======
+        /// Deprecated Method for adding a new object to the SD_GESTION EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSD_GESTION(SD_GESTION sD_GESTION)
+        {
+            base.AddObject("SD_GESTION", sD_GESTION);
+>>>>>>> 131V1
         }
 
         #endregion
@@ -13077,6 +13100,207 @@ namespace Sindicato.Model
 
         #endregion
 
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Model", Name="SD_GESTION")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SD_GESTION : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new SD_GESTION object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static SD_GESTION CreateSD_GESTION(global::System.Decimal id)
+        {
+            SD_GESTION sD_GESTION = new SD_GESTION();
+            sD_GESTION.ID = id;
+            return sD_GESTION;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Decimal _ID;
+        partial void OnIDChanging(global::System.Decimal value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String GESTION
+        {
+            get
+            {
+                return _GESTION;
+            }
+            set
+            {
+                OnGESTIONChanging(value);
+                ReportPropertyChanging("GESTION");
+                _GESTION = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("GESTION");
+                OnGESTIONChanged();
+            }
+        }
+        private global::System.String _GESTION;
+        partial void OnGESTIONChanging(global::System.String value);
+        partial void OnGESTIONChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String OBSERVACION
+        {
+            get
+            {
+                return _OBSERVACION;
+            }
+            set
+            {
+                OnOBSERVACIONChanging(value);
+                ReportPropertyChanging("OBSERVACION");
+                _OBSERVACION = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("OBSERVACION");
+                OnOBSERVACIONChanged();
+            }
+        }
+        private global::System.String _OBSERVACION;
+        partial void OnOBSERVACIONChanging(global::System.String value);
+        partial void OnOBSERVACIONChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> FECHA_INI
+        {
+            get
+            {
+                return _FECHA_INI;
+            }
+            set
+            {
+                OnFECHA_INIChanging(value);
+                ReportPropertyChanging("FECHA_INI");
+                _FECHA_INI = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FECHA_INI");
+                OnFECHA_INIChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _FECHA_INI;
+        partial void OnFECHA_INIChanging(Nullable<global::System.DateTime> value);
+        partial void OnFECHA_INIChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> FECHA_FIN
+        {
+            get
+            {
+                return _FECHA_FIN;
+            }
+            set
+            {
+                OnFECHA_FINChanging(value);
+                ReportPropertyChanging("FECHA_FIN");
+                _FECHA_FIN = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FECHA_FIN");
+                OnFECHA_FINChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _FECHA_FIN;
+        partial void OnFECHA_FINChanging(Nullable<global::System.DateTime> value);
+        partial void OnFECHA_FINChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> SALDO_COOPERATIVA
+        {
+            get
+            {
+                return _SALDO_COOPERATIVA;
+            }
+            set
+            {
+                OnSALDO_COOPERATIVAChanging(value);
+                ReportPropertyChanging("SALDO_COOPERATIVA");
+                _SALDO_COOPERATIVA = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SALDO_COOPERATIVA");
+                OnSALDO_COOPERATIVAChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _SALDO_COOPERATIVA;
+        partial void OnSALDO_COOPERATIVAChanging(Nullable<global::System.Decimal> value);
+        partial void OnSALDO_COOPERATIVAChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> OTROS_SALDOS
+        {
+            get
+            {
+                return _OTROS_SALDOS;
+            }
+            set
+            {
+                OnOTROS_SALDOSChanging(value);
+                ReportPropertyChanging("OTROS_SALDOS");
+                _OTROS_SALDOS = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OTROS_SALDOS");
+                OnOTROS_SALDOSChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _OTROS_SALDOS;
+        partial void OnOTROS_SALDOSChanging(Nullable<global::System.Decimal> value);
+        partial void OnOTROS_SALDOSChanged();
+
+        #endregion
+
+    
     }
     
     /// <summary>
