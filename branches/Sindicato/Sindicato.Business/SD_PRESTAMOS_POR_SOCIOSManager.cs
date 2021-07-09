@@ -42,6 +42,7 @@ namespace Sindicato.Business
                     result.msg = string.Format("No puede Prestar mas que su saldo. Saldo Disponible : {0}", saldo);
                     return result;
                 }
+                prestamo.ID_TIPO_PRESTAMO = tipo.ID_TIPO;
                 prestamo.ID_CAJA = tipo.ID_CAJA;
                 prestamo.ID_PRESTAMO = ObtenerSecuencia();
                 prestamo.ESTADO = "NUEVO";
@@ -49,10 +50,13 @@ namespace Sindicato.Business
                 var importe_interes = tipo.TIPO_INTERES == "INTERES" ? prestamo.IMPORTE_PRESTAMO * tipo.INTERES / 100 : tipo.INTERES_FIJO;
                 prestamo.IMPORTE_INTERES = importe_interes;
                 prestamo.FECHA_REG = DateTime.Now;
+                prestamo.ESTADO_CIERRE = "NUEVO";
 
                 prestamo.LOGIN_USR = login;
 
                 context.AddToSD_PRESTAMOS_POR_SOCIOS(prestamo);
+                Save();
+
                 ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
                 context.P_EE_SECUENCIA("SD_KARDEX_EFECTIVO", 0, p_RES);
                 int idKardex = Convert.ToInt32(p_RES.Value);

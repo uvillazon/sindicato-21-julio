@@ -102,7 +102,7 @@ namespace Sindicato.WebSite.Reportes
                 {
                     result = string.Format("{0} Ahorro {1} Bs./", result, item.IMPORTE);
                 }
-                else if (item.OBLIGACION == "PRODEPORTE")
+                else if (item.OBLIGACION == "APORTE PRO DEPORTE")
                 {
                     result = string.Format("{0} Deporte {1} Bs./", result, item.IMPORTE);
 

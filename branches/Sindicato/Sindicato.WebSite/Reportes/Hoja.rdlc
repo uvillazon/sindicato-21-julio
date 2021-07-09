@@ -20,7 +20,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.90553cm</Top>
+        <Top>0.61449cm</Top>
         <Left>4.95449cm</Left>
         <Height>0.75875cm</Height>
         <Width>5.54271cm</Width>
@@ -54,7 +54,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>1.66428cm</Top>
+        <Top>1.47907cm</Top>
         <Left>4.95449cm</Left>
         <Height>0.77666cm</Height>
         <Width>3.63771cm</Width>
@@ -79,7 +79,7 @@
                 <Value>=First(Fields!SOCIO.Value, "DataSetHoja")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>13pt</FontSize>
                   <FontWeight>ExtraBold</FontWeight>
                 </Style>
               </TextRun>
@@ -88,15 +88,16 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.58205cm</Top>
+        <Top>2.36156cm</Top>
         <Left>2.23923cm</Left>
-        <Height>0.65292cm</Height>
-        <Width>7.35839cm</Width>
+        <Height>0.87341cm</Height>
+        <Width>8.25797cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
+          <VerticalAlign>Bottom</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -113,7 +114,7 @@
                 <Value>=First(Fields!PLACA.Value, "DataSetHoja")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
-                  <FontSize>11pt</FontSize>
+                  <FontSize>16pt</FontSize>
                   <FontWeight>ExtraBold</FontWeight>
                 </Style>
               </TextRun>
@@ -123,9 +124,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
         <Top>3.27024cm</Top>
-        <Left>7.25637cm</Left>
+        <Left>7.62678cm</Left>
         <Height>0.84695cm</Height>
-        <Width>2.34125cm</Width>
+        <Width>2.87042cm</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
@@ -144,9 +145,10 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>132</Value>
+                <Value>131</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
+                  <FontSize>16pt</FontSize>
                   <FontWeight>ExtraBold</FontWeight>
                 </Style>
               </TextRun>
@@ -155,10 +157,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>3.23497cm</Top>
+        <Top>3.23496cm</Top>
         <Left>4.30299cm</Left>
-        <Height>0.50299cm</Height>
-        <Width>1.67979cm</Width>
+        <Height>0.88223cm</Height>
+        <Width>2.23542cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -180,6 +182,7 @@
                 <Value>=Sum(Fields!MOVIL.Value, "DataSetHoja")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
+                  <FontSize>16pt</FontSize>
                   <FontWeight>ExtraBold</FontWeight>
                 </Style>
               </TextRun>
@@ -189,9 +192,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
         <Top>3.27024cm</Top>
-        <Left>1.89527cm</Left>
-        <Height>0.46771cm</Height>
-        <Width>0.96541cm</Width>
+        <Left>1.60423cm</Left>
+        <Height>0.84695cm</Height>
+        <Width>1.52104cm</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
@@ -222,7 +225,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>1.66428cm</Top>
+        <Top>1.47907cm</Top>
         <Left>8.5922cm</Left>
         <Height>0.77666cm</Height>
         <Width>1.905cm</Width>
@@ -255,10 +258,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>12.39458cm</Top>
-        <Left>0.8634cm</Left>
-        <Height>1.26146cm</Height>
-        <Width>9.6338cm</Width>
+        <Top>4.55816cm</Top>
+        <Left>1.04861cm</Left>
+        <Height>1.65834cm</Height>
+        <Width>9.81901cm</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>

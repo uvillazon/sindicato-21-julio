@@ -692,7 +692,7 @@
   <Width>8.22917in</Width>
   <Page>
     <PageHeader>
-      <Height>1.37583cm</Height>
+      <Height>1.41166cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -703,7 +703,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>SINDICATO SAN MIGUEL LINEA 132 - REPORTE VENTA DE HOJAS POR SOCIO</Value>
+                  <Value>SINDICATO SAN MIGUEL LINEA 131 - REPORTE VENTA DE HOJAS POR SOCIO</Value>
                   <Style>
                     <FontFamily>Calibri</FontFamily>
                     <FontWeight>Heavy</FontWeight>
@@ -747,7 +747,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox13</rd:DefaultName>
-          <Top>0.03528cm</Top>
+          <Top>0.07111cm</Top>
           <Left>15.31291cm</Left>
           <Height>0.46771cm</Height>
           <Width>4.96062cm</Width>
@@ -782,7 +782,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>FECHA_INI</rd:DefaultName>
-          <Top>0.70528cm</Top>
+          <Top>0.74111cm</Top>
           <Left>13.18805cm</Left>
           <Height>0.6cm</Height>
           <Width>2.5cm</Width>
@@ -817,7 +817,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>FECHA_FIN</rd:DefaultName>
-          <Top>0.70528cm</Top>
+          <Top>0.74111cm</Top>
           <Left>17.77353cm</Left>
           <Height>0.6cm</Height>
           <Width>2.5cm</Width>
@@ -851,7 +851,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox3</rd:DefaultName>
-          <Top>0.70528cm</Top>
+          <Top>0.74111cm</Top>
           <Left>11.42006cm</Left>
           <Height>0.6cm</Height>
           <Width>1.73271cm</Width>
@@ -885,7 +885,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox3</rd:DefaultName>
-          <Top>0.67cm</Top>
+          <Top>0.70583cm</Top>
           <Left>16.04082cm</Left>
           <Height>0.6cm</Height>
           <Width>1.73271cm</Width>

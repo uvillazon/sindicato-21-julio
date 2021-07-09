@@ -116,13 +116,17 @@
         me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
             fieldLabel: "Observaciones",
             name: "OBSERVACION",
+            value : 'SIN OBSERVACION',
             width: 480,
             colspan: 2,
             maxLength: 500,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false
         });
         me.gridDetalle = Ext.create('App.View.Cierres.GridDetalleSocio', {
             width: 480,
             height: 250,
+            hidden : true,
             colspan : 2,
         });
         me.items = [

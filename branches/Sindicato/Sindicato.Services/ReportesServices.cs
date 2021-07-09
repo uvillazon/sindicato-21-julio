@@ -105,6 +105,7 @@ namespace Sindicato.Services
                         CANTIDAD = 1,
                         FECHA_COMPRA = item.FECHA,
                         IMPORTE_OBLIGACION = item.IMPORTE,
+                        CONCEPTO = item.SD_TIPOS_INGRESOS_SOCIO.NOMBRE,
                         OBLIGACION = item.OBSERVACION,
                         TOTAL = item.IMPORTE,
                         TOTAL_LITERAL = n.Convertir(item.IMPORTE.ToString(), true, item.MONEDA)
