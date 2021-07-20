@@ -9,10 +9,10 @@
               <Width>1.82563cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>5.50334cm</Width>
+              <Width>5.2965cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.27886cm</Width>
+              <Width>1.88199cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -322,9 +322,9 @@
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
         <Top>4.30982cm</Top>
-        <Left>0.52882cm</Left>
+        <Left>0.06138cm</Left>
         <Height>1.8cm</Height>
-        <Width>9.60783cm</Width>
+        <Width>9.00412cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -486,7 +486,7 @@
         <Top>1.0407cm</Top>
         <Left>5.28849cm</Left>
         <Height>0.6cm</Height>
-        <Width>1.95193cm</Width>
+        <Width>1.34339cm</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
@@ -545,7 +545,9 @@
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
@@ -645,14 +647,16 @@
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>1.0407cm</Top>
-        <Left>7.27569cm</Left>
+        <Left>6.73771cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.24902cm</Width>
+        <Width>3.787cm</Width>
         <ZIndex>10</ZIndex>
         <Style>
           <Border>
@@ -840,12 +844,14 @@
                   </Style>
                 </TextRun>
               </TextRuns>
-              <Style />
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox13</rd:DefaultName>
-          <Top>1.16099cm</Top>
-          <Left>4.73158cm</Left>
+          <Top>1.12571cm</Top>
+          <Left>3.66923cm</Left>
           <Height>0.46771cm</Height>
           <Width>5.79314cm</Width>
           <ZIndex>1</ZIndex>

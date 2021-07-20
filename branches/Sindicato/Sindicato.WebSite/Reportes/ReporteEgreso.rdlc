@@ -12,7 +12,7 @@
               <Width>5.22521cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>2.28896cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -324,7 +324,7 @@
         <Top>3.4757cm</Top>
         <Left>0.15148cm</Left>
         <Height>1.8cm</Height>
-        <Width>9.27271cm</Width>
+        <Width>9.06167cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -479,7 +479,9 @@
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
@@ -513,7 +515,9 @@
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
@@ -758,7 +762,9 @@
                   </Style>
                 </TextRun>
               </TextRuns>
-              <Style />
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox13</rd:DefaultName>

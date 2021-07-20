@@ -24,6 +24,12 @@ namespace Sindicato.Business
                 if (ing.ID_TRANSFERENCIA == 0)
                 {
                     var context = (SindicatoContext)Context;
+                    string monedacajaorigen = context.SD_CAJAS.Where(x => x.ID_CAJA == ing.ID_CAJA_ORIGEN).FirstOrDefault().MONEDA;
+                    string monedacajadestino = context.SD_CAJAS.Where(x => x.ID_CAJA == ing.ID_CAJA_DESTINO).FirstOrDefault().MONEDA;
+                    if(!monedacajadestino.Equals(monedacajaorigen)){
+                    return    result = string.Format("No puede realizar la transferencia por que cada caja es de diferente moneda");
+                    
+                    }
                     var saldoOrigen = context.SD_CAJAS.Where(x => x.ID_CAJA == ing.ID_CAJA_ORIGEN).FirstOrDefault().SALDO;
                     if (ing.IMPORTE > saldoOrigen)
                     {
@@ -34,6 +40,7 @@ namespace Sindicato.Business
 
                         ing.FECHA_REG = DateTime.Now;
                         ing.LOGIN = login;
+                        ing.ESTADO = "NUEVO";
                         ing.ID_TRANSFERENCIA = ObtenerSecuencia();
                         ing.NRO_RECIBO = ing.ID_TRANSFERENCIA;
                         Add(ing);
@@ -53,6 +60,7 @@ namespace Sindicato.Business
                             ID_CAJA = ing.ID_CAJA_ORIGEN,
                             EGRESO = ing.IMPORTE,
                             LOGIN = ing.LOGIN,
+                            
                             OPERACION = "TRANSFERENCIAS"
                         };
                         SD_KARDEX_EFECTIVO kardexIngreso = new SD_KARDEX_EFECTIVO()
