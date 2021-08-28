@@ -201,7 +201,7 @@
         <edmx:AssociationConnector Association="Model.SD_PRESTAMOS_POR_SOCIOS_R01" />
         <edmx:AssociationConnector Association="Model.SD_PRESTAMOS_POR_SOCIOS_R02" />
         <edmx:AssociationConnector Association="Model.SD_PRESTAMOS_POR_SOCIOS_R04" />
-        <edmx:EntityTypeShape EntityType="Model.SD_CIERRES_CAJAS" Width="1.5" PointX="17.25" PointY="112.375" />
+        <edmx:EntityTypeShape EntityType="Model.SD_CIERRES_CAJAS" Width="2.625" PointX="17.25" PointY="112.375" />
         <edmx:AssociationConnector Association="Model.SD_CIERRES_CAJAS_R01" />
         <edmx:AssociationConnector Association="Model.SD_DETALLE_CIERRES_CAJA_R01" />
         </edmx:Diagram>
