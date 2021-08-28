@@ -137,7 +137,7 @@ namespace Sindicato.WebSite.Controllers
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
             return JavaScript(callback1);
         }
-
+        //sad
         public ActionResult ObtenerDetallesCierreCajaPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
         {
             filtros.Entidad = entidad;
