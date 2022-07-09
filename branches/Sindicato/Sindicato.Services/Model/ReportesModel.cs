@@ -167,6 +167,7 @@ namespace Sindicato.Services.Model
         public decimal IMPORTE_A_PAGAR { get; set; }
         public decimal IMPORTE_TOTAL { get; set; }
         public decimal INTERES_A_PAGAR { get; set; }
+        public decimal? MORA_A_PAGAR { get; set; }
         public decimal CAPITAL_A_PAGAR { get; set; }
         public decimal SALDO_PLAN { get; set; }
         public string LOGIN_USR { get; set; }
@@ -178,6 +179,11 @@ namespace Sindicato.Services.Model
         public int CANTIDAD { get; set; }
         public int CANTIDAD_CANCELADAS { get; set; }
         public decimal SALDO { get; set; }
+        public decimal AMORTIZACION { get; set; }
+        public decimal? TRANSFERENCIA_INGRESO { get; set; }
+        public decimal? TRANSFERENCIA_EGRESO { get; set; }
+        public decimal? CAPITAL_CANCELADO { get; set; }
+        public decimal? INTERES_CANCELADO { get; set; }
 
     }
 

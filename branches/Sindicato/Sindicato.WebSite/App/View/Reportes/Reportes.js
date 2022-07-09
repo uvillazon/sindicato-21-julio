@@ -42,7 +42,7 @@
                 me.cbx_moneda.setDisabled(true);
                 me.cbx_moneda.reset();
             }
-            else if (cbx.getValue() == "REPORTE ESTADO RESULTADO POR CAJA") {
+            else if (cbx.getValue() == "REPORTE ESTADO RESULTADO POR CAJA" || cbx.getValue() == "REPORTE INGRESOS DETALLE POR CAJA") {
                 me.cbx_socio.setDisabled(true);
                 me.cbx_socio.reset();
 
@@ -95,7 +95,7 @@
         var me = this;
         me.formReporte = Ext.create("App.Config.Abstract.Form", { botones: false, title: "Generar Reporte", columns: 2 });
         me.store_tipo_reporte = Ext.create('App.Store.Listas.StoreLista');
-        me.store_tipo_reporte.setExtraParam('ID_LISTA', Lista.Buscar('REPORTES'));
+        me.store_tipo_reporte.setExtraParams({ 'ID_LISTA': Lista.Buscar('REPORTES') ,'ESTADO' : 'A'});
 
         me.cbx_reporte = Ext.create("App.Config.Componente.ComboBase", {
             fieldLabel: "Reporte",

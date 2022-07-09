@@ -544,6 +544,7 @@ namespace Sindicato.Services
                 bool esNumero = int.TryParse(ing, out id);
                 if (esNumero)
                 {
+
                     result.success = true;
                     result.msg = "Proceso Ejecutado Correctamente";
                     result.id = id;
@@ -579,6 +580,8 @@ namespace Sindicato.Services
                     ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
                     manager.Save();
                     context.P_SD_ACT_KARDEX_SOCIO_MOVIL(ant.ID_SOCIO_MOVIL, ant.FECHA, ant.LOGIN, p_RES);
+                    context.P_SD_ACT_PAGOS_SOCIOS(ant.ID_SOCIO_MOVIL, ant.LOGIN, p_RES);
+
 
                     var kardexEfe = context.SD_KARDEX_EFECTIVO.Where(x => x.OPERACION == "RETIRO DE AHORRO" && x.ID_OPERACION == ant.ID_RETIRO && x.ID_CAJA == ant.ID_CAJA);
                     foreach (var item in kardexEfe)

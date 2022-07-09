@@ -57,7 +57,8 @@
     VentanaDepositoRetiro: function (accion) {
         var me = this;
         var win = Ext.create("App.Config.Abstract.Window", { botones: true, destruirWin: true });
-        var form = Ext.create("App.View.FondoEmergencia.FormRetiroDeposito", { title: 'Reporte Fondo Emergencia', botones: false, accion: accion });
+        //var form = Ext.create("App.View.FondoEmergencia.FormRetiroDeposito", { title: 'Reporte Fondo Emergencia', botones: false, accion: accion });
+        var form = Ext.create("App.View.FondoEmergencia.FormDepositoRetiro", { title: 'Reporte Fondo Emergencia', botones: false, accion: accion });
         form.loadRecord(me.grid.record);
         win.add(form);
         win.show();

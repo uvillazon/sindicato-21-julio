@@ -126,7 +126,7 @@
         me.gridDetalle = Ext.create('App.View.Cierres.GridDetalleSocio', {
             width: 480,
             height: 250,
-            hidden : true,
+            hidden : false,
             colspan : 2,
         });
         me.items = [

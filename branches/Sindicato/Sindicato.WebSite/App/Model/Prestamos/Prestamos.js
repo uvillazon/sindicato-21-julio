@@ -44,6 +44,8 @@
 
 
             { type: "string", name: "ESTADO" },
-            { type: "string", name: "ESTADO_CIERRE" }
+            { type: "string", name: "ESTADO_CIERRE" },
+            { type: "float", name: "SALDO_INTERES" },
+            { type: "float", name: "SALDO_CAPITAL" },
     ]
 });

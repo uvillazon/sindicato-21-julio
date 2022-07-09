@@ -96,13 +96,20 @@ namespace Sindicato.Business
             RespuestaSP result = new RespuestaSP();
             try
             {
-                var pres = BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO == "NUEVO").FirstOrDefault();
+
+                var pres = BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO  != "ANULADO").FirstOrDefault();
                 if (pres == null) {
                     result.success = false;
-                    result.msg = "No existe prestamo o esta en estado Diferente a NUEVO";
+                    result.msg = "No existe prestamo o esta en estado ANULADO";
                     return result;
                 }
-                if (pres.SD_PAGO_DE_PRESTAMOS.Count() > 0) {
+                if (pres.SD_PLAN_DE_PAGO.Where(x => x.ESTADO == "CANCELADO").Count() > 0) {
+                    result.success = false;
+                    result.msg = "Existe pagos del socio Debe  Eliminar Primero";
+                    return result;
+                
+                }
+                if (pres.SD_PAGO_DE_PRESTAMOS.Where(x=> x.ESTADO != "ANULADO").Count() > 0) {
                     result.success = false;
                     result.msg = "Existe Pagos del Socio Eliminar primero los  pagos para eliminar el prestamo";
                     return result;

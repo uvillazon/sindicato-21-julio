@@ -117,6 +117,7 @@ namespace Sindicato.Services
                     manager.Save();
                     ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
                     context.P_SD_ACT_KARDEX_EFECTIVO(ant.ID_CAJA, fecha, 0, p_RES);
+
                     result.success = true;
                     result.msg = "Se elimino Correctamente";
                 }

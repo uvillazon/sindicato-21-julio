@@ -54,7 +54,9 @@ namespace Sindicato.WebSite.Controllers
                 TIPO_INTERES = x.SD_TIPOS_PRESTAMOS.TIPO_INTERES,
                 FECHA_LIMITE_PAGO = x.FECHA_LIMITE_PAGO,
                 TOTAL_CANCELADO = x.SD_PAGO_DE_PRESTAMOS.Where(z=>z.ESTADO != "ANULADO").Sum(y => y.IMPORTE),
-                ESTADO_CIERRE = x.ESTADO_CIERRE
+                ESTADO_CIERRE = x.ESTADO_CIERRE,
+                SALDO_INTERES = x.SALDO_INTERES,
+                SALDO_CAPITAL = x.SALDO_CAPITAL
 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();

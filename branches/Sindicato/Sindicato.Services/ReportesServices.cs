@@ -773,8 +773,8 @@ namespace Sindicato.Services
                         MOVIL = item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
                         IMPORTE_PRESTAMO = item.IMPORTE_PRESTAMO,
                         IMPORTE_TOTAL = item.IMPORTE_PRESTAMO + item.IMPORTE_INTERES + item.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA),
-                        CANDELADO = item.SD_PAGO_DE_PRESTAMOS.Sum(y => y.IMPORTE),
-                        CANT_PAGOS = item.SD_PAGO_DE_PRESTAMOS.Count(),
+                        CANDELADO = item.SD_PAGO_DE_PRESTAMOS.Where(x=>x.ESTADO != "ANULADO").Sum(y => y.IMPORTE),
+                        CANT_PAGOS = item.SD_PAGO_DE_PRESTAMOS.Where(x=>x.ESTADO != "ANULADO").Count(),
                         INTERVALO = Intervalo
                     };
                     result.Add(detalleRep);
@@ -899,9 +899,17 @@ namespace Sindicato.Services
                 var managerIngresos = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
                 var managerMoras = new SD_PRESTAMOS_MORAManager(uow);
                 var managerPagos = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                var managerAmortizaciones = new SD_INGRESOSManager(uow);
+                var managerTransferencias = new SD_TRANSFERENCIASManager(uow);
+
+                decimal? transferenciasIngreso = managerTransferencias.BuscarTodos(x => x.ID_CAJA_DESTINO == 9 && x.ESTADO != "ANULADO").Sum(y => (decimal?)y.IMPORTE);
+                decimal? transferenciasEgreso = managerTransferencias.BuscarTodos(x => x.ID_CAJA_ORIGEN == 9 && x.ESTADO != "ANULADO").Sum(y => (decimal?)y.IMPORTE);
+
+
+                var amortizazcion = managerAmortizaciones.BuscarTodos(x => x.ID_CAJA == 9 && x.ESTADO != "ANULADO").Sum(y => y.IMPORTE);
                 var detalles = managerIngresos.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO").GroupBy(xy => xy.ID_TIPO_PRESTAMO);
 
-                var ingresosSocios = managerIngresos.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin).GroupBy(xy => xy.ID_TIPO_PRESTAMO).Select(y => new
+                var ingresosSocios = managerIngresos.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO").GroupBy(xy => xy.ID_TIPO_PRESTAMO).Select(y => new
                 {
                     CANTIDAD_PRESTAMO = y.Count(),
                     IMPORTE_PRESTAMO = y.Sum(z => z.IMPORTE_PRESTAMO),
@@ -910,6 +918,9 @@ namespace Sindicato.Services
                     ID_TIPO_PRESTAMO = y.Key,
                     //MORAS = y.Sum(z => z.SD_PRESTAMOS_MORA.Sum()),
                     TOTAL_CUOTAS = y.Sum(z => z.SEMANAS),
+                    CAPITAL = y.Sum(z=>z.SALDO_CAPITAL),
+                    INTERES = y.Sum(z=>z.SALDO_INTERES)
+                   
                     //TOTAL_CUOTAS_CANCELADAS = y.Sum(z => z.SD_PAGO_DE_PRESTAMOS.Count()),
                     //TOTAL_CANCELADO = y.Sum(z => z.SD_PAGO_DE_PRESTAMOS.Sum(xy => xy.IMPORTE))
                 });
@@ -928,10 +939,17 @@ namespace Sindicato.Services
                         CANTIDAD = item.CANTIDAD_PRESTAMO,
                         IMPORTE_PRESTAMO = item.IMPORTE_PRESTAMO,
                         IMPORTE_INTERES = item.IMPORTE_INTERES,
+                        
                         IMPORTE_MORA = moras.Count() > 0 ? moras.Sum(x => x.IMPORTE_MORA) : 0,
+                        MORA_A_PAGAR = moras.Count() > 0 ? moras.Sum(x => x.SALDO_PLAN) : 0,
                         NRO_SEMANA = item.TOTAL_CUOTAS,
                         CANTIDAD_CANCELADAS = pagos.Count(),
-                        IMPORTE_TOTAL = pagos.Count() > 0 ? pagos.Sum(x => x.IMPORTE) : 0
+                        IMPORTE_TOTAL = pagos.Count() > 0 ? pagos.Sum(x => x.IMPORTE) : 0,
+                        AMORTIZACION = amortizazcion,
+                        TRANSFERENCIA_INGRESO = transferenciasIngreso == null ? 0 : transferenciasIngreso,
+                        TRANSFERENCIA_EGRESO = transferenciasEgreso == null ? 0 : transferenciasEgreso,
+                        CAPITAL_CANCELADO = item.CAPITAL,
+                        INTERES_CANCELADO = item.INTERES
 
                     };
                     result.Add(detalleRep);
@@ -987,11 +1005,13 @@ namespace Sindicato.Services
                 var managerPrestamos = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
                 var managerMoras = new SD_PRESTAMOS_MORAManager(uow);
                 var managerPagos = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                var managerIngresos = new SD_INGRESOSManager(uow);
                 var gestion = managerGestion.BuscarTodos(x => x.ID == ID).FirstOrDefault();
                 DateTime Fecha_fin = gestion.FECHA_FIN.Value.AddDays(1);
 
 
                 var detalles = managerPrestamos.BuscarTodos(x => x.FECHA >= gestion.FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO").OrderBy(y => y.ID_PRESTAMO);
+                var ingresos = managerIngresos.BuscarTodos(x => x.FECHA >= gestion.FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO").Sum(y => y.IMPORTE);
 
                 var cnt = 0;
                 decimal SALDO_ANTERIOR = 0;
@@ -999,7 +1019,7 @@ namespace Sindicato.Services
                 {
                     if (cnt == 0)
                     {
-                        SALDO_ANTERIOR = (decimal)gestion.SALDO_COOPERATIVA;
+                        SALDO_ANTERIOR = ingresos;
                         cnt++;
                         var detalleRep0 = new ReportePrestamo()
                         {
@@ -1007,11 +1027,11 @@ namespace Sindicato.Services
                             MOVIL = 0,
                             SOCIO = "SALDO INICIAL",
                             FECHA_PRESTAMO = gestion.FECHA_INI.Value,
-                            TIPO_PRESTAMO = string.Format("SALDO INICIAL GESTION : {0}", gestion.GESTION),
+                            TIPO_PRESTAMO = string.Format("INGRESOS POR AMORTIZACION GESTION ANTERIOR"),
                             IMPORTE_PRESTAMO = 0,
                             IMPORTE_INTERES = 0,
                             TOTAL_CANCELADO = 0,
-                            SALDO = (decimal)gestion.SALDO_COOPERATIVA
+                            SALDO = ingresos
 
                         };
                         result.Add(detalleRep0);
@@ -1489,7 +1509,7 @@ namespace Sindicato.Services
                         cnt++;
                     }
                 }
-                var detalleTransferencias = managerTransferencias.BuscarTodos(x => x.ID_CAJA_DESTINO == ID_CAJA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin);
+                var detalleTransferencias = managerTransferencias.BuscarTodos(x => x.ID_CAJA_DESTINO == ID_CAJA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO");
                 foreach (var item in detalleTransferencias)
                 {
                     EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
@@ -1565,7 +1585,7 @@ namespace Sindicato.Services
                     result.Add(res);
                     cnt++;
                 }
-                var detalleTransferenciasEgreso = managerTransferencias.BuscarTodos(x => x.ID_CAJA_ORIGEN == ID_CAJA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin);
+                var detalleTransferenciasEgreso = managerTransferencias.BuscarTodos(x => x.ID_CAJA_ORIGEN == ID_CAJA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO");
                 foreach (var item in detalleTransferenciasEgreso)
                 {
                     EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()

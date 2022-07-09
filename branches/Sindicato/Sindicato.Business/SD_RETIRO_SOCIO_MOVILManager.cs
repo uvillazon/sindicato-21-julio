@@ -56,6 +56,7 @@ namespace Sindicato.Business
                         Save();
 
                         context.P_SD_ACT_KARDEX_SOCIO_MOVIL(ing.ID_SOCIO_MOVIL, ing.FECHA, login, p_RES);
+                        context.P_SD_ACT_PAGOS_SOCIOS(ing.ID_SOCIO_MOVIL, login, p_RES);
 
 
                         context.P_EE_SECUENCIA("SD_KARDEX_EFECTIVO", 0, p_RES);
