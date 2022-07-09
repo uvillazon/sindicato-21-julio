@@ -116,7 +116,9 @@ namespace Sindicato.Services
                 //
                 result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
                 paginacion.total = result.Count();
-                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
+                result = result.OrderByDescending(x => x.FECHA).ThenByDescending(x => x.ID_KARDEX);
+                result = result.Skip(paginacion.start).Take(paginacion.limit);
+                //result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
 
             });
             return result;

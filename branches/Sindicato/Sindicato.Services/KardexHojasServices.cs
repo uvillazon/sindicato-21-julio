@@ -47,7 +47,7 @@ namespace Sindicato.Services
         //}
 
 
-        public IEnumerable<SD_KARDEX_HOJAS> ObtenerKardex(PagingInfo paginacion, FiltrosModel<AutosModel> filtros)
+        public IEnumerable<SD_KARDEX_HOJAS> ObtenerKardex(PagingInfo paginacion, FiltrosModel<AutosModel> filtros , string codigo)
         {
             IQueryable<SD_KARDEX_HOJAS> result = null;
             ExecuteManager(uow =>
@@ -56,12 +56,20 @@ namespace Sindicato.Services
 
                 result = manager.BuscarTodos();
                 filtros.FiltrarDatos();
+                
                 result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
                 if (!string.IsNullOrEmpty(filtros.Contiene))
                 {
                     string contiene = filtros.Contiene.Trim().ToUpper();
                     result = result.Where(SD_KARDEX_HOJAS.Contiene(contiene));
+                   
                     //result = result.Where(x => x.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE.ToUpper().Contains(contiene) || x.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_MATERNO.ToUpper().Contains(contiene) || x.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO.ToUpper().Contains(contiene));
+                }
+                if (codigo == "Debe")
+                {
+                    var date = DateTime.Now;
+                    var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
+                    result = result.Where(x => x.DEBE > 0 && x.MES < firstDayOfMonth);
                 }
                 paginacion.total = result.Count();
                 result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);

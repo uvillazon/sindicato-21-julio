@@ -240,7 +240,7 @@ namespace Sindicato.Services
                         var detalleRep = new ReporteTotal()
                         {
                             DETALLE = detalle,
-                            SUBDETALLE = item.OBLIGACION,
+                            SUBDETALLE = item.OBLIGACION == "APORTE SINDICATO" ? "APORTE LINEA" : item.OBLIGACION,
                             CANTIDAD = item.CANTIDAD,
                             BOLIVIANOS = (decimal)item.IMPORTE,
                             COSTO_UNITARIO = obli == null ? (decimal)item.COSTO : obli.IMPORTE_DEFECTO
@@ -266,7 +266,7 @@ namespace Sindicato.Services
                         var detalleRep = new ReporteTotal()
                         {
                             DETALLE = detalleRegulaciones,
-                            SUBDETALLE = item.OBLIGACION,
+                            SUBDETALLE = item.OBLIGACION == "APORTE SINDICATO" ? "APORTE LINEA" : item.OBLIGACION,
                             CANTIDAD = (int)regulaciones.Sum(x => x.CANTIDAD),
                             BOLIVIANOS = (decimal)item.IMPORTE,
                             COSTO_UNITARIO = obli.IMPORTE_DEFECTO  //item.IMPORTE //(decimal)item.IMPORTE / (decimal)regulaciones.Where(x => x.MONTO > 0).Sum(x => x.CANTIDAD),// (decimal)item.COSTO
@@ -314,12 +314,13 @@ namespace Sindicato.Services
                     }
                 }
 
+                int cant_reg = regulaciones.Count() > 0 ? (int)regulaciones.Sum(x => x.CANTIDAD) : 0;
                 foreach (var item in result)
                 {
                     item.FECHA_INI = FECHA_INI;
                     item.FECHA_FIN = FECHA_FIN;
                     item.TOTAL_AHORRO = total;
-                    item.TOTAL_CANTIDAD = hojas.Count() + (int)regulaciones.Sum(x => x.CANTIDAD);
+                    item.TOTAL_CANTIDAD = hojas.Count() + cant_reg;
 
                 }
             });
@@ -416,7 +417,8 @@ namespace Sindicato.Services
                     rep.NRO_RECIBO = item.OBLIGACION;
                     //rep.NRO_RECIBO = "VENTAS DE HOJAS";
                     rep.SUBDETALLE = "VENTA DE HOJAS";
-                    rep.DETALLE = item.OBLIGACION == "AHORRO" ? "AHOROS" : "APORTE SINDICATO";
+                    rep.DETALLE = item.OBLIGACION == "AHORRO" ? "AHOROS" : "APORTE LINEA 132";
+                    rep.NRO_RECIBO = item.OBLIGACION == "APORTE SINDICATO" ? "APORTE LINEA" : item.OBLIGACION;
                     //rep.DETALLE = "VENTAS DE HOJAS";
                     //rep.SUBDETALLE = item.OBLIGACION;
                     rep.CANTIDAD = item.CANTIDAD;
@@ -453,9 +455,9 @@ namespace Sindicato.Services
 
                     //rep.NRO_RECIBO = "REGULARIZACIONES";
                     //rep.NRO_RECIBO = item.OBLIGACION == "AHORRO" ? "AHOROS" : "APORTE SINDICATO";
-                    rep.DETALLE = item.OBLIGACION == "AHORRO" ? "AHOROS" : "APORTE SINDICATO";
+                    rep.DETALLE = item.OBLIGACION == "AHORRO" ? "AHOROS" : "APORTE LINEA 132";
 
-                    rep.NRO_RECIBO = item.OBLIGACION;
+                    rep.NRO_RECIBO = item.OBLIGACION == "APORTE SINDICATO" ? "APORTE LINEA" : item.OBLIGACION;
                     //rep.NRO_RECIBO = "VENTAS DE HOJAS";
                     rep.SUBDETALLE = "REGULARIZACIONES";
 
@@ -819,14 +821,14 @@ namespace Sindicato.Services
             ExecuteManager(uow =>
             {
                 var manager = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
-                var deudores = manager.BuscarTodos(x => x.FECHA_LIMITE_PAGO < FECHA_INI);
+                var deudores = manager.BuscarTodos(x => x.FECHA_LIMITE_PAGO < FECHA_INI && x.ESTADO != "ANULADO");
                 foreach (var item in deudores)
                 {
 
 
-                    var moras = item.SD_PRESTAMOS_MORA.Count() > 0 ? item.SD_PRESTAMOS_MORA.Sum(x => x.IMPORTE_MORA) : 0;
-                    var cancelados = item.SD_PAGO_DE_PRESTAMOS.Count() > 0 ? item.SD_PAGO_DE_PRESTAMOS.Sum(x => x.IMPORTE) : 0;
-
+                    var moras = item.SD_PRESTAMOS_MORA.Count() > 0 ? item.SD_PRESTAMOS_MORA.Where(x=> x.SD_PRESTAMOS_POR_SOCIOS.ESTADO != "ANULADO").Sum(x => x.IMPORTE_MORA) : 0;
+                    var cancelados = item.SD_PAGO_DE_PRESTAMOS.Count() > 0 ? item.SD_PAGO_DE_PRESTAMOS.Where(x=> "ANULADO" != x.SD_PRESTAMOS_POR_SOCIOS.ESTADO) .Sum(x => x.IMPORTE) : 0;
+                     
                     if (cancelados < item.IMPORTE_INTERES + item.IMPORTE_PRESTAMO + moras)
                     {
 
@@ -857,7 +859,7 @@ namespace Sindicato.Services
             {
                 var manager = new SD_PLAN_DE_PAGOManager(uow);
                 var managerPrestamo = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
-                var deudores = manager.BuscarTodos(x => x.FECHA_PAGO < FECHA_INI && x.ESTADO != "CANCELADO").GroupBy(y => y.ID_PRESTAMO).Select(z => new
+                var deudores = manager.BuscarTodos(x => x.FECHA_PAGO < FECHA_INI && x.ESTADO != "CANCELADO" && x.ESTADO != "ANULADO").GroupBy(y => y.ID_PRESTAMO).Select(z => new
                 {
                     ID_PRESTAMO = z.Key,
                     COUTAS_CANCELADAS = z.Count(),
@@ -900,7 +902,7 @@ namespace Sindicato.Services
                 var managerPagos = new SD_PAGO_DE_PRESTAMOSManager(uow);
                 var detalles = managerIngresos.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO").GroupBy(xy => xy.ID_TIPO_PRESTAMO);
 
-                var ingresosSocios = managerIngresos.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin).GroupBy(xy => xy.ID_TIPO_PRESTAMO).Select(y => new
+                var ingresosSocios = managerIngresos.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO").GroupBy(xy => xy.ID_TIPO_PRESTAMO).Select(y => new
                 {
                     CANTIDAD_PRESTAMO = y.Count(),
                     IMPORTE_PRESTAMO = y.Sum(z => z.IMPORTE_PRESTAMO),

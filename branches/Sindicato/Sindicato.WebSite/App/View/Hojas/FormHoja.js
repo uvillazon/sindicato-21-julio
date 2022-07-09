@@ -18,6 +18,7 @@
 
         me.cbx_socio.on('select', function (cbx, rec) {
             Funciones.AjaxRequest("VentaHojas", "Verificar", me, { ID_SOCIO_MOVIL: rec[0].get('ID_SOCIO_MOVIL') }, function (res) {
+
                 //console.log(res);
                 if (res.success) {
                     me.txt_socio.setValue(rec[0].get('NOMBRE_SOCIO'));
@@ -34,36 +35,54 @@
                     }
                 }
                 else {
-                    Ext.Msg.alert("Aviso", res.msg, function () {
-                        me.txt_socio.reset();
-                        me.txt_nor_movil.reset();
-                        me.txt_id_socio.reset();
-                        me.num_precio.reset();
-                        cbx.focus();
+                    Ext.MessageBox.show({
+                        title: 'Advertencia',
+                        msg: res.msg,
+                        animateTarget: 'mb4',
+                        icon: Ext.MessageBox.WARNING,
+                        buttons: Ext.MessageBox.YESNO,
+                        buttonText: {
+                            yes: "Ver Kardex Hoja",
+                            no: "Cerrar!"
+                        },
+                        fn: function (btn) {
+                            me.txt_socio.reset();
+                            me.txt_nor_movil.reset();
+                            me.txt_id_socio.reset();
+                            me.num_precio.reset();
+                            cbx.focus();
+                            if (btn == 'yes') {
+                                console.log(btn);
+
+                                var win = Ext.create("App.Config.Abstract.Window", {
+                                    botones: false, title: 'Kardex de Socios por Hojas', height: 550,
+                                    width: 800,
+                                });
+                                var grid = Ext.create('App.View.KardexHojas.GridKardexHojas', {cargarStore : false});
+                                grid.getStore().setExtraParams({ ID_SOCIO_MOVIL: rec[0].get('ID_SOCIO_MOVIL'), codigo: "Debe" });
+                                grid.getStore().load();
+                                win.add(grid);
+                                win.show();
+                            }
+
+                        }
                     });
+
+                    //Ext.Msg.alert("Aviso", res.msg, function () {
+                    //    var win = Ext.create("App.Config.Abstract.Window", { botones: false, title: 'Configuracion de Obligaciones' });
+                    //    var grid = Ext.create('App.View.KardexHojas.GridKardexHojas');
+                    //    grid.getStore().setExtraParams({ ID_SOCIO_MOVIL: rec[0].get('ID_SOCIO_MOVIL') });
+                    //    grid.getStore().load();
+                    //    win.add(grid);
+                    //    win.show();
+                    //    me.txt_socio.reset();
+                    //    me.txt_nor_movil.reset();
+                    //    me.txt_id_socio.reset();
+                    //    me.num_precio.reset();
+                    //    cbx.focus();
+                    //});
                 }
             });
-            //if (rec[0].get('DEBE_HOJA') > 0) {
-            //    Ext.Msg.alert("Aviso", "Debe  " + rec[0].get('DEBE_HOJA') + " Hojas de Meses Pasados , Regularizar ");
-            //}
-            //else {
-            //    me.txt_socio.setValue(rec[0].get('NOMBRE_SOCIO'));
-            //    me.txt_nor_movil.setValue(rec[0].get('NRO_MOVIL'));
-            //    me.txt_id_socio.setValue(rec[0].get('ID_SOCIO_MOVIL'));
-            //    if (rec[0].get('PRECIO_HOJA') == 0) {
-            //        Ext.Msg.alert("Aviso", "No tiene Configurado su Costo de Hoja Por favor Configurar.", function () {
-            //            me.num_precio.reset();
-            //        });
-            //    }
-            //    else {
-            //        me.num_precio.setValue(rec[0].get('PRECIO_HOJA'));
-            //    }
-            //}
-
-            //var fecha = me.date_fecha.getValue();
-            //me.gridHojas.getStore().removeAll();
-            //me.CalcularTotales();
-            //me.cbx_diasDisponibles.getStore().load({ params: { FECHA_VENTA: fecha, ID_SOCIO_MOVIL: rec[0].get('ID_SOCIO_MOVIL'), NRO_MOVIL: rec[0].get('NRO_MOVIL') } });
         });
 
 

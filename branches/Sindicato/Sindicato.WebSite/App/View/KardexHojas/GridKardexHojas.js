@@ -13,6 +13,7 @@
     CargarGridAutos: function () {
         var me = this;
         me.store = Ext.create("App.Store.KardexHojas.KardexHojas");
+        
         me.CargarComponentes();
         me.columns = [
                 { xtype: "rownumberer", width: 30, sortable: false },
