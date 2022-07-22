@@ -102,6 +102,7 @@ namespace Sindicato.Services
                             ID_DETALLE = managerDetalle.ObtenerSecuencia(),
                             ID_CAJA = item.ID_CAJA,
                             SALDO = item.SALDO,
+                            SALDO_ANTERIOR = item.TOTAL,
                             ESTADO = "NUEVO",
                             FECHA_REG = DateTime.Now,
                             LOGIN = login,
@@ -451,8 +452,8 @@ namespace Sindicato.Services
                 NOMBRE = y.Key.NOMBRE,
                 MONEDA = y.Key.MONEDA,
                 SALDO = y.Sum(z => z.SALDO),
-                TOTAL = y.Sum(z => z.SALDO) + (cierre_anterior == null ? 0 : cierre_anterior.SD_DETALLE_CIERRES_CAJA.FirstOrDefault(z => z.ID_CAJA == y.Key.ID_CAJA) == null ? 0 : cierre_anterior.SD_DETALLE_CIERRES_CAJA.FirstOrDefault(z => z.ID_CAJA == y.Key.ID_CAJA).SALDO),
-                SALDO_ANTERIOR = cierre_anterior == null ? 0 : cierre_anterior.SD_DETALLE_CIERRES_CAJA.FirstOrDefault(z => z.ID_CAJA == y.Key.ID_CAJA) == null ? 0 : cierre_anterior.SD_DETALLE_CIERRES_CAJA.FirstOrDefault(z => z.ID_CAJA == y.Key.ID_CAJA).SALDO
+                TOTAL = y.Sum(z => z.SALDO) + (cierre_anterior == null ? 0 : cierre_anterior.SD_DETALLE_CIERRES_CAJA.FirstOrDefault(z => z.ID_CAJA == y.Key.ID_CAJA) == null ? 0 : cierre_anterior.SD_DETALLE_CIERRES_CAJA.FirstOrDefault(z => z.ID_CAJA == y.Key.ID_CAJA).SALDO_ANTERIOR),
+                SALDO_ANTERIOR = cierre_anterior == null ? 0 : cierre_anterior.SD_DETALLE_CIERRES_CAJA.FirstOrDefault(z => z.ID_CAJA == y.Key.ID_CAJA) == null ? 0 : cierre_anterior.SD_DETALLE_CIERRES_CAJA.FirstOrDefault(z => z.ID_CAJA == y.Key.ID_CAJA).SALDO_ANTERIOR
             });
         }
 

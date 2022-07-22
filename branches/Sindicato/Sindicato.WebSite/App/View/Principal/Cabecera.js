@@ -30,7 +30,7 @@ Ext.define("App.View.Principal.Cabecera", {
             xtype: 'box',
             id: 'header',
             region: 'west',
-            html: '<h1> Sistema de Administracion </h1>',
+            html: '<h1> Sistema de Gestion de Transportes "SGTRANS" </h1>',
             height: 30,
             width : '50%',
         });

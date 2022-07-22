@@ -88,7 +88,7 @@
             allowBlank: false
         });
         me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
-            fieldLabel: "Observaciones",
+            fieldLabel: "Observaciones1",
             name: "OBSERVACION",
             width: 480,
             colspan: 2,

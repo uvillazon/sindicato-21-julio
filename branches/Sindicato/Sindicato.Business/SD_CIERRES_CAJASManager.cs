@@ -25,6 +25,7 @@ namespace Sindicato.Business
                 {
                     ant.ID_CIERRE = ObtenerSecuencia();
                     ant.LOGIN = login; ;
+                    ant.OBSERVACION = ant.OBSERVACION;
                     ant.FECHA_REG = DateTime.Now;
                     ant.ESTADO = "ACTIVO";
                     ant.CODIGO = ant.ID_CIERRE.ToString();
