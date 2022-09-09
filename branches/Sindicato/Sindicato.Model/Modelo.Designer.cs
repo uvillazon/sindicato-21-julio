@@ -89,12 +89,6 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "SD_SOCIO_DESEMPENOS_R01", "SD_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIOS), "SD_SOCIO_DESEMPENOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_SOCIO_DESEMPENOS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_SOCIO_MOVILES_R01", "SD_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIOS), "SD_SOCIO_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_SOCIO_MOVILES), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_TIPOS_EGRESOS_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_TIPOS_EGRESOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_TIPOS_EGRESOS), true)]
-[assembly: EdmRelationshipAttribute("Model", "SD_PRESTAMOS_POR_SOCIOS_R03", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), true)]
-[assembly: EdmRelationshipAttribute("Model", "SD_PAGO_DE_PRESTAMOS_R01", "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), "SD_PAGO_DE_PRESTAMOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PAGO_DE_PRESTAMOS), true)]
-[assembly: EdmRelationshipAttribute("Model", "SD_PRESTAMOS_POR_SOCIOS_R01", "SD_SOCIO_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIO_MOVILES), "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), true)]
-[assembly: EdmRelationshipAttribute("Model", "SD_PRESTAMOS_POR_SOCIOS_R02", "SD_TIPOS_PRESTAMOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_TIPOS_PRESTAMOS), "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), true)]
-[assembly: EdmRelationshipAttribute("Model", "SD_PLAN_DE_PAGO_R01", "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), "SD_PLAN_DE_PAGO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PLAN_DE_PAGO), true)]
-[assembly: EdmRelationshipAttribute("Model", "SD_PRESTAMOS_MORA_R01", "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), "SD_PRESTAMOS_MORA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PRESTAMOS_MORA), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_CIERRES_AHORRO_R01", "SD_CIERRES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CIERRES), "SD_DETALLE_CIERRES_AHORRO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_CIERRES_AHORRO), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_EGRESOS_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_EGRESOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_EGRESOS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_INGRESOS_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_INGRESOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_INGRESOS), true)]
@@ -105,6 +99,12 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "SD_TRANSF_HOJA_DET_R01", "SD_TRANSFERENCIAS_HOJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_TRANSFERENCIAS_HOJAS), "SD_TRANSF_HOJA_DET", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_TRANSF_HOJA_DET), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_CIERRES_CAJA_R02", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_DETALLE_CIERRES_CAJA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_CIERRES_CAJA), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_CIERRES_CAJA_R01", "SD_CIERRES_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CIERRES_CAJAS), "SD_DETALLE_CIERRES_CAJA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_CIERRES_CAJA), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_PRESTAMOS_POR_SOCIOS_R03", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_PAGO_DE_PRESTAMOS_R01", "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), "SD_PAGO_DE_PRESTAMOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PAGO_DE_PRESTAMOS), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_PLAN_DE_PAGO_R01", "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), "SD_PLAN_DE_PAGO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PLAN_DE_PAGO), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_PRESTAMOS_MORA_R01", "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), "SD_PRESTAMOS_MORA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PRESTAMOS_MORA), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_PRESTAMOS_POR_SOCIOS_R01", "SD_SOCIO_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIO_MOVILES), "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_PRESTAMOS_POR_SOCIOS_R02", "SD_TIPOS_PRESTAMOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_TIPOS_PRESTAMOS), "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), true)]
 
 #endregion
 
@@ -1103,38 +1103,6 @@ namespace Sindicato.Model
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<SD_PRESTAMOS_POR_SOCIOS> SD_PRESTAMOS_POR_SOCIOS
-        {
-            get
-            {
-                if ((_SD_PRESTAMOS_POR_SOCIOS == null))
-                {
-                    _SD_PRESTAMOS_POR_SOCIOS = base.CreateObjectSet<SD_PRESTAMOS_POR_SOCIOS>("SD_PRESTAMOS_POR_SOCIOS");
-                }
-                return _SD_PRESTAMOS_POR_SOCIOS;
-            }
-        }
-        private ObjectSet<SD_PRESTAMOS_POR_SOCIOS> _SD_PRESTAMOS_POR_SOCIOS;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<SD_PLAN_DE_PAGO> SD_PLAN_DE_PAGO
-        {
-            get
-            {
-                if ((_SD_PLAN_DE_PAGO == null))
-                {
-                    _SD_PLAN_DE_PAGO = base.CreateObjectSet<SD_PLAN_DE_PAGO>("SD_PLAN_DE_PAGO");
-                }
-                return _SD_PLAN_DE_PAGO;
-            }
-        }
-        private ObjectSet<SD_PLAN_DE_PAGO> _SD_PLAN_DE_PAGO;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<SD_PARAM_CANT_HOJAS_MES> SD_PARAM_CANT_HOJAS_MES
         {
             get
@@ -1147,22 +1115,6 @@ namespace Sindicato.Model
             }
         }
         private ObjectSet<SD_PARAM_CANT_HOJAS_MES> _SD_PARAM_CANT_HOJAS_MES;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<SD_PRESTAMOS_MORA> SD_PRESTAMOS_MORA
-        {
-            get
-            {
-                if ((_SD_PRESTAMOS_MORA == null))
-                {
-                    _SD_PRESTAMOS_MORA = base.CreateObjectSet<SD_PRESTAMOS_MORA>("SD_PRESTAMOS_MORA");
-                }
-                return _SD_PRESTAMOS_MORA;
-            }
-        }
-        private ObjectSet<SD_PRESTAMOS_MORA> _SD_PRESTAMOS_MORA;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1275,6 +1227,54 @@ namespace Sindicato.Model
             }
         }
         private ObjectSet<SD_DETALLE_CIERRES_CAJA> _SD_DETALLE_CIERRES_CAJA;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<SD_PLAN_DE_PAGO> SD_PLAN_DE_PAGO
+        {
+            get
+            {
+                if ((_SD_PLAN_DE_PAGO == null))
+                {
+                    _SD_PLAN_DE_PAGO = base.CreateObjectSet<SD_PLAN_DE_PAGO>("SD_PLAN_DE_PAGO");
+                }
+                return _SD_PLAN_DE_PAGO;
+            }
+        }
+        private ObjectSet<SD_PLAN_DE_PAGO> _SD_PLAN_DE_PAGO;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<SD_PRESTAMOS_MORA> SD_PRESTAMOS_MORA
+        {
+            get
+            {
+                if ((_SD_PRESTAMOS_MORA == null))
+                {
+                    _SD_PRESTAMOS_MORA = base.CreateObjectSet<SD_PRESTAMOS_MORA>("SD_PRESTAMOS_MORA");
+                }
+                return _SD_PRESTAMOS_MORA;
+            }
+        }
+        private ObjectSet<SD_PRESTAMOS_MORA> _SD_PRESTAMOS_MORA;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<SD_PRESTAMOS_POR_SOCIOS> SD_PRESTAMOS_POR_SOCIOS
+        {
+            get
+            {
+                if ((_SD_PRESTAMOS_POR_SOCIOS == null))
+                {
+                    _SD_PRESTAMOS_POR_SOCIOS = base.CreateObjectSet<SD_PRESTAMOS_POR_SOCIOS>("SD_PRESTAMOS_POR_SOCIOS");
+                }
+                return _SD_PRESTAMOS_POR_SOCIOS;
+            }
+        }
+        private ObjectSet<SD_PRESTAMOS_POR_SOCIOS> _SD_PRESTAMOS_POR_SOCIOS;
 
         #endregion
 
@@ -1753,35 +1753,11 @@ namespace Sindicato.Model
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the SD_PRESTAMOS_POR_SOCIOS EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToSD_PRESTAMOS_POR_SOCIOS(SD_PRESTAMOS_POR_SOCIOS sD_PRESTAMOS_POR_SOCIOS)
-        {
-            base.AddObject("SD_PRESTAMOS_POR_SOCIOS", sD_PRESTAMOS_POR_SOCIOS);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the SD_PLAN_DE_PAGO EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToSD_PLAN_DE_PAGO(SD_PLAN_DE_PAGO sD_PLAN_DE_PAGO)
-        {
-            base.AddObject("SD_PLAN_DE_PAGO", sD_PLAN_DE_PAGO);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the SD_PARAM_CANT_HOJAS_MES EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToSD_PARAM_CANT_HOJAS_MES(SD_PARAM_CANT_HOJAS_MES sD_PARAM_CANT_HOJAS_MES)
         {
             base.AddObject("SD_PARAM_CANT_HOJAS_MES", sD_PARAM_CANT_HOJAS_MES);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the SD_PRESTAMOS_MORA EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToSD_PRESTAMOS_MORA(SD_PRESTAMOS_MORA sD_PRESTAMOS_MORA)
-        {
-            base.AddObject("SD_PRESTAMOS_MORA", sD_PRESTAMOS_MORA);
         }
     
         /// <summary>
@@ -1838,6 +1814,30 @@ namespace Sindicato.Model
         public void AddToSD_DETALLE_CIERRES_CAJA(SD_DETALLE_CIERRES_CAJA sD_DETALLE_CIERRES_CAJA)
         {
             base.AddObject("SD_DETALLE_CIERRES_CAJA", sD_DETALLE_CIERRES_CAJA);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the SD_PLAN_DE_PAGO EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSD_PLAN_DE_PAGO(SD_PLAN_DE_PAGO sD_PLAN_DE_PAGO)
+        {
+            base.AddObject("SD_PLAN_DE_PAGO", sD_PLAN_DE_PAGO);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the SD_PRESTAMOS_MORA EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSD_PRESTAMOS_MORA(SD_PRESTAMOS_MORA sD_PRESTAMOS_MORA)
+        {
+            base.AddObject("SD_PRESTAMOS_MORA", sD_PRESTAMOS_MORA);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the SD_PRESTAMOS_POR_SOCIOS EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSD_PRESTAMOS_POR_SOCIOS(SD_PRESTAMOS_POR_SOCIOS sD_PRESTAMOS_POR_SOCIOS)
+        {
+            base.AddObject("SD_PRESTAMOS_POR_SOCIOS", sD_PRESTAMOS_POR_SOCIOS);
         }
 
         #endregion
@@ -6906,28 +6906,6 @@ namespace Sindicato.Model
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_PRESTAMOS_POR_SOCIOS_R03", "SD_PRESTAMOS_POR_SOCIOS")]
-        public EntityCollection<SD_PRESTAMOS_POR_SOCIOS> SD_PRESTAMOS_POR_SOCIOS
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_PRESTAMOS_POR_SOCIOS>("Model.SD_PRESTAMOS_POR_SOCIOS_R03", "SD_PRESTAMOS_POR_SOCIOS");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_PRESTAMOS_POR_SOCIOS>("Model.SD_PRESTAMOS_POR_SOCIOS_R03", "SD_PRESTAMOS_POR_SOCIOS", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Model", "SD_EGRESOS_R01", "SD_EGRESOS")]
         public EntityCollection<SD_EGRESOS> SD_EGRESOS
         {
@@ -6984,6 +6962,28 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_DETALLE_CIERRES_CAJA>("Model.SD_DETALLE_CIERRES_CAJA_R02", "SD_DETALLE_CIERRES_CAJA", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_PRESTAMOS_POR_SOCIOS_R03", "SD_PRESTAMOS_POR_SOCIOS")]
+        public EntityCollection<SD_PRESTAMOS_POR_SOCIOS> SD_PRESTAMOS_POR_SOCIOS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_PRESTAMOS_POR_SOCIOS>("Model.SD_PRESTAMOS_POR_SOCIOS_R03", "SD_PRESTAMOS_POR_SOCIOS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_PRESTAMOS_POR_SOCIOS>("Model.SD_PRESTAMOS_POR_SOCIOS_R03", "SD_PRESTAMOS_POR_SOCIOS", value);
                 }
             }
         }
@@ -22753,6 +22753,54 @@ namespace Sindicato.Model
         private global::System.String _LOGIN_USR;
         partial void OnLOGIN_USRChanging(global::System.String value);
         partial void OnLOGIN_USRChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ESTADO
+        {
+            get
+            {
+                return _ESTADO;
+            }
+            set
+            {
+                OnESTADOChanging(value);
+                ReportPropertyChanging("ESTADO");
+                _ESTADO = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ESTADO");
+                OnESTADOChanged();
+            }
+        }
+        private global::System.String _ESTADO;
+        partial void OnESTADOChanging(global::System.String value);
+        partial void OnESTADOChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> SALDO_PLAN
+        {
+            get
+            {
+                return _SALDO_PLAN;
+            }
+            set
+            {
+                OnSALDO_PLANChanging(value);
+                ReportPropertyChanging("SALDO_PLAN");
+                _SALDO_PLAN = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SALDO_PLAN");
+                OnSALDO_PLANChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _SALDO_PLAN;
+        partial void OnSALDO_PLANChanging(Nullable<global::System.Decimal> value);
+        partial void OnSALDO_PLANChanged();
 
         #endregion
 
@@ -23186,24 +23234,24 @@ namespace Sindicato.Model
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> IMPORTE_INTERES
+        public Nullable<global::System.DateTime> FECHA_LIMITE_PAGO
         {
             get
             {
-                return _IMPORTE_INTERES;
+                return _FECHA_LIMITE_PAGO;
             }
             set
             {
-                OnIMPORTE_INTERESChanging(value);
-                ReportPropertyChanging("IMPORTE_INTERES");
-                _IMPORTE_INTERES = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("IMPORTE_INTERES");
-                OnIMPORTE_INTERESChanged();
+                OnFECHA_LIMITE_PAGOChanging(value);
+                ReportPropertyChanging("FECHA_LIMITE_PAGO");
+                _FECHA_LIMITE_PAGO = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FECHA_LIMITE_PAGO");
+                OnFECHA_LIMITE_PAGOChanged();
             }
         }
-        private Nullable<global::System.Decimal> _IMPORTE_INTERES;
-        partial void OnIMPORTE_INTERESChanging(Nullable<global::System.Decimal> value);
-        partial void OnIMPORTE_INTERESChanged();
+        private Nullable<global::System.DateTime> _FECHA_LIMITE_PAGO;
+        partial void OnFECHA_LIMITE_PAGOChanging(Nullable<global::System.DateTime> value);
+        partial void OnFECHA_LIMITE_PAGOChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -23234,24 +23282,24 @@ namespace Sindicato.Model
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> FECHA_LIMITE_PAGO
+        public Nullable<global::System.Decimal> IMPORTE_INTERES
         {
             get
             {
-                return _FECHA_LIMITE_PAGO;
+                return _IMPORTE_INTERES;
             }
             set
             {
-                OnFECHA_LIMITE_PAGOChanging(value);
-                ReportPropertyChanging("FECHA_LIMITE_PAGO");
-                _FECHA_LIMITE_PAGO = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("FECHA_LIMITE_PAGO");
-                OnFECHA_LIMITE_PAGOChanged();
+                OnIMPORTE_INTERESChanging(value);
+                ReportPropertyChanging("IMPORTE_INTERES");
+                _IMPORTE_INTERES = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IMPORTE_INTERES");
+                OnIMPORTE_INTERESChanged();
             }
         }
-        private Nullable<global::System.DateTime> _FECHA_LIMITE_PAGO;
-        partial void OnFECHA_LIMITE_PAGOChanging(Nullable<global::System.DateTime> value);
-        partial void OnFECHA_LIMITE_PAGOChanged();
+        private Nullable<global::System.Decimal> _IMPORTE_INTERES;
+        partial void OnIMPORTE_INTERESChanging(Nullable<global::System.Decimal> value);
+        partial void OnIMPORTE_INTERESChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -23276,6 +23324,54 @@ namespace Sindicato.Model
         private global::System.String _ESTADO_CIERRE;
         partial void OnESTADO_CIERREChanging(global::System.String value);
         partial void OnESTADO_CIERREChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> SALDO_CAPITAL
+        {
+            get
+            {
+                return _SALDO_CAPITAL;
+            }
+            set
+            {
+                OnSALDO_CAPITALChanging(value);
+                ReportPropertyChanging("SALDO_CAPITAL");
+                _SALDO_CAPITAL = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SALDO_CAPITAL");
+                OnSALDO_CAPITALChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _SALDO_CAPITAL;
+        partial void OnSALDO_CAPITALChanging(Nullable<global::System.Decimal> value);
+        partial void OnSALDO_CAPITALChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> SALDO_INTERES
+        {
+            get
+            {
+                return _SALDO_INTERES;
+            }
+            set
+            {
+                OnSALDO_INTERESChanging(value);
+                ReportPropertyChanging("SALDO_INTERES");
+                _SALDO_INTERES = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SALDO_INTERES");
+                OnSALDO_INTERESChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _SALDO_INTERES;
+        partial void OnSALDO_INTERESChanging(Nullable<global::System.Decimal> value);
+        partial void OnSALDO_INTERESChanged();
 
         #endregion
 
@@ -23338,6 +23434,50 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_PAGO_DE_PRESTAMOS>("Model.SD_PAGO_DE_PRESTAMOS_R01", "SD_PAGO_DE_PRESTAMOS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_PLAN_DE_PAGO_R01", "SD_PLAN_DE_PAGO")]
+        public EntityCollection<SD_PLAN_DE_PAGO> SD_PLAN_DE_PAGO
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_PLAN_DE_PAGO>("Model.SD_PLAN_DE_PAGO_R01", "SD_PLAN_DE_PAGO");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_PLAN_DE_PAGO>("Model.SD_PLAN_DE_PAGO_R01", "SD_PLAN_DE_PAGO", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_PRESTAMOS_MORA_R01", "SD_PRESTAMOS_MORA")]
+        public EntityCollection<SD_PRESTAMOS_MORA> SD_PRESTAMOS_MORA
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_PRESTAMOS_MORA>("Model.SD_PRESTAMOS_MORA_R01", "SD_PRESTAMOS_MORA");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_PRESTAMOS_MORA>("Model.SD_PRESTAMOS_MORA_R01", "SD_PRESTAMOS_MORA", value);
                 }
             }
         }
@@ -23414,50 +23554,6 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_TIPOS_PRESTAMOS>("Model.SD_PRESTAMOS_POR_SOCIOS_R02", "SD_TIPOS_PRESTAMOS", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_PLAN_DE_PAGO_R01", "SD_PLAN_DE_PAGO")]
-        public EntityCollection<SD_PLAN_DE_PAGO> SD_PLAN_DE_PAGO
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_PLAN_DE_PAGO>("Model.SD_PLAN_DE_PAGO_R01", "SD_PLAN_DE_PAGO");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_PLAN_DE_PAGO>("Model.SD_PLAN_DE_PAGO_R01", "SD_PLAN_DE_PAGO", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_PRESTAMOS_MORA_R01", "SD_PRESTAMOS_MORA")]
-        public EntityCollection<SD_PRESTAMOS_MORA> SD_PRESTAMOS_MORA
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_PRESTAMOS_MORA>("Model.SD_PRESTAMOS_MORA_R01", "SD_PRESTAMOS_MORA");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_PRESTAMOS_MORA>("Model.SD_PRESTAMOS_MORA_R01", "SD_PRESTAMOS_MORA", value);
                 }
             }
         }
@@ -26083,28 +26179,6 @@ namespace Sindicato.Model
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_PRESTAMOS_POR_SOCIOS_R01", "SD_PRESTAMOS_POR_SOCIOS")]
-        public EntityCollection<SD_PRESTAMOS_POR_SOCIOS> SD_PRESTAMOS_POR_SOCIOS
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_PRESTAMOS_POR_SOCIOS>("Model.SD_PRESTAMOS_POR_SOCIOS_R01", "SD_PRESTAMOS_POR_SOCIOS");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_PRESTAMOS_POR_SOCIOS>("Model.SD_PRESTAMOS_POR_SOCIOS_R01", "SD_PRESTAMOS_POR_SOCIOS", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Model", "SD_TRANSFERENCIAS_HOJAS_R01", "SD_TRANSFERENCIAS_HOJAS")]
         public EntityCollection<SD_TRANSFERENCIAS_HOJAS> SD_TRANSFERENCIAS_HOJAS
         {
@@ -26139,6 +26213,28 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_TRANSFERENCIAS_HOJAS>("Model.SD_TRANSFERENCIAS_HOJAS_R02", "SD_TRANSFERENCIAS_HOJAS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_PRESTAMOS_POR_SOCIOS_R01", "SD_PRESTAMOS_POR_SOCIOS")]
+        public EntityCollection<SD_PRESTAMOS_POR_SOCIOS> SD_PRESTAMOS_POR_SOCIOS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_PRESTAMOS_POR_SOCIOS>("Model.SD_PRESTAMOS_POR_SOCIOS_R01", "SD_PRESTAMOS_POR_SOCIOS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_PRESTAMOS_POR_SOCIOS>("Model.SD_PRESTAMOS_POR_SOCIOS_R01", "SD_PRESTAMOS_POR_SOCIOS", value);
                 }
             }
         }

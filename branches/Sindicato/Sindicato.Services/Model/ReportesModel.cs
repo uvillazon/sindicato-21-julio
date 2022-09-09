@@ -177,6 +177,13 @@ namespace Sindicato.Services.Model
         public DateTime FECHA_FIN { get; set; }
         public int CANTIDAD { get; set; }
         public int CANTIDAD_CANCELADAS { get; set; }
+        public decimal SALDO { get; set; }
+        public decimal AMORTIZACION { get; set; }
+        public decimal? TRANSFERENCIA_INGRESO { get; set; }
+        public decimal? TRANSFERENCIA_EGRESO { get; set; }
+        public decimal? CAPITAL_CANCELADO { get; set; }
+        public decimal? INTERES_CANCELADO { get; set; }
+        public decimal? MORA_A_PAGAR { get; set; }
 
     }
 
