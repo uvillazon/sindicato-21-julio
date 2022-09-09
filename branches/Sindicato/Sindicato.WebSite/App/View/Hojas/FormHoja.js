@@ -34,13 +34,45 @@
                     }
                 }
                 else {
-                    Ext.Msg.alert("Aviso", res.msg, function () {
-                        me.txt_socio.reset();
-                        me.txt_nor_movil.reset();
-                        me.txt_id_socio.reset();
-                        me.num_precio.reset();
-                        cbx.focus();
+                    Ext.MessageBox.show({
+                        title: 'Advertencia',
+                        msg: res.msg,
+                        animateTarget: 'mb4',
+                        icon: Ext.MessageBox.WARNING,
+                        buttons: Ext.MessageBox.YESNO,
+                        buttonText: {
+                            yes: "Ver Kardex Hoja",
+                            no: "Cerrar!"
+                        },
+                        fn: function (btn) {
+                            me.txt_socio.reset();
+                            me.txt_nor_movil.reset();
+                            me.txt_id_socio.reset();
+                            me.num_precio.reset();
+                            cbx.focus();
+                            if (btn == 'yes') {
+                                console.log(btn);
+
+                                var win = Ext.create("App.Config.Abstract.Window", {
+                                    botones: false, title: 'Kardex de Socios por Hojas', height: 550,
+                                    width: 800,
+                                });
+                                var grid = Ext.create('App.View.KardexHojas.GridKardexHojas', { cargarStore: false });
+                                grid.getStore().setExtraParams({ ID_SOCIO_MOVIL: rec[0].get('ID_SOCIO_MOVIL'), codigo: "Debe" });
+                                grid.getStore().load();
+                                win.add(grid);
+                                win.show();
+                            }
+
+                        }
                     });
+                    //Ext.Msg.alert("Aviso", res.msg, function () {
+                    //    me.txt_socio.reset();
+                    //    me.txt_nor_movil.reset();
+                    //    me.txt_id_socio.reset();
+                    //    me.num_precio.reset();
+                    //    cbx.focus();
+                    //});
                 }
             });
             //if (rec[0].get('DEBE_HOJA') > 0) {

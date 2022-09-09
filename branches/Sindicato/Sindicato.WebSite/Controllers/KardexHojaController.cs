@@ -22,10 +22,10 @@ namespace Sindicato.WebSite.Controllers
             _serkar = serkar;
         }
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult ObtenerKardexHojaPaginados(PagingInfo paginacion, FiltrosModel<AutosModel> filtros, AutosModel entidad)
+        public ActionResult ObtenerKardexHojaPaginados(PagingInfo paginacion, FiltrosModel<AutosModel> filtros, AutosModel entidad, string codigo)
         {
             filtros.Entidad = entidad;
-            var autos = _serkar.ObtenerKardex(paginacion, filtros);
+            var autos = _serkar.ObtenerKardex(paginacion, filtros, codigo);
             
             //var query = _serkar.ObtenerMesDeKardex();
 
