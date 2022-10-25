@@ -28,7 +28,6 @@
                         </Border>
                       </Style>
                     </Subreport>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>

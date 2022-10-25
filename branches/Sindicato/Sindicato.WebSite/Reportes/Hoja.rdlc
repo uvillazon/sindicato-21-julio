@@ -11,19 +11,22 @@
               <TextRun>
                 <Value>="Nro : "&amp; First(Fields!ID_HOJA.Value, "DataSetHoja") &amp; " G-VII"</Value>
                 <Style>
-                  <FontSize>14pt</FontSize>
-                  <FontWeight>ExtraBold</FontWeight>
+                  <FontFamily>Tahoma</FontFamily>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.90553cm</Top>
-        <Left>4.63699cm</Left>
+        <Top>0.29699cm</Top>
+        <Left>5.53657cm</Left>
         <Height>0.75875cm</Height>
-        <Width>5.54271cm</Width>
+        <Width>5.22521cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -43,21 +46,23 @@
               <TextRun>
                 <Value>=First(Fields!FECHA_COMPRA.Value, "DataSetHoja")</Value>
                 <Style>
-                  <FontFamily>Calibri</FontFamily>
-                  <FontSize>14pt</FontSize>
-                  <FontWeight>ExtraBold</FontWeight>
+                  <FontFamily>Tahoma</FontFamily>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
                   <Format>dd/MM/yyyy</Format>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>1.66428cm</Top>
-        <Left>4.63699cm</Left>
+        <Top>1.05574cm</Top>
+        <Left>5.53657cm</Left>
         <Height>0.77666cm</Height>
-        <Width>3.63771cm</Width>
+        <Width>3.32021cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -78,9 +83,7 @@
               <TextRun>
                 <Value>=First(Fields!SOCIO.Value, "DataSetHoja")</Value>
                 <Style>
-                  <FontFamily>Calibri</FontFamily>
-                  <FontSize>12pt</FontSize>
-                  <FontWeight>ExtraBold</FontWeight>
+                  <FontFamily>Tahoma</FontFamily>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -91,7 +94,7 @@
         <Top>2.58205cm</Top>
         <Left>2.23923cm</Left>
         <Height>0.65292cm</Height>
-        <Width>7.35839cm</Width>
+        <Width>8.52255cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -112,9 +115,9 @@
               <TextRun>
                 <Value>=First(Fields!PLACA.Value, "DataSetHoja")</Value>
                 <Style>
-                  <FontFamily>Calibri</FontFamily>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>ExtraBold</FontWeight>
+                  <FontFamily>Tahoma</FontFamily>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Normal</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -123,18 +126,14 @@
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
         <Top>3.27024cm</Top>
-        <Left>7.25637cm</Left>
-        <Height>0.84695cm</Height>
-        <Width>2.34125cm</Width>
+        <Left>7.83845cm</Left>
+        <Height>0.8cm</Height>
+        <Width>2.92333cm</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
       <Textbox Name="Textbox5">
@@ -146,28 +145,27 @@
               <TextRun>
                 <Value>132</Value>
                 <Style>
-                  <FontFamily>Calibri</FontFamily>
-                  <FontWeight>ExtraBold</FontWeight>
+                  <FontFamily>Tahoma</FontFamily>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Normal</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>3.23497cm</Top>
-        <Left>4.30299cm</Left>
-        <Height>0.50299cm</Height>
+        <Top>3.27025cm</Top>
+        <Left>4.63699cm</Left>
+        <Height>0.79999cm</Height>
         <Width>1.67979cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
       <Textbox Name="Textbox6">
@@ -179,8 +177,9 @@
               <TextRun>
                 <Value>=Sum(Fields!MOVIL.Value, "DataSetHoja")</Value>
                 <Style>
-                  <FontFamily>Calibri</FontFamily>
-                  <FontWeight>ExtraBold</FontWeight>
+                  <FontFamily>Tahoma</FontFamily>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Normal</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -189,18 +188,14 @@
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
         <Top>3.27024cm</Top>
-        <Left>1.89527cm</Left>
-        <Height>0.46771cm</Height>
-        <Width>0.96541cm</Width>
+        <Left>1.8159cm</Left>
+        <Height>0.8cm</Height>
+        <Width>1.0977cm</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
       <Textbox Name="Textbox8">
@@ -212,18 +207,21 @@
               <TextRun>
                 <Value>="# " &amp; First(Fields!NUMERO.Value, "DataSetHoja")</Value>
                 <Style>
-                  <FontSize>14pt</FontSize>
-                  <FontWeight>ExtraBold</FontWeight>
+                  <FontFamily>Tahoma</FontFamily>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
                   <Format>dd/MM/yyyy</Format>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>1.66428cm</Top>
-        <Left>8.2747cm</Left>
+        <Top>1.05574cm</Top>
+        <Left>8.85678cm</Left>
         <Height>0.77666cm</Height>
         <Width>1.905cm</Width>
         <ZIndex>6</ZIndex>
@@ -239,6 +237,7 @@
       </Textbox>
       <Textbox Name="Textbox7">
         <CanGrow>true</CanGrow>
+        <CanShrink>true</CanShrink>
         <KeepTogether>true</KeepTogether>
         <Paragraphs>
           <Paragraph>
@@ -246,8 +245,8 @@
               <TextRun>
                 <Value>=First(Fields!OBLIGACIONES.Value, "DataSetHoja")</Value>
                 <Style>
+                  <FontFamily>Consolas</FontFamily>
                   <FontSize>12pt</FontSize>
-                  <FontWeight>ExtraBold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -255,23 +254,19 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>12.07708cm</Top>
-        <Left>0.8634cm</Left>
-        <Height>1.26146cm</Height>
-        <Width>9.3163cm</Width>
+        <Top>12.29521cm</Top>
+        <Left>1.04861cm</Left>
+        <Height>1.15563cm</Height>
+        <Width>9.01203cm</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>13.98cm</Height>
+    <Height>14.11229cm</Height>
     <Style>
       <Border>
         <Style>None</Style>
@@ -285,7 +280,7 @@
     <LeftMargin>0cm</LeftMargin>
     <RightMargin>0cm</RightMargin>
     <TopMargin>0cm</TopMargin>
-    <BottomMargin>0cm</BottomMargin>
+    <BottomMargin>2cm</BottomMargin>
     <ColumnSpacing>0.13cm</ColumnSpacing>
     <Style />
   </Page>

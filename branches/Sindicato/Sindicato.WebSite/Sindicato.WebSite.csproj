@@ -4061,6 +4061,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reportes\Copia de ReporteCierreAhorro.rdlc" />
+    <EmbeddedResource Include="Reportes\ReportePagoPrestamoRollo.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteIngresoRollo.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteRegulacionRollo.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteRetiroRollo.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteEstadoResultadoPorMoneda.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteAhorrosCobros.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteDetalleHojaPorSocio.rdlc" />
