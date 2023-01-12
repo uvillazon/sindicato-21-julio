@@ -363,6 +363,7 @@
     <Content Include="App\Store\Utils\Tablas.js" />
     <Content Include="App\Store\Ventas\DetallesVenta.js" />
     <Content Include="App\Store\Ventas\Ventas.js" />
+    <Content Include="App\View\Ahorros\FormCierreIndividual.js" />
     <Content Include="App\View\Cajas\FormCaja.js" />
     <Content Include="App\View\Cajas\FormMovimiento.js" />
     <Content Include="App\View\Cajas\Forms.js" />
@@ -4079,6 +4080,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reportes\Copia de ReporteCierreAhorro.rdlc" />
+    <EmbeddedResource Include="Reportes\ReportePagoPrestamoRollo.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteIngresoRollo.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteRegulacionRollo.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteRetiroRollo.rdlc" />
     <EmbeddedResource Include="Reportes\ReportePrestamosTotalesPorGestion.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteEstadoResultadoPorMoneda.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteAhorrosCobros.rdlc" />

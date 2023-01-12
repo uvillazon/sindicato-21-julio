@@ -1,8 +1,8 @@
-﻿Ext.define("App.View.Ahorros.FormCierre", {
+﻿Ext.define("App.View.Ahorros.FormCierreIndividual", {
     extend: "App.Config.Abstract.Form",
     columns: 1,
     record: '',
-    title: 'Datos Cierre Para el pago de Ahorros a Socios',
+    title: 'Datos Cierre Para el pago de Ahorros Individual',
     modoConsulta: false,
     initComponent: function () {
         var me = this;
@@ -18,8 +18,20 @@
     CargarEventos: function () {
         var me = this;
         me.date_fecha_fin.on('select', function (dat, value) {
-            me.gridDetalle.getStore().setExtraParams({ FECHA_DESDE: me.date_fecha_ini.getValue(), FECHA_HASTA: value });
-            me.gridDetalle.getStore().load();
+            if (me.getForm().isValid()) {
+                var idsocio = me.cbx_socio.getValue();
+                me.gridDetalle.getStore().setExtraParams({ FECHA_DESDE: me.date_fecha_ini.getValue(), FECHA_HASTA: value , ID_SOCIO_MOVIL  : idsocio });
+                me.gridDetalle.getStore().load();
+            }
+        });
+
+        me.cbx_socio.on('select', function (cbx, row) {
+            me.txt_socio.setValue(row[0].get('NOMBRE_SOCIO'));
+            if (me.getForm().isValid()) {
+                var idsocio = me.cbx_socio.getValue();
+                me.gridDetalle.getStore().setExtraParams({ FECHA_DESDE: me.date_fecha_ini.getValue(), FECHA_HASTA: me.date_fecha_fin.getValue(), ID_SOCIO_MOVIL: row[0].get('ID_SOCIO_MOVIL') });
+                me.gridDetalle.getStore().load();
+            }
         });
         me.gridDetalle.getStore().on('load', function (str,records) {
             var ingresos = str.sum('TOTAL_AHORRO');
@@ -33,10 +45,11 @@
             name: "ID_CIERRE"
 
         });
+
         me.txt_tipo = Ext.create("App.Config.Componente.TextFieldBase", {
             hidden: true,
             name: "TIPO",
-            value: 'TODOS'
+            value : 'INDIVIDUAL'
 
         });
         me.date_fecha_ini = Ext.create("App.Config.Componente.DateFieldBase", {
@@ -53,6 +66,29 @@
             name: "FECHA_FIN",
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false
+        });
+        me.store_socio = Ext.create('App.Store.Socios.Socios');
+
+        me.cbx_socio = Ext.create("App.Config.Componente.ComboAutoBase", {
+            fieldLabel: "Nro Movil",
+            name: "ID_SOCIO_MOVIL",
+            displayField: 'NRO_MOVIL',
+            valueField: 'ID_SOCIO_MOVIL',
+            store: me.store_socio,
+            width: 240,
+            colspan: 2,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            textoTpl: function () { return "Nro Movil :{NRO_MOVIL} - {NOMBRE} {APELLIDO_PATERNO} {APELLIDO_MATERNO}" }
+        });
+        me.txt_socio = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Socio",
+            name: "SOCIO",
+            colspan: 2,
+            width: 480,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            readOnly: true,
         });
         me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
             fieldLabel: "Observaciones",
@@ -79,8 +115,9 @@
         });
         me.gridDetalle = Ext.create("App.View.Ahorros.GridDetalles", { colspan: 2, width: 550, cargarStore: false, height: 400,storeGenerar: true });
         me.items = [
-            me.txt_id,me.txt_tipo ,
-            me.date_fecha_ini,me.date_fecha_fin,
+            me.txt_id,me.txt_tipo,
+            me.date_fecha_ini, me.date_fecha_fin,
+            me.cbx_socio,me.txt_socio,
             me.txt_observacion,
             me.txt_estado, me.txt_total,
             me.gridDetalle
@@ -88,16 +125,16 @@
     },
     CargarComponentes: function () {
         var me = this;
+        me.txt_id = Ext.create("App.Config.Componente.TextFieldBase", {
+            hidden: true,
+            name: "ID_CIERRE"
+
+        });
 
         me.txt_tipo = Ext.create("App.Config.Componente.TextFieldBase", {
             hidden: true,
             name: "TIPO",
-            value: 'TODOS'
-
-        });
-        me.txt_id = Ext.create("App.Config.Componente.TextFieldBase", {
-            hidden: true,
-            name: "ID_CIERRE"
+            value: 'INDIVIDUAL'
 
         });
         me.date_fecha_ini = Ext.create("App.Config.Componente.DateFieldBase", {

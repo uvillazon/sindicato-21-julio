@@ -105,7 +105,7 @@ namespace Sindicato.Services
             ExecuteManager(uow =>
             {
                 var manager = new SD_CIERRESManager(uow);
-                result = manager.BuscarTodos().OrderByDescending(x => x.ID_CIERRE).FirstOrDefault();
+                result = manager.BuscarTodos(x=>x.TIPO == "TODOS").OrderByDescending(x => x.ID_CIERRE).FirstOrDefault();
             });
             return result;
         }
@@ -130,7 +130,7 @@ namespace Sindicato.Services
         }
 
 
-        public IEnumerable<CierreAhorroSocioMovilModel> ObtenerCierreAhorroSocioMovil(DateTime FECHA_INI, DateTime FECHA_FIN)
+        public IEnumerable<CierreAhorroSocioMovilModel> ObtenerCierreAhorroSocioMovil(DateTime FECHA_INI, DateTime FECHA_FIN , int? ID_SOCIO_MOVIL)
         {
             List<CierreAhorroSocioMovilModel> result = new List<CierreAhorroSocioMovilModel>();
             ExecuteManager(uow =>
@@ -157,7 +157,15 @@ namespace Sindicato.Services
                 //ahorro_hojas = 0;
                 //ahorro_regulaciones = 0;
                 //msg = "";
-                var sociosMovil = managerSociosMovil.BuscarTodos(x => x.ESTADO == "ACTIVO");
+                IQueryable<SD_SOCIO_MOVILES> sociosMovil;
+                if (ID_SOCIO_MOVIL == null)
+                {
+                    sociosMovil = managerSociosMovil.BuscarTodos(x => x.ESTADO == "ACTIVO");
+                }
+                else {
+                     sociosMovil = managerSociosMovil.BuscarTodos(x => x.ESTADO == "ACTIVO" && x.ID_SOCIO_MOVIL == ID_SOCIO_MOVIL);
+                
+                }
                 var obligAhorro = managerOblig.BuscarTodos(x => x.OBLIGACION == "AHORRO").FirstOrDefault();
                 var estado = "NUEVO";
                 if (sociosMovil.Count() > 0)
@@ -228,12 +236,14 @@ namespace Sindicato.Services
                 var resp = manager.GuardarCierre(cierre, login);
                 int id_venta;
                 bool esNumero = int.TryParse(resp, out id_venta);
+                int? ID_SOCIO_MOVIL = null;
                 if (esNumero)
                 {
                     dynamic detalle_ventas = JsonConvert.DeserializeObject(detalles);
                     foreach (var item in detalle_ventas)
                     {
                         var cant = item.ID_SOCIO_MOVIL;
+                        ID_SOCIO_MOVIL = item.ID_SOCIO_MOVIL;
                         SD_DETALLE_CIERRES_AHORRO det = new SD_DETALLE_CIERRES_AHORRO()
                         {
                             ID_CIERRE = id_venta,
@@ -249,7 +259,8 @@ namespace Sindicato.Services
                             LOGIN = login,
                             OBSERVACION = cierre.OBSERVACION,
                             SOCIO = item.SOCIO,
-                            NRO_MOVIL = item.NRO_MOVIL
+                            NRO_MOVIL = item.NRO_MOVIL,
+                            TOTAL_CANCELADO = 0
 
 
                         };
@@ -257,12 +268,32 @@ namespace Sindicato.Services
                     }
                     DateTime fecha_fin = cierre.FECHA_FIN.AddDays(1);
                     //vamos a poner en APROBADO todas las ventas de hoja
-                    var ventas = managerHojas.BuscarTodos(x => x.FECHA_COMPRA >= cierre.FECHA_INI && x.FECHA_COMPRA < fecha_fin && x.ESTADO == "NUEVO");
-                    foreach (var item in ventas)
+                    IQueryable<SD_HOJAS_CONTROL> ventas;
+                    if (cierre.TIPO == "TODOS")
+                    {
+                         ventas = managerHojas.BuscarTodos(x => x.FECHA_COMPRA >= cierre.FECHA_INI && x.FECHA_COMPRA < fecha_fin && x.ESTADO == "NUEVO");
+                    }
+                    else
+                    {
+                        ventas = managerHojas.BuscarTodos(x => x.FECHA_COMPRA >= cierre.FECHA_INI && x.FECHA_COMPRA < fecha_fin && x.ESTADO == "NUEVO" && x.ID_SOCIO_MOVIL == ID_SOCIO_MOVIL);
+
+                    }
+                        foreach (var item in ventas)
                     {
                         item.ESTADO = "APROBADO";
                     }
-                    var regulaciones = managerReg.BuscarTodos(x => x.FECHA_COMPRA >= cierre.FECHA_INI && x.FECHA_COMPRA < fecha_fin && x.ESTADO == "NUEVO");
+                        IQueryable<SD_REGULARIZACIONES> regulaciones;
+                        if (cierre.TIPO == "TODOS")
+                        {
+                             regulaciones = managerReg.BuscarTodos(x => x.FECHA_COMPRA >= cierre.FECHA_INI && x.FECHA_COMPRA < fecha_fin && x.ESTADO == "NUEVO");
+
+                        }
+                        else {
+                            regulaciones = managerReg.BuscarTodos(x => x.FECHA_COMPRA >= cierre.FECHA_INI && x.FECHA_COMPRA < fecha_fin && x.ESTADO == "NUEVO" && x.ID_SOCIO_MOVIL == ID_SOCIO_MOVIL);
+
+                        }
+
+
                     foreach (var item in regulaciones)
                     {
                         item.ESTADO = "APROBADO";

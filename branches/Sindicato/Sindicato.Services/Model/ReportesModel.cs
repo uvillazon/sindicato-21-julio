@@ -125,7 +125,12 @@ namespace Sindicato.Services.Model
         public string CAJA { get; set; }
         public DateTime? FECHA { get; set; }
         public string OBSERVACION { get; set; }
+        public string DETALLE { get; set; }
         public string LOGIN { get; set; }
+        public decimal? CANT_REGULACIONES { get; set; }
+        public decimal? CANT_HOJAS { get; set; }
+        public decimal? TOTAL_AHORRO { get; set; }
+        public decimal? TOTAL { get; set; }
         public decimal? TOTAL_RETIRO { get; set; }
         public string TOTAL_LITERAL { get; set; }
 

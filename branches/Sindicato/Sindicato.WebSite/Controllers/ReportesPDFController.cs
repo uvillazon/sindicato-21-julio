@@ -189,7 +189,7 @@ namespace Elfec.SisMan.Presentacion.Controllers
 
             ReportesServices rep = new ReportesServices();
             LocalReport localReport = new LocalReport();
-            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteRegulacion.rdlc");
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteRegulacionRollo.rdlc");
             ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteRegulacion(ID_REGULACION));
             localReport.DataSources.Add(reportDataSource);
             localReport.SubreportProcessing += new SubreportProcessingEventHandler(ReporteHoja_SubreportProcessing);
@@ -209,7 +209,7 @@ namespace Elfec.SisMan.Presentacion.Controllers
 
             ReportesServices rep = new ReportesServices();
             LocalReport localReport = new LocalReport();
-            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteIngreso.rdlc");
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteIngresoRollo.rdlc");
             ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteIngreso(ID_INGRESO));
             localReport.DataSources.Add(reportDataSource);
             string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
@@ -288,7 +288,7 @@ namespace Elfec.SisMan.Presentacion.Controllers
             CierresAhorroServices rep = new CierresAhorroServices();
             LocalReport localReport = new LocalReport();
             localReport.ReportPath = Server.MapPath("~/Reportes/ReporteCierreAhorro.rdlc");
-            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerCierreAhorroSocioMovil(FECHA_INI, FECHA_FIN));
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerCierreAhorroSocioMovil(FECHA_INI, FECHA_FIN , null));
             localReport.DataSources.Add(reportDataSource);
             string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
             string mimeType;
@@ -309,10 +309,16 @@ namespace Elfec.SisMan.Presentacion.Controllers
 
             ReportesServices rep = new ReportesServices();
             LocalReport localReport = new LocalReport();
-            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteRetiro.rdlc");
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteRetiroRollo.rdlc");
+            localReport.EnableExternalImages = true;
+            string imagePath = new Uri(Server.MapPath("~/Content/images/qr.png")).AbsoluteUri;
+            ReportParameter parameter = new ReportParameter("ImagePath", imagePath);
+            localReport.SetParameters(parameter);
             ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteRetiro(ID_RETIRO));
             localReport.DataSources.Add(reportDataSource);
-            localReport.SubreportProcessing += new SubreportProcessingEventHandler(ReporteHoja_SubreportProcessing);
+            //localReport.SubreportProcessing += new SubreportProcessingEventHandler(ReporteHoja_SubreportProcessing);
+            localReport.Refresh();
+
             string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
             string mimeType;
             string encoding;
@@ -350,7 +356,7 @@ namespace Elfec.SisMan.Presentacion.Controllers
 
             ReportesServices rep = new ReportesServices();
             LocalReport localReport = new LocalReport();
-            localReport.ReportPath = Server.MapPath("~/Reportes/ReportePagoPrestamo.rdlc");
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReportePagoPrestamoRollo.rdlc");
             ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerPago(ID_PAGO));
             localReport.DataSources.Add(reportDataSource);
             string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";

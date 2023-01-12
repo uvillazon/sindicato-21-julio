@@ -17,6 +17,7 @@
         me.columns = [
                 { xtype: "rownumberer", width: 30, sortable: false },
                 { header: "Codigo", width: 100, sortable: false, dataIndex: "ID_CIERRE" },
+                { header: "Tipo", width: 100, sortable: false, dataIndex: "TIPO" },
                 { header: "Fecha <br> Inicial", width: 100, sortable: true, dataIndex: "FECHA_INI", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
                 { header: "Fecha <br> Final", width: 100, sortable: true, dataIndex: "FECHA_FIN", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
                 { header: "Observacion", width: 250, sortable: false, dataIndex: "OBSERVACION" },

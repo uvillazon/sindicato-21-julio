@@ -35,6 +35,7 @@ namespace Sindicato.WebSite.Controllers
                 FECHA_FIN = x.FECHA_FIN,
                 OBSERVACION = x.OBSERVACION,
                 FECHA_INI = x.FECHA_INI,
+                TIPO = x.TIPO,
                 FECHA_REG = x.FECHA_REG,
                 LOGIN = x.LOGIN,
                 CODIGO = x.CODIGO
@@ -83,9 +84,9 @@ namespace Sindicato.WebSite.Controllers
         //ObtenerDetallesPaginados
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult ObtenerDetalleCierreGenerado(PagingInfo paginacion, DateTime FECHA_DESDE, DateTime FECHA_HASTA)
+        public ActionResult ObtenerDetalleCierreGenerado(PagingInfo paginacion, DateTime FECHA_DESDE, DateTime FECHA_HASTA , int? ID_SOCIO_MOVIL)
         {
-            var detalles = _serCierre.ObtenerCierreAhorroSocioMovil(FECHA_DESDE, FECHA_HASTA);
+            var detalles = _serCierre.ObtenerCierreAhorroSocioMovil(FECHA_DESDE, FECHA_HASTA, ID_SOCIO_MOVIL);
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = detalles, Total = detalles.Count() }) + ");";
             return JavaScript(callback1);

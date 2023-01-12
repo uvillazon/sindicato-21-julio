@@ -25,6 +25,7 @@ namespace Sindicato.Business
                 {
                     var context = (SindicatoContext)Context;
                     var saldo = context.SD_SOCIO_MOVILES.Where(x => x.ID_SOCIO_MOVIL == ing.ID_SOCIO_MOVIL).FirstOrDefault().SALDO;
+                    var saldos = context.SD_DETALLE_CIERRES_AHORRO.Where(x=>x.ID_SOCIO_MOVIL == ing.ID_SOCIO_MOVIL && (x.TOTAL_AHORRO - x.TOTAL_CANCELADO) > 0).OrderBy(y=> y.FECHA_REG);
                     if (ing.RETIRO > saldo)
                     {
                         result = string.Format("No puede Retirar mas que su saldo. Saldo Disponible : {0}", saldo);
@@ -36,8 +37,42 @@ namespace Sindicato.Business
                         ing.ID_RETIRO = ObtenerSecuencia();
                         ing.ESTADO = "NUEVO";
                         Add(ing);
-
                         ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+                        var total = ing.RETIRO;
+                        foreach (var item in saldos)
+                        {
+                            var detalle = new SD_RETIRO_SOCIO_MOVIL_DETALLE();
+                            context.P_EE_SECUENCIA("SD_RETIRO_SOCIO_M_DETALLE", 0, p_RES);
+                            int iddetalle = Convert.ToInt32(p_RES.Value);
+                            detalle.ID_DETALLE = iddetalle;
+                            detalle.ID_RETIRO = ing.ID_RETIRO;
+                            detalle.ID_DETALLE_CIERRE = item.ID_DETALLE;
+                            detalle.LOGIN = login;
+                            detalle.FECHA_REG = DateTime.Now;
+                            if (total >= (item.TOTAL_AHORRO -item.TOTAL_CANCELADO ))
+                            {
+                                detalle.OBSERVACION = item.OBSERVACION;
+                                detalle.RETIRO = (decimal)(item.TOTAL_AHORRO - item.TOTAL_CANCELADO);
+                                total = total - detalle.RETIRO;
+                            }
+                            else
+                            {
+                                detalle.OBSERVACION = item.OBSERVACION;
+                                detalle.RETIRO = total;
+                                total = 0;
+                            }
+                            context.SD_RETIRO_SOCIO_MOVIL_DETALLE.AddObject(detalle);
+                            Save();
+                            if (total == 0)
+                            {
+                                break;
+                            }
+
+
+
+                        }
+
+                        
                         context.P_EE_SECUENCIA("SD_KARDEX_SOCIO_MOVIL", 0, p_RES);
                         int idKardex = Convert.ToInt32(p_RES.Value);
                         SD_KARDEX_SOCIO_MOVIL kardex = new SD_KARDEX_SOCIO_MOVIL()

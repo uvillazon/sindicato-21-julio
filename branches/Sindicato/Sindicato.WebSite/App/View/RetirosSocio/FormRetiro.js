@@ -63,6 +63,18 @@
             textoTpl: function () { return "{NOMBRE} - {DESCRIPCION}" }
         });
 
+        me.store_caja.on('load', function (store, records, successful, eOpts) {
+            console.log(records);
+            Ext.each(records, function (rec) {
+                if (rec.get('ID_CAJA') === 4) {
+                    me.cbx_caja.setValue(rec);
+                }
+                // other logic here if ids do match
+            });
+        });
+        me.store_caja.load();
+        
+
         me.num_saldo_caja = Ext.create("App.Config.Componente.NumberFieldBase", {
             fieldLabel: "Saldo Caja",
             name: "SALDO_CAJA",

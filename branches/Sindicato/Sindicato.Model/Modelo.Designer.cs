@@ -33,10 +33,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "SD_SOCIO_MOVIL_AUTOS_R02", "SD_AUTOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_AUTOS), "SD_SOCIO_MOVIL_AUTOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_SOCIO_MOVIL_AUTOS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_ANTECEDENTES_R02", "SD_CHOFERES", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sindicato.Model.SD_CHOFERES), "SD_ANTECEDENTES", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_ANTECEDENTES), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DOCUMENTACIONES_R02", "SD_CHOFERES", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sindicato.Model.SD_CHOFERES), "SD_DOCUMENTACIONES", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DOCUMENTACIONES), true)]
-[assembly: EdmRelationshipAttribute("Model", "SD_DESCUENTOS_R01", "SD_CIERRES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CIERRES), "SD_DESCUENTOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DESCUENTOS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DESCUENTOS_SOCIO_R01", "SD_DESCUENTOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_DESCUENTOS), "SD_DESCUENTOS_SOCIO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DESCUENTOS_SOCIO), true)]
-[assembly: EdmRelationshipAttribute("Model", "SD_OTRAS_OBLIGACIONES_R02", "SD_CIERRES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CIERRES), "SD_OTRAS_OBLIGACIONES", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_OTRAS_OBLIGACIONES), true)]
-[assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_PERIODO_SOCIO_R01", "SD_CIERRES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CIERRES), "SD_DETALLE_PERIODO_SOCIO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_PERIODO_SOCIO), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_CIERRES_PARADA_R01", "SD_PARADAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_PARADAS), "SD_CIERRES_PARADA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_CIERRES_PARADA), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_CIERRE_PARADA_R01", "SD_CIERRES_PARADA", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CIERRES_PARADA), "SD_DETALLE_CIERRE_PARADA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_CIERRE_PARADA), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_OBLIGACIONES_HOJA_R01", "SD_LINEAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_LINEAS), "SD_OBLIGACIONES_HOJA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_OBLIGACIONES_HOJA), true)]
@@ -89,7 +86,6 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "SD_SOCIO_DESEMPENOS_R01", "SD_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIOS), "SD_SOCIO_DESEMPENOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_SOCIO_DESEMPENOS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_SOCIO_MOVILES_R01", "SD_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIOS), "SD_SOCIO_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_SOCIO_MOVILES), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_TIPOS_EGRESOS_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_TIPOS_EGRESOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_TIPOS_EGRESOS), true)]
-[assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_CIERRES_AHORRO_R01", "SD_CIERRES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CIERRES), "SD_DETALLE_CIERRES_AHORRO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_CIERRES_AHORRO), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_EGRESOS_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_EGRESOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_EGRESOS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_INGRESOS_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_INGRESOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_INGRESOS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_EGRESOS_R02", "SD_TIPOS_EGRESOS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sindicato.Model.SD_TIPOS_EGRESOS), "SD_EGRESOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_EGRESOS), true)]
@@ -105,6 +101,12 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "SD_PRESTAMOS_MORA_R01", "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), "SD_PRESTAMOS_MORA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PRESTAMOS_MORA), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_PRESTAMOS_POR_SOCIOS_R01", "SD_SOCIO_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIO_MOVILES), "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_PRESTAMOS_POR_SOCIOS_R02", "SD_TIPOS_PRESTAMOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_TIPOS_PRESTAMOS), "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_RETIRO_SOCIO_MOVIL_DETA_R02", "SD_DETALLE_CIERRES_AHORRO", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sindicato.Model.SD_DETALLE_CIERRES_AHORRO), "SD_RETIRO_SOCIO_MOVIL_DETALLE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_RETIRO_SOCIO_MOVIL_DETALLE), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_RETIRO_SOCIO_MOVIL_DETA_R01", "SD_RETIRO_SOCIO_MOVIL", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_RETIRO_SOCIO_MOVIL), "SD_RETIRO_SOCIO_MOVIL_DETALLE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_RETIRO_SOCIO_MOVIL_DETALLE), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_DESCUENTOS_R01", "SD_CIERRES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CIERRES), "SD_DESCUENTOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DESCUENTOS), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_CIERRES_AHORRO_R01", "SD_CIERRES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CIERRES), "SD_DETALLE_CIERRES_AHORRO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_CIERRES_AHORRO), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_PERIODO_SOCIO_R01", "SD_CIERRES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CIERRES), "SD_DETALLE_PERIODO_SOCIO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_PERIODO_SOCIO), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_OTRAS_OBLIGACIONES_R02", "SD_CIERRES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CIERRES), "SD_OTRAS_OBLIGACIONES", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_OTRAS_OBLIGACIONES), true)]
 
 #endregion
 
@@ -587,22 +589,6 @@ namespace Sindicato.Model
             }
         }
         private ObjectSet<SD_RETIRO_SOCIO> _SD_RETIRO_SOCIO;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<SD_CIERRES> SD_CIERRES
-        {
-            get
-            {
-                if ((_SD_CIERRES == null))
-                {
-                    _SD_CIERRES = base.CreateObjectSet<SD_CIERRES>("SD_CIERRES");
-                }
-                return _SD_CIERRES;
-            }
-        }
-        private ObjectSet<SD_CIERRES> _SD_CIERRES;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1291,6 +1277,38 @@ namespace Sindicato.Model
             }
         }
         private ObjectSet<SD_PRESTAMOS_POR_SOCIOS> _SD_PRESTAMOS_POR_SOCIOS;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<SD_RETIRO_SOCIO_MOVIL_DETALLE> SD_RETIRO_SOCIO_MOVIL_DETALLE
+        {
+            get
+            {
+                if ((_SD_RETIRO_SOCIO_MOVIL_DETALLE == null))
+                {
+                    _SD_RETIRO_SOCIO_MOVIL_DETALLE = base.CreateObjectSet<SD_RETIRO_SOCIO_MOVIL_DETALLE>("SD_RETIRO_SOCIO_MOVIL_DETALLE");
+                }
+                return _SD_RETIRO_SOCIO_MOVIL_DETALLE;
+            }
+        }
+        private ObjectSet<SD_RETIRO_SOCIO_MOVIL_DETALLE> _SD_RETIRO_SOCIO_MOVIL_DETALLE;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<SD_CIERRES> SD_CIERRES
+        {
+            get
+            {
+                if ((_SD_CIERRES == null))
+                {
+                    _SD_CIERRES = base.CreateObjectSet<SD_CIERRES>("SD_CIERRES");
+                }
+                return _SD_CIERRES;
+            }
+        }
+        private ObjectSet<SD_CIERRES> _SD_CIERRES;
 
         #endregion
 
@@ -1510,14 +1528,6 @@ namespace Sindicato.Model
         public void AddToSD_RETIRO_SOCIO(SD_RETIRO_SOCIO sD_RETIRO_SOCIO)
         {
             base.AddObject("SD_RETIRO_SOCIO", sD_RETIRO_SOCIO);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the SD_CIERRES EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToSD_CIERRES(SD_CIERRES sD_CIERRES)
-        {
-            base.AddObject("SD_CIERRES", sD_CIERRES);
         }
     
         /// <summary>
@@ -1862,6 +1872,22 @@ namespace Sindicato.Model
         public void AddToSD_PRESTAMOS_POR_SOCIOS(SD_PRESTAMOS_POR_SOCIOS sD_PRESTAMOS_POR_SOCIOS)
         {
             base.AddObject("SD_PRESTAMOS_POR_SOCIOS", sD_PRESTAMOS_POR_SOCIOS);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the SD_RETIRO_SOCIO_MOVIL_DETALLE EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSD_RETIRO_SOCIO_MOVIL_DETALLE(SD_RETIRO_SOCIO_MOVIL_DETALLE sD_RETIRO_SOCIO_MOVIL_DETALLE)
+        {
+            base.AddObject("SD_RETIRO_SOCIO_MOVIL_DETALLE", sD_RETIRO_SOCIO_MOVIL_DETALLE);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the SD_CIERRES EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSD_CIERRES(SD_CIERRES sD_CIERRES)
+        {
+            base.AddObject("SD_CIERRES", sD_CIERRES);
         }
 
         #endregion
@@ -8031,6 +8057,30 @@ namespace Sindicato.Model
         private global::System.String _ESTADO;
         partial void OnESTADOChanging(global::System.String value);
         partial void OnESTADOChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TIPO
+        {
+            get
+            {
+                return _TIPO;
+            }
+            set
+            {
+                OnTIPOChanging(value);
+                ReportPropertyChanging("TIPO");
+                _TIPO = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("TIPO");
+                OnTIPOChanged();
+            }
+        }
+        private global::System.String _TIPO;
+        partial void OnTIPOChanging(global::System.String value);
+        partial void OnTIPOChanged();
 
         #endregion
 
@@ -8065,18 +8115,18 @@ namespace Sindicato.Model
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_OTRAS_OBLIGACIONES_R02", "SD_OTRAS_OBLIGACIONES")]
-        public EntityCollection<SD_OTRAS_OBLIGACIONES> SD_OTRAS_OBLIGACIONES
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_DETALLE_CIERRES_AHORRO_R01", "SD_DETALLE_CIERRES_AHORRO")]
+        public EntityCollection<SD_DETALLE_CIERRES_AHORRO> SD_DETALLE_CIERRES_AHORRO
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_OTRAS_OBLIGACIONES>("Model.SD_OTRAS_OBLIGACIONES_R02", "SD_OTRAS_OBLIGACIONES");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_DETALLE_CIERRES_AHORRO>("Model.SD_DETALLE_CIERRES_AHORRO_R01", "SD_DETALLE_CIERRES_AHORRO");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_OTRAS_OBLIGACIONES>("Model.SD_OTRAS_OBLIGACIONES_R02", "SD_OTRAS_OBLIGACIONES", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_DETALLE_CIERRES_AHORRO>("Model.SD_DETALLE_CIERRES_AHORRO_R01", "SD_DETALLE_CIERRES_AHORRO", value);
                 }
             }
         }
@@ -8109,18 +8159,18 @@ namespace Sindicato.Model
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_DETALLE_CIERRES_AHORRO_R01", "SD_DETALLE_CIERRES_AHORRO")]
-        public EntityCollection<SD_DETALLE_CIERRES_AHORRO> SD_DETALLE_CIERRES_AHORRO
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_OTRAS_OBLIGACIONES_R02", "SD_OTRAS_OBLIGACIONES")]
+        public EntityCollection<SD_OTRAS_OBLIGACIONES> SD_OTRAS_OBLIGACIONES
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_DETALLE_CIERRES_AHORRO>("Model.SD_DETALLE_CIERRES_AHORRO_R01", "SD_DETALLE_CIERRES_AHORRO");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_OTRAS_OBLIGACIONES>("Model.SD_OTRAS_OBLIGACIONES_R02", "SD_OTRAS_OBLIGACIONES");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_DETALLE_CIERRES_AHORRO>("Model.SD_DETALLE_CIERRES_AHORRO_R01", "SD_DETALLE_CIERRES_AHORRO", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_OTRAS_OBLIGACIONES>("Model.SD_OTRAS_OBLIGACIONES_R02", "SD_OTRAS_OBLIGACIONES", value);
                 }
             }
         }
@@ -9140,44 +9190,6 @@ namespace Sindicato.Model
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_DESCUENTOS_R01", "SD_CIERRES")]
-        public SD_CIERRES SD_CIERRES
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CIERRES>("Model.SD_DESCUENTOS_R01", "SD_CIERRES").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CIERRES>("Model.SD_DESCUENTOS_R01", "SD_CIERRES").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<SD_CIERRES> SD_CIERRESReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CIERRES>("Model.SD_DESCUENTOS_R01", "SD_CIERRES");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_CIERRES>("Model.SD_DESCUENTOS_R01", "SD_CIERRES", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Model", "SD_DESCUENTOS_SOCIO_R01", "SD_DESCUENTOS_SOCIO")]
         public EntityCollection<SD_DESCUENTOS_SOCIO> SD_DESCUENTOS_SOCIO
         {
@@ -9228,6 +9240,44 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_CAJAS>("Model.SD_DESCUENTOS_R02", "SD_CAJAS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_DESCUENTOS_R01", "SD_CIERRES")]
+        public SD_CIERRES SD_CIERRES
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CIERRES>("Model.SD_DESCUENTOS_R01", "SD_CIERRES").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CIERRES>("Model.SD_DESCUENTOS_R01", "SD_CIERRES").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SD_CIERRES> SD_CIERRESReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CIERRES>("Model.SD_DESCUENTOS_R01", "SD_CIERRES");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_CIERRES>("Model.SD_DESCUENTOS_R01", "SD_CIERRES", value);
                 }
             }
         }
@@ -10111,6 +10161,28 @@ namespace Sindicato.Model
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_RETIRO_SOCIO_MOVIL_DETA_R02", "SD_RETIRO_SOCIO_MOVIL_DETALLE")]
+        public EntityCollection<SD_RETIRO_SOCIO_MOVIL_DETALLE> SD_RETIRO_SOCIO_MOVIL_DETALLE
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_RETIRO_SOCIO_MOVIL_DETALLE>("Model.SD_RETIRO_SOCIO_MOVIL_DETA_R02", "SD_RETIRO_SOCIO_MOVIL_DETALLE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_RETIRO_SOCIO_MOVIL_DETALLE>("Model.SD_RETIRO_SOCIO_MOVIL_DETA_R02", "SD_RETIRO_SOCIO_MOVIL_DETALLE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Model", "SD_DETALLE_CIERRES_AHORRO_R01", "SD_CIERRES")]
         public SD_CIERRES SD_CIERRES
         {
@@ -10739,44 +10811,6 @@ namespace Sindicato.Model
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_DETALLE_PERIODO_SOCIO_R01", "SD_CIERRES")]
-        public SD_CIERRES SD_CIERRES
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CIERRES>("Model.SD_DETALLE_PERIODO_SOCIO_R01", "SD_CIERRES").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CIERRES>("Model.SD_DETALLE_PERIODO_SOCIO_R01", "SD_CIERRES").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<SD_CIERRES> SD_CIERRESReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CIERRES>("Model.SD_DETALLE_PERIODO_SOCIO_R01", "SD_CIERRES");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_CIERRES>("Model.SD_DETALLE_PERIODO_SOCIO_R01", "SD_CIERRES", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Model", "SD_DETALLE_PERIODO_SOCIO_R02", "SD_SOCIOS")]
         public SD_SOCIOS SD_SOCIOS
         {
@@ -10805,6 +10839,44 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_SOCIOS>("Model.SD_DETALLE_PERIODO_SOCIO_R02", "SD_SOCIOS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_DETALLE_PERIODO_SOCIO_R01", "SD_CIERRES")]
+        public SD_CIERRES SD_CIERRES
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CIERRES>("Model.SD_DETALLE_PERIODO_SOCIO_R01", "SD_CIERRES").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CIERRES>("Model.SD_DETALLE_PERIODO_SOCIO_R01", "SD_CIERRES").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SD_CIERRES> SD_CIERRESReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CIERRES>("Model.SD_DETALLE_PERIODO_SOCIO_R01", "SD_CIERRES");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_CIERRES>("Model.SD_DETALLE_PERIODO_SOCIO_R01", "SD_CIERRES", value);
                 }
             }
         }
@@ -20130,44 +20202,6 @@ namespace Sindicato.Model
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_OTRAS_OBLIGACIONES_R02", "SD_CIERRES")]
-        public SD_CIERRES SD_CIERRES
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CIERRES>("Model.SD_OTRAS_OBLIGACIONES_R02", "SD_CIERRES").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CIERRES>("Model.SD_OTRAS_OBLIGACIONES_R02", "SD_CIERRES").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<SD_CIERRES> SD_CIERRESReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CIERRES>("Model.SD_OTRAS_OBLIGACIONES_R02", "SD_CIERRES");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_CIERRES>("Model.SD_OTRAS_OBLIGACIONES_R02", "SD_CIERRES", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Model", "SD_OTRAS_OBLIGACIONES_R01", "SD_SOCIOS")]
         public SD_SOCIOS SD_SOCIOS
         {
@@ -20196,6 +20230,44 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_SOCIOS>("Model.SD_OTRAS_OBLIGACIONES_R01", "SD_SOCIOS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_OTRAS_OBLIGACIONES_R02", "SD_CIERRES")]
+        public SD_CIERRES SD_CIERRES
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CIERRES>("Model.SD_OTRAS_OBLIGACIONES_R02", "SD_CIERRES").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CIERRES>("Model.SD_OTRAS_OBLIGACIONES_R02", "SD_CIERRES").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SD_CIERRES> SD_CIERRESReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CIERRES>("Model.SD_OTRAS_OBLIGACIONES_R02", "SD_CIERRES");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_CIERRES>("Model.SD_OTRAS_OBLIGACIONES_R02", "SD_CIERRES", value);
                 }
             }
         }
@@ -24871,6 +24943,313 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_SOCIO_MOVILES>("Model.SD_RETIRO_SOCIO_MOVIL_R01", "SD_SOCIO_MOVILES", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_RETIRO_SOCIO_MOVIL_DETA_R01", "SD_RETIRO_SOCIO_MOVIL_DETALLE")]
+        public EntityCollection<SD_RETIRO_SOCIO_MOVIL_DETALLE> SD_RETIRO_SOCIO_MOVIL_DETALLE
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_RETIRO_SOCIO_MOVIL_DETALLE>("Model.SD_RETIRO_SOCIO_MOVIL_DETA_R01", "SD_RETIRO_SOCIO_MOVIL_DETALLE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_RETIRO_SOCIO_MOVIL_DETALLE>("Model.SD_RETIRO_SOCIO_MOVIL_DETA_R01", "SD_RETIRO_SOCIO_MOVIL_DETALLE", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Model", Name="SD_RETIRO_SOCIO_MOVIL_DETALLE")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SD_RETIRO_SOCIO_MOVIL_DETALLE : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new SD_RETIRO_SOCIO_MOVIL_DETALLE object.
+        /// </summary>
+        /// <param name="iD_DETALLE">Initial value of the ID_DETALLE property.</param>
+        /// <param name="iD_RETIRO">Initial value of the ID_RETIRO property.</param>
+        /// <param name="rETIRO">Initial value of the RETIRO property.</param>
+        public static SD_RETIRO_SOCIO_MOVIL_DETALLE CreateSD_RETIRO_SOCIO_MOVIL_DETALLE(global::System.Int32 iD_DETALLE, global::System.Int32 iD_RETIRO, global::System.Decimal rETIRO)
+        {
+            SD_RETIRO_SOCIO_MOVIL_DETALLE sD_RETIRO_SOCIO_MOVIL_DETALLE = new SD_RETIRO_SOCIO_MOVIL_DETALLE();
+            sD_RETIRO_SOCIO_MOVIL_DETALLE.ID_DETALLE = iD_DETALLE;
+            sD_RETIRO_SOCIO_MOVIL_DETALLE.ID_RETIRO = iD_RETIRO;
+            sD_RETIRO_SOCIO_MOVIL_DETALLE.RETIRO = rETIRO;
+            return sD_RETIRO_SOCIO_MOVIL_DETALLE;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_DETALLE
+        {
+            get
+            {
+                return _ID_DETALLE;
+            }
+            set
+            {
+                if (_ID_DETALLE != value)
+                {
+                    OnID_DETALLEChanging(value);
+                    ReportPropertyChanging("ID_DETALLE");
+                    _ID_DETALLE = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID_DETALLE");
+                    OnID_DETALLEChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID_DETALLE;
+        partial void OnID_DETALLEChanging(global::System.Int32 value);
+        partial void OnID_DETALLEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_RETIRO
+        {
+            get
+            {
+                return _ID_RETIRO;
+            }
+            set
+            {
+                OnID_RETIROChanging(value);
+                ReportPropertyChanging("ID_RETIRO");
+                _ID_RETIRO = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ID_RETIRO");
+                OnID_RETIROChanged();
+            }
+        }
+        private global::System.Int32 _ID_RETIRO;
+        partial void OnID_RETIROChanging(global::System.Int32 value);
+        partial void OnID_RETIROChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String OBSERVACION
+        {
+            get
+            {
+                return _OBSERVACION;
+            }
+            set
+            {
+                OnOBSERVACIONChanging(value);
+                ReportPropertyChanging("OBSERVACION");
+                _OBSERVACION = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("OBSERVACION");
+                OnOBSERVACIONChanged();
+            }
+        }
+        private global::System.String _OBSERVACION;
+        partial void OnOBSERVACIONChanging(global::System.String value);
+        partial void OnOBSERVACIONChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal RETIRO
+        {
+            get
+            {
+                return _RETIRO;
+            }
+            set
+            {
+                OnRETIROChanging(value);
+                ReportPropertyChanging("RETIRO");
+                _RETIRO = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RETIRO");
+                OnRETIROChanged();
+            }
+        }
+        private global::System.Decimal _RETIRO;
+        partial void OnRETIROChanging(global::System.Decimal value);
+        partial void OnRETIROChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> FECHA_REG
+        {
+            get
+            {
+                return _FECHA_REG;
+            }
+            set
+            {
+                OnFECHA_REGChanging(value);
+                ReportPropertyChanging("FECHA_REG");
+                _FECHA_REG = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FECHA_REG");
+                OnFECHA_REGChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _FECHA_REG;
+        partial void OnFECHA_REGChanging(Nullable<global::System.DateTime> value);
+        partial void OnFECHA_REGChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String LOGIN
+        {
+            get
+            {
+                return _LOGIN;
+            }
+            set
+            {
+                OnLOGINChanging(value);
+                ReportPropertyChanging("LOGIN");
+                _LOGIN = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("LOGIN");
+                OnLOGINChanged();
+            }
+        }
+        private global::System.String _LOGIN;
+        partial void OnLOGINChanging(global::System.String value);
+        partial void OnLOGINChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ID_DETALLE_CIERRE
+        {
+            get
+            {
+                return _ID_DETALLE_CIERRE;
+            }
+            set
+            {
+                OnID_DETALLE_CIERREChanging(value);
+                ReportPropertyChanging("ID_DETALLE_CIERRE");
+                _ID_DETALLE_CIERRE = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ID_DETALLE_CIERRE");
+                OnID_DETALLE_CIERREChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ID_DETALLE_CIERRE;
+        partial void OnID_DETALLE_CIERREChanging(Nullable<global::System.Int32> value);
+        partial void OnID_DETALLE_CIERREChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_RETIRO_SOCIO_MOVIL_DETA_R02", "SD_DETALLE_CIERRES_AHORRO")]
+        public SD_DETALLE_CIERRES_AHORRO SD_DETALLE_CIERRES_AHORRO
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_DETALLE_CIERRES_AHORRO>("Model.SD_RETIRO_SOCIO_MOVIL_DETA_R02", "SD_DETALLE_CIERRES_AHORRO").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_DETALLE_CIERRES_AHORRO>("Model.SD_RETIRO_SOCIO_MOVIL_DETA_R02", "SD_DETALLE_CIERRES_AHORRO").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SD_DETALLE_CIERRES_AHORRO> SD_DETALLE_CIERRES_AHORROReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_DETALLE_CIERRES_AHORRO>("Model.SD_RETIRO_SOCIO_MOVIL_DETA_R02", "SD_DETALLE_CIERRES_AHORRO");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_DETALLE_CIERRES_AHORRO>("Model.SD_RETIRO_SOCIO_MOVIL_DETA_R02", "SD_DETALLE_CIERRES_AHORRO", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_RETIRO_SOCIO_MOVIL_DETA_R01", "SD_RETIRO_SOCIO_MOVIL")]
+        public SD_RETIRO_SOCIO_MOVIL SD_RETIRO_SOCIO_MOVIL
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_RETIRO_SOCIO_MOVIL>("Model.SD_RETIRO_SOCIO_MOVIL_DETA_R01", "SD_RETIRO_SOCIO_MOVIL").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_RETIRO_SOCIO_MOVIL>("Model.SD_RETIRO_SOCIO_MOVIL_DETA_R01", "SD_RETIRO_SOCIO_MOVIL").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SD_RETIRO_SOCIO_MOVIL> SD_RETIRO_SOCIO_MOVILReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_RETIRO_SOCIO_MOVIL>("Model.SD_RETIRO_SOCIO_MOVIL_DETA_R01", "SD_RETIRO_SOCIO_MOVIL");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_RETIRO_SOCIO_MOVIL>("Model.SD_RETIRO_SOCIO_MOVIL_DETA_R01", "SD_RETIRO_SOCIO_MOVIL", value);
                 }
             }
         }

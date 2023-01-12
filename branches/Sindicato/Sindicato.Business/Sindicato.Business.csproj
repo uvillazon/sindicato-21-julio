@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SD_RETIRO_SOCIO_MOVIL_DETALLEManager.cs" />
     <Compile Include="SD_GESTIONManager.cs" />
     <Compile Include="SD_DETALLE_CIERRES_CAJAManager.cs" />
     <Compile Include="SD_CIERRES_CAJASManager.cs" />
