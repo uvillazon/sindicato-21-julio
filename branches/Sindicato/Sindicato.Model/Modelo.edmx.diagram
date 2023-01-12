@@ -204,6 +204,9 @@
         <edmx:EntityTypeShape EntityType="Model.SD_CIERRES_CAJAS" Width="2.625" PointX="17.25" PointY="112.375" />
         <edmx:AssociationConnector Association="Model.SD_CIERRES_CAJAS_R01" />
         <edmx:AssociationConnector Association="Model.SD_DETALLE_CIERRES_CAJA_R01" />
+        <edmx:EntityTypeShape EntityType="Model.SD_DIAS_NO_TRABAJADOS" Width="1.5" PointX="5.625525754702057" PointY="22.472783397172012" />
+        <edmx:AssociationConnector Association="Model.SD_DIAS_NO_TRABAJADOS_R02" />
+        <edmx:AssociationConnector Association="Model.SD_DIAS_NO_TRABAJADOS_R01" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -306,5 +306,171 @@ namespace Sindicato.Services
             });
             return result;
         }
+
+        public IEnumerable<SD_DIAS_NO_TRABAJADOS> ObtenerDiasNoTrabajadosPaginados(PagingInfo paginacion, FiltrosModel<IngresosModel> filtros)
+        {
+            IQueryable<SD_DIAS_NO_TRABAJADOS> result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_DIAS_NO_TRABAJADOSManager(uow);
+
+                result = manager.BuscarTodos();
+                filtros.FiltrarDatos();
+                result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+                if (!string.IsNullOrEmpty(filtros.Contiene))
+                {
+                    var contiene = filtros.Contiene.Trim().ToUpper();
+                    result = result.Where(SD_DIAS_NO_TRABAJADOS.Contiene(contiene));
+                }
+                paginacion.total = result.Count();
+                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
+            });
+            return result;
+        }
+
+        public RespuestaSP GuardarDiaNoTrabajado(SD_DIAS_NO_TRABAJADOS deuda, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var context = (SindicatoContext)uow.Context;
+                ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
+
+                context.P_SD_GUARDAR_DIAS_NO_TRAB(deuda.ID_DETALLE,deuda.ID_SOCIO_MOVIL, deuda.ID_CAJA, deuda.FECHA_NO_TRABAJADO,deuda.OBSERVACION,deuda.OBSERVACION_ANULACION,deuda.CANT_RECORRIDO,deuda.FECHA_CANCELADO,deuda.IMPORTE,deuda.ESTADO, login, p_res);
+                int id;
+                bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
+                if (esNumero)
+                {
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                    result.id = id;
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = p_res.Value.ToString();
+                }
+
+            });
+            return result;
+        }
+
+        public RespuestaSP PagoDiasNoTrabajado(SD_DIAS_NO_TRABAJADOS detalle, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var managerCierre = new SD_CIERRES_CAJASManager(uow);
+                var valid = managerCierre.VerificarCierre(DateTime.Now);
+                if (!valid.success)
+                {
+                    throw new NullReferenceException(valid.msg);
+                }
+
+                var manager = new SD_DIAS_NO_TRABAJADOSManager(uow);
+                var context = (SindicatoContext)manager.Context;
+                var det = manager.BuscarTodos(x => x.ID_DETALLE == detalle.ID_DETALLE && x.IMPORTE_CANCELADO == 0 && x.ESTADO != "ANULADO").FirstOrDefault();
+                if (det != null)
+                {
+                    det.IMPORTE_CANCELADO = det.IMPORTE;
+                    det.FECHA_CANCELADO = DateTime.Now;
+                    ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+                    context.P_EE_SECUENCIA("SD_KARDEX_EFECTIVO", 0, p_RES);
+                    int idKardex = Convert.ToInt32(p_RES.Value);
+                    SD_KARDEX_EFECTIVO kardex = new SD_KARDEX_EFECTIVO()
+                    {
+                        ID_KARDEX = idKardex,
+                        DETALLE = "CANCELACION POR DIA NO TRABAJADO EN FECHA : " + det.FECHA_NO_TRABAJADO.ToString("dd/MM/yyyy") + " MOVIL : " + det.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL.ToString(),
+                        FECHA = DateTime.Now,
+                        FECHA_REG = DateTime.Now,
+                        ID_OPERACION = det.ID_DETALLE,
+                        ID_CAJA = (int)det.ID_CAJA,
+                        INGRESO = det.IMPORTE,
+                        LOGIN = login,
+                        OPERACION = "CANCELACION_DIA_NO_TRABAJADO"
+                    };
+                    context.SD_KARDEX_EFECTIVO.AddObject(kardex);
+                    manager.Save();
+                    context.P_SD_ACT_KARDEX_EFECTIVO(det.ID_CAJA, det.FECHA_CANCELADO, 0, p_RES);
+                    result.success = true;
+                    result.msg = "Proceso ejecutado correctamente";
+
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = "La dueda ya se encuentra cancelado o no existe el registro";
+                }
+
+            });
+
+            return result = resultado == null ? result : resultado;
+        }
+
+        public RespuestaSP AnularDeudaDiaNoTrabajado(SD_DIAS_NO_TRABAJADOS detalle, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_DIAS_NO_TRABAJADOSManager(uow);
+                var context = (SindicatoContext)manager.Context;
+                var det = manager.BuscarTodos(x => x.ID_DETALLE == detalle.ID_DETALLE && x.IMPORTE_CANCELADO == 0 && x.ESTADO != "ANULADO").FirstOrDefault();
+                if (det != null)
+                {
+                    det.ESTADO = "ANULADO";
+                    det.OBSERVACION_ANULACION = detalle.OBSERVACION_ANULACION;
+                    manager.Save();
+                    result.success = true;
+                    result.msg = "Proceso ejecutado correctamente";
+
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = "La dueda ya se encuentra cancelado o no existe el registro";
+                }
+
+            });
+
+            return result;
+        }
+
+        public RespuestaSP AnularPagoDiaNoTrabajado(int ID_DETALLE)
+        {
+            RespuestaSP result = new RespuestaSP();
+            int ID_CAJA = 0;
+            DateTime? fecha = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_DIAS_NO_TRABAJADOSManager(uow);
+                var context = (SindicatoContext)manager.Context;
+                var det = manager.BuscarTodos(x => x.ID_DETALLE == ID_DETALLE && x.IMPORTE_CANCELADO > 0 && x.ESTADO != "APROBADO").FirstOrDefault();
+                if (det != null)
+                {
+                    fecha = det.FECHA_CANCELADO;
+                    ID_CAJA = (int)det.ID_CAJA;
+                    det.FECHA_CANCELADO = null;
+                    det.IMPORTE_CANCELADO = 0;
+                    //manager.Delete(ant);
+                    var kardex = context.SD_KARDEX_EFECTIVO.Where(x => x.OPERACION == "CANCELACION_DIA_NO_TRABAJADO" && x.ID_OPERACION == det.ID_DETALLE && x.ID_CAJA == det.ID_CAJA);
+                    foreach (var item in kardex)
+                    {
+                        context.SD_KARDEX_EFECTIVO.DeleteObject(item);
+                    }
+
+                    manager.Save();
+                    ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+                    context.P_SD_ACT_KARDEX_EFECTIVO(det.ID_CAJA, fecha, 0, p_RES);
+                    result.success = true;
+                    result.msg = "Se Anulo Correctamente";
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = "Ocurrio algun Problema";
+                }
+            });
+            return result;
+        }
     }
 }

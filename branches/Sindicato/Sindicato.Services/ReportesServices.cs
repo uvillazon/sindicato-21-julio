@@ -750,6 +750,26 @@ namespace Sindicato.Services
                     result.Add(detalleRep);
                 }
 
+                var managerPagosDiasNoTrabajados = new SD_DIAS_NO_TRABAJADOSManager(uow);
+                var ingresosPorDiasNoTrabajados = managerPagosDiasNoTrabajados.BuscarTodos(x => x.FECHA_CANCELADO >= FECHA_INI && x.FECHA_CANCELADO < Fecha_fin && x.IMPORTE_CANCELADO > 0);
+                foreach (var item2 in ingresosPorDiasNoTrabajados)
+                {
+                    var detalleRep1 = new ReporteDetalleIngresos()
+                    {
+                        DETALLE = "OTROS INGRESOS (COBRO DE MULTAS POR DIAS NO TRABAJADOS)",
+                        SUBDETALLE = string.Format("Dia No Trabajado : {0} del Movil :{1} ({2})", item2.FECHA_NO_TRABAJADO.ToString("dd/MM/yyyy"), item2.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL, item2.SD_SOCIO_MOVILES.ObtenerNombreSocio()),
+                        FECHA = (DateTime)item2.FECHA_CANCELADO,
+                        FECHA_INI = FECHA_INI,
+                        FECHA_FIN = FECHA_FIN,
+                        NRO_MOVIL = item2.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
+                        NRO_RECIBO = Convert.ToString(item2.ID_DETALLE),
+                        CAJA = item2.SD_CAJAS.NOMBRE,
+                        BOLIVIANOS = item2.SD_CAJAS.MONEDA == "BOLIVIANOS" ? (decimal)item2.IMPORTE_CANCELADO : 0,
+                        DOLARES = item2.SD_CAJAS.MONEDA == "DOLARES" ? (decimal)item2.IMPORTE_CANCELADO : 0
+                    };
+                    result.Add(detalleRep1);
+                }
+
                 var managerPagosDeudas = new SD_DETALLES_DEUDASManager(uow);
                 var ingresosDeudas = managerPagosDeudas.BuscarTodos(x => x.FECHA_CANCELADO >= FECHA_INI && x.FECHA_CANCELADO < Fecha_fin && x.IMPORTE_CANCELADO > 0);
                 foreach (var item1 in ingresosDeudas)
@@ -2227,6 +2247,37 @@ namespace Sindicato.Services
                         IMPORTE_OBLIGACION = item.IMPORTE,
                         OBLIGACION = item.SD_DEUDAS_SOCIOS.MOTIVO,
                         TOTAL = item.IMPORTE,
+                        TOTAL_LITERAL = n.Convertir(item.IMPORTE.ToString(), true, item.SD_CAJAS.MONEDA)
+                    };
+                    result.Add(kar);
+                }
+
+            });
+
+            return result;
+
+        }
+
+        public IEnumerable<ReporteRegulaciones> ObtenerReportePagoDeudaDiaNoTrabajado(int ID_DETALLE)
+        {
+            List<ReporteRegulaciones> result = new List<ReporteRegulaciones>();
+            NumLetra n = new NumLetra();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_DIAS_NO_TRABAJADOSManager(uow);
+                var kardex = manager.BuscarTodos(x => x.ID_DETALLE == ID_DETALLE);
+                foreach (var item in kardex)
+                {
+                    var kar = new ReporteRegulaciones()
+                    {
+                        ID_REGULACION = item.ID_DETALLE,
+                        MOVIL = item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL.ToString(),
+                        SOCIO = string.Format("{0} {1} {2}", item.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE, item.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO, item.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_MATERNO),
+                        CANTIDAD = 1,
+                        FECHA_COMPRA = item.FECHA_CANCELADO,
+                        IMPORTE_OBLIGACION = item.IMPORTE,
+                        OBLIGACION = "CANCELACION POR DIA NO TRABAJADO EN FECHA : " + item.FECHA_NO_TRABAJADO.ToString("dd/MM/yyyy") + " MOVIL : " + item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL.ToString()+" CANTIDAD DE VUELTAS :"+item.CANT_RECORRIDO + "  OBSERV: "+item.OBSERVACION,
+                        TOTAL = item.IMPORTE_CANCELADO,
                         TOTAL_LITERAL = n.Convertir(item.IMPORTE.ToString(), true, item.SD_CAJAS.MONEDA)
                     };
                     result.Add(kar);

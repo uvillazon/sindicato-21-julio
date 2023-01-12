@@ -235,6 +235,7 @@
     <Content Include="App\Model\CierresParada\CierresParada.js" />
     <Content Include="App\Model\CierresParada\Detalles.js" />
     <Content Include="App\Model\Cierres\Detalles.js" />
+    <Content Include="App\Model\DiasNoTrabajados\Detalles.js" />
     <Content Include="App\Model\Refuerzos\Refuerzos.js" />
     <Content Include="App\Model\DeudasSocios\Detalles.js" />
     <Content Include="App\Model\DeudasSocios\DeudasSocios.js" />
@@ -301,6 +302,7 @@
     <Content Include="App\Store\CierresParada\CierresParada.js" />
     <Content Include="App\Store\CierresParada\Detalles.js" />
     <Content Include="App\Store\Cierres\Detalles.js" />
+    <Content Include="App\Store\DiasNoTrabajados\Detalles.js" />
     <Content Include="App\Store\Refuerzos\Refuerzos.js" />
     <Content Include="App\Store\DeudasSocios\DeudasSocios.js" />
     <Content Include="App\Store\DeudasSocios\Detalles.js" />
@@ -419,6 +421,10 @@
     <Content Include="App\View\CierresParada\FormCierre.js" />
     <Content Include="App\View\CierresParada\GridCierres.js" />
     <Content Include="App\View\CierresParada\Principal.js" />
+    <Content Include="App\View\DiasNoTrabajados\FormAnular.js" />
+    <Content Include="App\View\DiasNoTrabajados\FormDeuda.js" />
+    <Content Include="App\View\DiasNoTrabajados\GridDetalles.js" />
+    <Content Include="App\View\DiasNoTrabajados\Principal.js" />
     <Content Include="App\View\DetallesDeudasSocios\FormAnular.js" />
     <Content Include="App\View\Refuerzos\FormRefuerzo.js" />
     <Content Include="App\View\Refuerzos\Forms.js" />

@@ -145,6 +145,75 @@ namespace Sindicato.WebSite.Controllers
             return JavaScript(callback1);
         }
 
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerDiasNoTrabajadosPaginados(PagingInfo paginacion, FiltrosModel<IngresosModel> filtros, IngresosModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var retiros = _servicio.ObtenerDiasNoTrabajadosPaginados(paginacion, filtros);
+            var formatData = retiros.Select(x => new
+            {
+                ID_DETALLE = x.ID_DETALLE,
+                ID_CAJA = x.ID_CAJA,
+                CAJA = x.SD_CAJAS.NOMBRE,
+                ESTADO = x.ESTADO,
+                FECHA_REG = x.FECHA_REG,
+                FECHA_NO_TRABAJADO = x.FECHA_NO_TRABAJADO,
+                FECHA_CANCELADO = x.FECHA_CANCELADO,
+                IMPORTE = x.IMPORTE,
+                IMPORTE_CANCELADO = x.IMPORTE_CANCELADO,
+                CANT_RECORRIDO = x.CANT_RECORRIDO,
+                LOGIN_USR = x.LOGIN_USR,
+                OBSERVACION = x.OBSERVACION,
+                OBSERVACION_ANULACION = x.OBSERVACION_ANULACION,
+                MONEDA = x.SD_CAJAS.MONEDA,
+                MOVIL = x.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
+                SOCIO = x.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
+                ESTADO_DEUDA = x.ESTADO == "APROBADO" ? "APROBADO" : x.ESTADO == "ANULADO" ? "ANULADO" : x.IMPORTE_CANCELADO > 0 ? "CANCELADO" : "SIN_PAGO"
+
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
+        [HttpPost]
+        public JsonResult GuardarDiaNoTrabajado(SD_DIAS_NO_TRABAJADOS ant)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _servicio.GuardarDiaNoTrabajado(ant, login);
+            return Json(respuestaSP);
+        }
+
+
+        [HttpPost]
+        public JsonResult GuardarPagoDeudaDiaNoTrabajado(SD_DIAS_NO_TRABAJADOS ant)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _servicio.PagoDiasNoTrabajado(ant, login);
+            return Json(respuestaSP);
+        }
+
+        [HttpPost]
+        public JsonResult AnularDeudaDiaNoTrabajado(SD_DIAS_NO_TRABAJADOS ant)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _servicio.AnularDeudaDiaNoTrabajado(ant, login);
+            return Json(respuestaSP);
+        }
+
+        [HttpPost]
+        public JsonResult AnularPagoDiaNoTrabajado(int ID_DETALLE)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _servicio.AnularPagoDiaNoTrabajado(ID_DETALLE);
+            return Json(respuestaSP);
+        }
+        
+
         //[HttpPost, ValidateInput(false)]
         //public JsonResult GuardarTipoIngreso(SD_TIPOS_INGRESOS_SOCIO ant)
         //{

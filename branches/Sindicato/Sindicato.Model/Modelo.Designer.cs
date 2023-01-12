@@ -117,6 +117,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "SD_PRESTAMOS_POR_SOCIOS_R04", "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), "SD_PRESTAMOS_POR_SOCIOS1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_CIERRES_CAJAS_R01", "SD_CIERRES_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sindicato.Model.SD_CIERRES_CAJAS), "SD_CIERRES_CAJAS1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_CIERRES_CAJAS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_CIERRES_CAJA_R01", "SD_CIERRES_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CIERRES_CAJAS), "SD_DETALLE_CIERRES_CAJA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_CIERRES_CAJA), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_DIAS_NO_TRABAJADOS_R02", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sindicato.Model.SD_CAJAS), "SD_DIAS_NO_TRABAJADOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DIAS_NO_TRABAJADOS), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_DIAS_NO_TRABAJADOS_R01", "SD_SOCIO_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIO_MOVILES), "SD_DIAS_NO_TRABAJADOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DIAS_NO_TRABAJADOS), true)]
 
 #endregion
 
@@ -1367,6 +1369,22 @@ namespace Sindicato.Model
             }
         }
         private ObjectSet<SD_CIERRES_CAJAS> _SD_CIERRES_CAJAS;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<SD_DIAS_NO_TRABAJADOS> SD_DIAS_NO_TRABAJADOS
+        {
+            get
+            {
+                if ((_SD_DIAS_NO_TRABAJADOS == null))
+                {
+                    _SD_DIAS_NO_TRABAJADOS = base.CreateObjectSet<SD_DIAS_NO_TRABAJADOS>("SD_DIAS_NO_TRABAJADOS");
+                }
+                return _SD_DIAS_NO_TRABAJADOS;
+            }
+        }
+        private ObjectSet<SD_DIAS_NO_TRABAJADOS> _SD_DIAS_NO_TRABAJADOS;
 
         #endregion
 
@@ -1970,6 +1988,14 @@ namespace Sindicato.Model
         public void AddToSD_CIERRES_CAJAS(SD_CIERRES_CAJAS sD_CIERRES_CAJAS)
         {
             base.AddObject("SD_CIERRES_CAJAS", sD_CIERRES_CAJAS);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the SD_DIAS_NO_TRABAJADOS EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSD_DIAS_NO_TRABAJADOS(SD_DIAS_NO_TRABAJADOS sD_DIAS_NO_TRABAJADOS)
+        {
+            base.AddObject("SD_DIAS_NO_TRABAJADOS", sD_DIAS_NO_TRABAJADOS);
         }
 
         #endregion
@@ -5489,6 +5515,136 @@ namespace Sindicato.Model
     
             return base.ExecuteFunction("P_SD_GUARDAR_VENTA_REFUERZO", p_ID_VENTAParameter, p_ID_PARADAParameter, p_NOMBREParameter, p_OBSERVACIONParameter, p_FECHAParameter, p_CODIGOParameter, p_CANTIDADParameter, p_COSTO_UNITARIOParameter, p_TOTALParameter, p_ID_CAJAParameter, p_PLACAParameter, p_USRParameter, p_RES);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="p_ID_DETALLE">No Metadata Documentation available.</param>
+        /// <param name="p_ID_SOCIO_MOVIL">No Metadata Documentation available.</param>
+        /// <param name="p_ID_CAJA">No Metadata Documentation available.</param>
+        /// <param name="p_FECHA_NO_TRABAJADO">No Metadata Documentation available.</param>
+        /// <param name="p_OBSERVACION">No Metadata Documentation available.</param>
+        /// <param name="p_OBSERVACION_ANULACION">No Metadata Documentation available.</param>
+        /// <param name="p_CANTIDAD_RECORRIDO">No Metadata Documentation available.</param>
+        /// <param name="p_FECHA_CANCELADO">No Metadata Documentation available.</param>
+        /// <param name="p_IMPORTE">No Metadata Documentation available.</param>
+        /// <param name="p_ESTADO">No Metadata Documentation available.</param>
+        /// <param name="p_USR">No Metadata Documentation available.</param>
+        /// <param name="p_RES">No Metadata Documentation available.</param>
+        public int P_SD_GUARDAR_DIAS_NO_TRAB(Nullable<global::System.Decimal> p_ID_DETALLE, Nullable<global::System.Decimal> p_ID_SOCIO_MOVIL, Nullable<global::System.Decimal> p_ID_CAJA, Nullable<global::System.DateTime> p_FECHA_NO_TRABAJADO, global::System.String p_OBSERVACION, global::System.String p_OBSERVACION_ANULACION, Nullable<global::System.Decimal> p_CANTIDAD_RECORRIDO, Nullable<global::System.DateTime> p_FECHA_CANCELADO, Nullable<global::System.Decimal> p_IMPORTE, global::System.String p_ESTADO, global::System.String p_USR, ObjectParameter p_RES)
+        {
+            ObjectParameter p_ID_DETALLEParameter;
+            if (p_ID_DETALLE.HasValue)
+            {
+                p_ID_DETALLEParameter = new ObjectParameter("P_ID_DETALLE", p_ID_DETALLE);
+            }
+            else
+            {
+                p_ID_DETALLEParameter = new ObjectParameter("P_ID_DETALLE", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_ID_SOCIO_MOVILParameter;
+            if (p_ID_SOCIO_MOVIL.HasValue)
+            {
+                p_ID_SOCIO_MOVILParameter = new ObjectParameter("P_ID_SOCIO_MOVIL", p_ID_SOCIO_MOVIL);
+            }
+            else
+            {
+                p_ID_SOCIO_MOVILParameter = new ObjectParameter("P_ID_SOCIO_MOVIL", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_ID_CAJAParameter;
+            if (p_ID_CAJA.HasValue)
+            {
+                p_ID_CAJAParameter = new ObjectParameter("P_ID_CAJA", p_ID_CAJA);
+            }
+            else
+            {
+                p_ID_CAJAParameter = new ObjectParameter("P_ID_CAJA", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_FECHA_NO_TRABAJADOParameter;
+            if (p_FECHA_NO_TRABAJADO.HasValue)
+            {
+                p_FECHA_NO_TRABAJADOParameter = new ObjectParameter("P_FECHA_NO_TRABAJADO", p_FECHA_NO_TRABAJADO);
+            }
+            else
+            {
+                p_FECHA_NO_TRABAJADOParameter = new ObjectParameter("P_FECHA_NO_TRABAJADO", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter p_OBSERVACIONParameter;
+            if (p_OBSERVACION != null)
+            {
+                p_OBSERVACIONParameter = new ObjectParameter("P_OBSERVACION", p_OBSERVACION);
+            }
+            else
+            {
+                p_OBSERVACIONParameter = new ObjectParameter("P_OBSERVACION", typeof(global::System.String));
+            }
+    
+            ObjectParameter p_OBSERVACION_ANULACIONParameter;
+            if (p_OBSERVACION_ANULACION != null)
+            {
+                p_OBSERVACION_ANULACIONParameter = new ObjectParameter("P_OBSERVACION_ANULACION", p_OBSERVACION_ANULACION);
+            }
+            else
+            {
+                p_OBSERVACION_ANULACIONParameter = new ObjectParameter("P_OBSERVACION_ANULACION", typeof(global::System.String));
+            }
+    
+            ObjectParameter p_CANTIDAD_RECORRIDOParameter;
+            if (p_CANTIDAD_RECORRIDO.HasValue)
+            {
+                p_CANTIDAD_RECORRIDOParameter = new ObjectParameter("P_CANTIDAD_RECORRIDO", p_CANTIDAD_RECORRIDO);
+            }
+            else
+            {
+                p_CANTIDAD_RECORRIDOParameter = new ObjectParameter("P_CANTIDAD_RECORRIDO", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_FECHA_CANCELADOParameter;
+            if (p_FECHA_CANCELADO.HasValue)
+            {
+                p_FECHA_CANCELADOParameter = new ObjectParameter("P_FECHA_CANCELADO", p_FECHA_CANCELADO);
+            }
+            else
+            {
+                p_FECHA_CANCELADOParameter = new ObjectParameter("P_FECHA_CANCELADO", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter p_IMPORTEParameter;
+            if (p_IMPORTE.HasValue)
+            {
+                p_IMPORTEParameter = new ObjectParameter("P_IMPORTE", p_IMPORTE);
+            }
+            else
+            {
+                p_IMPORTEParameter = new ObjectParameter("P_IMPORTE", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter p_ESTADOParameter;
+            if (p_ESTADO != null)
+            {
+                p_ESTADOParameter = new ObjectParameter("P_ESTADO", p_ESTADO);
+            }
+            else
+            {
+                p_ESTADOParameter = new ObjectParameter("P_ESTADO", typeof(global::System.String));
+            }
+    
+            ObjectParameter p_USRParameter;
+            if (p_USR != null)
+            {
+                p_USRParameter = new ObjectParameter("P_USR", p_USR);
+            }
+            else
+            {
+                p_USRParameter = new ObjectParameter("P_USR", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("P_SD_GUARDAR_DIAS_NO_TRAB", p_ID_DETALLEParameter, p_ID_SOCIO_MOVILParameter, p_ID_CAJAParameter, p_FECHA_NO_TRABAJADOParameter, p_OBSERVACIONParameter, p_OBSERVACION_ANULACIONParameter, p_CANTIDAD_RECORRIDOParameter, p_FECHA_CANCELADOParameter, p_IMPORTEParameter, p_ESTADOParameter, p_USRParameter, p_RES);
+        }
 
         #endregion
 
@@ -7473,6 +7629,28 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_PRESTAMOS_POR_SOCIOS>("Model.SD_PRESTAMOS_POR_SOCIOS_R03", "SD_PRESTAMOS_POR_SOCIOS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_DIAS_NO_TRABAJADOS_R02", "SD_DIAS_NO_TRABAJADOS")]
+        public EntityCollection<SD_DIAS_NO_TRABAJADOS> SD_DIAS_NO_TRABAJADOS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_DIAS_NO_TRABAJADOS>("Model.SD_DIAS_NO_TRABAJADOS_R02", "SD_DIAS_NO_TRABAJADOS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_DIAS_NO_TRABAJADOS>("Model.SD_DIAS_NO_TRABAJADOS_R02", "SD_DIAS_NO_TRABAJADOS", value);
                 }
             }
         }
@@ -12946,6 +13124,439 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_DETALLES_DEUDAS>("Model.SD_DETALLES_DEUDAS_R01", "SD_DETALLES_DEUDAS", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Model", Name="SD_DIAS_NO_TRABAJADOS")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SD_DIAS_NO_TRABAJADOS : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new SD_DIAS_NO_TRABAJADOS object.
+        /// </summary>
+        /// <param name="iD_DETALLE">Initial value of the ID_DETALLE property.</param>
+        /// <param name="iD_SOCIO_MOVIL">Initial value of the ID_SOCIO_MOVIL property.</param>
+        /// <param name="fECHA_NO_TRABAJADO">Initial value of the FECHA_NO_TRABAJADO property.</param>
+        /// <param name="cANT_RECORRIDO">Initial value of the CANT_RECORRIDO property.</param>
+        /// <param name="iMPORTE">Initial value of the IMPORTE property.</param>
+        public static SD_DIAS_NO_TRABAJADOS CreateSD_DIAS_NO_TRABAJADOS(global::System.Int32 iD_DETALLE, global::System.Int32 iD_SOCIO_MOVIL, global::System.DateTime fECHA_NO_TRABAJADO, global::System.Int32 cANT_RECORRIDO, global::System.Decimal iMPORTE)
+        {
+            SD_DIAS_NO_TRABAJADOS sD_DIAS_NO_TRABAJADOS = new SD_DIAS_NO_TRABAJADOS();
+            sD_DIAS_NO_TRABAJADOS.ID_DETALLE = iD_DETALLE;
+            sD_DIAS_NO_TRABAJADOS.ID_SOCIO_MOVIL = iD_SOCIO_MOVIL;
+            sD_DIAS_NO_TRABAJADOS.FECHA_NO_TRABAJADO = fECHA_NO_TRABAJADO;
+            sD_DIAS_NO_TRABAJADOS.CANT_RECORRIDO = cANT_RECORRIDO;
+            sD_DIAS_NO_TRABAJADOS.IMPORTE = iMPORTE;
+            return sD_DIAS_NO_TRABAJADOS;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_DETALLE
+        {
+            get
+            {
+                return _ID_DETALLE;
+            }
+            set
+            {
+                if (_ID_DETALLE != value)
+                {
+                    OnID_DETALLEChanging(value);
+                    ReportPropertyChanging("ID_DETALLE");
+                    _ID_DETALLE = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID_DETALLE");
+                    OnID_DETALLEChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID_DETALLE;
+        partial void OnID_DETALLEChanging(global::System.Int32 value);
+        partial void OnID_DETALLEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID_SOCIO_MOVIL
+        {
+            get
+            {
+                return _ID_SOCIO_MOVIL;
+            }
+            set
+            {
+                OnID_SOCIO_MOVILChanging(value);
+                ReportPropertyChanging("ID_SOCIO_MOVIL");
+                _ID_SOCIO_MOVIL = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ID_SOCIO_MOVIL");
+                OnID_SOCIO_MOVILChanged();
+            }
+        }
+        private global::System.Int32 _ID_SOCIO_MOVIL;
+        partial void OnID_SOCIO_MOVILChanging(global::System.Int32 value);
+        partial void OnID_SOCIO_MOVILChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime FECHA_NO_TRABAJADO
+        {
+            get
+            {
+                return _FECHA_NO_TRABAJADO;
+            }
+            set
+            {
+                OnFECHA_NO_TRABAJADOChanging(value);
+                ReportPropertyChanging("FECHA_NO_TRABAJADO");
+                _FECHA_NO_TRABAJADO = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FECHA_NO_TRABAJADO");
+                OnFECHA_NO_TRABAJADOChanged();
+            }
+        }
+        private global::System.DateTime _FECHA_NO_TRABAJADO;
+        partial void OnFECHA_NO_TRABAJADOChanging(global::System.DateTime value);
+        partial void OnFECHA_NO_TRABAJADOChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String OBSERVACION
+        {
+            get
+            {
+                return _OBSERVACION;
+            }
+            set
+            {
+                OnOBSERVACIONChanging(value);
+                ReportPropertyChanging("OBSERVACION");
+                _OBSERVACION = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("OBSERVACION");
+                OnOBSERVACIONChanged();
+            }
+        }
+        private global::System.String _OBSERVACION;
+        partial void OnOBSERVACIONChanging(global::System.String value);
+        partial void OnOBSERVACIONChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 CANT_RECORRIDO
+        {
+            get
+            {
+                return _CANT_RECORRIDO;
+            }
+            set
+            {
+                OnCANT_RECORRIDOChanging(value);
+                ReportPropertyChanging("CANT_RECORRIDO");
+                _CANT_RECORRIDO = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CANT_RECORRIDO");
+                OnCANT_RECORRIDOChanged();
+            }
+        }
+        private global::System.Int32 _CANT_RECORRIDO;
+        partial void OnCANT_RECORRIDOChanging(global::System.Int32 value);
+        partial void OnCANT_RECORRIDOChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> FECHA_CANCELADO
+        {
+            get
+            {
+                return _FECHA_CANCELADO;
+            }
+            set
+            {
+                OnFECHA_CANCELADOChanging(value);
+                ReportPropertyChanging("FECHA_CANCELADO");
+                _FECHA_CANCELADO = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FECHA_CANCELADO");
+                OnFECHA_CANCELADOChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _FECHA_CANCELADO;
+        partial void OnFECHA_CANCELADOChanging(Nullable<global::System.DateTime> value);
+        partial void OnFECHA_CANCELADOChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal IMPORTE
+        {
+            get
+            {
+                return _IMPORTE;
+            }
+            set
+            {
+                OnIMPORTEChanging(value);
+                ReportPropertyChanging("IMPORTE");
+                _IMPORTE = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IMPORTE");
+                OnIMPORTEChanged();
+            }
+        }
+        private global::System.Decimal _IMPORTE;
+        partial void OnIMPORTEChanging(global::System.Decimal value);
+        partial void OnIMPORTEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> IMPORTE_CANCELADO
+        {
+            get
+            {
+                return _IMPORTE_CANCELADO;
+            }
+            set
+            {
+                OnIMPORTE_CANCELADOChanging(value);
+                ReportPropertyChanging("IMPORTE_CANCELADO");
+                _IMPORTE_CANCELADO = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IMPORTE_CANCELADO");
+                OnIMPORTE_CANCELADOChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _IMPORTE_CANCELADO;
+        partial void OnIMPORTE_CANCELADOChanging(Nullable<global::System.Decimal> value);
+        partial void OnIMPORTE_CANCELADOChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String OBSERVACION_ANULACION
+        {
+            get
+            {
+                return _OBSERVACION_ANULACION;
+            }
+            set
+            {
+                OnOBSERVACION_ANULACIONChanging(value);
+                ReportPropertyChanging("OBSERVACION_ANULACION");
+                _OBSERVACION_ANULACION = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("OBSERVACION_ANULACION");
+                OnOBSERVACION_ANULACIONChanged();
+            }
+        }
+        private global::System.String _OBSERVACION_ANULACION;
+        partial void OnOBSERVACION_ANULACIONChanging(global::System.String value);
+        partial void OnOBSERVACION_ANULACIONChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ESTADO
+        {
+            get
+            {
+                return _ESTADO;
+            }
+            set
+            {
+                OnESTADOChanging(value);
+                ReportPropertyChanging("ESTADO");
+                _ESTADO = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ESTADO");
+                OnESTADOChanged();
+            }
+        }
+        private global::System.String _ESTADO;
+        partial void OnESTADOChanging(global::System.String value);
+        partial void OnESTADOChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String LOGIN_USR
+        {
+            get
+            {
+                return _LOGIN_USR;
+            }
+            set
+            {
+                OnLOGIN_USRChanging(value);
+                ReportPropertyChanging("LOGIN_USR");
+                _LOGIN_USR = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("LOGIN_USR");
+                OnLOGIN_USRChanged();
+            }
+        }
+        private global::System.String _LOGIN_USR;
+        partial void OnLOGIN_USRChanging(global::System.String value);
+        partial void OnLOGIN_USRChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> FECHA_REG
+        {
+            get
+            {
+                return _FECHA_REG;
+            }
+            set
+            {
+                OnFECHA_REGChanging(value);
+                ReportPropertyChanging("FECHA_REG");
+                _FECHA_REG = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FECHA_REG");
+                OnFECHA_REGChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _FECHA_REG;
+        partial void OnFECHA_REGChanging(Nullable<global::System.DateTime> value);
+        partial void OnFECHA_REGChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ID_CAJA
+        {
+            get
+            {
+                return _ID_CAJA;
+            }
+            set
+            {
+                OnID_CAJAChanging(value);
+                ReportPropertyChanging("ID_CAJA");
+                _ID_CAJA = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ID_CAJA");
+                OnID_CAJAChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ID_CAJA;
+        partial void OnID_CAJAChanging(Nullable<global::System.Int32> value);
+        partial void OnID_CAJAChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_DIAS_NO_TRABAJADOS_R02", "SD_CAJAS")]
+        public SD_CAJAS SD_CAJAS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS>("Model.SD_DIAS_NO_TRABAJADOS_R02", "SD_CAJAS").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS>("Model.SD_DIAS_NO_TRABAJADOS_R02", "SD_CAJAS").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SD_CAJAS> SD_CAJASReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS>("Model.SD_DIAS_NO_TRABAJADOS_R02", "SD_CAJAS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_CAJAS>("Model.SD_DIAS_NO_TRABAJADOS_R02", "SD_CAJAS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_DIAS_NO_TRABAJADOS_R01", "SD_SOCIO_MOVILES")]
+        public SD_SOCIO_MOVILES SD_SOCIO_MOVILES
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_SOCIO_MOVILES>("Model.SD_DIAS_NO_TRABAJADOS_R01", "SD_SOCIO_MOVILES").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_SOCIO_MOVILES>("Model.SD_DIAS_NO_TRABAJADOS_R01", "SD_SOCIO_MOVILES").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SD_SOCIO_MOVILES> SD_SOCIO_MOVILESReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_SOCIO_MOVILES>("Model.SD_DIAS_NO_TRABAJADOS_R01", "SD_SOCIO_MOVILES");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_SOCIO_MOVILES>("Model.SD_DIAS_NO_TRABAJADOS_R01", "SD_SOCIO_MOVILES", value);
                 }
             }
         }
@@ -28380,6 +28991,28 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_PRESTAMOS_POR_SOCIOS>("Model.SD_PRESTAMOS_POR_SOCIOS_R01", "SD_PRESTAMOS_POR_SOCIOS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_DIAS_NO_TRABAJADOS_R01", "SD_DIAS_NO_TRABAJADOS")]
+        public EntityCollection<SD_DIAS_NO_TRABAJADOS> SD_DIAS_NO_TRABAJADOS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_DIAS_NO_TRABAJADOS>("Model.SD_DIAS_NO_TRABAJADOS_R01", "SD_DIAS_NO_TRABAJADOS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_DIAS_NO_TRABAJADOS>("Model.SD_DIAS_NO_TRABAJADOS_R01", "SD_DIAS_NO_TRABAJADOS", value);
                 }
             }
         }

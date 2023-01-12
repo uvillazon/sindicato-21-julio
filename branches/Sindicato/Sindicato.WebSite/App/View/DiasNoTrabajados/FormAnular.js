@@ -1,8 +1,8 @@
-﻿Ext.define("App.View.DetallesDeudasSocios.FormAnular", {
+﻿Ext.define("App.View.DiasNoTrabajados.FormAnular", {
     extend: "App.Config.Abstract.Form",
     columns: 2,
     record: '',
-    title: 'Anular Deuda Socio',
+    title: 'Anular Deuda Socio Dia no trabajado',
     Eventos: true,
     modoConsulta: false,
     paramsStore: {},
@@ -21,18 +21,9 @@
 
         });
 
-        me.txt_motivo = Ext.create("App.Config.Componente.TextFieldBase", {
-            fieldLabel: "Motivo",
-            name: "MOTIVO",
-            width: 480,
-            colspan: 2,
-            afterLabelTextTpl: Constantes.REQUERIDO,
-            allowBlank: false,
-        });
-
         me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
             fieldLabel: "Observacion",
-            name: "OBSERVACION",
+            name: "OBSERVACION_ANULACION",
             width: 480,
             colspan: 2,
             afterLabelTextTpl: Constantes.REQUERIDO,
@@ -40,7 +31,6 @@
         });
         me.items = [
            me.txt_nro_deuda,
-           me.txt_motivo,
            me.txt_observacion
         ];
     }

@@ -15,6 +15,7 @@ namespace Sindicato.Services.Model
         public int? ID_SOCIO { get; set; }
         public int? ID_PRESTAMO { get; set; }
         public int? ID_DEUDA { get; set; }
+        public int? ID_DETALLE { get; set; }
         //public int? ID_DESCUENTO { get; set; }
         //public int? ID_SOCIO { get; set; }
     }

@@ -22,6 +22,11 @@ namespace Sindicato.Services.Interfaces
         RespuestaSP AnularDetalleDeuda(int ID_DETALLE);
         RespuestaSP EliminarDetalleDeuda(int ID_DETALLE);
         RespuestaSP AnularDeuda(SD_DETALLES_DEUDAS detalle, string login);
+        IEnumerable<SD_DIAS_NO_TRABAJADOS> ObtenerDiasNoTrabajadosPaginados(PagingInfo paginacion, FiltrosModel<IngresosModel> filtros);
+        RespuestaSP GuardarDiaNoTrabajado(SD_DIAS_NO_TRABAJADOS deuda, string login);
+        RespuestaSP PagoDiasNoTrabajado(SD_DIAS_NO_TRABAJADOS detalle, string login);
+        RespuestaSP AnularDeudaDiaNoTrabajado(SD_DIAS_NO_TRABAJADOS detalle, string login);
+        RespuestaSP AnularPagoDiaNoTrabajado(int ID_DETALLE);
 
     }
 }
