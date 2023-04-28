@@ -29,6 +29,7 @@
                 { header: "Interes Fijo", width: 70, sortable: false, dataIndex: "INTERES_FIJO" },
                 { header: "Semanas", width: 70, sortable: false, dataIndex: "SEMANAS" },
                 { header: "Mora", width: 70, sortable: false, dataIndex: "MULTA_POR_MORA" },
+                { header: "Dias Espera<br>Mora", width: 70, sortable: false, dataIndex: "DIAS_ESPERA_MORA" },
                 
                 { header: "Estado", width: 100, sortable: false, dataIndex: "ESTADO" },
                 { header: "Fecha <br>Registro", width: 80, sortable: true, dataIndex: "FECHA_REG", renderer: Ext.util.Format.dateRenderer('d/m/Y') },

@@ -50,6 +50,22 @@ namespace Sindicato.Common.Data
             return Convert.ToInt32(p_RES.Value);
         }
 
+        public int ObtenerNumeroPorGestion(string campoNumero)
+        {
+            ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+            ObjectParameter p_TABLAParameter = new ObjectParameter("P_TABLA", typeof(TEntity).Name);
+            ObjectParameter p_COLUMNAParameter = new ObjectParameter("P_COLUMNA", campoNumero);
+            _ctx.ExecuteFunction("P_SD_OBTENER_NRO", p_TABLAParameter, p_COLUMNAParameter, p_RES);
+            return Convert.ToInt32(p_RES.Value);
+        }
+
+        public int ObtenerGestion()
+        {
+            ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+            _ctx.ExecuteFunction("P_SD_OBTENER_GESTION", p_RES);
+            return Convert.ToInt32(p_RES.Value);
+        }
+
         #region IRepository<E> Members
 
         public int Save()

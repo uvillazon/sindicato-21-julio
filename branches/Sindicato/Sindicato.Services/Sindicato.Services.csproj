@@ -57,6 +57,8 @@
     <Compile Include="CierresAhorroServices.cs" />
     <Compile Include="CierresServices.cs" />
     <Compile Include="CierresCajaServices.cs" />
+    <Compile Include="CierresGestionServices.cs" />
+    <Compile Include="Interfaces\ICierresGestionServices.cs" />
     <Compile Include="Interfaces\ICierresCajaServices.cs" />
     <Compile Include="Interfaces\ICierresAhorroServices.cs" />
     <Compile Include="KardexHojasServices.cs" />

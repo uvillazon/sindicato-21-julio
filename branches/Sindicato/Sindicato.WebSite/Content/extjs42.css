@@ -511,6 +511,12 @@
     background-color: #FBE5D5 !important;
     color: #000000; /*font-weight: bold;*/
 }
+
+.PrestamoMora .x-grid-cell
+{
+    background-color: #00ffff !important;
+    color: #000000; /*font-weight: bold;*/
+}
 .OTEn_Ejec .x-grid-cell
 {
     background-color: #DEEBF6 !important;

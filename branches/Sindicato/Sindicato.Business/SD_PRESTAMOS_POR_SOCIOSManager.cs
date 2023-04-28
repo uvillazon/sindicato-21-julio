@@ -44,11 +44,15 @@ namespace Sindicato.Business
                 }
                 prestamo.ID_CAJA = tipo.ID_CAJA;
                 prestamo.ID_PRESTAMO = ObtenerSecuencia();
+                prestamo.ID_GESTION = ObtenerGestion();
+                prestamo.NUMERO = ObtenerNumeroPorGestion("NUMERO");
                 prestamo.ESTADO = "NUEVO";
                 prestamo.INTERES = tipo.TIPO_INTERES == "INTERES" ? (decimal)tipo.INTERES : (decimal)tipo.INTERES_FIJO;
                 var importe_interes = tipo.TIPO_INTERES == "INTERES" ? prestamo.IMPORTE_PRESTAMO * tipo.INTERES / 100 : tipo.INTERES_FIJO;
                 prestamo.IMPORTE_INTERES = importe_interes;
                 prestamo.FECHA_REG = DateTime.Now;
+                prestamo.ESTADO_CIERRE = "NUEVO";
+                
 
                 prestamo.LOGIN_USR = login;
 
@@ -59,7 +63,7 @@ namespace Sindicato.Business
                 SD_KARDEX_EFECTIVO kardex = new SD_KARDEX_EFECTIVO()
                 {
                     ID_KARDEX = idKardex,
-                    DETALLE = string.Format("PRESTAMO {0} - SOCIO NRO MOVIL : {1}",prestamo.SD_TIPOS_PRESTAMOS.NOMBRE , prestamo.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL),
+                    DETALLE = string.Format("PRESTAMO {0} # {1}- SOCIO NRO MOVIL : {2}",prestamo.SD_TIPOS_PRESTAMOS.NOMBRE ,prestamo.NUMERO, prestamo.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL),
                     FECHA = (DateTime)prestamo.FECHA,
                     FECHA_REG = DateTime.Now,
                     ID_OPERACION = prestamo.ID_PRESTAMO,
@@ -81,8 +85,8 @@ namespace Sindicato.Business
             catch (Exception e)
             {
 
-                result.success = false;
-                result.msg = e.Message.ToString();
+                throw new InvalidOperationException(e.Message);
+              
             }
 
             return result;
@@ -92,13 +96,13 @@ namespace Sindicato.Business
             RespuestaSP result = new RespuestaSP();
             try
             {
-                var pres = BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO == "NUEVO").FirstOrDefault();
+                var pres = BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO_CIERRE == "NUEVO").FirstOrDefault();
                 if (pres == null) {
                     result.success = false;
                     result.msg = "No existe prestamo o esta en estado Diferente a NUEVO";
                     return result;
                 }
-                if (pres.SD_PAGO_DE_PRESTAMOS.Count() > 0) {
+                if (pres.SD_PAGO_DE_PRESTAMOS.Where(x=>x.ESTADO != "ANULADO").Count() > 0) {
                     result.success = false;
                     result.msg = "Existe Pagos del Socio Eliminar primero los  pagos para eliminar el prestamo";
                     return result;
@@ -129,9 +133,7 @@ namespace Sindicato.Business
             }
             catch (Exception e)
             {
-
-                result.success = false;
-                result.msg = e.Message.ToString();
+                throw new InvalidOperationException(e.Message);
             }
 
             return result;

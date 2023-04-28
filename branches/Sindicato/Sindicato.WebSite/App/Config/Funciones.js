@@ -819,7 +819,10 @@ Ext.define("App.Config.Funciones", {
         Ext.Object.each(result, function (key, value, myself) {
             Ext.each(els, function (o) {
                 if (o.getName() == key) {
+                    console.log(key);
+                    console.log(o);
                     o.setValue(value);
+                    console.log(value);
                 }
 
             });

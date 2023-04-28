@@ -26,6 +26,7 @@ namespace Sindicato.Business
                     ing.FECHA_REG = DateTime.Now;
                     ing.LOGIN = login;
                     ing.ID_INGRESO = ObtenerSecuencia();
+                    ing.ESTADO = "NUEVO";
                     Add(ing);
                     var context = (SindicatoContext)Context;
                     ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));

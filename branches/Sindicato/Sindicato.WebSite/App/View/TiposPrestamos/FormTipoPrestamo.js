@@ -130,6 +130,16 @@
 
         });
 
+        me.txt_dias_espera = Ext.create("App.Config.Componente.NumberFieldBase", {
+            fieldLabel: "Dias Espera Mora",
+            name: "DIAS_ESPERA_MORA",
+            value: 0,
+            colspan :2,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+
+        });
+
 
         me.items = [
            me.txt_nro_tipo, me.cbx_categoria,
@@ -139,6 +149,7 @@
            me.cbx_tipo_interes,
            me.txt_interes, me.txt_interes_fijo,
            me.txt_semanas, me.txt_multa_mora,
+           me.txt_dias_espera,
            me.txt_observacion
         ];
     },
@@ -216,6 +227,12 @@
 
         });
 
+        me.txt_dias_espera = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Dias Espera Mora",
+            name: "DIAS_ESPERA_MORA",
+            colspan : 2,
+
+        });
 
         me.items = [
             me.txt_nro_tipo, me.txt_categoria,
@@ -223,7 +240,8 @@
             me.txt_moneda, me.txt_tipo_interes,
             me.txt_interes, me.txt_interes_fijo,
             me.txt_importe_max, me.txt_importe_min,
-            me.txt_semanas , me.txt_mora,
+            me.txt_semanas, me.txt_mora,
+            me.txt_dias_espera,
             me.txt_observacion
 
         ];

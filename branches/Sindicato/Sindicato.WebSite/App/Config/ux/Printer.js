@@ -53,18 +53,16 @@
 *
 */
 Ext.define("App.Config.ux.Printer", {
-
     requires: 'Ext.XTemplate',
-    parametros : '',
+    parametros: '',
     statics: {
         /**
-        * Prints the passed grid. Reflects on the grid's column model to build a table, and fills it using the store
-        * @param {Ext.grid.Panel} grid The grid to print
-        */
-        print: function (grid) {
-            //We generate an XTemplate here by using 2 intermediary XTemplates - one to create the header,
-            //the other to create the body (see the escaped {} below)
+         * Prints the passed grid. Reflects on the grid's column model to build a table, and fills it using the store
+         * @param {Ext.grid.Panel} grid The grid to print
+         */
+        printLoad: function (grid, store2) {
             var columns = [];
+            grid.title = Ext.isEmpty(grid.title) ? 'Detalles' : grid.title;
             //account for grouped columns
             Ext.each(grid.columns, function (c) {
                 if (c.items.length > 0) {
@@ -73,34 +71,57 @@ Ext.define("App.Config.ux.Printer", {
                     columns.push(c);
                 }
             });
-
-            //build a usable array of store data for the XTemplate
             var data = [];
-            grid.store.data.each(function (item, row) {
+            console.log("______________________________________________75");
+            console.log(store2);
+            store2.data.each(function (item, row) {
+                //grid.store.data.each(function (item, row) {
                 var convertedData = {};
 
                 //apply renderers from column model
                 for (var key in item.data) {
                     var value = item.data[key];
-
+                    // console.log(key+"=================================>>>><<<<<<<<<<<<<<<");
                     Ext.each(columns, function (column, col) {
-
-                        if (column && column.dataIndex == key) {
-
+                        // console.log(column);
+                        // console.log(key + "</===>");
+                        if (column && column.dataIndex == key && column.xtype == 'gridcolumn') {
+                            // console.log("dataindex");
+                            // console.log(column.xtype);
                             /*
-                            * TODO: add the meta to template
-                            */
+                             * TODO: add the meta to template
+                             */
                             var meta = { item: '', tdAttr: '', style: '' };
-                            value = column.renderer ? column.renderer.call(grid, value, meta, item, row, col, grid.store, grid.view) : value;
+                             //console.log(key);
+                             //console.log(value);
+                             //console.log(column.format);
+                             //console.log(Ext.isDate(value));
+                             value = column.renderer ? column.renderer.call(grid, value, meta, item, row, col, grid.store, grid.view) : value;
+
+                            //value = Ext.isDate(value) ? Ext.Date.format(value, column.format) : column.renderer ? column.renderer.call(grid, value, meta, item, row, col, grid.store, grid.view) : value;
+                             //console.log(value);
+                             //console.log('===================================>>>>>>>>>>>>>>>>>>');
+
                             var varName = Ext.String.createVarName(column.dataIndex);
                             convertedData[varName] = value;
 
-                        } else if (column && column.xtype === 'rownumberer') {
+                        } else if (column && column.dataIndex == key && column.xtype === 'datecolumn') {
+                            // console  .log("datecolumn");
+                            value = Ext.isDate(value) ? Ext.Date.format(value, column.format) : column.renderer ? column.renderer.call(grid, value, meta, item, row, col, grid.store, grid.view) : value;
+
+                            // console.log(value);
+                            var varName = Ext.String.createVarName(column.dataIndex);
+                            // console.log(varName);
+                            convertedData[varName] = value;
+
+                        } else if (column && column.dataIndex == key && column.xtype === 'rownumberer') {
+                            // console.log("rownumberer");
 
                             var varName = Ext.String.createVarName(column.id);
                             convertedData[varName] = (row + 1);
 
-                        } else if (column && column.xtype === 'templatecolumn') {
+                        } else if (column && column.dataIndex == key && column.xtype === 'templatecolumn') {
+                            // console.log("templatecolumn");
 
                             value = column.tpl ? column.tpl.apply(item.data) : value;
 
@@ -125,13 +146,16 @@ Ext.define("App.Config.ux.Printer", {
                 } else if (column && column.xtype === 'templatecolumn') {
                     clearColumns.push(column);
                 }
+
             });
             columns = clearColumns;
 
             //get Styles file relative location, if not supplied
             if (this.stylesheetPath === null) {
                 var scriptPath = Ext.Loader.getPath('App.Config.ux.Printer');
+                console.log(scriptPath);
                 this.stylesheetPath = scriptPath.substring(0, scriptPath.indexOf('Printer.js')) + '../../../Content/print.css';
+                console.log(this.stylesheetPath);
             }
 
             //use the headerTpl and bodyTpl markups to create the main XTemplate below
@@ -142,48 +166,66 @@ Ext.define("App.Config.ux.Printer", {
                 pluginsBodyMarkup = [];
 
             //add relevant plugins
-            Ext.each(grid.plugins, function (p) {
-                if (p.ptype == 'rowexpander') {
-                    pluginsBody += p.rowBodyTpl.join('');
-                }
-            });
+            // Ext.each(grid.plugins, function (p) {
+            //     if (p.ptype == 'rowexpander') {
+            //         pluginsBody += p.rowBodyTpl.join('');
+            //     }
+            // });
 
             if (pluginsBody != '') {
                 pluginsBodyMarkup = [
                     '<tr class="{[xindex % 2 === 0 ? "even" : "odd"]}"><td colspan="' + columns.length + '">',
-                      pluginsBody,
+                    pluginsBody,
                     '</td></tr>'
                 ];
             }
+
+            var idtemporal = grid.title.replace(/ /g, "-");
+            // console.log(nuevaCadena);
 
             //Here because inline styles using CSS, the browser did not show the correct formatting of the data the first time that loaded
             var htmlMarkup = [
                 '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">',
                 '<html class="' + Ext.baseCSSPrefix + 'ux-grid-printer">',
-                  '<head>',
-                    '<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />',
-                    '<link href="' + this.stylesheetPath + '" rel="stylesheet" type="text/css" />',
-                    '<title>' + grid.title + '</title>',
-                  '</head>',
-                  '<body class="' + Ext.baseCSSPrefix + 'ux-grid-printer-body">',
-                  '<div class="' + Ext.baseCSSPrefix + 'ux-grid-printer-noprint ' + Ext.baseCSSPrefix + 'ux-grid-printer-links">',
-                      '<a class="' + Ext.baseCSSPrefix + 'ux-grid-printer-linkprint" href="javascript:void(0);" onclick="window.print();">' + this.printLinkText + '</a>',
-                      '<a class="' + Ext.baseCSSPrefix + 'ux-grid-printer-linkclose" href="javascript:void(0);" onclick="window.close();">' + this.closeLinkText + '</a>',
-                  '</div>',
-                  '<h1 aling="center">' + this.mainTitle + '</h1>',
-                  '<div>' + this.filtros + '</div>',
-                    '<table>',
-                      '<tr>',
-                        headings,
-                      '</tr>',
-                      '<tpl for=".">',
-                        '<tr class="{[xindex % 2 === 0 ? "even" : "odd"]}">',
-                          body,
-                        '</tr>',
-                        pluginsBodyMarkup.join(''),
-                      '</tpl>',
-                    '</table>',
-                  '</body>',
+                '<head>',
+                '<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />',
+                '<link href="' + this.stylesheetPath + '" rel="stylesheet" type="text/css" />',
+                '<script type="text/javascript" src="lib/jquery/jquery.min.js"></script>',
+                '<script type="text/javascript" src="lib/js-xlsx/xlsx.core.min.js"></script>',
+                '<script type="text/javascript" src="lib/blobjs/Blob.min.js"></script>',
+                '<script type="text/javascript" src="lib/fileSaver/FileSaver.min.js"></script>',
+                // '<script type="text/javascript" src="lib/tableexport/dist/js/tableexport.min.js"></script>',
+                '<script type="text/javascript" src="lib/tableexport/dist/js/tableexport.js"></script>',
+                '<script type="text/javascript" src="lib/pdfmake.js/pdfmake.min.js"></script>',
+                '<script type="text/javascript" src="lib/pdfmake.js/vfs_fonts.js"></script>',
+                '<script type="text/javascript" src="lib/html2canvas/html2canvas.min.js"></script>',
+                '<script type="text/javascript" src="lib/html2pdf/html2pdf.js"></script>',
+                '<script type="text/javascript" src="lib/js-pdf/jspdf.min.js"></script>',
+                '<title>' + grid.title + '</title>',
+                '</head>',
+                '<body class="' + Ext.baseCSSPrefix + 'ux-grid-printer-body">',
+                '<div id="botones" class="' + Ext.baseCSSPrefix + 'ux-grid-printer-noprint ' + Ext.baseCSSPrefix + 'ux-grid-printer-links">',
+                '<a class="' + Ext.baseCSSPrefix + 'ux-grid-printer-linkprint" href="javascript:void(0);" onclick="window.print();">' + this.printLinkText + '</a>',
+                '<a class="' + Ext.baseCSSPrefix + 'ux-grid-printer-linkclose" href="javascript:void(0);" onclick="window.close();">' + this.closeLinkText + '</a>',
+                '</div>',
+                '<h1 aling="center">' + grid.title + '</h1>',
+                '<div id="exportthis">',
+                // '<div>' + this.title + '</div>',
+                '<table id="' + idtemporal + '">',
+                '<tr>',
+                headings,
+                '</tr>',
+                '<tpl for=".">',
+                '<tr class="{[xindex % 2 === 0 ? "even" : "odd"]}">',
+                body,
+                '</tr>',
+                pluginsBodyMarkup.join(''),
+                '</tpl>',
+                '</table>',
+                '</div>',
+                '<script>var HeaderTable = document.getElementById("' + idtemporal + '"); $(HeaderTable).tableExport({headers: false , formats: ["xlsx", "xls", "csv", "txt"]});</script>',
+                // '<script>var HeaderTable = document.getElementById("botones"); $(HeaderTable).tableExport({headers: false , formats: ["xlsx", "xls", "csv", "txt"]});</script>',
+                '</body>',
                 '</html>'
             ];
 
@@ -191,7 +233,9 @@ Ext.define("App.Config.ux.Printer", {
 
             //open up a new printing window, write to it, print it and close
             var win = window.open('', 'printgrid');
-
+            if (win == null || typeof (win) == 'undefined') {
+                return alert('Por favor deshabilita el bloqueador de ventanas emergentes y vuelve a hacer clic en "Exportar/Imprimir".');
+            }
             //document must be open and closed
             win.document.open();
             win.document.write(html);
@@ -210,78 +254,100 @@ Ext.define("App.Config.ux.Printer", {
                 }
             }
         },
+        print: function (grid) {
+            console.log(grid.store.proxy);
+            var store2 = new Ext.data.Store({
+                proxy: grid.store.proxy,
+                reader: grid.store.reader,
+                sortInfo: grid.store.sortInfo,
+                model: grid.store.model,
+                // sorters : grid.store.sorters
+            });
+            store2.proxy.timeout = 120000;
+            // var progrees = Ext.ComponentQuery.query('#progressPrincipal')[0];
+            store2.on('beforeload', function (s, a, c) {
+                grid.getEl().mask();
+            });
+            var me = this;
+            store2.load({ limit: grid.store.getTotalCount(), start: 0, page: 1 });
+            store2.on('load', function (store, records, options) {
+                grid.getEl().unmask();
+                me.printLoad(grid, store2);
+            });
+
+        },
 
         /**
-        * @property stylesheetPath
-        * @type String
-        * The path at which the print stylesheet can be found (defaults to 'ux/grid/gridPrinterCss/print.css')
-        */
+         * @property stylesheetPath
+         * @type String
+         * The path at which the print stylesheet can be found (defaults to 'ux/grid/gridPrinterCss/print.css')
+         */
         stylesheetPath: null,
 
         /**
-        * @property printAutomatically
-        * @type Boolean
-        * True to open the print dialog automatically and close the window after printing. False to simply open the print version
-        * of the grid (defaults to false)
-        */
+         * @property printAutomatically
+         * @type Boolean
+         * True to open the print dialog automatically and close the window after printing. False to simply open the print version
+         * of the grid (defaults to false)
+         */
         printAutomatically: false,
 
         /**
-        * @property closeAutomaticallyAfterPrint
-        * @type Boolean
-        * True to close the window automatically after printing.
-        * (defaults to false)
-        */
+         * @property closeAutomaticallyAfterPrint
+         * @type Boolean
+         * True to close the window automatically after printing.
+         * (defaults to false)
+         */
         closeAutomaticallyAfterPrint: false,
 
         /**
-        * @property mainTitle
-        * @type String
-        * Title to be used on top of the table
-        * (defaults to empty)
-        */
+         * @property mainTitle
+         * @type String
+         * Title to be used on top of the table
+         * (defaults to empty)
+         */
         mainTitle: '',
-        
-        
-        filtros : '',
-        
+
+
+        filtros: '',
+
 
         /**
-        * Text show on print link
-        * @type String
-        */
+         * Text show on print link
+         * @type String
+         */
         printLinkText: 'Print',
 
         /**
-        * Text show on close link
-        * @type String
-        */
+         * Text show on close link
+         * @type String
+         */
         closeLinkText: 'Close',
 
         /**
-        * @property headerTpl
-        * @type {Object/Array} values
-        * The markup used to create the headings row. By default this just uses <th> elements, override to provide your own
-        */
+         * @property headerTpl
+         * @type {Object/Array} values
+         * The markup used to create the headings row. By default this just uses <th> elements, override to provide your own
+         */
         headerTpl: [
             '<tpl for=".">',
-                '<th>{text}</th>',
+            '<th>{text}</th>',
             '</tpl>'
         ],
 
         /**
-        * @property bodyTpl
-        * @type {Object/Array} values
-        * The XTemplate used to create each row. This is used inside the 'print' function to build another XTemplate, to which the data
-        * are then applied (see the escaped dataIndex attribute here - this ends up as "{dataIndex}")
-        */
+         * @property bodyTpl
+         * @type {Object/Array} values
+         * The XTemplate used to create each row. This is used inside the 'print' function to build another XTemplate, to which the data
+         * are then applied (see the escaped dataIndex attribute here - this ends up as "{dataIndex}")
+         */
         bodyTpl: [
             '<tpl for=".">',
-				'<tpl if="values.dataIndex">',
-                	'<td>\{{[Ext.String.createVarName(values.dataIndex)]}\}</td>',
-				'<tpl else>',
-					'<td>\{{[Ext.String.createVarName(values.id)]}\}</td>',
-				'</tpl>',
+            '<tpl if="values.dataIndex">',
+            '<td>{{[Ext.String.createVarName(values.dataIndex)]}}</td>',
+            '<tpl else>',
+            '<td>{{[Ext.String.createVarName(values.id)]}}</td>',
+            '</tpl>',
             '</tpl>'
         ]
     }

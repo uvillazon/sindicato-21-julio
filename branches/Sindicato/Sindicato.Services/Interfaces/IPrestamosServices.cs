@@ -28,10 +28,18 @@ namespace Sindicato.Services.Interfaces
         RespuestaSP GuardarPagoPrestamo(SD_PAGO_DE_PRESTAMOS pago, string login);
         RespuestaSP EliminarPagoPrestamo(int ID_PAGO,string login);
 
+        RespuestaSP GuardarPagoTotalPrestamo(SD_PAGO_DE_PRESTAMOS pago, string login);
+
+        RespuestaSP GuardarRefinanciamientoPrestamo(SD_PAGO_DE_PRESTAMOS pago, SD_PRESTAMOS_POR_SOCIOS pres, string login);
+
+
         RespuestaSP GuardarMora(SD_PRESTAMOS_MORA mora, string login);
         RespuestaSP EliminarMora(int ID_MORA);
 
         IEnumerable<SD_PRESTAMOS_MORA> ObtenerMorasPaginados(PagingInfo paginacion, FiltrosModel<IngresosModel> filtros);
+
+        RespuestaSP ObtenerPlanDePagoACancelar(int ID_PRESTAMO);
+        RespuestaSP ObtenerTotalACancelar(int ID_PRESTAMO);
 
     }
 }

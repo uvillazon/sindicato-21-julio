@@ -36,6 +36,10 @@
                 me.cbx_caja.reset();
                 me.cbx_moneda.setDisabled(true);
                 me.cbx_moneda.reset();
+                me.date_fecha_inicial.setDisabled(false);
+                me.date_fecha_final.setDisabled(false);
+                me.cbx_gestion.setDisabled(true);
+                me.cbx_gestion.reset();
             }
             else if (cbx.getValue() == "REPORTE ESTADO RESULTADO POR CAJA") {
                 me.cbx_socio.setDisabled(true);
@@ -44,6 +48,10 @@
                 me.cbx_caja.reset();
                 me.cbx_moneda.setDisabled(true);
                 me.cbx_moneda.reset();
+                me.date_fecha_inicial.setDisabled(false);
+                me.date_fecha_final.setDisabled(false);
+                me.cbx_gestion.setDisabled(true);
+                me.cbx_gestion.reset();
             }
             else if (cbx.getValue() == "REPORTE ESTADO RESULTADO POR MONEDA") {
                 me.cbx_socio.setDisabled(true);
@@ -52,6 +60,22 @@
                 me.cbx_caja.reset();
                 me.cbx_moneda.setDisabled(false);
                 me.cbx_moneda.reset();
+                me.date_fecha_inicial.setDisabled(false);
+                me.date_fecha_final.setDisabled(false);
+                me.cbx_gestion.setDisabled(true);
+                me.cbx_gestion.reset();
+            }
+            else if (cbx.getValue() == "REPORTE TOTAL DE PRESTAMOS POR GESTION" || cbx.getValue() == "REPORTE TOP DEUDORES POR GESTION") {
+                me.cbx_socio.setDisabled(true);
+                me.cbx_socio.reset();
+                me.cbx_caja.setDisabled(true);
+                me.cbx_caja.reset();
+                me.cbx_moneda.setDisabled(true);
+                me.cbx_moneda.reset();
+                me.cbx_gestion.setDisabled(false);
+                me.cbx_gestion.reset();
+                me.date_fecha_inicial.setDisabled(true);
+                me.date_fecha_final.setDisabled(true);
             }
             else {
                 me.cbx_socio.setDisabled(true);
@@ -60,6 +84,10 @@
                 me.cbx_caja.reset();
                 me.cbx_moneda.setDisabled(true);
                 me.cbx_moneda.reset();
+                me.cbx_gestion.setDisabled(true);
+                me.cbx_gestion.reset();
+                me.date_fecha_inicial.setDisabled(false);
+                me.date_fecha_final.setDisabled(false);
             }
 
         });
@@ -110,6 +138,23 @@
             //colspan: 2,
             textoTpl: function () { return "Nro Movil :{NRO_MOVIL} - {NOMBRE} {APELLIDO_PATERNO} {APELLIDO_MATERNO}" }
         });
+
+        me.store_gestion = Ext.create('App.Store.Gestion.Gestion');
+
+        me.cbx_gestion = Ext.create("App.Config.Componente.ComboAutoBase", {
+            fieldLabel: "Gestion",
+            name: "ID_GESTION",
+            displayField: 'CODIGO',
+            valueField: 'ID_GESTION',
+            store: me.store_gestion,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            width: 480,
+            colspan: 2,
+            //colspan: 2,
+            textoTpl: function () { return " {CODIGO} - {DESCRIPCION}" }
+        });
+
         me.store_moneda = Ext.create('App.Store.Listas.StoreLista');
         me.store_moneda.setExtraParam('ID_LISTA', Lista.Buscar('MONEDA'));
         me.cbx_moneda = Ext.create("App.Config.Componente.ComboBase", {
@@ -135,7 +180,7 @@
             textoTpl: function () { return "{CODIGO} : {NOMBRE} - {DESCRIPCION} - {MONEDA}" }
         });
 
-        me.formReporte.add([me.cbx_reporte, me.date_fecha_inicial, me.date_fecha_final, me.cbx_socio, me.cbx_caja, me.cbx_moneda]);
+        me.formReporte.add([me.cbx_reporte, me.date_fecha_inicial, me.date_fecha_final, me.cbx_gestion, me.cbx_socio, me.cbx_caja, me.cbx_moneda]);
         me.items = me.formReporte;
         me.cargarEventos();
 
@@ -207,6 +252,13 @@
                 case "REPORTE ESTADO RESULTADO POR MONEDA":
                     me.rutaReporte = "ReporteEstadoResultadoPorMoneda";
                     break;
+                case "REPORTE TOTAL DE PRESTAMOS POR GESTION":
+                    me.rutaReporte = "ReportePrestamosTotalesPorGestion";
+                    break;
+                case "REPORTE TOP DEUDORES POR GESTION":
+                    me.rutaReporte = "ReporteTopDeudoresCoperativa";
+                    break;
+                    
                 default:
                     me.rutaReporte = "";
             }
@@ -226,6 +278,10 @@
                 }
                 else if (me.rutaReporte == "ReporteEstadoResultadoPorMoneda") {
                     me.generarReporte(me.rutaReporte, 'FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue() + '&MONEDA=' + me.cbx_moneda.getValue());
+
+                }
+                else if (me.rutaReporte == "ReportePrestamosTotalesPorGestion" || me.rutaReporte == "ReporteTopDeudoresCoperativa") {
+                    me.generarReporte(me.rutaReporte, 'ID_GESTION=' + me.cbx_gestion.getValue());
 
                 }
                 else {

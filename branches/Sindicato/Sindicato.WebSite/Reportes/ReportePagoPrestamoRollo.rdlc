@@ -212,7 +212,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>5.79337cm</Top>
+        <Top>6.42837cm</Top>
         <Left>0.53448cm</Left>
         <Height>1.4cm</Height>
         <Width>6.47056cm</Width>
@@ -243,7 +243,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox10</rd:DefaultName>
-        <Top>7.26393cm</Top>
+        <Top>7.89893cm</Top>
         <Left>0.53448cm</Left>
         <Height>0.4cm</Height>
         <Width>0.74052cm</Width>
@@ -273,7 +273,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox11</rd:DefaultName>
-        <Top>7.26393cm</Top>
+        <Top>7.89893cm</Top>
         <Left>1.31028cm</Left>
         <Height>0.4cm</Height>
         <Width>5.69801cm</Width>
@@ -608,7 +608,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Sum(Fields!IMPORTE_PRESTAMO.Value, "DataSet1")</Value>
+                <Value>=First(Fields!IMPORTE_PRESTAMO.Value, "DataSet1")</Value>
                 <Style>
                   <FontFamily>Consolas</FontFamily>
                   <FontSize>8pt</FontSize>
@@ -703,7 +703,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Sum(Fields!TOTAL_CANCELADO.Value, "DataSet1")</Value>
+                <Value>=First(Fields!TOTAL_CANCELADO.Value, "DataSet1")</Value>
                 <Style>
                   <FontFamily>Consolas</FontFamily>
                   <FontSize>8pt</FontSize>
@@ -734,7 +734,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Sum(Fields!DEBE.Value, "DataSet1")</Value>
+                <Value>=First(Fields!DEBE.Value, "DataSet1")</Value>
                 <Style>
                   <FontFamily>Consolas</FontFamily>
                   <FontSize>8pt</FontSize>
@@ -887,7 +887,7 @@
         </Style>
       </Textbox>
       <Line Name="Line2">
-        <Top>8.44048cm</Top>
+        <Top>9.07548cm</Top>
         <Left>1.28287cm</Left>
         <Height>0cm</Height>
         <Width>5.02427cm</Width>
@@ -918,7 +918,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox3</rd:DefaultName>
-        <Top>8.47576cm</Top>
+        <Top>9.11076cm</Top>
         <Left>0.53773cm</Left>
         <Height>0.4cm</Height>
         <Width>6.47056cm</Width>
@@ -950,7 +950,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox3</rd:DefaultName>
-        <Top>8.91104cm</Top>
+        <Top>9.54604cm</Top>
         <Left>1.83822cm</Left>
         <Height>0.4cm</Height>
         <Width>3.99267cm</Width>
@@ -1003,7 +1003,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=DateTime.Now</Value>
+                <Value>=DateTime.Now &amp; " - " &amp;  First(Fields!CODIGO_GESTION.Value, "DataSet1")</Value>
                 <Style>
                   <FontFamily>Consolas</FontFamily>
                   <FontSize>8pt</FontSize>
@@ -1027,8 +1027,71 @@
           </Border>
         </Style>
       </Textbox>
+      <Textbox Name="Textbox33">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Cuota Nro:</Value>
+                <Style>
+                  <FontFamily>Consolas</FontFamily>
+                  <FontSize>8pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox14</rd:DefaultName>
+        <Top>5.65226cm</Top>
+        <Left>0.53773cm</Left>
+        <Height>0.4cm</Height>
+        <Width>2.49675cm</Width>
+        <ZIndex>27</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox35">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!CUOTA_SEMANA.Value, "DataSet1")</Value>
+                <Style>
+                  <FontFamily>Consolas</FontFamily>
+                  <FontSize>8pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox14</rd:DefaultName>
+        <Top>5.65226cm</Top>
+        <Left>3.10504cm</Left>
+        <Height>0.4cm</Height>
+        <Width>3.9065cm</Width>
+        <ZIndex>28</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>3.76562in</Height>
+    <Height>4.04076in</Height>
     <Style />
   </Body>
   <Width>3.00265in</Width>
@@ -1069,6 +1132,14 @@
         <Field Name="ID_PAGO">
           <DataField>ID_PAGO</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="NUMERO">
+          <DataField>NUMERO</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="CODIGO_GESTION">
+          <DataField>CODIGO_GESTION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="TOTAL_CANCELADO">
           <DataField>TOTAL_CANCELADO</DataField>
@@ -1136,11 +1207,23 @@
         </Field>
         <Field Name="IMPORTE_INTERES">
           <DataField>IMPORTE_INTERES</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="MORA_CANCELADA">
+          <DataField>MORA_CANCELADA</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="NRO_SEMANA">
           <DataField>NRO_SEMANA</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="CUOTA_SEMANA">
+          <DataField>CUOTA_SEMANA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TIPO">
+          <DataField>TIPO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="IMPORTE_A_PAGAR">
           <DataField>IMPORTE_A_PAGAR</DataField>
@@ -1148,6 +1231,10 @@
         </Field>
         <Field Name="IMPORTE_TOTAL">
           <DataField>IMPORTE_TOTAL</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TOTAL_CONDONACIONES">
+          <DataField>TOTAL_CONDONACIONES</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="INTERES_A_PAGAR">
@@ -1177,6 +1264,90 @@
         <Field Name="IMPORTE_LITERAL">
           <DataField>IMPORTE_LITERAL</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FECHA_INI">
+          <DataField>FECHA_INI</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="FECHA_FIN">
+          <DataField>FECHA_FIN</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="CANTIDAD">
+          <DataField>CANTIDAD</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CANTIDAD_CANCELADAS">
+          <DataField>CANTIDAD_CANCELADAS</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="SALDO">
+          <DataField>SALDO</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="AMORTIZACION">
+          <DataField>AMORTIZACION</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TRANSFERENCIA_INGRESO">
+          <DataField>TRANSFERENCIA_INGRESO</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="TRANSFERENCIA_EGRESO">
+          <DataField>TRANSFERENCIA_EGRESO</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="CAPITAL_CANCELADO">
+          <DataField>CAPITAL_CANCELADO</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="INTERES_CANCELADO">
+          <DataField>INTERES_CANCELADO</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="MORA_A_PAGAR">
+          <DataField>MORA_A_PAGAR</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="CANCELADO">
+          <DataField>CANCELADO</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="PENDIENTE">
+          <DataField>PENDIENTE</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="TOTAL_POR_COBRAR_G_ANT">
+          <DataField>TOTAL_POR_COBRAR_G_ANT</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="SALDO_POR_COBRAR_G_ANT">
+          <DataField>SALDO_POR_COBRAR_G_ANT</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="CONDONACION_G_ANT">
+          <DataField>CONDONACION_G_ANT</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TOTAL_CANCELADO_G_ANT">
+          <DataField>TOTAL_CANCELADO_G_ANT</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TOTAL_MORA_G_ANT">
+          <DataField>TOTAL_MORA_G_ANT</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="SALDO_POR_PAGAR_MORA_G_ANT">
+          <DataField>SALDO_POR_PAGAR_MORA_G_ANT</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TOTAL_MORA_CANCELADO_G_ANT">
+          <DataField>TOTAL_MORA_CANCELADO_G_ANT</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="DIAS_ATRASOS">
+          <DataField>DIAS_ATRASOS</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>

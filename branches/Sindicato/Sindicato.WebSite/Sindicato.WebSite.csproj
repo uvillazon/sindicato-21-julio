@@ -241,8 +241,11 @@
     <Content Include="App\Model\Cierres\Detalles.js" />
     <Content Include="App\Model\CierreCaja\Cierres.js" />
     <Content Include="App\Model\CierreCaja\Detalles.js" />
+    <Content Include="App\Model\Gestion\Detalles.js" />
+    <Content Include="App\Model\Gestion\Gestion.js" />
     <Content Include="App\Model\Egresos\TiposEgresos.js" />
     <Content Include="App\Model\KardexHojas\KardexHojas.js" />
+    <Content Include="App\Model\Prestamos\Moras.js" />
     <Content Include="App\Model\Prestamos\Pagos.js" />
     <Content Include="App\Model\Prestamos\PlanPagos.js" />
     <Content Include="App\Model\Prestamos\Prestamos.js" />
@@ -300,6 +303,9 @@
     <Content Include="App\Store\Cierres\Detalles.js" />
     <Content Include="App\Store\CierreCaja\Cierres.js" />
     <Content Include="App\Store\CierreCaja\Detalles.js" />
+    <Content Include="App\Store\Gestion\Detalles.js" />
+    <Content Include="App\Store\Gestion\Gestion.js" />
+    <Content Include="App\Store\Prestamos\Moras.js" />
     <Content Include="App\Store\TransferenciasHojas\Transferencias.js" />
     <Content Include="App\Store\Egresos\TiposEgresos.js" />
     <Content Include="App\Store\KardexHojas\KardexHojas.js" />
@@ -380,8 +386,11 @@
     <Content Include="App\View\Choferes\ImageField.js" />
     <Content Include="App\View\Choferes\Principal.js" />
     <Content Include="App\View\CierresParada\GridDetalles.js" />
+    <Content Include="App\View\Cierres\Forms.js" />
     <Content Include="App\View\Cierres\GridCierreSocios.js" />
     <Content Include="App\View\Cierres\GridDetalleSocio.js" />
+    <Content Include="App\View\Cierres\Grids.js" />
+    <Content Include="App\View\Cierres\PanelIngresos.js" />
     <Content Include="App\View\Clientes\FormCrearVenta.js" />
     <Content Include="App\View\Clientes\FormMovimiento.js" />
     <Content Include="App\View\Clientes\Forms.js" />
@@ -410,6 +419,11 @@
     <Content Include="App\View\CierreCaja\GridCierres.js" />
     <Content Include="App\View\CierreCaja\GridDetalles.js" />
     <Content Include="App\View\CierreCaja\Principal.js" />
+    <Content Include="App\View\Gestion\FormCierre.js" />
+    <Content Include="App\View\Gestion\GridDetalles.js" />
+    <Content Include="App\View\Gestion\GridGestion.js" />
+    <Content Include="App\View\Gestion\Principal.js" />
+    <Content Include="App\View\Prestamos\FormRefinanciarPrestamo.js" />
     <Content Include="App\View\TransferenciasHojas\GridTransferenciasHojas.js" />
     <Content Include="App\View\TransferenciasHojas\Principal.js" />
     <Content Include="App\View\Prestamos\FormMora.js" />
@@ -4061,6 +4075,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reportes\Copia de ReporteCierreAhorro.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteTopDeudores.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteTotalPrestamosPorGestion.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteTotalV1Prestamos.rdlc" />
+    <EmbeddedResource Include="Reportes\ReportePagoTotalPrestamoRollo.rdlc" />
     <EmbeddedResource Include="Reportes\ReportePagoPrestamoRollo.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteIngresoRollo.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteRegulacionRollo.rdlc" />

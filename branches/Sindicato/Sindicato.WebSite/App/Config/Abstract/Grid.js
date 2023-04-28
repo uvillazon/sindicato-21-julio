@@ -80,7 +80,8 @@ Ext.define("App.Config.Abstract.Grid", {
         //////////
         me.btn_imprimir = Ext.create('Ext.Button', {
             pressed: true,
-            iconCls: 'printer',
+            text: 'Exportar/Imprimir',
+            iconCls: 'page_excel',
             tooltip: 'Imprimir Datos',
             //enableToggle: true,
             scope: this,
@@ -94,9 +95,10 @@ Ext.define("App.Config.Abstract.Grid", {
             pressed: true,
             iconCls: 'page_excel',
             tooltip: 'Exportar Datos',
+            hidden : true,
             //enableToggle: true,
             scope: this,
-            hidden: me.excel,
+            //hidden: me.excel,
             tooltipType: 'qtip',
             handler: me.ExportarReporte
 
@@ -237,7 +239,7 @@ Ext.define("App.Config.Abstract.Grid", {
     ImprimirReporte: function () {
         var me = this;
         // alert(me.tituloImpresion);
-        App.Config.ux.Printer.filtros = me.tituloImpresion;
+        //App.Config.ux.Printer.filtros = me.tituloImpresion;
         App.Config.ux.Printer.print(me);
 
     },

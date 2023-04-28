@@ -25,7 +25,7 @@ namespace Sindicato.Business
             {
                 var context = (SindicatoContext)Context;
 
-                context.P_SD_GUARDAR_MORA(mora.ID_MORA, mora.ID_PRESTAMO, mora.IMPORTE_MORA, mora.FECHA_LIMITE_PAGO_MORA, mora.OBSERVACION, login, p_res);
+                context.P_SD_GUARDAR_MORA(mora.ID_MORA, mora.ID_PLAN, mora.ID_PRESTAMO, mora.IMPORTE_MORA, mora.FECHA, mora.OBSERVACION, login, p_res);
                     int id;
                 bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
                 if (esNumero)

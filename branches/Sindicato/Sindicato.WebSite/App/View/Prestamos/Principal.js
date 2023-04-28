@@ -22,13 +22,17 @@
             region: 'center',
             width: '100%',
             fbarmenu: me.toolbar,
-            fbarmenuArray: ["btn_Kardex", "btn_Moras", "btn_PlanPagos", "btn_eliminar", "btn_pagarPrestamo", "btn_GeneracionPlanPagos", "btn_ReportePlanPagos", "btn_VerDetalle"]
+            fbarmenuArray: ["btn_Kardex", "btn_Moras", "btn_PlanPagos", "btn_eliminar", "btn_pagarPrestamo", "btn_GeneracionPlanPagos", "btn_ReportePlanPagos", "btn_VerDetalle", "btn_pagarTotalPrestamo", "btn_refinanciarPrestamo"]
 
         });
         me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Prestamo', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
         me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Anular Prestamo', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
         me.btn_pagarPrestamo = Funciones.CrearMenu('btn_pagarPrestamo', 'Pago de Prestamo', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this, null, true);
-        me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar, me.btn_pagarPrestamo]);
+        me.btn_pagarTotalPrestamo = Funciones.CrearMenu('btn_pagarTotalPrestamo', 'Pago Total del Prestamo', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this, null, true);
+        me.btn_refinanciarPrestamo = Funciones.CrearMenu('btn_refinanciarPrestamo', 'Refinanciar Prestamo', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this, null, true);
+
+
+        me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar, me.btn_pagarPrestamo, me.btn_pagarTotalPrestamo, me.btn_refinanciarPrestamo]);
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
 
         //me.form = Ext.create("App.View.RetirosSocio.FormRetiro", {
@@ -63,11 +67,38 @@
                     Funciones.AjaxRequestGrid("Prestamos", "EliminarPrestamo", me.grid, "Esta seguro de ANULAR el prestamo?", { ID_PRESTAMO: me.record.get('ID_PRESTAMO') }, me.grid, null);
                 }
                 else {
-                    Ext.Msg.alert("Error","Solo puede Anular los prestamos en estado NUEVO");
+                    Ext.Msg.alert("Error", "Solo puede Anular los prestamos en estado NUEVO");
                 }
                 break;
             case "btn_pagarPrestamo":
-                me.FormPagoPrestamo();
+                Funciones.AjaxRequest("Prestamos", "ObtenerPlanAPagar", me.grid, { ID_PRESTAMO: me.record.get('ID_PRESTAMO') }, function (result) {
+                    if (result.success == true) {
+                        me.FormPagoPrestamo(result.data, false);
+                    }
+                    else {
+                        Ext.MessageBox.alert('Error', result.msg);
+                    }
+                });
+                break;
+            case "btn_pagarTotalPrestamo":
+                Funciones.AjaxRequest("Prestamos", "ObtenerTotalAPagar", me.grid, { ID_PRESTAMO: me.record.get('ID_PRESTAMO') }, function (result) {
+                    if (result.success == true) {
+                        me.FormPagoPrestamo(result.data, true);
+                    }
+                    else {
+                        Ext.MessageBox.alert('Error', result.msg);
+                    }
+                });
+                break;
+            case "btn_refinanciarPrestamo":
+                Funciones.AjaxRequest("Prestamos", "ObtenerTotalAPagar", me.grid, { ID_PRESTAMO: me.record.get('ID_PRESTAMO') }, function (result) {
+                    if (result.success == true) {
+                        me.FormRefinanciarPrestamo(result.data);
+                    }
+                    else {
+                        Ext.MessageBox.alert('Error', result.msg);
+                    }
+                });
                 break;
             case "btn_Kardex":
                 me.VentanaPagos();
@@ -123,30 +154,81 @@
         });
 
     },
+    FormRefinanciarPrestamo : function(data){
+        var me = this;
+        var win = Ext.create("App.Config.Abstract.Window", { botones: true });
+        var form = Ext.create("App.View.Prestamos.FormRefinanciarPrestamo", {
+            columns: 3,
+             botones: false
+        });
+        form.txt_total_condonacion.setVisible(true);
+        form.txt_importe.setReadOnly(true);
 
-    FormPagoPrestamo: function () {
+        //form.txt_socio.setVisible(false);
+        form.getForm().loadRecord(me.grid.record);
+        Funciones.loadRecordCmp(form, data);
+        Funciones.resetForm(form.setFieldRefinanciar, null);
+
+        form.txt_observacion.setValue("Refinanciamiento de Prestamo");
+
+        form.date_fecha.reset();
+        win.add(form);
+        win.show();
+        win.btn_guardar.on('click', function () {
+            Funciones.AjaxRequestWinSc("Prestamos", "GuardarRefinanciamientoPrestamo", win, form, me.grid, "Esta Seguro de Guardar", null, win, function (result) {
+                //fn.VerImpresion("ReportePagoPrestamo", "ID_PAGO=" + result.id);
+                me.ImprimirReportePrestamo(result.id);
+            });
+
+
+        });
+    },
+    FormPagoPrestamo: function (data, pago_total) {
         var me = this;
         var win = Ext.create("App.Config.Abstract.Window", { botones: true });
         var form = Ext.create("App.View.Prestamos.FormPagoPrestamo", {
             columns: 2,
+            title: pago_total ? "Pago Total del Prestamo" : "Pago Cuota del Prestamo",
             botones: false
         });
         //form.txt_socio.setVisible(false);
         form.getForm().loadRecord(me.grid.record);
         form.date_fecha.reset();
-        win.add(form);
-        win.show();
-        win.btn_guardar.on('click', function () {
-            //console.dir(params);
-            //Funciones.AjaxRequestWin("Socios", "GuardarRetiroSocio", win, form, me.grid, "Esta Seguro de Guardar", null, win);
-            Funciones.AjaxRequestWinSc("Prestamos", "GuardarPago", win, form, me.grid, "Esta Seguro de Guardar", null, win, function (result) {
-                //console.dir(result);
-                //me.VentanaRecibo(result.id);
-                fn.VerImpresion("ReportePagoPrestamo", "ID_PAGO=" + result.id);
+        if (!pago_total) {
+            Funciones.loadRecordCmp(form, data);
+            //form.txt_nro_semana.setValue(data.NRO_SEMANA);
+            //form.txt_importe.setValue(data.CUOTA);
+            win.add(form);
+            win.show();
+            win.btn_guardar.on('click', function () {
+                Funciones.AjaxRequestWinSc("Prestamos", "GuardarPago", win, form, me.grid, "Esta Seguro de Guardar", null, win, function (result) {
+                    fn.VerImpresion("ReportePagoPrestamo", "ID_PAGO=" + result.id);
+                });
+
+
             });
+        }
+        else {
+            form.txt_nro_semana.setValue(data.NRO_SEMANA);
+            form.txt_importe.setValue(data.CUOTA);
+            form.txt_total_condonacion.setVisible(true);
+            form.txt_total_condonacion.setValue(data.TOTAL_CONDONACION);
+            Funciones.loadRecordCmp(form, data);
+            form.txt_importe.setReadOnly(true);
+            form.txt_observacion.setValue("Pago Total del Prestamo")
+            win.add(form);
+            win.show();
+            win.btn_guardar.on('click', function () {
+                Funciones.AjaxRequestWinSc("Prestamos", "GuardarPagoTotal", win, form, me.grid, "Esta Seguro de Guardar el pago total de la deuda", null, win, function (result) {
+                    fn.VerImpresion("ReportePagoTotalPrestamo", "ID_PAGO=" + result.id);
+                });
 
 
-        });
+            });
+            //Funciones.AjaxRequestWinSc("Prestamos", "GuardarPagoTotal", win, form, me.grid, "Esta Seguro de Guardar", null, win, function (result) {
+            //    fn.VerImpresion("ReportePagoPrestamo", "ID_PAGO=" + result.id);
+            //});
+        }
 
     },
     VentanaKardex: function () {

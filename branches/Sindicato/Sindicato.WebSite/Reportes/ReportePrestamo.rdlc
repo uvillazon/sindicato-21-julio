@@ -1669,7 +1669,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>="Nro Prestamo :"&amp;First(Fields!ID_PRESTAMO.Value, "DataSet1")</Value>
+                  <Value>="Nro Prestamo :"&amp;First(Fields!NUMERO.Value, "DataSet1") &amp;" - " &amp; First(Fields!CODIGO_GESTION.Value, "DataSet1")</Value>
                   <Style>
                     <FontStyle>Normal</FontStyle>
                     <FontFamily>Calibri</FontFamily>
@@ -1747,6 +1747,26 @@
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
+        <Field Name="ID_PAGO">
+          <DataField>ID_PAGO</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="NUMERO">
+          <DataField>NUMERO</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="CODIGO_GESTION">
+          <DataField>CODIGO_GESTION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TOTAL_CANCELADO">
+          <DataField>TOTAL_CANCELADO</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="DEBE">
+          <DataField>DEBE</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
         <Field Name="ID_PRESTAMO">
           <DataField>ID_PRESTAMO</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
@@ -1805,11 +1825,23 @@
         </Field>
         <Field Name="IMPORTE_INTERES">
           <DataField>IMPORTE_INTERES</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="MORA_CANCELADA">
+          <DataField>MORA_CANCELADA</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="NRO_SEMANA">
           <DataField>NRO_SEMANA</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="CUOTA_SEMANA">
+          <DataField>CUOTA_SEMANA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TIPO">
+          <DataField>TIPO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="IMPORTE_A_PAGAR">
           <DataField>IMPORTE_A_PAGAR</DataField>
@@ -1817,6 +1849,10 @@
         </Field>
         <Field Name="IMPORTE_TOTAL">
           <DataField>IMPORTE_TOTAL</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TOTAL_CONDONACIONES">
+          <DataField>TOTAL_CONDONACIONES</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="INTERES_A_PAGAR">
@@ -1842,6 +1878,54 @@
         <Field Name="MOVIL">
           <DataField>MOVIL</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="IMPORTE_LITERAL">
+          <DataField>IMPORTE_LITERAL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FECHA_INI">
+          <DataField>FECHA_INI</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="FECHA_FIN">
+          <DataField>FECHA_FIN</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="CANTIDAD">
+          <DataField>CANTIDAD</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CANTIDAD_CANCELADAS">
+          <DataField>CANTIDAD_CANCELADAS</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="SALDO">
+          <DataField>SALDO</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="AMORTIZACION">
+          <DataField>AMORTIZACION</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TRANSFERENCIA_INGRESO">
+          <DataField>TRANSFERENCIA_INGRESO</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="TRANSFERENCIA_EGRESO">
+          <DataField>TRANSFERENCIA_EGRESO</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="CAPITAL_CANCELADO">
+          <DataField>CAPITAL_CANCELADO</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="INTERES_CANCELADO">
+          <DataField>INTERES_CANCELADO</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="MORA_A_PAGAR">
+          <DataField>MORA_A_PAGAR</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>

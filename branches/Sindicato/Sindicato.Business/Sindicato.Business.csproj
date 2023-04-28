@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SD_DETALLE_CIERRE_GESTION.cs" />
+    <Compile Include="SD_GESTIONManager.cs" />
     <Compile Include="SD_DETALLE_CIERRES_CAJAManager.cs" />
     <Compile Include="SD_CIERRES_CAJASManager.cs" />
     <Compile Include="SD_TRANSF_HOJA_DETManager.cs" />
