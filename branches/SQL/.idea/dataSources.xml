@@ -32,5 +32,13 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/lasallesantacruznuevo</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="Colemobile Hostname" uuid="21e26453-7567-4c96-8c19-1eff1bd20dfa">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <remarks>colemobi_lasalle</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/colemobi_lasalle</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
