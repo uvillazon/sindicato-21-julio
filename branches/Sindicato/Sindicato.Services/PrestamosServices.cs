@@ -305,6 +305,7 @@ namespace Sindicato.Services
                     throw new NullReferenceException(result.msg);
                 }
                 var planPago = managerPlan.BuscarTodos(x => x.ID_PAGO == result.id).FirstOrDefault();
+                //  var detalles = generarPlanDeCuotasFrances(planPago.SALDO_PRESTAMO,planPago.SD_PRESTAMOS_POR_SOCIOS.TASA_INTERES_ANUAL,
 
 
 
