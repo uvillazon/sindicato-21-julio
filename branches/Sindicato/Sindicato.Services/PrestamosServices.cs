@@ -298,11 +298,19 @@ namespace Sindicato.Services
             ExecuteManager(uow =>
             {
                 var manager = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                var managerPlan = new SD_PLAN_DE_PAGOManager(uow);
                 result = manager.GuardarPagoTotalPrestamo(pago, login);
+                if (!result.success)
+                {
+                    throw new NullReferenceException(result.msg);
+                }
+                var planPago = managerPlan.BuscarTodos(x => x.ID_PAGO == result.id).FirstOrDefault();
+
+
 
 
             });
-            return result;
+            return result = resultado == null ? result : resultado;
         }
 
         public RespuestaSP EliminarPagoPrestamo(int ID_PAGO, string login)
