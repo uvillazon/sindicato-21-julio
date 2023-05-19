@@ -66,6 +66,30 @@ namespace Sindicato.WebSite.Controllers
             return JavaScript(callback1);
 
         }
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerDetallesImpresionHojasPaginadas(PagingInfo paginacion, FiltrosModel<HojasModel> filtros, HojasModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var jsondata = _serven.ObtenerImpresionesHojasPaginados(paginacion, filtros);
+            var formattData = jsondata.Select(l => new
+            {
+                ID_IMPRESION = l.ID_IMPRESION,
+                ID_SOCIO_SOCIO_MOVIL = l.ID_SOCIO_SOCIO_MOVIL,
+                FECHA = l.FECHA,
+                TOTAL_HOJAS = l.TOTAL_HOJAS,
+                LOGIN = l.LOGIN,
+                FECHA_REG = l.FECHA_REG,
+                NRO_MOVIL = l.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
+                SOCIO = string.Format("{0} {1} {2}", l.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE, l.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO, l.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_MATERNO),
+                
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formattData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+
+        }
+
+
         [HttpPost]
         public JsonResult GuardarVenta(SD_HOJAS_CONTROL venta, int CANTIDAD, string HOJAS)
         {
@@ -74,6 +98,17 @@ namespace Sindicato.WebSite.Controllers
             respuestaSP = _serven.GuardarVentaHoja(venta, CANTIDAD, HOJAS,login);
             return Json(respuestaSP);
         }
+
+         [HttpPost]
+        public JsonResult GuardarImpresionHojas(SD_HOJAS_CONTROL venta, int CANT_HOJAS_USO, string HOJAS)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serven.GuardarImpresionHojas(venta, CANT_HOJAS_USO, HOJAS, login);
+            return Json(respuestaSP);
+        }
+
+        
         [HttpPost]
         public JsonResult Reimprimir(SD_IMPRESIONES venta)
         {

@@ -12,8 +12,12 @@ namespace Sindicato.Services.Interfaces
     public interface IVentaHojasServices
     {
         IEnumerable<SD_HOJAS_CONTROL> ObtenerVentasPaginados(PagingInfo paginacion, FiltrosModel<HojasModel> filtros);
+        IEnumerable<SD_IMPRESION_HOJAS> ObtenerImpresionesHojasPaginados(PagingInfo paginacion, FiltrosModel<HojasModel> filtros);
+        
         IEnumerable<SD_DETALLES_HOJAS_CONTROL> ObtenerDetallesPaginado(PagingInfo paginacion, FiltrosModel<HojasModel> filtros);
         RespuestaSP GuardarVentaHoja(SD_HOJAS_CONTROL venta, int CANTIDAD , string HOJAS, string login);
+        RespuestaSP GuardarImpresionHojas(SD_HOJAS_CONTROL venta, int CANTIDAD, string HOJAS, string login);
+
         RespuestaSP AnularVentaHoja(int ID_HOJA, string login);
         RespuestaSP Reimprimir(SD_IMPRESIONES imp, string login);
 

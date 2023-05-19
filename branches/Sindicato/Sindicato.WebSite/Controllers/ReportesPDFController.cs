@@ -104,6 +104,31 @@ namespace Elfec.SisMan.Presentacion.Controllers
             //return File(renderedBytes, mimeType);
             return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
         }
+
+        public ActionResult ReporteImpresionHojas(string tipo, int ID_IMPRESION)
+        {
+            ReporteSource rep = new ReporteSource();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteHojasDetalle.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSetVenta", rep.ReporteImpresionHojas(ID_IMPRESION));
+            localReport.DataSources.Add(reportDataSource);
+            localReport.SubreportProcessing += new SubreportProcessingEventHandler(ReporteImpresionHoja_SubreportProcessing);
+
+
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            //Render the report
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            //Response.AddHeader("content-disposition", "attachment; filename=ReporteHojas." + fileNameExtension);
+            //return File(renderedBytes, mimeType);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
         public ActionResult ReporteReImpresion(string tipo, int ID_IMPRESION)
         {
             ReporteSource rep = new ReporteSource();
@@ -133,6 +158,15 @@ namespace Elfec.SisMan.Presentacion.Controllers
             ReporteSource rep = new ReporteSource();
             int id_hoja = int.Parse(e.Parameters["ID_HOJA"].Values.First());
             ReportDataSource reportDataSource = new ReportDataSource("DataSetHoja", rep.ReporteHojaDetalle(id_hoja));
+            //int[] OrderNumbers = GetOrderNumbers();
+            e.DataSources.Add(reportDataSource);
+        }
+
+        protected void ReporteImpresionHoja_SubreportProcessing(object sender, SubreportProcessingEventArgs e)
+        {
+            ReporteSource rep = new ReporteSource();
+            int id_hoja = int.Parse(e.Parameters["ID_HOJA"].Values.First());
+            ReportDataSource reportDataSource = new ReportDataSource("DataSetHoja", rep.ReporteImpresionHojaDetalle(id_hoja));
             //int[] OrderNumbers = GetOrderNumbers();
             e.DataSources.Add(reportDataSource);
         }

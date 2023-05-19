@@ -4,6 +4,7 @@
             { type: "date", name: "FECHA", dateFormat: "d/m/Y", convert: Funciones.Fecha },
             { type: "date", name: "FECHA_LIMITE_PAGO", dateFormat: "d/m/Y", convert: Funciones.Fecha },
             { type: "date", name: "FECHA_REG", dateFormat: "d/m/Y", convert: Funciones.Fecha },
+            { type: "float", name: "CONDONACION_INTERES" },
 
             { type: "float", name: "IMPORTE_PRESTAMO" },
             { type: "float", name: "TOTAL_CANCELADO" },
@@ -21,6 +22,8 @@
             { type: "int", name: "SEMANAS" },
             { type: "float", name: "INTERES" },
             { type: "float", name: "MORA" },
+            { type: "float", name: "MORA_CUOTA" },
+            
             { type: "float", name: "DEBE" },
             { type: "float", name: "IMPORTE_INTERES" },
             { type: "float", name: "SALDO" },
@@ -31,7 +34,7 @@
                     if (raw.DEBE == 0) {
                         return "CANCELADO";
                     }
-                    else if (raw.DEBE > 0 && raw.MORA > 0) {
+                    else if (raw.DEBE > 0 && raw.MORA_CUOTA > 0) {
                         return "MORA"
                     }
                     else if (raw.TOTAL_CANCELADO > 0) {

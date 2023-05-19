@@ -42,6 +42,7 @@
                 //{ header: "Saldo", width: 70, sortable: false, dataIndex: "SALDO" },
                 { header: "Debe", width: 70, sortable: false, dataIndex: "DEBE" },
                 { header: "Total <br>Cancelado", width: 80, sortable: false, dataIndex: "TOTAL_CANCELADO" },
+                { header: "Total <br>Condonacion<br>Intereses", width: 80, sortable: false, dataIndex: "CONDONACION_INTERES" },
                 { header: "Estado", width: 80, sortable: false, dataIndex: "ESTADO_PRESTAMO" },
                 { header: "Login", width: 80, sortable: false, dataIndex: "LOGIN_USR" }
         ];

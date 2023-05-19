@@ -105,9 +105,9 @@
             readOnly: true
 
         });
-        me.txt_interes_fijo = Ext.create("App.Config.Componente.TextFieldBase", {
-            fieldLabel: "Interes fijo",
-            name: "INTERES_FIJO",
+        me.txt_interes_fijo = Ext.create("App.Config.Componente.NumberFieldBase", {
+            fieldLabel: "Tasa Interes(Anual)",
+            name: "TASA_INTERES_ANUAL",
             readOnly: true
 
         });
@@ -129,12 +129,16 @@
             readOnly: true
 
         });
-        me.txt_nro_semanas = Ext.create("App.Config.Componente.TextFieldBase", {
+        
+
+        me.txt_nro_semanas = Ext.create("App.Config.Componente.NumberFieldBase", {
             fieldLabel: "Nro de Cuotas",
             name: "SEMANAS",
-            readOnly: true
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
 
         });
+
         me.txt_importe = Ext.create("App.Config.Componente.NumberFieldBase", {
             fieldLabel: "Importe Prestamo",
             name: "IMPORTE_PRESTAMO",
@@ -142,12 +146,28 @@
             allowBlank: false,
 
         });
-        me.txt_importe_total = Ext.create("App.Config.Componente.TextFieldBase", {
+        me.txt_importe_total = Ext.create("App.Config.Componente.NumberFieldBase", {
             fieldLabel: "Importe Total Prestamo",
             name: "IMPORTE_TOTAL_PRESTAMO",
-            colspan : 2,
+            colspan : 1,
             readOnly: true
 
+        });
+        me.txt_interes_total = Ext.create("App.Config.Componente.NumberFieldBase", {
+            fieldLabel: "Interes Total",
+            name: "IMPORTE_INTERES",
+            colspan: 1,
+            readOnly: true
+
+        });
+
+        me.date_fecha_cuota = Ext.create("App.Config.Componente.DateFieldBase", {
+            fieldLabel: "Fecha Cuota",
+            name: "FECHA_INICIO_CUOTA",
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            readOnly: false,
+            maximo : 'sin maximo'
         });
         me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
             fieldLabel: "Observaciones",
@@ -164,12 +184,62 @@
             me.txt_caja, me.txt_moneda, me.txt_tipo_interes,
             me.txt_interes,me.txt_interes_fijo, me.txt_nro_semanas,
             me.txt_importe_minimo, me.txt_importe_maximo, me.txt_importe_mora,
-            me.txt_importe,me.txt_importe_total,
+            me.txt_importe, me.txt_importe_total, me.txt_interes_total,
+            me.date_fecha_cuota,
+            {
+                xtype: 'button',
+                text: 'Ver Plan Pagos',
+                colspan: 2,
+                iconCls: 'folder_add',
+                listeners: {
+                    scope : me,
+                    click: me.onClickVerPlanPagos
+                }
+            },
             me.txt_observacion
         ];
 
 
 
+    },
+    onClickVerPlanPagos : function(){
+        var me = this;
+        if (me.getForm().isValid()) {
+
+            var grid = Ext.create('App.View.Prestamos.GridPlanPagos', {
+                generar : true,
+                height: 550, width: 700,
+            });
+            var tasaInteres = me.txt_interes.getValue() / 100;
+
+            grid.getStore().setExtraParams({
+                capital: me.txt_importe.getValue(),
+                plazoMeses: me.txt_nro_semanas.getValue(),
+                fechaPago: me.date_fecha_cuota.getValue(),
+                tasaAnual: me.txt_interes_fijo.getValue()
+            });
+            var total_interes = 0;
+            var total_credito = 0;
+            grid.getStore().load({
+                callback: function (records, operation, success) {
+                    Ext.Array.each(records, function (record, index, countriesItSelf) {
+                        total_interes = total_interes + record.get('INTERES_A_PAGAR');
+                        total_credito = total_credito + record.get('IMPORTE_TOTAL');
+                    });
+                    me.txt_interes_total.setValue(total_interes);
+                    me.txt_importe_total.setValue(total_credito);
+
+                },
+                scope: this
+            });
+            var win = Ext.create("App.Config.Abstract.Window", { botones: true });
+            win.add(grid);
+            win.show();
+        }
+        else {
+            Ext.Msg.alert('Error', 'Falta completar el formualario');
+        }
+        console.log("entroooooooooo");
     },
     cargarEventos: function () {
         var me = this;
@@ -183,37 +253,46 @@
             me.rec_tipo_prestamo = rec[0];
             me.txt_importe.reset();
             me.txt_importe_total.reset();
-        });
-        me.txt_importe.on('change', function (num, newvalue, oldvalue) {
-            if (me.rec_tipo_prestamo === null) {
-                Ext.Msg.alert("Aviso", "No puede registrar el importe sin seleccionar el tipo de prestamo", function () {
-                    num.reset();
-                });
+            console.log(rec);
+            var tasaInteres = 0;
+            if (rec[0].get('TIPO_INTERES') == "INTERES MENSUAL") {
+                tasaInteres = rec[0].get('INTERES') * 12 / 100;
             }
             else {
-                var valor = num.getValue();
-                if ( valor <= me.txt_importe_maximo.getValue()) {
-
-                    if (me.rec_tipo_prestamo.get('TIPO_INTERES') === 'INTERES SEMANAL') {
-                        var total = (num.getValue() * (me.rec_tipo_prestamo.get('INTERES') / 100)) + num.getValue();
-                        me.txt_importe_total.setValue(total);
-                    }
-                    else if (me.rec_tipo_prestamo.get('TIPO_INTERES') === 'INTERES MENSUAL') {
-                        var total = (me.txt_nro_semanas.getValue() * num.getValue() * (me.rec_tipo_prestamo.get('INTERES') / 100)) + num.getValue();
-                        me.txt_importe_total.setValue(total);
-                    }
-                    else {
-                        var total = num.getValue() + me.rec_tipo_prestamo.get('INTERES_FIJO');
-                        me.txt_importe_total.setValue(total);
-                    }
-                }
-                else {
-                    Ext.Msg.alert("Aviso", "No puede Sobrepasar el Limite", function () {
-                        num.reset();
-                    });
-                }
+                tasaInteres = rec[0].get('INTERES') / 100;
             }
+            me.txt_interes_fijo.setValue(tasaInteres);
         });
+        //me.txt_importe.on('change', function (num, newvalue, oldvalue) {
+        //    if (me.rec_tipo_prestamo === null) {
+        //        Ext.Msg.alert("Aviso", "No puede registrar el importe sin seleccionar el tipo de prestamo", function () {
+        //            num.reset();
+        //        });
+        //    }
+        //    else {
+        //        var valor = num.getValue();
+        //        if ( valor <= me.txt_importe_maximo.getValue()) {
+
+        //            if (me.rec_tipo_prestamo.get('TIPO_INTERES') === 'INTERES SEMANAL') {
+        //                var total = (num.getValue() * (me.rec_tipo_prestamo.get('INTERES') / 100)) + num.getValue();
+        //                me.txt_importe_total.setValue(total);
+        //            }
+        //            else if (me.rec_tipo_prestamo.get('TIPO_INTERES') === 'INTERES MENSUAL') {
+        //                var total = (me.txt_nro_semanas.getValue() * num.getValue() * (me.rec_tipo_prestamo.get('INTERES') / 100)) + num.getValue();
+        //                me.txt_importe_total.setValue(total);
+        //            }
+        //            else {
+        //                var total = num.getValue() + me.rec_tipo_prestamo.get('INTERES_FIJO');
+        //                me.txt_importe_total.setValue(total);
+        //            }
+        //        }
+        //        else {
+        //            Ext.Msg.alert("Aviso", "No puede Sobrepasar el Limite", function () {
+        //                num.reset();
+        //            });
+        //        }
+        //    }
+        //});
        
     },
 });

@@ -17,6 +17,8 @@
             { type: "string", name: "NOMBRE" },
             { type: "string", name: "CATEGORIA" },
             { type: "string", name: "ESTADO" },
-            { type: "string", name: "TIPO_INTERES" }
+            { type: "string", name: "TIPO_INTERES" },
+            { type: "int", name: "DIAS_ESPERA_MORA" },
+            
         ]
 });

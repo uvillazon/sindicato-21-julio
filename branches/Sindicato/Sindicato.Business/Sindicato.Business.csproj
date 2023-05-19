@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SD_DETALLES_IMPRESION_HOJASManager.cs" />
+    <Compile Include="SD_IMPRESION_HOJASManager.cs" />
     <Compile Include="SD_DIAS_NO_TRABAJADOSManager.cs" />
     <Compile Include="SD_VENTA_HOJAS_REFUERZOManager.cs" />
     <Compile Include="SD_HIST_MOVILManager.cs" />

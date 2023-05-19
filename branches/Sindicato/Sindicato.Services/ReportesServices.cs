@@ -651,6 +651,7 @@ namespace Sindicato.Services
                         NRO_SEMANA = item.NRO_SEMANA,
                         OBSERVACION = item.SD_PRESTAMOS_POR_SOCIOS.OBSERVACION,
                         SALDO_PLAN = item.SALDO_PLAN,
+                        SALDO_CAPITAL = item.SALDO_PRESTAMO,
                         SEMANAS = item.SD_PRESTAMOS_POR_SOCIOS.SEMANAS,
                         SOCIO = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
                         TIPO_INTERES = item.SD_PRESTAMOS_POR_SOCIOS.TIPO_INTERES,

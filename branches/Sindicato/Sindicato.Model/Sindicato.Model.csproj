@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PartialSD_IMPRESION_HOJAS.cs" />
     <Compile Include="PartialSD_DIAS_NO_TRABAJADOS.cs" />
     <Compile Include="PartialSD_PAGO_DE_PRESTAMOS.cs" />
     <Compile Include="PartialSD_DETALLES_DEUDAS.cs" />

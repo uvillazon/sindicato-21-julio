@@ -122,6 +122,13 @@
     <Compile Include="Models\MenuOpcionesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reportes\ReporteSource.cs" />
+    <Compile Include="Reportes\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\Config\Abstract\Controller.js" />
@@ -236,6 +243,8 @@
     <Content Include="App\Model\CierresParada\Detalles.js" />
     <Content Include="App\Model\Cierres\Detalles.js" />
     <Content Include="App\Model\DiasNoTrabajados\Detalles.js" />
+    <Content Include="App\Model\Hojas\Impresiones.js" />
+    <Content Include="App\Model\Hojas\ModelHojas.js" />
     <Content Include="App\Model\Refuerzos\Refuerzos.js" />
     <Content Include="App\Model\DeudasSocios\Detalles.js" />
     <Content Include="App\Model\DeudasSocios\DeudasSocios.js" />
@@ -303,6 +312,8 @@
     <Content Include="App\Store\CierresParada\Detalles.js" />
     <Content Include="App\Store\Cierres\Detalles.js" />
     <Content Include="App\Store\DiasNoTrabajados\Detalles.js" />
+    <Content Include="App\Store\Hojas\Impresiones.js" />
+    <Content Include="App\Store\Prestamos\GenerarPlanPagos.js" />
     <Content Include="App\Store\Refuerzos\Refuerzos.js" />
     <Content Include="App\Store\DeudasSocios\DeudasSocios.js" />
     <Content Include="App\Store\DeudasSocios\Detalles.js" />
@@ -426,6 +437,10 @@
     <Content Include="App\View\DiasNoTrabajados\GridDetalles.js" />
     <Content Include="App\View\DiasNoTrabajados\Principal.js" />
     <Content Include="App\View\DetallesDeudasSocios\FormAnular.js" />
+    <Content Include="App\View\Hojas\FormImpresionHoja.js" />
+    <Content Include="App\View\Hojas\GridImpresiones.js" />
+    <Content Include="App\View\Prestamos\FormPagoAmortizacion.js" />
+    <Content Include="App\View\Prestamos\Copia de GridPlanPagos.js" />
     <Content Include="App\View\Refuerzos\FormRefuerzo.js" />
     <Content Include="App\View\Refuerzos\Forms.js" />
     <Content Include="App\View\Refuerzos\GridRefuerzos.js" />
@@ -1734,6 +1749,7 @@
       <Link>InterfacesUsuario\data01052019.txt</Link>
     </Content>
     <Content Include="InterfacesUsuario\20112020.txt" />
+    <Content Include="Reportes\WebForm1.aspx" />
     <Content Include="Scripts\Extjs\bootstrap.js" />
     <Content Include="Scripts\Extjs\build.xml" />
     <Content Include="Scripts\Extjs\ext-all.js" />
@@ -4094,6 +4110,7 @@
     <Content Include="viewer\locale\zu\viewer.properties" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reportes\Report1.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteOtroIngreso.rdlc" />
     <EmbeddedResource Include="Reportes\HojaDetalleUsoRefuerzo.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteHojasRefuerzoDetalle.rdlc" />
@@ -4176,7 +4193,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>4353</DevelopmentServerPort>
+          <DevelopmentServerPort>1083</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

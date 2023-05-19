@@ -43,31 +43,17 @@ namespace Sindicato.Business
                     return result;
                 }
                 decimal interes = 0;
-                decimal importe_interes = 0;
-                if (tipo.TIPO_INTERES == "INTERES SEMANAL")
-                {
-                    interes = (decimal)tipo.INTERES;
-                    importe_interes = prestamo.IMPORTE_PRESTAMO * interes / 100;
-                }
-                else if (tipo.TIPO_INTERES == "INTERES MENSUAL")
-                {
-                    interes = (decimal)tipo.INTERES;
-                    importe_interes = tipo.SEMANAS* prestamo.IMPORTE_PRESTAMO * interes / 100;
-                }
-                else
-                {
-                    interes = (decimal)tipo.INTERES_FIJO;
-                    importe_interes = (decimal)tipo.INTERES_FIJO;
-                }
+              
                 prestamo.ID_CAJA = tipo.ID_CAJA;
                 prestamo.ID_PRESTAMO = ObtenerSecuencia();
                 prestamo.ESTADO = "NUEVO";
                 prestamo.ESTADO_CIERRE = "NUEVO";
+                DateTime fecha_fin = (DateTime)prestamo.FECHA_INICIO_CUOTA.Value.AddMonths(prestamo.SEMANAS).AddDays((int)tipo.DIAS_ESPERA_MORA);
                 //prestamo.INTERES = tipo.TIPO_INTERES == "INTERES" ? (decimal)tipo.INTERES : (decimal)tipo.INTERES_FIJO;
                 prestamo.INTERES = interes;
+                prestamo.FECHA_LIMITE_PAGO = fecha_fin;
 
                 //var importe_interes = tipo.TIPO_INTERES == "INTERES" ? prestamo.IMPORTE_PRESTAMO * tipo.INTERES / 100 : tipo.INTERES_FIJO;
-                prestamo.IMPORTE_INTERES = importe_interes;
                 prestamo.FECHA_REG = DateTime.Now;
 
                 prestamo.LOGIN_USR = login;
@@ -112,14 +98,14 @@ namespace Sindicato.Business
             RespuestaSP result = new RespuestaSP();
             try
             {
-                var pres = BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO == "NUEVO").FirstOrDefault();
+                var pres = BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO_CIERRE == "NUEVO").FirstOrDefault();
                 if (pres == null)
                 {
                     result.success = false;
                     result.msg = "No existe prestamo o esta en estado Diferente a NUEVO";
                     return result;
                 }
-                if (pres.SD_PAGO_DE_PRESTAMOS.Count() > 0)
+                if (pres.SD_PAGO_DE_PRESTAMOS.Where(x=>x.ESTADO != "ANULADO").Count() > 0)
                 {
                     result.success = false;
                     result.msg = "Existe Pagos del Socio Eliminar primero los  pagos para eliminar el prestamo";

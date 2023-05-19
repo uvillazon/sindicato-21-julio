@@ -181,6 +181,7 @@ namespace Sindicato.Services.Model
         public DateTime FECHA_FIN { get; set; }
         public int CANTIDAD { get; set; }
         public int CANTIDAD_CANCELADAS { get; set; }
+        public decimal SALDO_CAPITAL { get; set; }
 
     }
 

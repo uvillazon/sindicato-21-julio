@@ -12,6 +12,7 @@ namespace Sindicato.Services
     {
         public string conexion;
         public RespuestaSP resultado { get; set; }
+        public string msgError = "";
         public void ExecuteManager(Action<IUnitOfWork> coreMethod, Action postCommit = null)
         {
             var uow = new UnitOfWork<SindicatoContext>();
@@ -29,6 +30,7 @@ namespace Sindicato.Services
                 uow.Rollback();
                 resultado = new RespuestaSP();
                 resultado.success = false;
+                msgError = e.Message;
                 resultado.msg = e.Message;
             }
 

@@ -90,8 +90,8 @@
             fieldLabel: "Tipo Interes",
             name: "TIPO_INTERES",
             width: 480,
-            colspan :2,
-            store: ["INTERES SEMANAL","MONTO FIJO" , "INTERES MENSUAL"],
+            colspan: 2,
+            store: ["INTERES MENSUAL","INTERES ANUAL"],
             selectOnFocus: true,
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false
@@ -102,7 +102,7 @@
             name: "INTERES",
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false
-           
+
 
         });
         me.txt_interes_fijo = Ext.create("App.Config.Componente.NumberFieldBase", {
@@ -113,7 +113,7 @@
 
         });
 
-       
+
 
         me.txt_multa_mora = Ext.create("App.Config.Componente.NumberFieldBase", {
             fieldLabel: "Multa p/ Mora",
@@ -130,6 +130,15 @@
 
         });
 
+        me.txt_dias_espera = Ext.create("App.Config.Componente.NumberFieldBase", {
+            fieldLabel: "Dias Espera Mora",
+            name: "DIAS_ESPERA_MORA",
+            value: 0,
+            colspan: 2,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+
+        });
 
         me.items = [
            me.txt_nro_tipo, me.cbx_categoria,
@@ -139,12 +148,13 @@
            me.cbx_tipo_interes,
            me.txt_interes, me.txt_interes_fijo,
            me.txt_semanas, me.txt_multa_mora,
+           me.txt_dias_espera,
            me.txt_observacion
         ];
     },
     CargarComponentesConsulta: function () {
         var me = this;
-       
+
         me.txt_nro_tipo = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Nro. Tipo",
             name: "ID_TIPO"
@@ -163,14 +173,14 @@
         me.txt_caja = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Caja",
             name: "CAJA",
-           
+
         });
         me.txt_moneda = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Moneda",
             name: "MONEDA",
 
         });
-      
+
         me.txt_observacion = Ext.create("App.Config.Componente.TextAreaBase", {
             fieldLabel: "Observacion",
             name: "OBSERVACION",
@@ -181,7 +191,7 @@
         me.txt_importe_max = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Importe Maximo",
             name: "IMPORTE_MAXIMO",
-           
+
         });
         me.txt_importe_min = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Importe Minimo",
@@ -217,13 +227,22 @@
         });
 
 
+        me.txt_dias_espera = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Dias Espera Mora",
+            name: "DIAS_ESPERA_MORA",
+            colspan: 2,
+
+        });
+
+
         me.items = [
             me.txt_nro_tipo, me.txt_categoria,
-              me.txt_nombre,            me.txt_caja,
+              me.txt_nombre, me.txt_caja,
             me.txt_moneda, me.txt_tipo_interes,
             me.txt_interes, me.txt_interes_fijo,
             me.txt_importe_max, me.txt_importe_min,
-            me.txt_semanas , me.txt_mora,
+            me.txt_semanas, me.txt_mora,
+            me.txt_dias_espera,
             me.txt_observacion
 
         ];
@@ -234,7 +253,7 @@
             me.txt_moneda.setValue(record[0].get('MONEDA'));
         });
         me.cbx_tipo_interes.on('select', function (cbx, rec) {
-            if (cbx.getValue() === 'INTERES SEMANAL' || cbx.getValue() === 'INTERES MENSUAL' ) {
+            if (cbx.getValue() === 'INTERES ANUAL' || cbx.getValue() === 'INTERES MENSUAL') {
                 me.txt_interes_fijo.reset();
                 me.txt_interes.reset();
                 me.txt_interes_fijo.setDisabled(true);

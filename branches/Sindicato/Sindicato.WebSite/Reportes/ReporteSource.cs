@@ -108,6 +108,27 @@ namespace Sindicato.WebSite.Reportes
             return results;
         }
 
+        public List<ReporteHoja> ReporteImpresionHojaDetalle(int ID_DETALLE)
+        {
+
+            List<ReporteHoja> results = new List<ReporteHoja>();
+            var servicio = new VentaHojasServices();
+            var res = servicio.ObtenerImpresionHojas(x => x.ID_DETALLE == ID_DETALLE);
+            ReporteHoja result = new ReporteHoja();
+
+            result.ID_DETALLE = res.ID_DETALLE;
+            result.ID_HOJA = res.ID_IMPRESION == null ? 0 : (int)res.ID_IMPRESION;
+            result.FECHA_COMPRA = res.SD_IMPRESION_HOJAS.FECHA;
+            result.FECHA_USO = (DateTime)res.FECHA_USO;
+            result.MOVIL = res.SD_IMPRESION_HOJAS.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL;
+            result.NUMERO = (int)res.ID_IMPRESION;
+            result.OBLIGACIONES = "-";
+            result.PLACA = servicio.obtenerPlada(res.SD_IMPRESION_HOJAS.SD_SOCIO_MOVILES.ID_SOCIO_MOVIL);
+            result.SOCIO = string.Format("{0} {1} {2}", res.SD_IMPRESION_HOJAS.SD_SOCIO_MOVILES.SD_SOCIOS.NOMBRE, res.SD_IMPRESION_HOJAS.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_PATERNO, res.SD_IMPRESION_HOJAS.SD_SOCIO_MOVILES.SD_SOCIOS.APELLIDO_MATERNO);
+            results.Add(result);
+            return results;
+        }
+
         public List<ReporteHoja> ReporteHojaDetalleRefuerzo(int ID_DETALLE)
         {
 
@@ -176,6 +197,22 @@ namespace Sindicato.WebSite.Reportes
 
             return result;
         }
+
+         public IEnumerable<ReporteHoja> ReporteImpresionHojas(int ID_IMPRESION)
+        {
+
+            IEnumerable<ReporteHoja> result = null;
+            var servicio = new VentaHojasServices();
+            var res = servicio.ObtenerDetallesPorImpresiones(ID_IMPRESION);
+            result = res.Select(x => new ReporteHoja()
+            {
+                ID_HOJA = (int)x.ID_DETALLE
+            });
+
+            return result;
+        }
+
+       
 
         public IEnumerable<ReporteHoja> ReporteHojasVentaRefuerzo(int ID_VENTA)
         {

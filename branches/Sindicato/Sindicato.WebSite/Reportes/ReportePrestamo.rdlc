@@ -827,7 +827,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Importe a Pagar</Value>
+                              <Value>Cuota</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -861,7 +861,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Interes a Pagar</Value>
+                              <Value>Interes</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -895,7 +895,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Importe Total a Pagar</Value>
+                              <Value>Capital</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -929,7 +929,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Capital a Pagar</Value>
+                              <Value>Saldo Capital</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -963,7 +963,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Saldo</Value>
+                              <Value>Total Amortizacion</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -1124,39 +1124,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="IMPORTE_TOTAL">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!IMPORTE_TOTAL.Value</Value>
-                              <Style>
-                                <FontFamily>Calibri</FontFamily>
-                                <FontSize>8pt</FontSize>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style />
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>IMPORTE_TOTAL</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>1pt</PaddingTop>
-                        <PaddingBottom>1pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="CAPITAL_A_PAGAR">
+                    <Textbox Name="CAPITAL_A_PAGAR1">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -1173,7 +1141,39 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>CAPITAL_A_PAGAR</rd:DefaultName>
+                      <rd:DefaultName>CAPITAL_A_PAGAR1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>1pt</PaddingTop>
+                        <PaddingBottom>1pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="SALDO_CAPITAL1">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!SALDO_CAPITAL.Value</Value>
+                              <Style>
+                                <FontFamily>Calibri</FontFamily>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>SALDO_CAPITAL1</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -1357,14 +1357,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox4">
+                    <Textbox Name="CAPITAL_A_PAGAR">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!IMPORTE_TOTAL.Value)</Value>
+                              <Value>=Sum(Fields!CAPITAL_A_PAGAR.Value)</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontWeight>Heavy</FontWeight>
@@ -1374,7 +1374,7 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox4</rd:DefaultName>
+                      <rd:DefaultName>CAPITAL_A_PAGAR</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -1397,7 +1397,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value EvaluationMode="Constant" />
+                              <Value />
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontWeight>Heavy</FontWeight>
@@ -1747,6 +1747,18 @@
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
+        <Field Name="ID_PAGO">
+          <DataField>ID_PAGO</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TOTAL_CANCELADO">
+          <DataField>TOTAL_CANCELADO</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="DEBE">
+          <DataField>DEBE</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
         <Field Name="ID_PRESTAMO">
           <DataField>ID_PRESTAMO</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
@@ -1805,7 +1817,11 @@
         </Field>
         <Field Name="IMPORTE_INTERES">
           <DataField>IMPORTE_INTERES</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="CONDONACION_INTERES">
+          <DataField>CONDONACION_INTERES</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
         </Field>
         <Field Name="NRO_SEMANA">
           <DataField>NRO_SEMANA</DataField>
@@ -1842,6 +1858,30 @@
         <Field Name="MOVIL">
           <DataField>MOVIL</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="IMPORTE_LITERAL">
+          <DataField>IMPORTE_LITERAL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FECHA_INI">
+          <DataField>FECHA_INI</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="FECHA_FIN">
+          <DataField>FECHA_FIN</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="CANTIDAD">
+          <DataField>CANTIDAD</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CANTIDAD_CANCELADAS">
+          <DataField>CANTIDAD_CANCELADAS</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="SALDO_CAPITAL">
+          <DataField>SALDO_CAPITAL</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>

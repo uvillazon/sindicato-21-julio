@@ -26,6 +26,8 @@ namespace Sindicato.Services.Interfaces
         RespuestaSP GenerarPlanDePagos(int ID_PRESTAMO, string login);
 
         RespuestaSP GuardarPagoPrestamo(SD_PAGO_DE_PRESTAMOS pago, string login);
+        RespuestaSP GuardarPagoTotalPrestamo(SD_PAGO_DE_PRESTAMOS pago, string login);
+
         RespuestaSP EliminarPagoPrestamo(int ID_PAGO,string login);
 
         RespuestaSP GuardarMora(SD_PRESTAMOS_MORA mora, string login);
@@ -34,6 +36,13 @@ namespace Sindicato.Services.Interfaces
         IEnumerable<SD_PRESTAMOS_MORA> ObtenerMorasPaginados(PagingInfo paginacion, FiltrosModel<IngresosModel> filtros);
 
         RespuestaSP ObtenerImporteDeuda(string TIPO, DateTime FECHA, int ID_PRESTAMO, string login);
+
+        List<PlanPagosModel> generarPlanDeCuotasFrances(double capital, double tasaAnual, int plazoMeses, DateTime fechaPago, int decimales);
+
+        RespuestaSP ObtenerPlanDePagoACancelar(int ID_PRESTAMO);
+        RespuestaSP ObtenerTotalACancelar(int ID_PRESTAMO);
+
+
 
     }
 }

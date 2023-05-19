@@ -145,7 +145,7 @@ namespace Sindicato.Services
                 var context = (SindicatoContext)uow.Context;
                 ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
 
-                context.P_SD_GUARDAR_TIPO_PRESTAMO(tipo.ID_TIPO, tipo.ID_CAJA, tipo.NOMBRE, tipo.OBSERVACION, tipo.MONEDA, tipo.IMPORTE_MAXIMO, tipo.IMPORTE_MINIMO, tipo.INTERES, tipo.MULTA_POR_MORA, tipo.SEMANAS, tipo.CATEGORIA, tipo.TIPO_INTERES, tipo.INTERES_FIJO, login, p_res);
+                context.P_SD_GUARDAR_TIPO_PRESTAMO(tipo.ID_TIPO, tipo.ID_CAJA, tipo.NOMBRE, tipo.OBSERVACION, tipo.MONEDA, tipo.IMPORTE_MAXIMO, tipo.IMPORTE_MINIMO, tipo.INTERES, tipo.MULTA_POR_MORA, tipo.SEMANAS, tipo.CATEGORIA, tipo.TIPO_INTERES, tipo.INTERES_FIJO, tipo.DIAS_ESPERA_MORA, login, p_res);
                 int id;
                 bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
                 if (esNumero)
@@ -194,15 +194,45 @@ namespace Sindicato.Services
             RespuestaSP result = new RespuestaSP();
             ExecuteManager(uow =>
             {
+
                 var managerCierre = new SD_CIERRES_CAJASManager(uow);
+                var manager = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
+                var managerPlan = new SD_PLAN_DE_PAGOManager(uow);
                 var valid = managerCierre.VerificarCierre((DateTime)prestamo.FECHA);
                 if (!valid.success)
                 {
                     throw new NullReferenceException(valid.msg);
                 }
-                var manager = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
+                
                 result = manager.GuardarPrestamo(prestamo, login);
+                if (!result.success)
+                {
+                    throw new InvalidOperationException(result.msg);
 
+                }
+                var planPagos = generarPlanDeCuotasFrances((double)prestamo.IMPORTE_PRESTAMO, (double)prestamo.TASA_INTERES_ANUAL, prestamo.SEMANAS, (DateTime)prestamo.FECHA_INICIO_CUOTA, 1);
+                DateTime? fechaFin = null;
+                foreach (var item in planPagos)
+                {
+                    SD_PLAN_DE_PAGO plan = new SD_PLAN_DE_PAGO();
+                    plan.ID_PLAN = managerPlan.ObtenerSecuencia();
+                    plan.ID_PRESTAMO = result.id;
+                    plan.LOGIN_USR = login;
+                    plan.NRO_SEMANA = item.NRO_CCUOTA;
+                    plan.INTERES_INICIAL = item.INTERES;
+                    plan.IMPORTE_A_PAGAR = item.CUOTA;
+                    plan.INTERES_A_PAGAR = item.INTERES;
+                    plan.CAPITAL_A_PAGAR = item.CAPITAL;
+                    plan.SALDO_PRESTAMO = item.SALDO;
+                    plan.SALDO_PLAN = item.TOTAL_AMORTIZACION;
+                    plan.FECHA_REG = DateTime.Now;
+                    plan.FECHA_PAGO = item.FECHA_CUOTA;
+                    plan.ESTADO = "NUEVO";
+                    managerPlan.Add(plan);
+                    fechaFin = item.FECHA_CUOTA;
+                }
+                prestamo.ESTADO = "CON_PLAN_PAGOS";
+                prestamo.FECHA_LIMITE_PAGO = fechaFin ;
 
             });
             return result = resultado == null ? result : resultado;
@@ -243,14 +273,14 @@ namespace Sindicato.Services
             ExecuteManager(uow =>
             {
                 var managerCierre = new SD_CIERRES_CAJASManager(uow);
+                var manager = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                var managerPlan = new SD_PLAN_DE_PAGOManager(uow);
+
                 var valid = managerCierre.VerificarCierre((DateTime)pago.FECHA);
                 if (!valid.success)
                 {
                     throw new NullReferenceException(valid.msg);
                 }
-
-                var manager = new SD_PAGO_DE_PRESTAMOSManager(uow);
-                var managerPlan = new SD_PLAN_DE_PAGOManager(uow);
                 result = manager.GuardarPagoPrestamo(pago, login);
                 if (pago.TIPO_PAGO == "EXTENDER PRESTAMO")
                 {
@@ -260,6 +290,19 @@ namespace Sindicato.Services
 
             });
             return result = resultado == null ? result : resultado;
+        }
+
+        public RespuestaSP GuardarPagoTotalPrestamo(SD_PAGO_DE_PRESTAMOS pago, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                result = manager.GuardarPagoTotalPrestamo(pago, login);
+
+
+            });
+            return result;
         }
 
         public RespuestaSP EliminarPagoPrestamo(int ID_PAGO, string login)
@@ -272,16 +315,7 @@ namespace Sindicato.Services
 
 
             });
-            ExecuteManager(uow =>
-            {
-                var manager = new SD_PAGO_DE_PRESTAMOSManager(uow);
-                result = manager.ActualizaPlanPagoPrestamo(ID_PAGO, login);
-
-
-            });
-            return result;
-
-
+            return result = resultado == null ? result : resultado;
         }
 
         public RespuestaSP GuardarMora(SD_PRESTAMOS_MORA mora, string login)
@@ -397,11 +431,11 @@ namespace Sindicato.Services
                 else if (TIPO == "EXTENDER PRESTAMO")
                 {
                     FECHA = FECHA.AddMonths(1);
-                    decimal cancelado = managerPagos.BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO != "ANULADO").Count() > 0?  managerPagos.BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO != "ANULADO").Sum(y=> y.IMPORTE): 0 ;
+                    decimal cancelado = managerPagos.BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO != "ANULADO").Count() > 0 ? managerPagos.BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO != "ANULADO").Sum(y => y.IMPORTE) : 0;
                     if (cancelado > 0)
                     {
                         result.success = false;
-                        result.msg = string.Format("El prestamo Nro: {0} tiene el importe : {1} CANCELADO",ID_PRESTAMO,cancelado);
+                        result.msg = string.Format("El prestamo Nro: {0} tiene el importe : {1} CANCELADO", ID_PRESTAMO, cancelado);
                     }
                     else
                     {
@@ -428,6 +462,185 @@ namespace Sindicato.Services
             return result;
         }
 
-    }
+        public List<PlanPagosModel> generarPlanDeCuotasFrances(double capital, double tasaAnual, int plazoMeses, DateTime fechaPago , int decimales)
+        {
+            List<PlanPagosModel> result = new List<PlanPagosModel>();
 
+
+            double pagoMensual = (capital * tasaAnual / 12) / (1 - Math.Pow(1 + tasaAnual / 12, -plazoMeses));
+            double interesMensual, capitalRestante = capital, totalPagado = 0, totalIntereses = 0,totalAmortizacion = 0;
+
+            for (int i = 1; i <= plazoMeses; i++)
+            {
+                PlanPagosModel item = new PlanPagosModel();
+                interesMensual = capitalRestante * tasaAnual / 12;
+              
+                // Verificar si la fecha de pago cae en domingo
+                if (fechaPago.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    // Si la fecha de pago es domingo, sumar un día y aumentar el interés en consecuencia
+                    fechaPago = fechaPago.AddDays(1);
+                    interesMensual += capitalRestante * tasaAnual / 12 / 30;
+                }
+
+                double cuota = pagoMensual;
+                if (i == plazoMeses)
+                {
+                    cuota = capitalRestante + interesMensual;
+                }
+                cuota = Math.Round(cuota, decimales);
+                double interesCuota = Math.Round(interesMensual, decimales);
+                double capitalCuota = Math.Round(cuota - interesCuota, decimales);
+                totalAmortizacion += capitalCuota;
+                capitalRestante -= capitalCuota;
+                // Console.WriteLine("Mes: {0} - Pago mensual: {1:C2} - Interés mensual: {2:C2} - Capital restante: {3:C2} - Fecha de pago: {4:d}", i, pagoMensual, interesMensual, capitalRestante, fechaPago);
+                item.NRO_CCUOTA = i;
+                item.CUOTA = (decimal)cuota;
+                item.INTERES = (decimal)interesCuota;
+                item.CAPITAL = (decimal)capitalCuota;
+                item.SALDO = (decimal)Math.Round(capitalRestante, decimales); 
+                item.TOTAL_AMORTIZACION = (decimal)Math.Round(totalAmortizacion, decimales); 
+                item.FECHA_CUOTA = fechaPago;
+                if (i < plazoMeses)
+                {
+                    totalPagado += cuota;
+                }
+                else
+                {
+                    item.NRO_CCUOTA = i;
+                    item.CUOTA = (decimal)cuota;
+                    item.INTERES = (decimal)interesCuota;
+                    item.CAPITAL = (decimal)capitalCuota;
+                    item.SALDO = 0;
+                    item.FECHA_CUOTA = fechaPago;
+                    //Console.WriteLine("Mes: {0} - Pago mensual: {1:C2} - Interés mensual: {2:C2} - Capital restante: {3:C2} - Fecha de pago: {4:d}", i, pagoMensualUltimo, interesMensual, 0, fechaPago);
+                }
+                totalIntereses += interesMensual;
+                fechaPago = fechaPago.AddMonths(1);
+                result.Add(item);
+            }
+
+
+            return result;
+        }
+
+        public RespuestaSP ObtenerPlanDePagoACancelar(int ID_PRESTAMO)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_PLAN_DE_PAGOManager(uow);
+                var res = manager.BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO == "NUEVO").OrderBy(y => y.NRO_SEMANA).FirstOrDefault();
+                if (res == null)
+                {
+                    result.success = false;
+                    result.msg = "No tiene Cuota Pendiente";
+                }
+                else
+                {
+                    result.success = true;
+                    result.msg = "Proceso ejecutado correctamente";
+                    decimal mora = res.SD_PRESTAMOS_MORA.Where(x => x.ESTADO == "NUEVO").Count() > 0 ? res.SD_PRESTAMOS_MORA.Where(x => x.ESTADO == "NUEVO").Sum(x => x.IMPORTE_MORA) : 0;
+                    string observacion = mora > 0 ? String.Format("El importe incluye la mora de la semana de {0}", res.NRO_SEMANA) : String.Format("Pago de Cuota Nro de Semana {0}", res.NRO_SEMANA);
+                    result.data = new
+                    {
+                        ID_PRESTAMO = res.ID_PRESTAMO,
+                        NRO_MOVIL = res.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
+                        NRO_SEMANA = res.NRO_SEMANA,
+                        DIAS_RETRASO = res.DIAS_RETRASO,
+                        ID_PLAN = res.ID_PLAN,
+
+                        MORA = mora,
+                        SOCIO = res.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
+                        ID_CAJA = res.SD_PRESTAMOS_POR_SOCIOS.ID_CAJA,
+                        CAJA = res.SD_PRESTAMOS_POR_SOCIOS.SD_CAJAS.NOMBRE,
+                        IMPORTE_PRESTAMO = res.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_PRESTAMO,
+                        CUOTA = res.IMPORTE_A_PAGAR + mora,
+                        OBSERVACION = observacion
+
+                    };
+                }
+
+            });
+            return result;
+
+
+        }
+
+        public RespuestaSP ObtenerTotalACancelar(int ID_PRESTAMO)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var context = (SindicatoContext)uow.Context;
+                var manager = new SD_PLAN_DE_PAGOManager(uow);
+                var managerPrestamo = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
+                var res1 = manager.BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO == "NUEVO").OrderBy(y => y.NRO_SEMANA);
+                if (res1.Count() == 0)
+                {
+                    result.success = false;
+                    result.msg = "No tiene Cuota Pendiente";
+                }
+                else
+                {
+                    DateTime fechaInicio;
+                    decimal capital;
+                    var prestamo = managerPrestamo.BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO).FirstOrDefault();
+                    var pago = context.SD_PAGO_DE_PRESTAMOS.Where(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO != "ANULADO").OrderByDescending(y=>y.ID_PAGO).FirstOrDefault();
+                    if (pago == null)
+                    {
+                        fechaInicio = prestamo.FECHA;
+                        capital = prestamo.IMPORTE_PRESTAMO;
+                    }
+                    else {
+                        fechaInicio = pago.SD_PLAN_DE_PAGO.FECHA_PAGO;
+                        capital = pago.SD_PLAN_DE_PAGO.SALDO_PRESTAMO;
+                    }
+                    decimal interesDiario = (decimal)prestamo.TASA_INTERES_ANUAL / 365;
+                    TimeSpan  diferencia = DateTime.Now - fechaInicio;
+                    int dias = diferencia.Days;
+                    result.success = true;
+                    result.msg = "Proceso ejecutado correctamente";
+                    DateTime fechaActual = DateTime.Now.Date.AddDays(7);
+                    decimal total = 0;
+                    decimal condonacion = 0;
+                    decimal interes_calculado = dias * interesDiario * capital;
+                    var moras = context.SD_PRESTAMOS_MORA.Where(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO == "NUEVO");
+                    decimal total_mora = 0;
+                    if (moras.Count() > 0)
+                    {
+                        total_mora = context.SD_PRESTAMOS_MORA.Where(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO == "NUEVO").Sum(x => x.IMPORTE_MORA);
+
+                    }
+                    var res = res1.FirstOrDefault();
+
+                    result.data = new
+                    {
+                        ID_PRESTAMO = res.ID_PRESTAMO,
+                        ID_SOCIO_MOVIL = res.SD_PRESTAMOS_POR_SOCIOS.ID_SOCIO_MOVIL,
+                        NRO_MOVIL = res.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
+                        NRO_SEMANA = res.NRO_SEMANA,
+                        SOCIO = res.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
+                        ID_CAJA = res.SD_PRESTAMOS_POR_SOCIOS.ID_CAJA,
+                        CAJA = res.SD_PRESTAMOS_POR_SOCIOS.SD_CAJAS.NOMBRE,
+                        IMPORTE_PRESTAMO = res.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_PRESTAMO,
+                        DIAS_RETRASO = res.DIAS_RETRASO,
+                        TOTAL_CONDONACION = condonacion,
+                        INTERES_CALCULADO_A_FECHA = interes_calculado ,
+                        CAPITAL = capital,
+                        MORA = total_mora,
+                        FECHA_CUOTA = res.FECHA_PAGO.ToString("yyyy-MM-dd"),
+                        CUOTA = (decimal)total_mora + (decimal)capital + (decimal)interes_calculado,
+
+
+                    };
+                }
+
+            });
+            return result;
+
+
+        }
+
+    }
 }

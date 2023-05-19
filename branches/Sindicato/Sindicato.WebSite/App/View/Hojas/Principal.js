@@ -36,7 +36,8 @@
         //me.btn_editar = Funciones.CrearMenu('btn_editar', 'Editar Descuento', Constantes.ICONO_EDITAR, me.EventosPrincipal, null, this, null, true);
         me.btn_eliminar = Funciones.CrearMenu('btn_anular', 'Anular Venta', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
         me.btn_impresion = Funciones.CrearMenu('btn_impresion', 'Re-Impresion', 'printer', me.EventosPrincipal, null, this);
-        me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar , me.btn_impresion]);
+        me.btn_impresion_hojas = Funciones.CrearMenu('btn_impresion_hojas', 'Solo Impresiones', 'printer', me.EventosPrincipal, null, this);
+        me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar, me.btn_impresion, me.btn_impresion_hojas]);
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
 
         me.gridDetalles = Ext.create('App.View.Hojas.GridDetalles', {
@@ -99,6 +100,12 @@
                 me.ImprimirHojasRuta(me.record.get('ID_VENTA'));
                 //me.CrearReimpresion();
                 break;
+            case "btn_impresion_hojas":
+                me.VentanaImpresiones();
+                //me.CrearReimpresion();
+                break;
+
+                
             default:
                 Ext.Msg.alert("Aviso", "No Existe el botton");
                 break;
@@ -162,5 +169,18 @@
             }
         });
     },
+
+    VentanaImpresiones: function () {
+        var me = this;
+        var win = Ext.create("App.Config.Abstract.Window", { botones: false, gridLoads: [me.grid] });
+        var grid = Ext.create("App.View.Hojas.GridImpresiones", {
+            region: 'center',
+            width: 760,
+            height: 450,
+
+        });
+        win.add(grid);
+        win.show();
+    }
 
 });

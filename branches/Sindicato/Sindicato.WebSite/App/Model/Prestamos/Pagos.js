@@ -5,6 +5,8 @@
             { type: "date", name: "FECHA_REG", dateFormat: "d/m/Y", convert: Funciones.Fecha },
             
             { type: "float", name: "IMPORTE" },
+            { type: "float", name: "IMPORTE_MORA" },
+            { type: "float", name: "TOTAL" },
             { type: "int", name: "ID_PRESTAMO" },
             { type: "int", name: "ID_PAGO" },
             { type: "string", name: "LOGIN_USR" },

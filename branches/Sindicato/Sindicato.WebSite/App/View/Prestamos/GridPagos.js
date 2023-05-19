@@ -29,14 +29,16 @@
         };
         me.CargarComponentes();
         me.columns = [
-                { xtype: "rownumberer", width: 30, sortable: false },
+               { xtype: "rownumberer", width: 30, sortable: false },
                 { header: "Fecha<br>Pago", width: 80, sortable: true, dataIndex: "FECHA", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
-                { header: "Tipo", width: 80, sortable: false, dataIndex: "TIPO" },
-                { header: "Importe", width: 100, sortable: false, dataIndex: "IMPORTE" },
+                { header: "Tipo<br>Pago", width: 80, sortable: false, dataIndex: "TIPO" },
+                { header: "Importe", width: 70, sortable: false, dataIndex: "IMPORTE" },
+                { header: "Mora", width: 70, sortable: false, dataIndex: "IMPORTE_MORA" },
+                { header: "Total", width: 70, sortable: false, dataIndex: "TOTAL" },
                 { header: "Socio", width: 200, sortable: false, dataIndex: "SOCIO" },
                 { header: "Caja", width: 100, sortable: false, dataIndex: "CAJA" },
                 { header: "Observaciones", width: 200, sortable: false, dataIndex: "OBSERVACION" },
-                { header: "Estado", width: 80, sortable: false, dataIndex: "ESTADO" },
+                 { header: "Estado", width: 80, sortable: false, dataIndex: "ESTADO" },
                 { header: "Login", width: 80, sortable: false, dataIndex: "LOGIN_USR" }
         ];
 
@@ -44,15 +46,30 @@
     },
     ImprimirReporte: function () {
         var me = this;
-        fn.VerImpresion("ReportePagoPrestamo", "ID_PAGO=" + me.record.get('ID_PAGO'));
+        var me = this;
+        if (me.record.get('ESTADO') != "ANULADO") {
+            if (me.record.get('TIPO') == "CUOTA") {
+                fn.VerImpresion("ReportePagoPrestamo", "ID_PAGO=" + me.record.get('ID_PAGO'));
+
+            }
+            else {
+                fn.VerImpresion("ReportePagoTotalPrestamo", "ID_PAGO=" + me.record.get('ID_PAGO'));
+
+            }
+        }
+        else {
+            Ext.Msg.alert("Error", "Solo puede ver pagos que no fueron ANULADOS");
+
+        }
+        //fn.VerImpresion("ReportePagoPrestamo", "ID_PAGO=" + me.record.get('ID_PAGO'));
     },
     Eliminar: function () {
         var me = this;
-        if (me.record.get('ESTADO') == "NUEVO" && me.record.get('TIPO') == "PAGO") {
+        if (me.record.get('ESTADO') == "NUEVO") {
             Funciones.AjaxRequestGrid("Prestamos", "EliminarPago", me, "Esta seguro de Anular el Pago?", { ID_PAGO: me.record.get('ID_PAGO') }, me, null, null);
         }
         else {
-            Ext.Msg.alert("Error", "Solo puede anular los pagos en estado NUEVO y Tipo PAGO");
+            Ext.Msg.alert("Error", "Solo puede anular los pagos en estado NUEVO");
         }
     }
 });
