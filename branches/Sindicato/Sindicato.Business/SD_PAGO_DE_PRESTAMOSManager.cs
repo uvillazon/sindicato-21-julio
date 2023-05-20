@@ -30,81 +30,85 @@ namespace Sindicato.Business
                     result.msg = "No existe prestamo";
                     return result;
                 }
-                var moras = pres.SD_PRESTAMOS_MORA.Where(x => x.ESTADO != "ANULADO").Sum(x => x.IMPORTE_MORA);
-                var cancelado = pres.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").Sum(x => x.IMPORTE + x.IMPORTE_MORA);
-                if (cancelado + pago.IMPORTE > (pres.IMPORTE_INTERES + pres.IMPORTE_PRESTAMO + moras))
+                var planPago = context.SD_PLAN_DE_PAGO.Where(x => x.ID_PLAN == pago.ID_PLAN && x.ESTADO == "NUEVO").FirstOrDefault();
+                if (planPago == null)
                 {
                     result.success = false;
-                    result.msg = "No puedo pagar mas del total prestado + el interes + moras";
+                    result.msg = "la cuota ya fue cancelado o no tiene nada pendiente de pagos";
                     return result;
                 }
-
-                var res1 = context.SD_PLAN_DE_PAGO.Where(x => x.ID_PRESTAMO == pago.ID_PRESTAMO && x.ESTADO == "NUEVO").OrderBy(y => y.NRO_SEMANA);
-                if (res1.Count() == 0)
-                {
-                    result.success = false;
-                    result.msg = "No tiene Cuota Pendiente";
-                    return result;
-                }
-                var planPago = context.SD_PLAN_DE_PAGO.Where(x => x.ID_PLAN == pago.ID_PLAN);
-                if (planPago == null) {
-                    result.success = false;
-                    result.msg = "No tiene Cuota Pendiente";
-                    return result;
-                }
-
-                DateTime fechaActual = DateTime.Now.Date.AddDays(7);
-                decimal total = 0;
-                decimal condonacion = 0;
+                var mora = context.SD_PRESTAMOS_MORA.Where(x => x.ID_PLAN == planPago.ID_PLAN && x.ESTADO == "NUEVO").FirstOrDefault();
+                decimal total_mora_cuota = 0;
                 decimal total_mora = 0;
-                decimal idmora = 0;
-                pago.ID_PAGO = ObtenerSecuencia();
 
-                foreach (var item in res1)
+                if (mora != null)
                 {
-                    item.ID_PAGO = pago.ID_PAGO;
-                    item.ESTADO = "CANCELADO";
-                    if (item.SD_PRESTAMOS_MORA.Where(x => x.ESTADO == "NUEVO").Count() > 0)
-                    {
-                        total_mora = total_mora + item.SD_PRESTAMOS_MORA.Where(x => x.ESTADO == "NUEVO").Sum(x => x.IMPORTE_MORA);
-                        var mora = item.SD_PRESTAMOS_MORA.Where(x => x.ESTADO == "NUEVO").FirstOrDefault();
-                        idmora = mora.ID_MORA;
-                        mora.ESTADO = "CANCELADO";
-
-
-                    }
-
-                    if (item.FECHA_PAGO < fechaActual)
-                    {
-                        total = total + (item.IMPORTE_A_PAGAR + item.INTERES_A_PAGAR);
-
-                    }
-                    else
-                    {
-                        total = total + item.IMPORTE_A_PAGAR;
-                        condonacion = condonacion + item.INTERES_A_PAGAR;
-                        item.CONDONACION = item.INTERES_A_PAGAR;
-                    }
+                    total_mora_cuota = mora.IMPORTE_MORA;
                 }
 
 
+                var cuotaminina = planPago.CAPITAL_A_PAGAR + pago.INTERES_CALCULADO_A_FECHA + total_mora_cuota;
+                if (cuotaminina > pago.IMPORTE)
+                {
+                    result.success = false;
+                    result.msg = "el importe debe ser mayor a la cuota minima";
+                    return result;
+                }
+                var moras = context.SD_PRESTAMOS_MORA.Where(x => x.ID_PRESTAMO == pago.ID_PRESTAMO && x.ESTADO == "NUEVO");
+                foreach (var item in moras)
+                {
+                    total_mora = total_mora + item.IMPORTE_MORA;
+                }
 
-
+                //no puede pagar mas del credito
+                var cuotaMaxima = planPago.SALDO_PRESTAMO + pago.INTERES_CALCULADO_A_FECHA + total_mora;
+                if (pago.IMPORTE > cuotaMaxima)
+                {
+                    result.success = false;
+                    result.msg = "el importe es mayor a lo adeudado";
+                    return result;
+                }
+                pago.ID_PAGO = ObtenerSecuencia();
+                planPago.ID_PAGO = pago.ID_PAGO;
+                planPago.INTERES_A_PAGAR = (decimal)pago.INTERES_CALCULADO_A_FECHA;
+                pago.ID_PLAN = planPago.ID_PLAN;
 
                 pago.LOGIN_USR = login;
                 pago.MONEDA = pres.MONEDA;
                 pago.ID_CAJA = pres.ID_CAJA;
                 pago.FECHA_REG = DateTime.Now;
                 pago.ESTADO = "NUEVO";
-                pago.TIPO = "TOTAL";
-                pago.TOTAL_CONDONACION = pago.TOTAL_CONDONACION;
-                pago.IMPORTE = total;
-                pago.IMPORTE_MORA = total_mora;
-                pago.ID_MORA = total_mora > 0 ? (int?)idmora : null;
-                pago.ID_GESTION = ObtenerGestion();
+                
+
+                //si se paga todo el credito solo se debe poner en 0 el ressto sin actualizar el plan de pago
+                if (pago.IMPORTE == cuotaMaxima)
+                {
+                    pago.TIPO = "TOTAL";
+                    planPago.CAPITAL_A_PAGAR = pago.IMPORTE - ((decimal)pago.INTERES_CALCULADO_A_FECHA + total_mora);
+                    planPago.MORA_A_PAGAR = total_mora;
+                    planPago.IMPORTE_A_PAGAR = pago.IMPORTE;
+                    pago.IMPORTE_MORA = total_mora;
+                    planPago.FECHA_PAGO = pago.FECHA;
+                    planPago.SALDO_PRESTAMO = 0;
+                    planPago.ESTADO = "CANCELADO";
+
+                }
+                else
+                {
+                    pago.TIPO = "PARCIAL";
+                    planPago.CAPITAL_A_PAGAR = pago.IMPORTE - ((decimal)pago.INTERES_CALCULADO_A_FECHA + total_mora_cuota);
+                    planPago.MORA_A_PAGAR = total_mora_cuota;
+                    pago.IMPORTE_MORA = total_mora_cuota;
+                    planPago.IMPORTE_A_PAGAR = pago.IMPORTE;
+                    planPago.FECHA_PAGO = pago.FECHA;
+                    planPago.SALDO_PRESTAMO = planPago.SALDO_PLAN + planPago.CAPITAL_A_PAGAR;
+                    planPago.ESTADO = "CANCELADO";
+                }
                 Add(pago);
-                pres.SALDO = pres.SALDO + pago.IMPORTE;
-                pres.CONDONACION_INTERES = pago.TOTAL_CONDONACION;
+             
+        
+                //pres.SALDO = pres.SALDO + pago.IMPORTE;
+                //pres.CONDONACION_INTERES = pago.TOTAL_CONDONACION;
 
                 ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
                 context.P_EE_SECUENCIA("SD_KARDEX_EFECTIVO", 0, p_RES);
@@ -112,21 +116,19 @@ namespace Sindicato.Business
                 SD_KARDEX_EFECTIVO kardex = new SD_KARDEX_EFECTIVO()
                 {
                     ID_KARDEX = idKardex,
-                    DETALLE = string.Format("PAGO TOTAL DEL PRESTAMO {0} NRO : {1} - NRO MOVIL : {2}", pres.SD_TIPOS_PRESTAMOS.NOMBRE, pres.NUMERO, pres.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL),
+                    DETALLE = string.Format("PAGO {3} DEL PRESTAMO {0} NRO : {1} - NRO MOVIL : {2}", pres.SD_TIPOS_PRESTAMOS.NOMBRE, pres.ID_PRESTAMO, pres.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL , pago.TIPO),
                     //DETALLE = "Pago de Prestamo Nro :"+ pres.ID_PRESTAMO,
                     FECHA = (DateTime)pago.FECHA,
                     FECHA_REG = DateTime.Now,
                     ID_OPERACION = pago.ID_PAGO,
                     ID_CAJA = pago.ID_CAJA,
-                    INGRESO = pago.IMPORTE + pago.IMPORTE_MORA,
+                    INGRESO = pago.IMPORTE,
                     LOGIN = login,
                     OPERACION = "PAGO PRESTAMO"
                 };
                 context.SD_KARDEX_EFECTIVO.AddObject(kardex);
                 Save();
-
                 context.P_SD_ACT_KARDEX_EFECTIVO(pago.ID_CAJA, pago.FECHA, 0, p_RES);
-                context.P_SD_ACT_PLAN_PAGOS(pago.ID_PRESTAMO, 1, p_RES);
                 result.success = true;
                 result.msg = "proceso Ejectuado correctamente";
                 result.id = pago.ID_PAGO;
@@ -140,8 +142,6 @@ namespace Sindicato.Business
 
             return result;
         }
-
-
         public RespuestaSP GuardarPagoPrestamo(SD_PAGO_DE_PRESTAMOS pago, string login)
         {
             RespuestaSP result = new RespuestaSP();
@@ -182,7 +182,7 @@ namespace Sindicato.Business
                 }
 
 
-                var moras = pres.SD_PRESTAMOS_MORA.Where(x => x.ID_PRESTAMO == pago.ID_PRESTAMO && x.ESTADO != "ANULADO").Sum(x => x.IMPORTE_MORA); 
+                var moras = pres.SD_PRESTAMOS_MORA.Where(x => x.ID_PRESTAMO == pago.ID_PRESTAMO && x.ESTADO != "ANULADO").Sum(x => x.IMPORTE_MORA);
                 var cancelado = pres.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").Sum(x => x.IMPORTE);
                 if (cancelado + pago.IMPORTE > (pres.IMPORTE_INTERES + pres.IMPORTE_PRESTAMO + moras))
                 {
@@ -199,7 +199,7 @@ namespace Sindicato.Business
                 pago.FECHA_REG = DateTime.Now;
                 pago.ESTADO = "NUEVO";
                 pago.TIPO = "CUOTA";
-                pago.IMPORTE =  plan.IMPORTE_A_PAGAR;
+                pago.IMPORTE = plan.IMPORTE_A_PAGAR;
                 if (importeMora > 0)
                 {
                     pago.ID_MORA = moraPlan.ID_MORA;
@@ -207,7 +207,7 @@ namespace Sindicato.Business
                     moraPlan.ESTADO = "CANCELADO";
                 }
                 Add(pago);
-                plan.ESTADO= "CANCELADO";
+                plan.ESTADO = "CANCELADO";
                 pres.SALDO = pres.SALDO + pago.IMPORTE;
 
 
