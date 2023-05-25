@@ -47,7 +47,7 @@ Ext.define("App.Config.Constantes", {
             if (estado == 'NUEVA') return 'SMNueva';
             else if (estado == 'RECH_INSP') return 'SMRech_Insp';
             else if (estado == 'APROBADO') return 'SMAprobada';
-            else if (estado == 'ANULADO') return 'OTAsignada';
+            else if (estado == 'ANULADO') return 'OTAnulada';
             else if (estado == 'APR_JF_MN') return 'SMApr_Jf_Mn';
             else if (estado == 'DEBITADO') return 'SMCon_Ot';
             else if (estado == 'CERRADA') return 'SMCerrada';
@@ -55,7 +55,7 @@ Ext.define("App.Config.Constantes", {
         }
         else if (tipo == 'VENTAS') {
             if (estado == 'NUEVO') return 'OTNueva';
-            else if (estado == 'ANULADO') return 'OTAsignada';
+            else if (estado == 'ANULADO') return 'OTAnulada';
             else if (estado == 'APROBADO') return 'SMCon_Ot';
             else if (estado == 'CERRADO') return 'OTCerrada';
             //else if (estado == 'CON_OIT') return 'AmarilloFuerte';
@@ -65,13 +65,13 @@ Ext.define("App.Config.Constantes", {
             else if (estado == 'CANCELADO') return 'SMCon_Ot';
             else if (estado == 'CON_PAGOS') return 'SMNueva';
             else if (estado == 'CERRADO') return 'OTCerrada';
-            else if (estado == 'ANULADO') return 'OTAsignada';
+            else if (estado == 'ANULADO') return 'OTAnulada';
             //else if (estado == 'CON_OIT') return 'AmarilloFuerte';
         }
 
         else if (tipo == 'DEUDA') {
             if (estado == 'CANCELADO') return 'OTNueva';
-            else if (estado == 'ANULADO') return 'OTAsignada';
+            else if (estado == 'ANULADO') return 'OTAnulada';
             else if (estado == 'APROBADO') return 'SMCon_Ot';
         }
         else if (tipo == 'PERMISOS') {

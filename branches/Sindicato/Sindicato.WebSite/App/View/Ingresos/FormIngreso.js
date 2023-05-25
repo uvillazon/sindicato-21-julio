@@ -46,6 +46,13 @@
             colspan: 2
         });
 
+        me.txt_categoria = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Categoria",
+            name: "CATEGORIA",
+            width: 480,
+            colspan: 2
+        });
+
         me.txt_tipo = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Tipo",
             name: "TIPO",
@@ -76,6 +83,7 @@
         });
         me.items = [
             me.txt_nro_recibo, me.date_fecha,
+            me.txt_categoria,
             me.txt_tipo,
             me.txt_concepto,
             me.txt_entregado,
@@ -120,16 +128,30 @@
         });
 
         me.store_categoria = Ext.create('App.Store.Listas.StoreLista');
-        me.store_categoria.setExtraParam('ID_LISTA', Lista.Buscar('TIPO_INGRESO'));
+        me.store_categoria.setExtraParam('ID_LISTA', Lista.Buscar('CATEGORIA_INGRESO'));
 
         me.cbx_categoria = Ext.create("App.Config.Componente.ComboBase", {
+            fieldLabel: "Categoria Ingreso",
+            name: "CATEGORIA",
+            width: 480,
+            colspan: 2,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            store: me.store_categoria,
+            selectOnFocus: true
+        });
+
+        me.store_tipo = Ext.create('App.Store.Listas.StoreLista');
+        me.store_tipo.setExtraParam('ID_LISTA', Lista.Buscar('TIPO_INGRESO'));
+
+        me.cbx_tipo = Ext.create("App.Config.Componente.ComboBase", {
             fieldLabel: "Tipo Ingreso",
             name: "TIPO",
             width: 480,
             colspan: 2,
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
-            store: me.store_categoria,
+            store: me.store_tipo,
             selectOnFocus: true
         });
 
@@ -184,6 +206,7 @@
         me.items = [
             me.txt_nro_recibo, me.date_fecha,
             me.cbx_categoria,
+            me.cbx_tipo,
             me.txt_concepto,
             me.txt_entregado,
             me.cbx_caja,

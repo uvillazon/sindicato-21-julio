@@ -37,6 +37,10 @@
                 me.cbx_caja.reset();
                 me.cbx_moneda.setDisabled(true);
                 me.cbx_moneda.reset();
+                me.cbx_categoria_ingreso.setDisabled(true);
+                me.cbx_categoria_ingreso.reset();
+                me.cbx_categoria_egreso.setDisabled(true);
+                me.cbx_categoria_egreso.reset();
             }
             else if (cbx.getValue() == "REPORTE ESTADO RESULTADO POR CAJA") {
                 me.cbx_socio.setDisabled(true);
@@ -45,6 +49,10 @@
                 me.cbx_caja.reset();
                 me.cbx_moneda.setDisabled(true);
                 me.cbx_moneda.reset();
+                me.cbx_categoria_ingreso.setDisabled(true);
+                me.cbx_categoria_ingreso.reset();
+                me.cbx_categoria_egreso.setDisabled(true);
+                me.cbx_categoria_egreso.reset();
             }
             else if (cbx.getValue() == "REPORTE ESTADO RESULTADO A DETALLE POR CAJA") {
                 me.cbx_socio.setDisabled(true);
@@ -53,6 +61,10 @@
                 me.cbx_caja.reset();
                 me.cbx_moneda.setDisabled(true);
                 me.cbx_moneda.reset();
+                me.cbx_categoria_ingreso.setDisabled(true);
+                me.cbx_categoria_ingreso.reset();
+                me.cbx_categoria_egreso.setDisabled(true);
+                me.cbx_categoria_egreso.reset();
             }
             else if (cbx.getValue() == "REPORTE ESTADO RESULTADO POR MONEDA") {
                 me.cbx_socio.setDisabled(true);
@@ -61,6 +73,34 @@
                 me.cbx_caja.reset();
                 me.cbx_moneda.setDisabled(false);
                 me.cbx_moneda.reset();
+                me.cbx_categoria_ingreso.setDisabled(true);
+                me.cbx_categoria_ingreso.reset();
+                me.cbx_categoria_egreso.setDisabled(true);
+                me.cbx_categoria_egreso.reset();
+            }
+            else if (cbx.getValue() == "REPORTE INGRESOS POR CATEGORIA") {
+                me.cbx_socio.setDisabled(true);
+                me.cbx_socio.reset();
+                me.cbx_caja.setDisabled(true);
+                me.cbx_caja.reset();
+                me.cbx_moneda.setDisabled(true);
+                me.cbx_moneda.reset();
+                me.cbx_categoria_ingreso.setDisabled(false);
+                me.cbx_categoria_ingreso.reset();
+                me.cbx_categoria_egreso.setDisabled(true);
+                me.cbx_categoria_egreso.reset();
+            }
+            else if (cbx.getValue() == "REPORTE EGRESOS POR CATEGORIA") {
+                me.cbx_socio.setDisabled(true);
+                me.cbx_socio.reset();
+                me.cbx_caja.setDisabled(true);
+                me.cbx_caja.reset();
+                me.cbx_moneda.setDisabled(true);
+                me.cbx_moneda.reset();
+                me.cbx_categoria_ingreso.setDisabled(true);
+                me.cbx_categoria_ingreso.reset();
+                me.cbx_categoria_egreso.setDisabled(false);
+                me.cbx_categoria_egreso.reset();
             }
             else {
                 me.cbx_socio.setDisabled(true);
@@ -69,6 +109,12 @@
                 me.cbx_caja.reset();
                 me.cbx_moneda.setDisabled(true);
                 me.cbx_moneda.reset();
+                me.cbx_categoria_ingreso.setDisabled(true);
+                me.cbx_categoria_ingreso.reset();
+                me.cbx_categoria_egreso.setDisabled(true);
+                me.cbx_categoria_egreso.reset();
+
+                
             }
 
         });
@@ -145,7 +191,32 @@
             textoTpl: function () { return "{CODIGO} : {NOMBRE} - {DESCRIPCION} - {MONEDA}" }
         });
 
-        me.formReporte.add([me.cbx_reporte, me.date_fecha_inicial, me.date_fecha_final, me.cbx_socio, me.cbx_caja, me.cbx_moneda]);
+        me.store_categoria_ingreso = Ext.create('App.Store.Listas.StoreLista');
+        me.store_categoria_ingreso.setExtraParam('ID_LISTA', Lista.Buscar('CATEGORIA_INGRESO'));
+
+        me.cbx_categoria_ingreso = Ext.create("App.Config.Componente.ComboBase", {
+            fieldLabel: "Categoria Ingreso",
+            name: "CATEGORIA",
+            width: 240,
+            store: me.store_categoria_ingreso,
+            selectOnFocus: true,
+            allowBlank: false,
+
+        });
+
+        me.store_categoria_egresos = Ext.create('App.Store.Listas.StoreLista');
+        me.store_categoria_egresos.setExtraParam('ID_LISTA', Lista.Buscar('CATEGORIA_EGRESOS'));
+
+        me.cbx_categoria_egreso = Ext.create("App.Config.Componente.ComboBase", {
+            fieldLabel: "Categoria Egresos",
+            name: "CATEGORIA",
+            width: 240,
+            store: me.store_categoria_egresos,
+            selectOnFocus: true,
+            allowBlank: false,
+        });
+
+        me.formReporte.add([me.cbx_reporte, me.date_fecha_inicial, me.date_fecha_final, me.cbx_socio, me.cbx_caja, me.cbx_moneda, me.cbx_categoria_ingreso, me.cbx_categoria_egreso]);
         me.items = me.formReporte;
         me.cargarEventos();
 
@@ -238,6 +309,14 @@
                 case "REPORTE ESTADO RESULTADO POR MONEDA":
                     me.rutaReporte = "ReporteEstadoResultadoPorMoneda";
                     break;
+                case "REPORTE INGRESOS POR CATEGORIA":
+                    me.rutaReporte = "ReporteIngresosPorCategoria";
+                    break;
+                case "REPORTE EGRESOS POR CATEGORIA":
+                    me.rutaReporte = "ReporteEgresosPorCategoria";
+                    break;
+
+                    
                 default:
                     me.rutaReporte = "";
             }
@@ -257,6 +336,14 @@
                 }
                 else if (me.rutaReporte == "ReporteEstadoResultadoPorMoneda") {
                     me.generarReporte(me.rutaReporte, 'FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue() + '&MONEDA=' + me.cbx_moneda.getValue());
+
+                }
+                else if (me.rutaReporte == "ReporteIngresosPorCategoria") {
+                    me.generarReporte(me.rutaReporte, 'FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue() + '&CATEGORIA=' + me.cbx_categoria_ingreso.getValue());
+
+                }
+                else if (me.rutaReporte == "ReporteEgresosPorCategoria") {
+                    me.generarReporte(me.rutaReporte, 'FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue() + '&CATEGORIA=' + me.cbx_categoria_egreso.getValue());
 
                 }
                 else {

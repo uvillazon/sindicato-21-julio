@@ -42,7 +42,8 @@ namespace Sindicato.WebSite.Controllers
                 LOGIN = x.LOGIN,
                 CONCEPTO = x.CONCEPTO,
                 NRO_RECIBO = x.NRO_RECIBO,
-                OBSERVACION = x.OBSERVACION
+                OBSERVACION = x.OBSERVACION,
+                CATEGORIA = x.CATEGORIA
 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
@@ -136,6 +137,7 @@ namespace Sindicato.WebSite.Controllers
                 SALDO = x.SD_CAJAS.SALDO,
                 MONEDA = x.MONEDA,
                 FECHA_REG = x.FECHA_REG,
+                CATEGORIA = x.CATEGORIA,
                 IMPORTE = x.IMPORTE,
                 LOGIN_USR = x.LOGIN_USR,
                 NOMBRE = x.NOMBRE,

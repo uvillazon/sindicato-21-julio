@@ -203,7 +203,7 @@ namespace Sindicato.Services
                 {
                     throw new NullReferenceException(valid.msg);
                 }
-                
+
                 result = manager.GuardarPrestamo(prestamo, login);
                 if (!result.success)
                 {
@@ -232,7 +232,7 @@ namespace Sindicato.Services
                     fechaFin = item.FECHA_CUOTA;
                 }
                 prestamo.ESTADO = "CON_PLAN_PAGOS";
-                prestamo.FECHA_LIMITE_PAGO = fechaFin ;
+                prestamo.FECHA_LIMITE_PAGO = fechaFin;
 
             });
             return result = resultado == null ? result : resultado;
@@ -305,10 +305,34 @@ namespace Sindicato.Services
                     throw new NullReferenceException(result.msg);
                 }
                 var planPago = managerPlan.BuscarTodos(x => x.ID_PAGO == result.id).FirstOrDefault();
-                //  var detalles = generarPlanDeCuotasFrances(planPago.SALDO_PRESTAMO,planPago.SD_PRESTAMOS_POR_SOCIOS.TASA_INTERES_ANUAL,
+                var planes = managerPlan.BuscarTodos(x => x.ID_PRESTAMO == planPago.ID_PRESTAMO && x.ESTADO == "NUEVO").OrderBy(x => x.NRO_SEMANA);
 
 
+                var detalles = generarPlanDeCuotasFrances((double)planPago.SALDO_PRESTAMO, (double)planPago.SD_PRESTAMOS_POR_SOCIOS.TASA_INTERES_ANUAL, planes.Count(), planPago.FECHA_PAGO.AddMonths(1), 1);
+                int num = 1;
+                decimal condonacion = 0;
+                decimal total_amortizacion = planPago.SALDO_PLAN;
+                foreach (var item in planes)
+                {
+                    var detalle = detalles.Where(x => x.NRO_CCUOTA == num).FirstOrDefault();
+                    if (detalle == null)
+                    {
+                        throw new NullReferenceException("No existe la cuota , por favor volver a intentar");
 
+                    }
+                    total_amortizacion = total_amortizacion + detalle.CAPITAL;
+                    item.FECHA_PAGO = detalle.FECHA_CUOTA;
+                    item.IMPORTE_A_PAGAR = detalle.CUOTA;
+                    item.ESTADO = detalle.CUOTA == 0 ? "CANCELADO" : "NUEVO"; 
+                    item.INTERES_A_PAGAR = detalle.INTERES;
+                    item.CAPITAL_A_PAGAR = detalle.CAPITAL;
+                    item.SALDO_PRESTAMO = detalle.SALDO;
+                    item.SALDO_PLAN = total_amortizacion;
+                    item.CONDONACION = item.INTERES_INICIAL - item.INTERES_A_PAGAR;
+                    condonacion = condonacion + item.CONDONACION;
+                    num++;
+                    
+                }
 
             });
             return result = resultado == null ? result : resultado;
@@ -320,8 +344,53 @@ namespace Sindicato.Services
             ExecuteManager(uow =>
             {
                 var manager = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                var managerPlan = new SD_PLAN_DE_PAGOManager(uow);
+                var plan = managerPlan.BuscarTodos(x=>x.ID_PAGO == ID_PAGO).FirstOrDefault();
                 result = manager.EliminarPagoPrestamo(ID_PAGO, login);
+                if (!result.success)
+                {
+                    throw new NullReferenceException(result.msg);
+                }
+                var pago = manager.BuscarTodos(x => x.ID_PAGO == ID_PAGO).FirstOrDefault();
+                if (pago.TIPO != "CUOTA")
+                {
+                    var planPago = managerPlan.BuscarTodos(x => x.ID_PRESTAMO == plan.ID_PRESTAMO && x.NRO_SEMANA < plan.NRO_SEMANA).OrderByDescending(x => x.NRO_SEMANA).FirstOrDefault();
+                    var planes = managerPlan.BuscarTodos(x => x.ID_PRESTAMO == plan.ID_PRESTAMO && x.ESTADO == "NUEVO").OrderBy(x => x.NRO_SEMANA);
+                    List<PlanPagosModel> detalles;
+                    if (planPago == null)
+                    {
+                        detalles = generarPlanDeCuotasFrances((double)pago.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_PRESTAMO, (double)pago.SD_PRESTAMOS_POR_SOCIOS.TASA_INTERES_ANUAL, (int)pago.SD_PRESTAMOS_POR_SOCIOS.SEMANAS, (DateTime)pago.SD_PRESTAMOS_POR_SOCIOS.FECHA_INICIO_CUOTA, 1);
+                    
+                    }
+                    else
+                    {
+                        detalles = generarPlanDeCuotasFrances((double)planPago.SALDO_PRESTAMO, (double)planPago.SD_PRESTAMOS_POR_SOCIOS.TASA_INTERES_ANUAL, planes.Count(), planPago.FECHA_PAGO.AddMonths(1), 1);
+                    
+                    }
 
+
+                    int num = 1;
+                    decimal condonacion = 0;
+                    foreach (var item in planes)
+                    {
+                        var detalle = detalles.Where(x => x.NRO_CCUOTA == num).FirstOrDefault();
+                        if (detalle == null)
+                        {
+                            throw new NullReferenceException("No existe la cuota , por favor volver a intentar");
+
+                        }
+                        item.FECHA_PAGO = detalle.FECHA_CUOTA;
+                        item.IMPORTE_A_PAGAR = detalle.CUOTA;
+                        item.INTERES_A_PAGAR = detalle.INTERES;
+                        item.CAPITAL_A_PAGAR = detalle.CAPITAL;
+                        item.SALDO_PRESTAMO = detalle.SALDO;
+                        item.ESTADO = detalle.CUOTA == 0 ? "CANCELADO" : "NUEVO";
+                        item.SALDO_PLAN = detalle.TOTAL_AMORTIZACION;
+                        item.CONDONACION = item.INTERES_INICIAL - item.INTERES_A_PAGAR;
+                        condonacion = condonacion + item.CONDONACION;
+                        num++;
+                    }
+                }
 
             });
             return result = resultado == null ? result : resultado;
@@ -471,19 +540,19 @@ namespace Sindicato.Services
             return result;
         }
 
-        public List<PlanPagosModel> generarPlanDeCuotasFrances(double capital, double tasaAnual, int plazoMeses, DateTime fechaPago , int decimales)
+        public List<PlanPagosModel> generarPlanDeCuotasFrances(double capital, double tasaAnual, int plazoMeses, DateTime fechaPago, int decimales)
         {
             List<PlanPagosModel> result = new List<PlanPagosModel>();
 
 
             double pagoMensual = (capital * tasaAnual / 12) / (1 - Math.Pow(1 + tasaAnual / 12, -plazoMeses));
-            double interesMensual, capitalRestante = capital, totalPagado = 0, totalIntereses = 0,totalAmortizacion = 0;
+            double interesMensual, capitalRestante = capital, totalPagado = 0, totalIntereses = 0, totalAmortizacion = 0;
 
             for (int i = 1; i <= plazoMeses; i++)
             {
                 PlanPagosModel item = new PlanPagosModel();
                 interesMensual = capitalRestante * tasaAnual / 12;
-              
+
                 // Verificar si la fecha de pago cae en domingo
                 if (fechaPago.DayOfWeek == DayOfWeek.Sunday)
                 {
@@ -507,8 +576,8 @@ namespace Sindicato.Services
                 item.CUOTA = (decimal)cuota;
                 item.INTERES = (decimal)interesCuota;
                 item.CAPITAL = (decimal)capitalCuota;
-                item.SALDO = (decimal)Math.Round(capitalRestante, decimales); 
-                item.TOTAL_AMORTIZACION = (decimal)Math.Round(totalAmortizacion, decimales); 
+                item.SALDO = (decimal)Math.Round(capitalRestante, decimales);
+                item.TOTAL_AMORTIZACION = (decimal)Math.Round(totalAmortizacion, decimales);
                 item.FECHA_CUOTA = fechaPago;
                 if (i < plazoMeses)
                 {
@@ -585,6 +654,7 @@ namespace Sindicato.Services
                 var manager = new SD_PLAN_DE_PAGOManager(uow);
                 var managerPrestamo = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
                 var res1 = manager.BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO == "NUEVO").OrderBy(y => y.NRO_SEMANA);
+               
                 if (res1.Count() == 0)
                 {
                     result.success = false;
@@ -595,25 +665,33 @@ namespace Sindicato.Services
                     DateTime fechaInicio;
                     decimal capital;
                     var prestamo = managerPrestamo.BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO).FirstOrDefault();
-                    var pago = context.SD_PAGO_DE_PRESTAMOS.Where(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO != "ANULADO").OrderByDescending(y=>y.ID_PAGO).FirstOrDefault();
+                    var pago = context.SD_PAGO_DE_PRESTAMOS.Where(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO != "ANULADO").OrderByDescending(y => y.ID_PAGO).FirstOrDefault();
                     if (pago == null)
                     {
                         fechaInicio = prestamo.FECHA;
                         capital = prestamo.IMPORTE_PRESTAMO;
                     }
-                    else {
-                        fechaInicio = pago.SD_PLAN_DE_PAGO.FECHA_PAGO;
-                        capital = pago.SD_PLAN_DE_PAGO.SALDO_PRESTAMO;
+                    else
+                    {
+                        var plan = manager.BuscarTodos(x => x.ID_PLAN == pago.ID_PLAN).FirstOrDefault();
+                        fechaInicio = plan.FECHA_PAGO;
+                        capital = plan.SALDO_PRESTAMO;
                     }
                     decimal interesDiario = (decimal)prestamo.TASA_INTERES_ANUAL / 365;
-                    TimeSpan  diferencia = DateTime.Now - fechaInicio;
+                    TimeSpan diferencia = DateTime.Now - fechaInicio;
                     int dias = diferencia.Days;
+                    if (dias < 0)
+                    {
+                        dias = 0;
+                    }
+
                     result.success = true;
                     result.msg = "Proceso ejecutado correctamente";
                     DateTime fechaActual = DateTime.Now.Date.AddDays(7);
                     decimal total = 0;
                     decimal condonacion = 0;
                     decimal interes_calculado = dias * interesDiario * capital;
+                    interes_calculado = Math.Round(interes_calculado, 1);
                     var moras = context.SD_PRESTAMOS_MORA.Where(x => x.ID_PRESTAMO == ID_PRESTAMO && x.ESTADO == "NUEVO");
                     decimal total_mora = 0;
                     if (moras.Count() > 0)
@@ -626,6 +704,7 @@ namespace Sindicato.Services
                     result.data = new
                     {
                         ID_PRESTAMO = res.ID_PRESTAMO,
+                        ID_PLAN = res.ID_PLAN,
                         ID_SOCIO_MOVIL = res.SD_PRESTAMOS_POR_SOCIOS.ID_SOCIO_MOVIL,
                         NRO_MOVIL = res.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
                         NRO_SEMANA = res.NRO_SEMANA,
@@ -635,7 +714,7 @@ namespace Sindicato.Services
                         IMPORTE_PRESTAMO = res.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_PRESTAMO,
                         DIAS_RETRASO = res.DIAS_RETRASO,
                         TOTAL_CONDONACION = condonacion,
-                        INTERES_CALCULADO_A_FECHA = interes_calculado ,
+                        INTERES_CALCULADO_A_FECHA = interes_calculado,
                         CAPITAL = capital,
                         MORA = total_mora,
                         FECHA_CUOTA = res.FECHA_PAGO.ToString("yyyy-MM-dd"),
@@ -649,6 +728,87 @@ namespace Sindicato.Services
             return result;
 
 
+        }
+
+        public RespuestaSP GuardarRefinanciamientoPrestamo(SD_PAGO_DE_PRESTAMOS pago, SD_PRESTAMOS_POR_SOCIOS pres, string login)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                var managerPrestamo = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
+                var managerPlan = new SD_PLAN_DE_PAGOManager(uow);
+
+                result = manager.GuardarPagoTotalPrestamo(pago, login);
+                if (!result.success)
+                {
+                    throw new NullReferenceException(result.msg);
+                }
+                var planPago = managerPlan.BuscarTodos(x => x.ID_PAGO == result.id).FirstOrDefault();
+                var planes = managerPlan.BuscarTodos(x => x.ID_PRESTAMO == planPago.ID_PRESTAMO && x.ESTADO == "NUEVO").OrderBy(x => x.NRO_SEMANA);
+
+
+                var detalles = generarPlanDeCuotasFrances((double)planPago.SALDO_PRESTAMO, (double)planPago.SD_PRESTAMOS_POR_SOCIOS.TASA_INTERES_ANUAL, planes.Count(), planPago.FECHA_PAGO.AddMonths(1), 1);
+                int num = 1;
+                decimal condonacion = 0;
+                decimal total_amortizacion = planPago.SALDO_PLAN;
+                foreach (var item in planes)
+                {
+                    var detalle = detalles.Where(x => x.NRO_CCUOTA == num).FirstOrDefault();
+                    if (detalle == null)
+                    {
+                        throw new NullReferenceException("No existe la cuota , por favor volver a intentar");
+
+                    }
+                    total_amortizacion = total_amortizacion + detalle.CAPITAL;
+                    item.FECHA_PAGO = detalle.FECHA_CUOTA;
+                    item.IMPORTE_A_PAGAR = detalle.CUOTA;
+                    item.ESTADO = detalle.CUOTA == 0 ? "CANCELADO" : "NUEVO";
+                    item.INTERES_A_PAGAR = detalle.INTERES;
+                    item.CAPITAL_A_PAGAR = detalle.CAPITAL;
+                    item.SALDO_PRESTAMO = detalle.SALDO;
+                    item.SALDO_PLAN = total_amortizacion;
+                    item.CONDONACION = item.INTERES_INICIAL - item.INTERES_A_PAGAR;
+                    condonacion = condonacion + item.CONDONACION;
+                    num++;
+
+                }
+                pres.IMPORTE_PRESTAMO = pres.IMPORTE_A_PRESTAR;
+                pres.IMPORTE_INTERES = pres.IMPORTE_INTERES_TOTAL;
+                pres.ID_PRESTAMO_REF = pres.ID_PRESTAMO;
+                result = managerPrestamo.GuardarPrestamo(pres, login);
+                if (!result.success)
+                {
+                    throw new InvalidOperationException(result.msg);
+
+                }
+                var planPagos = generarPlanDeCuotasFrances((double)pres.IMPORTE_PRESTAMO, (double)pres.TASA_INTERES_ANUAL, pres.SEMANAS, (DateTime)pres.FECHA_INICIO_CUOTA, 1);
+                DateTime? fechaFin = null;
+                foreach (var item in planPagos)
+                {
+                    SD_PLAN_DE_PAGO plan = new SD_PLAN_DE_PAGO();
+                    plan.ID_PLAN = managerPlan.ObtenerSecuencia();
+                    plan.ID_PRESTAMO = result.id;
+                    plan.LOGIN_USR = login;
+                    plan.NRO_SEMANA = item.NRO_CCUOTA;
+                    plan.INTERES_INICIAL = item.INTERES;
+                    plan.IMPORTE_A_PAGAR = item.CUOTA;
+                    plan.INTERES_A_PAGAR = item.INTERES;
+                    plan.CAPITAL_A_PAGAR = item.CAPITAL;
+                    plan.SALDO_PRESTAMO = item.SALDO;
+                    plan.SALDO_PLAN = item.TOTAL_AMORTIZACION;
+                    plan.FECHA_REG = DateTime.Now;
+                    plan.FECHA_PAGO = item.FECHA_CUOTA;
+                    plan.ESTADO = "NUEVO";
+                    managerPlan.Add(plan);
+                    fechaFin = item.FECHA_CUOTA;
+                }
+                pres.ESTADO = "CON_PLAN_PAGOS";
+                pres.FECHA_LIMITE_PAGO = fechaFin;
+
+
+            });
+            return result = resultado == null ? result : resultado;
         }
 
     }

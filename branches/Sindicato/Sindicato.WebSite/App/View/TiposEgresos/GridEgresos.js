@@ -17,10 +17,10 @@
         me.columns = [
                 { xtype: "rownumberer", width: 30, sortable: false },
                 { header: "Nro. Tipo<br>Egreso", width: 80, sortable: false, dataIndex: "ID_TIPO" },
+                { header: "Categoria", width: 100, sortable: false, dataIndex: "CATEGORIA" },
                 { header: "Tipo Egreso", width: 200, sortable: false, dataIndex: "NOMBRE" },
                 { header: "Caja", width: 100, sortable: false, dataIndex: "CAJA" },
-                { header: "Pagado A", width: 100, sortable: false, dataIndex: "CONCEPTO" },
-                { header: "Concepto", width: 200, sortable: false, dataIndex: "OBSERVACION" },
+                { header: "Observacion", width: 200, sortable: false, dataIndex: "OBSERVACION" },
                 { header: "Importe", width: 100, sortable: false, dataIndex: "IMPORTE" },
                 { header: "Moneda", width: 100, sortable: false, dataIndex: "MONEDA" },
                 { header: "Estado", width: 100, sortable: false, dataIndex: "ESTADO" },

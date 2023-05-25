@@ -51,7 +51,7 @@ namespace Sindicato.Business
                 if (cuotaminina > pago.IMPORTE)
                 {
                     result.success = false;
-                    result.msg = "el importe debe ser mayor a la cuota minima";
+                    result.msg = "el importe debe ser mayor a la cuota minima , cuota minima = "+ cuotaminina;
                     return result;
                 }
                 var moras = context.SD_PRESTAMOS_MORA.Where(x => x.ID_PRESTAMO == pago.ID_PRESTAMO && x.ESTADO == "NUEVO");
@@ -61,12 +61,21 @@ namespace Sindicato.Business
                 }
 
                 //no puede pagar mas del credito
-                var cuotaMaxima = planPago.SALDO_PRESTAMO + pago.INTERES_CALCULADO_A_FECHA + total_mora;
+                var cuotaMaxima = (planPago.SALDO_PRESTAMO+planPago.CAPITAL_A_PAGAR)  + pago.INTERES_CALCULADO_A_FECHA + total_mora;
                 if (pago.IMPORTE > cuotaMaxima)
                 {
                     result.success = false;
                     result.msg = "el importe es mayor a lo adeudado";
                     return result;
+                }
+                decimal saldo_amortizacion = 0;
+                decimal saldo_prestamo = 0;
+                if (planPago.NRO_SEMANA > 1) {
+                    var planPagoAnterior = context.SD_PLAN_DE_PAGO.Where(x => x.ID_PRESTAMO == planPago.ID_PRESTAMO && x.NRO_SEMANA < planPago.NRO_SEMANA).OrderByDescending(x => x.NRO_SEMANA).FirstOrDefault();
+                    if (planPagoAnterior != null) {
+                        saldo_amortizacion = planPagoAnterior.SALDO_PLAN;
+                        saldo_prestamo = planPagoAnterior.SALDO_PRESTAMO;
+                    }
                 }
                 pago.ID_PAGO = ObtenerSecuencia();
                 planPago.ID_PAGO = pago.ID_PAGO;
@@ -91,18 +100,25 @@ namespace Sindicato.Business
                     planPago.FECHA_PAGO = pago.FECHA;
                     planPago.SALDO_PRESTAMO = 0;
                     planPago.ESTADO = "CANCELADO";
+                    planPago.SALDO_PLAN =saldo_amortizacion + planPago.CAPITAL_A_PAGAR;
+                    planPago.CONDONACION = planPago.INTERES_INICIAL - planPago.INTERES_A_PAGAR;
 
                 }
                 else
                 {
                     pago.TIPO = "PARCIAL";
+                    var capital = planPago.CAPITAL_A_PAGAR;
                     planPago.CAPITAL_A_PAGAR = pago.IMPORTE - ((decimal)pago.INTERES_CALCULADO_A_FECHA + total_mora_cuota);
                     planPago.MORA_A_PAGAR = total_mora_cuota;
                     pago.IMPORTE_MORA = total_mora_cuota;
                     planPago.IMPORTE_A_PAGAR = pago.IMPORTE;
                     planPago.FECHA_PAGO = pago.FECHA;
-                    planPago.SALDO_PRESTAMO = planPago.SALDO_PLAN + planPago.CAPITAL_A_PAGAR;
+                    planPago.SALDO_PRESTAMO = (planPago.SALDO_PRESTAMO + capital) - planPago.CAPITAL_A_PAGAR;
                     planPago.ESTADO = "CANCELADO";
+                    planPago.SALDO_PLAN =saldo_amortizacion+ planPago.CAPITAL_A_PAGAR;
+                    planPago.CONDONACION = planPago.INTERES_INICIAL - planPago.INTERES_A_PAGAR;
+
+
                 }
                 Add(pago);
              
@@ -207,6 +223,7 @@ namespace Sindicato.Business
                     moraPlan.ESTADO = "CANCELADO";
                 }
                 Add(pago);
+                plan.ID_PAGO = pago.ID_PAGO;
                 plan.ESTADO = "CANCELADO";
                 pres.SALDO = pres.SALDO + pago.IMPORTE;
 

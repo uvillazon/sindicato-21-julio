@@ -31,14 +31,19 @@
             { type: "float", name: "IMPORTE_TOTAL" },
             {
                 type: 'string', name: 'ESTADO_PRESTAMO', mapping: function (raw) {
-                    if (raw.DEBE == 0) {
-                        return "CANCELADO";
-                    }
-                    else if (raw.DEBE > 0 && raw.MORA_CUOTA > 0) {
-                        return "MORA"
-                    }
-                    else if (raw.TOTAL_CANCELADO > 0) {
-                        return "CON_PAGOS"
+                    if (raw.ESTADO != "ANULADO") {
+                        if (raw.DEBE == 0) {
+                            return "CANCELADO";
+                        }
+                        else if (raw.DEBE > 0 && raw.MORA_CUOTA > 0) {
+                            return "MORA"
+                        }
+                        else if (raw.TOTAL_CANCELADO > 0) {
+                            return "CON_PAGOS"
+                        }
+                        else {
+                            return raw.ESTADO;
+                        }
                     }
                     else {
                         return raw.ESTADO;

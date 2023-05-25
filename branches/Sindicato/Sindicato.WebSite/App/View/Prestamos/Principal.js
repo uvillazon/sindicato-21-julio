@@ -14,7 +14,7 @@
         Funciones.CrearMenu('btn_Moras', 'Moras', 'report', me.EventosPrincipal, me.toolbar, this, null, true);
         Funciones.CrearMenu('btn_ReportePlanPagos', 'Reporte Prestamo', 'report', me.EventosPrincipal, me.toolbar, this, null, true);
         Funciones.CrearMenu('btn_Kardex', 'Kardex Pagos', 'folder_database', me.EventosPrincipal, me.toolbar, this, null, true);
-        Funciones.CrearMenu('btn_GeneracionPlanPagos', 'Generacion Plan de Pagos', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
+        //Funciones.CrearMenu('btn_GeneracionPlanPagos', 'Generacion Plan de Pagos', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
 
 
 
@@ -22,7 +22,7 @@
             region: 'center',
             width: '100%',
             fbarmenu: me.toolbar,
-            fbarmenuArray: ["btn_Kardex", "btn_Moras", "btn_PlanPagos", "btn_eliminar", "btn_pagarPrestamo", "btn_GeneracionPlanPagos", "btn_ReportePlanPagos", "btn_VerDetalle", "btn_pagarTotalPrestamo", "btn_refinanciarPrestamo"]
+            fbarmenuArray: ["btn_Kardex", "btn_Moras", "btn_PlanPagos", "btn_eliminar", "btn_pagarPrestamo", "btn_ReportePlanPagos", "btn_VerDetalle", "btn_pagarTotalPrestamo", "btn_refinanciarPrestamo"]
 
         });
         me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Prestamo', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
@@ -82,6 +82,16 @@
                 Funciones.AjaxRequest("Prestamos", "ObtenerTotalAPagar", me.grid, { ID_PRESTAMO: me.record.get('ID_PRESTAMO') }, function (result) {
                     if (result.success == true) {
                         me.FormPagoAmortizacion(result.data, true);
+                    }
+                    else {
+                        Ext.MessageBox.alert('Error', result.msg);
+                    }
+                });
+                break;
+            case "btn_refinanciarPrestamo":
+                Funciones.AjaxRequest("Prestamos", "ObtenerTotalAPagar", me.grid, { ID_PRESTAMO: me.record.get('ID_PRESTAMO') }, function (result) {
+                    if (result.success == true) {
+                        me.FormRefinanciarPrestamo(result.data);
                     }
                     else {
                         Ext.MessageBox.alert('Error', result.msg);
@@ -266,7 +276,36 @@
         grid.getStore().load();
         win.add(grid);
         win.show();
-    }
+    },
+    FormRefinanciarPrestamo: function (data) {
+        var me = this;
+        var win = Ext.create("App.Config.Abstract.Window", { botones: true });
+        var form = Ext.create("App.View.Prestamos.FormRefinanciarPrestamo", {
+            columns: 3,
+            botones: false
+        });
+        form.txt_total_condonacion.setVisible(true);
+        form.txt_importe.setReadOnly(true);
+
+        //form.txt_socio.setVisible(false);
+        form.getForm().loadRecord(me.grid.record);
+        Funciones.loadRecordCmp(form, data);
+        Funciones.resetForm(form.setFieldRefinanciar, null);
+
+        form.txt_observacion.setValue("Refinanciamiento de Prestamo");
+
+        form.date_fecha.reset();
+        win.add(form);
+        win.show();
+        win.btn_guardar.on('click', function () {
+            Funciones.AjaxRequestWinSc("Prestamos", "GuardarRefinanciamientoPrestamo", win, form, me.grid, "Esta Seguro de Guardar", null, win, function (result) {
+                //fn.VerImpresion("ReportePagoPrestamo", "ID_PAGO=" + result.id);
+                me.ImprimirReportePrestamo(result.id);
+            });
+
+
+        });
+    },
 
 
     //App.View.Prestamos.GridPagos

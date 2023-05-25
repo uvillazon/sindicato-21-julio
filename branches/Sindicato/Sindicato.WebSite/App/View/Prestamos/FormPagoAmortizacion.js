@@ -54,9 +54,8 @@
             fieldLabel: "Fecha Cuota",
             name: "FECHA_CUOTA",
             colspan: 1,
-            afterLabelTextTpl: Constantes.REQUERIDO,
-            allowBlank: false,
-            readOnly: true
+            readOnly: true,
+            maximo : 'no tiene'
         });
 
         me.txt_nor_movil = Ext.create("App.Config.Componente.TextFieldBase", {
@@ -171,6 +170,8 @@
         me.txt_importe.on('change', function (num, newvalue, oldvalue) {
             console.log('entroooo');
             var total = me.txt_saldo_capital.getValue() + me.txt_mora.getValue() + me.txt_total_interes.getValue();
+            console.log(total);
+            total = total.toFixed(1)
             console.log(total);
             console.log(newvalue);
             if (newvalue > total) {

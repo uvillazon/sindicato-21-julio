@@ -23,7 +23,7 @@ namespace Sindicato.Business
                 string result = "";
                 var context = (SindicatoContext)Context;
                 ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
-                context.P_SD_GUARDAR_TIPO_EGRESO(tipo.ID_TIPO,tipo.ID_CAJA,tipo.NOMBRE,tipo.OBSERVACION,tipo.MONEDA,tipo.IMPORTE, login, p_RES);
+                context.P_SD_GUARDAR_TIPO_EGRESO(tipo.ID_TIPO,tipo.ID_CAJA,tipo.NOMBRE,tipo.OBSERVACION,tipo.MONEDA,tipo.IMPORTE,tipo.CATEGORIA, login, p_RES);
                 result = p_RES.Value.ToString();
                 return result;
 

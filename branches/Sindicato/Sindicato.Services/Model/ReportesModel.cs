@@ -148,6 +148,8 @@ namespace Sindicato.Services.Model
     public class ReportePrestamo
     {
         public decimal ID_PAGO { get; set; }
+        public decimal NUMERO { get; set; }
+        public string CODIGO_GESTION { get; set; }
         public decimal TOTAL_CANCELADO { get; set; }
         public decimal DEBE { get; set; }
         public decimal ID_PRESTAMO { get; set; }
@@ -165,11 +167,13 @@ namespace Sindicato.Services.Model
         public decimal SEMANAS { get; set; }
         public DateTime? FECHA_LIMITE_PAGO { get; set; }
         public decimal? IMPORTE_INTERES { get; set; }
-        public decimal? CONDONACION_INTERES { get; set; }
-
+        public decimal MORA_CANCELADA { get; set; }
         public decimal NRO_SEMANA { get; set; }
+        public string CUOTA_SEMANA { get; set; }
+        public string TIPO { get; set; }
         public decimal IMPORTE_A_PAGAR { get; set; }
         public decimal IMPORTE_TOTAL { get; set; }
+        public decimal TOTAL_CONDONACIONES { get; set; }
         public decimal INTERES_A_PAGAR { get; set; }
         public decimal CAPITAL_A_PAGAR { get; set; }
         public decimal SALDO_PLAN { get; set; }
@@ -181,7 +185,26 @@ namespace Sindicato.Services.Model
         public DateTime FECHA_FIN { get; set; }
         public int CANTIDAD { get; set; }
         public int CANTIDAD_CANCELADAS { get; set; }
+        public decimal SALDO { get; set; }
+        public decimal AMORTIZACION { get; set; }
+        public decimal? TRANSFERENCIA_INGRESO { get; set; }
+        public decimal? TRANSFERENCIA_EGRESO { get; set; }
+        public decimal? CAPITAL_CANCELADO { get; set; }
+        public decimal? INTERES_CANCELADO { get; set; }
+        public decimal? MORA_A_PAGAR { get; set; }
+        public int CANCELADO { get; set; }
+        public int PENDIENTE { get; set; }
+        public decimal TOTAL_POR_COBRAR_G_ANT { get; set; }
+        public decimal SALDO_POR_COBRAR_G_ANT { get; set; }
+        public decimal CONDONACION_G_ANT { get; set; }
+        public decimal TOTAL_CANCELADO_G_ANT { get; set; }
+        public decimal TOTAL_MORA_G_ANT { get; set; }
+        public decimal SALDO_POR_PAGAR_MORA_G_ANT { get; set; }
+        public decimal TOTAL_MORA_CANCELADO_G_ANT { get; set; }
+        public int DIAS_ATRASOS { get; set; }
         public decimal SALDO_CAPITAL { get; set; }
+
+        
 
     }
 

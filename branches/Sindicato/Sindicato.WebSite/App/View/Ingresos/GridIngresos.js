@@ -24,6 +24,7 @@
                 { header: "Nro <br>Recibo", width: 80, sortable: false, dataIndex: "ID_INGRESO" },
                 { header: "Fecha", width: 80, sortable: true, dataIndex: "FECHA", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
                 { header: "Caja", width: 100, sortable: false, dataIndex: "CAJA" },
+                { header: "Categoria", width: 100, sortable: false, dataIndex: "CATEGORIA" },
                 { header: "Tipo", width: 100, sortable: false, dataIndex: "TIPO" },
                 { header: "Entregado Por", width: 100, sortable: false, dataIndex: "ENTREGADO" },
                 { header: "Concepto", width: 100, sortable: false, dataIndex: "CONCEPTO" },

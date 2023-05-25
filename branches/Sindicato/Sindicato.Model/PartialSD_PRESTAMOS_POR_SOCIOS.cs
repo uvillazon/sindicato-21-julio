@@ -8,6 +8,10 @@ namespace Sindicato.Model
 {
     public partial class SD_PRESTAMOS_POR_SOCIOS
     {
+        public decimal IMPORTE_TOTAL_A_PRESTAR { get; set; }
+        public decimal IMPORTE_TOTAL_A_ENTREGAR { get; set; }
+        public decimal IMPORTE_A_PRESTAR { get; set; }
+        public decimal IMPORTE_INTERES_TOTAL { get; set; }
         public static Expression<Func<SD_PRESTAMOS_POR_SOCIOS, bool>> Contiene(string contiene)
         {
             List<int> id = new List<int>();

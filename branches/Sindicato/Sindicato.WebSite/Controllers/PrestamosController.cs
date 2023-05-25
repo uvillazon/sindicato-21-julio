@@ -47,15 +47,16 @@ namespace Sindicato.WebSite.Controllers
                 INTERES = x.INTERES,
                 SALDO = (x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Where(z => z.ESTADO != "ANULADO").Sum(y => y.IMPORTE_MORA)) - x.SD_PAGO_DE_PRESTAMOS.Where(z => z.ESTADO != "ANULADO").Sum(y => y.IMPORTE + y.IMPORTE_MORA),
                 MORA = x.SD_PRESTAMOS_MORA.Where(t => t.ESTADO != "ANULADO").Sum(y => y.IMPORTE_MORA),
-                COUTA = x.SD_PLAN_DE_PAGO.Count() > 0 ? x.SD_PLAN_DE_PAGO.FirstOrDefault().IMPORTE_A_PAGAR + x.SD_PLAN_DE_PAGO.FirstOrDefault().INTERES_A_PAGAR : 0,
-                DEBE = (x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Where(y => y.ESTADO != "ANULADO").Sum(y => y.IMPORTE_MORA)) - (x.SD_PAGO_DE_PRESTAMOS.Where(z => z.ESTADO != "ANULADO").Sum(y => y.IMPORTE + y.IMPORTE_MORA + y.TOTAL_CONDONACION)),
+                COUTA = x.SD_PLAN_DE_PAGO.Where(y => y.ESTADO == "NUEVO").Count() > 0 ? x.SD_PLAN_DE_PAGO.Where(y => y.ESTADO == "NUEVO").OrderBy(z=>z.NRO_SEMANA).FirstOrDefault().IMPORTE_A_PAGAR : 0,
+                //DEBE = (x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Where(y => y.ESTADO != "ANULADO").Sum(y => y.IMPORTE_MORA)) - ((x.SD_PAGO_DE_PRESTAMOS.Where(z => z.ESTADO != "ANULADO").Sum(y => y.IMPORTE + y.IMPORTE_MORA) + x.SD_PLAN_DE_PAGO.Count() > 0 ? x.SD_PLAN_DE_PAGO.Sum(z => z.CONDONACION) : 0)),
+                DEBE = x.SD_PLAN_DE_PAGO.Where(z => z.ESTADO == "NUEVO").Count() > 0 ? x.SD_PLAN_DE_PAGO.Where(z => z.ESTADO == "NUEVO").Sum(y=> y.IMPORTE_A_PAGAR +  y.INTERES_A_PAGAR + y.MORA_A_PAGAR) : 0,
                 ESTADO = x.ESTADO,
                 MORA_CUOTA = x.SD_PRESTAMOS_MORA.Where(t => t.ESTADO == "NUEVO").Sum(y => y.IMPORTE_MORA),
                 IMPORTE_INTERES = x.IMPORTE_INTERES,
                 IMPORTE_TOTAL = x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA),
                 TIPO_INTERES = x.SD_TIPOS_PRESTAMOS.TIPO_INTERES,
                 FECHA_LIMITE_PAGO = x.FECHA_LIMITE_PAGO,
-                CONDONACION_INTERES = x.CONDONACION_INTERES,
+                CONDONACION_INTERES = x.SD_PLAN_DE_PAGO.Count() > 0 ? x.SD_PLAN_DE_PAGO.Sum(z=>z.CONDONACION) : 0,
                 TOTAL_CANCELADO = x.SD_PAGO_DE_PRESTAMOS.Where(z => z.ESTADO != "ANULADO").Sum(y => y.IMPORTE + y.IMPORTE_MORA),
                 ESTADO_CIERRE = x.ESTADO_CIERRE
 
@@ -339,6 +340,16 @@ namespace Sindicato.WebSite.Controllers
             string login = User.Identity.Name.Split('-')[0];
             RespuestaSP respuestaSP = new RespuestaSP();
             respuestaSP = _serPre.ObtenerTotalACancelar(ID_PRESTAMO);
+            return Json(respuestaSP);
+        }
+
+        [HttpPost, ValidateInput(false)]
+        public JsonResult GuardarRefinanciamientoPrestamo(SD_PAGO_DE_PRESTAMOS ant, SD_PRESTAMOS_POR_SOCIOS prestamo, decimal CUOTA)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            ant.IMPORTE = CUOTA;
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serPre.GuardarRefinanciamientoPrestamo(ant, prestamo, login);
             return Json(respuestaSP);
         }
     }

@@ -243,6 +243,7 @@
     <Content Include="App\Model\CierresParada\Detalles.js" />
     <Content Include="App\Model\Cierres\Detalles.js" />
     <Content Include="App\Model\DiasNoTrabajados\Detalles.js" />
+    <Content Include="App\Model\Egresos\TiposEgresos.js" />
     <Content Include="App\Model\Hojas\Impresiones.js" />
     <Content Include="App\Model\Hojas\ModelHojas.js" />
     <Content Include="App\Model\Refuerzos\Refuerzos.js" />
@@ -440,7 +441,7 @@
     <Content Include="App\View\Hojas\FormImpresionHoja.js" />
     <Content Include="App\View\Hojas\GridImpresiones.js" />
     <Content Include="App\View\Prestamos\FormPagoAmortizacion.js" />
-    <Content Include="App\View\Prestamos\Copia de GridPlanPagos.js" />
+    <Content Include="App\View\Prestamos\FormRefinanciarPrestamo.js" />
     <Content Include="App\View\Refuerzos\FormRefuerzo.js" />
     <Content Include="App\View\Refuerzos\Forms.js" />
     <Content Include="App\View\Refuerzos\GridRefuerzos.js" />
@@ -4110,6 +4111,9 @@
     <Content Include="viewer\locale\zu\viewer.properties" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reportes\ReporteTotalPrestamosV1.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteEgresosPorCategoria.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteIngresosPorCategoria.rdlc" />
     <EmbeddedResource Include="Reportes\Report1.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteOtroIngreso.rdlc" />
     <EmbeddedResource Include="Reportes\HojaDetalleUsoRefuerzo.rdlc" />

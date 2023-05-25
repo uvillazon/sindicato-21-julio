@@ -42,6 +42,9 @@ namespace Sindicato.Services.Interfaces
         RespuestaSP ObtenerPlanDePagoACancelar(int ID_PRESTAMO);
         RespuestaSP ObtenerTotalACancelar(int ID_PRESTAMO);
 
+        RespuestaSP GuardarRefinanciamientoPrestamo(SD_PAGO_DE_PRESTAMOS pago, SD_PRESTAMOS_POR_SOCIOS pres, string login);
+
+
 
 
     }

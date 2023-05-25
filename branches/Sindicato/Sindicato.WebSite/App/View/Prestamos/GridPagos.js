@@ -48,14 +48,14 @@
         var me = this;
         var me = this;
         if (me.record.get('ESTADO') != "ANULADO") {
-            if (me.record.get('TIPO') == "CUOTA") {
+            //if (me.record.get('TIPO') == "CUOTA") {
                 fn.VerImpresion("ReportePagoPrestamo", "ID_PAGO=" + me.record.get('ID_PAGO'));
 
-            }
-            else {
-                fn.VerImpresion("ReportePagoTotalPrestamo", "ID_PAGO=" + me.record.get('ID_PAGO'));
+            //}
+            //else {
+            //    fn.VerImpresion("ReportePagoTotalPrestamo", "ID_PAGO=" + me.record.get('ID_PAGO'));
 
-            }
+            //}
         }
         else {
             Ext.Msg.alert("Error", "Solo puede ver pagos que no fueron ANULADOS");

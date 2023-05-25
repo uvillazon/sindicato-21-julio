@@ -12,6 +12,7 @@
             { type: "string", name: "LOGIN_USR" },
             { type: "string", name: "CAJA" },
             { type: "string", name: "NOMBRE" },
+            { type: "string", name: "CATEGORIA" },
             { type: "string", name: "ESTADO" }
         ]
 });
