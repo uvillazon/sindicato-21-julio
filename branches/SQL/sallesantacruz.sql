@@ -5,7 +5,7 @@ select count(1) from public.profiler;
 
 delete from public.profiler where id > -1;
 
-select * from public.profiler;
+select * from public.profiler order by id desc;
 select * from public.notif_estudiante order by idnotif_estud desc;
 delete from notif_estudiante where idnotificacion =704328;
 

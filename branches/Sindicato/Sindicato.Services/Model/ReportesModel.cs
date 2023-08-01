@@ -261,6 +261,7 @@ namespace Sindicato.Services.Model
         public int MOVIL { get; set; }
         public int CANT_PAGOS { get; set; }
         public decimal? IMPORTE_PRESTAMO { get; set; }
+        public decimal? IMPORTE_MORA { get; set; }
         public decimal? IMPORTE_TOTAL { get; set; }
         public decimal? CANDELADO { get; set; }
         public DateTime? FECHA_LIMITE { get; set; }
