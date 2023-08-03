@@ -837,6 +837,7 @@ namespace Sindicato.Services
                         CAJA = item.SD_CAJAS.NOMBRE,
                         MOVIL = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
                         IMPORTE_PRESTAMO = item.IMPORTE,
+                        IMPORTE_MORA = item.IMPORTE_MORA,
 
                     };
                     result.Add(detalleRep);
