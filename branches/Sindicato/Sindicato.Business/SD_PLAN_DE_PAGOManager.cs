@@ -53,8 +53,12 @@ namespace Sindicato.Business
                     }
                     else
                     {
-                        interes_a_pagar = Math.Round((decimal)pres.IMPORTE_INTERES / pres.SEMANAS, 2);
-                        importe_a_pagar = Math.Round((decimal)pres.IMPORTE_PRESTAMO / pres.SEMANAS, 2);
+                        interes_a_pagar = Math.Round((decimal)pres.IMPORTE_INTERES / pres.SEMANAS, 0);
+                        importe_a_pagar = Math.Round((decimal)pres.IMPORTE_PRESTAMO / pres.SEMANAS, 0);
+                        //if (i == 1)
+                        //{
+                        //    importe_a_pagar = importe_a_pagar + 9;
+                        //}
                     }
 
                     SD_PLAN_DE_PAGO plan = new SD_PLAN_DE_PAGO();

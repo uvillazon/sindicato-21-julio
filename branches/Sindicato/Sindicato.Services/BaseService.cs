@@ -10,6 +10,7 @@ namespace Sindicato.Services
     public class BaseService
     {
         public string conexion;
+        public string msgError = "";
         public void ExecuteManager(Action<IUnitOfWork> coreMethod, Action postCommit = null)
         {
             var uow = new UnitOfWork<SindicatoContext>();
@@ -20,8 +21,9 @@ namespace Sindicato.Services
                 uow.End();
                 if (postCommit != null) postCommit();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                msgError = e.Message;
                 uow.Rollback();
             }
 

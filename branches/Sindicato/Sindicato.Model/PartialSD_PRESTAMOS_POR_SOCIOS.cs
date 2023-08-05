@@ -8,6 +8,9 @@ namespace Sindicato.Model
 {
     public partial class SD_PRESTAMOS_POR_SOCIOS
     {
+        public decimal IMPORTE_TOTAL_A_PRESTAR { get; set; }
+        public decimal IMPORTE_TOTAL_A_ENTREGAR { get; set; }
+        public decimal IMPORTE_A_PRESTAR { get; set; }
         public static Expression<Func<SD_PRESTAMOS_POR_SOCIOS, bool>> Contiene(string contiene)
         {
             List<int> id = new List<int>();
@@ -15,7 +18,7 @@ namespace Sindicato.Model
             try
             {
                 id.Add(Convert.ToInt32(contiene));
-                return m => contiene == null || id.Contains(m.ID_PRESTAMO) || id.Contains(m.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL);
+                return m => contiene == null || id.Contains((int)m.NUMERO) || id.Contains(m.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL);
             }
             catch (FormatException)
             {

@@ -31,6 +31,7 @@ namespace Sindicato.WebSite.Controllers
             var formatData = ingresos.Select(x => new
             {
                 ID_PRESTAMO = x.ID_PRESTAMO,
+                NUMERO = x.NUMERO,
                 ID_CAJA = x.ID_CAJA,
                 CAJA = x.SD_CAJAS.NOMBRE,
                 FECHA = x.FECHA,
@@ -44,19 +45,19 @@ namespace Sindicato.WebSite.Controllers
                 SOCIO = x.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
                 SEMANAS = x.SEMANAS,
                 INTERES = x.INTERES,
-                SALDO = (x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA)) - x.SD_PAGO_DE_PRESTAMOS.Where(z=>z.ESTADO != "ANULADO").Sum(y => y.IMPORTE),
-                MORA = x.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA),
+                SALDO = (x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Where(z=>z.ESTADO != "ANULADO").Sum(y => y.IMPORTE_MORA)) - x.SD_PAGO_DE_PRESTAMOS.Where(z => z.ESTADO != "ANULADO").Sum(y => y.IMPORTE + y.IMPORTE_MORA),
+                MORA = x.SD_PRESTAMOS_MORA.Where(t=>t.ESTADO != "ANULADO").Sum(y => y.IMPORTE_MORA),
                 COUTA = x.SD_PLAN_DE_PAGO.Count() > 0 ? x.SD_PLAN_DE_PAGO.FirstOrDefault().IMPORTE_A_PAGAR + x.SD_PLAN_DE_PAGO.FirstOrDefault().INTERES_A_PAGAR : 0,
-                DEBE = (x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA)) - (x.SD_PAGO_DE_PRESTAMOS.Where(z => z.ESTADO != "ANULADO").Sum(y => y.IMPORTE)),
+                DEBE = (x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Where(y=>y.ESTADO != "ANULADO").Sum(y => y.IMPORTE_MORA)) - (x.SD_PAGO_DE_PRESTAMOS.Where(z => z.ESTADO != "ANULADO").Sum(y => y.IMPORTE + y.IMPORTE_MORA + y.TOTAL_CONDONACION)),
                 ESTADO = x.ESTADO,
                 IMPORTE_INTERES = x.IMPORTE_INTERES,
                 IMPORTE_TOTAL = x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA),
                 TIPO_INTERES = x.SD_TIPOS_PRESTAMOS.TIPO_INTERES,
                 FECHA_LIMITE_PAGO = x.FECHA_LIMITE_PAGO,
-                TOTAL_CANCELADO = x.SD_PAGO_DE_PRESTAMOS.Where(z=>z.ESTADO != "ANULADO").Sum(y => y.IMPORTE),
+                CONDONACION_INTERES = x.CONDONACION_INTERES,
+                TOTAL_CANCELADO = x.SD_PAGO_DE_PRESTAMOS.Where(z => z.ESTADO != "ANULADO").Sum(y => y.IMPORTE + y.IMPORTE_MORA),
                 ESTADO_CIERRE = x.ESTADO_CIERRE,
-                SALDO_INTERES = x.SALDO_INTERES,
-                SALDO_CAPITAL = x.SALDO_CAPITAL
+                GESTION = x.SD_GESTION.CODIGO
 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
@@ -108,7 +109,8 @@ namespace Sindicato.WebSite.Controllers
                 CATEGORIA = x.CATEGORIA,
                 INTERES = x.INTERES,
                 TIPO_INTERES = x.TIPO_INTERES,
-                INTERES_FIJO = x.INTERES_FIJO
+                INTERES_FIJO = x.INTERES_FIJO,
+                DIAS_ESPERA_MORA = x.DIAS_ESPERA_MORA
 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
@@ -194,8 +196,12 @@ namespace Sindicato.WebSite.Controllers
                 ID_PRESTAMO = x.ID_PRESTAMO,
                 IMPORTE = x.IMPORTE,
                 MONEDA = x.MONEDA,
+                IMPORTE_MORA = x.IMPORTE_MORA,
+                TOTAL = x.IMPORTE_MORA + x.IMPORTE,
                 OBSERVACION = x.OBSERVACION,
                 LOGIN_USR = x.LOGIN_USR,
+                GESTION = x.SD_GESTION.CODIGO,
+                TIPO = x.TIPO,
                 SOCIO = x.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.ObtenerNombreSocio()
 
             });
@@ -214,20 +220,43 @@ namespace Sindicato.WebSite.Controllers
         //    return Json(respuestaSP);
         //}
         [HttpPost, ValidateInput(false)]
-        public JsonResult GuardarPago(SD_PAGO_DE_PRESTAMOS ant, decimal COUTA)
+        public JsonResult GuardarPago(SD_PAGO_DE_PRESTAMOS ant, decimal CUOTA)
         {
             string login = User.Identity.Name.Split('-')[0];
-            ant.IMPORTE = COUTA;
+            ant.IMPORTE = CUOTA;
             RespuestaSP respuestaSP = new RespuestaSP();
             respuestaSP = _serPre.GuardarPagoPrestamo(ant, login);
             return Json(respuestaSP);
         }
+
+        [HttpPost, ValidateInput(false)]
+        public JsonResult GuardarPagoTotal(SD_PAGO_DE_PRESTAMOS ant, decimal CUOTA)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            ant.IMPORTE = CUOTA;
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serPre.GuardarPagoTotalPrestamo(ant, login);
+            return Json(respuestaSP);
+        }
+
+        [HttpPost, ValidateInput(false)]
+        public JsonResult GuardarRefinanciamientoPrestamo(SD_PAGO_DE_PRESTAMOS ant, SD_PRESTAMOS_POR_SOCIOS prestamo, decimal CUOTA)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            ant.IMPORTE = CUOTA;
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serPre.GuardarRefinanciamientoPrestamo(ant, prestamo,login);
+            return Json(respuestaSP);
+        }
+
+
+
         [HttpPost]
         public JsonResult EliminarPago(int ID_PAGO)
         {
             string login = User.Identity.Name.Split('-')[0];
             RespuestaSP respuestaSP = new RespuestaSP();
-            respuestaSP = _serPre.EliminarPagoPrestamo(ID_PAGO,login);
+            respuestaSP = _serPre.EliminarPagoPrestamo(ID_PAGO, login);
             return Json(respuestaSP);
         }
 
@@ -263,7 +292,11 @@ namespace Sindicato.WebSite.Controllers
                 FECHA_REG = x.FECHA_REG,
                 IMPORTE_MORA = x.IMPORTE_MORA,
                 LOGIN_USR = x.LOGIN_USR,
-                OBSERVACION = x.OBSERVACION
+                OBSERVACION = x.OBSERVACION,
+                NRO_SEMANA = x.SD_PLAN_DE_PAGO.NRO_SEMANA,
+                DIAS_RETRASO = x.SD_PLAN_DE_PAGO.DIAS_RETRASO,
+                ID_PLAN = x.SD_PLAN_DE_PAGO.ID_PLAN,
+                ESTADO = x.ESTADO
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
@@ -271,6 +304,25 @@ namespace Sindicato.WebSite.Controllers
         }
 
         #endregion
+
+
+        [HttpPost]
+        public JsonResult ObtenerPlanAPagar(int ID_PRESTAMO)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serPre.ObtenerPlanDePagoACancelar(ID_PRESTAMO);
+            return Json(respuestaSP);
+        }
+
+        [HttpPost]
+        public JsonResult ObtenerTotalAPagar(int ID_PRESTAMO)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serPre.ObtenerTotalACancelar(ID_PRESTAMO);
+            return Json(respuestaSP);
+        }
 
 
     }

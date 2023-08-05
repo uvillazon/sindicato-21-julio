@@ -511,6 +511,12 @@
     background-color: #FBE5D5 !important;
     color: #000000; /*font-weight: bold;*/
 }
+
+.PrestamoMora .x-grid-cell
+{
+    background-color: #00ffff !important;
+    color: #000000; /*font-weight: bold;*/
+}
 .OTEn_Ejec .x-grid-cell
 {
     background-color: #DEEBF6 !important;
@@ -639,18 +645,3 @@
     color: #000000; /*font-weight: bold;*/
 }
 
-.Sgaf-sinerror .x-grid-cell
-{
-    background-color: #00A05D !important;
-    color: #000000; /*font-weight: bold;*/
-}
-.Sgaf-conerror .x-grid-cell
-{
-    background-color: #F74C3F !important;
-    color: #000000; /*font-weight: bold;*/
-}
-.Sgaf-conadvertencia .x-grid-cell
-{
-    background-color: #F8CA27 !important;
-    color: #000000; /*font-weight: bold;*/
-}

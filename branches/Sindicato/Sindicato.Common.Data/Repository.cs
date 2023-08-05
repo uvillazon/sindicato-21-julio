@@ -44,9 +44,25 @@ namespace Sindicato.Common.Data
         public int ObtenerSecuencia()
         {
             ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
-             ObjectParameter p_COD_TABLAParameter = new ObjectParameter("P_COD_TABLA", typeof(TEntity).Name);
+            ObjectParameter p_COD_TABLAParameter = new ObjectParameter("P_COD_TABLA", typeof(TEntity).Name);
             ObjectParameter p_ID_USRParameter = new ObjectParameter("P_ID_USR", 0);
             _ctx.ExecuteFunction("P_EE_SECUENCIA", p_COD_TABLAParameter, p_ID_USRParameter, p_RES);
+            return Convert.ToInt32(p_RES.Value);
+        }
+
+        public int ObtenerNumeroPorGestion(string campoNumero)
+        {
+            ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+            ObjectParameter p_TABLAParameter = new ObjectParameter("P_TABLA", typeof(TEntity).Name);
+            ObjectParameter p_COLUMNAParameter = new ObjectParameter("P_COLUMNA", campoNumero);
+            _ctx.ExecuteFunction("P_SD_OBTENER_NRO", p_TABLAParameter, p_COLUMNAParameter, p_RES);
+            return Convert.ToInt32(p_RES.Value);
+        }
+
+        public int ObtenerGestion()
+        {
+            ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+            _ctx.ExecuteFunction("P_SD_OBTENER_GESTION", p_RES);
             return Convert.ToInt32(p_RES.Value);
         }
 
