@@ -247,6 +247,8 @@
     <Content Include="App\Model\CierreCaja\Cierres.js" />
     <Content Include="App\Model\CierreCaja\Detalles.js" />
     <Content Include="App\Model\Egresos\TiposEgresos.js" />
+    <Content Include="App\Model\Gestion\Detalles.js" />
+    <Content Include="App\Model\Gestion\Gestion.js" />
     <Content Include="App\Model\KardexHojas\KardexHojas.js" />
     <Content Include="App\Model\Prestamos\Pagos.js" />
     <Content Include="App\Model\Prestamos\PlanPagos.js" />
@@ -296,6 +298,9 @@
     <Content Include="App\Model\Socios\Documentos.js" />
     <Content Include="App\Model\Familiares\Familiares.js" />
     <Content Include="App\Model\Socios\Socios.js" />
+    <Content Include="App\Model\Usuarios\MenuOpciones.js" />
+    <Content Include="App\Model\Usuarios\Perfiles.js" />
+    <Content Include="App\Model\Usuarios\Usuarios.js" />
     <Content Include="App\Model\Utils\Tablas.js" />
     <Content Include="App\Model\Ventas\DetallesVentaEdit.js" />
     <Content Include="App\Model\Ventas\DetallesVenta.js" />
@@ -306,6 +311,8 @@
     <Content Include="App\Store\Cierres\Detalles.js" />
     <Content Include="App\Store\CierreCaja\Cierres.js" />
     <Content Include="App\Store\CierreCaja\Detalles.js" />
+    <Content Include="App\Store\Gestion\Detalles.js" />
+    <Content Include="App\Store\Gestion\Gestion.js" />
     <Content Include="App\Store\TransferenciasHojas\Transferencias.js" />
     <Content Include="App\Store\Egresos\TiposEgresos.js" />
     <Content Include="App\Store\KardexHojas\KardexHojas.js" />
@@ -360,6 +367,9 @@
     <Content Include="App\Store\Familiares\Familiares.js" />
     <Content Include="App\Store\Socios\Socios.js" />
     <Content Include="App\Store\Tanques\Tanques.js" />
+    <Content Include="App\Store\Usuarios\MenuOpciones.js" />
+    <Content Include="App\Store\Usuarios\Perfiles.js" />
+    <Content Include="App\Store\Usuarios\Usuarios.js" />
     <Content Include="App\Store\Utils\Tablas.js" />
     <Content Include="App\Store\Ventas\DetallesVenta.js" />
     <Content Include="App\Store\Ventas\Ventas.js" />
@@ -417,6 +427,10 @@
     <Content Include="App\View\CierreCaja\GridCierres.js" />
     <Content Include="App\View\CierreCaja\GridDetalles.js" />
     <Content Include="App\View\CierreCaja\Principal.js" />
+    <Content Include="App\View\Gestion\FormCierre.js" />
+    <Content Include="App\View\Gestion\GridDetalles.js" />
+    <Content Include="App\View\Gestion\GridGestion.js" />
+    <Content Include="App\View\Gestion\Principal.js" />
     <Content Include="App\View\Sgaf\Controller\GridImportarFacturaController.js" />
     <Content Include="App\View\Sgaf\GridTransferenciasHojas.js" />
     <Content Include="App\View\Sgaf\Model\Sgaf.js" />

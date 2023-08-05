@@ -17,11 +17,13 @@ namespace Sindicato.WebSite.Controllers
         // GET: /Otros/
         private ICierresAhorroServices _serCierre;
         private ICierresCajaServices _serCierreCaja;
+        private ICierresGestionServices _serCierreGestion;
 
-        public CierresController(ICierresAhorroServices serCierre, ICierresCajaServices serCierreCaja)
+        public CierresController(ICierresAhorroServices serCierre, ICierresCajaServices serCierreCaja, ICierresGestionServices serGestion)
         {
             this._serCierre = serCierre;
             _serCierreCaja = serCierreCaja;
+            _serCierreGestion = serGestion;
         }
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult ObtenerCierresPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
@@ -215,11 +217,11 @@ namespace Sindicato.WebSite.Controllers
 
             var formatData = gestiones.Select(x => new
             {
-                ID = x.ID,
+                ID = x.ID_GESTION,
                 FECHA_FIN = x.FECHA_FIN.Value.ToString("MM-dd-yyyyy"),
-                OBSERVACION = x.OBSERVACION,
-                FECHA_INI = x.FECHA_INI.Value.ToString("MM-dd-yyyy"),
-                GESTION = x.GESTION
+                OBSERVACION = x.DESCRIPCION,
+                FECHA_INI = x.FECHA_INICIO.ToString("MM-dd-yyyy"),
+                GESTION = x.CODIGO
 
             });
             
@@ -229,5 +231,91 @@ namespace Sindicato.WebSite.Controllers
         }
 
         #endregion
+
+        #region Gestion
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerGestionPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var socios = _serCierreGestion.ObtenerGestionPaginados(paginacion, filtros);
+            var formatData = socios.Select(x => new
+            {
+                ID_GESTION = x.ID_GESTION,
+                ESTADO = x.ESTADO,
+                FECHA_FIN = x.FECHA_FIN,
+                FECHA_INICIO = x.FECHA_INICIO,
+                CODIGO = x.CODIGO,
+                FECHA_REG = x.FECHA_REG,
+                LOGIN = x.LOGIN,
+                DESCRIPCION = x.DESCRIPCION,
+                SALDO_A_FAVOR = x.SALDO_A_FAVOR,
+                SALDO_POR_COBRAR = x.SALDO_POR_COBRAR,
+                OBSERVACION_CIERRE = x.OBSERVACION_CIERRE,
+                TOTAL = x.SALDO_POR_COBRAR + x.SALDO_A_FAVOR
+
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerDetalleGestionPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var socios = _serCierreGestion.ObtenerDetalleGestionPaginados(paginacion, filtros);
+            var formatData = socios.Select(x => new
+            {
+                ID_GESTION = x.ID_GESTION,
+                CANT_PREST_CANCELADOS = x.CANT_PREST_CANCELADOS,
+                CANT_PREST_POR_COBRAR = x.CANT_PREST_POR_COBRAR,
+                DEBE = x.DEBE,
+                DETALLE = x.DETALLE,
+                FECHA_REG = x.FECHA_REG,
+                HABER = x.HABER,
+                ID_DETALLE = x.ID_DETALLE,
+                TIPO = x.TIPO,
+                TOTAL_CANCELADO = x.TOTAL_CANCELADO,
+                TOTAL_CONDONACION_INTERES = x.TOTAL_CONDONACION_INTERES,
+                TOTAL_INTERES = x.TOTAL_INTERES,
+                TOTAL_INTERES_CANCELADO = x.TOTAL_INTERES_CANCELADO,
+                TOTAL_MORA_CANCELADO = x.TOTAL_MORA_CANCELADO,
+                TOTAL_MORAS = x.TOTAL_MORAS,
+                TOTAL_PRESTAMO = x.TOTAL_PRESTAMO,
+                CANTIDAD = x.CANT_PREST_CANCELADOS + x.CANT_PREST_POR_COBRAR,
+                TOTAL_POR_COBRAR = (x.TOTAL_PRESTAMO + x.TOTAL_INTERES + x.TOTAL_MORAS) - (x.TOTAL_CANCELADO + x.TOTAL_MORA_CANCELADO + x.TOTAL_CONDONACION_INTERES)
+
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
+
+
+        [HttpPost]
+        public JsonResult GenerarCierreGestion()
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            var cierre = _serCierreGestion.GenerarCierreGestion(login);
+            return Json(cierre);
+
+
+
+        }
+
+        [HttpPost]
+        public JsonResult GuardarCierreGestion(SD_GESTION cierre, decimal DISPONIBLE, decimal POR_COBRAR, string CODIGO_NUEVO, string DESCRIPCION_NUEVA_GESTION)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            cierre.SALDO_A_FAVOR = DISPONIBLE;
+            cierre.SALDO_POR_COBRAR = POR_COBRAR;
+            respuestaSP = _serCierreGestion.GuardarCierreGestion(cierre, CODIGO_NUEVO, DESCRIPCION_NUEVA_GESTION, login);
+            return Json(respuestaSP);
+        }
+
+        #endregion
+
     }
 }

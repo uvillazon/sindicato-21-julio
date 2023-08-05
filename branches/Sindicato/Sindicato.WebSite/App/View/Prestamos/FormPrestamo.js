@@ -145,7 +145,13 @@
         me.txt_importe_total = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Importe Total Prestamo",
             name: "IMPORTE_TOTAL_PRESTAMO",
-            colspan : 2,
+            readOnly: true
+
+        });
+
+        me.txt_dias_espera_mora = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Dias Espera p/mora",
+            name: "DIAS_ESPERA_MORA",
             readOnly: true
 
         });
@@ -164,7 +170,7 @@
             me.txt_caja, me.txt_moneda, me.txt_tipo_interes,
             me.txt_interes,me.txt_interes_fijo, me.txt_nro_semanas,
             me.txt_importe_minimo, me.txt_importe_maximo, me.txt_importe_mora,
-            me.txt_importe,me.txt_importe_total,
+            me.txt_importe,me.txt_importe_total,me.txt_dias_espera_mora,
             me.txt_observacion
         ];
 

@@ -8,33 +8,6 @@
         //me.cargarEventos();
         this.callParent(arguments);
     },
-    //cargarEventos: function () {
-    //    var me = this;
-    //    //me.cbx_parada.on('select', function (cbx, rec) {
-    //    //    me.txt_id_parada.setValue(rec[0].get('ID_PARADA'));
-    //    //    me.txt_caja.setValue("Parada : " + rec[0].get('NOMBRE') + " Caja :" + rec[0].get('CAJA'));
-    //    //    me.txt_id_caja.setValue(rec[0].get('ID_CAJA'));
-    //    //});
-
-    //    me.cbx_socio.on('select', function (cbx, rec) {
-    //        me.txt_socio.setValue(rec[0].get('NOMBRE_SOCIO'));
-    //        me.txt_nor_movil.setValue(rec[0].get('NRO_MOVIL'));
-    //        me.txt_id_socio.setValue(rec[0].get('ID_SOCIO_MOVIL'));
-    //        if (rec[0].get('PRECIO_HOJA') == 0) {
-    //            Ext.Msg.alert("Aviso", "No tiene Configurado su Costo de Hoja Por favor Configurar.", function () {
-    //                me.num_precio.reset();
-    //            });
-    //        }
-    //        else {
-    //            me.num_precio.setValue(rec[0].get('PRECIO_HOJA'));
-    //        }
-    //    });
-
-
-
-    //},
-
-
     CargarComponentes: function () {
         var me = this;
 
@@ -46,9 +19,19 @@
             name: 'ID_SOCIO_MOVIL',
             //value: Constantes.Usuario.ID_CAJA
         });
+
+        me.txt_id_prestamo = Ext.widget('hiddenfield', {
+            name: 'ID_PRESTAMO',
+            //value: Constantes.Usuario.ID_CAJA
+        });
+
+        me.txt_id_plan = Ext.widget('hiddenfield', {
+            name: 'ID_PLAN',
+            //value: Constantes.Usuario.ID_CAJA
+        });
         me.txt_nro_prestamo = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Nro. Prestamo",
-            name: "ID_PRESTAMO",
+            name: "NUMERO",
             readOnly: true
 
         });
@@ -67,7 +50,16 @@
             name: "NRO_MOVIL",
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
-            colspan : 2,
+            colspan : 1,
+            readOnly: true,
+        });
+
+        me.txt_nro_semana = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Nro. Semana",
+            name: "NRO_SEMANA",
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            colspan: 1,
             readOnly: true,
         });
         me.txt_socio = Ext.create("App.Config.Componente.TextFieldBase", {
@@ -125,25 +117,57 @@
             colspan: 2,
             //maxLength: 500,
         });
+
+        me.txt_mora = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Mora",
+            name: "MORA",
+            readOnly: true,
+            colspan : 1,
+
+        });
+        me.txt_dias_retraso = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Dias Retraso",
+            name: "DIAS_RETRASO",
+            readOnly: true,
+            colspan: 1,
+
+        });
+
         me.txt_importe = Ext.create("App.Config.Componente.NumberFieldBase", {
-            fieldLabel: "Importe a Cancelar",
-            name: "COUTA",
+            fieldLabel: "Importe a Cancelar + Mora",
+            name: "CUOTA",
             width: 480,
             colspan: 2,
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
+            readOnly : true
+
+        });
+
+        me.txt_total_condonacion = Ext.create("App.Config.Componente.NumberFieldBase", {
+            fieldLabel: "Total Condonacion",
+            name: "TOTAL_CONDONACION",
+            width: 480,
+            colspan: 2,
+            value : 0,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            readOnly: true,
+            hidden : true
 
         });
 
         me.items = [
-            me.txt_id_caja, me.txt_id_socio,
+            me.txt_id_caja, me.txt_id_socio,,me.txt_id_prestamo,me.txt_id_plan,
             me.txt_nro_prestamo, me.date_fecha,
-            me.txt_nor_movil,
+            me.txt_nor_movil, me.txt_nro_semana,
             me.txt_socio,
             me.txt_caja, me.txt_importe_prestamo,
             me.txt_importe_interes, me.txt_importe_total,
             me.txt_debe, me.txt_cancelado,
+            me.txt_dias_retraso,me.txt_mora,
             me.txt_importe,
+            me.txt_total_condonacion,
             me.txt_observacion
         ];
 

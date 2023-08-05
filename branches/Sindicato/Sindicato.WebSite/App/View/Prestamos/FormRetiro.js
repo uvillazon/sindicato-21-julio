@@ -51,7 +51,6 @@
 
         me.store_caja = Ext.create('App.Store.Cajas.Cajas');
         me.store_caja.setExtraParams(me.paramsStore);
-        me.store_caja.load();
         me.cbx_caja = Ext.create("App.Config.Componente.ComboAutoBase", {
             fieldLabel: "Caja",
             name: "ID_CAJA",
@@ -62,10 +61,6 @@
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
             textoTpl: function () { return "{NOMBRE} - {DESCRIPCION}" }
-        });
-        me.store_caja.on('load', function (st,rec) {
-            console.log(st);
-            console.log(rec);
         });
 
         me.num_saldo_caja = Ext.create("App.Config.Componente.NumberFieldBase", {
