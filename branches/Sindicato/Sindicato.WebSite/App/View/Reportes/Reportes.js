@@ -102,6 +102,18 @@
                 me.cbx_categoria_egreso.setDisabled(false);
                 me.cbx_categoria_egreso.reset();
             }
+            else if (cbx.getValue() == "REPORTE INGRESOS Y EGRESOS POR CATEGORIA") {
+                me.cbx_socio.setDisabled(true);
+                me.cbx_socio.reset();
+                me.cbx_caja.setDisabled(true);
+                me.cbx_caja.reset();
+                me.cbx_moneda.setDisabled(true);
+                me.cbx_moneda.reset();
+                me.cbx_categoria_ingreso.setDisabled(false);
+                me.cbx_categoria_ingreso.reset();
+                me.cbx_categoria_egreso.setDisabled(false);
+                me.cbx_categoria_egreso.reset();
+            }
             else {
                 me.cbx_socio.setDisabled(true);
                 me.cbx_socio.reset();
@@ -315,7 +327,19 @@
                 case "REPORTE EGRESOS POR CATEGORIA":
                     me.rutaReporte = "ReporteEgresosPorCategoria";
                     break;
-
+                case "REPORTE EGRESOS POR CATEGORIA":
+                    me.rutaReporte = "ReporteEgresosPorCategoria";
+                    break;
+                case "REPORTE INGRESOS Y EGRESOS POR CATEGORIA":
+                    me.rutaReporte = "ReporteIngresosEgresosPorCategoria";
+                    break;
+                case "REPORTE TOTAL DE PRESTAMOS AL DETALLE":
+                    me.rutaReporte = "ReportePrestamosTotalesV2";
+                    break;
+                case "REPORTE INGRESOS Y EGRESOS":
+                    me.rutaReporte = "ReporteIngresosEgresosCategoria";
+                    break;
+                   
                     
                 default:
                     me.rutaReporte = "";
@@ -344,6 +368,10 @@
                 }
                 else if (me.rutaReporte == "ReporteEgresosPorCategoria") {
                     me.generarReporte(me.rutaReporte, 'FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue() + '&CATEGORIA=' + me.cbx_categoria_egreso.getValue());
+
+                }
+                else if (me.rutaReporte == "ReporteIngresosEgresosPorCategoria") {
+                    me.generarReporte(me.rutaReporte, 'FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue() + '&CATEGORIA=' + me.cbx_categoria_ingreso.getValue() + '&CATEGORIA_EGRESO=' + me.cbx_categoria_egreso.getValue());
 
                 }
                 else {

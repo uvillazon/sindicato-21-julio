@@ -40,6 +40,7 @@ namespace Sindicato.WebSite.Controllers
                 MONEDA = x.SD_CAJAS.MONEDA,
                 OBSERVACION = x.OBSERVACION,
                 MOTIVO = x.MOTIVO,
+                CATEGORIA = x.CATEGORIA,
                 ESTADO = x.ESTADO
 
             });

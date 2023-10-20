@@ -725,7 +725,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Prestamo :</Value>
+                <Value>Monto Prestamo :</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontWeight>Bold</FontWeight>
@@ -739,7 +739,7 @@
         <Top>3.26403cm</Top>
         <Left>0.85768cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.1825cm</Width>
+        <Width>3.18509cm</Width>
         <ZIndex>12</ZIndex>
         <Style>
           <Border>
@@ -773,44 +773,10 @@
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>3.26403cm</Top>
-        <Left>3.08773cm</Left>
+        <Left>4.11333cm</Left>
         <Height>0.6cm</Height>
-        <Width>6.97618cm</Width>
+        <Width>5.95058cm</Width>
         <ZIndex>13</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Bottom</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox24">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Total Cancelado:</Value>
-                <Style>
-                  <FontFamily>Calibri</FontFamily>
-                  <FontWeight>Bold</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>4.04042cm</Top>
-        <Left>0.85768cm</Left>
-        <Height>0.6cm</Height>
-        <Width>2.72238cm</Width>
-        <ZIndex>14</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -829,7 +795,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Debe :</Value>
+                <Value>Saldo Capital:</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontWeight>Bold</FontWeight>
@@ -840,47 +806,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>4.74625cm</Top>
+        <Top>3.96986cm</Top>
         <Left>0.85768cm</Left>
         <Height>0.6cm</Height>
-        <Width>1.5475cm</Width>
-        <ZIndex>15</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Bottom</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox29">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=Sum(Fields!TOTAL_CANCELADO.Value, "DataSet1")</Value>
-                <Style>
-                  <FontFamily>Calibri</FontFamily>
-                  <FontSize>8pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Left</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>4.04042cm</Top>
-        <Left>3.65062cm</Left>
-        <Height>0.6cm</Height>
-        <Width>1.69269cm</Width>
-        <ZIndex>16</ZIndex>
+        <Width>3.14982cm</Width>
+        <ZIndex>14</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -912,11 +842,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>4.74625cm</Top>
-        <Left>2.47573cm</Left>
+        <Top>3.96986cm</Top>
+        <Left>4.11333cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.99671cm</Width>
-        <ZIndex>17</ZIndex>
+        <Width>5.95058cm</Width>
+        <ZIndex>15</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -950,7 +880,7 @@
         <Left>0.85768cm</Left>
         <Height>0.6cm</Height>
         <Width>1.21581cm</Width>
-        <ZIndex>18</ZIndex>
+        <ZIndex>16</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -983,7 +913,7 @@
         <Left>4.11333cm</Left>
         <Height>0.6cm</Height>
         <Width>1.22998cm</Width>
-        <ZIndex>19</ZIndex>
+        <ZIndex>17</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1019,7 +949,7 @@
         <Left>2.14405cm</Left>
         <Height>0.6cm</Height>
         <Width>1.43601cm</Width>
-        <ZIndex>20</ZIndex>
+        <ZIndex>18</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1055,7 +985,7 @@
         <Left>5.48442cm</Left>
         <Height>0.6cm</Height>
         <Width>5.22868cm</Width>
-        <ZIndex>21</ZIndex>
+        <ZIndex>19</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1072,7 +1002,7 @@
         <Left>1.61266cm</Left>
         <Height>0cm</Height>
         <Width>8.14494cm</Width>
-        <ZIndex>22</ZIndex>
+        <ZIndex>20</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -1102,7 +1032,7 @@
         <Left>1.61266cm</Left>
         <Height>0.6cm</Height>
         <Width>8.3448cm</Width>
-        <ZIndex>23</ZIndex>
+        <ZIndex>21</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1138,82 +1068,12 @@
         <Left>3.7171cm</Left>
         <Height>0.6cm</Height>
         <Width>3.99267cm</Width>
-        <ZIndex>24</ZIndex>
+        <ZIndex>22</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
           <PaddingLeft>10pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox33">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Condonacion Interes:</Value>
-                <Style>
-                  <FontFamily>Calibri</FontFamily>
-                  <FontWeight>Bold</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>4.04042cm</Top>
-        <Left>5.48442cm</Left>
-        <Height>0.6cm</Height>
-        <Width>3.31802cm</Width>
-        <ZIndex>25</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Bottom</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox35">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=Sum(Fields!IMPORTE_INTERES.Value, "DataSet1")</Value>
-                <Style>
-                  <FontFamily>Calibri</FontFamily>
-                  <FontSize>8pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Left</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>4.04042cm</Top>
-        <Left>8.97884cm</Left>
-        <Height>0.6cm</Height>
-        <Width>1.8401cm</Width>
-        <ZIndex>26</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Bottom</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>

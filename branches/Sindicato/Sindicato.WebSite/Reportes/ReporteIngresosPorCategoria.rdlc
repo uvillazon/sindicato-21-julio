@@ -6,19 +6,19 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>1.47583cm</Width>
+              <Width>1.39934cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>5.98007cm</Width>
+              <Width>5.58019cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.41521cm</Width>
+              <Width>4.34128cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.47962cm</Width>
+              <Width>0.93995cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.66937cm</Width>
+              <Width>2.67454cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.43535cm</Width>
@@ -69,7 +69,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox18">
+                    <Textbox Name="Textbox1">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -89,7 +89,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox18</rd:DefaultName>
+                      <rd:DefaultName>Textbox1</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -105,14 +105,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox1">
+                    <Textbox Name="Textbox18">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Movil</Value>
+                              <Value>SOCIO</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
@@ -125,7 +125,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox1</rd:DefaultName>
+                      <rd:DefaultName>Textbox18</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -372,14 +372,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="NRO_MOVIL">
+                    <Textbox Name="SOCIO">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!NRO_MOVIL.Value</Value>
+                              <Value>=Fields!SOCIO.Value</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -391,7 +391,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>NRO_MOVIL</rd:DefaultName>
+                      <rd:DefaultName>SOCIO</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -1070,7 +1070,7 @@
           <TablixMembers>
             <TablixMember>
               <TablixHeader>
-                <Size>3.63299cm</Size>
+                <Size>3.02713cm</Size>
                 <CellContents>
                   <Textbox Name="DETALLE1">
                     <CanGrow>true</CanGrow>
@@ -1123,7 +1123,7 @@
                 </SortExpression>
               </SortExpressions>
               <TablixHeader>
-                <Size>3.63299cm</Size>
+                <Size>3.02713cm</Size>
                 <CellContents>
                   <Textbox Name="DETALLE">
                     <CanGrow>true</CanGrow>
@@ -1169,7 +1169,7 @@
             </TablixMember>
             <TablixMember>
               <TablixHeader>
-                <Size>3.63299cm</Size>
+                <Size>3.02713cm</Size>
                 <CellContents>
                   <Textbox Name="Textbox39">
                     <CanGrow>true</CanGrow>
@@ -1218,7 +1218,7 @@
         </SortExpressions>
         <Top>0.17639cm</Top>
         <Height>1.79146cm</Height>
-        <Width>20.53011cm</Width>
+        <Width>20.83944cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1229,7 +1229,7 @@
     <Height>0.9853in</Height>
     <Style />
   </Body>
-  <Width>8.08272in</Width>
+  <Width>8.23784in</Width>
   <Page>
     <PageHeader>
       <Height>2.5982cm</Height>
@@ -1487,9 +1487,13 @@
           <DataField>NRO_RECIBO</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="SOCIO">
+          <DataField>SOCIO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="NRO_MOVIL">
           <DataField>NRO_MOVIL</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+          <rd:TypeName>System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
         </Field>
         <Field Name="CANTIDAD">
           <DataField>CANTIDAD</DataField>
@@ -1528,7 +1532,7 @@
         <rd:DataSetName>Sindicato.Services</rd:DataSetName>
         <rd:TableName>ReportesServices</rd:TableName>
         <rd:ObjectDataSourceSelectMethod>ObtenerReporteIngresoDetalle</rd:ObjectDataSourceSelectMethod>
-        <rd:ObjectDataSourceSelectMethodSignature>System.Collections.Generic.IEnumerable`1[Sindicato.Services.Model.ReporteDetalleIngresos] ObtenerReporteIngresoDetalle(System.DateTime, System.DateTime)</rd:ObjectDataSourceSelectMethodSignature>
+        <rd:ObjectDataSourceSelectMethodSignature>System.Collections.Generic.IEnumerable`1[Sindicato.Services.Model.ReporteDetalleIngresos] ObtenerReporteIngresoDetalle(System.String, System.DateTime, System.DateTime)</rd:ObjectDataSourceSelectMethodSignature>
         <rd:ObjectDataSourceType>Sindicato.Services.ReportesServices, Sindicato.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>

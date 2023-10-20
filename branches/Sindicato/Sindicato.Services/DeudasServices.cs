@@ -66,7 +66,7 @@ namespace Sindicato.Services
                 var context = (SindicatoContext)uow.Context;
                 ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
 
-                context.P_SD_GUARDAR_DEUDAS_SOCIOS(deuda.ID_DEUDA, deuda.ID_CAJA, deuda.MOTIVO, deuda.FECHA, deuda.OBSERVACION, deuda.IMPORTE, login, p_res);
+                context.P_SD_GUARDAR_DEUDAS_SOCIOS(deuda.ID_DEUDA, deuda.ID_CAJA, deuda.MOTIVO, deuda.FECHA, deuda.OBSERVACION, deuda.CATEGORIA ,deuda.IMPORTE, login, p_res);
                 int id;
                 bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
                 if (esNumero)

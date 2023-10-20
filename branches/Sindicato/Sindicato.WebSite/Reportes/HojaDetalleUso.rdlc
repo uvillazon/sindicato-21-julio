@@ -23,7 +23,7 @@
         <Top>3.50177cm</Top>
         <Left>0.6225cm</Left>
         <Height>0.60875cm</Height>
-        <Width>9.93479cm</Width>
+        <Width>9.76367cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -51,7 +51,7 @@
         <Top>4.26052cm</Top>
         <Left>2.73916cm</Left>
         <Height>0.5cm</Height>
-        <Width>7.44771cm</Width>
+        <Width>4.62196cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -68,7 +68,7 @@
               <TextRun>
                 <Value>=First(Fields!FECHA_USO.Value, "DataSetHoja")</Value>
                 <Style>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>16pt</FontSize>
                   <FontWeight>ExtraBold</FontWeight>
                   <Format>dd'        'MMMM'     'yyyy</Format>
                 </Style>
@@ -81,9 +81,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
         <Top>5.02802cm</Top>
-        <Left>2.92437cm</Left>
-        <Height>0.46771cm</Height>
-        <Width>6.60104cm</Width>
+        <Left>1.97716cm</Left>
+        <Height>0.63704cm</Height>
+        <Width>6.52696cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -100,19 +100,21 @@
               <TextRun>
                 <Value>=Sum(Fields!MOVIL.Value, "DataSetHoja")</Value>
                 <Style>
-                  <FontSize>14pt</FontSize>
+                  <FontSize>20pt</FontSize>
                   <FontWeight>ExtraBold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.12594cm</Top>
-        <Left>7.55458cm</Left>
-        <Height>0.75875cm</Height>
-        <Width>2.26188cm</Width>
+        <Top>1.50885cm</Top>
+        <Left>8.10312cm</Left>
+        <Height>1.23521cm</Height>
+        <Width>2.28305cm</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>

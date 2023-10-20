@@ -181,6 +181,7 @@ namespace Sindicato.Services.Model
         public DateTime FECHA_PAGO { get; set; }
         public int MOVIL { get; set; }
         public string IMPORTE_LITERAL { get; set; }
+        public string PLAZO_CREDITO { get; set; }
         public DateTime FECHA_INI { get; set; }
         public DateTime FECHA_FIN { get; set; }
         public int CANTIDAD { get; set; }
@@ -213,6 +214,7 @@ namespace Sindicato.Services.Model
         public string DETALLE { get; set; }
         public string SUBDETALLE { get; set; }
         public string NRO_RECIBO { get; set; }
+        public string SOCIO { get; set; }
         public int? NRO_MOVIL { get; set; }
         public int CANTIDAD { get; set; }
         public decimal COSTO_UNITARIO { get; set; }

@@ -10,6 +10,7 @@
             { type: "string", name: "LOGIN_USR" },
             { type: "string", name: "CAJA" },
             { type: "string", name: "MOTIVO" },
+            { type: "string", name: "CATEGORIA" },
             { type: "string", name: "MONEDA" },
             { type: "string", name: "ESTADO" }
         ]

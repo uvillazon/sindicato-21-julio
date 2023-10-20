@@ -4111,6 +4111,9 @@
     <Content Include="viewer\locale\zu\viewer.properties" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reportes\ReporteTotalPrestamosV2.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteIngresosPorCategoriaSinAgrupar.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteIngresosEgresosCategoria.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteTotalPrestamosV1.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteEgresosPorCategoria.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteIngresosPorCategoria.rdlc" />

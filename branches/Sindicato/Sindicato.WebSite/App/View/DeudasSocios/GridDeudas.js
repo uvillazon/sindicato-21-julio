@@ -26,6 +26,7 @@
                 { header: "Caja", width: 100, sortable: false, dataIndex: "CAJA" },
                 { header: "Moneda", width: 100, sortable: false, dataIndex: "MONEDA" },
                 { header: "Motivo", width: 150, sortable: false, dataIndex: "MOTIVO" },
+                { header: "Categoria", width: 150, sortable: false, dataIndex: "CATEGORIA" },
                 { header: "Observacion", width: 200, sortable: false, dataIndex: "OBSERVACION" },
                 { header: "Importe", width: 100, sortable: false, dataIndex: "IMPORTE" },
                 { header: "Estado", width: 100, sortable: false, dataIndex: "ESTADO" },

@@ -35,6 +35,21 @@
             readOnly: true
         });
 
+        me.store_categoria = Ext.create('App.Store.Listas.StoreLista');
+        me.store_categoria.setExtraParam('ID_LISTA', Lista.Buscar('CATEGORIA_INGRESO'));
+
+        me.cbx_categoria = Ext.create("App.Config.Componente.ComboBase", {
+            fieldLabel: "Categoria Ingreso",
+            name: "CATEGORIA",
+            width: 480,
+            colspan: 2,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            store: me.store_categoria,
+            selectOnFocus: true
+        });
+
+
         me.txt_motivo = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Motivo",
             name: "MOTIVO",
@@ -82,6 +97,7 @@
         });
         me.items = [
            me.txt_nro_ingreso, me.date_fecha,
+           me.cbx_categoria,
            me.txt_motivo,
            me.cbx_caja, me.txt_moneda,
            me.txt_importe,
@@ -100,6 +116,14 @@
             fieldLabel: "Fecha",
             name: "FECHA",
         });
+
+        me.txt_categoria = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Categoria",
+            name: "CATEGORIA",
+            width: 480,
+            colspan: 2
+        });
+
         me.txt_concepto = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Motivo",
             name: "MOTIVO",
@@ -133,6 +157,7 @@
         });
         me.items = [
             me.txt_nro_recibo, me.date_fecha,
+            me.txt_categoria,
             me.txt_concepto,
             me.txt_caja, me.txt_moneda,
             me.txt_total,

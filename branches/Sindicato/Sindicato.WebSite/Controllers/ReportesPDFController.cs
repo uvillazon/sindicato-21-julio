@@ -486,6 +486,34 @@ namespace Elfec.SisMan.Presentacion.Controllers
             return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
         }
 
+        public ActionResult ReporteIngresosEgresosPorCategoria(string tipo, string CATEGORIA, string CATEGORIA_EGRESO, DateTime FECHA_INI, DateTime FECHA_FIN)
+        {
+            ReportesServices rep = new ReportesServices();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteIngresosPorCategoriaSinAgrupar.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteIngresoPorCategoria(CATEGORIA, FECHA_INI, FECHA_FIN));
+            localReport.DataSources.Add(reportDataSource);
+            ReportDataSource reportDataSource2 = new ReportDataSource("DataSet2", rep.ObtenerReporteEgresosPorCategoria(CATEGORIA_EGRESO, FECHA_INI, FECHA_FIN));
+            localReport.DataSources.Add(reportDataSource2);
+
+            
+            ReportParameter param = new ReportParameter("categoria", CATEGORIA);
+            ReportParameter param2 = new ReportParameter("categoria_egreso", CATEGORIA_EGRESO);
+            localReport.SetParameters(param);
+            localReport.SetParameters(param2);
+
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
+
         public ActionResult ReporteIngresosDetallePorCaja(string tipo, DateTime FECHA_INI, DateTime FECHA_FIN , string CONDICION = "")
         {
             ReportesServices rep = new ReportesServices();
@@ -615,6 +643,25 @@ namespace Elfec.SisMan.Presentacion.Controllers
             LocalReport localReport = new LocalReport();
             localReport.ReportPath = Server.MapPath("~/Reportes/ReporteTotalPrestamosV1.rdlc");
             ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteTotalPrestamos(FECHA_INI, FECHA_FIN));
+            localReport.DataSources.Add(reportDataSource);
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
+
+        public ActionResult ReportePrestamosTotalesV2(string tipo, DateTime FECHA_INI, DateTime FECHA_FIN)
+        {
+            ReportesServices rep = new ReportesServices();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteTotalPrestamosV2.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteTotalPrestamosV2(FECHA_INI, FECHA_FIN));
             localReport.DataSources.Add(reportDataSource);
             string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
             string mimeType;
@@ -943,6 +990,51 @@ namespace Elfec.SisMan.Presentacion.Controllers
             Byte[] renderedBytes;
             renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
             return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
+        //ReporteIngresosEgresosCategoria
+
+      
+
+        public ActionResult ReporteIngresosEgresosCategoria(string tipo, DateTime FECHA_INI, DateTime FECHA_FIN)
+        {
+            ReportesServices rep = new ReportesServices();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteIngresosEgresosCategoria.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteTotalIngresosCategorias( FECHA_INI, FECHA_FIN));
+            localReport.DataSources.Add(reportDataSource);
+            ReportDataSource reportDataSource2 = new ReportDataSource("DataSet2", rep.ObtenerReporteTotalEgresosCategorias(FECHA_INI, FECHA_FIN));
+            localReport.DataSources.Add(reportDataSource2);
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+
+
+            //ReportesServices rep = new ReportesServices();
+            //LocalReport localReport = new LocalReport();
+            //localReport.ReportPath = Server.MapPath("~/Reportes/ReporteKardexSocioMovil.rdlc");
+            //ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ReporteKardexMovilSocio(ID_SOCIO_MOVIL));
+            //localReport.DataSources.Add(reportDataSource);
+            //ReportDataSource reportDataSource2 = new ReportDataSource("DataSet2", rep.ReporteKardexMovil(ID_SOCIO_MOVIL));
+            //localReport.DataSources.Add(reportDataSource2);
+            //ReportDataSource reportDataSource3 = new ReportDataSource("DataSet3", rep.ReporteKardexNroMovil(ID_SOCIO_MOVIL));
+            //localReport.DataSources.Add(reportDataSource3);
+            //string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            //string mimeType;
+            //string encoding;
+            //string fileNameExtension;
+            //string deviceInfo = string.Empty;
+            //Warning[] warnings = new Warning[1];
+            //string[] streams = new string[1];
+            //Byte[] renderedBytes;
+            //renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            //return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
         }
     }
 }

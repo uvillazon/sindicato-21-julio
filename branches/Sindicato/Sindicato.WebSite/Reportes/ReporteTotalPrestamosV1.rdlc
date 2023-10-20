@@ -6,31 +6,37 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>5.37924cm</Width>
+              <Width>3.98754cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.99729cm</Width>
+              <Width>1.17842cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.53528cm</Width>
+              <Width>2.2638cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.29714cm</Width>
+              <Width>1.79999cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.28834cm</Width>
+              <Width>1.57692cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.39417cm</Width>
+              <Width>1.69333cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.91729cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.6016cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>2.15604cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.73271cm</Width>
+              <Width>1.24587cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.85619cm</Width>
+              <Width>1.40406cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -234,6 +240,72 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox40</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <BackgroundColor>LightGrey</BackgroundColor>
+                        <PaddingLeft>1pt</PaddingLeft>
+                        <PaddingRight>1pt</PaddingRight>
+                        <PaddingTop>1pt</PaddingTop>
+                        <PaddingBottom>1pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox41">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Pago Capital</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                                <FontWeight>Heavy</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox41</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <BackgroundColor>LightGrey</BackgroundColor>
+                        <PaddingLeft>1pt</PaddingLeft>
+                        <PaddingRight>1pt</PaddingRight>
+                        <PaddingTop>1pt</PaddingTop>
+                        <PaddingBottom>1pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox50">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Pago Interes</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                                <FontWeight>Heavy</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox50</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -526,6 +598,68 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>TOTAL_CONDONACIONES</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>1pt</PaddingLeft>
+                        <PaddingRight>1pt</PaddingRight>
+                        <PaddingTop>1pt</PaddingTop>
+                        <PaddingBottom>1pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="CAPITAL_CANCELADO">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!CAPITAL_CANCELADO.Value</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>CAPITAL_CANCELADO</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>1pt</PaddingLeft>
+                        <PaddingRight>1pt</PaddingRight>
+                        <PaddingTop>1pt</PaddingTop>
+                        <PaddingBottom>1pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="INTERES_CANCELADO">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!INTERES_CANCELADO.Value</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>INTERES_CANCELADO</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -838,6 +972,72 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
+                    <Textbox Name="CAPITAL_CANCELADO1">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Sum(Fields!CAPITAL_CANCELADO.Value)</Value>
+                              <Style>
+                                <FontStyle>Italic</FontStyle>
+                                <FontWeight>Heavy</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>CAPITAL_CANCELADO1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <BackgroundColor>LightGrey</BackgroundColor>
+                        <PaddingLeft>1pt</PaddingLeft>
+                        <PaddingRight>1pt</PaddingRight>
+                        <PaddingTop>1pt</PaddingTop>
+                        <PaddingBottom>1pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="INTERES_CANCELADO1">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Sum(Fields!INTERES_CANCELADO.Value)</Value>
+                              <Style>
+                                <FontStyle>Italic</FontStyle>
+                                <FontWeight>Heavy</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>INTERES_CANCELADO1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <BackgroundColor>LightGrey</BackgroundColor>
+                        <PaddingLeft>1pt</PaddingLeft>
+                        <PaddingRight>1pt</PaddingRight>
+                        <PaddingTop>1pt</PaddingTop>
+                        <PaddingBottom>1pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
                     <Textbox Name="TOTAL_CANCELADO1">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -950,6 +1150,8 @@
             <TablixMember />
             <TablixMember />
             <TablixMember />
+            <TablixMember />
+            <TablixMember />
           </TablixMembers>
         </TablixColumnHierarchy>
         <TablixRowHierarchy>
@@ -974,7 +1176,7 @@
         <Top>0.28787cm</Top>
         <Left>0.28788cm</Left>
         <Height>1.56187cm</Height>
-        <Width>22.6364cm</Width>
+        <Width>20.82486cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1429,7 +1631,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= First(Fields!TRANSFERENCIA_INGRESO.Value, "DataSet1") + First(Fields!AMORTIZACION.Value, "DataSet1") - ( Sum(Fields!IMPORTE_PRESTAMO.Value, "DataSet1") - Sum(Fields!IMPORTE_TOTAL.Value, "DataSet1") )- First(Fields!TRANSFERENCIA_EGRESO.Value, "DataSet1")</Value>
+                              <Value>= First(Fields!TRANSFERENCIA_INGRESO.Value, "DataSet1") + First(Fields!AMORTIZACION.Value, "DataSet1") - ( Sum(Fields!IMPORTE_PRESTAMO.Value, "DataSet1") -  Sum(Fields!MORA_CANCELADA.Value, "DataSet1") - Sum(Fields!IMPORTE_TOTAL.Value, "DataSet1") )- First(Fields!TRANSFERENCIA_EGRESO.Value, "DataSet1")</Value>
                               <Style>
                                 <FontStyle>Italic</FontStyle>
                                 <FontSize>8pt</FontSize>
@@ -1741,7 +1943,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=(Sum(Fields!IMPORTE_INTERES.Value, "DataSet1") - Sum(Fields!TOTAL_CONDONACIONES.Value, "DataSet1")  )-Sum(Fields!INTERES_CANCELADO.Value, "DataSet1")</Value>
+                              <Value>=Sum(Fields!IMPORTE_INTERES.Value, "DataSet1")-Sum(Fields!INTERES_CANCELADO.Value, "DataSet1") -Sum(Fields!TOTAL_CONDONACIONES.Value, "DataSet1")</Value>
                               <Style>
                                 <FontStyle>Italic</FontStyle>
                                 <FontSize>8pt</FontSize>
@@ -2053,7 +2255,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!MORA_A_PAGAR.Value</Value>
+                              <Value>=Sum(Fields!MORA_A_PAGAR.Value, "DataSet1")</Value>
                               <Style>
                                 <FontStyle>Italic</FontStyle>
                                 <FontSize>8pt</FontSize>
@@ -2157,7 +2359,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=  ( Sum(Fields!IMPORTE_PRESTAMO.Value, "DataSet1") - Sum(Fields!CAPITAL_CANCELADO.Value, "DataSet1") ) +  ( First(Fields!TRANSFERENCIA_INGRESO.Value, "DataSet1") + First(Fields!AMORTIZACION.Value, "DataSet1") - ( Sum(Fields!IMPORTE_PRESTAMO.Value, "DataSet1") - Sum(Fields!IMPORTE_TOTAL.Value, "DataSet1") )- First(Fields!TRANSFERENCIA_EGRESO.Value, "DataSet1") )  + First(Fields!TRANSFERENCIA_EGRESO.Value, "DataSet1")  + ( (Sum(Fields!IMPORTE_INTERES.Value, "DataSet1") - Sum(Fields!TOTAL_CONDONACIONES.Value, "DataSet1") )-Sum(Fields!INTERES_CANCELADO.Value, "DataSet1") )</Value>
+                              <Value>=  ( Sum(Fields!IMPORTE_PRESTAMO.Value, "DataSet1") - Sum(Fields!CAPITAL_CANCELADO.Value, "DataSet1") ) +  ( First(Fields!TRANSFERENCIA_INGRESO.Value, "DataSet1") + First(Fields!AMORTIZACION.Value, "DataSet1") - ( Sum(Fields!IMPORTE_PRESTAMO.Value, "DataSet1")   -  Sum(Fields!MORA_CANCELADA.Value, "DataSet1") - Sum(Fields!IMPORTE_TOTAL.Value, "DataSet1") )- First(Fields!TRANSFERENCIA_EGRESO.Value, "DataSet1") )  + First(Fields!TRANSFERENCIA_EGRESO.Value, "DataSet1")  + ( Sum(Fields!IMPORTE_INTERES.Value, "DataSet1")-Sum(Fields!INTERES_CANCELADO.Value, "DataSet1")-Sum(Fields!TOTAL_CONDONACIONES.Value, "DataSet1") ) +Sum(Fields!MORA_A_PAGAR.Value, "DataSet1") + Sum(Fields!TOTAL_CONDONACIONES.Value, "DataSet1")</Value>
                               <Style>
                                 <FontStyle>Italic</FontStyle>
                                 <FontSize>8pt</FontSize>
@@ -2282,7 +2484,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!IMPORTE_PRESTAMO.Value) + Sum(Fields!IMPORTE_INTERES.Value) -Sum(Fields!IMPORTE_TOTAL.Value)</Value>
+                              <Value>=Sum(Fields!IMPORTE_PRESTAMO.Value) + Sum(Fields!IMPORTE_INTERES.Value) + Sum(Fields!IMPORTE_MORA.Value, "DataSet1")   - Sum(Fields!IMPORTE_TOTAL.Value) - Sum(Fields!TOTAL_CONDONACIONES.Value) - Sum(Fields!MORA_CANCELADA.Value, "DataSet1")</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -2345,7 +2547,7 @@
     <Height>4.42393in</Height>
     <Style />
   </Body>
-  <Width>9.11609in</Width>
+  <Width>8.33875in</Width>
   <Page>
     <PageHeader>
       <Height>1.98437cm</Height>
@@ -2373,7 +2575,7 @@
           <rd:DefaultName>Textbox7</rd:DefaultName>
           <Top>0.36146cm</Top>
           <Height>0.6cm</Height>
-          <Width>20.53011cm</Width>
+          <Width>20.08561cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -2559,6 +2761,14 @@
           <DataField>ID_PAGO</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="NUMERO">
+          <DataField>NUMERO</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="CODIGO_GESTION">
+          <DataField>CODIGO_GESTION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="TOTAL_CANCELADO">
           <DataField>TOTAL_CANCELADO</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
@@ -2626,6 +2836,10 @@
         <Field Name="IMPORTE_INTERES">
           <DataField>IMPORTE_INTERES</DataField>
           <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="MORA_CANCELADA">
+          <DataField>MORA_CANCELADA</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="NRO_SEMANA">
           <DataField>NRO_SEMANA</DataField>
@@ -2722,6 +2936,50 @@
         <Field Name="MORA_A_PAGAR">
           <DataField>MORA_A_PAGAR</DataField>
           <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="CANCELADO">
+          <DataField>CANCELADO</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="PENDIENTE">
+          <DataField>PENDIENTE</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="TOTAL_POR_COBRAR_G_ANT">
+          <DataField>TOTAL_POR_COBRAR_G_ANT</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="SALDO_POR_COBRAR_G_ANT">
+          <DataField>SALDO_POR_COBRAR_G_ANT</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="CONDONACION_G_ANT">
+          <DataField>CONDONACION_G_ANT</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TOTAL_CANCELADO_G_ANT">
+          <DataField>TOTAL_CANCELADO_G_ANT</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TOTAL_MORA_G_ANT">
+          <DataField>TOTAL_MORA_G_ANT</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="SALDO_POR_PAGAR_MORA_G_ANT">
+          <DataField>SALDO_POR_PAGAR_MORA_G_ANT</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TOTAL_MORA_CANCELADO_G_ANT">
+          <DataField>TOTAL_MORA_CANCELADO_G_ANT</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="DIAS_ATRASOS">
+          <DataField>DIAS_ATRASOS</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="SALDO_CAPITAL">
+          <DataField>SALDO_CAPITAL</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>
