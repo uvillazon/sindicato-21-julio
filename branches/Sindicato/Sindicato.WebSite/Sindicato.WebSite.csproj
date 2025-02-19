@@ -4075,6 +4075,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reportes\Copia de ReporteCierreAhorro.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteEgresosDetalle.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteTopDeudores.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteTotalPrestamosPorGestion.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteTotalV1Prestamos.rdlc" />
@@ -4139,7 +4140,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>23532</DevelopmentServerPort>
+          <DevelopmentServerPort>50954</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
