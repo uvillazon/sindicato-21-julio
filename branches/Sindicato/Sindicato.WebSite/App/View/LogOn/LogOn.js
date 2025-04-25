@@ -15,7 +15,7 @@ Ext.onReady(function () {
         // The "name" attribute defines the name of variables sent to the server.
         items: [{
             itemId: 'loginField',
-            fieldLabel: 'Usuario',
+            fieldLabel: 'Usuario1',
             name: 'loginUsername',
             allowBlank: false
         }, {
@@ -52,6 +52,7 @@ Ext.onReady(function () {
         resizable: false,
         plain: true,
         border: false,
+        bodyStyle: 'background-color: #f0f0f0;',  // Color de fondo
         items: [login]
     });
     win.show();

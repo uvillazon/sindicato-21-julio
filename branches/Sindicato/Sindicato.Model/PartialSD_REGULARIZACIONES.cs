@@ -8,6 +8,7 @@ namespace Sindicato.Model
 {
     public partial class SD_REGULARIZACIONES
     {
+        public string CON_AHORRO { get; set; }
         public static Expression<Func<SD_REGULARIZACIONES, bool>> Contiene(string contiene)
         {
             List<int> id = new List<int>();

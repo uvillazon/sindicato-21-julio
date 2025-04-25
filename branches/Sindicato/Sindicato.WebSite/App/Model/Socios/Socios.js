@@ -10,6 +10,7 @@
         { type: "string", name: "TIPO_MOVIL" },
         { type: "string", name: "NOMBRE" },
         { type: "string", name: "NOMBRE_SOCIO" },
+        { type: "string", name: "NRO_MOVILES" },
         
         { type: "string", name: "APELLIDO_PATERNO" },
         { type: "string", name: "APELLIDO_MATERNO" },

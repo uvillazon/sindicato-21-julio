@@ -2586,7 +2586,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -2646,7 +2645,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>REPORTE PRESTAMOS LINEA 132</Value>
+                  <Value>REPORTE PRESTAMOS</Value>
                   <Style>
                     <FontWeight>Heavy</FontWeight>
                   </Style>

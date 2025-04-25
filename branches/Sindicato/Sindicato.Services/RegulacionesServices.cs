@@ -50,7 +50,7 @@ namespace Sindicato.Services
                 var context = (SindicatoContext)uow.Context;
                 ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
 
-                context.P_SD_GUARDAR_REGULACION(regulacion.ID_SOCIO_MOVIL,regulacion.ID_PARADA,regulacion.FECHA_COMPRA,regulacion.MES.ToString("MM-yyyy"),regulacion.CANTIDAD, login, p_res);
+                context.P_SD_GUARDAR_REGULACION(regulacion.ID_SOCIO_MOVIL,regulacion.ID_PARADA,regulacion.FECHA_COMPRA,regulacion.CON_AHORRO,regulacion.MES.ToString("MM-yyyy"),regulacion.CANTIDAD, login, p_res);
                 int id;
                 bool esNumero = int.TryParse(p_res.Value.ToString(), out id);
                 if (esNumero)

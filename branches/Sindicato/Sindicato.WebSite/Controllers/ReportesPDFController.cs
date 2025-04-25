@@ -6,6 +6,11 @@ using System.Web;
 using System.Web.Mvc;
 using Sindicato.WebSite.Reportes;
 using Sindicato.Services;
+using System.Drawing;
+using System.IO;
+using System.Net;
+using QRCoder;
+
 
 namespace Elfec.SisMan.Presentacion.Controllers
 {
@@ -15,6 +20,30 @@ namespace Elfec.SisMan.Presentacion.Controllers
         //
         // GET: /ReportesPDF/
 
+        public byte[] GenerateQRCodeImage(string text)
+        {
+            // Inicializa el generador de código QR
+            using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
+            {
+                // Crea un objeto de código QR basado en el texto
+                QRCodeData qrCodeData = qrGenerator.CreateQrCode(text, QRCodeGenerator.ECCLevel.Q);
+
+                // Convierte el código QR en imagen
+                using (QRCode qrCode = new QRCode(qrCodeData))
+                {
+                    using (Bitmap qrBitmap = qrCode.GetGraphic(20))  // El valor 20 define el tamaño
+                    {
+                        using (MemoryStream stream = new MemoryStream())
+                        {
+                            qrBitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                            return stream.ToArray();  // Devuelve el byte[] de la imagen
+                        }
+                    }
+                }
+            }
+        }
+
+       
 
         public ActionResult ReporteSocioMovilHoja(string tipo)
         {
@@ -106,10 +135,30 @@ namespace Elfec.SisMan.Presentacion.Controllers
         }
         protected void ReporteHoja_SubreportProcessing(object sender, SubreportProcessingEventArgs e)
         {
+            //ReporteSource rep = new ReporteSource();
+            //int id_hoja = int.Parse(e.Parameters["ID_HOJA"].Values.First());
+            
+            //ReportDataSource reportDataSource = new ReportDataSource("DataSetHoja", rep.ReporteHoja(id_hoja));
+            ////int[] OrderNumbers = GetOrderNumbers();
+            //e.DataSources.Add(reportDataSource);
+
             ReporteSource rep = new ReporteSource();
             int id_hoja = int.Parse(e.Parameters["ID_HOJA"].Values.First());
-            ReportDataSource reportDataSource = new ReportDataSource("DataSetHoja", rep.ReporteHoja(id_hoja));
-            //int[] OrderNumbers = GetOrderNumbers();
+
+            // Obtener los datos como una lista
+            var reportList = rep.ReporteHoja(id_hoja);
+
+            //File   ("C:\\temp\\qrcode.png", qrCodeImage);
+
+            // Añadir el código QR a cada elemento en la lista
+            foreach (var reportItem in reportList)
+            {
+                string qrContent = reportItem.FECHA_COMPRA.ToString("dd/MM/yyyy") + "|" + id_hoja + "|" + reportItem.NUMERO ;
+                byte[] qrCodeImage = GenerateQRCodeImage(qrContent);
+                reportItem.QRCode = qrCodeImage; // Asumiendo que tienes una propiedad QRCode en tu modelo
+            }
+            // Pasar el DataSet modificado al subreporte
+            ReportDataSource reportDataSource = new ReportDataSource("DataSetHoja", reportList);
             e.DataSources.Add(reportDataSource);
         }
 
@@ -230,6 +279,26 @@ namespace Elfec.SisMan.Presentacion.Controllers
             LocalReport localReport = new LocalReport();
             localReport.ReportPath = Server.MapPath("~/Reportes/ReporteEgreso.rdlc");
             ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteEgreso(ID_EGRESO));
+            localReport.DataSources.Add(reportDataSource);
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
+
+        public ActionResult ReporteOtrosIngresos(string tipo, int ID_INGRESO)
+        {
+
+            ReportesServices rep = new ReportesServices();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteOtroIngreso.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteOtroIngreso(ID_INGRESO));
             localReport.DataSources.Add(reportDataSource);
             string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
             string mimeType;

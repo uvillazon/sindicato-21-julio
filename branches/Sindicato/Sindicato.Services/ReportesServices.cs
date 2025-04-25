@@ -149,6 +149,37 @@ namespace Sindicato.Services
 
         }
 
+        public IEnumerable<ReporteRegulaciones> ObtenerReporteOtroIngreso(int ID_INGRESO)
+        {
+            List<ReporteRegulaciones> result = new List<ReporteRegulaciones>();
+            NumLetra n = new NumLetra();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_INGRESOSManager(uow);
+                var kardex = manager.BuscarTodos(x => x.ID_INGRESO == ID_INGRESO);
+                foreach (var item in kardex)
+                {
+                    var kar = new ReporteRegulaciones()
+                    {
+                        ID_REGULACION = item.ID_INGRESO,
+                        CANTIDAD = 1,
+                        FECHA_COMPRA = item.FECHA,
+                        IMPORTE_OBLIGACION = item.IMPORTE,
+                        OBLIGACION = item.CONCEPTO,
+                        CONCEPTO = item.OBSERVACION,
+                        CAJA = string.Format("{0} : {1}", item.SD_CAJAS.CODIGO, item.SD_CAJAS.NOMBRE),
+                        TOTAL = item.IMPORTE,
+                        TOTAL_LITERAL = n.Convertir(item.IMPORTE.ToString(), true, item.SD_CAJAS.MONEDA)
+                    };
+                    result.Add(kar);
+                }
+
+            });
+
+            return result;
+
+        }
+
         public IEnumerable<RepoteDetalleHojas> ObtenerReporteDetalleHoja(DateTime FECHA_INI, DateTime FECHA_FIN)
         {
             List<RepoteDetalleHojas> result = new List<RepoteDetalleHojas>();
@@ -216,10 +247,18 @@ namespace Sindicato.Services
                 var managerIngresosSocios = new SD_INGRESOS_POR_SOCIOSManager(uow);
                 var managerRegulaciones = new SD_DETALLES_REGULARIZACIONESManager(uow);
                 var managerObligaciones = new SD_OBLIGACIONES_HOJAManager(uow);
+                var managerRetiros = new SD_RETIRO_SOCIO_MOVILManager(uow);
 
                 DateTime Fecha_fin = FECHA_FIN.AddDays(1);
                 var hojas = managerHojas.BuscarTodos(x => x.FECHA_COMPRA >= FECHA_INI && x.FECHA_COMPRA < Fecha_fin && x.ESTADO != "ANULADO").OrderBy(x => x.ID_HOJA);
                 var hojasAnuladas = managerHojas.BuscarTodos(x => x.FECHA_COMPRA >= FECHA_INI && x.FECHA_COMPRA < Fecha_fin && x.ESTADO == "ANULADO").OrderBy(x => x.ID_HOJA);
+                var cntRetiro = managerRetiros.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO").Count();
+                decimal retiroSocios =0;
+                if (cntRetiro > 0)
+                {
+                     retiroSocios = managerRetiros.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO").Sum(y => y.RETIRO);
+                }
+                
 
                 var detallesHojas = managerDetallesHojas.BuscarTodos(x => x.SD_HOJAS_CONTROL.FECHA_COMPRA < Fecha_fin && x.SD_HOJAS_CONTROL.FECHA_COMPRA >= FECHA_INI && x.SD_HOJAS_CONTROL.ESTADO != "ANULADO");
 
@@ -321,6 +360,7 @@ namespace Sindicato.Services
                     item.FECHA_FIN = FECHA_FIN;
                     item.TOTAL_AHORRO = total;
                     item.TOTAL_CANTIDAD = hojas.Count() + cant_reg;
+                    item.TOTAL_RETIROS = retiroSocios;
 
                 }
             });
@@ -417,7 +457,7 @@ namespace Sindicato.Services
                     rep.NRO_RECIBO = item.OBLIGACION;
                     //rep.NRO_RECIBO = "VENTAS DE HOJAS";
                     rep.SUBDETALLE = "VENTA DE HOJAS";
-                    rep.DETALLE = item.OBLIGACION == "AHORRO" ? "AHOROS" : "APORTE LINEA 132";
+                    rep.DETALLE = item.OBLIGACION == "AHORRO" ? "AHORROS" : "APORTE LINEA";
                     rep.NRO_RECIBO = item.OBLIGACION == "APORTE SINDICATO" ? "APORTE LINEA" : item.OBLIGACION;
                     //rep.DETALLE = "VENTAS DE HOJAS";
                     //rep.SUBDETALLE = item.OBLIGACION;
@@ -455,7 +495,7 @@ namespace Sindicato.Services
 
                     //rep.NRO_RECIBO = "REGULARIZACIONES";
                     //rep.NRO_RECIBO = item.OBLIGACION == "AHORRO" ? "AHOROS" : "APORTE SINDICATO";
-                    rep.DETALLE = item.OBLIGACION == "AHORRO" ? "AHOROS" : "APORTE LINEA 132";
+                    rep.DETALLE = item.OBLIGACION == "AHORRO" ? "AHOROS" : "APORTE LINEA";
 
                     rep.NRO_RECIBO = item.OBLIGACION == "APORTE SINDICATO" ? "APORTE LINEA" : item.OBLIGACION;
                     //rep.NRO_RECIBO = "VENTAS DE HOJAS";
@@ -801,7 +841,7 @@ namespace Sindicato.Services
                         FECHA_INI = FECHA_INI,
                         FECHA_FIN = FECHA_FIN,
                         FECHA_LIMITE = item.FECHA_LIMITE_PAGO,
-                        ID_PRESTAMO = item.ID_PRESTAMO,
+                        ID_PRESTAMO = (int)item.NUMERO,
                         CAJA = item.SD_CAJAS.NOMBRE,
                         MOVIL = item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
                         IMPORTE_PRESTAMO = item.IMPORTE_PRESTAMO,

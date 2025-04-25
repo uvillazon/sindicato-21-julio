@@ -44,21 +44,41 @@ namespace Sindicato.Business
                 decimal capitaltotal = (decimal)pres.IMPORTE_PRESTAMO;
                 decimal interes_a_pagar = 0;
                 decimal importe_a_pagar = 0;
+                decimal interes_restante = interes; 
                 for (int i = 1; i <= pres.SEMANAS; i++)
                 {
-                    if (i == pres.SEMANAS)
+                    //if (i == pres.SEMANAS)
+                    //{
+                    //    interes_a_pagar = interes;
+                    //    importe_a_pagar = capitaltotal;
+                    //}
+                    //else
+                    //{
+                    //    interes_a_pagar = Math.Round((decimal)pres.IMPORTE_INTERES / pres.SEMANAS, 0);
+                    //    importe_a_pagar = Math.Round((decimal)pres.IMPORTE_PRESTAMO / pres.SEMANAS, 0);
+                    //    //if (i == 1)
+                    //    //{
+                    //    //    importe_a_pagar = importe_a_pagar +9;
+                    //    //}
+                    //}
+
+                    if (i == 1)
                     {
-                        interes_a_pagar = interes;
+                        // Calcular el interés más alto en la primera cuota
+                        interes_a_pagar = Math.Round(interes / pres.SEMANAS, 0) + (interes - Math.Round(interes / pres.SEMANAS, 0) * pres.SEMANAS);
+                        importe_a_pagar = Math.Round((decimal)pres.IMPORTE_PRESTAMO / pres.SEMANAS, 0) + (pres.IMPORTE_PRESTAMO - Math.Round(pres.IMPORTE_PRESTAMO / pres.SEMANAS, 0) * pres.SEMANAS);
+                    }
+                    else if (i == pres.SEMANAS)
+                    {
+                        // En la última cuota, asignar el saldo restante
+                        interes_a_pagar = interes_restante;
                         importe_a_pagar = capitaltotal;
                     }
                     else
                     {
-                        interes_a_pagar = Math.Round((decimal)pres.IMPORTE_INTERES / pres.SEMANAS, 0);
+                        // Cuotas intermedias
+                        interes_a_pagar = Math.Round(interes / pres.SEMANAS, 0);
                         importe_a_pagar = Math.Round((decimal)pres.IMPORTE_PRESTAMO / pres.SEMANAS, 0);
-                        if (i == 1)
-                        {
-                            importe_a_pagar = importe_a_pagar +9;
-                        }
                     }
 
                     SD_PLAN_DE_PAGO plan = new SD_PLAN_DE_PAGO();
@@ -78,8 +98,11 @@ namespace Sindicato.Business
                     plan.ESTADO = "NUEVO";
                     Add(plan);
 
-                    interes = interes - interes_a_pagar;
-                    capitaltotal = capitaltotal - importe_a_pagar;
+                    //interes = interes - interes_a_pagar;
+                    //capitaltotal = capitaltotal - importe_a_pagar;
+
+                    interes_restante -= interes_a_pagar; // Actualizar el interés restante
+                    capitaltotal -= importe_a_pagar; // Actualizar el capital total
 
 
                 }

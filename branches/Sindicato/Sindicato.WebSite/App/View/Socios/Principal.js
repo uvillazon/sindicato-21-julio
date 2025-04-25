@@ -40,6 +40,8 @@
         me.btn_crearMovil = Funciones.CrearMenu('btn_BajaMovil', 'Baja Movil', Constantes.ICONO_BAJA, me.EventosPrincipal, me.toolbar, this, null, true);
         //me.btn_transferenciasHojas = Funciones.CrearMenu('btn_TransferenciasHojas', 'Transferencias Hojas', 'arrow_refresh_small', me.EventosPrincipal, me.toolbar, this, null, true);
         me.btn_crearImagen = Funciones.CrearMenu('btn_Imagen', 'Imagen', 'image_add', me.EventosPrincipal, me.toolbar, this, null, true);
+
+        me.btn_solo_socios = Funciones.CrearMenu('btn_MostrarSoloSocios', 'Ver Solo Socios', 'group', me.EventosPrincipal, me.toolbar, this);
         //me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_editar, me.btn_crearMovil, me.btn_editarMovil, me.btn_crearImagen]);
         me.grid.addDocked(me.toolbar, 1);
 
@@ -182,6 +184,8 @@
             case "btn_Kardex":
                 me.VentanaKardex();
                 break;
+            case "btn_MostrarSoloSocios":
+                me.VerGridSoloSocios();
             case "btn_EliminarSocio":
                 Funciones.AjaxRequestGrid("Socios", "EliminarSocio", me.grid, "Se eliminara todos los registros asociados al socio Esta seguro que desea continuar?", { ID_SOCIO: me.grid.record.get('ID_SOCIO') }, me.grid, null);
                 break;
@@ -280,5 +284,17 @@
         });
         win.add(grid);
         win.show();
+    },
+    VerGridSoloSocios: function () {
+        var me = this;
+        var win = Ext.create("App.Config.Abstract.Window", { botones: false });
+        var grid = Ext.create("App.View.Socios.GridSoloSocios", {
+            region: 'center',
+            width: 800,
+            height: 450,
+        });
+        win.add(grid);
+        win.show();
+        
     }
 });

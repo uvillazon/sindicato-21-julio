@@ -24,7 +24,7 @@ namespace Sindicato.WebSite.Controllers
             _serImg = serImg;
         }
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult ObtenerSociosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
+        public ActionResult ObtenerSociosPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad,string CON_AHORRO)
         {
             entidad.ESTADO = entidad.ESTADO == null ? "ACTIVO" : entidad.ESTADO== "TODOS"? null : entidad.ESTADO;
             //entidad.ESTADO = "ACTIVO";
@@ -63,7 +63,8 @@ namespace Sindicato.WebSite.Controllers
                 ID_IMG = _serImg.ConImagen(x.ID_SOCIO, "SD_SOCIOS"),
                 SALDO = x.SALDO,
                 DEUDA = x.SD_SOCIOS.DEUDA,
-                PRECIO_HOJA = x.SD_SOC_MOV_OBLIG.Count() > 0 ? x.SD_SOC_MOV_OBLIG.Sum(y => y.IMPORTE) : 0,
+                PRECIO_HOJA = x.SD_SOC_MOV_OBLIG.Count() > 0 ? CON_AHORRO == "NO" ? x.SD_SOC_MOV_OBLIG.Where(y => y.ID_OBLIGACION !=1).Sum(y => y.IMPORTE)  : x.SD_SOC_MOV_OBLIG.Sum(y => y.IMPORTE) : 0,
+                //PRECIO_HOJA = x.obtenerPrecioHoja(entidad.CON_AHORRO),
                 DEBE_HOJA = x.obtenerDebe()
                 //ID_IMG = 
             });
@@ -91,7 +92,7 @@ namespace Sindicato.WebSite.Controllers
                 DOMICILIO = x.DOMICILIO,
                 OBSERVACION = x.OBSERVACION,
                 ESTADO_CIVIL = x.ESTADO_CIVIL,
-
+                NRO_MOVILES = x.SD_SOCIO_MOVILES.Count > 0 ? string.Join(  ", " ,x.SD_SOCIO_MOVILES.Where(y=>y.ESTADO!="ANULADO").Select(z=>z.SD_MOVILES.NRO_MOVIL)) : "",
                 FECHA_BAJA = x.FECHA_BAJA,
                 TELEFONO = x.TELEFONO,
                 CELULAR = x.CELULAR,

@@ -311,7 +311,7 @@ namespace Sindicato.Services
                     result.Add(res);
                 }
 
-                var detallesRetiros = managerRetiros.BuscarTodos(x => x.ESTADO == "NUEVO" && x.FECHA >= FECHA_INI && x.FECHA < fecha_fin).GroupBy(y => new { y.SD_CAJAS.CODIGO, y.ID_CAJA , y.SD_CAJAS.MONEDA });
+                var detallesRetiros = managerRetiros.BuscarTodos(x => x.ESTADO == "NUEVO" && x.FECHA >= FECHA_INI && x.FECHA < fecha_fin).GroupBy(y => new { y.SD_CAJAS.CODIGO, y.ID_CAJA, y.SD_CAJAS.MONEDA });
                 foreach (var item in detallesRetiros)
                 {
                     CierreCajaModel res = new CierreCajaModel()
@@ -354,6 +354,117 @@ namespace Sindicato.Services
                 MONEDA = y.Key.MONEDA,
                 SALDO = y.Sum(z => z.SALDO)
             });
+        }
+
+        public IEnumerable<SD_CAJAS_CIERRES> ObtenerCierresCajasParcialesPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)
+        {
+            IQueryable<SD_CAJAS_CIERRES> result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_CAJAS_CIERRESManager(uow);
+
+                result = manager.BuscarTodos();
+                filtros.FiltrarDatos();
+                result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+                paginacion.total = result.Count();
+
+                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
+
+            });
+            return result;
+        }
+
+        public IEnumerable<SD_DETALLE_CAJA_CIERRE> ObtenerCierresCajasParcialesDetallesPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)
+        {
+            IQueryable<SD_DETALLE_CAJA_CIERRE> result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_DETALLE_CAJA_CIERREManager(uow);
+
+                result = manager.BuscarTodos();
+                filtros.FiltrarDatos();
+                result = filtros.Diccionario.Count() > 0 ? result.Where(filtros.Predicado, filtros.Diccionario.Values.ToArray()) : result;
+                paginacion.total = result.Count();
+
+                result = manager.QueryPaged(result, paginacion.limit, paginacion.start, paginacion.sort, paginacion.dir);
+
+            });
+            return result;
+        }
+
+
+
+        public SD_CAJAS_CIERRES ObtenerUltimoRegistroCajasCierre(int ID_CAJA)
+        {
+            SD_CAJAS_CIERRES result = null;
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_CAJAS_CIERRESManager(uow);
+                var managerKardex = new SD_KARDEX_EFECTIVOManager(uow);
+
+                result = manager.BuscarTodos(x => x.ID_CAJA == ID_CAJA).OrderByDescending(x => x.ID_CIERRE).FirstOrDefault();
+
+            });
+            return result;
+        }
+
+        public IEnumerable<CierreCajaModel> ObtenerCierreCajaParcialGenerado(int ID_CAJA, DateTime FECHA_INI, DateTime FECHA_FIN)
+        {
+            List<CierreCajaModel> result = new List<CierreCajaModel>();
+            ExecuteManager(uow =>
+            {
+                var managerCaja = new SD_CAJASManager(uow);
+                var managerPrestamos = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
+                var managerPagosPrestamos = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                var managerEgresos = new SD_EGRESOSManager(uow);
+                var managerIngresos = new SD_INGRESOSManager(uow);
+                var managerTransferencias = new SD_TRANSFERENCIASManager(uow);
+                var managerKardex = new SD_KARDEX_EFECTIVOManager(uow);
+
+
+                string msg = "";
+                decimal saldo = 0;
+
+                DateTime fecha_fin = FECHA_FIN.AddDays(1);
+                var ultimo = ObtenerUltimoRegistroCajasCierre(ID_CAJA);
+                if (ultimo == null)
+                {
+                    saldo = 0;
+                }
+                else
+                {
+                    CierreCajaModel res = new CierreCajaModel()
+                    {
+                        FECHA = ultimo.FECHA_FIN,
+                        DETALLE = "SALDO CIERRE ANTERIOR",
+                        IMPORTE = ultimo.SALDO_FINAL,
+                        SALDO = saldo + ultimo.SALDO_FINAL
+
+                    };
+                    saldo = saldo + (decimal)ultimo.SALDO_FINAL;
+                    result.Add(res);
+                }
+                var detalles = managerKardex.BuscarTodos(x => x.ID_CAJA == ID_CAJA && x.FECHA >= FECHA_INI && x.FECHA < fecha_fin).OrderBy(y => y.FECHA).ThenBy(y => y.ID_KARDEX);
+                foreach (var item in detalles)
+                {
+                    CierreCajaModel res = new CierreCajaModel()
+                       {
+                           FECHA = item.FECHA,
+                           DETALLE = item.DETALLE,
+                           IMPORTE = item.INGRESO > 0 ? item.INGRESO : -item.EGRESO,
+                           SALDO = saldo + (item.INGRESO > 0 ? item.INGRESO : -item.EGRESO)
+
+                       };
+                    saldo = saldo + (decimal)res.IMPORTE;
+                    result.Add(res);
+                }
+
+
+                //falta transferencias egresos y retiros egresso
+
+            });
+            return result;
+
         }
 
         //public IEnumerable<SD_CIERRES> ObtenerCierresPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros)

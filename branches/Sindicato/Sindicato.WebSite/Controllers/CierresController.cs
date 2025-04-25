@@ -249,23 +249,23 @@ namespace Sindicato.WebSite.Controllers
                 FECHA_REG = x.FECHA_REG,
                 HABER = x.HABER,
                 ID_DETALLE = x.ID_DETALLE,
-                TIPO = x.TIPO ,
-                TOTAL_CANCELADO =x.TOTAL_CANCELADO,
-                TOTAL_CONDONACION_INTERES = x.TOTAL_CONDONACION_INTERES ,
-                TOTAL_INTERES =x.TOTAL_INTERES,
-                TOTAL_INTERES_CANCELADO = x.TOTAL_INTERES_CANCELADO ,
+                TIPO = x.TIPO,
+                TOTAL_CANCELADO = x.TOTAL_CANCELADO,
+                TOTAL_CONDONACION_INTERES = x.TOTAL_CONDONACION_INTERES,
+                TOTAL_INTERES = x.TOTAL_INTERES,
+                TOTAL_INTERES_CANCELADO = x.TOTAL_INTERES_CANCELADO,
                 TOTAL_MORA_CANCELADO = x.TOTAL_MORA_CANCELADO,
                 TOTAL_MORAS = x.TOTAL_MORAS,
                 TOTAL_PRESTAMO = x.TOTAL_PRESTAMO,
-                CANTIDAD =  x.CANT_PREST_CANCELADOS + x.CANT_PREST_POR_COBRAR,
-                TOTAL_POR_COBRAR = (x.TOTAL_PRESTAMO + x.TOTAL_INTERES +  x.TOTAL_MORAS) - (x.TOTAL_CANCELADO + x.TOTAL_MORA_CANCELADO + x.TOTAL_CONDONACION_INTERES)
+                CANTIDAD = x.CANT_PREST_CANCELADOS + x.CANT_PREST_POR_COBRAR,
+                TOTAL_POR_COBRAR = (x.TOTAL_PRESTAMO + x.TOTAL_INTERES + x.TOTAL_MORAS) - (x.TOTAL_CANCELADO + x.TOTAL_MORA_CANCELADO + x.TOTAL_CONDONACION_INTERES)
 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
             return JavaScript(callback1);
         }
-        
+
 
         [HttpPost]
         public JsonResult GenerarCierreGestion()
@@ -278,15 +278,87 @@ namespace Sindicato.WebSite.Controllers
 
         }
 
-         [HttpPost]
+        [HttpPost]
         public JsonResult GuardarCierreGestion(SD_GESTION cierre, decimal DISPONIBLE, decimal POR_COBRAR, string CODIGO_NUEVO, string DESCRIPCION_NUEVA_GESTION)
         {
             string login = User.Identity.Name.Split('-')[0];
             RespuestaSP respuestaSP = new RespuestaSP();
             cierre.SALDO_A_FAVOR = DISPONIBLE;
             cierre.SALDO_POR_COBRAR = POR_COBRAR;
-            respuestaSP = _serCierreGestion.GuardarCierreGestion(cierre, CODIGO_NUEVO ,DESCRIPCION_NUEVA_GESTION, login);
+            respuestaSP = _serCierreGestion.GuardarCierreGestion(cierre, CODIGO_NUEVO, DESCRIPCION_NUEVA_GESTION, login);
             return Json(respuestaSP);
+        }
+
+        #endregion
+
+        #region Cierre de cajas Parciales
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerCierresCajasParcialesPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var socios = _serCierreCaja.ObtenerCierresCajasParcialesPaginados(paginacion, filtros);
+            var formatData = socios.Select(x => new
+            {
+                ID_CIERRE = x.ID_CIERRE,
+                ESTADO = x.ESTADO,
+                FECHA_FIN = x.FECHA_FIN,
+                OBSERVACION = x.OBSERVACION,
+                FECHA_INI = x.FECHA_INI,
+                FECHA_REG = x.FECHA_REG,
+                SALDO_INICIAL = x.SALDO_INICIAL,
+                SALDO_FINAL = x.SALDO_FINAL,
+                LOGIN = x.LOGIN,
+                CAJA = x.SD_CAJAS.NOMBRE
+
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
+
+        public ActionResult ObtenerDetallesCierreCajaParcialesPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros, SociosModel entidad)
+        {
+            filtros.Entidad = entidad;
+            var socios = _serCierreCaja.ObtenerCierresCajasParcialesDetallesPaginados(paginacion, filtros);
+            var formatData = socios.Select(x => new
+            {
+                ID_CIERRE = x.ID_CIERRE,
+                SALDO = x.SALDO,
+                FECHA_REG = x.FECHA_REG,
+                ID_DETALLE = x.ID_DETALLE,
+                DETALLE = x.DETALLE,
+                IMPORTE = x.IMPORTE,
+                LOGIN = x.LOGIN,
+                FECHA = x.FECHA
+
+            });
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = formatData, Total = paginacion.total }) + ");";
+            return JavaScript(callback1);
+        }
+        [HttpGet]
+        public JsonResult ObtenerUltimoRegistroCajasCierre(int ID_CAJA)
+        {
+            var cierre = _serCierreCaja.ObtenerUltimoRegistroCajasCierre(ID_CAJA);
+            if (cierre != null)
+            {
+                return Json(new { disabled = true, saldo = cierre.SALDO_FINAL, value = String.Format("{0:dd/MM/yyyy}", cierre.FECHA_FIN.AddDays(1)) }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { disabled = false, saldo = 0 }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ObtenerDetalleCierreCajaPacialGenerado(PagingInfo paginacion, int ID_CAJA ,DateTime FECHA_DESDE, DateTime FECHA_HASTA)
+        {
+            var detalles = _serCierreCaja.ObtenerCierreCajaParcialGenerado(ID_CAJA, FECHA_DESDE, FECHA_HASTA);
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = detalles, Total = detalles.Count() }) + ");";
+            return JavaScript(callback1);
         }
 
         #endregion

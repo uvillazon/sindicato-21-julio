@@ -2,5 +2,5 @@
     extend: 'App.Config.Abstract.Store',
     model: 'App.Model.RetirosSocio.Retiros',
     url: 'Socios/ObtenerRetirosPaginados',
-    sortProperty: 'FECHA'
+    sortProperty: 'ID_RETIRO'
 });

@@ -107,6 +107,17 @@ namespace Sindicato.WebSite.Controllers
 
             return objResult;
         }
+
+        [HttpPost]
+        public JsonResult EliminarImagen(int ID_IMG)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _servicio.EliminarImagen(ID_IMG, ID_IMG);
+            return Json(respuestaSP);
+        }
+
+
         [AcceptVerbs(HttpVerbs.Get)]
         public FileResult VerImagen(int id, int tamano, string TABLA = null)
         {

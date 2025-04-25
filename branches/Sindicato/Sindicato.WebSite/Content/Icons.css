@@ -1008,6 +1008,10 @@
 .zoom { background-image: url(Iconos/zoom.png) !important; }
 .zoom_in { background-image: url(Iconos/zoom_in.png) !important; }
 .zoom_out { background-image: url(Iconos/zoom_out.png) !important; }
+.contenedor-de-basura { background-image: url(Iconos/contenedor-de-basura.png) !important;}
+
+.adjunto-archivo { background-image: url(Iconos/adjunto-archivo.png) !important;}
+
 
 .column-chart-icon { background-image: url(Iconos48/column-chart-icon.png) !important}
 .Actions-view-pim-contacts-icon { background-image: url(Iconos48/Actions-view-pim-contacts-icon.png) !important;}
@@ -1027,3 +1031,4 @@
 .car-icon { background-image: url(Iconos48/car-icon.png) !important;}
 .Cash-register-icon { background-image: url(Iconos48/Cash-register-icon.png) !important;}
 .Calendar-icon { background-image: url(Iconos48/Calendar-icon.png) !important;}
+

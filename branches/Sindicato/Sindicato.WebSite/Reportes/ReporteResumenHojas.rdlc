@@ -1010,7 +1010,7 @@
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>TOTAL</Value>
+                            <Value>TOTAL  INGRESOS</Value>
                             <Style>
                               <FontStyle>Italic</FontStyle>
                               <FontSize>8pt</FontSize>

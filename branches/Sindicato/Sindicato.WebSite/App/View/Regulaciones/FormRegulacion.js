@@ -1,4 +1,4 @@
-﻿Ext.define("App.View.Regulaciones.FormRegulacion", {
+﻿    Ext.define("App.View.Regulaciones.FormRegulacion", {
     extend: "App.Config.Abstract.Form",
     columns: 2,
     title: 'Datos de Regulacion de Hojas de Control',
@@ -28,6 +28,15 @@
             else {
                 me.num_precio.setValue(rec[0].get('PRECIO_HOJA'));
             }
+        });
+
+        me.cbx_con_ahorro.on('select', function (cbx, rec) {
+            me.cbx_socio.reset();
+            me.txt_nor_movil.reset();
+            me.txt_socio.reset();
+            me.num_precio.reset();
+            me.cbx_socio.getStore().setExtraParams({ CON_AHORRO: cbx.getValue() });
+            me.cbx_socio.getStore().load();
         });
 
 
@@ -78,12 +87,24 @@
             name: "MES",
             format: 'm-Y',
             submitFormat: 'd/m/Y',
-            colspan : 2,
+            colspan : 1,
             //            readOnly : true,
             //colspan: 2,
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
             //readOnly: true
+        });
+
+        me.cbx_con_ahorro = Ext.create("App.Config.Componente.ComboBase", {
+            fieldLabel: "Con Ahorro",
+            name: "CON_AHORRO",
+            width: 240,
+            maxLength: 10,
+            colspan: 1,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+            value : 'SI',
+            store: ["SI", "NO"]
         });
 
         //me.txt_parada = Ext.create("App.Config.Componente.TextFieldBase", {
@@ -179,7 +200,7 @@
             me.txt_id_parada,
             me.date_fecha_compra,
             //me.cbx_parada,
-            me.date_fecha,
+            me.date_fecha, me.cbx_con_ahorro,
              //me.txt_caja,
             me.cbx_socio, me.txt_nor_movil,
             me.txt_socio,

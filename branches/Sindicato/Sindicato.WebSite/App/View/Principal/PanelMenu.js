@@ -73,7 +73,9 @@
             var menubtn = Ext.create('Ext.Button',{
                 text: menu.text,
                 iconCls: menu.iconCls,
-                cls: 'botonesBtnGray',
+                //cls: 'botonesBtnGray',
+                cls: 'botonesBtnRed',
+                
                 iconAlign: 'top',
                 textAlign : 'center',
                 scale: 'button48',

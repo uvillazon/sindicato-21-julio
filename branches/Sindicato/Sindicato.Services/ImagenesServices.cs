@@ -102,6 +102,38 @@ namespace Sindicato.Services
             return result;
         }
 
+        public RespuestaSP EliminarImagen(int ID_IMG, int ID_USR)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                try
+                {
+                    var manager = new SD_IMAGENESManager(uow);
+                    var res = manager.BuscarTodos(x=> x.ID_IMG == ID_IMG);
+                    if (res.Count() > 0)
+                    {
+                       var img = res.FirstOrDefault();
+                       manager.Delete(img);
+                       result.success = true;
+                       result.msg = "Se elimino Correctamente";
+                    }
+                    else
+                    {
+                        result.success = false;
+                        result.msg = "No existe la Imagen";
+                    }
+                }
+                catch (Exception e)
+                {
+                    result.msg = e.ToString();
+                    result.success = false;
+                }
+
+            });
+            return result;
+        }
+
 
         public int ConImagen(int ID, string TABLA)
         {

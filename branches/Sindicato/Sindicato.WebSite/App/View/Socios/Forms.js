@@ -175,6 +175,7 @@
             maxLength: 500,
             colspan: 2,
             afterLabelTextTpl: Constantes.REQUERIDO,
+            value : 'Sin Observaciones',
             allowBlank: false
         });
         me.store_estado_civil = Ext.create('App.Store.Listas.StoreLista');

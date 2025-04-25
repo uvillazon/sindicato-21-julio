@@ -60,6 +60,8 @@
             width: 480,
             colspan: 2,
             maxLength: 500,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false
         });
         me.txt_tipo = Ext.create("App.Config.Componente.TextFieldBase", {
             fieldLabel: "Tipo",

@@ -4,13 +4,22 @@
 <head>
     <title>_LogOnLayout</title>
 
-    <script src="@Url.Content("~/Scripts/extjs/shared/include-ext.js?theme=gray")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/extjs/shared/include-ext.js?theme=classic")" type="text/javascript"></script>
     @*<link href="@Url.Content("~/Scripts/Extjs/resources/css/ext-all.css")" rel="stylesheet" type="text/css" />*@
 @*    <script src="@Url.Content("~/Scripts/Extjs/ext-all.js")" type="text/javascript"></script>*@
     <script src="@Url.Content("~/App/View/LogOn/LogOn.js")" type="text/javascript"></script>
-
+    <style>
+        .custom-background {
+            background-color: #f0f0f0;
+            background-image: url('/Content/images/fondoSSM.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh; /* Para que el fondo ocupe toda la altura de la pantalla */
+            margin: 0; /* Elimina márgenes por defecto */
+        }
+    </style>
 </head>
-<body>
-    @RenderBody()
+<body class="custom-background">
+        @RenderBody()
 </body>
 </html>

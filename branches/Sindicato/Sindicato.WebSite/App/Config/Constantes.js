@@ -88,7 +88,7 @@ Ext.define("App.Config.Constantes", {
     },
     getUrlImagen: function (http) {
         if (http != null) {
-            return 'http://localhost:50684/' + Constantes.URLIMAGEN;
+            return 'http://localhost:50954/' + Constantes.URLIMAGEN;
         }
         else {
             return Constantes.HOST + '' + Constantes.URLIMAGEN;

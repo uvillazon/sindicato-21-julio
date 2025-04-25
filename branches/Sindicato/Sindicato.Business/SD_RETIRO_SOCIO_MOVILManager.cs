@@ -43,7 +43,7 @@ namespace Sindicato.Business
                         SD_KARDEX_SOCIO_MOVIL kardex = new SD_KARDEX_SOCIO_MOVIL()
                         {
                             ID_KARDEX = idKardex,
-                            DETALLE = ing.OBSERVACION,
+                            DETALLE = ing.OBSERVACION == null ? "RETIRO DE AHORRO": ing.OBSERVACION,
                             FECHA = (DateTime)ing.FECHA,
                             FECHA_REG = DateTime.Now,
                             ID_OPERACION = ing.ID_RETIRO,

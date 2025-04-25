@@ -759,9 +759,9 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>SINDICATO SAN MIGUEL LINEA 132</Value>
+                  <Value>SINDICATO MIXTO SAN MIGUEL</Value>
                   <Style>
-                    <FontFamily>Consolas</FontFamily>
+                    <FontFamily>Calibri</FontFamily>
                     <FontWeight>Heavy</FontWeight>
                   </Style>
                 </TextRun>

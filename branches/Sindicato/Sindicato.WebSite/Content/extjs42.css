@@ -1,7 +1,20 @@
 ﻿
-#header
-{
-    background: #7F99BE url(images/layout-browser-hd-bg.gif) repeat-x center;
+#header {
+    /* Gradiente de fondo en tonos de verde oscuro */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #2E8B57), color-stop(1, #006400));
+    background: -moz-linear-gradient(center top, #2E8B57 5%, #006400 100%);
+    background: linear-gradient(to bottom, #2E8B57 5%, #006400 100%);
+    
+    /* Imagen superpuesta en el centro */
+   
+    background-repeat: repeat-x;
+    background-position: center;
+    
+    /* Borde inferior con sombra suave para darle un toque de profundidad */
+    border-bottom: 2px solid #006400; /* Borde verde oscuro */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra externa */
+    
+  
 }
 
 #header h1
@@ -600,6 +613,92 @@
     background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #9BC7F4), color-stop(1, #C1D2E6) );
     background: -moz-linear-gradient( center top, #E0E0E0 5%, #EDEDED 100% );
 }
+.botonesBtnRed1 .x-btn-inner {
+    font-size: 18px !important;
+    font-weight: bold !important;
+    font-style: normal;
+    text-decoration: none;
+    text-align: center;
+    color: #FFFFFF; /* Texto blanco para mejor contraste */
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); /* Sombra suave para el texto */
+    
+    /* Gradiente de fondo actualizado con mejor transición */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #FF7F7F), color-stop(1, #FF3333));
+    background: -moz-linear-gradient(center top, #FF7F7F 5%, #FF3333 100%);
+    background: linear-gradient(to bottom, #FF7F7F 5%, #FF3333 100%);
+    
+    /* Borde con sombra suave */
+    border: 2px solid #FF3333; /* Borde rojo oscuro */
+    border-radius: 10px; /* Bordes redondeados para darle un toque moderno */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), inset 0px 1px 2px rgba(255, 255, 255, 0.3); /* Sombras externas e internas para profundidad */
+    
+    padding: 10px 20px; /* Más padding para hacer los botones más grandes */
+    transition: background 0.3s ease, box-shadow 0.3s ease; /* Animación suave para hover */
+}
+
+.botonesBtnRed1 .x-btn-inner:hover {
+    background: linear-gradient(to bottom, #FF9999 5%, #FF0000 100%); /* Cambio en el gradiente al hacer hover */
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2), inset 0px 1px 2px rgba(255, 255, 255, 0.4); /* Sombra más intensa en hover */
+    cursor: pointer; /* Cambia el cursor para mostrar que es clickeable */
+}
+
+.botonesBtnRed12 .x-btn-inner {
+    font-size: 18px !important;
+    font-weight: bold !important;
+    font-style: normal;
+    text-decoration: none;
+    text-align: center;
+    color: #FFFFFF; /* Texto blanco para mejor contraste */
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); /* Sombra suave para el texto */
+    
+    /* Gradiente de fondo actualizado con mejor transición en verde */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #7FFF7F), color-stop(1, #33FF33));
+    background: -moz-linear-gradient(center top, #7FFF7F 5%, #33FF33 100%);
+    background: linear-gradient(to bottom, #7FFF7F 5%, #33FF33 100%);
+    
+    /* Borde con sombra suave */
+    border: 2px solid #33FF33; /* Borde verde oscuro */
+    border-radius: 10px; /* Bordes redondeados para darle un toque moderno */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), inset 0px 1px 2px rgba(255, 255, 255, 0.3); /* Sombras externas e internas para profundidad */
+    
+    padding: 10px 20px; /* Más padding para hacer los botones más grandes */
+    transition: background 0.3s ease, box-shadow 0.3s ease; /* Animación suave para hover */
+}
+
+.botonesBtnRed12 .x-btn-inner:hover {
+    background: linear-gradient(to bottom, #99FF99 5%, #00FF00 100%); /* Cambio en el gradiente al hacer hover */
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2), inset 0px 1px 2px rgba(255, 255, 255, 0.4); /* Sombra más intensa en hover */
+    cursor: pointer; /* Cambia el cursor para mostrar que es clickeable */
+}
+
+.botonesBtnRed .x-btn-inner {
+    font-size: 18px !important;
+    font-weight: bold !important;
+    font-style: normal;
+    text-decoration: none;
+    text-align: center;
+    color: #FFFFFF; /* Texto blanco para mejor contraste */
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); /* Sombra suave para el texto */
+    
+    /* Gradiente de fondo actualizado con verde más oscuro */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #2E8B57), color-stop(1, #006400));
+    background: -moz-linear-gradient(center top, #2E8B57 5%, #006400 100%);
+    background: linear-gradient(to bottom, #2E8B57 5%, #006400 100%);
+    
+    /* Borde con sombra suave */
+    border: 2px solid #006400; /* Borde verde oscuro */
+    border-radius: 10px; /* Bordes redondeados para darle un toque moderno */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), inset 0px 1px 2px rgba(255, 255, 255, 0.3); /* Sombras externas e internas para profundidad */
+    
+    padding: 10px 20px; /* Más padding para hacer los botones más grandes */
+    transition: background 0.3s ease, box-shadow 0.3s ease; /* Animación suave para hover */
+}
+
+.botonesBtnRed .x-btn-inner:hover {
+    background: linear-gradient(to bottom, #3CB371 5%, #004d00 100%); /* Cambio en el gradiente al hacer hover con verde más oscuro */
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2), inset 0px 1px 2px rgba(255, 255, 255, 0.4); /* Sombra más intensa en hover */
+    cursor: pointer; /* Cambia el cursor para mostrar que es clickeable */
+}
 
 .x-btn-icon .x-btn-button48 .x-btn-text
 {
@@ -645,3 +744,18 @@
     color: #000000; /*font-weight: bold;*/
 }
 
+.btn-primary {
+    background: #1572e8 !important;
+    border-color: #1367d1
+}
+
+.btn-primary:hover {
+    background: #1367d1 !important;
+    border-color: #115bb9
+}
+
+.btn-primary .x-btn-inner {
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+}

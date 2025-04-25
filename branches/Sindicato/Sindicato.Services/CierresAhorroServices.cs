@@ -239,7 +239,8 @@ namespace Sindicato.Services
                             LOGIN = login,
                             OBSERVACION = cierre.OBSERVACION,
                             SOCIO = item.SOCIO,
-                            NRO_MOVIL = item.NRO_MOVIL
+                            NRO_MOVIL = item.NRO_MOVIL,
+                            TOTAL_CANCELADO = 0,
 
 
                         };
@@ -306,7 +307,7 @@ namespace Sindicato.Services
                     switch (filtros.codigo)
                     {
                         case "POR_CANCELAR":
-                            result = result.Where(x => (x.TOTAL_AHORRO - x.TOTAL_CANCELADO) > 0);
+                            result = result.Where(x => (x.TOTAL_AHORRO - (decimal)x.TOTAL_CANCELADO) > 0);
                             break;
                         default:
                             break;

@@ -58,6 +58,7 @@ namespace Sindicato.Services.Model
         public string PLACA { get; set; }
         public string PRECIO { get; set; }
         public string OBLIGACIONES { get; set; }
+        public byte[] QRCode { get; set; }
     }
 
     public class ReporteTotal
@@ -73,6 +74,7 @@ namespace Sindicato.Services.Model
         public DateTime FECHA_FIN { get; set; }
         public decimal TOTAL_AHORRO { get; set; }
         public int TOTAL_CANTIDAD { get; set; }
+        public decimal TOTAL_RETIROS { get; set; }
     }
 
     public class ReporteKardexHoja

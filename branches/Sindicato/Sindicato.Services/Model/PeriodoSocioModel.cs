@@ -11,7 +11,7 @@ namespace Sindicato.Services.Model
         public int? ID_SOCIO { get; set; }
         public string SOCIO { get; set; }
         public string PERIODO { get; set; }
-        public decimal INGRESOS_HOJAS  { get; set; }
+        public decimal INGRESOS_HOJAS { get; set; }
         public decimal OTROS_INGRESOS { get; set; }
         public decimal OBLIGACIONES_INSTITUCION { get; set; }
         public decimal OTRAS_OBLIGACIONES { get; set; }
@@ -19,12 +19,13 @@ namespace Sindicato.Services.Model
         public decimal DEUDA { get; set; }
     }
 
-    public class CierreAhorroSocioModel {
+    public class CierreAhorroSocioModel
+    {
         public int ID_SOCIO { get; set; }
         public string SOCIO { get; set; }
         public string MES { get; set; }
         public string MSG { get; set; }
-        public decimal?  CANT_HOJAS { get; set; }
+        public decimal? CANT_HOJAS { get; set; }
         public decimal? CANT_REGULACIONES { get; set; }
         public decimal? TOTAL_AHORRO { get; set; }
         public decimal? AHORRO_HOJA { get; set; }
@@ -61,11 +62,14 @@ namespace Sindicato.Services.Model
     {
         public int ID_CAJA { get; set; }
         public string CAJA { get; set; }
+        public string DETALLE { get; set; }
         public string OPERACION { get; set; }
         public string SUBOPERACION { get; set; }
         public decimal? SALDO { get; set; }
+        public decimal? IMPORTE { get; set; }
         public string MONEDA { get; set; }
         public string MSG { get; set; }
+        public DateTime FECHA { get; set; }
         public DateTime FECHA_INI { get; set; }
         public DateTime FECHA_FIN { get; set; }
 

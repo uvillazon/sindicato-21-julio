@@ -751,7 +751,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>REPORTE KARDEX SOCIO HOJA LINEA 132</Value>
+                  <Value>REPORTE KARDEX SOCIO HOJA</Value>
                   <Style>
                     <FontWeight>Heavy</FontWeight>
                   </Style>
@@ -766,7 +766,7 @@
           <Top>0.58635cm</Top>
           <Left>1.95146cm</Left>
           <Height>0.6cm</Height>
-          <Width>16.73458cm</Width>
+          <Width>7.89229cm</Width>
           <Style>
             <Border>
               <Style>None</Style>

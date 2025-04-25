@@ -17,7 +17,18 @@ namespace Sindicato.Model
             DateTime now = DateTime.Now.AddDays(1-DateTime.Now.Day).Date;
             var query = SD_KARDEX_HOJAS.Where(x => x.MES < now).Sum(y => y.DEBE);
             return (decimal)query;
-        } 
+        }
+
+        public decimal obtenerPrecioHoja(string CON_AHORRO)
+        {
+
+            if(CON_AHORRO == "SI" || CON_AHORRO == null){
+                return SD_SOC_MOV_OBLIG.Count() > 0 ? SD_SOC_MOV_OBLIG.Sum(y => y.IMPORTE) : 0;
+            }
+            else{
+                return SD_SOC_MOV_OBLIG.Count() > 0 ? SD_SOC_MOV_OBLIG.Where(x => x.SD_OBLIGACIONES_HOJA.OBLIGACION != "AHORRO").Sum(y => y.IMPORTE) : 0;
+            }
+        }
         public static Expression<Func<SD_SOCIO_MOVILES, bool>> Contiene(string contiene)
         {
             List<int> id = new List<int>();

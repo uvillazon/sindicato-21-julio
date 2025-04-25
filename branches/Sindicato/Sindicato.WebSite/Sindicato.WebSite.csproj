@@ -57,6 +57,9 @@
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="Oracle.DataAccess, Version=4.121.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" />
+    <Reference Include="QRCoder">
+      <HintPath>..\..\..\..\..\..\..\DocumentosC\Downloads\QRCoder.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -241,6 +244,8 @@
     <Content Include="App\Model\Cierres\Detalles.js" />
     <Content Include="App\Model\CierreCaja\Cierres.js" />
     <Content Include="App\Model\CierreCaja\Detalles.js" />
+    <Content Include="App\Model\CajasCierres\Cierres.js" />
+    <Content Include="App\Model\CajasCierres\Detalles.js" />
     <Content Include="App\Model\Gestion\Detalles.js" />
     <Content Include="App\Model\Gestion\Gestion.js" />
     <Content Include="App\Model\Egresos\TiposEgresos.js" />
@@ -303,6 +308,8 @@
     <Content Include="App\Store\Cierres\Detalles.js" />
     <Content Include="App\Store\CierreCaja\Cierres.js" />
     <Content Include="App\Store\CierreCaja\Detalles.js" />
+    <Content Include="App\Store\CajasCierres\Cierres.js" />
+    <Content Include="App\Store\CajasCierres\Detalles.js" />
     <Content Include="App\Store\Gestion\Detalles.js" />
     <Content Include="App\Store\Gestion\Gestion.js" />
     <Content Include="App\Store\Prestamos\Moras.js" />
@@ -419,11 +426,16 @@
     <Content Include="App\View\CierreCaja\GridCierres.js" />
     <Content Include="App\View\CierreCaja\GridDetalles.js" />
     <Content Include="App\View\CierreCaja\Principal.js" />
+    <Content Include="App\View\CajasCierres\FormCierre.js" />
+    <Content Include="App\View\CajasCierres\GridCierres.js" />
+    <Content Include="App\View\CajasCierres\GridDetalles.js" />
+    <Content Include="App\View\CajasCierres\Principal.js" />
     <Content Include="App\View\Gestion\FormCierre.js" />
     <Content Include="App\View\Gestion\GridDetalles.js" />
     <Content Include="App\View\Gestion\GridGestion.js" />
     <Content Include="App\View\Gestion\Principal.js" />
     <Content Include="App\View\Prestamos\FormRefinanciarPrestamo.js" />
+    <Content Include="App\View\Socios\GridSoloSocios.js" />
     <Content Include="App\View\TransferenciasHojas\GridTransferenciasHojas.js" />
     <Content Include="App\View\TransferenciasHojas\Principal.js" />
     <Content Include="App\View\Prestamos\FormMora.js" />
@@ -1639,6 +1651,7 @@
     <Content Include="Content\Iconos\zoom_in.png" />
     <Content Include="Content\Iconos\zoom_out.png" />
     <Content Include="Content\Icons.css" />
+    <Content Include="Content\images\fondoSSM.jpg" />
     <Content Include="Content\images\Word.png" />
     <Content Include="Content\images\xls.png" />
     <Content Include="Content\images\add.gif" />
@@ -4075,6 +4088,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reportes\Copia de ReporteCierreAhorro.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteOtroIngreso.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteEgresosDetalle.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteTopDeudores.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteTotalPrestamosPorGestion.rdlc" />

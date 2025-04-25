@@ -18,13 +18,13 @@
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Left</TextAlign>
+              <TextAlign>Right</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.29699cm</Top>
-        <Left>5.53657cm</Left>
+        <Top>0cm</Top>
+        <Left>6.17157cm</Left>
         <Height>0.75875cm</Height>
         <Width>5.22521cm</Width>
         <Style>
@@ -59,10 +59,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>1.05574cm</Top>
-        <Left>5.53657cm</Left>
+        <Top>0.75306cm</Top>
+        <Left>6.17157cm</Left>
         <Height>0.77666cm</Height>
-        <Width>3.32021cm</Width>
+        <Width>3.73649cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -91,7 +91,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.58205cm</Top>
+        <Top>2.59687cm</Top>
         <Left>2.23923cm</Left>
         <Height>0.65292cm</Height>
         <Width>8.52255cm</Width>
@@ -125,7 +125,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>3.27024cm</Top>
+        <Top>3.28506cm</Top>
         <Left>7.83845cm</Left>
         <Height>0.8cm</Height>
         <Width>2.92333cm</Width>
@@ -143,7 +143,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>132</Value>
+                <Value>SSM</Value>
                 <Style>
                   <FontFamily>Tahoma</FontFamily>
                   <FontSize>12pt</FontSize>
@@ -157,7 +157,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>3.27025cm</Top>
+        <Top>3.28507cm</Top>
         <Left>4.63699cm</Left>
         <Height>0.79999cm</Height>
         <Width>1.67979cm</Width>
@@ -187,7 +187,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>3.27024cm</Top>
+        <Top>3.28506cm</Top>
         <Left>1.8159cm</Left>
         <Height>0.8cm</Height>
         <Width>1.0977cm</Width>
@@ -215,15 +215,15 @@
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Left</TextAlign>
+              <TextAlign>Right</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>1.05574cm</Top>
-        <Left>8.85678cm</Left>
+        <Top>0.75306cm</Top>
+        <Left>10.08445cm</Left>
         <Height>0.77666cm</Height>
-        <Width>1.905cm</Width>
+        <Width>1.31233cm</Width>
         <ZIndex>6</ZIndex>
         <Style>
           <Border>
@@ -254,9 +254,9 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>12.29521cm</Top>
+        <Top>12.14069cm</Top>
         <Left>1.04861cm</Left>
-        <Height>1.15563cm</Height>
+        <Height>1.32496cm</Height>
         <Width>9.01203cm</Width>
         <ZIndex>7</ZIndex>
         <Style>
@@ -265,8 +265,24 @@
           </Border>
         </Style>
       </Textbox>
+      <Image Name="Image3">
+        <Source>Database</Source>
+        <Value>=First(Fields!QRCode.Value, "DataSetHoja")</Value>
+        <MIMEType>image/png</MIMEType>
+        <Sizing>FitProportional</Sizing>
+        <Top>0cm</Top>
+        <Left>0.46123cm</Left>
+        <Height>2.59687cm</Height>
+        <Width>2.8575cm</Width>
+        <ZIndex>8</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Image>
     </ReportItems>
-    <Height>14.11229cm</Height>
+    <Height>14.12711cm</Height>
     <Style>
       <Border>
         <Style>None</Style>
@@ -336,6 +352,10 @@
         <Field Name="OBLIGACIONES">
           <DataField>OBLIGACIONES</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="QRCode">
+          <DataField>QRCode</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>
