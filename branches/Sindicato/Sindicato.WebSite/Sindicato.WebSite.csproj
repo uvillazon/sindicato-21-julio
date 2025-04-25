@@ -250,6 +250,7 @@
     <Content Include="App\Model\Gestion\Detalles.js" />
     <Content Include="App\Model\Gestion\Gestion.js" />
     <Content Include="App\Model\KardexHojas\KardexHojas.js" />
+    <Content Include="App\Model\Prestamos\Moras.js" />
     <Content Include="App\Model\Prestamos\Pagos.js" />
     <Content Include="App\Model\Prestamos\PlanPagos.js" />
     <Content Include="App\Model\Prestamos\Prestamos.js" />
@@ -431,6 +432,7 @@
     <Content Include="App\View\Gestion\GridDetalles.js" />
     <Content Include="App\View\Gestion\GridGestion.js" />
     <Content Include="App\View\Gestion\Principal.js" />
+    <Content Include="App\View\Prestamos\FormRefinanciarPrestamo.js" />
     <Content Include="App\View\Sgaf\Controller\GridImportarFacturaController.js" />
     <Content Include="App\View\Sgaf\GridTransferenciasHojas.js" />
     <Content Include="App\View\Sgaf\Model\Sgaf.js" />
@@ -4093,9 +4095,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reportes\ReporteTotalPrestamosPorGestionDetalle.rdlc" />
     <EmbeddedResource Include="Reportes\Copia de ReporteCierreAhorro.rdlc" />
+    <EmbeddedResource Include="Reportes\Copia de ReporteTotalPrestamosPorGestion.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteResumenPagos.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteKardexPrestamo.rdlc" />
+    <EmbeddedResource Include="Reportes\Hoja131.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteEgresosDetalle.rdlc" />
     <EmbeddedResource Include="Reportes\ReportePagoPrestamoRollo.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteIngresoRollo.rdlc" />
+    <EmbeddedResource Include="Reportes\ReportePagoPrestamoRollo_.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteRegulacionRollo.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteRetiroRollo.rdlc" />
     <EmbeddedResource Include="Reportes\ReportePrestamosTotalesPorGestion.rdlc" />
@@ -4132,6 +4141,8 @@
     <EmbeddedResource Include="Reportes\ReporteSociosMovilesActivos.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteTotal.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteTotalPrestamos.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteTotalPrestamosPorGestion.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteTotalV1Prestamos.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

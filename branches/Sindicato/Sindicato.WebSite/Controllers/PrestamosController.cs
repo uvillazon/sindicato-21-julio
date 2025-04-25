@@ -51,7 +51,7 @@ namespace Sindicato.WebSite.Controllers
                 DEBE = (x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Where(y=>y.ESTADO != "ANULADO").Sum(y => y.IMPORTE_MORA)) - (x.SD_PAGO_DE_PRESTAMOS.Where(z => z.ESTADO != "ANULADO").Sum(y => y.IMPORTE + y.IMPORTE_MORA + y.TOTAL_CONDONACION)),
                 ESTADO = x.ESTADO,
                 IMPORTE_INTERES = x.IMPORTE_INTERES,
-                IMPORTE_TOTAL = x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA),
+                IMPORTE_TOTAL = x.IMPORTE_PRESTAMO + x.IMPORTE_INTERES + x.SD_PRESTAMOS_MORA.Where(y=>y.ESTADO != "ANULADO").Sum(y => y.IMPORTE_MORA),
                 TIPO_INTERES = x.SD_TIPOS_PRESTAMOS.TIPO_INTERES,
                 FECHA_LIMITE_PAGO = x.FECHA_LIMITE_PAGO,
                 CONDONACION_INTERES = x.CONDONACION_INTERES,
@@ -202,6 +202,7 @@ namespace Sindicato.WebSite.Controllers
                 LOGIN_USR = x.LOGIN_USR,
                 GESTION = x.SD_GESTION.CODIGO,
                 TIPO = x.TIPO,
+                CUOTA = x.SD_PLAN_DE_PAGO.NRO_SEMANA,
                 SOCIO = x.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.ObtenerNombreSocio()
 
             });

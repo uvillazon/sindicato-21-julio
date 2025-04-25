@@ -146,20 +146,20 @@ namespace Sindicato.Business
             return result;
         }
 
-        public RespuestaSP GuardarPagoPrestamo(SD_PAGO_DE_PRESTAMOS pago, string login)
+        public RespuestaSP GuardarPagoPrestamo(SD_PAGO_DE_PRESTAMOS pagop, string login)
         {
             RespuestaSP result = new RespuestaSP();
             try
             {
                 var context = (SindicatoContext)Context;
-                var pres = context.SD_PRESTAMOS_POR_SOCIOS.Where(x => x.ID_PRESTAMO == pago.ID_PRESTAMO && x.ESTADO != "ANULADO").FirstOrDefault();
+                var pres = context.SD_PRESTAMOS_POR_SOCIOS.Where(x => x.ID_PRESTAMO == pagop.ID_PRESTAMO && x.ESTADO != "ANULADO").FirstOrDefault();
                 if (pres == null)
                 {
                     result.success = false;
                     result.msg = "No existe prestamo";
                     return result;
                 }
-                var plan = context.SD_PLAN_DE_PAGO.Where(x => x.ID_PLAN == pago.ID_PLAN && x.ESTADO == "NUEVO").FirstOrDefault();
+                var plan = context.SD_PLAN_DE_PAGO.Where(x => x.ID_PLAN == pagop.ID_PLAN && x.ESTADO == "NUEVO").OrderBy(y => y.NRO_SEMANA).FirstOrDefault();
                 if (plan == null)
                 {
                     result.success = false;
@@ -167,74 +167,227 @@ namespace Sindicato.Business
                     return result;
                 }
 
-                var moraPlan = context.SD_PRESTAMOS_MORA.Where(x => x.ID_PLAN == pago.ID_PLAN && x.ESTADO == "NUEVO").FirstOrDefault();
-                decimal importeMora = 0;
-                if (moraPlan != null)
-                {
-                    importeMora = moraPlan.IMPORTE_MORA;
+                //if (pago.IMPORTE < (plan.IMPORTE_A_PAGAR + plan.INTERES_A_PAGAR + importeMora))
+                //{
+                //    result.success = false;
+                //    result.msg = "No puede pagar menos de la cuota establecida y la mora establecida, este ultimo si existiera";
+                //    return result;
+                //}
 
-
-                }
-
-                if (pago.IMPORTE > (plan.IMPORTE_A_PAGAR + plan.INTERES_A_PAGAR + importeMora))
-                {
-                    result.success = false;
-                    result.msg = "No puede pagar mas de la cuota establecida y la mora establecida, este ultimo si existiera";
-                    return result;
-                }
-                var moras = pres.SD_PRESTAMOS_MORA.Where(x => x.ID_PRESTAMO == pago.ID_PRESTAMO && x.ESTADO != "ANULADO").Sum(x => x.IMPORTE_MORA);
+                var moras = pres.SD_PRESTAMOS_MORA.Where(x => x.ID_PRESTAMO == pagop.ID_PRESTAMO && x.ESTADO != "ANULADO").Sum(x => x.IMPORTE_MORA);
                 var cancelado = pres.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").Sum(x => x.IMPORTE);
-                if (cancelado + pago.IMPORTE > (pres.IMPORTE_INTERES + pres.IMPORTE_PRESTAMO + moras))
+                if (cancelado + pagop.IMPORTE > (pres.IMPORTE_INTERES + pres.IMPORTE_PRESTAMO + moras))
                 {
                     result.success = false;
                     result.msg = "No puedo pagar mas del total prestado + el interes + moras";
                     return result;
                 }
-                pago.LOGIN_USR = login;
-                pago.MONEDA = pres.MONEDA;
-                pago.ID_CAJA = pres.ID_CAJA;
-                pago.ID_PLAN = pago.ID_PLAN;
-                pago.ID_PAGO = ObtenerSecuencia();
-                pago.ID_GESTION = ObtenerGestion();
-                pago.FECHA_REG = DateTime.Now;
-                pago.ESTADO = "NUEVO";
-                pago.TIPO = "CUOTA";
-                pago.IMPORTE = plan.INTERES_A_PAGAR + plan.IMPORTE_A_PAGAR;
-                if (importeMora > 0)
+                var numero =   pres.SD_PAGO_DE_PRESTAMOS.Count() > 0 ? pres.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").Max(x => x.NUMERO) : 0;
+                numero = numero + 1;
+                int ID_PAGO =0;
+                var importeCancelado = pagop.IMPORTE;
+                var importe = pagop.IMPORTE;
+
+                var planes = context.SD_PLAN_DE_PAGO.Where(x => x.ID_PRESTAMO == pagop.ID_PRESTAMO && x.ESTADO == "NUEVO").OrderBy(y => y.NRO_SEMANA);
+                var saldo = 0;
+                foreach (var item in planes)
                 {
-                    pago.ID_MORA = moraPlan.ID_MORA;
-                    pago.IMPORTE_MORA = importeMora;
-                    moraPlan.ESTADO = "CANCELADO";
+                    if (importeCancelado == 0)
+                    {
+                        break;
+                    }
+                    SD_PAGO_DE_PRESTAMOS pago = new SD_PAGO_DE_PRESTAMOS();
+                    pago.ID_PRESTAMO = pagop.ID_PRESTAMO;
+                   
+                    var moraPlan = context.SD_PRESTAMOS_MORA.Where(x => x.ID_PLAN == item.ID_PLAN && x.ESTADO == "NUEVO").FirstOrDefault();
+                    decimal importeMora = 0;
+                    if (moraPlan != null)
+                    {
+                        importeMora = moraPlan.IMPORTE_MORA;
+
+
+                    }
+                    decimal cuotaCancelado = 0;
+                    decimal moraCancelado = 0;
+                    if (item.SD_PAGO_DE_PRESTAMOS.Count() > 0)
+                    {
+                        cuotaCancelado = item.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").Sum(y => y.IMPORTE);
+                        moraCancelado = item.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").Sum(y => y.IMPORTE_MORA);
+                    
+                    }
+                    decimal ingreso = 0;
+                    if (importeCancelado == (item.INTERES_A_PAGAR + item.IMPORTE_A_PAGAR + importeMora) - (cuotaCancelado + moraCancelado ))
+                    {
+                        pago.LOGIN_USR = login;
+                        pago.MONEDA = pres.MONEDA;
+                        pago.ID_CAJA = pres.ID_CAJA;
+                        pago.ID_PLAN = item.ID_PLAN;
+                        pago.ID_PAGO = ObtenerSecuencia();
+                        pago.ID_GESTION = ObtenerGestion();
+                        pago.NUMERO = numero;
+                        pago.FECHA = pagop.FECHA;
+                        pago.FECHA_REG = DateTime.Now;
+                        pago.ESTADO = "NUEVO";
+                        pago.TIPO = "CUOTA";
+                        pago.IMPORTE = item.INTERES_A_PAGAR + item.IMPORTE_A_PAGAR - cuotaCancelado;
+                        ingreso = pago.IMPORTE;
+                        if (importeMora > 0)
+                        {
+                            pago.ID_MORA = moraPlan.ID_MORA;
+                            pago.IMPORTE_MORA = importeMora - moraCancelado;
+                            moraPlan.ESTADO = "CANCELADO";
+                            ingreso = ingreso + importeMora;
+                        }
+                        Add(pago);
+                        ID_PAGO = pago.ID_PAGO;
+                        //pres.SALDO = pres.SALDO + pago.IMPORTE;
+
+                        ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+                        context.P_EE_SECUENCIA("SD_KARDEX_EFECTIVO", 0, p_RES);
+                        int idKardex = Convert.ToInt32(p_RES.Value);
+                        SD_KARDEX_EFECTIVO kardex = new SD_KARDEX_EFECTIVO()
+                        {
+                            ID_KARDEX = idKardex,
+                            DETALLE = string.Format("PAGO PRESTAMO {0} NRO : {1} - NRO_SEMANA : {2} - NRO MOVIL : {3} , OBSERV : {4}", pres.SD_TIPOS_PRESTAMOS.NOMBRE, pres.NUMERO, item.NRO_SEMANA, pres.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL, pago.OBSERVACION),
+                            //DETALLE = "Pago de Prestamo Nro :"+ pres.ID_PRESTAMO,
+                            FECHA = (DateTime)pago.FECHA,
+                            FECHA_REG = DateTime.Now,
+                            ID_OPERACION = pago.ID_PAGO,
+                            ID_CAJA = pago.ID_CAJA,
+                            //INGRESO = item.IMPORTE_A_PAGAR + item.INTERES_A_PAGAR + importeMora - (cuotaCancelado + moraCancelado),
+                            INGRESO = ingreso,
+                            LOGIN = login,
+                            OPERACION = "PAGO PRESTAMO"
+                        };
+                        context.SD_KARDEX_EFECTIVO.AddObject(kardex);
+
+                        item.ESTADO = "CANCELADO";
+                        Save();
+                        context.P_SD_ACT_KARDEX_EFECTIVO(pago.ID_CAJA, pago.FECHA, 0, p_RES);
+                        importeCancelado = 0;
+                    }
+                    else if (importeCancelado > item.INTERES_A_PAGAR + item.IMPORTE_A_PAGAR + importeMora - (cuotaCancelado + moraCancelado) )
+                    {
+                        pago.LOGIN_USR = login;
+                        pago.MONEDA = pres.MONEDA;
+                        pago.ID_CAJA = pres.ID_CAJA;
+                        pago.ID_PLAN = item.ID_PLAN;
+                        pago.ID_PAGO = ObtenerSecuencia();
+                        pago.ID_GESTION = ObtenerGestion();
+                        pago.NUMERO = numero;
+                        pago.FECHA_REG = DateTime.Now;
+                        pago.ESTADO = "NUEVO";
+                        pago.FECHA = pagop.FECHA;
+                        pago.TIPO = "CUOTA";
+                        pago.IMPORTE = item.INTERES_A_PAGAR + item.IMPORTE_A_PAGAR - cuotaCancelado;
+                        ingreso = pago.IMPORTE;
+                        if (importeMora > 0)
+                        {
+                            pago.ID_MORA = moraPlan.ID_MORA;
+                            pago.IMPORTE_MORA = importeMora - moraCancelado;
+                            moraPlan.ESTADO = "CANCELADO";
+                            ingreso = ingreso + pago.IMPORTE_MORA;
+                        }
+                        Add(pago);
+                        ID_PAGO = pago.ID_PAGO;
+                        //pres.SALDO = pres.SALDO + pago.IMPORTE;
+
+                        ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+                        context.P_EE_SECUENCIA("SD_KARDEX_EFECTIVO", 0, p_RES);
+                        int idKardex = Convert.ToInt32(p_RES.Value);
+                        SD_KARDEX_EFECTIVO kardex = new SD_KARDEX_EFECTIVO()
+                        {
+                            ID_KARDEX = idKardex,
+                            DETALLE = string.Format("PAGO PRESTAMO {0} NRO : {1} - NRO_SEMANA : {2} - NRO MOVIL : {3} , OBSERV : {4}", pres.SD_TIPOS_PRESTAMOS.NOMBRE, pres.NUMERO, item.NRO_SEMANA, pres.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL, pago.OBSERVACION),
+                            //DETALLE = "Pago de Prestamo Nro :"+ pres.ID_PRESTAMO,
+                            FECHA = (DateTime)pago.FECHA,
+                            FECHA_REG = DateTime.Now,
+                            ID_OPERACION = pago.ID_PAGO,
+                            ID_CAJA = pago.ID_CAJA,
+                            //INGRESO = item.IMPORTE_A_PAGAR + item.INTERES_A_PAGAR + importeMora - -(cuotaCancelado + moraCancelado),
+                            INGRESO = ingreso,
+                            LOGIN = login,
+                            OPERACION = "PAGO PRESTAMO"
+                        };
+                        context.SD_KARDEX_EFECTIVO.AddObject(kardex);
+
+                        item.ESTADO = "CANCELADO";
+                        Save();
+                        context.P_SD_ACT_KARDEX_EFECTIVO(pago.ID_CAJA, pago.FECHA, 0, p_RES);
+                        importeCancelado = importeCancelado - (item.INTERES_A_PAGAR + item.IMPORTE_A_PAGAR + importeMora - (cuotaCancelado + moraCancelado));
+                    }
+                    else
+                    {
+                        pago.LOGIN_USR = login;
+                        pago.MONEDA = pres.MONEDA;
+                        pago.ID_CAJA = pres.ID_CAJA;
+                        pago.ID_PLAN = item.ID_PLAN;
+                        pago.ID_PAGO = ObtenerSecuencia();
+                        pago.ID_GESTION = ObtenerGestion();
+                        pago.NUMERO = numero;
+                        pago.FECHA = pagop.FECHA;
+                        pago.FECHA_REG = DateTime.Now;
+                        pago.ESTADO = "NUEVO";
+                        pago.TIPO = "CUOTA";
+                       
+                        if (importeCancelado > item.IMPORTE_A_PAGAR + item.INTERES_A_PAGAR - cuotaCancelado)
+                        {
+                            pago.IMPORTE = item.INTERES_A_PAGAR + item.IMPORTE_A_PAGAR - cuotaCancelado;
+                            ingreso = ingreso + pago.IMPORTE;
+                            importeCancelado = importeCancelado - (item.IMPORTE_A_PAGAR + item.INTERES_A_PAGAR - cuotaCancelado);
+                            if (importeMora > 0)
+                            {
+                                pago.ID_MORA = moraPlan.ID_MORA;
+                                pago.IMPORTE_MORA = importeCancelado - moraCancelado;
+                                moraPlan.ESTADO = importeMora == (pago.IMPORTE_MORA + moraCancelado) ? "CANCELADO"  : "NUEVO";
+                                ingreso = ingreso + pago.IMPORTE_MORA;
+                            }
+                        }
+                        else {
+                            pago.IMPORTE = importeCancelado;
+                            ingreso = pago.IMPORTE;
+                        }
+
+                        
+                      
+                        Add(pago);
+                        ID_PAGO = pago.ID_PAGO;
+                        //pres.SALDO = pres.SALDO + pago.IMPORTE;
+
+                        ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
+                        context.P_EE_SECUENCIA("SD_KARDEX_EFECTIVO", 0, p_RES);
+                        int idKardex = Convert.ToInt32(p_RES.Value);
+                        SD_KARDEX_EFECTIVO kardex = new SD_KARDEX_EFECTIVO()
+                        {
+                            ID_KARDEX = idKardex,
+                            DETALLE = string.Format("PAGO PRESTAMO {0} NRO : {1} - NRO_SEMANA : {2} - NRO MOVIL : {3} , OBSERV : {4}", pres.SD_TIPOS_PRESTAMOS.NOMBRE, pres.NUMERO, item.NRO_SEMANA, pres.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL, pago.OBSERVACION),
+                            //DETALLE = "Pago de Prestamo Nro :"+ pres.ID_PRESTAMO,
+                            FECHA = (DateTime)pago.FECHA,
+                            FECHA_REG = DateTime.Now,
+                            ID_OPERACION = pago.ID_PAGO,
+                            ID_CAJA = pago.ID_CAJA,
+                            INGRESO = ingreso,
+                            LOGIN = login,
+                            OPERACION = "PAGO PRESTAMO"
+                        };
+                        context.SD_KARDEX_EFECTIVO.AddObject(kardex);
+
+                        //item.ESTADO = "CANCELADO";
+                        Save();
+                        context.P_SD_ACT_KARDEX_EFECTIVO(pago.ID_CAJA, pago.FECHA, 0, p_RES);
+                        importeCancelado = 0;
+
+                    }
                 }
-                Add(pago);
-                pres.SALDO = pres.SALDO + pago.IMPORTE;
 
-                ObjectParameter p_RES = new ObjectParameter("p_res", typeof(Int32));
-                context.P_EE_SECUENCIA("SD_KARDEX_EFECTIVO", 0, p_RES);
-                int idKardex = Convert.ToInt32(p_RES.Value);
-                SD_KARDEX_EFECTIVO kardex = new SD_KARDEX_EFECTIVO()
-                {
-                    ID_KARDEX = idKardex,
-                    DETALLE = string.Format("PAGO PRESTAMO {0} NRO : {1} - NRO_SEMANA : {2} - NRO MOVIL : {3} , OBSERV : {4}", pres.SD_TIPOS_PRESTAMOS.NOMBRE, pres.NUMERO, plan.NRO_SEMANA, pres.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL, pago.OBSERVACION),
-                    //DETALLE = "Pago de Prestamo Nro :"+ pres.ID_PRESTAMO,
-                    FECHA = (DateTime)pago.FECHA,
-                    FECHA_REG = DateTime.Now,
-                    ID_OPERACION = pago.ID_PAGO,
-                    ID_CAJA = pago.ID_CAJA,
-                    INGRESO = plan.IMPORTE_A_PAGAR + plan.INTERES_A_PAGAR + importeMora,
-                    LOGIN = login,
-                    OPERACION = "PAGO PRESTAMO"
-                };
-                context.SD_KARDEX_EFECTIVO.AddObject(kardex);
-
-
+                pres.SALDO = pres.SALDO + importe;
                 Save();
 
-                context.P_SD_ACT_KARDEX_EFECTIVO(pago.ID_CAJA, pago.FECHA, 0, p_RES);
-                context.P_SD_ACT_PLAN_PAGOS(pago.ID_PRESTAMO, 1, p_RES);
+                //context.P_SD_ACT_KARDEX_EFECTIVO(pago.ID_CAJA, pago.FECHA, 0, p_RES);
+                //context.P_SD_ACT_PLAN_PAGOS(pago.ID_PRESTAMO, 1, p_RES);
                 result.success = true;
                 result.msg = "proceso Ejectuado correctamente";
-                result.id = pago.ID_PAGO;
+                result.id = ID_PAGO;
             }
             catch (Exception e)
             {

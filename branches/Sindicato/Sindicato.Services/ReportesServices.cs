@@ -105,7 +105,6 @@ namespace Sindicato.Services
                         CANTIDAD = 1,
                         FECHA_COMPRA = item.FECHA,
                         IMPORTE_OBLIGACION = item.IMPORTE,
-                        CONCEPTO = item.SD_TIPOS_INGRESOS_SOCIO.NOMBRE,
                         OBLIGACION = item.OBSERVACION,
                         TOTAL = item.IMPORTE,
                         TOTAL_LITERAL = n.Convertir(item.IMPORTE.ToString(), true, item.MONEDA)
@@ -241,7 +240,7 @@ namespace Sindicato.Services
                         var detalleRep = new ReporteTotal()
                         {
                             DETALLE = detalle,
-                            SUBDETALLE = item.OBLIGACION,
+                            SUBDETALLE = item.OBLIGACION == "APORTE SINDICATO" ? "APORTE LINEA" : item.OBLIGACION,
                             CANTIDAD = item.CANTIDAD,
                             BOLIVIANOS = (decimal)item.IMPORTE,
                             COSTO_UNITARIO = obli == null ? (decimal)item.COSTO : obli.IMPORTE_DEFECTO
@@ -267,7 +266,7 @@ namespace Sindicato.Services
                         var detalleRep = new ReporteTotal()
                         {
                             DETALLE = detalleRegulaciones,
-                            SUBDETALLE = item.OBLIGACION,
+                            SUBDETALLE = item.OBLIGACION == "APORTE SINDICATO" ? "APORTE LINEA" : item.OBLIGACION,
                             CANTIDAD = (int)regulaciones.Sum(x => x.CANTIDAD),
                             BOLIVIANOS = (decimal)item.IMPORTE,
                             COSTO_UNITARIO = obli.IMPORTE_DEFECTO  //item.IMPORTE //(decimal)item.IMPORTE / (decimal)regulaciones.Where(x => x.MONTO > 0).Sum(x => x.CANTIDAD),// (decimal)item.COSTO
@@ -278,7 +277,7 @@ namespace Sindicato.Services
 
 
                 var ingresosSocios = managerIngresosSocios.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.SD_CAJAS.MONEDA == "BOLIVIANOS" && x.ESTADO != "ANULADO");
-                var ingresosSociosDetalle = ingresosSocios.GroupBy(x => new { CATEGORIA = x.SD_TIPOS_INGRESOS_SOCIO.CATEGORIA, INGRESO = x.SD_TIPOS_INGRESOS_SOCIO.NOMBRE }).Select(y => new { DETALLE = y.Key.CATEGORIA, SUBDETALLE = y.Key.INGRESO, CANTIDAD = y.Count(), IMPORTE = y.Sum(z => z.IMPORTE), COSTO = y.Min(z => z.IMPORTE) });
+                var ingresosSociosDetalle = ingresosSocios.GroupBy(x => new { CATEGORIA = x.SD_TIPOS_INGRESOS_SOCIO.CATEGORIA, INGRESO = x.SD_TIPOS_INGRESOS_SOCIO.NOMBRE, COSTO = x.IMPORTE }).Select(y => new { DETALLE = y.Key.CATEGORIA, SUBDETALLE = y.Key.INGRESO, CANTIDAD = y.Count(), IMPORTE = y.Sum(z => z.IMPORTE), COSTO = y.Key.COSTO });
                 foreach (var item in ingresosSociosDetalle)
                 {
                     var detalleRep = new ReporteTotal()
@@ -315,12 +314,13 @@ namespace Sindicato.Services
                     }
                 }
 
+                int cant_reg = regulaciones.Count() > 0 ? (int)regulaciones.Sum(x => x.CANTIDAD) : 0;
                 foreach (var item in result)
                 {
                     item.FECHA_INI = FECHA_INI;
                     item.FECHA_FIN = FECHA_FIN;
                     item.TOTAL_AHORRO = total;
-                    item.TOTAL_CANTIDAD = hojas.Count() + (int)regulaciones.Sum(x => x.CANTIDAD);
+                    item.TOTAL_CANTIDAD = hojas.Count() + cant_reg;
 
                 }
             });
@@ -417,7 +417,8 @@ namespace Sindicato.Services
                     rep.NRO_RECIBO = item.OBLIGACION;
                     //rep.NRO_RECIBO = "VENTAS DE HOJAS";
                     rep.SUBDETALLE = "VENTA DE HOJAS";
-                    rep.DETALLE = item.OBLIGACION == "AHORRO" ? "AHOROS" : "APORTE SINDICATO";
+                    rep.DETALLE = item.OBLIGACION == "AHORRO" ? "AHOROS" : "APORTE LINEA 131";
+                    rep.NRO_RECIBO = item.OBLIGACION == "APORTE SINDICATO" ? "APORTE LINEA" : item.OBLIGACION;
                     //rep.DETALLE = "VENTAS DE HOJAS";
                     //rep.SUBDETALLE = item.OBLIGACION;
                     rep.CANTIDAD = item.CANTIDAD;
@@ -454,9 +455,9 @@ namespace Sindicato.Services
 
                     //rep.NRO_RECIBO = "REGULARIZACIONES";
                     //rep.NRO_RECIBO = item.OBLIGACION == "AHORRO" ? "AHOROS" : "APORTE SINDICATO";
-                    rep.DETALLE = item.OBLIGACION == "AHORRO" ? "AHOROS" : "APORTE SINDICATO";
+                    rep.DETALLE = item.OBLIGACION == "AHORRO" ? "AHOROS" : "APORTE LINEA 131";
 
-                    rep.NRO_RECIBO = item.OBLIGACION;
+                    rep.NRO_RECIBO = item.OBLIGACION == "APORTE SINDICATO" ? "APORTE LINEA" : item.OBLIGACION;
                     //rep.NRO_RECIBO = "VENTAS DE HOJAS";
                     rep.SUBDETALLE = "REGULARIZACIONES";
 
@@ -590,7 +591,8 @@ namespace Sindicato.Services
                         result.Add(kar);
                     }
                 }
-                else {
+                else
+                {
                     SD_RETIRO_SOCIO_MOVIL item = managerRetiro.BuscarTodos(x => x.ID_RETIRO == ID_RETIRO).FirstOrDefault();
                     var kar = new ReporteRetiroModel()
                     {
@@ -630,6 +632,8 @@ namespace Sindicato.Services
                     var kar = new ReportePrestamo()
                     {
                         CAJA = item.SD_PRESTAMOS_POR_SOCIOS.SD_CAJAS.NOMBRE,
+                        NUMERO = (decimal)item.SD_PRESTAMOS_POR_SOCIOS.NUMERO,
+                        CODIGO_GESTION = item.SD_PRESTAMOS_POR_SOCIOS.SD_GESTION.CODIGO,
                         CAPITAL_A_PAGAR = item.CAPITAL_A_PAGAR,
                         FECHA_LIMITE_PAGO = item.SD_PRESTAMOS_POR_SOCIOS.FECHA_LIMITE_PAGO,
                         FECHA_PAGO = item.FECHA_PAGO,
@@ -664,6 +668,91 @@ namespace Sindicato.Services
 
         }
 
+
+        public IEnumerable<ReportePrestamo> ObtenerReporteKardexPrestamo(int ID_PRESTAMO)
+        {
+            List<ReportePrestamo> result = new List<ReportePrestamo>();
+            NumLetra n = new NumLetra();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_PLAN_DE_PAGOManager(uow);
+                var kardex = manager.BuscarTodos(x => x.ID_PRESTAMO == ID_PRESTAMO);
+                foreach (var item in kardex)
+                {
+                    ReporteDetallePago det = new ReporteDetallePago();
+                    det.FECHA = DateTime.Now;
+                    det.TOTAL = 8989;
+                    var kar = new ReportePrestamo()
+                    {
+                        CAJA = item.SD_PRESTAMOS_POR_SOCIOS.SD_CAJAS.NOMBRE,
+                        NUMERO = (decimal)item.SD_PRESTAMOS_POR_SOCIOS.NUMERO,
+                        CODIGO_GESTION = item.SD_PRESTAMOS_POR_SOCIOS.SD_GESTION.CODIGO,
+                        CAPITAL_A_PAGAR = item.CAPITAL_A_PAGAR,
+                        FECHA_LIMITE_PAGO = item.SD_PRESTAMOS_POR_SOCIOS.FECHA_LIMITE_PAGO,
+                        FECHA_PAGO = item.FECHA_PAGO,
+                        FECHA_PRESTAMO = item.SD_PRESTAMOS_POR_SOCIOS.FECHA,
+                        IMPORTE_PRESTAMO = item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_PRESTAMO,
+                        ID_PLAN = item.ID_PLAN,
+                        ID_PRESTAMO = item.ID_PRESTAMO,
+                        IMPORTE_A_PAGAR = item.IMPORTE_A_PAGAR,
+                        IMPORTE_INTERES = (decimal)item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_INTERES,
+                        INTERES = item.SD_PRESTAMOS_POR_SOCIOS.INTERES,
+                        INTERES_A_PAGAR = item.INTERES_A_PAGAR,
+                        IMPORTE_TOTAL = item.INTERES_A_PAGAR + item.IMPORTE_A_PAGAR,
+                        LOGIN_USR = item.LOGIN_USR,
+                        MONEDA = item.SD_PRESTAMOS_POR_SOCIOS.MONEDA,
+                        NRO_SEMANA = item.NRO_SEMANA,
+                        OBSERVACION = item.SD_PRESTAMOS_POR_SOCIOS.OBSERVACION,
+                        SALDO_PLAN = item.SALDO_PLAN,
+                        SEMANAS = item.SD_PRESTAMOS_POR_SOCIOS.SEMANAS,
+                        SOCIO = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
+                        TIPO_INTERES = item.SD_PRESTAMOS_POR_SOCIOS.TIPO_INTERES,
+                        TIPO_PRESTAMO = item.SD_PRESTAMOS_POR_SOCIOS.SD_TIPOS_PRESTAMOS.NOMBRE,
+                        MOVIL = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
+                        IMPORTE_MORA = item.SD_PRESTAMOS_POR_SOCIOS.SD_TIPOS_PRESTAMOS.MULTA_POR_MORA,
+                        MORA_A_PAGAR = item.MORA_A_PAGAR
+
+
+                    };
+                    result.Add(kar);
+                }
+
+            });
+
+            return result;
+
+        }
+
+        public List<ReporteDetallePago> ReporteDetallePagos(int ID_PLAN)
+        {
+
+            List<ReporteDetallePago> result = new List<ReporteDetallePago>();
+
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                var kardex = manager.BuscarTodos(x => x.ID_PLAN == ID_PLAN && x.ESTADO != "ANULADO");
+                foreach (var item in kardex)
+                {
+                    ReporteDetallePago det = new ReporteDetallePago();
+                    det.FECHA = DateTime.Now;
+                    det.TOTAL = 8989;
+                    var kar = new ReporteDetallePago()
+                    {
+                        FECHA = item.FECHA,
+                        TOTAL = item.IMPORTE,
+                        TOTAL_MORA = item.IMPORTE_MORA,
+                        RESPONSABLE = item.LOGIN_USR
+
+                    };
+                    result.Add(kar);
+                }
+
+            });
+
+            return result;
+        }
+
         public IEnumerable<ReportePrestamo> ObtenerPago(int ID_PAGO)
         {
             List<ReportePrestamo> result = new List<ReportePrestamo>();
@@ -674,22 +763,52 @@ namespace Sindicato.Services
                 var kardex = manager.BuscarTodos(x => x.ID_PAGO == ID_PAGO && x.ESTADO != "ANULADO");
                 foreach (var item in kardex)
                 {
+                    decimal total = item.IMPORTE + (decimal)item.IMPORTE_MORA;
                     var kar = new ReportePrestamo()
                     {
                         ID_PAGO = item.ID_PAGO,
-                        ID_PRESTAMO = item.ID_PRESTAMO,
+                        ID_PRESTAMO = (decimal)item.SD_PRESTAMOS_POR_SOCIOS.NUMERO,
+                        CODIGO_GESTION = item.SD_GESTION.CODIGO,
                         FECHA_PAGO = item.FECHA,
                         FECHA_LIMITE_PAGO = item.SD_PRESTAMOS_POR_SOCIOS.FECHA_LIMITE_PAGO,
                         OBSERVACION = item.SD_PRESTAMOS_POR_SOCIOS.SD_TIPOS_PRESTAMOS.NOMBRE,
                         IMPORTE_TOTAL = item.IMPORTE,
-                        IMPORTE_PRESTAMO = (decimal)item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_INTERES + item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_PRESTAMO + item.SD_PRESTAMOS_POR_SOCIOS.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA),
-                        TOTAL_CANCELADO = item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Count() > 0 ? item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").Sum(x => x.IMPORTE) : 0,
-                        IMPORTE_LITERAL = n.Convertir(item.IMPORTE.ToString(), true, item.SD_CAJAS.MONEDA),
+                        TIPO = item.TIPO,
+                        CUOTA_SEMANA = item.TIPO == "TOTAL" ? "" : string.Format("{0} / {1}", item.SD_PLAN_DE_PAGO.NRO_SEMANA, item.SD_PRESTAMOS_POR_SOCIOS.SEMANAS),
+                        IMPORTE_PRESTAMO = (decimal)item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_INTERES + item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_PRESTAMO + item.SD_PRESTAMOS_POR_SOCIOS.SD_PRESTAMOS_MORA.Where(y => y.ESTADO != "ANULADO").Sum(y => y.IMPORTE_MORA),
+                        TOTAL_CANCELADO = item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Count() > 0 ? item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").Sum(x => x.IMPORTE + x.IMPORTE_MORA) : 0,
+                        IMPORTE_LITERAL = n.Convertir(total.ToString(), true, item.SD_CAJAS.MONEDA),
                         SOCIO = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
-                        MOVIL = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL
+                        MOVIL = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
+                        SALDO_PLAN = item.TOTAL_CONDONACION,
                     };
-                    kar.DEBE = kar.IMPORTE_PRESTAMO - kar.TOTAL_CANCELADO;
+                    kar.DEBE = kar.IMPORTE_PRESTAMO - kar.TOTAL_CANCELADO - kar.SALDO_PLAN;
                     result.Add(kar);
+                    if (item.SD_PRESTAMOS_MORA != null)
+                    {
+                        var karMora = new ReportePrestamo()
+                        {
+                            ID_PAGO = item.ID_PAGO,
+                            ID_PRESTAMO = (decimal)item.SD_PRESTAMOS_POR_SOCIOS.NUMERO,
+                            CODIGO_GESTION = item.SD_GESTION.CODIGO,
+                            FECHA_PAGO = item.FECHA,
+                            FECHA_LIMITE_PAGO = item.SD_PRESTAMOS_POR_SOCIOS.FECHA_LIMITE_PAGO,
+                            OBSERVACION = string.Format("IMPORTE MORA POR {0} DIA(s) RETRASADOS", item.SD_PRESTAMOS_MORA.SD_PLAN_DE_PAGO.DIAS_RETRASO),
+                            IMPORTE_TOTAL = (decimal)item.IMPORTE_MORA,
+                            TIPO = item.TIPO,
+                            CUOTA_SEMANA = item.TIPO == "TOTAL" ? "" : string.Format("{0} / {1}", item.SD_PLAN_DE_PAGO.NRO_SEMANA, item.SD_PRESTAMOS_POR_SOCIOS.SEMANAS),
+                            IMPORTE_PRESTAMO = (decimal)item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_INTERES + item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_PRESTAMO + item.SD_PRESTAMOS_POR_SOCIOS.SD_PRESTAMOS_MORA.Where(y => y.ESTADO != "ANULADO").Sum(y => y.IMPORTE_MORA),
+                            TOTAL_CANCELADO = item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Count() > 0 ? item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").Sum(x => x.IMPORTE + x.IMPORTE_MORA) : 0,
+                            IMPORTE_LITERAL = n.Convertir(total.ToString(), true, item.SD_CAJAS.MONEDA),
+                            SOCIO = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
+                            MOVIL = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
+                            SALDO_PLAN = item.TOTAL_CONDONACION,
+
+                        };
+                        karMora.DEBE = kar.IMPORTE_PRESTAMO - kar.TOTAL_CANCELADO - -kar.SALDO_PLAN;
+                        result.Add(karMora);
+                    }
+
                 }
                 //FE
             });
@@ -697,6 +816,74 @@ namespace Sindicato.Services
             return result;
 
         }
+
+        public IEnumerable<ReportePrestamo> ObtenerPagoPorNumero(int ID_PAGO)
+        {
+            List<ReportePrestamo> result = new List<ReportePrestamo>();
+            NumLetra n = new NumLetra();
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                var pago = manager.BuscarTodos(x => x.ID_PAGO == ID_PAGO).FirstOrDefault();
+                var kardex = manager.BuscarTodos(x => x.ID_PRESTAMO == pago.ID_PRESTAMO && x.NUMERO == pago.NUMERO && x.ESTADO != "ANULADO");
+                foreach (var item in kardex)
+                {
+                    decimal total = item.IMPORTE + (decimal)item.IMPORTE_MORA;
+                    var kar = new ReportePrestamo()
+                    {
+                        ID_PAGO = item.ID_PAGO,
+                        NUMERO = (decimal)item.NUMERO,
+                        ID_PRESTAMO = (decimal)item.SD_PRESTAMOS_POR_SOCIOS.NUMERO,
+                        CODIGO_GESTION = item.SD_GESTION.CODIGO,
+                        FECHA_PAGO = item.FECHA,
+                        FECHA_LIMITE_PAGO = item.SD_PRESTAMOS_POR_SOCIOS.FECHA_LIMITE_PAGO,
+                        OBSERVACION = string.Format("{0} - CUOTA NRO:{1}", item.SD_PRESTAMOS_POR_SOCIOS.SD_TIPOS_PRESTAMOS.NOMBRE, item.SD_PLAN_DE_PAGO.NRO_SEMANA),
+                        IMPORTE_TOTAL = item.IMPORTE,
+                        TIPO = item.TIPO,
+                        CUOTA_SEMANA = item.TIPO == "TOTAL" ? "" : string.Format("{0} / {1}", item.SD_PLAN_DE_PAGO.NRO_SEMANA, item.SD_PRESTAMOS_POR_SOCIOS.SEMANAS),
+                        IMPORTE_PRESTAMO = (decimal)item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_INTERES + item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_PRESTAMO + item.SD_PRESTAMOS_POR_SOCIOS.SD_PRESTAMOS_MORA.Where(y => y.ESTADO != "ANULADO").Sum(y => y.IMPORTE_MORA),
+                        TOTAL_CANCELADO = item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Count() > 0 ? item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").Sum(x => x.IMPORTE + x.IMPORTE_MORA) : 0,
+                        IMPORTE_LITERAL = n.Convertir(total.ToString(), true, item.SD_CAJAS.MONEDA),
+                        SOCIO = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
+                        MOVIL = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
+                        SALDO_PLAN = item.TOTAL_CONDONACION,
+                    };
+                    kar.DEBE = kar.IMPORTE_PRESTAMO - kar.TOTAL_CANCELADO - kar.SALDO_PLAN;
+                    result.Add(kar);
+                    if (item.SD_PRESTAMOS_MORA != null)
+                    {
+                        var karMora = new ReportePrestamo()
+                        {
+                            ID_PAGO = item.ID_PAGO,
+                            ID_PRESTAMO = (decimal)item.SD_PRESTAMOS_POR_SOCIOS.NUMERO,
+                            CODIGO_GESTION = item.SD_GESTION.CODIGO,
+                            FECHA_PAGO = item.FECHA,
+                            FECHA_LIMITE_PAGO = item.SD_PRESTAMOS_POR_SOCIOS.FECHA_LIMITE_PAGO,
+                            OBSERVACION = string.Format("IMPORTE MORA POR {0} DIA(s) RETRASADOS", item.SD_PRESTAMOS_MORA.SD_PLAN_DE_PAGO.DIAS_RETRASO),
+                            IMPORTE_TOTAL = (decimal)item.IMPORTE_MORA,
+                            TIPO = item.TIPO,
+                            CUOTA_SEMANA = item.TIPO == "TOTAL" ? "" : string.Format("{0} / {1}", item.SD_PLAN_DE_PAGO.NRO_SEMANA, item.SD_PRESTAMOS_POR_SOCIOS.SEMANAS),
+                            IMPORTE_PRESTAMO = (decimal)item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_INTERES + item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_PRESTAMO + item.SD_PRESTAMOS_POR_SOCIOS.SD_PRESTAMOS_MORA.Where(y => y.ESTADO != "ANULADO").Sum(y => y.IMPORTE_MORA),
+                            TOTAL_CANCELADO = item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Count() > 0 ? item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").Sum(x => x.IMPORTE + x.IMPORTE_MORA) : 0,
+                            IMPORTE_LITERAL = n.Convertir(total.ToString(), true, item.SD_CAJAS.MONEDA),
+                            SOCIO = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
+                            MOVIL = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
+                            SALDO_PLAN = item.TOTAL_CONDONACION,
+                            NUMERO = (decimal)item.NUMERO
+
+                        };
+                        karMora.DEBE = kar.IMPORTE_PRESTAMO - kar.TOTAL_CANCELADO - -kar.SALDO_PLAN;
+                        result.Add(karMora);
+                    }
+
+                }
+                //FE
+            });
+
+            return result;
+
+        }
+
         public IEnumerable<ReporteDetalleIngresos> ObtenerReporteIngresoDetalle(DateTime FECHA_INI, DateTime FECHA_FIN)
         {
             List<ReporteDetalleIngresos> result = new List<ReporteDetalleIngresos>();
@@ -797,13 +984,13 @@ namespace Sindicato.Services
                         FECHA_INI = FECHA_INI,
                         FECHA_FIN = FECHA_FIN,
                         FECHA_LIMITE = item.FECHA_LIMITE_PAGO,
-                        ID_PRESTAMO = item.ID_PRESTAMO,
+                        ID_PRESTAMO = (int)item.NUMERO,
                         CAJA = item.SD_CAJAS.NOMBRE,
                         MOVIL = item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
                         IMPORTE_PRESTAMO = item.IMPORTE_PRESTAMO,
-                        IMPORTE_TOTAL = item.IMPORTE_PRESTAMO + item.IMPORTE_INTERES + item.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA),
-                        CANDELADO = item.SD_PAGO_DE_PRESTAMOS.Where(x=>x.ESTADO != "ANULADO").Sum(y => y.IMPORTE),
-                        CANT_PAGOS = item.SD_PAGO_DE_PRESTAMOS.Where(x=>x.ESTADO != "ANULADO").Count(),
+                        IMPORTE_TOTAL = item.IMPORTE_PRESTAMO + item.IMPORTE_INTERES + item.SD_PRESTAMOS_MORA.Where(y => y.ESTADO != "ANULADO").Sum(y => y.IMPORTE_MORA),
+                        CANDELADO = item.SD_PAGO_DE_PRESTAMOS.Sum(y => y.IMPORTE),
+                        CANT_PAGOS = item.SD_PAGO_DE_PRESTAMOS.Count(),
                         INTERVALO = Intervalo
                     };
                     result.Add(detalleRep);
@@ -832,7 +1019,8 @@ namespace Sindicato.Services
                         FECHA = item.FECHA,
                         CAJA = item.SD_CAJAS.NOMBRE,
                         MOVIL = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
-                        IMPORTE_PRESTAMO = item.IMPORTE,
+                        IMPORTE_PRESTAMO = item.IMPORTE + item.IMPORTE_MORA,
+                        IMPORTE_MORA = item.IMPORTE_MORA,
 
                     };
                     result.Add(detalleRep);
@@ -849,36 +1037,85 @@ namespace Sindicato.Services
             ExecuteManager(uow =>
             {
                 var manager = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
-                var deudores = manager.BuscarTodos(x => x.FECHA_LIMITE_PAGO < FECHA_INI);
+                var managerPlanPago = new SD_PLAN_DE_PAGOManager(uow);
+                var deudores = managerPlanPago.BuscarTodos(x => x.ESTADO == "NUEVO" && x.DIAS_RETRASO > 0).GroupBy(y => y.ID_PRESTAMO).Select(z => new
+                {
+                    ID_PRESTAMO = z.Key,
+                    DIAS_RESTRASO = z.Max(x => x.DIAS_RETRASO),
+                    CUOTAS_ADEUDADO = z.Count(),
+                    TOTAL_DEUDA = z.Sum(x => x.IMPORTE_A_PAGAR + x.INTERES_A_PAGAR + x.MORA_A_PAGAR)
+                });
                 foreach (var item in deudores)
                 {
 
+                    var prestamo = manager.BuscarTodos(x => x.ID_PRESTAMO == item.ID_PRESTAMO).FirstOrDefault();
 
-                    var moras = item.SD_PRESTAMOS_MORA.Count() > 0 ? item.SD_PRESTAMOS_MORA.Sum(x => x.IMPORTE_MORA) : 0;
-                    var cancelados = item.SD_PAGO_DE_PRESTAMOS.Count() > 0 ? item.SD_PAGO_DE_PRESTAMOS.Sum(x => x.IMPORTE) : 0;
 
-                    if (cancelados < item.IMPORTE_INTERES + item.IMPORTE_PRESTAMO + moras)
+                    var detalleRep = new ReportePrestamo()
                     {
+                        SOCIO = prestamo.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
+                        MOVIL = prestamo.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
+                        FECHA_INI = DateTime.Now,
+                        FECHA_PRESTAMO = prestamo.FECHA,
+                        FECHA_LIMITE_PAGO = prestamo.FECHA_LIMITE_PAGO,
+                        IMPORTE_A_PAGAR = (decimal)item.TOTAL_DEUDA,
+                        CANTIDAD_CANCELADAS = item.CUOTAS_ADEUDADO
 
-                        var detalleRep = new ReportePrestamo()
-                        {
-                            SOCIO = item.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
-                            MOVIL = item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
-                            FECHA_INI = FECHA_INI,
-                            FECHA_PRESTAMO = item.FECHA,
-                            FECHA_LIMITE_PAGO = item.FECHA_LIMITE_PAGO,
-                            IMPORTE_A_PAGAR = (decimal)(item.IMPORTE_PRESTAMO + item.IMPORTE_INTERES + moras) - cancelados,
-                            CANTIDAD_CANCELADAS = item.SEMANAS - item.SD_PAGO_DE_PRESTAMOS.Count()
+                    };
+                    result.Add(detalleRep);
 
-                        };
-                        result.Add(detalleRep);
-                    }
                 }
 
             });
             return result;
 
         }
+
+        public IEnumerable<ReportePrestamo> ObtenerReporteTopDeudores(int ID_GESTION)
+        {
+            List<ReportePrestamo> result = new List<ReportePrestamo>();
+
+            ExecuteManager(uow =>
+            {
+                var manager = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
+                var managerPlanPago = new SD_PLAN_DE_PAGOManager(uow);
+                var prestamos = manager.BuscarTodos(x => x.ID_GESTION == ID_GESTION && x.ESTADO != "ANULADO").OrderBy(x => x.ID_PRESTAMO);
+                List<ReportePrestamo> grupos = new List<ReportePrestamo>();
+                foreach (var item in prestamos)
+                {
+                    int DIAS_RETRASOS = 0;
+                    foreach (var item1 in item.SD_PLAN_DE_PAGO.Where(x => x.ESTADO != "ANULADO" && x.DIAS_RETRASO > 0))
+                    {
+                        if (item1.DIAS_RETRASO > DIAS_RETRASOS)
+                        {
+                            DIAS_RETRASOS = (int)item1.DIAS_RETRASO;
+                        }
+                    }
+                    if (DIAS_RETRASOS > 0)
+                    {
+                        var detalleRep = new ReportePrestamo()
+                        {
+                            SOCIO = item.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
+                            MOVIL = item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
+                            CODIGO_GESTION = item.SD_GESTION.CODIGO,
+                            FECHA_INI = DateTime.Now,
+                            CANTIDAD = 1,
+                            FECHA_PRESTAMO = item.FECHA,
+                            FECHA_LIMITE_PAGO = item.FECHA_LIMITE_PAGO,
+                            DIAS_ATRASOS = DIAS_RETRASOS,
+                        };
+                        result.Add(detalleRep);
+                    }
+
+
+                }
+
+
+            });
+            return result;
+
+        }
+
         public IEnumerable<ReportePrestamo> ObtenerReporteDeudoresCuotas(DateTime FECHA_INI)
         {
             List<ReportePrestamo> result = new List<ReportePrestamo>();
@@ -887,7 +1124,7 @@ namespace Sindicato.Services
             {
                 var manager = new SD_PLAN_DE_PAGOManager(uow);
                 var managerPrestamo = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
-                var deudores = manager.BuscarTodos(x => x.FECHA_PAGO < FECHA_INI && x.ESTADO != "CANCELADO").GroupBy(y => y.ID_PRESTAMO).Select(z => new
+                var deudores = manager.BuscarTodos(x => x.FECHA_PAGO < FECHA_INI && x.ESTADO != "CANCELADO" && x.ESTADO != "ANULADO").GroupBy(y => y.ID_PRESTAMO).Select(z => new
                 {
                     ID_PRESTAMO = z.Key,
                     COUTAS_CANCELADAS = z.Count(),
@@ -931,11 +1168,12 @@ namespace Sindicato.Services
                 var managerAmortizaciones = new SD_INGRESOSManager(uow);
                 var managerTransferencias = new SD_TRANSFERENCIASManager(uow);
 
-                decimal? transferenciasIngreso = managerTransferencias.BuscarTodos(x => x.ID_CAJA_DESTINO == 9 && x.ESTADO != "ANULADO").Sum(y => (decimal?)y.IMPORTE);
-                decimal? transferenciasEgreso = managerTransferencias.BuscarTodos(x => x.ID_CAJA_ORIGEN == 9 && x.ESTADO != "ANULADO").Sum(y => (decimal?)y.IMPORTE);
 
+                decimal? transferenciasIngreso = managerTransferencias.BuscarTodos(x => x.ID_CAJA_DESTINO == 19 && x.ESTADO != "ANULADO").Sum(y => (decimal?)y.IMPORTE);
+                decimal? transferenciasEgreso = managerTransferencias.BuscarTodos(x => x.ID_CAJA_ORIGEN == 19 && x.ESTADO != "ANULADO").Sum(y => (decimal?)y.IMPORTE);
 
-                var amortizazcion = managerAmortizaciones.BuscarTodos(x => x.ID_CAJA == 9 && x.ESTADO != "ANULADO").Sum(y => y.IMPORTE);
+                decimal? amortizazcion = managerAmortizaciones.BuscarTodos(x => x.ID_CAJA == 19 && x.ESTADO != "ANULADO").Sum(y => (decimal?)y.IMPORTE);
+
                 var detalles = managerIngresos.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO").GroupBy(xy => xy.ID_TIPO_PRESTAMO);
 
                 var ingresosSocios = managerIngresos.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO").GroupBy(xy => xy.ID_TIPO_PRESTAMO).Select(y => new
@@ -945,14 +1183,15 @@ namespace Sindicato.Services
                     TIPO_PRESTAMO = y.FirstOrDefault().SD_TIPOS_PRESTAMOS.NOMBRE,
                     IMPORTE_INTERES = y.Sum(z => z.IMPORTE_INTERES),
                     ID_TIPO_PRESTAMO = y.Key,
+                    TOTAL_CONDONACION = y.Sum(z => z.CONDONACION_INTERES),
                     //MORAS = y.Sum(z => z.SD_PRESTAMOS_MORA.Sum()),
                     TOTAL_CUOTAS = y.Sum(z => z.SEMANAS),
-                    CAPITAL = y.Sum(z=>z.SALDO_CAPITAL),
-                    INTERES = y.Sum(z=>z.SALDO_INTERES)
-                   
+                    CAPITAL = y.Sum(z => z.SALDO_CAPITAL),
+                    INTERES = y.Sum(z => z.SALDO_INTERES)
                     //TOTAL_CUOTAS_CANCELADAS = y.Sum(z => z.SD_PAGO_DE_PRESTAMOS.Count()),
                     //TOTAL_CANCELADO = y.Sum(z => z.SD_PAGO_DE_PRESTAMOS.Sum(xy => xy.IMPORTE))
                 });
+
                 foreach (var item in ingresosSocios)
                 {
                     var moras = managerMoras.BuscarTodos(x => x.SD_PRESTAMOS_POR_SOCIOS.FECHA >= FECHA_INI && x.SD_PRESTAMOS_POR_SOCIOS.FECHA < Fecha_fin && x.SD_PRESTAMOS_POR_SOCIOS.ID_TIPO_PRESTAMO == item.ID_TIPO_PRESTAMO);
@@ -968,17 +1207,18 @@ namespace Sindicato.Services
                         CANTIDAD = item.CANTIDAD_PRESTAMO,
                         IMPORTE_PRESTAMO = item.IMPORTE_PRESTAMO,
                         IMPORTE_INTERES = item.IMPORTE_INTERES,
-                        
                         IMPORTE_MORA = moras.Count() > 0 ? moras.Sum(x => x.IMPORTE_MORA) : 0,
                         MORA_A_PAGAR = moras.Count() > 0 ? moras.Sum(x => x.SALDO_PLAN) : 0,
+                        TOTAL_CONDONACIONES = (decimal)item.TOTAL_CONDONACION,
+
                         NRO_SEMANA = item.TOTAL_CUOTAS,
                         CANTIDAD_CANCELADAS = pagos.Count(),
                         IMPORTE_TOTAL = pagos.Count() > 0 ? pagos.Sum(x => x.IMPORTE) : 0,
-                        AMORTIZACION = amortizazcion,
+                        AMORTIZACION = amortizazcion == null ? 0 : (decimal)amortizazcion,
                         TRANSFERENCIA_INGRESO = transferenciasIngreso == null ? 0 : transferenciasIngreso,
                         TRANSFERENCIA_EGRESO = transferenciasEgreso == null ? 0 : transferenciasEgreso,
                         CAPITAL_CANCELADO = item.CAPITAL,
-                        INTERES_CANCELADO = item.INTERES
+                        INTERES_CANCELADO = item.INTERES == null ? 0 : item.INTERES
 
                     };
                     result.Add(detalleRep);
@@ -988,6 +1228,88 @@ namespace Sindicato.Services
             return result;
         }
 
+        public IEnumerable<ReportePrestamo> ObtenerReporteTotalPrestamosv1(DateTime FECHA_INI, DateTime FECHA_FIN)
+        {
+            List<ReportePrestamo> result = new List<ReportePrestamo>();
+            NumLetra n = new NumLetra();
+            ExecuteManager(uow =>
+            {
+                DateTime Fecha_fin = FECHA_FIN.AddDays(1);
+                var managerIngresos = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
+                var managerPlanPagos = new SD_PLAN_DE_PAGOManager(uow);
+
+                var managerMoras = new SD_PRESTAMOS_MORAManager(uow);
+                var managerPagos = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                var managerAmortizaciones = new SD_INGRESOSManager(uow);
+                var managerTransferencias = new SD_TRANSFERENCIASManager(uow);
+
+
+                decimal? transferenciasIngreso = managerTransferencias.BuscarTodos(x => x.ID_CAJA_DESTINO == 19 && x.ESTADO != "ANULADO").Sum(y => (decimal?)y.IMPORTE);
+                decimal? transferenciasEgreso = managerTransferencias.BuscarTodos(x => x.ID_CAJA_ORIGEN == 19 && x.ESTADO != "ANULADO").Sum(y => (decimal?)y.IMPORTE);
+
+                decimal? amortizazcion = managerAmortizaciones.BuscarTodos(x => x.ID_CAJA == 19 && x.ESTADO != "ANULADO").Sum(y => (decimal?)y.IMPORTE);
+
+                var detalles = managerIngresos.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO");
+                foreach (var item in detalles)
+                {
+                    decimal mora_cancelado = 0;
+                    decimal capital_cancelado = 0;
+                    decimal interes_cancelado = 0;
+                    foreach (var item1 in item.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO"))
+                    {
+                        if (item1.SD_PRESTAMOS_MORA != null)
+                        {
+                            mora_cancelado = mora_cancelado + item1.SD_PRESTAMOS_MORA.IMPORTE_MORA;
+                        }
+                        if (item1.TIPO == "CUOTA")
+                        {
+                            capital_cancelado = capital_cancelado + item1.SD_PLAN_DE_PAGO.IMPORTE_A_PAGAR;
+                            interes_cancelado = interes_cancelado + (item1.SD_PLAN_DE_PAGO.INTERES_A_PAGAR - item1.SD_PLAN_DE_PAGO.CONDONACION);
+                        }
+                        else
+                        {
+                            var plan = managerPlanPagos.BuscarTodos(x => x.ID_PAGO == item1.ID_PAGO);
+                            foreach (var item2 in plan)
+                            {
+                                capital_cancelado = capital_cancelado + item2.IMPORTE_A_PAGAR;
+                                interes_cancelado = interes_cancelado + (item2.INTERES_A_PAGAR - item2.CONDONACION);
+                            }
+                        }
+
+                    }
+                    var detalleRep = new ReportePrestamo()
+                    {
+
+                        FECHA_INI = FECHA_INI,
+                        FECHA_FIN = FECHA_FIN,
+                        TIPO_PRESTAMO = item.SD_TIPOS_PRESTAMOS.NOMBRE,
+                        CANTIDAD = 1,
+                        IMPORTE_PRESTAMO = item.IMPORTE_PRESTAMO,
+                        IMPORTE_INTERES = item.IMPORTE_INTERES,
+                        TOTAL_CONDONACIONES = (decimal)item.CONDONACION_INTERES,
+
+
+                        IMPORTE_MORA = item.SD_PRESTAMOS_MORA.Count() > 0 ? item.SD_PRESTAMOS_MORA.Where(x => x.ESTADO != "ANULADO").Sum(x => x.IMPORTE_MORA) : 0,
+
+                        MORA_A_PAGAR = item.SD_PRESTAMOS_MORA.Count() > 0 ? item.SD_PRESTAMOS_MORA.Where(x => x.ESTADO != "ANULADO").Sum(x => x.IMPORTE_MORA) - mora_cancelado : 0,
+                        MORA_CANCELADA = mora_cancelado,
+                        NRO_SEMANA = item.SEMANAS,
+                        CANTIDAD_CANCELADAS = item.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").Count(),
+                        IMPORTE_TOTAL = capital_cancelado + interes_cancelado,
+                        AMORTIZACION = amortizazcion == null ? 0 : (decimal)amortizazcion,
+                        TRANSFERENCIA_INGRESO = transferenciasIngreso == null ? 0 : transferenciasIngreso,
+                        TRANSFERENCIA_EGRESO = transferenciasEgreso == null ? 0 : transferenciasEgreso,
+                        CAPITAL_CANCELADO = capital_cancelado,
+                        INTERES_CANCELADO = interes_cancelado,
+
+                    };
+                    result.Add(detalleRep);
+
+                }
+                //FE
+            });
+            return result;
+        }
 
         public IEnumerable<ReportePrestamo> ObtenerReporteTotalPrestamosPorGestion(int ID_GESTION)
         {
@@ -1013,6 +1335,7 @@ namespace Sindicato.Services
 
                 decimal? amortizazcion = 0;
                 decimal total_por_cobrar_gestion_ant = 0;
+                decimal total_nueva_mora_gestion_ant = 0;
                 decimal saldo_por_cobrar_gestion_ant = 0;
                 decimal total_cancelado_gestion_ant = 0;
                 decimal total_mora_cancelado_gestion_ant = 0;
@@ -1027,8 +1350,17 @@ namespace Sindicato.Services
                 }
                 else
                 {
+                    foreach (var item in managerIngresos.BuscarTodos(x => x.ID_GESTION == gestionAnterior.ID_GESTION && x.ESTADO != "ANULADO"))
+                    {
+                        if (item.SD_PRESTAMOS_MORA.Where(x=>x.FECHA_REG > gestionAnterior.FECHA_FIN ).Count() > 0)
+                        {
+                            total_nueva_mora_gestion_ant = total_nueva_mora_gestion_ant + item.SD_PRESTAMOS_MORA.Where(y => y.ESTADO != "ANULADO" && y.FECHA_REG > gestionAnterior.FECHA_FIN).Sum(x => x.IMPORTE_MORA);
+                        }
+                        
+                    }
                     amortizazcion = gestionAnterior.SALDO_A_FAVOR;
                     total_por_cobrar_gestion_ant = (decimal)gestionAnterior.SALDO_POR_COBRAR;
+                    //total_mora_gestion_ant =
                     var pagos_gestion_anterior = managerPagos.BuscarTodos(x => x.ESTADO != "ANULADO" && x.ID_GESTION == ID_GESTION && x.SD_PRESTAMOS_POR_SOCIOS.ID_GESTION == gestionAnterior.ID_GESTION);
                     foreach (var item in pagos_gestion_anterior)
                     {
@@ -1036,7 +1368,7 @@ namespace Sindicato.Services
                         total_mora_cancelado_gestion_ant = total_mora_cancelado_gestion_ant + item.IMPORTE_MORA;
                         total_condonacion_gestion_ant = total_condonacion_gestion_ant + item.TOTAL_CONDONACION;
                     }
-                    saldo_por_cobrar_gestion_ant = total_por_cobrar_gestion_ant - (total_cancelado_gestion_ant + total_condonacion_gestion_ant);
+                    saldo_por_cobrar_gestion_ant = total_por_cobrar_gestion_ant - (total_cancelado_gestion_ant + total_condonacion_gestion_ant) + total_nueva_mora_gestion_ant - total_mora_cancelado_gestion_ant;
                 }
 
 
@@ -1048,28 +1380,61 @@ namespace Sindicato.Services
                     decimal interes_cancelado = 0;
                     int cancelado = 0;
                     int pendiente = 0;
-                    foreach (var item1 in item.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO"))
+                    foreach (var item1 in item.SD_PLAN_DE_PAGO.Where(x => x.ESTADO != "ANULADO").OrderBy(y => y.NRO_SEMANA))
                     {
-                        if (item1.SD_PRESTAMOS_MORA != null)
+                        var pagos = managerPagos.BuscarTodos(x => x.ID_PLAN == item1.ID_PLAN && x.ESTADO != "ANULADO");
+                        decimal mora_cancelado1 = 0;
+                        decimal importe_cancelado = 0;
+
+                        foreach (var item2 in pagos)
                         {
-                            mora_cancelado = mora_cancelado + item1.IMPORTE_MORA;
+                            mora_cancelado1 = mora_cancelado1 + item2.IMPORTE_MORA;
+                            importe_cancelado = importe_cancelado + item2.IMPORTE;
                         }
-                        if (item1.TIPO == "CUOTA")
+
+                        mora_cancelado = mora_cancelado + mora_cancelado1;
+                        while (importe_cancelado > 0)
                         {
-                            capital_cancelado = capital_cancelado + item1.SD_PLAN_DE_PAGO.IMPORTE_A_PAGAR;
-                            interes_cancelado = interes_cancelado + (item1.SD_PLAN_DE_PAGO.INTERES_A_PAGAR - item1.SD_PLAN_DE_PAGO.CONDONACION);
-                        }
-                        else
-                        {
-                            var plan = managerPlanPagos.BuscarTodos(x => x.ID_PAGO == item1.ID_PAGO);
-                            foreach (var item2 in plan)
+                            if (importe_cancelado >= item1.IMPORTE_A_PAGAR)
                             {
-                                capital_cancelado = capital_cancelado + item2.IMPORTE_A_PAGAR;
-                                interes_cancelado = interes_cancelado + (item2.INTERES_A_PAGAR - item2.CONDONACION);
+                                capital_cancelado = capital_cancelado + item1.IMPORTE_A_PAGAR;
+                                importe_cancelado = importe_cancelado - item1.IMPORTE_A_PAGAR;
+                                interes_cancelado = interes_cancelado + importe_cancelado;
+                                importe_cancelado = 0;
+                            }
+                            else
+                            {
+                                capital_cancelado = capital_cancelado + importe_cancelado;
+                                importe_cancelado = 0;
                             }
                         }
 
+                        //capital_cancelado = capital_cancelado + item1.SD_PLAN_DE_PAGO.IMPORTE_A_PAGAR;
+                        //interes_cancelado = interes_cancelado + (item1.SD_PLAN_DE_PAGO.INTERES_A_PAGAR - item1.SD_PLAN_DE_PAGO.CONDONACION);
+
                     }
+                    //foreach (var item1 in item.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").GroupBy(y=>y.ID_PLAN))
+                    //{
+                    //    if (item1.SD_PRESTAMOS_MORA != null)
+                    //    {
+                    //        mora_cancelado = mora_cancelado + item1.IMPORTE_MORA;
+                    //    }
+                    //    if (item1.TIPO == "CUOTA")
+                    //    {
+                    //        capital_cancelado = capital_cancelado + item1.SD_PLAN_DE_PAGO.IMPORTE_A_PAGAR;
+                    //        interes_cancelado = interes_cancelado + (item1.SD_PLAN_DE_PAGO.INTERES_A_PAGAR - item1.SD_PLAN_DE_PAGO.CONDONACION);
+                    //    }
+                    //    else
+                    //    {
+                    //        var plan = managerPlanPagos.BuscarTodos(x => x.ID_PAGO == item1.ID_PAGO);
+                    //        foreach (var item2 in plan)
+                    //        {
+                    //            capital_cancelado = capital_cancelado + item2.IMPORTE_A_PAGAR;
+                    //            interes_cancelado = interes_cancelado + (item2.INTERES_A_PAGAR - item2.CONDONACION);
+                    //        }
+                    //    }
+
+                    //}
                     if (capital_cancelado + interes_cancelado + item.CONDONACION_INTERES == item.IMPORTE_PRESTAMO + item.IMPORTE_INTERES)
                     {
                         cancelado = 1;
@@ -1104,7 +1469,180 @@ namespace Sindicato.Services
                         TOTAL_POR_COBRAR_G_ANT = total_por_cobrar_gestion_ant,
                         SALDO_POR_COBRAR_G_ANT = saldo_por_cobrar_gestion_ant,
                         CONDONACION_G_ANT = total_condonacion_gestion_ant,
-                        SALDO_POR_PAGAR_MORA_G_ANT = total_mora_cancelado_gestion_ant,
+                        SALDO_POR_PAGAR_MORA_G_ANT = total_nueva_mora_gestion_ant,
+                        TOTAL_CANCELADO_G_ANT = total_cancelado_gestion_ant,
+                        TOTAL_MORA_CANCELADO_G_ANT = total_mora_cancelado_gestion_ant
+                        
+                        
+                    };
+                    result.Add(detalleRep);
+
+                }
+                //FE
+            });
+            return result;
+        }
+
+        public IEnumerable<ReportePrestamo> ObtenerReporteTotalPrestamosPorGestionV1(int ID_GESTION, DateTime FECHA_INI, DateTime FECHA_FIN)
+        {
+            List<ReportePrestamo> result = new List<ReportePrestamo>();
+            NumLetra n = new NumLetra();
+            DateTime Fecha_fin = FECHA_FIN.AddDays(1);
+            ExecuteManager(uow =>
+            {
+
+                var managerIngresos = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
+                var managerPlanPagos = new SD_PLAN_DE_PAGOManager(uow);
+
+                var managerMoras = new SD_PRESTAMOS_MORAManager(uow);
+                var managerPagos = new SD_PAGO_DE_PRESTAMOSManager(uow);
+                var managerAmortizaciones = new SD_INGRESOSManager(uow);
+                var managerTransferencias = new SD_TRANSFERENCIASManager(uow);
+                var managerGestion = new SD_GESTIONManager(uow);
+
+                var gestion = managerGestion.BuscarTodos(x => x.ID_GESTION == ID_GESTION).FirstOrDefault();
+
+
+                decimal? transferenciasIngreso = managerTransferencias.BuscarTodos(x => x.ID_CAJA_DESTINO == 9 && x.ESTADO != "ANULADO").Sum(y => (decimal?)y.IMPORTE);
+                decimal? transferenciasEgreso = managerTransferencias.BuscarTodos(x => x.ID_CAJA_ORIGEN == 9 && x.ESTADO != "ANULADO").Sum(y => (decimal?)y.IMPORTE);
+
+                decimal? amortizazcion = 0;
+                decimal total_por_cobrar_gestion_ant = 0;
+                decimal total_nueva_mora_gestion_ant = 0;
+                decimal saldo_por_cobrar_gestion_ant = 0;
+                decimal total_cancelado_gestion_ant = 0;
+                decimal total_mora_cancelado_gestion_ant = 0;
+                decimal total_condonacion_gestion_ant = 0;
+
+
+                var gestionAnterior = managerGestion.BuscarTodos(x => x.ESTADO == "INACTIVO" && x.FECHA_FIN <= gestion.FECHA_INICIO).OrderByDescending(x => x.FECHA_FIN).FirstOrDefault();
+                if (gestionAnterior == null)
+                {
+                    amortizazcion = managerAmortizaciones.BuscarTodos(x => x.ID_CAJA == 9 && x.ESTADO != "ANULADO").Sum(y => (decimal?)y.IMPORTE);
+                    total_por_cobrar_gestion_ant = 0;
+                }
+                else
+                {
+                    foreach (var item in managerIngresos.BuscarTodos(x => x.ID_GESTION == gestionAnterior.ID_GESTION && x.ESTADO != "ANULADO"))
+                    {
+                        if (item.SD_PRESTAMOS_MORA.Where(x => x.FECHA > gestionAnterior.FECHA_FIN && x.FECHA <= Fecha_fin).Count() > 0)
+                        {
+                            total_nueva_mora_gestion_ant = total_nueva_mora_gestion_ant + item.SD_PRESTAMOS_MORA.Where(y => y.ESTADO != "ANULADO" && y.FECHA > gestionAnterior.FECHA_FIN && y.FECHA <= Fecha_fin).Sum(x => x.IMPORTE_MORA);
+                        }
+
+                    }
+                    amortizazcion = gestionAnterior.SALDO_A_FAVOR;
+                    total_por_cobrar_gestion_ant = (decimal)gestionAnterior.SALDO_POR_COBRAR;
+                    //total_mora_gestion_ant =
+                    var pagos_gestion_anterior = managerPagos.BuscarTodos(x => x.ESTADO != "ANULADO" && x.ID_GESTION == ID_GESTION && x.SD_PRESTAMOS_POR_SOCIOS.ID_GESTION == gestionAnterior.ID_GESTION && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin);
+                    foreach (var item in pagos_gestion_anterior)
+                    {
+                        total_cancelado_gestion_ant = total_cancelado_gestion_ant + item.IMPORTE;
+                        total_mora_cancelado_gestion_ant = total_mora_cancelado_gestion_ant + item.IMPORTE_MORA;
+                        total_condonacion_gestion_ant = total_condonacion_gestion_ant + item.TOTAL_CONDONACION;
+                    }
+                    saldo_por_cobrar_gestion_ant = total_por_cobrar_gestion_ant - (total_cancelado_gestion_ant + total_condonacion_gestion_ant) + total_nueva_mora_gestion_ant - total_mora_cancelado_gestion_ant;
+                }
+
+
+                var detalles = managerIngresos.BuscarTodos(x => x.ID_GESTION == ID_GESTION && x.ESTADO != "ANULADO" && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ID_PRESTAMO == 873);
+                foreach (var item in detalles)
+                {
+                    decimal mora_cancelado = 0;
+                    decimal capital_cancelado = 0;
+                    decimal interes_cancelado = 0;
+                    int cancelado = 0;
+                    int pendiente = 0;
+                    foreach (var item1 in item.SD_PLAN_DE_PAGO.Where(x => x.ESTADO != "ANULADO" && x.FECHA_PAGO >= FECHA_INI && x.FECHA_PAGO < Fecha_fin).OrderBy(y => y.NRO_SEMANA))
+                    {
+                        var pagos = managerPagos.BuscarTodos(x => x.ID_PLAN == item1.ID_PLAN && x.ESTADO != "ANULADO" && x.FECHA >=FECHA_INI && x.FECHA <Fecha_fin );
+                        decimal mora_cancelado1 = 0;
+                        decimal importe_cancelado = 0;
+
+                        foreach (var item2 in pagos)
+                        {
+                            mora_cancelado1 = mora_cancelado1 + item2.IMPORTE_MORA;
+                            importe_cancelado = importe_cancelado + item2.IMPORTE;
+                        }
+
+                        mora_cancelado = mora_cancelado + mora_cancelado1;
+                        while (importe_cancelado > 0)
+                        {
+                            if (importe_cancelado >= item1.IMPORTE_A_PAGAR)
+                            {
+                                capital_cancelado = capital_cancelado + item1.IMPORTE_A_PAGAR;
+                                importe_cancelado = importe_cancelado - item1.IMPORTE_A_PAGAR;
+                                interes_cancelado = interes_cancelado + importe_cancelado;
+                                importe_cancelado = 0;
+                            }
+                            else
+                            {
+                                capital_cancelado = capital_cancelado + importe_cancelado;
+                                importe_cancelado = 0;
+                            }
+                        }
+
+                        //capital_cancelado = capital_cancelado + item1.SD_PLAN_DE_PAGO.IMPORTE_A_PAGAR;
+                        //interes_cancelado = interes_cancelado + (item1.SD_PLAN_DE_PAGO.INTERES_A_PAGAR - item1.SD_PLAN_DE_PAGO.CONDONACION);
+
+                    }
+                    //foreach (var item1 in item.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").GroupBy(y=>y.ID_PLAN))
+                    //{
+                    //    if (item1.SD_PRESTAMOS_MORA != null)
+                    //    {
+                    //        mora_cancelado = mora_cancelado + item1.IMPORTE_MORA;
+                    //    }
+                    //    if (item1.TIPO == "CUOTA")
+                    //    {
+                    //        capital_cancelado = capital_cancelado + item1.SD_PLAN_DE_PAGO.IMPORTE_A_PAGAR;
+                    //        interes_cancelado = interes_cancelado + (item1.SD_PLAN_DE_PAGO.INTERES_A_PAGAR - item1.SD_PLAN_DE_PAGO.CONDONACION);
+                    //    }
+                    //    else
+                    //    {
+                    //        var plan = managerPlanPagos.BuscarTodos(x => x.ID_PAGO == item1.ID_PAGO);
+                    //        foreach (var item2 in plan)
+                    //        {
+                    //            capital_cancelado = capital_cancelado + item2.IMPORTE_A_PAGAR;
+                    //            interes_cancelado = interes_cancelado + (item2.INTERES_A_PAGAR - item2.CONDONACION);
+                    //        }
+                    //    }
+
+                    //}
+                    if (capital_cancelado + interes_cancelado + item.CONDONACION_INTERES == item.IMPORTE_PRESTAMO + item.IMPORTE_INTERES)
+                    {
+                        cancelado = 1;
+                    }
+                    else
+                    {
+                        pendiente = 1;
+                    }
+                    var detalleRep = new ReportePrestamo()
+                    {
+                        NUMERO = (decimal)item.NUMERO,
+                        FECHA_INI = FECHA_INI,
+                        FECHA_FIN = FECHA_FIN,
+                        TIPO_PRESTAMO = item.SD_TIPOS_PRESTAMOS.NOMBRE,
+                        CANTIDAD = 1,
+                        IMPORTE_PRESTAMO = item.IMPORTE_PRESTAMO,
+                        IMPORTE_INTERES = item.IMPORTE_INTERES,
+                        TOTAL_CONDONACIONES = (decimal)item.CONDONACION_INTERES,
+                        PENDIENTE = pendiente,
+                        CANCELADO = cancelado,
+                        IMPORTE_MORA = item.SD_PRESTAMOS_MORA.Count() > 0 ? item.SD_PRESTAMOS_MORA.Where(x => x.ESTADO != "ANULADO" && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin).Sum(x => x.IMPORTE_MORA) : 0,
+                        MORA_A_PAGAR = item.SD_PRESTAMOS_MORA.Count() > 0 ? item.SD_PRESTAMOS_MORA.Where(x => x.ESTADO != "ANULADO" && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin).Sum(x => x.IMPORTE_MORA) - mora_cancelado : 0,
+                        MORA_CANCELADA = mora_cancelado,
+                        NRO_SEMANA = item.SEMANAS,
+                        CANTIDAD_CANCELADAS = item.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").Count(),
+                        IMPORTE_TOTAL = capital_cancelado + interes_cancelado + mora_cancelado,
+                        AMORTIZACION = amortizazcion == null ? 0 : (decimal)amortizazcion,
+                        TRANSFERENCIA_INGRESO = transferenciasIngreso == null ? 0 : transferenciasIngreso,
+                        TRANSFERENCIA_EGRESO = transferenciasEgreso == null ? 0 : transferenciasEgreso,
+                        CAPITAL_CANCELADO = capital_cancelado,
+                        INTERES_CANCELADO = interes_cancelado,
+                        TOTAL_POR_COBRAR_G_ANT = total_por_cobrar_gestion_ant,
+                        SALDO_POR_COBRAR_G_ANT = saldo_por_cobrar_gestion_ant,
+                        CONDONACION_G_ANT = total_condonacion_gestion_ant,
+                        SALDO_POR_PAGAR_MORA_G_ANT = total_nueva_mora_gestion_ant,
                         TOTAL_CANCELADO_G_ANT = total_cancelado_gestion_ant,
                         TOTAL_MORA_CANCELADO_G_ANT = total_mora_cancelado_gestion_ant
 
@@ -1112,116 +1650,6 @@ namespace Sindicato.Services
                     };
                     result.Add(detalleRep);
 
-                }
-                //FE
-            });
-            return result;
-        }
-
-        public IEnumerable<ReportePrestamo> ObtenerReportePrestamosTotalesPorSocios(DateTime FECHA_INI, DateTime FECHA_FIN)
-        {
-            List<ReportePrestamo> result = new List<ReportePrestamo>();
-            NumLetra n = new NumLetra();
-            ExecuteManager(uow =>
-            {
-                DateTime Fecha_fin = FECHA_FIN.AddDays(1);
-                var managerPrestamos = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
-                var managerMoras = new SD_PRESTAMOS_MORAManager(uow);
-                var managerPagos = new SD_PAGO_DE_PRESTAMOSManager(uow);
-
-                var detalles = managerPrestamos.BuscarTodos(x => x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO");
-
-
-                foreach (var item in detalles)
-                {
-
-                    var detalleRep = new ReportePrestamo()
-                    {
-                        ID_PRESTAMO = item.ID_PRESTAMO,
-                        MOVIL = item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
-                        SOCIO = item.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
-                        FECHA_PRESTAMO = item.FECHA,
-                        TIPO_PRESTAMO = string.Format("{0} : {1}", item.ID_PRESTAMO, item.SD_TIPOS_PRESTAMOS.NOMBRE),
-                        IMPORTE_PRESTAMO = item.IMPORTE_PRESTAMO,
-                        IMPORTE_INTERES = item.IMPORTE_INTERES,
-                        TOTAL_CANCELADO = item.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").Sum(y => y.IMPORTE),
-
-                    };
-                    result.Add(detalleRep);
-                }
-                //FE
-            });
-            return result;
-        }
-
-        public IEnumerable<ReportePrestamo> ObtenerReportePrestamosTotalesPorGestion(int ID)
-        {
-            List<ReportePrestamo> result = new List<ReportePrestamo>();
-            NumLetra n = new NumLetra();
-            ExecuteManager(uow =>
-            {
-                var managerGestion = new SD_GESTIONManager(uow);
-                var managerPrestamos = new SD_PRESTAMOS_POR_SOCIOSManager(uow);
-                var managerMoras = new SD_PRESTAMOS_MORAManager(uow);
-                var managerPagos = new SD_PAGO_DE_PRESTAMOSManager(uow);
-                var managerIngresos = new SD_INGRESOSManager(uow);
-                var gestion = managerGestion.BuscarTodos(x => x.ID_GESTION == ID).FirstOrDefault();
-                DateTime Fecha_fin = gestion.FECHA_FIN.Value.AddDays(1);
-
-
-                var detalles = managerPrestamos.BuscarTodos(x => x.FECHA >= gestion.FECHA_INICIO && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO").OrderBy(y => y.ID_PRESTAMO);
-                var ingresos = managerIngresos.BuscarTodos(x => x.FECHA >= gestion.FECHA_INICIO && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO" && x.ID_CAJA== 9).Sum(y => y.IMPORTE);
-
-                var cnt = 0;
-                decimal SALDO_ANTERIOR = 0;
-                foreach (var item in detalles)
-                {
-                    if (cnt == 0)
-                    {
-                        SALDO_ANTERIOR = ingresos;
-                        cnt++;
-                        var detalleRep0 = new ReportePrestamo()
-                        {
-                            ID_PRESTAMO = -1,
-                            MOVIL = 0,
-                            SOCIO = "SALDO INICIAL",
-                            FECHA_PRESTAMO = gestion.FECHA_INICIO,
-                            TIPO_PRESTAMO = string.Format("INGRESOS POR AMORTIZACION GESTION ANTERIOR"),
-                            IMPORTE_PRESTAMO = 0,
-                            IMPORTE_INTERES = 0,
-                            TOTAL_CANCELADO = 0,
-                            IMPORTE_MORA = 0,
-                            SALDO = ingresos
-
-                        };
-                        result.Add(detalleRep0);
-                    }
-                    decimal multa = 0;
-                    var multas = managerMoras.BuscarTodos(x => x.ID_PRESTAMO == item.ID_PRESTAMO && x.ESTADO != "ANULADO");
-                    if (multas.Count() > 0)
-                    {
-                        multa = managerMoras.BuscarTodos(x => x.ID_PRESTAMO == item.ID_PRESTAMO && x.ESTADO != "ANULADO").Sum(y => y.IMPORTE_MORA);
-                    }
-                    else {
-                        multa = 0;
-                    }
-
-                    var detalleRep = new ReportePrestamo()
-                    {
-                        ID_PRESTAMO = item.ID_PRESTAMO,
-                        MOVIL = item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
-                        SOCIO = item.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
-                        FECHA_PRESTAMO = item.FECHA,
-                        TIPO_PRESTAMO = string.Format("{0} : {1}", item.ID_PRESTAMO, item.SD_TIPOS_PRESTAMOS.NOMBRE),
-                        IMPORTE_PRESTAMO = item.IMPORTE_PRESTAMO ,
-                        IMPORTE_INTERES = item.IMPORTE_INTERES,
-                        IMPORTE_MORA = multa,
-                        TOTAL_CANCELADO = item.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").Sum(y => y.IMPORTE) ,
-
-                    };
-                    detalleRep.SALDO = SALDO_ANTERIOR - detalleRep.IMPORTE_PRESTAMO + detalleRep.TOTAL_CANCELADO;
-                    SALDO_ANTERIOR = detalleRep.SALDO;
-                    result.Add(detalleRep);
                 }
                 //FE
             });
@@ -1633,30 +2061,6 @@ namespace Sindicato.Services
                         }
                     }
                 }
-                var detallesIngresos = managerIngresos.BuscarTodos(x => x.ID_CAJA == ID_CAJA && x.ESTADO != "ANULADO" && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin);
-                if (detallesIngresos.Count() > 0)
-                {
-
-                    foreach (var item in detallesIngresos)
-                    {
-                        EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
-                        {
-                            NRO = cnt,
-                            OPERACION = "INGRESOS",
-                            SUBOPERACION = "OTROS INGRESOS",
-                            DETALLE = item.CONCEPTO,
-                            PERIODO = Intervalo,
-                            CAJA = caja,
-                            MONEDA = moneda,
-                            //MES =  item.FECHA.ToString("MMMM").ToUpper();
-                            IMPORTE = item.IMPORTE
-                            //UTILIDA_BRUTA_NETA = (decimal)(totalventa - totalcosto)
-                        };
-                        result.Add(res);
-                        cnt++;
-                    }
-
-                }
                 var detallesPagosPrestamos = managerPagosPrestamos.BuscarTodos(x => x.ID_CAJA == ID_CAJA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO").GroupBy(y => y.SD_PRESTAMOS_POR_SOCIOS.SD_TIPOS_PRESTAMOS.NOMBRE);
                 if (detallesPagosPrestamos.Count() > 0)
                 {
@@ -1679,7 +2083,7 @@ namespace Sindicato.Services
                         cnt++;
                     }
                 }
-                var detalleTransferencias = managerTransferencias.BuscarTodos(x => x.ID_CAJA_DESTINO == ID_CAJA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO");
+                var detalleTransferencias = managerTransferencias.BuscarTodos(x => x.ID_CAJA_DESTINO == ID_CAJA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin);
                 foreach (var item in detalleTransferencias)
                 {
                     EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()
@@ -1755,7 +2159,7 @@ namespace Sindicato.Services
                     result.Add(res);
                     cnt++;
                 }
-                var detalleTransferenciasEgreso = managerTransferencias.BuscarTodos(x => x.ID_CAJA_ORIGEN == ID_CAJA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin && x.ESTADO != "ANULADO");
+                var detalleTransferenciasEgreso = managerTransferencias.BuscarTodos(x => x.ID_CAJA_ORIGEN == ID_CAJA && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin);
                 foreach (var item in detalleTransferenciasEgreso)
                 {
                     EstadoResultadoCompletoModel res = new EstadoResultadoCompletoModel()

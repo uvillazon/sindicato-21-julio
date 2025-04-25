@@ -2127,6 +2127,15 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
+        <SortExpressions>
+          <SortExpression>
+            <Value>=Fields!SUBDETALLE.Value</Value>
+          </SortExpression>
+          <SortExpression>
+            <Value>=Fields!CANTIDAD.Value</Value>
+            <Direction>Descending</Direction>
+          </SortExpression>
+        </SortExpressions>
         <Top>0.25451cm</Top>
         <Left>0.84349cm</Left>
         <Height>4.49104cm</Height>

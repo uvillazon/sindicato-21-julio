@@ -10,6 +10,7 @@
 
         me.toolbar = Funciones.CrearMenuBar();
         Funciones.CrearMenu('btn_VerDetalle', 'Imprimir', 'report', me.EventosPrincipal, me.toolbar, this, null, true);
+        Funciones.CrearMenu('btn_VerDetalleKardex', 'Kardex Prestamo', 'cog', me.EventosPrincipal, me.toolbar, this, null, true);
         Funciones.CrearMenu('btn_PlanPagos', 'Plan de Pagos', 'report', me.EventosPrincipal, me.toolbar, this, null, true);
         Funciones.CrearMenu('btn_Moras', 'Moras', 'report', me.EventosPrincipal, me.toolbar, this, null, true);
         Funciones.CrearMenu('btn_ReportePlanPagos', 'Reporte Prestamo', 'report', me.EventosPrincipal, me.toolbar, this, null, true);
@@ -22,14 +23,14 @@
             region: 'center',
             width: '100%',
             fbarmenu: me.toolbar,
-            fbarmenuArray: ["btn_Kardex", "btn_Moras", "btn_PlanPagos", "btn_eliminar", "btn_pagarPrestamo", "btn_GeneracionPlanPagos", "btn_ReportePlanPagos", "btn_VerDetalle", "btn_pagarTotalPrestamo", "btn_refinanciarPrestamo"]
+            fbarmenuArray: ["btn_Kardex", "btn_Moras", "btn_PlanPagos", "btn_eliminar", "btn_pagarPrestamo", "btn_GeneracionPlanPagos", "btn_ReportePlanPagos", "btn_VerDetalle", "btn_VerDetalleKardex", "btn_pagarTotalPrestamo", "btn_refinanciarPrestamo"]
 
         });
         me.btn_crear = Funciones.CrearMenu('btn_crear', 'Crear Prestamo', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this);
         me.btn_eliminar = Funciones.CrearMenu('btn_eliminar', 'Anular Prestamo', Constantes.ICONO_BAJA, me.EventosPrincipal, null, this, null, true);
         me.btn_pagarPrestamo = Funciones.CrearMenu('btn_pagarPrestamo', 'Pago de Prestamo', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this, null, true);
-        me.btn_pagarTotalPrestamo = Funciones.CrearMenu('btn_pagarTotalPrestamo', 'Pago Total del Prestamo', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this, null, true);
-        me.btn_refinanciarPrestamo = Funciones.CrearMenu('btn_refinanciarPrestamo', 'Refinanciar Prestamo', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this, null, true);
+        //me.btn_pagarTotalPrestamo = Funciones.CrearMenu('btn_pagarTotalPrestamo', 'Pago Total del Prestamo', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this, null, true);
+        //me.btn_refinanciarPrestamo = Funciones.CrearMenu('btn_refinanciarPrestamo', 'Refinanciar Prestamo', Constantes.ICONO_CREAR, me.EventosPrincipal, null, this, null, true);
 
 
         me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_eliminar, me.btn_pagarPrestamo, me.btn_pagarTotalPrestamo, me.btn_refinanciarPrestamo]);
@@ -117,6 +118,9 @@
             case "btn_VerDetalle":
                 me.ImprimirReportePrestamo(me.grid.record.get('ID_PRESTAMO'));
                 break;
+            case "btn_VerDetalleKardex":
+                me.ImprimirReporteKardexPrestamo(me.grid.record.get('ID_PRESTAMO'));
+                break;
             case "btn_Moras":
                 me.VentanaMoras();
                 break;
@@ -127,6 +131,15 @@
     },
     ImprimirReportePrestamo: function (id) {
         var ruta = fn.ObtenerUrlReportPDF("ReportePrestamo", "ID_PRESTAMO=" + id);
+        //var ruta = fn.ObtenerUrlReportPDF("ReporteRegulacion", "ID_REGULACION=2");
+        var panel = Ext.create("App.View.Reports.ReportsPDF", {
+            ruta: ruta,
+            pageScale: 1.50,
+        });
+        panel.show();
+    },
+    ImprimirReporteKardexPrestamo: function (id) {
+        var ruta = fn.ObtenerUrlReportPDF("ReporteKardexPrestamo", "ID_PRESTAMO=" + id);
         //var ruta = fn.ObtenerUrlReportPDF("ReporteRegulacion", "ID_REGULACION=2");
         var panel = Ext.create("App.View.Reports.ReportsPDF", {
             ruta: ruta,

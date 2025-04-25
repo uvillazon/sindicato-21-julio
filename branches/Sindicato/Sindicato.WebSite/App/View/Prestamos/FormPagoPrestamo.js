@@ -140,7 +140,7 @@
             colspan: 2,
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false,
-            readOnly : true
+            readOnly : false
 
         });
 

@@ -16,7 +16,8 @@
             { type: "string", name: "OBSERVACION" },
             { type: "string", name: "CAJA" },
             { type: "string", name: "TIPO" },
-            { type: "string", name: "GESTION" },
+            { type: "string", name: "GESTION" }, 
+            { type: "int", name: "CUOTA" }
 
 
     ]

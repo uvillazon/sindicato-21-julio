@@ -148,6 +148,14 @@ namespace Sindicato.Services.Model
         public string ESTADO { get; set; }
     }
 
+    public class ReporteDetallePago
+    {
+        public DateTime FECHA { get; set; }
+        public decimal? TOTAL { get; set; }
+        public decimal? TOTAL_MORA { get; set; }
+        public string RESPONSABLE { get; set; }
+    }
+
     public class ReportePrestamo
     {
         public decimal ID_PAGO { get; set; }
@@ -182,6 +190,7 @@ namespace Sindicato.Services.Model
         public decimal SALDO_PLAN { get; set; }
         public string LOGIN_USR { get; set; }
         public DateTime FECHA_PAGO { get; set; }
+        public DateTime FECHA_PAGO_EFECTIVO { get; set; }
         public int MOVIL { get; set; }
         public string IMPORTE_LITERAL { get; set; }
         public DateTime FECHA_INI { get; set; }
@@ -205,6 +214,7 @@ namespace Sindicato.Services.Model
         public decimal SALDO_POR_PAGAR_MORA_G_ANT { get; set; }
         public decimal TOTAL_MORA_CANCELADO_G_ANT { get; set; }
         public int DIAS_ATRASOS { get; set; }
+        public ReporteDetallePago DETALLE_PAGOS { get; set; }
     }
 
     public class ReporteDetalleIngresos
@@ -265,6 +275,7 @@ namespace Sindicato.Services.Model
         public int MOVIL { get; set; }
         public int CANT_PAGOS { get; set; }
         public decimal? IMPORTE_PRESTAMO { get; set; }
+        public decimal? IMPORTE_MORA { get; set; }
         public decimal? IMPORTE_TOTAL { get; set; }
         public decimal? CANDELADO { get; set; }
         public DateTime? FECHA_LIMITE { get; set; }

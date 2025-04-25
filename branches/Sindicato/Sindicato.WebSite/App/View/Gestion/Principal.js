@@ -37,15 +37,17 @@
         var me = this;
         var disabled = selections.length === 0;
         me.record = disabled ? null : selections[0];
-        if (me.record.get('ESTADO') == "INACTIVO") {
-            me.form.loadRecord(me.record);
-            me.form.gridDetalle.getStore().setExtraParams({ ID_GESTION: me.record.get("ID_GESTION") });
-            me.form.gridDetalle.getStore().load();
-        }
-        else {
-            me.form.LimpiarFormulario();
-            me.form.gridDetalle.getStore().setExtraParams({ ID_GESTION: -1 });
-            me.form.gridDetalle.getStore().load();
+        if (me.record != null) {
+            if (me.record.get('ESTADO') == "INACTIVO") {
+                me.form.loadRecord(me.record);
+                me.form.gridDetalle.getStore().setExtraParams({ ID_GESTION: me.record.get("ID_GESTION") });
+                me.form.gridDetalle.getStore().load();
+            }
+            else {
+                me.form.LimpiarFormulario();
+                me.form.gridDetalle.getStore().setExtraParams({ ID_GESTION: -1 });
+                me.form.gridDetalle.getStore().load();
+            }
         }
     },
 

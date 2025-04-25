@@ -70,7 +70,7 @@ namespace Sindicato.Services
                     var gestionAnterior = managerGestion.BuscarTodos(x => x.ESTADO == "INACTIVO").OrderByDescending(x => x.FECHA_FIN).FirstOrDefault();
                     if (gestionAnterior == null)
                     {
-                        disponible = 98732;
+                        disponible = 82789.75m;
                     }
                     else
                     {

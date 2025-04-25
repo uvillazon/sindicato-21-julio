@@ -32,6 +32,7 @@
                 { xtype: "rownumberer", width: 30, sortable: false },
                 { header: "Fecha<br>Pago", width: 80, sortable: true, dataIndex: "FECHA", renderer: Ext.util.Format.dateRenderer('d/m/Y') },
                 { header: "Gestion", width: 80, sortable: false, dataIndex: "GESTION" },
+                { header: "Nro<br>Cuota", width: 80, sortable: false, dataIndex: "CUOTA" },
                 { header: "Tipo<br>Pago", width: 80, sortable: false, dataIndex: "TIPO" },
                 { header: "Importe", width: 70, sortable: false, dataIndex: "IMPORTE" },
                 { header: "Mora", width: 70, sortable: false, dataIndex: "IMPORTE_MORA" },
