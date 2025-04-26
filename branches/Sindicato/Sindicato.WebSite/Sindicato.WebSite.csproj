@@ -56,9 +56,12 @@
     <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="Oracle.DataAccess, Version=4.121.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" />
+    <Reference Include="oracle.dataaccess, Version=4.112.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Oracle.DataAccess\v4.0_4.112.3.0__89b483f429c47342\oracle.dataaccess.dll</HintPath>
+    </Reference>
     <Reference Include="QRCoder">
-      <HintPath>..\..\..\..\..\..\..\DocumentosC\Downloads\QRCoder.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\usuario\uvillazon\Downloads\QRCoder.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -4087,7 +4090,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reportes\Copia de ReporteCierreAhorro.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteTotalPrestamosParcial.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteCierreParcial.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteOtroIngreso.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteEgresosDetalle.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteTopDeudores.rdlc" />

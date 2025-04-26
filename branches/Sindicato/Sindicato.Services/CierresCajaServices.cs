@@ -427,18 +427,23 @@ namespace Sindicato.Services
 
                 DateTime fecha_fin = FECHA_FIN.AddDays(1);
                 var ultimo = ObtenerUltimoRegistroCajasCierre(ID_CAJA);
+                var caja = managerCaja.BuscarTodos(x => x.ID_CAJA == ID_CAJA).FirstOrDefault();
                 if (ultimo == null)
                 {
                     saldo = 0;
                 }
                 else
                 {
+                   
                     CierreCajaModel res = new CierreCajaModel()
                     {
+                        ID_KARDEX = 0,
                         FECHA = ultimo.FECHA_FIN,
                         DETALLE = "SALDO CIERRE ANTERIOR",
                         IMPORTE = ultimo.SALDO_FINAL,
-                        SALDO = saldo + ultimo.SALDO_FINAL
+                        SALDO = saldo + ultimo.SALDO_FINAL,
+                        ID_CAJA = ID_CAJA,
+                        CAJA = caja.NOMBRE
 
                     };
                     saldo = saldo + (decimal)ultimo.SALDO_FINAL;
@@ -449,10 +454,13 @@ namespace Sindicato.Services
                 {
                     CierreCajaModel res = new CierreCajaModel()
                        {
+                           ID_KARDEX = item.ID_KARDEX,
                            FECHA = item.FECHA,
                            DETALLE = item.DETALLE,
                            IMPORTE = item.INGRESO > 0 ? item.INGRESO : -item.EGRESO,
-                           SALDO = saldo + (item.INGRESO > 0 ? item.INGRESO : -item.EGRESO)
+                           SALDO = saldo + (item.INGRESO > 0 ? item.INGRESO : -item.EGRESO),
+                           ID_CAJA = caja.ID_CAJA,
+                           CAJA = caja.NOMBRE
 
                        };
                     saldo = saldo + (decimal)res.IMPORTE;
