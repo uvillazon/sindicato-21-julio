@@ -698,7 +698,10 @@ namespace Sindicato.Services
                         FECHA_LIMITE_PAGO = item.SD_PRESTAMOS_POR_SOCIOS.FECHA_LIMITE_PAGO,
                         OBSERVACION = item.SD_PRESTAMOS_POR_SOCIOS.SD_TIPOS_PRESTAMOS.NOMBRE,
                         IMPORTE_TOTAL = item.IMPORTE,
+                        IMPORTE_INTERES = item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_INTERES,
+                        IMPORTE_MORA = item.SD_PRESTAMOS_POR_SOCIOS.SD_PRESTAMOS_MORA.Count() > 0? item.SD_PRESTAMOS_POR_SOCIOS.SD_PRESTAMOS_MORA.Where(x=>x.ESTADO != "ANULADO").Sum(y=>y.IMPORTE_MORA) : 0,
                         TIPO = item.TIPO,
+                        IMPORTE_A_PAGAR =item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_PRESTAMO,
                         CUOTA_SEMANA = item.TIPO == "TOTAL" ? "" : string.Format("{0} / {1}", item.SD_PLAN_DE_PAGO.NRO_SEMANA, item.SD_PRESTAMOS_POR_SOCIOS.SEMANAS),
                         IMPORTE_PRESTAMO = (decimal)item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_INTERES + item.SD_PRESTAMOS_POR_SOCIOS.IMPORTE_PRESTAMO + item.SD_PRESTAMOS_POR_SOCIOS.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA),
                         TOTAL_CANCELADO = item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Count() > 0 ? item.SD_PRESTAMOS_POR_SOCIOS.SD_PAGO_DE_PRESTAMOS.Where(x => x.ESTADO != "ANULADO").Sum(x => x.IMPORTE + x.IMPORTE_MORA) : 0,
@@ -877,6 +880,7 @@ namespace Sindicato.Services
                         CAJA = item.SD_CAJAS.NOMBRE,
                         MOVIL = item.SD_PRESTAMOS_POR_SOCIOS.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
                         IMPORTE_PRESTAMO = item.IMPORTE,
+                        CANDELADO = item.TOTAL_CONDONACION,
                         IMPORTE_MORA = item.IMPORTE_MORA,
 
                     };

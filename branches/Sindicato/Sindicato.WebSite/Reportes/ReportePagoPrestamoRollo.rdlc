@@ -212,7 +212,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>6.42837cm</Top>
+        <Top>7.2225cm</Top>
         <Left>0.53448cm</Left>
         <Height>1.4cm</Height>
         <Width>6.47056cm</Width>
@@ -243,7 +243,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox10</rd:DefaultName>
-        <Top>7.89893cm</Top>
+        <Top>8.69306cm</Top>
         <Left>0.53448cm</Left>
         <Height>0.4cm</Height>
         <Width>0.74052cm</Width>
@@ -273,7 +273,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox11</rd:DefaultName>
-        <Top>7.89893cm</Top>
+        <Top>8.69306cm</Top>
         <Left>1.31028cm</Left>
         <Height>0.4cm</Height>
         <Width>5.69801cm</Width>
@@ -608,7 +608,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!IMPORTE_PRESTAMO.Value, "DataSet1")</Value>
+                <Value>=First(Fields!IMPORTE_A_PAGAR.Value, "DataSet1")</Value>
                 <Style>
                   <FontFamily>Consolas</FontFamily>
                   <FontSize>8pt</FontSize>
@@ -653,7 +653,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>5.25226cm</Top>
+        <Top>6.04639cm</Top>
         <Left>0.53448cm</Left>
         <Height>0.4cm</Height>
         <Width>3cm</Width>
@@ -685,7 +685,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>4.85226cm</Top>
+        <Top>5.64639cm</Top>
         <Left>0.53448cm</Left>
         <Height>0.4cm</Height>
         <Width>2.5cm</Width>
@@ -716,7 +716,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>5.25226cm</Top>
+        <Top>6.04639cm</Top>
         <Left>3.56976cm</Left>
         <Height>0.4cm</Height>
         <Width>3.43853cm</Width>
@@ -747,7 +747,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>4.85226cm</Top>
+        <Top>5.64639cm</Top>
         <Left>3.10504cm</Left>
         <Height>0.4cm</Height>
         <Width>3.9cm</Width>
@@ -887,7 +887,7 @@
         </Style>
       </Textbox>
       <Line Name="Line2">
-        <Top>9.07548cm</Top>
+        <Top>9.86961cm</Top>
         <Left>1.28287cm</Left>
         <Height>0cm</Height>
         <Width>5.02427cm</Width>
@@ -918,7 +918,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox3</rd:DefaultName>
-        <Top>9.11076cm</Top>
+        <Top>9.90489cm</Top>
         <Left>0.53773cm</Left>
         <Height>0.4cm</Height>
         <Width>6.47056cm</Width>
@@ -950,7 +950,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox3</rd:DefaultName>
-        <Top>9.54604cm</Top>
+        <Top>10.34017cm</Top>
         <Left>1.83822cm</Left>
         <Height>0.4cm</Height>
         <Width>3.99267cm</Width>
@@ -1048,7 +1048,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>5.65226cm</Top>
+        <Top>6.44639cm</Top>
         <Left>0.53773cm</Left>
         <Height>0.4cm</Height>
         <Width>2.49675cm</Width>
@@ -1079,7 +1079,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>5.65226cm</Top>
+        <Top>6.44639cm</Top>
         <Left>3.10504cm</Left>
         <Height>0.4cm</Height>
         <Width>3.9065cm</Width>
@@ -1090,8 +1090,134 @@
           </Border>
         </Style>
       </Textbox>
+      <Textbox Name="Textbox36">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Intereses:</Value>
+                <Style>
+                  <FontFamily>Consolas</FontFamily>
+                  <FontSize>8pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox14</rd:DefaultName>
+        <Top>4.84639cm</Top>
+        <Left>0.53448cm</Left>
+        <Height>0.4cm</Height>
+        <Width>2.5cm</Width>
+        <ZIndex>29</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox38">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!IMPORTE_INTERES.Value, "DataSet1")</Value>
+                <Style>
+                  <FontFamily>Consolas</FontFamily>
+                  <FontSize>8pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox14</rd:DefaultName>
+        <Top>4.85226cm</Top>
+        <Left>3.10504cm</Left>
+        <Height>0.4cm</Height>
+        <Width>3.9cm</Width>
+        <ZIndex>30</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox39">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Moras:</Value>
+                <Style>
+                  <FontFamily>Consolas</FontFamily>
+                  <FontSize>8pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox14</rd:DefaultName>
+        <Top>5.24639cm</Top>
+        <Left>0.53448cm</Left>
+        <Height>0.4cm</Height>
+        <Width>2.5cm</Width>
+        <ZIndex>31</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox40">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!IMPORTE_MORA.Value, "DataSet1")</Value>
+                <Style>
+                  <FontFamily>Consolas</FontFamily>
+                  <FontSize>8pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox14</rd:DefaultName>
+        <Top>5.25226cm</Top>
+        <Left>3.10504cm</Left>
+        <Height>0.4cm</Height>
+        <Width>3.9cm</Width>
+        <ZIndex>32</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>4.04076in</Height>
+    <Height>4.36368in</Height>
     <Style />
   </Body>
   <Width>3.00265in</Width>
