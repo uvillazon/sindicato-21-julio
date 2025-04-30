@@ -2,6 +2,7 @@
     extend: 'Ext.data.Model',
     fields: [
             { type: "int", name: "ID_CIERRE" },
+             { type: "int", name: "ID_CIERRE_ANTERIOR", defaultValue: 0 },
             { type: "int", name: "ID_DETALLE" },
             { type: "int", name: "ID_CAJA" },
             { type: "string", name: "MSG" },

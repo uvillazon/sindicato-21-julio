@@ -309,7 +309,9 @@ namespace Sindicato.WebSite.Controllers
                 SALDO_INICIAL = x.SALDO_INICIAL,
                 SALDO_FINAL = x.SALDO_FINAL,
                 LOGIN = x.LOGIN,
-                CAJA = x.SD_CAJAS.NOMBRE
+                CAJA = x.SD_CAJAS.NOMBRE,
+                ID_CAJA = x.ID_CAJA , 
+                ID_CIERRE_ANTERIOR = x.ID_CIERRE_ANTERIOR
 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
@@ -343,11 +345,11 @@ namespace Sindicato.WebSite.Controllers
             var cierre = _serCierreCaja.ObtenerUltimoRegistroCajasCierre(ID_CAJA);
             if (cierre != null)
             {
-                return Json(new { disabled = true, saldo = cierre.SALDO_FINAL, value = String.Format("{0:dd/MM/yyyy}", cierre.FECHA_FIN.AddDays(1)) }, JsonRequestBehavior.AllowGet);
+                return Json(new { disabled = true, ID_CIERRE_ANTERIOR = cierre.ID_CIERRE , saldo = cierre.SALDO_FINAL, value = String.Format("{0:dd/MM/yyyy}", cierre.FECHA_FIN.AddDays(1)) }, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                return Json(new { disabled = false, saldo = 0 }, JsonRequestBehavior.AllowGet);
+                return Json(new { disabled = false, saldo = 0, ID_CIERRE_ANTERIOR = 0 }, JsonRequestBehavior.AllowGet);
             }
 
         }
@@ -359,6 +361,16 @@ namespace Sindicato.WebSite.Controllers
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             string callback1 = paginacion.callback + "(" + javaScriptSerializer.Serialize(new { Rows = detalles, Total = detalles.Count() }) + ");";
             return JavaScript(callback1);
+        }
+
+        [HttpPost]
+        //public JsonResult GuardarCajaCierre(SD_CAJAS_CIERRES cierre)
+              public JsonResult GuardarCajaCierre(SD_CAJAS_CIERRES cierre)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serCierreCaja.GuardarCajaCierre(cierre, "string", login);
+            return Json(respuestaSP);
         }
 
         #endregion

@@ -4090,6 +4090,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reportes\Copia de ReporteTotalPrestamosParcial.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteTotalPrestamosPorGestionDetalle.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteTotalPrestamosParcial.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteCierreParcial.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteOtroIngreso.rdlc" />

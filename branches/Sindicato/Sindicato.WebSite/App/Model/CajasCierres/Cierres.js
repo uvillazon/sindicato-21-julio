@@ -2,6 +2,7 @@
     extend: 'Ext.data.Model',
     fields: [
             { type: "int", name: "ID_CIERRE" },
+            { type: "int", name: "ID_CAJA" },
             { type: "string", name: "CAJA" },
             { type: "date", name: "FECHA_INI", dateFormat: "d/m/Y", convert: Funciones.Fecha },
             { type: "date", name: "FECHA_FIN", dateFormat: "d/m/Y", convert: Funciones.Fecha },

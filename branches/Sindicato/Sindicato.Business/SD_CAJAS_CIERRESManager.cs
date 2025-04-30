@@ -31,6 +31,8 @@ namespace Sindicato.Business
                     ant.ID_CAJA = ant.ID_CAJA;
                     ant.FECHA_INI = ant.FECHA_INI;
                     ant.FECHA_FIN = ant.FECHA_FIN;
+                    ant.SALDO_INICIAL = ant.SALDO_INICIAL;
+                    ant.SALDO_FINAL = ant.SALDO_FINAL;
                     Add(ant);
                     Save();
                     result = ant.ID_CIERRE.ToString();

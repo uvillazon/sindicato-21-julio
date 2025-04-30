@@ -26,12 +26,20 @@
             me.ObtenerUltimoRegistro(rec[0].get('ID_CAJA'))
         });
         me.btnReporte.on('click', function () {
-            me.generarReporte("ReporteCierreParcialGenerado", 'FECHA_INI=' + me.date_fecha_ini.getRawValue() + '&FECHA_FIN=' + me.date_fecha_fin.getRawValue() + '&ID_CAJA=' + me.cbx_caja.getValue());
+            var fechaini = me.date_fecha_ini.getValue(); // Date object
+            var fechaFormateada = Ext.Date.format(fechaini, 'Y-m-d'); // '2025-04-01'
+            var fechafin = me.date_fecha_fin.getValue(); // Date object
+            var fechaFormateadaFin = Ext.Date.format(fechafin, 'Y-m-d'); // '2025-04-01'
+            me.generarReporte("ReporteCierreParcialGenerado", 'FECHA_INI=' + fechaFormateada + '&FECHA_FIN=' + fechaFormateadaFin + '&ID_CAJA=' + me.cbx_caja.getValue());
 
         });
 
         me.btReporteCooperativa.on('click', function () {
-            me.generarReporte("ReportePrestamosParcial", 'FECHA_INI=' + me.date_fecha_ini.getRawValue() + '&FECHA_FIN=' + me.date_fecha_fin.getRawValue() + '&ID_GESTION=1&ID_CAJA=' + me.cbx_caja.getValue());
+            var fechaini = me.date_fecha_ini.getValue(); // Date object
+            var fechaFormateada = Ext.Date.format(fechaini, 'Y-m-d'); // '2025-04-01'
+            var fechafin = me.date_fecha_fin.getValue(); // Date object
+            var fechaFormateadaFin = Ext.Date.format(fechafin, 'Y-m-d'); // '2025-04-01'
+            me.generarReporte("ReportePrestamosParcial", 'FECHA_INI=' + fechaFormateada + '&FECHA_FIN=' + fechaFormateadaFin + '&ID_CIERRE=' + me.txt_id_cierre_anterior.getValue() + '&ID_CAJA=' + me.cbx_caja.getValue());
 
         });
     },
@@ -43,6 +51,12 @@
         me.txt_id = Ext.create("App.Config.Componente.TextFieldBase", {
             hidden: true,
             name: "ID_CIERRE"
+
+        });
+
+        me.txt_id_cierre_anterior = Ext.create("App.Config.Componente.TextFieldBase", {
+            hidden: true,
+            name: "ID_CIERRE_AMTERIOR"
 
         });
         me.store_caja = Ext.create('App.Store.Cajas.Cajas');
@@ -65,14 +79,14 @@
             fieldLabel: "Fecha Ini",
             maximo: 'Sin Maximo',
             name: "FECHA_INI",
-            format: 'm-d-Y',
+            //format: 'm-d-Y',
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false
         });
         me.date_fecha_fin = Ext.create("App.Config.Componente.DateFieldBase", {
             fieldLabel: "Fecha Fin",
             opcion: 'sin fecha',
-            format: 'm-d-Y',
+            //format: 'm-d-Y',
             //maximo: 'Sin Maximo',
             name: "FECHA_FIN",
             afterLabelTextTpl: Constantes.REQUERIDO,
@@ -138,7 +152,7 @@
 
         me.gridDetalle = Ext.create("App.View.CajasCierres.GridDetalles", { colspan: 2, width: 550, cargarStore: false, height: 400, storeGenerar: true });
         me.items = [
-            me.txt_id,
+            me.txt_id, me.txt_id_cierre_anterior, 
             me.cbx_caja,
             me.date_fecha_ini, me.date_fecha_fin,
             me.txt_observacion,
@@ -157,6 +171,7 @@
                 me.date_fecha_ini.setValue(str.value);
                 me.date_fecha_ini.setReadOnly(str.disabled);
                 me.txt_saldoInicial.setValue(str.saldo);
+                me.txt_id_cierre_anterior.setValue(str.ID_CIERRE_ANTERIOR);
             }
         });
     },

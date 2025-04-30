@@ -878,13 +878,58 @@ namespace Elfec.SisMan.Presentacion.Controllers
             renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
             return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
         }
+        public ActionResult ReporteCierreParcialDetalle(string tipo, int ID_CIERRE)
+        {
+            ReporteSource rep = new ReporteSource();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteCierreParcial.rdlc");
+            var result = rep.ReporteCierreParcialDetalle(ID_CIERRE);
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", result);
+            localReport.DataSources.Add(reportDataSource);
+            string Intervalo = string.Format("{0} - {1}", result.FirstOrDefault().FECHA_INI.ToString("dd/MM/yyyy"), result.FirstOrDefault().FECHA_FIN.ToString("dd/MM/yyyy"));
+            ReportParameter param = new ReportParameter("Intervalo", Intervalo);
+            localReport.SetParameters(param);
+
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
 
 
-        public ActionResult ReportePrestamosParcial(string tipo, int ID_GESTION, DateTime FECHA_INI, DateTime FECHA_FIN)
+        public ActionResult ReportePrestamosParcial(string tipo,  int ID_CAJA, DateTime FECHA_INI, DateTime FECHA_FIN ,int ID_CIERRE  = 0)
         {
             ReportesServices rep = new ReportesServices();
             LocalReport localReport = new LocalReport();
             localReport.ReportPath = Server.MapPath("~/Reportes/ReporteTotalPrestamosParcial.rdlc");
+            
+            //ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteTotalPrestamosPorGestionV1(ID_GESTION, FECHA_INI, FECHA_FIN));
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteTotalParcialV1(ID_CAJA, FECHA_INI, FECHA_FIN,ID_CIERRE));
+
+            localReport.DataSources.Add(reportDataSource);
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
+
+        public ActionResult ReportePrestamosTotalesPorGestionV1Detalle(string tipo, int ID_GESTION, DateTime FECHA_INI, DateTime FECHA_FIN)
+        {
+            ReportesServices rep = new ReportesServices();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteTotalPrestamosPorGestionDetalle.rdlc");
             ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteTotalPrestamosPorGestionV1(ID_GESTION, FECHA_INI, FECHA_FIN));
             localReport.DataSources.Add(reportDataSource);
             string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";

@@ -14,7 +14,10 @@
     CargarGrid: function () {
         var me = this;
         if (!me.storeGenerar) {
-            me.store = Ext.create("App.Store.CajasCierres.Detalles");
+            me.store = Ext.create("App.Store.CajasCierres.Detalles", {
+                pageSize: 10000,
+            });
+            me.store.setExtraParams({ID_CIERRE : -1 });
         } else {
             me.store = Ext.create("App.Store.CajasCierres.Detalles", {
                 url: 'Cierres/ObtenerDetalleCierreCajaPacialGenerado',

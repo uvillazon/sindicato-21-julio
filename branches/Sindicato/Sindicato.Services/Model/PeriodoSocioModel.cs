@@ -61,7 +61,7 @@ namespace Sindicato.Services.Model
     public class CierreCajaModel
     {
         public int ID_CAJA { get; set; }
-        public int ID_KARDEX { get; set; }
+        public int? ID_KARDEX { get; set; }
         public string CAJA { get; set; }
         public string DETALLE { get; set; }
         public string OPERACION { get; set; }
