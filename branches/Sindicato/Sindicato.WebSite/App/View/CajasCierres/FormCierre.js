@@ -25,6 +25,26 @@
             console.log(rec);
             me.ObtenerUltimoRegistro(rec[0].get('ID_CAJA'))
         });
+        me.btnReporte.on('click', function () {
+            var fechaini = me.date_fecha_ini.getValue(); // Date object
+            var fechaFormateada = Ext.Date.format(fechaini, 'Y-m-d'); // '2025-04-01'
+            var fechafin = me.date_fecha_fin.getValue(); // Date object
+            var fechaFormateadaFin = Ext.Date.format(fechafin, 'Y-m-d'); // '2025-04-01'
+            me.generarReporte("ReporteCierreParcialGenerado", 'FECHA_INI=' + fechaFormateada + '&FECHA_FIN=' + fechaFormateadaFin + '&ID_CAJA=' + me.cbx_caja.getValue());
+
+        });
+
+        me.btReporteCooperativa.on('click', function () {
+            var fechaini = me.date_fecha_ini.getValue(); // Date object
+            var fechaFormateada = Ext.Date.format(fechaini, 'Y-m-d'); // '2025-04-01'
+            var fechafin = me.date_fecha_fin.getValue(); // Date object
+            var fechaFormateadaFin = Ext.Date.format(fechafin, 'Y-m-d'); // '2025-04-01'
+            me.generarReporte("ReportePrestamosParcial", 'FECHA_INI=' + fechaFormateada + '&FECHA_FIN=' + fechaFormateadaFin + '&ID_GESTION=1&ID_CAJA=' + me.cbx_caja.getValue());
+
+        });
+    },
+    generarReporte: function (reporte, params) {
+        fn.VerImpresion(reporte, params);
     },
     CargarComponentesForm: function () {
         var me = this;
@@ -53,12 +73,14 @@
             fieldLabel: "Fecha Ini",
             maximo: 'Sin Maximo',
             name: "FECHA_INI",
+            //format: 'm-d-Y',
             afterLabelTextTpl: Constantes.REQUERIDO,
             allowBlank: false
         });
         me.date_fecha_fin = Ext.create("App.Config.Componente.DateFieldBase", {
             fieldLabel: "Fecha Fin",
             opcion: 'sin fecha',
+            //format: 'm-d-Y',
             //maximo: 'Sin Maximo',
             name: "FECHA_FIN",
             afterLabelTextTpl: Constantes.REQUERIDO,
@@ -95,6 +117,33 @@
             readOnly: true,
 
         });
+        me.btnReporte = Ext.create('Ext.button.Button', {
+            text: 'Generar<br> Reporte',
+            itemId: 'report',
+            scale: 'large',
+            iconCls: 'report',
+            margin: '0 10 0 10',
+            flex: 1
+        });
+        me.btReporteCooperativa = Ext.create('Ext.button.Button', {
+            text: 'Reporte <br> Cooperativa',
+            itemId: 'btnposte',
+            scale: 'large',
+            iconCls: 'report',
+            margin: '0 10 0 10',
+            flex: 1
+        });
+        me.fieldSet = Ext.create('Ext.form.FieldSet', {
+           
+            title: 'Reportes',
+            colspan : 2,
+            layout: 'anchor',
+            defaults: {
+                anchor: '100%'
+            },
+            items: [me.btnReporte, me.btReporteCooperativa]
+        });
+
         me.gridDetalle = Ext.create("App.View.CajasCierres.GridDetalles", { colspan: 2, width: 550, cargarStore: false, height: 400, storeGenerar: true });
         me.items = [
             me.txt_id,
@@ -102,6 +151,7 @@
             me.date_fecha_ini, me.date_fecha_fin,
             me.txt_observacion,
             me.txt_saldoInicial, me.txt_total,
+            me.fieldSet,
             me.gridDetalle
         ];
     },

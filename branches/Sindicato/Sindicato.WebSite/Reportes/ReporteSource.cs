@@ -174,6 +174,16 @@ namespace Sindicato.WebSite.Reportes
             return result;
 
         }
+
+        public List<CierreCajaModel> ReporteCierreParcialGenerado(int ID_CAJA, DateTime FECHA_INI, DateTime FECHA_FIN)
+        {
+
+            List<CierreCajaModel> result = new List<CierreCajaModel>();
+            var servicio = new CierresCajaServices();
+            result = servicio.ObtenerCierreCajaParcialGenerado(ID_CAJA,FECHA_INI,FECHA_FIN).ToList();
+            return result;
+
+        }
         //ObtenerHojasPorVentas
     }
 }

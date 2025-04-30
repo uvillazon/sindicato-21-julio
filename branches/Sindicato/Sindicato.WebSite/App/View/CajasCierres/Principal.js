@@ -89,7 +89,7 @@
         win.btn_guardar.on('click', function () {
             //console.dir(params);
             if (form.isValid()) {
-                Funciones.AjaxRequestWin("Cierres", "GuardarCierreCaja", win, form, me.grid, "Esta Seguro de Guardar", { detalles: form.convertirJson() }, win);
+                Funciones.AjaxRequestWin("Cierres", "GuardarCajaCierre", win, form, me.grid, "Esta Seguro de Guardar", null, win);
             }
             else {
                 Ext.Msg.alert("Error", "Falta Completar Algun Datos. Revisar Formulario.");

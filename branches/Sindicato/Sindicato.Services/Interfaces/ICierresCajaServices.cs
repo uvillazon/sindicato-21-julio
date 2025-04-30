@@ -24,6 +24,6 @@ namespace Sindicato.Services.Interfaces
         IEnumerable<SD_DETALLE_CAJA_CIERRE> ObtenerCierresCajasParcialesDetallesPaginados(PagingInfo paginacion, FiltrosModel<SociosModel> filtros);
         SD_CAJAS_CIERRES ObtenerUltimoRegistroCajasCierre(int ID_CAJA);
         IEnumerable<CierreCajaModel> ObtenerCierreCajaParcialGenerado(int ID_CAJA, DateTime FECHA_INI, DateTime FECHA_FIN);
-        
+        RespuestaSP GuardarCajaCierre(SD_CAJAS_CIERRES cierre, string detalles, string login);
     }
 }

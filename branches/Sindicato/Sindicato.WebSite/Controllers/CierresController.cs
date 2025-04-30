@@ -361,6 +361,16 @@ namespace Sindicato.WebSite.Controllers
             return JavaScript(callback1);
         }
 
+        [HttpPost]
+        //public JsonResult GuardarCajaCierre(SD_CAJAS_CIERRES cierre)
+              public JsonResult GuardarCajaCierre(SD_CAJAS_CIERRES cierre)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serCierreCaja.GuardarCajaCierre(cierre, "string", login);
+            return Json(respuestaSP);
+        }
+
         #endregion
     }
 }
