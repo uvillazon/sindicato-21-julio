@@ -522,7 +522,7 @@ namespace Sindicato.Services
                         {
                             ID_CIERRE = id_venta,
                             ID_DETALLE = managerDetalle.ObtenerSecuencia(),
-                            ID_KARDEX = item.ID_KARDEX,
+                            ID_KARDEX = (int)item.ID_KARDEX,
                             SALDO = item.SALDO,
                             IMPORTE = item.IMPORTE,
                             FECHA = item.FECHA,

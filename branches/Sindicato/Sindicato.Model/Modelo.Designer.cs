@@ -49,7 +49,6 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "SD_DESCUENTOS_R02", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sindicato.Model.SD_CAJAS), "SD_DESCUENTOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DESCUENTOS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLES_HOJAS_CONTROL_R02", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_DETALLES_HOJAS_CONTROL", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLES_HOJAS_CONTROL), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_INGRESOS_POR_SOCIOS_R03", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_INGRESOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_INGRESOS_POR_SOCIOS), true)]
-[assembly: EdmRelationshipAttribute("Model", "SD_KARDEX_EFECTIVO_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_KARDEX_EFECTIVO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_KARDEX_EFECTIVO), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_OBLIGACIONES_HOJA_R02", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_OBLIGACIONES_HOJA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_OBLIGACIONES_HOJA), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_PARADAS_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_PARADAS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PARADAS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_TRANSFERENCIAS_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_TRANSFERENCIAS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_TRANSFERENCIAS), true)]
@@ -96,7 +95,6 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "SD_TRANSFERENCIAS_HOJAS_R02", "SD_SOCIO_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIO_MOVILES), "SD_TRANSFERENCIAS_HOJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_TRANSFERENCIAS_HOJAS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_TRANSF_HOJA_DET_R01", "SD_TRANSFERENCIAS_HOJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_TRANSFERENCIAS_HOJAS), "SD_TRANSF_HOJA_DET", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_TRANSF_HOJA_DET), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_CIERRES_CAJA_R02", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_DETALLE_CIERRES_CAJA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_CIERRES_CAJA), true)]
-[assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_CIERRES_CAJA_R01", "SD_CIERRES_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CIERRES_CAJAS), "SD_DETALLE_CIERRES_CAJA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_CIERRES_CAJA), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_PRESTAMOS_POR_SOCIOS_R03", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_PRESTAMOS_MORA_R01", "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), "SD_PRESTAMOS_MORA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PRESTAMOS_MORA), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_PRESTAMOS_POR_SOCIOS_R01", "SD_SOCIO_MOVILES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_SOCIO_MOVILES), "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), true)]
@@ -111,9 +109,11 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "SD_PAGO_DE_PRESTAMOS_R03", "SD_PLAN_DE_PAGO", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sindicato.Model.SD_PLAN_DE_PAGO), "SD_PAGO_DE_PRESTAMOS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PAGO_DE_PRESTAMOS), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_PLAN_DE_PAGO_R01", "SD_PRESTAMOS_POR_SOCIOS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_PRESTAMOS_POR_SOCIOS), "SD_PLAN_DE_PAGO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PLAN_DE_PAGO), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_PRESTAMOS_MORA_R02", "SD_PLAN_DE_PAGO", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_PLAN_DE_PAGO), "SD_PRESTAMOS_MORA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_PRESTAMOS_MORA), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_KARDEX_EFECTIVO_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_KARDEX_EFECTIVO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_KARDEX_EFECTIVO), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_CAJA_CIERRE_R02", "SD_KARDEX_EFECTIVO", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_KARDEX_EFECTIVO), "SD_DETALLE_CAJA_CIERRE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_CAJA_CIERRE), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_CAJAS_CIERRES_R01", "SD_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS), "SD_CAJAS_CIERRES", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_CAJAS_CIERRES), true)]
 [assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_CAJA_CIERRE_R01", "SD_CAJAS_CIERRES", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CAJAS_CIERRES), "SD_DETALLE_CAJA_CIERRE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_CAJA_CIERRE), true)]
-[assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_CAJA_CIERRE_R02", "SD_KARDEX_EFECTIVO", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sindicato.Model.SD_KARDEX_EFECTIVO), "SD_DETALLE_CAJA_CIERRE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_CAJA_CIERRE), true)]
+[assembly: EdmRelationshipAttribute("Model", "SD_DETALLE_CIERRES_CAJA_R01", "SD_CIERRES_CAJAS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sindicato.Model.SD_CIERRES_CAJAS), "SD_DETALLE_CIERRES_CAJA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sindicato.Model.SD_DETALLE_CIERRES_CAJA), true)]
 
 #endregion
 
@@ -420,22 +420,6 @@ namespace Sindicato.Model
             }
         }
         private ObjectSet<SD_KARDEX_FM> _SD_KARDEX_FM;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<SD_KARDEX_EFECTIVO> SD_KARDEX_EFECTIVO
-        {
-            get
-            {
-                if ((_SD_KARDEX_EFECTIVO == null))
-                {
-                    _SD_KARDEX_EFECTIVO = base.CreateObjectSet<SD_KARDEX_EFECTIVO>("SD_KARDEX_EFECTIVO");
-                }
-                return _SD_KARDEX_EFECTIVO;
-            }
-        }
-        private ObjectSet<SD_KARDEX_EFECTIVO> _SD_KARDEX_EFECTIVO;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1176,22 +1160,6 @@ namespace Sindicato.Model
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<SD_CIERRES_CAJAS> SD_CIERRES_CAJAS
-        {
-            get
-            {
-                if ((_SD_CIERRES_CAJAS == null))
-                {
-                    _SD_CIERRES_CAJAS = base.CreateObjectSet<SD_CIERRES_CAJAS>("SD_CIERRES_CAJAS");
-                }
-                return _SD_CIERRES_CAJAS;
-            }
-        }
-        private ObjectSet<SD_CIERRES_CAJAS> _SD_CIERRES_CAJAS;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<SD_DETALLE_CIERRES_CAJA> SD_DETALLE_CIERRES_CAJA
         {
             get
@@ -1320,18 +1288,18 @@ namespace Sindicato.Model
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<SD_CAJAS_CIERRES> SD_CAJAS_CIERRES
+        public ObjectSet<SD_KARDEX_EFECTIVO> SD_KARDEX_EFECTIVO
         {
             get
             {
-                if ((_SD_CAJAS_CIERRES == null))
+                if ((_SD_KARDEX_EFECTIVO == null))
                 {
-                    _SD_CAJAS_CIERRES = base.CreateObjectSet<SD_CAJAS_CIERRES>("SD_CAJAS_CIERRES");
+                    _SD_KARDEX_EFECTIVO = base.CreateObjectSet<SD_KARDEX_EFECTIVO>("SD_KARDEX_EFECTIVO");
                 }
-                return _SD_CAJAS_CIERRES;
+                return _SD_KARDEX_EFECTIVO;
             }
         }
-        private ObjectSet<SD_CAJAS_CIERRES> _SD_CAJAS_CIERRES;
+        private ObjectSet<SD_KARDEX_EFECTIVO> _SD_KARDEX_EFECTIVO;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1348,6 +1316,38 @@ namespace Sindicato.Model
             }
         }
         private ObjectSet<SD_DETALLE_CAJA_CIERRE> _SD_DETALLE_CAJA_CIERRE;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<SD_CAJAS_CIERRES> SD_CAJAS_CIERRES
+        {
+            get
+            {
+                if ((_SD_CAJAS_CIERRES == null))
+                {
+                    _SD_CAJAS_CIERRES = base.CreateObjectSet<SD_CAJAS_CIERRES>("SD_CAJAS_CIERRES");
+                }
+                return _SD_CAJAS_CIERRES;
+            }
+        }
+        private ObjectSet<SD_CAJAS_CIERRES> _SD_CAJAS_CIERRES;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<SD_CIERRES_CAJAS> SD_CIERRES_CAJAS
+        {
+            get
+            {
+                if ((_SD_CIERRES_CAJAS == null))
+                {
+                    _SD_CIERRES_CAJAS = base.CreateObjectSet<SD_CIERRES_CAJAS>("SD_CIERRES_CAJAS");
+                }
+                return _SD_CIERRES_CAJAS;
+            }
+        }
+        private ObjectSet<SD_CIERRES_CAJAS> _SD_CIERRES_CAJAS;
 
         #endregion
 
@@ -1479,14 +1479,6 @@ namespace Sindicato.Model
         public void AddToSD_KARDEX_FM(SD_KARDEX_FM sD_KARDEX_FM)
         {
             base.AddObject("SD_KARDEX_FM", sD_KARDEX_FM);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the SD_KARDEX_EFECTIVO EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToSD_KARDEX_EFECTIVO(SD_KARDEX_EFECTIVO sD_KARDEX_EFECTIVO)
-        {
-            base.AddObject("SD_KARDEX_EFECTIVO", sD_KARDEX_EFECTIVO);
         }
     
         /// <summary>
@@ -1858,14 +1850,6 @@ namespace Sindicato.Model
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the SD_CIERRES_CAJAS EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToSD_CIERRES_CAJAS(SD_CIERRES_CAJAS sD_CIERRES_CAJAS)
-        {
-            base.AddObject("SD_CIERRES_CAJAS", sD_CIERRES_CAJAS);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the SD_DETALLE_CIERRES_CAJA EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToSD_DETALLE_CIERRES_CAJA(SD_DETALLE_CIERRES_CAJA sD_DETALLE_CIERRES_CAJA)
@@ -1930,11 +1914,11 @@ namespace Sindicato.Model
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the SD_CAJAS_CIERRES EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the SD_KARDEX_EFECTIVO EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToSD_CAJAS_CIERRES(SD_CAJAS_CIERRES sD_CAJAS_CIERRES)
+        public void AddToSD_KARDEX_EFECTIVO(SD_KARDEX_EFECTIVO sD_KARDEX_EFECTIVO)
         {
-            base.AddObject("SD_CAJAS_CIERRES", sD_CAJAS_CIERRES);
+            base.AddObject("SD_KARDEX_EFECTIVO", sD_KARDEX_EFECTIVO);
         }
     
         /// <summary>
@@ -1943,6 +1927,22 @@ namespace Sindicato.Model
         public void AddToSD_DETALLE_CAJA_CIERRE(SD_DETALLE_CAJA_CIERRE sD_DETALLE_CAJA_CIERRE)
         {
             base.AddObject("SD_DETALLE_CAJA_CIERRE", sD_DETALLE_CAJA_CIERRE);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the SD_CAJAS_CIERRES EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSD_CAJAS_CIERRES(SD_CAJAS_CIERRES sD_CAJAS_CIERRES)
+        {
+            base.AddObject("SD_CAJAS_CIERRES", sD_CAJAS_CIERRES);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the SD_CIERRES_CAJAS EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSD_CIERRES_CAJAS(SD_CIERRES_CAJAS sD_CIERRES_CAJAS)
+        {
+            base.AddObject("SD_CIERRES_CAJAS", sD_CIERRES_CAJAS);
         }
 
         #endregion
@@ -6820,28 +6820,6 @@ namespace Sindicato.Model
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_KARDEX_EFECTIVO_R01", "SD_KARDEX_EFECTIVO")]
-        public EntityCollection<SD_KARDEX_EFECTIVO> SD_KARDEX_EFECTIVO
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_KARDEX_EFECTIVO>("Model.SD_KARDEX_EFECTIVO_R01", "SD_KARDEX_EFECTIVO");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_KARDEX_EFECTIVO>("Model.SD_KARDEX_EFECTIVO_R01", "SD_KARDEX_EFECTIVO", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Model", "SD_OBLIGACIONES_HOJA_R02", "SD_OBLIGACIONES_HOJA")]
         public EntityCollection<SD_OBLIGACIONES_HOJA> SD_OBLIGACIONES_HOJA
         {
@@ -7162,6 +7140,28 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_PAGO_DE_PRESTAMOS>("Model.SD_PAGO_DE_PRESTAMOS_R02", "SD_PAGO_DE_PRESTAMOS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_KARDEX_EFECTIVO_R01", "SD_KARDEX_EFECTIVO")]
+        public EntityCollection<SD_KARDEX_EFECTIVO> SD_KARDEX_EFECTIVO
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SD_KARDEX_EFECTIVO>("Model.SD_KARDEX_EFECTIVO_R01", "SD_KARDEX_EFECTIVO");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SD_KARDEX_EFECTIVO>("Model.SD_KARDEX_EFECTIVO_R01", "SD_KARDEX_EFECTIVO", value);
                 }
             }
         }
@@ -10028,12 +10028,14 @@ namespace Sindicato.Model
         /// </summary>
         /// <param name="iD_DETALLE">Initial value of the ID_DETALLE property.</param>
         /// <param name="iD_CIERRE">Initial value of the ID_CIERRE property.</param>
+        /// <param name="iD_KARDEX">Initial value of the ID_KARDEX property.</param>
         /// <param name="fECHA">Initial value of the FECHA property.</param>
-        public static SD_DETALLE_CAJA_CIERRE CreateSD_DETALLE_CAJA_CIERRE(global::System.Int32 iD_DETALLE, global::System.Int32 iD_CIERRE, global::System.DateTime fECHA)
+        public static SD_DETALLE_CAJA_CIERRE CreateSD_DETALLE_CAJA_CIERRE(global::System.Int32 iD_DETALLE, global::System.Int32 iD_CIERRE, global::System.Int32 iD_KARDEX, global::System.DateTime fECHA)
         {
             SD_DETALLE_CAJA_CIERRE sD_DETALLE_CAJA_CIERRE = new SD_DETALLE_CAJA_CIERRE();
             sD_DETALLE_CAJA_CIERRE.ID_DETALLE = iD_DETALLE;
             sD_DETALLE_CAJA_CIERRE.ID_CIERRE = iD_CIERRE;
+            sD_DETALLE_CAJA_CIERRE.ID_KARDEX = iD_KARDEX;
             sD_DETALLE_CAJA_CIERRE.FECHA = fECHA;
             return sD_DETALLE_CAJA_CIERRE;
         }
@@ -10096,9 +10098,9 @@ namespace Sindicato.Model
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> ID_KARDEX
+        public global::System.Int32 ID_KARDEX
         {
             get
             {
@@ -10113,8 +10115,8 @@ namespace Sindicato.Model
                 OnID_KARDEXChanged();
             }
         }
-        private Nullable<global::System.Int32> _ID_KARDEX;
-        partial void OnID_KARDEXChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _ID_KARDEX;
+        partial void OnID_KARDEXChanging(global::System.Int32 value);
         partial void OnID_KARDEXChanged();
     
         /// <summary>
@@ -10272,44 +10274,6 @@ namespace Sindicato.Model
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_DETALLE_CAJA_CIERRE_R01", "SD_CAJAS_CIERRES")]
-        public SD_CAJAS_CIERRES SD_CAJAS_CIERRES
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS_CIERRES>("Model.SD_DETALLE_CAJA_CIERRE_R01", "SD_CAJAS_CIERRES").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS_CIERRES>("Model.SD_DETALLE_CAJA_CIERRE_R01", "SD_CAJAS_CIERRES").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<SD_CAJAS_CIERRES> SD_CAJAS_CIERRESReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS_CIERRES>("Model.SD_DETALLE_CAJA_CIERRE_R01", "SD_CAJAS_CIERRES");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_CAJAS_CIERRES>("Model.SD_DETALLE_CAJA_CIERRE_R01", "SD_CAJAS_CIERRES", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Model", "SD_DETALLE_CAJA_CIERRE_R02", "SD_KARDEX_EFECTIVO")]
         public SD_KARDEX_EFECTIVO SD_KARDEX_EFECTIVO
         {
@@ -10338,6 +10302,44 @@ namespace Sindicato.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_KARDEX_EFECTIVO>("Model.SD_DETALLE_CAJA_CIERRE_R02", "SD_KARDEX_EFECTIVO", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "SD_DETALLE_CAJA_CIERRE_R01", "SD_CAJAS_CIERRES")]
+        public SD_CAJAS_CIERRES SD_CAJAS_CIERRES
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS_CIERRES>("Model.SD_DETALLE_CAJA_CIERRE_R01", "SD_CAJAS_CIERRES").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS_CIERRES>("Model.SD_DETALLE_CAJA_CIERRE_R01", "SD_CAJAS_CIERRES").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SD_CAJAS_CIERRES> SD_CAJAS_CIERRESReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SD_CAJAS_CIERRES>("Model.SD_DETALLE_CAJA_CIERRE_R01", "SD_CAJAS_CIERRES");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SD_CAJAS_CIERRES>("Model.SD_DETALLE_CAJA_CIERRE_R01", "SD_CAJAS_CIERRES", value);
                 }
             }
         }
@@ -17220,30 +17222,6 @@ namespace Sindicato.Model
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> ID_CIERRE
-        {
-            get
-            {
-                return _ID_CIERRE;
-            }
-            set
-            {
-                OnID_CIERREChanging(value);
-                ReportPropertyChanging("ID_CIERRE");
-                _ID_CIERRE = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ID_CIERRE");
-                OnID_CIERREChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _ID_CIERRE;
-        partial void OnID_CIERREChanging(Nullable<global::System.Int32> value);
-        partial void OnID_CIERREChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public global::System.String ESTADO
         {
             get
@@ -17262,6 +17240,30 @@ namespace Sindicato.Model
         private global::System.String _ESTADO;
         partial void OnESTADOChanging(global::System.String value);
         partial void OnESTADOChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ID_CIERRE
+        {
+            get
+            {
+                return _ID_CIERRE;
+            }
+            set
+            {
+                OnID_CIERREChanging(value);
+                ReportPropertyChanging("ID_CIERRE");
+                _ID_CIERRE = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ID_CIERRE");
+                OnID_CIERREChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ID_CIERRE;
+        partial void OnID_CIERREChanging(Nullable<global::System.Int32> value);
+        partial void OnID_CIERREChanged();
 
         #endregion
 

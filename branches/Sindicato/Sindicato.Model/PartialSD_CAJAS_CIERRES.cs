@@ -15,7 +15,7 @@ namespace Sindicato.Model
             try
             {
                 id.Add(Convert.ToInt32(contiene));
-                return m => contiene == null || id.Contains(m.ID_CIERRE);
+                return m => contiene == null || id.Contains(m._ID_CIERRE);
             }
             catch (FormatException)
             {
