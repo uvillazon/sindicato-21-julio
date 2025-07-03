@@ -848,6 +848,8 @@ namespace Sindicato.Services
                         CAJA = item.SD_CAJAS.NOMBRE,
                         MOVIL = item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL,
                         IMPORTE_PRESTAMO = item.IMPORTE_PRESTAMO,
+                        IMPORTE_MORA = item.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA),
+                        IMPORTE_INTERES = item.IMPORTE_INTERES,
                         IMPORTE_TOTAL = item.IMPORTE_PRESTAMO + item.IMPORTE_INTERES + item.SD_PRESTAMOS_MORA.Sum(y => y.IMPORTE_MORA),
                         CANDELADO = item.SD_PAGO_DE_PRESTAMOS.Sum(y => y.IMPORTE),
                         CANT_PAGOS = item.SD_PAGO_DE_PRESTAMOS.Count(),

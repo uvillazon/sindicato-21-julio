@@ -25,7 +25,8 @@
         Funciones.CrearMenu('btn_crearAntecedentes', 'Crear<br>Antecedente', Constantes.ICONO_CREAR, me.EventosForm, me.grupo, this);
         Funciones.CrearMenu('btn_editarAntecedentes', 'Editar<br>Antecedente', Constantes.ICONO_EDITAR, me.EventosForm, me.grupo, this, null, true);
         Funciones.CrearMenu('btn_eliminarAntecedentes', 'Eliminar<br>Antecedente', Constantes.ICONO_BAJA, me.EventosForm, me.grupo, this, null, true);
-        
+        Funciones.CrearMenu('btn_imagen', 'Agregar<br>Imagen', 'image_add', me.EventosForm, me.grupo, this, null, true);
+
         me.grid = Ext.create("App.View.Socios.Grids", {
             opcion: 'GridAntecedentes',
             height: 200,
@@ -39,13 +40,17 @@
             botones: false,
             conHtml : false
         });
-       
+        me.formImagen = Ext.create('App.View.Imagenes.ViewImagenes', {
+            colspan: 2,
+            TABLA: 'SD_ANTECEDENTES',
+            height: 200,
+        });
         me.form.BloquearFormulario();
         me.items = [
             me.grupo,
             me.grid,
-            me.form //,
-            //me.formImagen
+            me.form ,
+            me.formImagen
         ];
     },
     CargarDatosAntecedente: function (sel, selections) {
@@ -54,13 +59,17 @@
         me.antecedente = disabled ? null : selections[0];
         Funciones.DisabledButton("btn_editarAntecedentes", me, disabled);
         Funciones.DisabledButton("btn_eliminarAntecedentes", me, disabled);
+        Funciones.DisabledButton("btn_imagen", me, disabled);
+
         if (!disabled) {
             me.form.loadFormulario("Otros", "ObtenerAntecedentePorId", { ID_ANTECEDENTE: selections[0].get('ID_ANTECEDENTE') });
+            me.formImagen.CargarImagen(selections[0].get('ID_ANTECEDENTE'));
             //me.formImagen.CargarImagen(selections[0].get('ID_ANTECEDENTE'));
             //me.form.formImagen.CargarImagen(selections[0].get('ID_AUTO'));
         }
         else {
             me.form.getForm().reset();
+            me.formImagen.CargarImagen(0);
             //me.formImagen.CargarImagen(0);
             //me.form.formImagen.CargarImagen(0);
         }
@@ -90,6 +99,9 @@
             case "btn_eliminarAntecedentes":
                 //me.CrearImagen();
                 Funciones.AjaxRequestGrid("Otros", "EliminarAntecedente", me.grid, "Esta seguro de Eliminar el Antecedente?", { ID_ANTECEDENTE: me.antecedente.get('ID_ANTECEDENTE') }, me.grid, null);
+                break;
+            case "btn_imagen":
+                me.CrearImagen();
                 break;
 
             default:
@@ -127,5 +139,10 @@
             Funciones.AjaxRequestWin("Otros", "GuardarAntecedente", win, form, me.grid, "Esta Seguro de Guardar", null, win);
         });
 
-    }
+    },
+    CrearImagen: function () {
+        var me = this;
+        var form = Ext.create("App.View.Imagenes.FormImagen", { opcion: 'FormImagen', grid: me.grid });
+        form.MostrarWindowImagen("SD_ANTECEDENTES", me.antecedente.get('ID_ANTECEDENTE'), null);
+    },
 });

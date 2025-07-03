@@ -265,6 +265,8 @@ namespace Sindicato.Services.Model
         public decimal? IMPORTE_PRESTAMO { get; set; }
         public decimal? IMPORTE_MORA { get; set; }
         public decimal? IMPORTE_TOTAL { get; set; }
+        public decimal? IMPORTE_INTERES { get; set; }
+        public decimal? IMPORTE_CONDONACION { get; set; }
         public decimal? CANDELADO { get; set; }
         public DateTime? FECHA_LIMITE { get; set; }
         public string CAJA { get; set; }

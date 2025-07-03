@@ -129,6 +129,7 @@
         me.cbx_socio = Ext.create("App.Config.Componente.ComboAutoBase", {
             fieldLabel: "Nro Movil",
             name: "ID_SOCIO_MOVIL",
+            valueField: 'ID_SOCIO_MOVIL',
             displayField: 'NRO_MOVIL',
             store: me.store_socio,
             afterLabelTextTpl: Constantes.REQUERIDO,
