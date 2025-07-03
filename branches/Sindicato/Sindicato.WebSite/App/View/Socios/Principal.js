@@ -28,7 +28,7 @@
             width: '50%',
             opcion: 'GridSocios',
             fbarmenu: me.toolbar,
-            fbarmenuArray: ["btn_ConfigObligacion", "btn_ReporteSocioMovilHoja", "btn_Editar", "btn_EditarMovil", , "btn_BajaMovil", "btn_Imagen", "btn_Kardex", "btn_ConfigHoja", "btn_EliminarSocio", "btn_TransferenciasHojas"]
+            fbarmenuArray: ["btn_ConfigObligacion", "btn_ReporteSocioMovilHoja", "btn_Editar", "btn_EditarMovil", , "btn_BajaMovil", "btn_Imagen", "btn_Kardex", "btn_ConfigHoja", "btn_EliminarSocio", "btn_TransferenciasHojas", "btn_usuario_password"]
 
         });
         //me.formulario = Ext.create("App.Config.Abstract.FormPanel");
@@ -42,6 +42,7 @@
         me.btn_crearImagen = Funciones.CrearMenu('btn_Imagen', 'Imagen', 'image_add', me.EventosPrincipal, me.toolbar, this, null, true);
 
         me.btn_solo_socios = Funciones.CrearMenu('btn_MostrarSoloSocios', 'Ver Solo Socios', 'group', me.EventosPrincipal, me.toolbar, this);
+        me.btn_solo_socios = Funciones.CrearMenu('btn_usuario_password', 'Acceso Web', 'lock_add', me.EventosPrincipal, me.toolbar, this, null , true);
         //me.grid.AgregarBtnToolbar([me.btn_crear, me.btn_editar, me.btn_crearMovil, me.btn_editarMovil, me.btn_crearImagen]);
         me.grid.addDocked(me.toolbar, 1);
 
@@ -186,6 +187,10 @@
                 break;
             case "btn_MostrarSoloSocios":
                 me.VerGridSoloSocios();
+                break;
+            case "btn_usuario_password":
+                me.CrearAccesoUsuario();
+                break;
             case "btn_EliminarSocio":
                 Funciones.AjaxRequestGrid("Socios", "EliminarSocio", me.grid, "Se eliminara todos los registros asociados al socio Esta seguro que desea continuar?", { ID_SOCIO: me.grid.record.get('ID_SOCIO') }, me.grid, null);
                 break;
@@ -296,5 +301,21 @@
         win.add(grid);
         win.show();
         
-    }
+    },
+    CrearAccesoUsuario: function () {
+        var me = this;
+        var win = Ext.create("App.Config.Abstract.Window", { botones: true  });
+        var form = Ext.create("App.View.Socios.Forms", {
+            title: 'Datos Usuario Acceso a la Web',
+            opcion: 'FormAccesoWeb',
+            botones: false
+        });
+        form.loadRecord(me.grid.record);
+        console.log(me.grid.record);
+        win.add(form);
+        win.show();
+        win.btn_guardar.on('click', function () {
+            Funciones.AjaxRequestWin("Socios", "GuardarUsuarioWeb", win, form, me.grid, "Esta Seguro de Guardar", null, win);
+        });
+    },
 });

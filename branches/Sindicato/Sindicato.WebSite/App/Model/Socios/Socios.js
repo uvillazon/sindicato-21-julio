@@ -32,6 +32,8 @@
         { type: "string", name: "TELEFONO" },
         { type: "string", name: "CELULAR" },
         { type: "string", name: "ESTADO" },
+        { type: "string", name: "USUARIO" },
+        { type: "string", name: "PSW" },
 //        { name: 'CON_IMAGEN', type: 'boolean' },
         { type: "int", name: "ID_IMG" },
         { type: "float", name: "SALDO" , defaultValue : 0 },

@@ -62,10 +62,13 @@ namespace Sindicato.WebSite.Controllers
                 ESTADO = x.ESTADO,
                 ID_IMG = _serImg.ConImagen(x.ID_SOCIO, "SD_SOCIOS"),
                 SALDO = x.SALDO,
+                USUARIO = x.USUARIO ,
+                PSW = x.PSW,
                 DEUDA = x.SD_SOCIOS.DEUDA,
                 PRECIO_HOJA = x.SD_SOC_MOV_OBLIG.Count() > 0 ? CON_AHORRO == "NO" ? x.SD_SOC_MOV_OBLIG.Where(y => y.ID_OBLIGACION !=1).Sum(y => y.IMPORTE)  : x.SD_SOC_MOV_OBLIG.Sum(y => y.IMPORTE) : 0,
                 //PRECIO_HOJA = x.obtenerPrecioHoja(entidad.CON_AHORRO),
-                DEBE_HOJA = x.obtenerDebe()
+                DEBE_HOJA = x.obtenerDebe(),
+
                 //ID_IMG = 
             });
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
@@ -526,5 +529,14 @@ namespace Sindicato.WebSite.Controllers
 
         
         #endregion
+
+        [HttpPost]
+        public JsonResult GuardarUsuarioWeb(SD_SOCIO_MOVILES socio)
+        {
+            string login = User.Identity.Name.Split('-')[0];
+            RespuestaSP respuestaSP = new RespuestaSP();
+            respuestaSP = _serSoc.GuardarUsuarioWeb(socio, login);
+            return Json(respuestaSP);
+        }
     }
 }

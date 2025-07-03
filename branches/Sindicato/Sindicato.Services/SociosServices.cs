@@ -826,5 +826,23 @@ namespace Sindicato.Services
             return result;
         }
         #endregion
+
+        public RespuestaSP GuardarUsuarioWeb(SD_SOCIO_MOVILES socio, string LOGIN)
+        {
+            RespuestaSP result = new RespuestaSP();
+            ExecuteManager(uow =>
+            {
+                var context = (SindicatoContext)uow.Context;
+                ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
+                var sociomovil = context.SD_SOCIO_MOVILES.FirstOrDefault(x => x.ID_SOCIO_MOVIL == socio.ID_SOCIO_MOVIL);
+                sociomovil.USUARIO = socio.USUARIO;
+                sociomovil.PSW = socio.PSW;
+                result.success = true;
+                result.msg = "Proceso Ejecutado Correctamente";
+
+            });
+
+            return result;
+        }
     }
 }

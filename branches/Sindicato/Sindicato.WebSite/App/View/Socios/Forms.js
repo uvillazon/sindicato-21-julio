@@ -54,6 +54,9 @@
         else if (me.opcion == "FormAgregarDetalleHoja") {
             me.CargarFormAgregarDetalleHoja();
         }
+        else if (me.opcion == "FormAccesoWeb") {
+            me.CargarFormAccesoWeb();
+        }
         this.callParent(arguments);
     },
     CargarFormImagen: function () {
@@ -819,6 +822,41 @@
            me.cbx_detalle,
            me.num_importe,
         ];
-    }
+    },
+    CargarFormAccesoWeb: function () {
+        var me = this;
+        me.txt_id = Ext.create("App.Config.Componente.TextFieldBase", {
+            name: "ID_SOCIO_MOVIL",
+            hidden: true,
+        });
+
+        me.txt_usuario = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Login",
+            name: "USUARIO",
+            width: 480,
+            colspan: 2,
+            opc: 'min',
+            maxLength: 50,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+        });
+        me.txt_psw = Ext.create("App.Config.Componente.TextFieldBase", {
+            fieldLabel: "Password",
+            name: "PSW",
+            width: 480,
+            colspan: 2,
+            opc: 'min',
+            maxLength: 50,
+            afterLabelTextTpl: Constantes.REQUERIDO,
+            allowBlank: false,
+        });
+       
+
+        me.items = [
+           me.txt_id,
+           me.txt_usuario,
+           me.txt_psw
+        ];
+    },
 
 });

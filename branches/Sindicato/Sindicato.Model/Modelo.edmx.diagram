@@ -124,19 +124,8 @@
         <edmx:EntityTypeShape EntityType="Model.SD_MOVILES" Width="1.5" PointX="10.803012722545775" PointY="18.319741272516428" />
         <edmx:AssociationConnector Association="Model.SD_MOVILES_R01" />
         <edmx:EntityTypeShape EntityType="Model.SD_KARDEX_SOCIO_MOVIL" Width="1.5" PointX="11.231262646257534" PointY="9.764951933997196" />
-        <edmx:EntityTypeShape EntityType="Model.SD_SOCIO_MOVILES" Width="1.5" PointX="3.1721887342502315" PointY="19.514326268580895" />
-        <edmx:AssociationConnector Association="Model.SD_HOJAS_CONTROL_R02" />
-        <edmx:AssociationConnector Association="Model.SD_INGRESOS_POR_SOCIOS_R01" />
-        <edmx:AssociationConnector Association="Model.SD_KARDEX_HOJAS_R01" />
-        <edmx:AssociationConnector Association="Model.SD_KARDEX_SOCIO_MOVIL_R01" />
-        <edmx:AssociationConnector Association="Model.SD_SOCIO_MOVILES_R02" />
-        <edmx:AssociationConnector Association="Model.SD_PERMISOS_R01" />
-        <edmx:AssociationConnector Association="Model.SD_REGULARIZACIONES_R02" />
-        <edmx:AssociationConnector Association="Model.SD_SOC_MOV_OBLIG_R02" />
-        <edmx:AssociationConnector Association="Model.SD_SOCIO_MOVIL_AUTOS_R01" />
         <edmx:EntityTypeShape EntityType="Model.SD_RETIRO_SOCIO_MOVIL" Width="1.5" PointX="11.993971338492806" PointY="28.421713499548712" />
         <edmx:AssociationConnector Association="Model.SD_RETIRO_SOCIO_MOVIL_R02" />
-        <edmx:AssociationConnector Association="Model.SD_RETIRO_SOCIO_MOVIL_R01" />
         <edmx:EntityTypeShape EntityType="Model.SD_SOCIOS" Width="1.5" PointX="9" PointY="89.375" />
         <edmx:AssociationConnector Association="Model.SD_AMORTIZACIONES_R01" />
         <edmx:AssociationConnector Association="Model.SD_CHOFERES_R01" />
@@ -151,7 +140,6 @@
         <edmx:AssociationConnector Association="Model.SD_OTRAS_OBLIGACIONES_R01" />
         <edmx:AssociationConnector Association="Model.SD_RETIRO_SOCIO_R01" />
         <edmx:AssociationConnector Association="Model.SD_SOCIO_DESEMPENOS_R01" />
-        <edmx:AssociationConnector Association="Model.SD_SOCIO_MOVILES_R01" />
         <edmx:EntityTypeShape EntityType="Model.SD_TIPOS_EGRESOS" Width="1.5" PointX="1.1585687963099074" PointY="0.81030537225785915" />
         <edmx:AssociationConnector Association="Model.SD_TIPOS_EGRESOS_R01" />
         <edmx:EntityTypeShape EntityType="Model.SD_PARAM_CANT_HOJAS_MES" Width="1.5" PointX="11.743899028629016" PointY="1.8590141692473619" />
@@ -165,8 +153,6 @@
         <edmx:EntityTypeShape EntityType="Model.SD_TRANSF_HOJA_DET" Width="1.5" PointX="8.125" PointY="10.75" />
         <edmx:EntityTypeShape EntityType="Model.SD_TRANSFERENCIAS_HOJAS" Width="2.5" PointX="11.375" PointY="25.125" />
         <edmx:AssociationConnector Association="Model.SD_TRANSF_HOJA_DET_R02" />
-        <edmx:AssociationConnector Association="Model.SD_TRANSFERENCIAS_HOJAS_R01" />
-        <edmx:AssociationConnector Association="Model.SD_TRANSFERENCIAS_HOJAS_R02" />
         <edmx:AssociationConnector Association="Model.SD_TRANSF_HOJA_DET_R01" />
         <edmx:EntityTypeShape EntityType="Model.SD_DETALLE_CIERRES_CAJA" Width="1.5" PointX="0.84491203392153236" PointY="17.65414854216117" />
         <edmx:AssociationConnector Association="Model.SD_DETALLE_CIERRES_CAJA_R02" />
@@ -174,7 +160,6 @@
         <edmx:EntityTypeShape EntityType="Model.SD_PRESTAMOS_POR_SOCIOS" Width="1.5" PointX="3.2137681651924588" PointY="3.6164577173145758" />
         <edmx:AssociationConnector Association="Model.SD_PRESTAMOS_POR_SOCIOS_R03" />
         <edmx:AssociationConnector Association="Model.SD_PRESTAMOS_MORA_R01" />
-        <edmx:AssociationConnector Association="Model.SD_PRESTAMOS_POR_SOCIOS_R01" />
         <edmx:EntityTypeShape EntityType="Model.SD_TIPOS_PRESTAMOS" Width="1.5" PointX="2.9330220683165926" PointY="25.482382786219187" />
         <edmx:AssociationConnector Association="Model.SD_TIPOS_PRESTAMOS_R01" />
         <edmx:AssociationConnector Association="Model.SD_PRESTAMOS_POR_SOCIOS_R02" />
@@ -200,6 +185,21 @@
         <edmx:AssociationConnector Association="Model.SD_CAJAS_CIERRES_R01" />
         <edmx:AssociationConnector Association="Model.SD_DETALLE_CAJA_CIERRE_R01" />
         <edmx:AssociationConnector Association="Model.SD_DETALLE_CIERRES_CAJA_R01" />
+        <edmx:EntityTypeShape EntityType="Model.SD_SOCIO_MOVILES" Width="1.5" PointX="1.401984232199371" PointY="9.5480559661742568" />
+        <edmx:AssociationConnector Association="Model.SD_HOJAS_CONTROL_R02" />
+        <edmx:AssociationConnector Association="Model.SD_INGRESOS_POR_SOCIOS_R01" />
+        <edmx:AssociationConnector Association="Model.SD_KARDEX_HOJAS_R01" />
+        <edmx:AssociationConnector Association="Model.SD_KARDEX_SOCIO_MOVIL_R01" />
+        <edmx:AssociationConnector Association="Model.SD_SOCIO_MOVILES_R02" />
+        <edmx:AssociationConnector Association="Model.SD_PERMISOS_R01" />
+        <edmx:AssociationConnector Association="Model.SD_PRESTAMOS_POR_SOCIOS_R01" />
+        <edmx:AssociationConnector Association="Model.SD_REGULARIZACIONES_R02" />
+        <edmx:AssociationConnector Association="Model.SD_RETIRO_SOCIO_MOVIL_R01" />
+        <edmx:AssociationConnector Association="Model.SD_SOC_MOV_OBLIG_R02" />
+        <edmx:AssociationConnector Association="Model.SD_SOCIO_MOVIL_AUTOS_R01" />
+        <edmx:AssociationConnector Association="Model.SD_SOCIO_MOVILES_R01" />
+        <edmx:AssociationConnector Association="Model.SD_TRANSFERENCIAS_HOJAS_R01" />
+        <edmx:AssociationConnector Association="Model.SD_TRANSFERENCIAS_HOJAS_R02" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
