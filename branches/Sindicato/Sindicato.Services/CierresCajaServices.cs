@@ -86,6 +86,7 @@ namespace Sindicato.Services
                 var managerTransferencias = new SD_TRANSFERENCIASManager(uow);
                 var managerPagosDeudas = new SD_DETALLES_DEUDASManager(uow);
                 var managerVentaRefuerzos = new SD_VENTA_HOJAS_REFUERZOManager(uow);
+                var managerDiasNoTrabaj = new SD_DIAS_NO_TRABAJADOSManager(uow);
 
                 var resp = manager.GuardarCierre(cierre, login);
                 int id_venta;
@@ -179,6 +180,12 @@ namespace Sindicato.Services
                     {
                         item.ESTADO = "APROBADO";
                     }
+
+                    var diasNoTrabaj = managerDiasNoTrabaj.BuscarTodos(x => x.FECHA_CANCELADO >= cierre.FECHA_INI && x.FECHA_CANCELADO < fecha_fin && x.ESTADO == "NUEVO");
+                    foreach (var item in ventasrefuerzos)
+                    {
+                        item.ESTADO = "APROBADO";
+                    }
                     result.msg = "Proceso Ejecutado Correctamente.";
                     result.success = true;
                     result.id = cierre.ID_CIERRE;
@@ -211,6 +218,7 @@ namespace Sindicato.Services
                 var managerTransferencias = new SD_TRANSFERENCIASManager(uow);
                 var managerPagosDeudas = new SD_DETALLES_DEUDASManager(uow);
                 var managerVentaRefuerzos = new SD_VENTA_HOJAS_REFUERZOManager(uow);
+                var managerDiasNoCanc = new SD_DIAS_NO_TRABAJADOSManager(uow);
                 DateTime fecha_fin = FECHA_FIN.AddDays(1);
                 var detalleshojas = managerDetalleHoja.BuscarTodos(x => x.SD_HOJAS_CONTROL.ESTADO == "NUEVO" && x.SD_HOJAS_CONTROL.FECHA_COMPRA >= FECHA_INI && x.SD_HOJAS_CONTROL.FECHA_COMPRA < fecha_fin).GroupBy(y => new { y.SD_CAJAS.CODIGO, y.ID_CAJA, y.SD_CAJAS.MONEDA });
                 if (detalleshojas.Count() > 0)
@@ -225,6 +233,26 @@ namespace Sindicato.Services
                             CAJA = item.Key.CODIGO,
                             MONEDA = item.Key.MONEDA,
                             ID_CAJA = item.Key.ID_CAJA,
+                            SALDO = item.Sum(x => x.IMPORTE)
+                        };
+                        result.Add(res);
+                    }
+                }
+
+                //managerDiasNoCanc
+                var detallereDiasNoTrabajados = managerDiasNoCanc.BuscarTodos(x => x.ESTADO == "NUEVO" && x.FECHA_CANCELADO >= FECHA_INI && x.FECHA_CANCELADO < fecha_fin).GroupBy(y => new { y.SD_CAJAS.CODIGO, y.ID_CAJA, y.SD_CAJAS.MONEDA });
+                if (detallereDiasNoTrabajados.Count() > 0)
+                {
+                    foreach (var item in detallereDiasNoTrabajados)
+                    {
+
+                        CierreCajaModel res = new CierreCajaModel()
+                        {
+                            SUBOPERACION = "DIAS NO TRABAJADOS",
+                            OPERACION = "INGRESOS",
+                            CAJA = item.Key.CODIGO,
+                            MONEDA = item.Key.MONEDA,
+                            ID_CAJA = (int)item.Key.ID_CAJA,
                             SALDO = item.Sum(x => x.IMPORTE)
                         };
                         result.Add(res);
@@ -377,7 +405,7 @@ namespace Sindicato.Services
                     };
                     result.Add(res);
                 }
-                var detallePrestamos = managerPrestamos.BuscarTodos(x => x.ESTADO_CIERRE == "NUEVO" && x.FECHA >= FECHA_INI && x.FECHA < fecha_fin).GroupBy(y => new { y.SD_CAJAS.CODIGO, y.ID_CAJA, y.SD_CAJAS.MONEDA });
+                var detallePrestamos = managerPrestamos.BuscarTodos(x => x.ESTADO_CIERRE == "NUEVO" && x.ESTADO != "ANULADO" && x.FECHA >= FECHA_INI && x.FECHA < fecha_fin).GroupBy(y => new { y.SD_CAJAS.CODIGO, y.ID_CAJA, y.SD_CAJAS.MONEDA });
                 foreach (var item in detallePrestamos)
                 {
                     CierreCajaModel res = new CierreCajaModel()
