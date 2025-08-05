@@ -835,11 +835,20 @@ namespace Sindicato.Services
                 var context = (SindicatoContext)uow.Context;
                 ObjectParameter p_res = new ObjectParameter("p_res", typeof(String));
                 var sociomovil = context.SD_SOCIO_MOVILES.FirstOrDefault(x => x.ID_SOCIO_MOVIL == socio.ID_SOCIO_MOVIL);
-                sociomovil.USUARIO = socio.USUARIO;
-                sociomovil.PSW = socio.PSW;
-                result.success = true;
-                result.msg = "Proceso Ejecutado Correctamente";
-
+                var socioNuevo = context.SD_SOCIO_MOVILES.Where(x => x.USUARIO.ToUpper() == socio.USUARIO.Trim().ToUpper() && x.ESTADO == "ACTIVO" && x.ID_SOCIO_MOVIL != socio.ID_SOCIO_MOVIL).FirstOrDefault();
+                if (socioNuevo == null)
+                {
+                    sociomovil.USUARIO = socio.USUARIO;
+                    sociomovil.PSW = socio.PSW;
+                    result.success = true;
+                    result.msg = "Proceso Ejecutado Correctamente";
+                }
+                else
+                {
+                    result.success = false;
+                    result.msg = "Existe un socio con ese usuario , por favor intentar con otro ";
+               
+                }
             });
 
             return result;

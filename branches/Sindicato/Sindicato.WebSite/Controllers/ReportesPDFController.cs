@@ -613,7 +613,26 @@ namespace Elfec.SisMan.Presentacion.Controllers
             return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
         }
 
-        public ActionResult ReportePrestamosTotalesPorGestion(string tipo,int ID_GESTION)
+        public ActionResult ReportePrestamosTotalesPorGestion(string tipo, int ID_GESTION, DateTime FECHA_INI, DateTime FECHA_FIN)
+        {
+            ReportesServices rep = new ReportesServices();
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteTotalPrestamosPorGestion.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteTotalPrestamosPorGestionV1(ID_GESTION, FECHA_INI, FECHA_FIN));
+            localReport.DataSources.Add(reportDataSource);
+            string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo = string.Empty;
+            Warning[] warnings = new Warning[1];
+            string[] streams = new string[1];
+            Byte[] renderedBytes;
+            renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+        }
+
+        public ActionResult ReportePrestamosTotalesPorGestionV1(string tipo,int ID_GESTION)
         {
             ReportesServices rep = new ReportesServices();
             LocalReport localReport = new LocalReport();

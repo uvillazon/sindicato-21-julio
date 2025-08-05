@@ -74,8 +74,8 @@
                 me.cbx_moneda.reset();
                 me.cbx_gestion.setDisabled(false);
                 me.cbx_gestion.reset();
-                me.date_fecha_inicial.setDisabled(true);
-                me.date_fecha_final.setDisabled(true);
+                me.date_fecha_inicial.setDisabled(false);
+                me.date_fecha_final.setDisabled(false);
             }
             else {
                 me.cbx_socio.setDisabled(true);
@@ -282,7 +282,9 @@
 
                 }
                 else if (me.rutaReporte == "ReportePrestamosTotalesPorGestion" || me.rutaReporte == "ReporteTopDeudoresCoperativa") {
-                    me.generarReporte(me.rutaReporte, 'ID_GESTION=' + me.cbx_gestion.getValue());
+                    //me.generarReporte(me.rutaReporte, 'ID_GESTION=' + me.cbx_gestion.getValue());
+                    me.generarReporte(me.rutaReporte, 'ID_GESTION=' + me.cbx_gestion.getValue() + '&FECHA_INI=' + me.date_fecha_inicial.getRawValue() + '&FECHA_FIN=' + me.date_fecha_final.getRawValue() + '&MONEDA=' + me.cbx_moneda.getValue());
+
 
                 }
                 else {
