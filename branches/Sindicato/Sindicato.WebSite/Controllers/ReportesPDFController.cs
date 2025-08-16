@@ -926,10 +926,14 @@ namespace Elfec.SisMan.Presentacion.Controllers
         {
             ReportesServices rep = new ReportesServices();
             LocalReport localReport = new LocalReport();
-            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteTotalPrestamosParcial.rdlc");
+            //localReport.ReportPath = Server.MapPath("~/Reportes/ReporteTotalPrestamosParcial.rdlc");
             
             //ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteTotalPrestamosPorGestionV1(ID_GESTION, FECHA_INI, FECHA_FIN));
-            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteTotalParcialV1(ID_CAJA, FECHA_INI, FECHA_FIN,ID_CIERRE));
+            //ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteTotalParcialV1(ID_CAJA, FECHA_INI, FECHA_FIN,ID_CIERRE));
+
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteTotalPrestamosPorGestion.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteTotalPrestamosPorGestionV1(-1, FECHA_INI, FECHA_FIN));
+
 
             localReport.DataSources.Add(reportDataSource);
             string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";

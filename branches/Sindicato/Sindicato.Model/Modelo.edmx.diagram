@@ -172,10 +172,6 @@
         <edmx:AssociationConnector Association="Model.SD_PAGO_DE_PRESTAMOS_R05" />
         <edmx:AssociationConnector Association="Model.SD_PAGO_DE_PRESTAMOS_R01" />
         <edmx:AssociationConnector Association="Model.SD_PAGO_DE_PRESTAMOS_R04" />
-        <edmx:EntityTypeShape EntityType="Model.SD_PLAN_DE_PAGO" Width="1.5" PointX="9.30042636268792" PointY="0.39053566772050025" />
-        <edmx:AssociationConnector Association="Model.SD_PAGO_DE_PRESTAMOS_R03" />
-        <edmx:AssociationConnector Association="Model.SD_PLAN_DE_PAGO_R01" />
-        <edmx:AssociationConnector Association="Model.SD_PRESTAMOS_MORA_R02" />
         <edmx:EntityTypeShape EntityType="Model.SD_KARDEX_EFECTIVO" Width="1.5" PointX="5.2107767636006592" PointY="0.89647434693597" />
         <edmx:AssociationConnector Association="Model.SD_KARDEX_EFECTIVO_R01" />
         <edmx:EntityTypeShape EntityType="Model.SD_DETALLE_CAJA_CIERRE" Width="1.5" PointX="9.07704454151776" PointY="26.11338048899238" />
@@ -200,6 +196,10 @@
         <edmx:AssociationConnector Association="Model.SD_SOCIO_MOVILES_R01" />
         <edmx:AssociationConnector Association="Model.SD_TRANSFERENCIAS_HOJAS_R01" />
         <edmx:AssociationConnector Association="Model.SD_TRANSFERENCIAS_HOJAS_R02" />
+        <edmx:EntityTypeShape EntityType="Model.SD_PLAN_DE_PAGO" Width="1.5" PointX="9.1643359219489327" PointY="0.12874788051878469" />
+        <edmx:AssociationConnector Association="Model.SD_PAGO_DE_PRESTAMOS_R03" />
+        <edmx:AssociationConnector Association="Model.SD_PLAN_DE_PAGO_R01" />
+        <edmx:AssociationConnector Association="Model.SD_PRESTAMOS_MORA_R02" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
