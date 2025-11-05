@@ -419,7 +419,7 @@ namespace Sindicato.Services
                 {
                     CierreCajaModel res = new CierreCajaModel()
                    {
-                       ID_KARDEX = (int)item.ID_KARDEX,
+                       ID_KARDEX = item.ID_KARDEX,
                        FECHA = item.FECHA,
                        FECHA_FIN = item.SD_CAJAS_CIERRES.FECHA_FIN,
                        FECHA_INI = item.SD_CAJAS_CIERRES.FECHA_INI,
@@ -470,7 +470,8 @@ namespace Sindicato.Services
                         IMPORTE = ultimo.SALDO_FINAL,
                         SALDO = saldo + ultimo.SALDO_FINAL,
                         ID_CAJA = ID_CAJA,
-                        CAJA = caja.NOMBRE
+                        CAJA = caja.NOMBRE,
+                      
 
                     };
                     saldo = saldo + (decimal)ultimo.SALDO_FINAL;
@@ -522,7 +523,7 @@ namespace Sindicato.Services
                         {
                             ID_CIERRE = id_venta,
                             ID_DETALLE = managerDetalle.ObtenerSecuencia(),
-                            ID_KARDEX = (int)item.ID_KARDEX,
+                            ID_KARDEX = item.ID_KARDEX,
                             SALDO = item.SALDO,
                             IMPORTE = item.IMPORTE,
                             FECHA = item.FECHA,
@@ -532,6 +533,8 @@ namespace Sindicato.Services
 
 
                         };
+                        this.tmp = det;
+                        manager.Save();
                         var kardex = managerKardex.BuscarTodos(x => x.ID_KARDEX == item.ID_KARDEX).FirstOrDefault();
                         if (kardex != null)
                         {

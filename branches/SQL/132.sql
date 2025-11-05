@@ -128,4 +128,50 @@ select p.ID_PRESTAMO,p.NUMERO    ,
 
 
 select * from SD_PRESTAMOS_POR_SOCIOS where NUMERO = 45;
-select sum(IMPORTE_A_PAGAR) , sum(INTERES_A_PAGAR) from SD_PLAN_DE_PAGO where ID_PRESTAMO = 48 order by NRO_SEMANA asc
+select sum(IMPORTE_A_PAGAR) , sum(INTERES_A_PAGAR) from SD_PLAN_DE_PAGO where ID_PRESTAMO = 48 order by NRO_SEMANA asc;
+
+select * from SD_CIERRES order by ID_CIERRE desc;
+select * from SD_CIERRES where ID_CIERRE >7;
+delete from SD_CIERRES where ID_CIERRE >7;
+update SD_DETALLE_CIERRES_AHORRO set OBSERVACION = 'CIERRE DE CAJA AHORROS MES DE SEPTIEMBRE 2025' where ID_CIERRE =16;
+                                                                                                         select * from SD_DETALLE_CIERRES_AHORRO where ID_CIERRE in (
+    select ID_CIERRE from SD_CIERRES where ID_CIERRE >7
+);
+delete from SD_DETALLE_CIERRES_AHORRO where ID_CIERRE in (
+    select ID_CIERRE from SD_CIERRES where ID_CIERRE >7
+);
+select * from SD_RETIRO_SOCIO_MOVIL_DETALLE order by ID_DETALLE desc;
+select * from SD_DETALLE_CIERRES_CAJA;
+commit ;
+
+select * from SD_HOJAS_CONTROL where FECHA_COMPRA between  to_date('01/09/2025','DD/MM/YYYY') and to_date('30/09/2025','DD/MM/YYYY') and estado <> 'ANULADO';
+select * from SD_HOJAS_CONTROL where FECHA_COMPRA between  to_date('01/09/2025','DD/MM/YYYY') and to_date('30/09/2025','DD/MM/YYYY') and OBSERVACION = 'Anulacion de Venta de Hoja';
+select * from SD_REGULARIZACIONES where FECHA_COMPRA between to_date('01/09/2025','DD/MM/YYYY') and to_date('30/09/2025','DD/MM/YYYY') and estado <> 'ANULADO';
+
+update  SD_HOJAS_CONTROL set ESTADO = 'NUEVO' where FECHA_COMPRA between  to_date('01/09/2025','DD/MM/YYYY') and to_date('30/09/2025','DD/MM/YYYY') and estado <> 'ANULADO';
+update SD_REGULARIZACIONES set ESTADO = 'NUEVO' where FECHA_COMPRA between to_date('01/09/2025','DD/MM/YYYY') and to_date('30/09/2025','DD/MM/YYYY') and estado <> 'ANULADO';
+commit ;
+
+select * from SD_HOJAS_CONTROL h where ID_SOCIO_MOVIL in (
+select sm.ID_SOCIO_MOVIL from SD_SOCIO_MOVILES sm
+inner join SD_MOVILES m on sm.ID_MOVIL = m.ID_MOVIL
+where NRO_MOVIL = 16)
+and   FECHA_COMPRA between  to_date('01/09/2025','DD/MM/YYYY') and to_date('30/09/2025','DD/MM/YYYY') order by FECHA_COMPRA desc;
+
+select ESTADO from SD_REGULARIZACIONES group by ESTADO;
+select * from SD_REGULARIZACIONES h where ID_SOCIO_MOVIL in (
+    select sm.ID_SOCIO_MOVIL from SD_SOCIO_MOVILES sm
+                                      inner join SD_MOVILES m on sm.ID_MOVIL = m.ID_MOVIL
+    where NRO_MOVIL = 54)
+                                   and   FECHA_COMPRA between  to_date('01/09/2025','DD/MM/YYYY') and to_date('30/09/2025','DD/MM/YYYY') order by FECHA_COMPRA desc;
+--
+-- select * from SD_CIERRES where ID_CIERRE = 14;
+-- select * from SD_DETALLE_CIERRES_AHORRO where ID_CIERRE = 14;
+-- update SD_DETALLE_CIERRES_AHORRO set OBSERVACION = 'CIERRE DE CAJA AHORROS MES DE SEPTIEMBRE 2025' where ID_CIERRE = 14;
+select * from SD_KARDEX_SOCIO_MOVIL where ID_SOCIO_MOVIL = 18 order by FECHA_REG desc;
+select * from SD_DETALLE_CIERRES_AHORRO where ID_SOCIO_MOVIL = 18 order by FECHA_REG desc;
+select * from SD_SOCIO_MOVILES where ID_SOCIO_MOVIL = 18;
+select * from SD_KARDEX_EFECTIVO where ID_OPERACION = 90;
+select * from SD_CAJAS;
+select OPERACION from SD_KARDEX_EFECTIVO where ID_CAJA = 4  group by OPERACION;
+Anulacion de Venta de Hoja

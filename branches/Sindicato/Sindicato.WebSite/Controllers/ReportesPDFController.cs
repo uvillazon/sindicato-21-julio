@@ -376,12 +376,35 @@ namespace Elfec.SisMan.Presentacion.Controllers
         public ActionResult ReporteRetiro(string tipo, int ID_RETIRO)
         {
 
+            //ReportesServices rep = new ReportesServices();
+            //LocalReport localReport = new LocalReport();
+            //localReport.ReportPath = Server.MapPath("~/Reportes/ReporteRetiroRollov1.rdlc");
+            //ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteRetiro(ID_RETIRO));
+            //localReport.DataSources.Add(reportDataSource);
+            //localReport.SubreportProcessing += new SubreportProcessingEventHandler(ReporteHoja_SubreportProcessing);
+            //string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
+            //string mimeType;
+            //string encoding;
+            //string fileNameExtension;
+            //string deviceInfo = string.Empty;
+            //Warning[] warnings = new Warning[1];
+            //string[] streams = new string[1];
+            //Byte[] renderedBytes;
+            //renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            //return File(renderedBytes, mimeType, string.Format("{0}.{1}", System.Reflection.MethodBase.GetCurrentMethod().Name, fileNameExtension));
+
             ReportesServices rep = new ReportesServices();
             LocalReport localReport = new LocalReport();
-            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteRetiroRollo.rdlc");
+            localReport.ReportPath = Server.MapPath("~/Reportes/ReporteRetiroRollov1.rdlc");
+            localReport.EnableExternalImages = true;
+            string imagePath = new Uri(Server.MapPath("~/Content/images/qr.png")).AbsoluteUri;
+            ReportParameter parameter = new ReportParameter("ImagePath", imagePath);
+            localReport.SetParameters(parameter);
             ReportDataSource reportDataSource = new ReportDataSource("DataSet1", rep.ObtenerReporteRetiro(ID_RETIRO));
             localReport.DataSources.Add(reportDataSource);
-            localReport.SubreportProcessing += new SubreportProcessingEventHandler(ReporteHoja_SubreportProcessing);
+            //localReport.SubreportProcessing += new SubreportProcessingEventHandler(ReporteHoja_SubreportProcessing);
+            localReport.Refresh();
+
             string reportType = tipo == "excel" ? "Excel" : tipo == "pdf" ? "pdf" : "Word";
             string mimeType;
             string encoding;

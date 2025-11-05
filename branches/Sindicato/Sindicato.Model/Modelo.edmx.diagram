@@ -174,12 +174,9 @@
         <edmx:AssociationConnector Association="Model.SD_PAGO_DE_PRESTAMOS_R04" />
         <edmx:EntityTypeShape EntityType="Model.SD_KARDEX_EFECTIVO" Width="1.5" PointX="5.2107767636006592" PointY="0.89647434693597" />
         <edmx:AssociationConnector Association="Model.SD_KARDEX_EFECTIVO_R01" />
-        <edmx:EntityTypeShape EntityType="Model.SD_DETALLE_CAJA_CIERRE" Width="1.5" PointX="9.07704454151776" PointY="26.11338048899238" />
-        <edmx:AssociationConnector Association="Model.SD_DETALLE_CAJA_CIERRE_R02" />
         <edmx:EntityTypeShape EntityType="Model.SD_CAJAS_CIERRES" Width="1.5" PointX="1.09196356734818" PointY="27.067988512603559" />
         <edmx:EntityTypeShape EntityType="Model.SD_CIERRES_CAJAS" Width="1.5" PointX="2.1822851310401621" PointY="30.763027905841838" />
         <edmx:AssociationConnector Association="Model.SD_CAJAS_CIERRES_R01" />
-        <edmx:AssociationConnector Association="Model.SD_DETALLE_CAJA_CIERRE_R01" />
         <edmx:AssociationConnector Association="Model.SD_DETALLE_CIERRES_CAJA_R01" />
         <edmx:EntityTypeShape EntityType="Model.SD_SOCIO_MOVILES" Width="1.5" PointX="1.401984232199371" PointY="9.5480559661742568" />
         <edmx:AssociationConnector Association="Model.SD_HOJAS_CONTROL_R02" />
@@ -200,6 +197,12 @@
         <edmx:AssociationConnector Association="Model.SD_PAGO_DE_PRESTAMOS_R03" />
         <edmx:AssociationConnector Association="Model.SD_PLAN_DE_PAGO_R01" />
         <edmx:AssociationConnector Association="Model.SD_PRESTAMOS_MORA_R02" />
+        <edmx:EntityTypeShape EntityType="Model.SD_DETALLE_CAJA_CIERRE" Width="1.5" PointX="4.4205771276823134" PointY="9.0416089040421" />
+        <edmx:AssociationConnector Association="Model.SD_DETALLE_CAJA_CIERRE_R01" />
+        <edmx:AssociationConnector Association="Model.SD_DETALLE_CAJA_CIERRE_R02" />
+        <edmx:EntityTypeShape EntityType="Model.SD_RETIRO_SOCIO_MOVIL_DETALLE" Width="1.5" PointX="8.7904073916330958" PointY="31.049901008163534" />
+        <edmx:AssociationConnector Association="Model.SD_RETIRO_SOCIO_MOVIL_DETA_R02" />
+        <edmx:AssociationConnector Association="Model.SD_RETIRO_SOCIO_MOVIL_DETA_R01" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

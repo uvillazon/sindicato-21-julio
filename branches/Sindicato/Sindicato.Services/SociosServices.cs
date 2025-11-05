@@ -587,6 +587,7 @@ namespace Sindicato.Services
                     }
                     manager.Save();
                     context.P_SD_ACT_KARDEX_EFECTIVO(ant.ID_CAJA, ant.FECHA, 1, p_RES);
+                    context.P_SD_ACT_PAGOS_SOCIOS(ant.ID_SOCIO_MOVIL, ant.LOGIN, p_RES);
 
 
                     result.success = true;

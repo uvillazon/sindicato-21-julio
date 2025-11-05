@@ -11,6 +11,7 @@ namespace Sindicato.Services
     {
         public string conexion;
         public string msgError = "";
+        public object tmp;
         public void ExecuteManager(Action<IUnitOfWork> coreMethod, Action postCommit = null)
         {
             var uow = new UnitOfWork<SindicatoContext>();

@@ -23,8 +23,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0cm</Top>
-        <Left>6.17157cm</Left>
+        <Top>0.9525cm</Top>
+        <Left>5.02504cm</Left>
         <Height>0.75875cm</Height>
         <Width>5.22521cm</Width>
         <Style>
@@ -59,8 +59,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.75306cm</Top>
-        <Left>6.17157cm</Left>
+        <Top>1.70556cm</Top>
+        <Left>5.02504cm</Left>
         <Height>0.77666cm</Height>
         <Width>3.73649cm</Width>
         <ZIndex>1</ZIndex>
@@ -91,10 +91,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.59687cm</Top>
-        <Left>2.23923cm</Left>
+        <Top>3.99986cm</Top>
+        <Left>2.69784cm</Left>
         <Height>0.65292cm</Height>
-        <Width>8.52255cm</Width>
+        <Width>7.55241cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -125,10 +125,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>3.28506cm</Top>
-        <Left>7.83845cm</Left>
+        <Top>4.64352cm</Top>
+        <Left>7.89136cm</Left>
         <Height>0.8cm</Height>
-        <Width>2.92333cm</Width>
+        <Width>2.35889cm</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
@@ -157,10 +157,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>3.28507cm</Top>
-        <Left>4.63699cm</Left>
+        <Top>4.64354cm</Top>
+        <Left>5.69532cm</Left>
         <Height>0.79999cm</Height>
-        <Width>1.67979cm</Width>
+        <Width>1.04479cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -187,8 +187,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>3.28506cm</Top>
-        <Left>1.8159cm</Left>
+        <Top>4.64353cm</Top>
+        <Left>1.97464cm</Left>
         <Height>0.8cm</Height>
         <Width>1.0977cm</Width>
         <ZIndex>5</ZIndex>
@@ -220,8 +220,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.75306cm</Top>
-        <Left>10.08445cm</Left>
+        <Top>1.70556cm</Top>
+        <Left>8.93792cm</Left>
         <Height>0.77666cm</Height>
         <Width>1.31233cm</Width>
         <ZIndex>6</ZIndex>
@@ -250,19 +250,22 @@
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>12.14069cm</Top>
-        <Left>1.04861cm</Left>
+        <Top>13.85212cm</Top>
+        <Left>1.97464cm</Left>
         <Height>1.32496cm</Height>
-        <Width>9.01203cm</Width>
+        <Width>7.31871cm</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
+          <VerticalAlign>Middle</VerticalAlign>
         </Style>
       </Textbox>
       <Image Name="Image3">
@@ -270,10 +273,10 @@
         <Value>=First(Fields!QRCode.Value, "DataSetHoja")</Value>
         <MIMEType>image/png</MIMEType>
         <Sizing>FitProportional</Sizing>
-        <Top>0cm</Top>
-        <Left>0.46123cm</Left>
-        <Height>2.59687cm</Height>
-        <Width>2.8575cm</Width>
+        <Top>2.48222cm</Top>
+        <Left>8.38053cm</Left>
+        <Height>1.51764cm</Height>
+        <Width>1.86972cm</Width>
         <ZIndex>8</ZIndex>
         <Style>
           <Border>
@@ -282,21 +285,21 @@
         </Style>
       </Image>
     </ReportItems>
-    <Height>14.12711cm</Height>
+    <Height>16.5cm</Height>
     <Style>
       <Border>
         <Style>None</Style>
       </Border>
     </Style>
   </Body>
-  <Width>12cm</Width>
+  <Width>10.5cm</Width>
   <Page>
-    <PageHeight>14cm</PageHeight>
-    <PageWidth>12cm</PageWidth>
+    <PageHeight>16.5cm</PageHeight>
+    <PageWidth>10.5cm</PageWidth>
     <LeftMargin>0cm</LeftMargin>
     <RightMargin>0cm</RightMargin>
     <TopMargin>0cm</TopMargin>
-    <BottomMargin>2cm</BottomMargin>
+    <BottomMargin>0cm</BottomMargin>
     <ColumnSpacing>0.13cm</ColumnSpacing>
     <Style />
   </Page>

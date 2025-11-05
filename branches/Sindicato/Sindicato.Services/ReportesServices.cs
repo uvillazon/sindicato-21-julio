@@ -598,16 +598,43 @@ namespace Sindicato.Services
             return result;
         }
 
+
         public IEnumerable<ReporteRetiroModel> ObtenerReporteRetiro(int ID_RETIRO)
         {
             List<ReporteRetiroModel> result = new List<ReporteRetiroModel>();
             NumLetra n = new NumLetra();
             ExecuteManager(uow =>
             {
-                var manager = new SD_RETIRO_SOCIO_MOVILManager(uow);
+                //var manager = new SD_RETIRO_SOCIO_MOVILManager(uow);
+                var manager = new SD_RETIRO_SOCIO_MOVIL_DETALLEManager(uow);
+                var managerRetiro = new SD_RETIRO_SOCIO_MOVILManager(uow);
                 var kardex = manager.BuscarTodos(x => x.ID_RETIRO == ID_RETIRO);
-                foreach (var item in kardex)
+                if (kardex.Count() > 0)
                 {
+                    foreach (var item in kardex)
+                    {
+                        var kar = new ReporteRetiroModel()
+                        {
+                            ID_RETIRO = item.ID_RETIRO,
+                            CAJA = string.Format("{0} : {1}", item.SD_RETIRO_SOCIO_MOVIL.SD_CAJAS.CODIGO, item.SD_RETIRO_SOCIO_MOVIL.SD_CAJAS.NOMBRE),
+                            FECHA = item.SD_RETIRO_SOCIO_MOVIL.FECHA,
+                            LOGIN = item.LOGIN,
+                            MOVIL = item.SD_RETIRO_SOCIO_MOVIL.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL.ToString(),
+                            OBSERVACION = item.SD_RETIRO_SOCIO_MOVIL.OBSERVACION,
+                            DETALLE = item.OBSERVACION,
+                            CANT_HOJAS = item.SD_DETALLE_CIERRES_AHORRO == null ? null : (decimal?)item.SD_DETALLE_CIERRES_AHORRO.CANT_HOJAS,
+                            CANT_REGULACIONES = item.SD_DETALLE_CIERRES_AHORRO == null ? null : (decimal?)item.SD_DETALLE_CIERRES_AHORRO.CANT_REGULACIONES,
+                            SOCIO = item.SD_RETIRO_SOCIO_MOVIL.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
+                            TOTAL_RETIRO = item.SD_RETIRO_SOCIO_MOVIL.RETIRO,
+                            TOTAL = item.RETIRO,
+                            TOTAL_LITERAL = n.Convertir(item.SD_RETIRO_SOCIO_MOVIL.RETIRO.ToString(), true, item.SD_RETIRO_SOCIO_MOVIL.SD_CAJAS.MONEDA)
+                        };
+                        result.Add(kar);
+                    }
+                }
+                else
+                {
+                    SD_RETIRO_SOCIO_MOVIL item = managerRetiro.BuscarTodos(x => x.ID_RETIRO == ID_RETIRO).FirstOrDefault();
                     var kar = new ReporteRetiroModel()
                     {
                         ID_RETIRO = item.ID_RETIRO,
@@ -616,8 +643,12 @@ namespace Sindicato.Services
                         LOGIN = item.LOGIN,
                         MOVIL = item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL.ToString(),
                         OBSERVACION = item.OBSERVACION,
+                        DETALLE = item.OBSERVACION,
+                        CANT_HOJAS = 0,
+                        CANT_REGULACIONES = 0,
                         SOCIO = item.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
                         TOTAL_RETIRO = item.RETIRO,
+                        TOTAL = item.RETIRO,
                         TOTAL_LITERAL = n.Convertir(item.RETIRO.ToString(), true, item.SD_CAJAS.MONEDA)
                     };
                     result.Add(kar);
@@ -628,6 +659,37 @@ namespace Sindicato.Services
             return result;
 
         }
+
+        //public IEnumerable<ReporteRetiroModel> ObtenerReporteRetiro(int ID_RETIRO)
+        //{
+        //    List<ReporteRetiroModel> result = new List<ReporteRetiroModel>();
+        //    NumLetra n = new NumLetra();
+        //    ExecuteManager(uow =>
+        //    {
+        //        var manager = new SD_RETIRO_SOCIO_MOVILManager(uow);
+        //        var kardex = manager.BuscarTodos(x => x.ID_RETIRO == ID_RETIRO);
+        //        foreach (var item in kardex)
+        //        {
+        //            var kar = new ReporteRetiroModel()
+        //            {
+        //                ID_RETIRO = item.ID_RETIRO,
+        //                CAJA = string.Format("{0} : {1}", item.SD_CAJAS.CODIGO, item.SD_CAJAS.NOMBRE),
+        //                FECHA = item.FECHA,
+        //                LOGIN = item.LOGIN,
+        //                MOVIL = item.SD_SOCIO_MOVILES.SD_MOVILES.NRO_MOVIL.ToString(),
+        //                OBSERVACION = item.OBSERVACION,
+        //                SOCIO = item.SD_SOCIO_MOVILES.ObtenerNombreSocio(),
+        //                TOTAL_RETIRO = item.RETIRO,
+        //                TOTAL_LITERAL = n.Convertir(item.RETIRO.ToString(), true, item.SD_CAJAS.MONEDA)
+        //            };
+        //            result.Add(kar);
+        //        }
+
+        //    });
+
+        //    return result;
+
+        //}
 
         public IEnumerable<ReportePrestamo> ObtenerReportePrestamo(int ID_PRESTAMO)
         {
@@ -1187,6 +1249,8 @@ namespace Sindicato.Services
                 var managerMoras = new SD_PRESTAMOS_MORAManager(uow);
                 var managerPagos = new SD_PAGO_DE_PRESTAMOSManager(uow);
                 var managerAmortizaciones = new SD_INGRESOSManager(uow);
+                var managerEgresos = new SD_EGRESOSManager(uow);
+                var managerRetiros = new SD_RETIRO_SOCIOManager(uow);
                 var managerTransferencias = new SD_TRANSFERENCIASManager(uow);
                 var managerGestion = new SD_GESTIONManager(uow);
 
@@ -1202,6 +1266,11 @@ namespace Sindicato.Services
                 decimal total_cancelado_gestion_ant = 0;
                 decimal total_mora_cancelado_gestion_ant = 0;
                 decimal total_condonacion_gestion_ant = 0;
+
+                decimal? egresos = managerEgresos.BuscarTodos(x => x.ID_CAJA == 9 && x.ESTADO != "ANULADO").Sum(y => (decimal?)y.IMPORTE);
+                transferenciasEgreso = (decimal)transferenciasEgreso + (decimal)egresos;
+
+                 
 
 
                 var gestionAnterior = managerGestion.BuscarTodos(x => x.ESTADO == "INACTIVO" && x.FECHA_FIN <= gestion.FECHA_INICIO).OrderByDescending(x => x.FECHA_FIN).FirstOrDefault();
@@ -1325,6 +1394,7 @@ namespace Sindicato.Services
                 var managerPagos = new SD_PAGO_DE_PRESTAMOSManager(uow);
                 var managerAmortizaciones = new SD_INGRESOSManager(uow);
                 var managerEgresos = new SD_EGRESOSManager(uow);
+                var managerRetiros = new SD_RETIRO_SOCIO_MOVILManager(uow);
                 var managerTransferencias = new SD_TRANSFERENCIASManager(uow);
 
 
@@ -1332,12 +1402,20 @@ namespace Sindicato.Services
 
 
                 decimal? transferenciasIngreso = managerTransferencias.BuscarTodos(x => x.ID_CAJA_DESTINO == 9 && x.ESTADO != "ANULADO" && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin).Sum(y => (decimal?)y.IMPORTE);
+                
                 decimal? ingreesos = managerAmortizaciones.BuscarTodos(x => x.ID_CAJA == 9 && x.ESTADO != "ANULADO" && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin).Sum(y => (decimal?)y.IMPORTE);
                 transferenciasIngreso = (transferenciasIngreso ?? 0) + (ingreesos ?? 0);
 
+
+
                 decimal? transferenciasEgreso = managerTransferencias.BuscarTodos(x => x.ID_CAJA_ORIGEN == 9 && x.ESTADO != "ANULADO" && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin).Sum(y => (decimal?)y.IMPORTE);
+                
+                
                 decimal? egreesos = managerEgresos.BuscarTodos(x => x.ID_CAJA == 9 && x.ESTADO != "ANULADO" && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin).Sum(y => (decimal?)y.IMPORTE);
-                transferenciasEgreso = (transferenciasEgreso ?? 0) + (egreesos ?? 0);
+                decimal? retiros = managerRetiros.BuscarTodos(x => x.ID_CAJA == 9 && x.ESTADO != "ANULADO" && x.FECHA >= FECHA_INI && x.FECHA < Fecha_fin).Sum(y => (decimal?)y.RETIRO);
+
+                transferenciasEgreso = (transferenciasEgreso ?? 0) + (egreesos ?? 0) + (retiros ?? 0);
+                
                 decimal? amortizazcion = 0;
                 decimal total_por_cobrar_gestion_ant = 0;
                 decimal total_nueva_mora_gestion_ant = 0;

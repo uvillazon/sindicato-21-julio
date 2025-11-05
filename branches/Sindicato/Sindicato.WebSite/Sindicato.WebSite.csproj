@@ -4090,6 +4090,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reportes\ReporteRetiroRollov1.rdlc" />
     <EmbeddedResource Include="Reportes\Copia de ReporteTotalPrestamosParcial.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteTotalPrestamosPorGestionDetalle.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteTotalPrestamosParcial.rdlc" />
